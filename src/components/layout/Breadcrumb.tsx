@@ -1,0 +1,50 @@
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { ChevronRight, Home } from "lucide-react";
+
+export default function Breadcrumb() {
+  const pathname = usePathname();
+  const segments = pathname.split('/').filter(Boolean);
+
+  // Create breadcrumb items with proper formatting
+  const breadcrumbs = segments.map((segment, index) => {
+    const href = `/${segments.slice(0, index + 1).join('/')}`;
+    return {
+      href,
+      label: segment.charAt(0).toUpperCase() + segment.slice(1).replace(/-/g, ' '),
+    };
+  });
+
+  if (segments.length === 0) return null;
+
+  return (
+    <nav className="py-4 px-4 md:px-0">
+      <ol className="flex flex-wrap items-center text-sm text-gray-500">
+        <li className="flex items-center">
+          <Link href="/" className="flex items-center hover:text-teal-600 transition-colors">
+            <Home className="h-4 w-4" />
+            <span className="sr-only">Home</span>
+          </Link>
+        </li>
+        
+        {breadcrumbs.map((crumb, index) => (
+          <li key={crumb.href} className="flex items-center">
+            <ChevronRight className="h-4 w-4 mx-2 text-gray-400" />
+            {index === breadcrumbs.length - 1 ? (
+              <span className="font-medium text-gray-900">{crumb.label}</span>
+            ) : (
+              <Link 
+                href={crumb.href} 
+                className="hover:text-teal-600 transition-colors"
+              >
+                {crumb.label}
+              </Link>
+            )}
+          </li>
+        ))}
+      </ol>
+    </nav>
+  );
+}
