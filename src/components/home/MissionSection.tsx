@@ -30,6 +30,9 @@ export default function MissionSection() {
                 Transforming Healthcare. Training Leaders. Building Trust.
               </h3>
               <p className="text-lg text-[#2F3332] dark:text-[#E6E7E7] mb-8">
+              Akomapa is a network of student-powered, faculty-supervised clinics tackling Ghana and Africa's non-communicable disease crisis through early screening, health education, and self-care support. We collaborate with communities, universities, and the Ghana Health Service to deliver free, sustainable, and community-based care—led by the future of medicine.
+              </p>
+              <p className="text-lg text-[#2F3332] dark:text-[#E6E7E7] mb-8">
                 Our mission is to increase access to primary care in underserved communities across Ghana 
                 by training and empowering health professional students to deliver early screening, 
                 education, and self-care support for non-communicable diseases (NCDs). 
