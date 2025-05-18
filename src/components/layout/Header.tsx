@@ -85,7 +85,7 @@ export default function Header() {
               <div key={item.name} className="relative group">
                 <Link 
                   href={item.href}
-                  className={`text-sm font-subheading font-bold transition-colors hover:text-[#C37B1E] dark:hover:text-[#C37B1E] ${
+                  className={`text-md font-subheading font-bold transition-colors hover:text-[#C37B1E] dark:hover:text-[#C37B1E] ${
                     pathname === item.href || pathname.startsWith(`${item.href}/`) 
                       ? 'text-[#007A73]' 
                       : 'text-[#2F3332] dark:text-[#FCFAEF]'

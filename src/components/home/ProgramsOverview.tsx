@@ -21,7 +21,7 @@ const pillars = [
     description: "Interdisciplinary teams of health professional students—medical, nursing, pharmacy, optometry, and allied health—are trained and equipped to lead clinical care, patient education, and follow-up.",
     icon: "👩🏽‍⚕️",
     image: "/images/programs/health-education.jpg",
-    link: "/programs/health-education"
+    link: "/programs/community-clinics"
   },
   {
     id: 3,
@@ -29,7 +29,7 @@ const pillars = [
     description: "Designed in collaboration with traditional leaders, community members, and the Ghana Health Service to ensure local trust and sustainability.",
     icon: "🤝",
     image: "/images/programs/community-partnership.jpg",
-    link: "/programs/community-partnership"
+    link: "/programs/community-clinics"
   },
   {
     id: 4,
@@ -37,7 +37,7 @@ const pillars = [
     description: "Every clinic is guided by licensed physicians, nurses, and public health faculty from local institutions.",
     icon: "🎓",
     image: "/images/programs/expert-supervision.jpg",
-    link: "/programs/expert-supervision"
+    link: "/programs/community-clinics"
   }
 ];
 
@@ -90,20 +90,20 @@ export default function ProgramsOverview() {
                   href={pillar.link}
                   className="inline-flex items-center text-[#007A73] dark:text-[#63B0AC] font-medium hover:text-[#C37B1E] dark:hover:text-[#F3C677]"
                 >
-                  Learn More <ArrowRight size={16} className="ml-1" />
+                  Visit Our Clinics <ArrowRight size={16} className="ml-1" />
                 </Link>
               </div>
             </motion.div>
           ))}
         </div>
         
-        <div className="text-center mt-12">
+        {/* <div className="text-center mt-12">
           <Button className="bg-[#007A73] hover:bg-[#C37B1E] text-[#FCFAEF]">
             <Link href="/model" className="flex items-center">
               Explore Our Model <ArrowRight size={16} className="ml-2" />
             </Link>
           </Button>
-        </div>
+        </div> */}
       </div>
     </section>
   );

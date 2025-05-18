@@ -62,7 +62,7 @@ export default function LocationsSection() {
       <div className="container mx-auto px-4">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="text-[#C37B1E] dark:text-[#F3C677] font-bold text-lg mb-2">
-            WHERE WE WORK
+            Our First Clinic - Akomapa Free Clinic UCC Chapter
           </h2>
           <h3 className="text-3xl md:text-4xl font-bold mb-6 text-[#1C1F1E] dark:text-[#FCFAEF]">
             Local Impact with National Potential
