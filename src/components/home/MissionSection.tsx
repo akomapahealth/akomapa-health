@@ -1,13 +1,13 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
+import Image from "@/components/common/Image";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
 export default function MissionSection() {
   return (
-    <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E] relative overflow-hidden">
+    <section id="mission" className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E] relative overflow-hidden">
       {/* Decorative elements */}
       <div className="absolute top-0 right-0 w-64 h-64 bg-[#007A73]/10 dark:bg-[#007A73]/20 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl"></div>
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#C37B1E]/10 dark:bg-[#C37B1E]/20 rounded-full translate-y-1/2 -translate-x-1/2 blur-3xl"></div>
@@ -39,9 +39,9 @@ export default function MissionSection() {
                 Through expert faculty supervision and deep community partnerships, our clinic addresses 
                 today's public health challenges with tomorrow's leaders.
               </p>
-              <Button className="bg-[#007A73] hover:bg-[#C37B1E] text-[#FCFAEF] px-6 py-5 h-auto text-base">
+              {/* <Button className="bg-[#007A73] hover:bg-[#C37B1E] text-[#FCFAEF] px-6 py-5 h-auto text-base">
                 <Link href="/about">Learn More About Us</Link>
-              </Button>
+              </Button> */}
             </div>
           </motion.div>
           
@@ -55,7 +55,7 @@ export default function MissionSection() {
           >
             <div className="relative h-[400px] rounded-2xl overflow-hidden shadow-xl">
               <Image
-                src="/images/mission-image.jpg"
+                src="/default-image.jpg"
                 alt="Healthcare professionals training in Ghana"
                 fill
                 className="object-cover"

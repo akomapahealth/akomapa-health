@@ -3,31 +3,31 @@
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import Image from "next/image";
+import Image from "@/components/common/Image";
 import { useState, useEffect } from "react";
 
 // Array of hero images
 const heroImages = [
   {
-    src: "/images/hero-image.jpg",
+    src: "/hero-image.jpg",
     alt: "Healthcare professionals working in a community clinic",
     tagline: "Community Healthcare",
     caption: "Supporting communities with accessible healthcare services"
   },
   {
-    src: "/images/hero-image-2.jpg",
+    src: "/hero-image-4.jpg",
     alt: "Community healthcare worker with patients",
     tagline: "Health Education",
     caption: "Empowering communities through knowledge and prevention"
   },
   {
-    src: "/images/hero-image-3.jpg",
+    src: "/hero-image-3.jpg",
     alt: "Healthcare outreach in rural communities",
     tagline: "Rural Outreach",
     caption: "Bringing quality healthcare to remote and underserved areas"
   },
   {
-    src: "/images/hero-image-4.jpg",
+    src: "/hero-image-4.jpg",
     alt: "Medical professionals collaborating on healthcare solutions",
     tagline: "Innovation & Research",
     caption: "Developing sustainable solutions for healthcare challenges"
@@ -52,7 +52,7 @@ export default function HeroSection() {
     <section className="relative bg-gradient-to-r from-[#FCFAEF] to-[#E6E7E7] dark:from-[#1C1F1E] dark:to-[#2F3332] overflow-hidden min-h-screen flex items-center">
       <div className="absolute inset-0 z-0 opacity-20">
         <Image
-          src="/images/patterns/dots-pattern4.jpeg"
+          src="dots-pattern4.jpeg"
           alt=""
           fill
           className="object-cover"

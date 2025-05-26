@@ -7,7 +7,7 @@ import { Mail, Phone, MapPin, Clock } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Contact Us",
-  description: "Get in touch with Akomapa Health Foundation. We'd love to hear from you regarding our programs, partnerships, or general inquiries.",
+  description: "Get in touch with Akomapa Health. We'd love to hear from you regarding our programs, partnerships, or general inquiries.",
 };
 
 export default function ContactPage() {
@@ -17,7 +17,7 @@ export default function ContactPage() {
         <Breadcrumb />
       </div>
       
-      <section className="bg-blue-50 py-16 md:py-24">
+      <section className="bg-[#C37B1E]/50 dark:bg-[#1C1F1E] py-16 md:py-24">
         <div className="container mx-auto px-4">
           <PageHeader
             title="Contact Us"
@@ -26,12 +26,12 @@ export default function ContactPage() {
         </div>
       </section>
       
-      <section className="py-16">
+      <section className="py-16 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             <div>
-              <h2 className="text-2xl font-bold mb-6">Get In Touch</h2>
-              <p className="text-gray-600 mb-8">
+              <h2 className="text-2xl font-bold mb-6 text-[#2F3332] dark:text-[#FCFAEF]">Get In Touch</h2>
+              <p className="text-[#2F3332]/80 dark:text-[#FCFAEF]/80 mb-8">
                 Please fill out the form with your information and we'll get back to you as soon as possible.
                 Whether you have questions about our programs, want to volunteer, or discuss potential partnerships,
                 we're here to help.
@@ -41,51 +41,53 @@ export default function ContactPage() {
             </div>
             
             <div>
-              <h2 className="text-2xl font-bold mb-6">Our Information</h2>
+              <h2 className="text-2xl font-bold mb-6 text-[#2F3332] dark:text-[#FCFAEF]">Our Information</h2>
               
-              <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-8">
+              <div className="bg-white dark:bg-[#2F3332] rounded-xl shadow-sm border border-[#C1C3C3] dark:border-[#4F5554] p-6 mb-8">
                 <div className="space-y-6">
                   <div className="flex items-start">
-                    <MapPin className="h-6 w-6 text-teal-600 mt-1 mr-4" />
+                    <MapPin className="h-6 w-6 text-[#007A73] dark:text-[#63B0AC] mt-1 mr-4" />
                     <div>
-                      <h3 className="font-medium text-lg mb-1">Main Office</h3>
-                      <p className="text-gray-600">
-                        123 Healthcare Avenue<br />
-                        Accra, Ghana<br />
-                        GA-123-4567
+                      <h3 className="font-medium text-lg mb-1 text-[#2F3332] dark:text-[#FCFAEF]">Main Office</h3>
+                      <p className="text-[#2F3332]/80 dark:text-[#FCFAEF]/80">
+                        Department of Community Medicine<br />
+                        School of Medical Sciences<br />
+                        PMB, University of Cape Coast<br />
+                        Cape Coast, Ghana<br />
+                        +233 54 123 4567
                       </p>
                     </div>
                   </div>
                   
                   <div className="flex items-start">
-                    <Phone className="h-6 w-6 text-teal-600 mt-1 mr-4" />
+                    <Phone className="h-6 w-6 text-[#007A73] dark:text-[#63B0AC] mt-1 mr-4" />
                     <div>
-                      <h3 className="font-medium text-lg mb-1">Phone</h3>
-                      <p className="text-gray-600">
-                        <a href="tel:+233123456789" className="hover:text-teal-600">
-                          +233 123 456 789
+                      <h3 className="font-medium text-lg mb-1 text-[#2F3332] dark:text-[#FCFAEF]">Phone</h3>
+                      <p className="text-[#2F3332]/80 dark:text-[#FCFAEF]/80">
+                        <a href="tel:+233123456789" className="hover:text-[#C37B1E] dark:hover:text-[#F3C677] transition-colors">
+                        +233 20 954 4834
                         </a>
                       </p>
                     </div>
                   </div>
                   
                   <div className="flex items-start">
-                    <Mail className="h-6 w-6 text-teal-600 mt-1 mr-4" />
+                    <Mail className="h-6 w-6 text-[#007A73] dark:text-[#63B0AC] mt-1 mr-4" />
                     <div>
-                      <h3 className="font-medium text-lg mb-1">Email</h3>
-                      <p className="text-gray-600">
-                        <a href="mailto:info@akomapahealthfoundation.org" className="hover:text-teal-600">
-                          info@akomapahealthfoundation.org
+                      <h3 className="font-medium text-lg mb-1 text-[#2F3332] dark:text-[#FCFAEF]">Email</h3>
+                      <p className="text-[#2F3332]/80 dark:text-[#FCFAEF]/80">
+                        <a href="mailto:akomapahealth@gmail.com" className="hover:text-[#C37B1E] dark:hover:text-[#F3C677] transition-colors">
+                          akomapahealth@gmail.com
                         </a>
                       </p>
                     </div>
                   </div>
                   
                   <div className="flex items-start">
-                    <Clock className="h-6 w-6 text-teal-600 mt-1 mr-4" />
+                    <Clock className="h-6 w-6 text-[#007A73] dark:text-[#63B0AC] mt-1 mr-4" />
                     <div>
-                      <h3 className="font-medium text-lg mb-1">Hours</h3>
-                      <p className="text-gray-600">
+                      <h3 className="font-medium text-lg mb-1 text-[#2F3332] dark:text-[#FCFAEF]">Hours</h3>
+                      <p className="text-[#2F3332]/80 dark:text-[#FCFAEF]/80">
                         Monday - Friday: 8:00 AM - 5:00 PM<br />
                         Saturday: 9:00 AM - 1:00 PM<br />
                         Sunday: Closed
@@ -95,7 +97,7 @@ export default function ContactPage() {
                 </div>
               </div>
               
-              <div className="rounded-xl overflow-hidden h-80 shadow-sm border border-gray-200">
+              <div className="rounded-xl overflow-hidden h-80 shadow-sm border border-[#C1C3C3] dark:border-[#4F5554]">
                 <LocationMap />
               </div>
             </div>

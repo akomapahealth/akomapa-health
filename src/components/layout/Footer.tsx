@@ -13,11 +13,12 @@ export default function Footer() {
           <div className="space-y-4">
             <Link href="/" className="inline-block">
               <Image
-                src="/images/logo-white.svg" 
-                alt="Akomapa Health Foundation"
-                width={200}
-                height={50}
-                className="h-12 w-auto"
+                src="/images/akomapa.png"
+                alt="Akomapa Health Foundation Logo"
+                width={220}
+                height={60}
+                className="h-12 w-auto object-contain"
+                style={{ objectFit: 'contain', objectPosition: 'center' }}
               />
             </Link>
             <p className="text-floralwhite/80 mt-4 font-body">
@@ -30,7 +31,7 @@ export default function Footer() {
               <a href="#" className="text-floralwhite hover:text-amber transition-colors">
                 <Twitter className="h-5 w-5" />
               </a>
-              <a href="#" className="text-floralwhite hover:text-amber transition-colors">
+              <a href="https://www.instagram.com/akomapaclinic?igsh=MWQwaDNleWgxZDcwbA==" className="text-floralwhite hover:text-amber transition-colors">
                 <Instagram className="h-5 w-5" />
               </a>
               <a href="#" className="text-floralwhite hover:text-amber transition-colors">
@@ -53,16 +54,16 @@ export default function Footer() {
                   Our Programs
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <Link href="/resources" className="text-floralwhite/80 hover:text-amber transition-colors">
                   Resources
                 </Link>
-              </li>
-              <li>
+              </li> */}
+              {/* <li>
                 <Link href="/news" className="text-floralwhite/80 hover:text-amber transition-colors">
                   News & Updates
                 </Link>
-              </li>
+              </li> */}
               <li>
                 <Link href="/contact" className="text-floralwhite/80 hover:text-amber transition-colors">
                   Contact Us
@@ -110,17 +111,20 @@ export default function Footer() {
               <li className="flex items-start">
                 <MapPin className="h-5 w-5 mr-2 text-amber flex-shrink-0 mt-0.5" />
                 <span className="text-floralwhite/80">
-                  123 Health Avenue, Accra, Ghana
+                  Department of Community Medicine<br />
+                  School of Medical Sciences<br />
+                  PMB, University of Cape Coast<br />
+                  Cape Coast, Ghana
                 </span>
               </li>
               <li className="flex items-center">
                 <Phone className="h-5 w-5 mr-2 text-amber flex-shrink-0" />
-                <span className="text-floralwhite/80">+233 (0) 302 123 456</span>
+                <span className="text-floralwhite/80">+233 (0) 20 954 4834</span>
               </li>
               <li className="flex items-center">
                 <Mail className="h-5 w-5 mr-2 text-amber flex-shrink-0" />
-                <a href="mailto:info@akomapa.org" className="text-floralwhite/80 hover:text-amber transition-colors">
-                  info@akomapa.org
+                <a href="mailto:akomapahealth@gmail.com" className="text-floralwhite/80 hover:text-amber transition-colors">
+                  akomapahealth@gmail.com
                 </a>
               </li>
             </ul>
@@ -129,7 +133,7 @@ export default function Footer() {
 
         <div className="border-t border-floralwhite/20 mt-10 pt-6 flex flex-col md:flex-row justify-between items-center">
           <p className="text-floralwhite/70 text-sm font-body">
-            &copy; {currentYear} Akomapa Health Foundation. All rights reserved.
+            &copy; {currentYear} Akomapa Health. All rights reserved.
           </p>
           <div className="flex space-x-6 mt-4 md:mt-0">
             <Link href="/privacy" className="text-floralwhite/70 text-sm font-body hover:text-amber transition-colors">

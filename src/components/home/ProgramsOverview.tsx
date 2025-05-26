@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import Image from "next/image";
+import Image from "@/components/common/Image";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -12,7 +12,7 @@ const pillars = [
     title: "Low-Cost Clinics",
     description: "Weekend clinics that are interprofessional, free, and based within communities to increase access to essential NCD services.",
     icon: "🏥",
-    image: "/images/programs/community-clinics.jpg",
+    image: "/programs/community-clinics.jpg",
     link: "/programs/community-clinics"
   },
   {
@@ -20,7 +20,7 @@ const pillars = [
     title: "Student Leadership",
     description: "Interdisciplinary teams of health professional students—medical, nursing, pharmacy, optometry, and allied health—are trained and equipped to lead clinical care, patient education, and follow-up.",
     icon: "👩🏽‍⚕️",
-    image: "/images/programs/health-education.jpg",
+    image: "/programs/health-education.jpg",
     link: "/programs/community-clinics"
   },
   {
@@ -28,7 +28,7 @@ const pillars = [
     title: "Community Partnership",
     description: "Designed in collaboration with traditional leaders, community members, and the Ghana Health Service to ensure local trust and sustainability.",
     icon: "🤝",
-    image: "/images/programs/community-partnership.jpg",
+    image: "/programs/community-partnership.jpg",
     link: "/programs/community-clinics"
   },
   {
@@ -36,7 +36,7 @@ const pillars = [
     title: "Expert Supervision",
     description: "Every clinic is guided by licensed physicians, nurses, and public health faculty from local institutions.",
     icon: "🎓",
-    image: "/images/programs/expert-supervision.jpg",
+    image: "/programs/expert-supervision.jpg",
     link: "/programs/community-clinics"
   }
 ];

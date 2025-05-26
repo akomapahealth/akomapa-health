@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Image from "next/image";
+import Image from "@/components/common/Image";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -14,80 +14,79 @@ type GalleryItem = {
   featured?: boolean;
 };
 
-
 const galleryItems: GalleryItem[] = [
   {
     id: 1,
-    src: "/images/gallery/student-training.jpg",
+    src: "/gallery/student-training.jpg",
     alt: "Medical students practicing clinical skills",
     category: "students",
     featured: true,
   },
   {
     id: 2,
-    src: "/images/gallery/community-outreach.jpg",
+    src: "/gallery/community-outreach.jpg",
     alt: "Community health education session in Saltpond",
     category: "community",
   },
   {
     id: 3,
-    src: "/images/gallery/faculty-mentor.jpg",
+    src: "/gallery/faculty-mentor.jpg",
     alt: "Faculty supervisor guiding student examination",
     category: "faculty",
   },
   {
     id: 4,
-    src: "/images/gallery/clinic-exterior.jpg",
+    src: "/gallery/clinic-exterior.jpg",
     alt: "Exterior of Winneba pilot clinic",
     category: "clinics",
   },
   {
     id: 5,
-    src: "/images/gallery/patient-consultation.jpg",
+    src: "/gallery/patient-consultation.jpg",
     alt: "Student conducting patient consultation with supervision",
     category: "students",
     featured: true,
   },
   {
     id: 6,
-    src: "/images/gallery/community-meeting.jpg",
+    src: "/gallery/community-meeting.jpg",
     alt: "Town hall meeting with community leaders",
     category: "community",
   },
   {
     id: 7,
-    src: "/images/gallery/faculty-team.jpg",
+    src: "/gallery/faculty-team.jpg",
     alt: "Faculty supervisors planning session",
     category: "faculty",
   },
   {
     id: 8,
-    src: "/images/gallery/clinic-waiting-area.jpg",
+    src: "/gallery/clinic-waiting-area.jpg",
     alt: "Patients in clinic waiting area",
     category: "clinics",
   },
   {
     id: 9,
-    src: "/images/gallery/student-group.jpg",
+    src: "/gallery/student-group.jpg",
     alt: "Interprofessional student team discussing patient care",
     category: "students",
   },
   {
     id: 10,
-    src: "/images/gallery/health-fair.jpg",
+    src: "/gallery/health-fair.jpg",
     alt: "Community health fair in Saltpond",
     category: "community",
     featured: true,
   },
   {
     id: 11,
-    src: "/images/gallery/faculty-demonstration.jpg",
+    src: "/gallery/faculty-demonstration.jpg",
     alt: "Faculty member demonstrating clinical procedure",
     category: "faculty",
   },
   {
     id: 12,
-    src: "/images/gallery/clinic-treatment.jpg",
+    src: "/gallery/clinic-treatment.jpg",
     alt: "Treatment room in pilot clinic",
     category: "clinics",
   },
@@ -217,8 +216,6 @@ export default function Gallery() {
                     fill
                     sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 25vw"
                     className="object-cover hover:scale-105 transition-transform duration-300"
-                    placeholder="blur"
-                    blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+P+/HgAFeAJPO6cqhwAAAABJRU5ErkJggg=="
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end p-3">
                     <p className="text-white text-sm">{item.alt}</p>

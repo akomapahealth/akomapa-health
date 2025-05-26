@@ -56,7 +56,7 @@ function Counter({ value, suffix = "", duration = 2 }: { value: string, suffix?:
 
 export default function HealthCrisisSection() {
   return (
-    <section className="py-16 md:py-24 bg-[#005A9C] dark:bg-[#1C1F1E] text-[#FCFAEF]">
+    <section id="why-it-matters" className="py-16 md:py-24 bg-[#005A9C] dark:bg-[#1C1F1E] text-[#FCFAEF]">
       {/* Background decorative elements */}
       <div className="absolute right-0 top-0 w-64 h-64 rounded-full bg-[#007A73]/20 blur-3xl"></div>
       <div className="absolute left-0 bottom-0 w-96 h-96 rounded-full bg-[#C37B1E]/20 blur-3xl"></div>
@@ -106,7 +106,7 @@ export default function HealthCrisisSection() {
               
               <Button className="bg-[#007A73] hover:bg-[#C37B1E] text-[#FCFAEF] mt-2">
                 <Link href="/research" className="flex items-center">
-                  Read Research Paper <ArrowRight size={16} className="ml-2" />
+                  Read Our Award-Winning Research <ArrowRight size={16} className="ml-2" />
                 </Link>
               </Button>
             </div>

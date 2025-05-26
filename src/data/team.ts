@@ -93,5 +93,51 @@ export const teamMembers: TeamMember[] = [
       twitter: "https://twitter.com/joseph_ndlovu",
       email: "joseph.ndlovu@akomapa.org"
     }
+  },
+  {
+    id: "9",
+    name: "Ada Okafor",
+    title: "Director of Operations",
+    bio: "Ada brings over 15 years of experience in nonprofit management and operations. She ensures the smooth running of all Akomapa Health Foundation activities, overseeing logistics, human resources, and financial management. Her expertise in operational efficiency has been critical to the foundation's ability to scale its impact across multiple countries.",
+    image: "/images/team/ada-okafor.jpg",
+    socialLinks: {
+      linkedin: "https://linkedin.com/in/ada-okafor",
+      email: "ada.okafor@akomapa.org"
+    }
+  },
+  {
+    id: "10",
+    name: "Michael Kagame",
+    title: "Director of Partnerships",
+    bio: "Michael leads our efforts to build strategic partnerships with governments, donors, academic institutions, and other organizations. With a background in international development and diplomacy, he has successfully negotiated partnerships that have significantly expanded our program reach and sustainability.",
+    image: "/images/team/michael-kagame.jpg",
+    socialLinks: {
+      linkedin: "https://linkedin.com/in/michael-kagame",
+      twitter: "https://twitter.com/michael_kagame",
+      email: "michael.kagame@akomapa.org"
+    }
+  },
+  {
+      id: "11",
+    name: "Dr. Lisa Ofosu",
+    title: "Director of Monitoring and Evaluation",
+    bio: "Dr. Ofosu oversees our monitoring, evaluation, and learning systems. Her expertise in data analysis and impact assessment ensures that our programs are evidence-based and continuously improving. She previously worked with the United Nations Development Programme, evaluating health initiatives across Sub-Saharan Africa.",
+    image: "/images/team/lisa-ofosu.jpg",
+    socialLinks: {
+      linkedin: "https://linkedin.com/in/lisa-ofosu",
+      email: "lisa.ofosu@akomapa.org"
+    }
+  },
+  {
+    id: "12",
+    name: "Joseph Ndlovu",
+    title: "Director of Community Engagement",
+    bio: "Joseph specializes in building meaningful community relationships that ensure our programs are responsive to local needs and priorities. With extensive experience in community organizing and participatory approaches, he has developed innovative models for community ownership of healthcare initiatives.",
+    image: "/images/team/joseph-ndlovu.jpg",
+    socialLinks: {
+      linkedin: "https://linkedin.com/in/joseph-ndlovu",
+      twitter: "https://twitter.com/joseph_ndlovu",
+      email: "joseph.ndlovu@akomapa.org"
+    }
   }
 ];
