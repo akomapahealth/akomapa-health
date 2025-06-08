@@ -22,7 +22,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { CheckCircle2 } from "lucide-react";
+import { CheckCircle2, Loader2, AlertCircle } from "lucide-react";
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -44,6 +44,8 @@ type FormValues = z.infer<typeof formSchema>;
 
 export default function ContactForm() {
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -56,10 +58,50 @@ export default function ContactForm() {
     },
   });
 
-  function onSubmit(values: FormValues) {
-    // In a real app, you would submit this to your API
-    console.log(values);
-    setIsSubmitted(true);
+  async function onSubmit(values: FormValues) {
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const formData = new FormData();
+      
+      // Add Web3Forms access key
+      formData.append("access_key", process.env.NEXT_PUBLIC_WEB3FORMS_API_KEY!);
+      
+      // Add recipient email
+      formData.append("to", "akomapahealth@gmail.com");
+      
+      // Add form data
+      formData.append("name", values.name);
+      formData.append("email", values.email);
+      formData.append("phone", values.phone || "");
+      formData.append("subject", `Akomapa Health Foundation - ${values.subject}`);
+      formData.append("message", values.message);
+      
+      // Add additional metadata
+      formData.append("from_name", "Akomapa Health Foundation Website");
+      formData.append("replyto", values.email);
+
+      const response = await fetch(process.env.NEXT_PUBLIC_WEB3FORMS_API_URL!, {
+        method: "POST",
+        body: formData
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setIsSubmitted(true);
+        form.reset();
+      } else {
+        console.error("Web3Forms Error:", data);
+        setError(data.message || "Failed to send message. Please try again.");
+      }
+    } catch (error) {
+      console.error("Contact form error:", error);
+      setError("An unexpected error occurred. Please try again later.");
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   if (isSubmitted) {
@@ -74,7 +116,7 @@ export default function ContactForm() {
           variant="outline" 
           onClick={() => {
             setIsSubmitted(false);
-            form.reset();
+            setError(null);
           }}
         >
           Send Another Message
@@ -84,32 +126,97 @@ export default function ContactForm() {
   }
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-        <FormField
-          control={form.control}
-          name="name"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Full Name</FormLabel>
-              <FormControl>
-                <Input placeholder="Your full name" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div className="space-y-6">
+      {error && (
+        <div className="bg-red-50 border border-red-200 rounded-lg p-4 flex items-center gap-3">
+          <AlertCircle className="h-5 w-5 text-red-600 flex-shrink-0" />
+          <p className="text-red-800 text-sm">{error}</p>
+        </div>
+      )}
+      
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <FormField
             control={form.control}
-            name="email"
+            name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email Address</FormLabel>
+                <FormLabel>Full Name</FormLabel>
                 <FormControl>
-                  <Input placeholder="Your email address" {...field} />
+                  <Input 
+                    placeholder="Your full name" 
+                    disabled={isLoading}
+                    {...field} 
+                  />
                 </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Email Address</FormLabel>
+                  <FormControl>
+                    <Input 
+                      placeholder="Your email address" 
+                      disabled={isLoading}
+                      {...field} 
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            
+            <FormField
+              control={form.control}
+              name="phone"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Phone Number (Optional)</FormLabel>
+                  <FormControl>
+                    <Input 
+                      placeholder="Your phone number" 
+                      disabled={isLoading}
+                      {...field} 
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+          
+          <FormField
+            control={form.control}
+            name="subject"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Inquiry Type</FormLabel>
+                <Select 
+                  onValueChange={field.onChange} 
+                  defaultValue={field.value}
+                  disabled={isLoading}
+                >
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select an inquiry type" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectItem value="General Inquiry">General Inquiry</SelectItem>
+                    <SelectItem value="Programs & Services">Programs & Services</SelectItem>
+                    <SelectItem value="Volunteer Opportunities">Volunteer Opportunities</SelectItem>
+                    <SelectItem value="Partnership Inquiry">Partnership Inquiry</SelectItem>
+                    <SelectItem value="Media & Press">Media & Press</SelectItem>
+                    <SelectItem value="Other">Other</SelectItem>
+                  </SelectContent>
+                </Select>
                 <FormMessage />
               </FormItem>
             )}
@@ -117,67 +224,39 @@ export default function ContactForm() {
           
           <FormField
             control={form.control}
-            name="phone"
+            name="message"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Phone Number (Optional)</FormLabel>
+                <FormLabel>Your Message</FormLabel>
                 <FormControl>
-                  <Input placeholder="Your phone number" {...field} />
+                  <Textarea 
+                    placeholder="Please provide details about your inquiry..." 
+                    className="min-h-32"
+                    disabled={isLoading}
+                    {...field} 
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-        </div>
-        
-        <FormField
-          control={form.control}
-          name="subject"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Inquiry Type</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select an inquiry type" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  <SelectItem value="general">General Inquiry</SelectItem>
-                  <SelectItem value="programs">Programs & Services</SelectItem>
-                  <SelectItem value="volunteer">Volunteer Opportunities</SelectItem>
-                  <SelectItem value="partnership">Partnership Inquiry</SelectItem>
-                  <SelectItem value="media">Media & Press</SelectItem>
-                  <SelectItem value="other">Other</SelectItem>
-                </SelectContent>
-              </Select>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        
-        <FormField
-          control={form.control}
-          name="message"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Your Message</FormLabel>
-              <FormControl>
-                <Textarea 
-                  placeholder="Please provide details about your inquiry..." 
-                  className="min-h-32"
-                  {...field} 
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        
-        <Button type="submit" className="w-full bg-teal-600 hover:bg-teal-700">
-          Send Message
-        </Button>
-      </form>
-    </Form>
+          
+          <Button 
+            type="submit" 
+            className="w-full bg-teal-600 text-white hover:bg-teal-700"
+            disabled={isLoading}
+          >
+            {isLoading ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Sending Message...
+              </>
+            ) : (
+              "Send Message"
+            )}
+          </Button>
+        </form>
+      </Form>
+    </div>
   );
 }

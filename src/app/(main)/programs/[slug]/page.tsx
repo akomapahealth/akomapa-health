@@ -8,13 +8,14 @@ import { Button } from "@/components/ui/button";
 import { programs } from "@/data/programs";
 
 interface ProgramPageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 export async function generateMetadata({ params }: ProgramPageProps): Promise<Metadata> {
-  const program = programs.find((p) => p.slug === params.slug);
+  const { slug } = await params;
+  const program = programs.find((p) => p.slug === slug);
   
   if (!program) {
     return {
@@ -34,8 +35,9 @@ export async function generateStaticParams() {
   }));
 }
 
-export default function ProgramPage({ params }: ProgramPageProps) {
-  const program = programs.find((p) => p.slug === params.slug);
+export default async function ProgramPage({ params }: ProgramPageProps) {
+  const { slug } = await params;
+  const program = programs.find((p) => p.slug === slug);
   
   if (!program) {
     notFound();

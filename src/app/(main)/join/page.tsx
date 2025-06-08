@@ -83,21 +83,24 @@ export default function JoinPage() {
     setSubmitStatus({ type: null, message: "" });
 
     try {
-      // Here you would integrate with your backend
-      // For example:
-      // const response = await fetch("/api/volunteer-application", {
-      //   method: "POST",
-      //   headers: { "Content-Type": "application/json" },
-      //   body: JSON.stringify(formData),
-      // });
+      const response = await fetch("/api/volunteer-application", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
 
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Failed to submit application');
+      }
 
       setSubmitStatus({
         type: "success",
         message: "Thank you for your application! We'll be in touch soon.",
       });
+      
+      // Reset form
       setFormData({
         name: "",
         school: "",
@@ -115,9 +118,10 @@ export default function JoinPage() {
         clinicalExperience: "",
       });
     } catch (error) {
+      console.error('Application submission error:', error);
       setSubmitStatus({
         type: "error",
-        message: "An error occurred. Please try again later.",
+        message: error instanceof Error ? error.message : "An error occurred. Please try again later.",
       });
     } finally {
       setIsSubmitting(false);
@@ -204,6 +208,7 @@ export default function JoinPage() {
                         id="name"
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                        disabled={isSubmitting}
                         required
                       />
                     </div>
@@ -213,6 +218,7 @@ export default function JoinPage() {
                       <Select
                         value={formData.school}
                         onValueChange={(value) => setFormData({ ...formData, school: value })}
+                        disabled={isSubmitting}
                         required
                       >
                         <SelectTrigger>
@@ -235,6 +241,7 @@ export default function JoinPage() {
                           id="otherSchool"
                           value={formData.otherSchool}
                           onChange={(e) => setFormData({ ...formData, otherSchool: e.target.value })}
+                          disabled={isSubmitting}
                           required
                         />
                       </div>
@@ -245,6 +252,7 @@ export default function JoinPage() {
                       <Select
                         value={formData.level}
                         onValueChange={(value) => setFormData({ ...formData, level: value })}
+                        disabled={isSubmitting}
                         required
                       >
                         <SelectTrigger>
@@ -267,6 +275,7 @@ export default function JoinPage() {
                         type="tel"
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                        disabled={isSubmitting}
                         required
                       />
                     </div>
@@ -278,6 +287,7 @@ export default function JoinPage() {
                         type="email"
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                        disabled={isSubmitting}
                         required
                       />
                     </div>
@@ -297,6 +307,7 @@ export default function JoinPage() {
                       value={formData.motivation}
                       onChange={(e) => setFormData({ ...formData, motivation: e.target.value })}
                       maxLength={500}
+                      disabled={isSubmitting}
                       required
                     />
                   </div>
@@ -307,6 +318,7 @@ export default function JoinPage() {
                       id="expectations"
                       value={formData.expectations}
                       onChange={(e) => setFormData({ ...formData, expectations: e.target.value })}
+                      disabled={isSubmitting}
                       required
                     />
                   </div>
@@ -320,6 +332,7 @@ export default function JoinPage() {
                         min={1}
                         max={10}
                         step={1}
+                        disabled={isSubmitting}
                         className="flex-1"
                       />
                       <span className="text-lg font-medium">{formData.screeningExperience}</span>
@@ -335,6 +348,7 @@ export default function JoinPage() {
                         min={1}
                         max={10}
                         step={1}
+                        disabled={isSubmitting}
                         className="flex-1"
                       />
                       <span className="text-lg font-medium">{formData.counselingExperience}</span>
@@ -357,11 +371,17 @@ export default function JoinPage() {
                             id={date}
                             checked={formData.selectedDates.includes(date)}
                             onCheckedChange={() => handleDateToggle(date)}
+                            disabled={isSubmitting}
                           />
                           <Label htmlFor={date}>{date}</Label>
                         </div>
                       ))}
                     </div>
+                    {formData.selectedDates.length > 0 && (
+                      <p className="text-sm text-[#2F3332] dark:text-[#E6E7E7]">
+                        Selected: {formData.selectedDates.length} dates
+                      </p>
+                    )}
                   </div>
 
                   <div className="space-y-2">
@@ -369,11 +389,12 @@ export default function JoinPage() {
                     <RadioGroup
                       value={formData.teamPreference}
                       onValueChange={(value) => setFormData({ ...formData, teamPreference: value })}
+                      disabled={isSubmitting}
                       className="space-y-2"
                     >
                       {teams.map((team) => (
                         <div key={team} className="flex items-center space-x-2">
-                          <RadioGroupItem value={team} id={team} />
+                          <RadioGroupItem value={team} id={team} disabled={isSubmitting} />
                           <Label htmlFor={team}>{team}</Label>
                         </div>
                       ))}
@@ -387,6 +408,7 @@ export default function JoinPage() {
                       onCheckedChange={(checked) => 
                         setFormData({ ...formData, isBackupVolunteer: checked as boolean })
                       }
+                      disabled={isSubmitting}
                     />
                     <Label htmlFor="backup">
                       I am interested in being a backup volunteer
@@ -408,17 +430,24 @@ export default function JoinPage() {
                       id="clinicalExperience"
                       value={formData.clinicalExperience}
                       onChange={(e) => setFormData({ ...formData, clinicalExperience: e.target.value })}
+                      disabled={isSubmitting}
                     />
                   </div>
                 </div>
 
                 <Button
                   type="submit"
-                  disabled={isSubmitting}
-                  className="w-full h-12 bg-[#007A73] hover:bg-[#C37B1E] text-[#FCFAEF] text-lg"
+                  disabled={isSubmitting || formData.selectedDates.length < 4}
+                  className="w-full h-12 bg-[#007A73] hover:bg-[#C37B1E] text-[#FCFAEF] text-lg disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {isSubmitting ? "Submitting..." : "Submit Application"}
+                  {isSubmitting ? "Submitting Application..." : "Submit Application"}
                 </Button>
+                
+                {formData.selectedDates.length < 4 && formData.selectedDates.length > 0 && (
+                  <p className="text-sm text-[#C37B1E] text-center">
+                    Please select at least 4 available dates to submit your application
+                  </p>
+                )}
               </form>
             </motion.div>
 
