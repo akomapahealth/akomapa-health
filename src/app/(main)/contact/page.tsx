@@ -54,7 +54,7 @@ export default function ContactPage() {
                         School of Medical Sciences<br />
                         PMB, University of Cape Coast<br />
                         Cape Coast, Ghana<br />
-                        +233 54 123 4567
+                        +233 20 954 4834
                       </p>
                     </div>
                   </div>
@@ -64,7 +64,7 @@ export default function ContactPage() {
                     <div>
                       <h3 className="font-medium text-lg mb-1 text-[#2F3332] dark:text-[#FCFAEF]">Phone</h3>
                       <p className="text-[#2F3332]/80 dark:text-[#FCFAEF]/80">
-                        <a href="tel:+233123456789" className="hover:text-[#C37B1E] dark:hover:text-[#F3C677] transition-colors">
+                        <a href="tel:+233209544834" className="hover:text-[#C37B1E] dark:hover:text-[#F3C677] transition-colors">
                         +233 20 954 4834
                         </a>
                       </p>

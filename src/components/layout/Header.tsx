@@ -70,13 +70,14 @@ const navigation = [
   { 
     name: "Programs", 
     href: "/programs",
-    children: [
-      { name: "Community Clinics", href: "/programs/community-clinics" },
-      { name: "Health Education", href: "/programs/health-education" },
-      { name: "Medical Training", href: "/programs/medical-training" },
-      { name: "Research Initiatives", href: "/programs/research" },
-    ]
+    // children: [
+    //   { name: "Community Clinics", href: "/programs/community-clinics" },
+    //   { name: "Health Education", href: "/programs/health-education" },
+    //   { name: "Medical Training", href: "/programs/medical-training" },
+    //   { name: "Research Initiatives", href: "/programs/research" },
+    // ]
   },
+  { name: "Our UCC Clinic", href: "/our-ucc-clinic" },
   // { 
   //   name: "Resources", 
   //   href: "/resources",

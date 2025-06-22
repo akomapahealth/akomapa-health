@@ -1,10 +1,14 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "@/components/common/Image";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import ProgramModal from "@/components/shared/ProgramModal";
+import { programs } from "@/data/programs";
+import { Program } from "@/lib/types";
 
 const pillars = [
   {
@@ -13,7 +17,7 @@ const pillars = [
     description: "Weekend clinics that are interprofessional, free, and based within communities to increase access to essential NCD services.",
     icon: "🏥",
     image: "/programs/community-clinics.jpg",
-    link: "/programs/community-clinics"
+    slug: "low-cost-clinics"
   },
   {
     id: 2,
@@ -21,7 +25,7 @@ const pillars = [
     description: "Interdisciplinary teams of health professional students—medical, nursing, pharmacy, optometry, and allied health—are trained and equipped to lead clinical care, patient education, and follow-up.",
     icon: "👩🏽‍⚕️",
     image: "/programs/health-education.jpg",
-    link: "/programs/community-clinics"
+    slug: "student-leadership"
   },
   {
     id: 3,
@@ -29,7 +33,7 @@ const pillars = [
     description: "Designed in collaboration with traditional leaders, community members, and the Ghana Health Service to ensure local trust and sustainability.",
     icon: "🤝",
     image: "/programs/community-partnership.jpg",
-    link: "/programs/community-clinics"
+    slug: "community-partnership"
   },
   {
     id: 4,
@@ -37,11 +41,27 @@ const pillars = [
     description: "Every clinic is guided by licensed physicians, nurses, and public health faculty from local institutions.",
     icon: "🎓",
     image: "/programs/expert-supervision.jpg",
-    link: "/programs/community-clinics"
+    slug: "expert-supervision"
   }
 ];
 
 export default function ProgramsOverview() {
+  const [selectedProgram, setSelectedProgram] = useState<Program | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleLearnMore = (slug: string) => {
+    const program = programs.find(p => p.slug === slug);
+    if (program) {
+      setSelectedProgram(program);
+      setIsModalOpen(true);
+    }
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedProgram(null);
+  };
+
   return (
     <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#4F5554]">
       <div className="container mx-auto px-4">
@@ -86,25 +106,32 @@ export default function ProgramsOverview() {
                 <p className="text-[#2F3332] mb-4 dark:text-[#E6E7E7]">
                   {pillar.description}
                 </p>
-                <Link 
-                  href={pillar.link}
-                  className="inline-flex items-center text-[#007A73] dark:text-[#63B0AC] font-medium hover:text-[#C37B1E] dark:hover:text-[#F3C677]"
+                <button
+                  onClick={() => handleLearnMore(pillar.slug)}
+                  className="inline-flex items-center text-[#007A73] dark:text-[#63B0AC] font-medium hover:text-[#C37B1E] dark:hover:text-[#F3C677] transition-colors"
                 >
-                  Visit Our Clinics <ArrowRight size={16} className="ml-1" />
-                </Link>
+                  Learn More <ArrowRight size={16} className="ml-1" />
+                </button>
               </div>
             </motion.div>
           ))}
         </div>
         
-        {/* <div className="text-center mt-12">
-          <Button className="bg-[#007A73] hover:bg-[#C37B1E] text-[#FCFAEF]">
-            <Link href="/model" className="flex items-center">
-              Explore Our Model <ArrowRight size={16} className="ml-2" />
+        <div className="text-center mt-12">
+          <Button className="bg-[#007A73] hover:bg-[#C37B1E] text-[#FCFAEF] transition-colors">
+            <Link href="/programs" className="flex items-center">
+              Explore All Programs <ArrowRight size={16} className="ml-2" />
             </Link>
           </Button>
-        </div> */}
+        </div>
       </div>
+
+      {/* Program Modal */}
+      <ProgramModal
+        program={selectedProgram}
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+      />
     </section>
   );
 }
