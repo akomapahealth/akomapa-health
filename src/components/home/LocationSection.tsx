@@ -178,8 +178,8 @@ export default function LocationsSection() {
               </div>
             </div>
             <Button className="bg-[#007A73] hover:bg-[#C37B1E] text-[#FCFAEF] w-fit">
-              <Link href="/locations" className="flex items-center">
-                Visit Our Clinics <ArrowRight size={16} className="ml-2" />
+              <Link href="/our-ucc-clinic" className="flex items-center">
+                Visit Our Clinic <ArrowRight size={16} className="ml-2" />
               </Link>
             </Button>
           </motion.div>
