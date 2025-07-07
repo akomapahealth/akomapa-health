@@ -39,7 +39,7 @@ export default function StripePayment({
     setError(null);
 
     try {
-      // Create payment intent on the server
+      // Create payment intent or subscription on the server
       const response = await fetch("/api/create-payment-intent", {
         method: "POST",
         headers: {
@@ -59,12 +59,10 @@ export default function StripePayment({
         throw new Error(data.error);
       }
 
-      const { clientSecret, subscriptionId } = data;
-
       if (frequency === "monthly" || frequency === "annually") {
         // Handle subscription payment
         const { error: paymentError, paymentIntent } = await stripe.confirmCardPayment(
-          clientSecret,
+          data.clientSecret,
           {
             payment_method: {
               card: elements.getElement(CardElement)!,
@@ -85,7 +83,7 @@ export default function StripePayment({
       } else {
         // Handle one-time payment
         const { error: paymentError, paymentIntent } = await stripe.confirmCardPayment(
-          clientSecret,
+          data.clientSecret,
           {
             payment_method: {
               card: elements.getElement(CardElement)!,

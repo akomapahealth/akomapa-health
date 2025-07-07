@@ -17,7 +17,9 @@ import { AlertCircle, CheckCircle2 } from "lucide-react";
 import Breadcrumb from "@/components/layout/Breadcrumb";
 
 // Initialize Stripe
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
+const stripePromise = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+  ? loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY)
+  : null;
 
 // Payment method options
 const paymentMethods = [
@@ -82,6 +84,12 @@ export default function PartnerPage() {
       await sendDonationNotification();
     } catch (error) {
       console.error("Failed to send notification email:", error);
+      // Optionally show a warning (non-blocking) to the user
+      setPaymentStatus({
+        type: "success",
+        message: "Thank you for your partnership! Your payment was successful. Note: Email confirmation may be delayed.",
+      });
+      return;
     }
 
     setPaymentStatus({
@@ -133,7 +141,8 @@ export default function PartnerPage() {
 
   const getDonationAmount = () => {
     if (selectedAmount === "custom") {
-      return parseFloat(customAmount) || 0;
+      const amount = parseFloat(customAmount) || 0;
+      return amount > 0 ? amount : 0;
     }
     return parseFloat(selectedAmount);
   };
@@ -524,7 +533,7 @@ export default function PartnerPage() {
                           <h4 className="font-bold text-[#1C1F1E] dark:text-[#FCFAEF] mb-2">Send your donation to:</h4>
                           <div className="space-y-1 text-sm">
                             <p><strong>Name:</strong> Akomapa Health Foundation</p>
-                            <p><strong>Phone Number:</strong> +233 XX XXX XXXX</p>
+                            <p><strong>Phone Number:</strong> +233 54 111 1111</p>
                             <p><strong>Amount:</strong> ${getDonationAmount()}</p>
                             <p><strong>Reference:</strong> Your name + "Donation"</p>
                           </div>
@@ -634,10 +643,12 @@ export default function PartnerPage() {
                   Your company's support can transform lives, and we're happy to work with you to recognize your contribution, including co-branding opportunities, features in our updates, and involvement in community events. Let's create impact together.
                 </p>
                 <div className="text-center">
-                  <Button className="bg-[#007A73] hover:bg-[#C37B1E] text-[#FCFAEF]">
-                    <Mail className="h-4 w-4 mr-2" />
-                    <a href="mailto:akomapahealth@gmail.com">Contact Us for Corporate Sponsorship</a>
-                  </Button>
+                  <a href="mailto:akomapahealth@gmail.com">
+                    <Button className="bg-[#007A73] hover:bg-[#C37B1E] text-[#FCFAEF]">
+                      <Mail className="h-4 w-4 mr-2" />
+                      Contact Us for Corporate Sponsorship
+                    </Button>
+                  </a>
                 </div>
               </div>
             </motion.div>

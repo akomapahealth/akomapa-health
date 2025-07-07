@@ -128,7 +128,7 @@ export const teamMembers: TeamMember[] = [
   {
     id: "12",
     name: "Prince Nyarkoh",
-    title: "Community Laison Officer",
+    title: "Community Liaison Officer",
     bio: "Prince is an Optometry student with a passion for Pharmcology and Pediatric Optometry. If you catch him watching an EPL football game, don't interrupt him. He's locked in.",
     image: "/ucc-team/prince_nyarkoh.JPG",
     socialLinks: {
@@ -139,7 +139,7 @@ export const teamMembers: TeamMember[] = [
   {
     id: "13",
     name: "Gloria Tawia Blay",
-    title: "Community Engagement Laison",
+    title: "Community Engagement Liaison",
     bio: "Gloria is a Pharmacy student who loves all things Mental Health and is passionate about providing holistic care. Outside of Pharmacy, she loves a good nap, soothing music, and taking quiet time to reflect.",
     image: "/ucc-team/gloria_tawia_blay.JPG",
     socialLinks: {

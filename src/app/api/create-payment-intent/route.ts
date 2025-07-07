@@ -32,25 +32,84 @@ export async function POST(request: NextRequest) {
     };
 
     if (frequency === "monthly" || frequency === "annually") {
-      // For recurring donations, we'll use PaymentIntent with metadata
-      // and handle the recurring logic on the frontend
-      const paymentIntent = await stripe.paymentIntents.create({
-        amount: amountInCents,
-        currency: "usd",
-        automatic_payment_methods: {
-          enabled: true,
-        },
-        metadata: {
-          ...metadata,
-          recurring: "true",
-          interval: frequency === "monthly" ? "month" : "year",
-        },
-      });
+      // For recurring donations, create proper Stripe subscriptions
+      try {
+        // Create or retrieve customer
+        let customer;
+        const existingCustomers = await stripe.customers.list({
+          email: donorEmail,
+          limit: 1,
+        });
 
-      return NextResponse.json({
-        clientSecret: paymentIntent.client_secret,
-        paymentIntentId: paymentIntent.id,
-      });
+        if (existingCustomers.data.length > 0) {
+          customer = existingCustomers.data[0];
+        } else {
+          customer = await stripe.customers.create({
+            email: donorEmail,
+            name: donorName,
+            metadata: {
+              donorName: donorName || "Anonymous",
+              donorEmail: donorEmail || "anonymous@example.com",
+            },
+          });
+        }
+
+        // Create or get product
+        const product = await stripe.products.create({
+          name: `Akomapa Health Foundation - ${frequency} donation`,
+          description: `${frequency} donation to Akomapa Health Foundation`,
+          metadata: {
+            type: "donation",
+            frequency,
+          },
+        });
+
+        // Create price for the subscription
+        const price = await stripe.prices.create({
+          product: product.id,
+          unit_amount: amountInCents,
+          currency: "usd",
+          recurring: {
+            interval: frequency === "monthly" ? "month" : "year",
+          },
+          metadata: {
+            frequency,
+            amount: amount.toString(),
+          },
+        });
+
+        // Create subscription
+        const subscription = await stripe.subscriptions.create({
+          customer: customer.id,
+          items: [
+            {
+              price: price.id,
+            },
+          ],
+          payment_behavior: "default_incomplete",
+          payment_settings: {
+            save_default_payment_method: "on_subscription",
+          },
+          expand: ["latest_invoice.payment_intent"],
+          metadata: {
+            ...metadata,
+            subscription_type: "donation",
+          },
+        });
+
+        return NextResponse.json({
+          subscriptionId: subscription.id,
+          clientSecret: (subscription.latest_invoice as any)?.payment_intent?.client_secret,
+          customerId: customer.id,
+          priceId: price.id,
+        });
+      } catch (subscriptionError) {
+        console.error("Stripe subscription error:", subscriptionError);
+        return NextResponse.json(
+          { error: "Failed to create subscription" },
+          { status: 500 }
+        );
+      }
     } else {
       // One-time payment
       const paymentIntent = await stripe.paymentIntents.create({

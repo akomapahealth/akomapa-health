@@ -11,8 +11,8 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const WEB3FORMS_API_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_API_KEY;
-    const WEB3FORMS_API_URL = process.env.NEXT_PUBLIC_WEB3FORMS_API_URL;
+    const WEB3FORMS_API_KEY = process.env.WEB3FORMS_API_KEY;
+    const WEB3FORMS_API_URL = process.env.WEB3FORMS_API_URL;
 
     if (!WEB3FORMS_API_KEY || !WEB3FORMS_API_URL) {
       return NextResponse.json(
