@@ -32,6 +32,13 @@ const heroImages = [
     tagline: "Innovation & Research",
     caption: "Developing sustainable solutions for healthcare challenges"
   },
+  {
+    src: "/ucc-dream-team.JPG",
+    alt: "UCC Dream Team",
+    tagline: "UCC Dream Team",
+    caption: "Passionate about healthcare and committed to making a difference in their communities."
+  },
+  
 ];
 
 export default function HeroSection() {
@@ -52,7 +59,7 @@ export default function HeroSection() {
     <section className="relative bg-gradient-to-r from-[#FCFAEF] to-[#E6E7E7] dark:from-[#1C1F1E] dark:to-[#2F3332] overflow-hidden min-h-screen flex items-center">
       <div className="absolute inset-0 z-0 opacity-20">
         <Image
-          src="dots-pattern4.jpeg"
+          src="dot-pattern3.webp"
           alt=""
           fill
           className="object-cover"
@@ -78,7 +85,7 @@ export default function HeroSection() {
                 <Link href="/join">Join the Movement</Link>
               </Button>
               <Button className="bg-[#C37B1E] hover:bg-[#007A73] text-[#FCFAEF] px-8 py-6 h-auto text-lg">
-                <Link href="/donate">Support Our Work</Link>
+                <Link href="/partner">Support Our Work</Link>
               </Button>
             </div>
           </motion.div>

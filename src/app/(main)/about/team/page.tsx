@@ -1,9 +1,9 @@
 import { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { Linkedin, Twitter, Mail } from "lucide-react";
 import Breadcrumb from "@/components/layout/Breadcrumb";
 import PageHeader from "@/components/shared/PageHeader";
+import Image from "@/components/common/Image";
 import { teamMembers } from "@/data/team";
 
 export const metadata: Metadata = {
@@ -13,8 +13,8 @@ export const metadata: Metadata = {
 
 export default function TeamPage() {
   const leadership = teamMembers.slice(0, 4);
-  const coreTeam = teamMembers.slice(4, 8);
-  const advisoryTeam = teamMembers.slice(8);
+  const coreTeam = teamMembers.slice(4, 17);
+  const advisoryTeam = teamMembers.slice(17);
   
   return (
     <>
@@ -43,7 +43,8 @@ export default function TeamPage() {
                     src={member.image}
                     alt={member.name}
                     fill
-                    className="object-cover"
+                    className="object-cover object-top"
+                    style={{ objectPosition: "center 30%" }}
                   />
                 </div>
                 <div className="p-6">
@@ -99,7 +100,8 @@ export default function TeamPage() {
                     src={member.image}
                     alt={member.name}
                     fill
-                    className="object-cover"
+                    className="object-cover object-top"
+                    style={{ objectPosition: "center 30%" }}
                   />
                 </div>
                 <div className="p-6">
@@ -154,7 +156,8 @@ export default function TeamPage() {
                     src={member.image}
                     alt={member.name}
                     fill
-                    className="object-cover"
+                    className="object-top"
+                    style={{ objectPosition: "center 30%" }}
                   />
                 </div>
                 <div className="p-6">

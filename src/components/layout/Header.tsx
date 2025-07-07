@@ -177,7 +177,7 @@ export default function Header() {
             <Button 
               className="bg-[#C37B1E] text-[#FCFAEF] hover:bg-[#A36419] hover:text-[#FCFAEF] font-subheading font-bold"
             >
-              <Link href="/donate">Donate</Link>
+              <Link href="/partner">Partner With Us</Link>
             </Button>
             <ThemeToggle />
           </div>
