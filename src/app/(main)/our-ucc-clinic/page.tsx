@@ -432,7 +432,7 @@ export default function UCCClinicPage() {
       </section>
 
       {/* Testimonials */}
-      <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
+      {/* <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
         <div className="container mx-auto px-4">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-[#C37B1E] dark:text-[#F3C677] font-bold text-lg mb-2">
@@ -476,7 +476,7 @@ export default function UCCClinicPage() {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Contact & Hours Section */}
       <section id="contact" className="py-16 md:py-24">

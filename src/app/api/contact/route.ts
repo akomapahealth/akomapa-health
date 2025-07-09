@@ -26,7 +26,7 @@ export async function POST(request: NextRequest) {
     const formData = new FormData();
     
     // Add Web3Forms access key
-    formData.append("access_key", process.env.NEXT_PUBLIC_WEB3FORMS_API_KEY!);
+    formData.append("access_key", process.env.WEB3FORMS_API_KEY!);
     
     // Add recipient email
     formData.append("to", "akomapahealth@gmail.com");
@@ -49,7 +49,7 @@ export async function POST(request: NextRequest) {
     formData.append("replyto", email);
 
     // Send to Web3Forms
-    const response = await fetch(process.env.NEXT_PUBLIC_WEB3FORMS_API_URL!, {
+    const response = await fetch(process.env.WEB3FORMS_API_URL!, {
       method: "POST",
       body: formData
     });

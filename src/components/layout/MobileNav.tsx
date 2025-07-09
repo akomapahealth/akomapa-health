@@ -104,7 +104,7 @@ export default function MobileNav({ isOpen, onClose, navigation }: MobileNavProp
                   <Button 
                     className="w-full bg-[#C37B1E] text-[#FCFAEF] hover:bg-[#A36419] hover:text-[#FCFAEF] font-subheading font-bold"
                   >
-                    <Link href="/donate" onClick={onClose}>Donate</Link>
+                    <Link href="/partner" onClick={onClose}>Partner With Us</Link>
                   </Button>
                 </div>
               </div>
