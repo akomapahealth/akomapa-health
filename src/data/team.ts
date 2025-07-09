@@ -3,14 +3,14 @@ import { TeamMember } from "@/lib/types";
 export const teamMembers: TeamMember[] = [
   {
     id: "1",
-    name: "Dr. Kwame Mensah",
-    title: "Executive Director",
-    bio: "Dr. Mensah is a physician with over 20 years of experience in global health. Before founding Akomapa Health Foundation, he worked with Doctors Without Borders and the World Health Organization, leading healthcare initiatives across Africa. He holds an MD from the University of Ghana Medical School and an MPH from Harvard University.",
-    image: "/images/team/kwame-mensah.jpg",
+    name: "Dr. Brian Fleischer",
+    title: "Executive Director and Founder",
+    bio: "Dr. Fleischer is a physician with over 20 years of experience in global health. Before founding Akomapa Health Foundation, he worked with Doctors Without Borders and the World Health Organization, leading healthcare initiatives across Africa. He holds an MD from the University of Ghana Medical School and an MPH from Harvard University.",
+    image: "/images/team/brian-fleischer.jpg",
     socialLinks: {
-      linkedin: "https://linkedin.com/in/kwame-mensah",
-      twitter: "https://twitter.com/kwame_mensah",
-      email: "kwame.mensah@akomapa.org"
+      linkedin: "https://linkedin.com/in/brian-fleischer",
+      twitter: "https://twitter.com/brian_fleischer",
+      email: "brian.fleischer@akomapa.org"
     }
   },
   {
@@ -50,48 +50,189 @@ export const teamMembers: TeamMember[] = [
   },
   {
     id: "5",
-    name: "Ada Okafor",
-    title: "Director of Operations",
-    bio: "Ada brings over 15 years of experience in nonprofit management and operations. She ensures the smooth running of all Akomapa Health Foundation activities, overseeing logistics, human resources, and financial management. Her expertise in operational efficiency has been critical to the foundation's ability to scale its impact across multiple countries.",
-    image: "/images/team/ada-okafor.jpg",
+    name: "David Kojo Ofosu",
+    title: "Co-Director",
+    bio: "David is a medical student by day, gym bro by night. He's a sharp one - interested in a future career in surgery. You'd never guess, but he is incredibly talented on the violin.",
+    image: "/ucc-team/david_kojo_ofosu.JPG",
     socialLinks: {
-      linkedin: "https://linkedin.com/in/ada-okafor",
+      linkedin: "https://linkedin.com/in/david-kojo-ofosu",
       email: "ada.okafor@akomapa.org"
     }
   },
   {
     id: "6",
-    name: "Michael Kagame",
-    title: "Director of Partnerships",
-    bio: "Michael leads our efforts to build strategic partnerships with governments, donors, academic institutions, and other organizations. With a background in international development and diplomacy, he has successfully negotiated partnerships that have significantly expanded our program reach and sustainability.",
-    image: "/images/team/michael-kagame.jpg",
+    name: "Hafiz Shaban",
+    title: "Co-Director",
+    bio: "Hafiz is a Nursing student with a great interest in Theatre Nursing and Public Health. He likes to get lost in good music, and might spend a moment or two scrolling on social media blogs to unwind.",
+    image: "/ucc-team/hafiz_shaban.JPG",
     socialLinks: {
-      linkedin: "https://linkedin.com/in/michael-kagame",
-      twitter: "https://twitter.com/michael_kagame",
-      email: "michael.kagame@akomapa.org"
+      linkedin: "https://linkedin.com/in/hafiz-shaban",
+      email: "hafiz.shaban@akomapa.org"
     }
   },
   {
     id: "7",
-    name: "Dr. Lisa Ofosu",
-    title: "Director of Monitoring and Evaluation",
-    bio: "Dr. Ofosu oversees our monitoring, evaluation, and learning systems. Her expertise in data analysis and impact assessment ensures that our programs are evidence-based and continuously improving. She previously worked with the United Nations Development Programme, evaluating health initiatives across Sub-Saharan Africa.",
-    image: "/images/team/lisa-ofosu.jpg",
+    name: "Frederick Baffour",
+    title: "Finance Officer",
+    bio: "Frederick is a Doctor of Optometry student with a great interest in Public Health, but he also likes to keep his eyes on the latest movies during his free time.",
+    image: "/ucc-team/frederick_baffour.JPG",
     socialLinks: {
-      linkedin: "https://linkedin.com/in/lisa-ofosu",
+      linkedin: "https://linkedin.com/in/frederick-baffour",
       email: "lisa.ofosu@akomapa.org"
     }
   },
   {
     id: "8",
-    name: "Joseph Ndlovu",
-    title: "Director of Community Engagement",
-    bio: "Joseph specializes in building meaningful community relationships that ensure our programs are responsive to local needs and priorities. With extensive experience in community organizing and participatory approaches, he has developed innovative models for community ownership of healthcare initiatives.",
-    image: "/images/team/joseph-ndlovu.jpg",
+    name: "Geraldine-Cristal Apeadua Agyepong",
+    title: "Financial Officer",
+    bio: "Geraldine is a Medical Student interested in Biomedical Engineering. She likes to unwind while playing some video games or watching anime.",
+    image: "/ucc-team/geraldine_cristal_apeadua_agyepong.JPG",
     socialLinks: {
-      linkedin: "https://linkedin.com/in/joseph-ndlovu",
-      twitter: "https://twitter.com/joseph_ndlovu",
-      email: "joseph.ndlovu@akomapa.org"
+      linkedin: "https://linkedin.com/in/geraldine-cristal-agyepong",
+      email: "geraldine.agyepong@akomapa.org"
     }
-  }
+  },
+  {
+    id: "9",
+    name: "Queenster Aduse-Opoku",
+    title: "Supplies Manager",
+    bio: "Queenster is studying Pharmacy and loves everything concering drugs. She can get through anything, as long as she has enough hours of sleep.",
+    image: "/ucc-team/queenster_aduse_opoku.JPG",
+    socialLinks: {
+      linkedin: "https://linkedin.com/in/queenster-aduse-opoku",
+      email: "queenster.aduse-opoku@akomapa.org"
+    }
+  },
+  {
+    id: "10",
+    name: "Tony Bonsu Osei Kwarkye",
+    title: "Faculty Recruitment Lead",
+    bio: "Tony is a Doctor of Optometry student with an interest in Diagnostic Imaging Techniques. If he's not studying, you'll probably find him behind a screen writing code or playing video games.",
+    image: "/ucc-team/tony_bonsu_osei_kwakye.JPG",
+    socialLinks: {
+      linkedin: "https://linkedin.com/in/tony-bonsu-osei-kwarkye",
+      email: "tony.bonsu-osei-kwarkye@akomapa.org"
+    }
+  },
+  {
+      id: "11",
+    name: "Martha Bawa",
+    title: "Asst. Supplies Manager",
+    bio: "Martha is a Nursing student passionate about Peri-operative nursing care. She always has her nose buried in a book, and she's always ready to help out with anything.",
+    image: "/ucc-team/martha_bawa.JPG",
+    socialLinks: {
+      linkedin: "https://linkedin.com/in/martha-bawa",
+      email: "martha.bawa@akomapa.org"
+    }
+  },
+  {
+    id: "12",
+    name: "Prince Nyarkoh",
+    title: "Community Liaison Officer",
+    bio: "Prince is an Optometry student with a passion for Pharmcology and Pediatric Optometry. If you catch him watching an EPL football game, don't interrupt him. He's locked in.",
+    image: "/ucc-team/prince_nyarkoh.JPG",
+    socialLinks: {
+      linkedin: "https://linkedin.com/in/prince-nyarkoh",
+      email: "prince.nyarkoh@akomapa.org"
+    }
+  },
+  {
+    id: "13",
+    name: "Gloria Tawia Blay",
+    title: "Community Engagement Liaison",
+    bio: "Gloria is a Pharmacy student who loves all things Mental Health and is passionate about providing holistic care. Outside of Pharmacy, she loves a good nap, soothing music, and taking quiet time to reflect.",
+    image: "/ucc-team/gloria_tawia_blay.JPG",
+    socialLinks: {
+      linkedin: "https://linkedin.com/in/gloria-tawia-blay",
+      email: "prince.nyarkoh@akomapa.org"
+    }
+  },
+  {
+    id: "14",
+    name: "Getwell Ebiram Essuman",
+    title: "Volunteer Recruitment & Scheduling Leader",
+    bio: "Getwell is a Medical Laboratory Science student with an interest in diagnostics. Medical microbiology has a special place in his heart. He spends most of his time in the lab, but if you plan a video games night, he's the one to call.",
+    image: "/ucc-team/getwell_ebiram_essuman.JPG",
+    socialLinks: {
+      linkedin: "https://linkedin.com/in/getwell-ebiram-essuman",
+      email: "prince.nyarkoh@akomapa.org"
+    }
+  },
+  {
+    id: "15",
+    name: "David Konadu Kombate",
+    title: "Volunteer Recruitment & Scheduling Team Member",
+    bio: "David is a Medical Laboratory Science student who loves Microbiology. Name any self-help book, and you bet he has already read it!",
+    image: "/ucc-team/david_konadu_kombate.JPG",
+    socialLinks: {
+      linkedin: "https://linkedin.com/in/david-konadu-kombate",
+      email: "prince.nyarkoh@akomapa.org"
+    }
+  },
+  {
+    id: "16",
+    name: "Belinda Odoom",
+    title: "Training & Standards Coordinator",
+    bio: "Belinda is a Nursing student interested in Pediatric Nursing. She loves braiding, making wigs, and all things haircare.",
+    image: "/ucc-team/belinda_odoom.JPG",
+    socialLinks: {
+      linkedin: "https://linkedin.com/in/belinda-odoom",
+      email: "prince.nyarkoh@akomapa.org"
+    }
+  },
+  {
+    id: "17",
+    name: "Wilfred Obeng",
+    title: "Training & Standards Lead",
+    bio: "Wilfred is a Medical student intereted in ways computational methods could be used to improve medical education and clinical practice. On the rare occasion he has some free time, he listens to podcasts and tries to catch up on sleep.",
+    image: "/ucc-team/wilfred_obeng.JPG",
+    socialLinks: {
+      linkedin: "https://linkedin.com/in/wilfred-obeng",
+      email: "prince.nyarkoh@akomapa.org"
+    }
+  },
+  {
+    id: "18",
+    name: "Kwame Mensah",
+    title: "Training & Standards Team Member",
+    bio: "Kwame is a Medical Laboratory Science student who loves Microbiology. Name any self-help book, and you bet he has already read it!",
+    image: "/ucc-team/kwame_mensah.JPG",
+    socialLinks: {
+      linkedin: "https://linkedin.com/in/kwame-mensah",
+      email: "prince.nyarkoh@akomapa.org"
+    }
+  },
+  {
+    id: "19",
+    name: "Kwame Mensah",
+    title: "Training & Standards Team Member",
+    bio: "Kwame is a Medical Laboratory Science student who loves Microbiology. Name any self-help book, and you bet he has already read it!ad it!",
+    image: "/ucc-team/kwame_mensah.JPG",
+    socialLinks: {
+      linkedin: "https://linkedin.com/in/kwame-mensah",
+      email: "prince.nyarkoh@akomapa.org"
+    }
+  },
+  {
+    id: "20",
+    name: "Kwame Mensah",
+    title: "Training & Standards Team Member",
+    bio: "Kwame is a Medical Laboratory Science student who loves Microbiology. Name any self-help book, and you bet he has already read it!",
+    image: "/ucc-team/kwame_mensah.JPG",
+    socialLinks: {
+      linkedin: "https://linkedin.com/in/kwame-mensah",
+      email: "prince.nyarkoh@akomapa.org"
+    }
+  },
+  {
+    id: "21",
+    name: "Kwame Mensah",
+    title: "Training & Standards Team Member",
+    bio: "Kwame is a Medical Laboratory Science student who loves Microbiology. Name any self-help book, and you bet he has already read it!",
+    image: "/ucc-team/kwame_mensah.JPG",
+    socialLinks: {
+      linkedin: "https://linkedin.com/in/kwame-mensah",
+      email: "prince.nyarkoh@akomapa.org"
+    }
+  },
 ];

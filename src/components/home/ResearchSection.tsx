@@ -34,12 +34,6 @@ const partners = [
     height: 110  
   },
   {
-    name: "African Health Innovation Center",
-    logo: "/images/partners/african-health-logo.png",
-    width: 220,  
-    height: 110  
-  },
-  {
     name: "Ghana Health Service",
     logo: "/images/partners/ghana-health-service-logo.jpg",
     width: 220,  
@@ -70,7 +64,7 @@ export default function ResearchSection() {
   }, [controls]);
 
   return (
-    <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
+    <section id="research" className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto text-center mb-16">
           <h2 className="text-[#C37B1E] dark:text-[#F3C677] font-bold text-lg mb-2">

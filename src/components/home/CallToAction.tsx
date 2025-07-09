@@ -35,7 +35,7 @@ export default function CallToAction() {
             <Button 
               className="bg-[#FCFAEF] text-[#007A73] hover:bg-[#F3C677] hover:text-[#1C1F1E] px-6 py-6 h-auto text-lg"
             >
-              <Link href="/volunteer" className="flex items-center">
+              <Link href="/join" className="flex items-center">
                 <Users size={20} className="mr-2" />
                 Volunteer
               </Link>

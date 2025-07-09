@@ -21,9 +21,9 @@ export default function Breadcrumb() {
 
   return (
     <nav className="py-4 px-4 md:px-0">
-      <ol className="flex flex-wrap items-center text-sm text-gray-500">
+      <ol className="flex flex-wrap items-center text-sm text-[#2F3332]/70 dark:text-[#FCFAEF]/70">
         <li className="flex items-center">
-          <Link href="/" className="flex items-center hover:text-teal-600 transition-colors">
+          <Link href="/" className="flex items-center hover:text-[#C37B1E] dark:hover:text-[#F3C677] transition-colors">
             <Home className="h-4 w-4" />
             <span className="sr-only">Home</span>
           </Link>
@@ -31,13 +31,13 @@ export default function Breadcrumb() {
         
         {breadcrumbs.map((crumb, index) => (
           <li key={crumb.href} className="flex items-center">
-            <ChevronRight className="h-4 w-4 mx-2 text-gray-400" />
+            <ChevronRight className="h-4 w-4 mx-2 text-[#2F3332]/50 dark:text-[#FCFAEF]/50" />
             {index === breadcrumbs.length - 1 ? (
-              <span className="font-medium text-gray-900">{crumb.label}</span>
+              <span className="font-medium text-[#2F3332] dark:text-[#FCFAEF]">{crumb.label}</span>
             ) : (
               <Link 
                 href={crumb.href} 
-                className="hover:text-teal-600 transition-colors"
+                className="hover:text-[#C37B1E] dark:hover:text-[#F3C677] transition-colors"
               >
                 {crumb.label}
               </Link>

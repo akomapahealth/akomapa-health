@@ -1,9 +1,9 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Image from "next/image";
+import Image from "@/components/common/Image";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ChevronLeft, ChevronRight } from "lucide-react";
+import { X, ChevronLeft, ChevronRight, ChevronDown } from "lucide-react";
 
 // Define type for gallery items
 type GalleryItem = {
@@ -14,82 +14,155 @@ type GalleryItem = {
   featured?: boolean;
 };
 
-
 const galleryItems: GalleryItem[] = [
   {
     id: 1,
-    src: "/images/gallery/student-training.jpg",
+    src: "/gallery/gallery-pic-1.JPG",
     alt: "Medical students practicing clinical skills",
     category: "students",
     featured: true,
   },
   {
     id: 2,
-    src: "/images/gallery/community-outreach.jpg",
+    src: "/gallery/gallery-pic-2.JPG",
     alt: "Community health education session in Saltpond",
     category: "community",
   },
   {
     id: 3,
-    src: "/images/gallery/faculty-mentor.jpg",
+    src: "/gallery/gallery-pic-3.JPG",
     alt: "Faculty supervisor guiding student examination",
     category: "faculty",
   },
   {
     id: 4,
-    src: "/images/gallery/clinic-exterior.jpg",
+    src: "/gallery/gallery-pic-4.JPG",
     alt: "Exterior of Winneba pilot clinic",
     category: "clinics",
   },
   {
     id: 5,
-    src: "/images/gallery/patient-consultation.jpg",
+    src: "/gallery/gallery-pic-5.JPG",
     alt: "Student conducting patient consultation with supervision",
     category: "students",
     featured: true,
   },
   {
     id: 6,
-    src: "/images/gallery/community-meeting.jpg",
+    src: "/gallery/gallery-pic-6.JPG",
     alt: "Town hall meeting with community leaders",
     category: "community",
   },
   {
     id: 7,
-    src: "/images/gallery/faculty-team.jpg",
+    src: "/gallery/gallery-pic-7.JPG",
     alt: "Faculty supervisors planning session",
     category: "faculty",
   },
   {
     id: 8,
-    src: "/images/gallery/clinic-waiting-area.jpg",
+    src: "/gallery/gallery-pic-8.JPG",
     alt: "Patients in clinic waiting area",
     category: "clinics",
   },
   {
     id: 9,
-    src: "/images/gallery/student-group.jpg",
+    src: "/gallery/gallery-pic-9.JPG",
     alt: "Interprofessional student team discussing patient care",
     category: "students",
   },
   {
     id: 10,
-    src: "/images/gallery/health-fair.jpg",
+    src: "/gallery/gallery-pic-10.JPG",
     alt: "Community health fair in Saltpond",
     category: "community",
     featured: true,
   },
   {
     id: 11,
-    src: "/images/gallery/faculty-demonstration.jpg",
+      src: "/gallery/gallery-pic-11.JPG",
     alt: "Faculty member demonstrating clinical procedure",
     category: "faculty",
   },
   {
     id: 12,
-    src: "/images/gallery/clinic-treatment.jpg",
+    src: "/gallery/gallery-pic-12.JPG",
     alt: "Treatment room in pilot clinic",
     category: "clinics",
+  },
+  {
+    id: 13,
+    src: "/gallery/gallery-pic-13.JPG",
+    alt: "Faculty member demonstrating clinical procedure",
+    category: "faculty",
+  },
+
+  {
+    id: 14,
+    src: "/gallery/gallery-pic-14.JPG",
+    alt: "Faculty member demonstrating clinical procedure",
+    category: "faculty",
+  },
+  {
+    id: 15,
+    src: "/gallery/gallery-pic-15.JPG",
+    alt: "Faculty member demonstrating clinical procedure",
+    category: "faculty",
+  },
+  {
+    id: 16,
+    src: "/gallery/gallery-pic-16.JPG",
+    alt: "Faculty member demonstrating clinical procedure",
+    category: "faculty",
+  },
+  {
+    id: 17,
+    src: "/gallery/gallery-pic-17.JPG",
+    alt: "Faculty member demonstrating clinical procedure",
+    category: "faculty",
+  },
+  {
+    id: 18,
+    src: "/gallery/gallery-pic-18.JPG",
+    alt: "Faculty member demonstrating clinical procedure",
+    category: "faculty",
+  },
+  {
+    id: 19,
+    src: "/gallery/gallery-pic-19.JPG",
+    alt: "Faculty member demonstrating clinical procedure",
+    category: "faculty",
+  },
+  {
+    id: 20,
+    src: "/gallery/gallery-pic-20.JPG",
+    alt: "Faculty member demonstrating clinical procedure",
+    category: "faculty",
+  },
+  {
+    id: 21,
+    src: "/gallery/gallery-pic-21.JPG",
+    alt: "Faculty member demonstrating clinical procedure",
+    category: "faculty",
+  },
+  {
+    id: 22,
+    src: "/gallery/gallery-pic-22.JPG",
+    alt: "Faculty member demonstrating clinical procedure",
+    category: "faculty",
+  },
+  {
+    id: 23,
+    src: "/gallery/gallery-pic-23.JPG",
+    alt: "Faculty member demonstrating clinical procedure",
+    category: "faculty",
+  },
+  
+  {
+    id: 24,
+    src: "/gallery/gallery-pic-24.JPG",
+    alt: "Faculty member demonstrating clinical procedure",
+    category: "faculty",
   },
 ];
 
@@ -106,11 +179,15 @@ export default function Gallery() {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [selectedImage, setSelectedImage] = useState<GalleryItem | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isExpanded, setIsExpanded] = useState(false);
   
   // Filter gallery items based on selected category
   const filteredItems = selectedCategory === "all"
     ? galleryItems
     : galleryItems.filter(item => item.category === selectedCategory);
+
+  // Get items to display based on expansion state
+  const displayedItems = isExpanded ? filteredItems : filteredItems.slice(0, 4);
 
   // Handle image click to open lightbox
   const openLightbox = (image: GalleryItem, index: number) => {
@@ -157,6 +234,11 @@ export default function Gallery() {
     };
   }, [selectedImage]);
 
+  // Reset expansion when category changes
+  useEffect(() => {
+    setIsExpanded(false);
+  }, [selectedCategory]);
+
   return (
     <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
       <div className="container mx-auto px-4">
@@ -195,7 +277,7 @@ export default function Gallery() {
           layout
         >
           <AnimatePresence>
-            {filteredItems.map((item, index) => (
+            {displayedItems.map((item, index) => (
               <motion.div
                 key={item.id}
                 layout
@@ -217,8 +299,6 @@ export default function Gallery() {
                     fill
                     sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 25vw"
                     className="object-cover hover:scale-105 transition-transform duration-300"
-                    placeholder="blur"
-                    blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+P+/HgAFeAJPO6cqhwAAAABJRU5ErkJggg=="
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end p-3">
                     <p className="text-white text-sm">{item.alt}</p>
@@ -228,6 +308,30 @@ export default function Gallery() {
             ))}
           </AnimatePresence>
         </motion.div>
+
+        {/* Show more/less button */}
+        {filteredItems.length > 4 && (
+          <div className="text-center mt-8">
+            <motion.button
+              onClick={() => setIsExpanded(!isExpanded)}
+              className="inline-flex items-center gap-2 px-6 py-3 bg-[#007A73] text-white rounded-full font-medium hover:bg-[#005A55] transition-colors duration-200 shadow-lg hover:shadow-xl"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              {isExpanded ? (
+                <>
+                  Show Less
+                  <ChevronDown className="w-4 h-4 rotate-180 transition-transform duration-200" />
+                </>
+              ) : (
+                <>
+                  Show More ({filteredItems.length - 4} more)
+                  <ChevronDown className="w-4 h-4 transition-transform duration-200" />
+                </>
+              )}
+            </motion.button>
+          </div>
+        )}
 
         {/* Lightbox */}
         <AnimatePresence>

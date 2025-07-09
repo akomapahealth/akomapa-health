@@ -16,31 +16,77 @@ const navigation = [
     name: "About", 
     href: "/about",
     children: [
-      { name: "Mission & Vision", href: "/about/mission" },
+      { 
+        name: "Our Mission", 
+        href: "/#mission", 
+        onClick: (e: React.MouseEvent) => {
+          e.preventDefault();
+          const currentPath = window.location.pathname;
+          if (currentPath !== '/') {
+            window.location.href = '/#mission';
+          } else {
+            const missionSection = document.getElementById('mission');
+            if (missionSection) {
+              missionSection.scrollIntoView({ behavior: 'smooth' });
+            }
+          }
+        }
+      },
       { name: "Our Team", href: "/about/team" },
-      { name: "History", href: "/about/history" },
-      { name: "Partners", href: "/about/partners" },
+      { 
+        name: "Our Research", 
+        href: "/#why-it-matters", 
+        onClick: (e: React.MouseEvent) => {
+          e.preventDefault();
+          const currentPath = window.location.pathname;
+          if (currentPath !== '/') {
+            window.location.href = '/#why-it-matters';
+          } else {
+            const whyItMattersSection = document.getElementById('why-it-matters');
+            if (whyItMattersSection) {
+              whyItMattersSection.scrollIntoView({ behavior: 'smooth' });
+            }
+          }
+        }
+      },
+      { 
+        name: "Our Partners", 
+        href: "/#research", 
+        onClick: (e: React.MouseEvent) => {
+          e.preventDefault();
+          const currentPath = window.location.pathname;
+          if (currentPath !== '/') {
+            window.location.href = '/#research';
+          } else {
+            const researchSection = document.getElementById('research');
+            if (researchSection) {
+              researchSection.scrollIntoView({ behavior: 'smooth' });
+            }
+          }
+        }
+      },
     ]
   },
   { 
     name: "Programs", 
     href: "/programs",
-    children: [
-      { name: "Community Clinics", href: "/programs/community-clinics" },
-      { name: "Health Education", href: "/programs/health-education" },
-      { name: "Medical Training", href: "/programs/medical-training" },
-      { name: "Research Initiatives", href: "/programs/research" },
-    ]
+    // children: [
+    //   { name: "Community Clinics", href: "/programs/community-clinics" },
+    //   { name: "Health Education", href: "/programs/health-education" },
+    //   { name: "Medical Training", href: "/programs/medical-training" },
+    //   { name: "Research Initiatives", href: "/programs/research" },
+    // ]
   },
-  { 
-    name: "Resources", 
-    href: "/resources",
-    children: [
-      { name: "Educational Materials", href: "/resources/education" },
-      { name: "Research Publications", href: "/resources/research" },
-    ]
-  },
-  { name: "News", href: "/news" },
+  { name: "Our UCC Clinic", href: "/our-ucc-clinic" },
+  // { 
+  //   name: "Resources", 
+  //   href: "/resources",
+  //   children: [
+  //     { name: "Educational Materials", href: "/resources/education" },
+  //     { name: "Research Publications", href: "/resources/research" },
+  //   ]
+  // },
+  // { name: "News", href: "/news" },
   { name: "Contact", href: "/contact" },
 ];
 
@@ -71,11 +117,12 @@ export default function Header() {
           {/* Logo */}
           <Link href="/" className="flex items-center">
             <Image
-              src="/images/logo.svg"
-              alt="Akomapa Health Foundation"
-              width={180}
-              height={40}
-              className="h-10 w-auto"
+              src="/images/akomapa.png"
+              alt="Akomapa Health Foundation Logo"
+              width={250}
+              height={70}
+              className="h-12 w-auto object-contain"
+              style={{ objectFit: 'contain', objectPosition: 'center' }}
             />
           </Link>
 
@@ -85,7 +132,7 @@ export default function Header() {
               <div key={item.name} className="relative group">
                 <Link 
                   href={item.href}
-                  className={`text-sm font-subheading font-bold transition-colors hover:text-[#C37B1E] dark:hover:text-[#C37B1E] ${
+                  className={`text-md font-subheading font-bold transition-colors hover:text-[#C37B1E] dark:hover:text-[#C37B1E] ${
                     pathname === item.href || pathname.startsWith(`${item.href}/`) 
                       ? 'text-[#007A73]' 
                       : 'text-[#2F3332] dark:text-[#FCFAEF]'
@@ -102,6 +149,7 @@ export default function Header() {
                         <Link
                           key={child.name}
                           href={child.href}
+                          onClick={child.onClick}
                           className={`block px-4 py-2 text-sm font-body ${
                             pathname === child.href 
                               ? 'bg-[#007A73]/10 dark:bg-[#007A73]/20 text-[#007A73] dark:text-[#FCFAEF]' 
@@ -124,7 +172,12 @@ export default function Header() {
             <Button 
               className="bg-[#007A73] text-[#FCFAEF] hover:bg-[#C37B1E] hover:text-[#FCFAEF] font-subheading font-bold"
             >
-              <Link href="/contact">Get Involved</Link>
+              <Link href="/join">Get Involved</Link>
+            </Button>
+            <Button 
+              className="bg-[#C37B1E] text-[#FCFAEF] hover:bg-[#A36419] hover:text-[#FCFAEF] font-subheading font-bold"
+            >
+              <Link href="/partner">Partner With Us</Link>
             </Button>
             <ThemeToggle />
           </div>

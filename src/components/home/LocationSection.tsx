@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
-import Image from "next/image";
+import Image from "@/components/common/Image";
 import Link from "next/link";
 import { ArrowRight, MapPin, ArrowLeft as ChevronLeft, ArrowRight as ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -10,22 +10,22 @@ import { Button } from "@/components/ui/button";
 // Array of community photos for slideshow
 const communityPhotos = [
   {
-    src: "/images/locations/saltpond.jpg",
+    src: "/locations/saltpond.jpg",
     alt: "Healthcare students providing care in Saltpond",
     location: "Saltpond"
   },
   {
-    src: "/images/locations/winneba.jpg",
+    src: "/locations/winneba.jpg",
     alt: "Community engagement session in Winneba",
     location: "Winneba"
   },
   {
-    src: "/images/locations/saltpond.jpg",
+    src: "/locations/saltpond.jpg",
     alt: "Health education outreach with local community members",
     location: "Saltpond"
   },
   {
-    src: "/images/locations/winneba.jpg",
+    src: "/locations/winneba.jpg",
     alt: "Student healthcare workers collaborating with local practitioners",
     location: "Winneba"
   }
@@ -62,13 +62,13 @@ export default function LocationsSection() {
       <div className="container mx-auto px-4">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="text-[#C37B1E] dark:text-[#F3C677] font-bold text-lg mb-2">
-            WHERE WE WORK
+            Our First Clinic - Akomapa Free Clinic UCC Chapter
           </h2>
           <h3 className="text-3xl md:text-4xl font-bold mb-6 text-[#1C1F1E] dark:text-[#FCFAEF]">
             Local Impact with National Potential
           </h3>
           <p className="text-lg text-[#2F3332] dark:text-[#E6E7E7]">
-            We're piloting our first student-run clinics in Saltpond and Winneba in partnership 
+            We're piloting our first student-run clinics in Saltpond and Abura in partnership 
             with the University of Cape Coast College of Health Sciences. These sites serve as 
             epicenters for innovation, care, and training.
           </p>
@@ -151,7 +151,7 @@ export default function LocationsSection() {
               Building Health Capacity in Central Ghana
             </h4>
             <p className="text-[#2F3332] dark:text-[#E6E7E7] mb-6">
-              Our pilot locations in Saltpond and Winneba were strategically chosen for their 
+              Our pilot locations in Saltpond and Abura were strategically chosen for their 
               mix of urban and rural populations, proximity to the University of Cape Coast, 
               and demonstrated need for expanded NCD care.
             </p>
@@ -169,17 +169,17 @@ export default function LocationsSection() {
               <div className="flex items-start">
                 <MapPin className="h-5 w-5 text-[#C37B1E] dark:text-[#F3C677] mr-3 mt-1 flex-shrink-0" />
                 <div>
-                  <div className="font-bold text-[#1C1F1E] dark:text-[#FCFAEF]">Winneba</div>
+                  <div className="font-bold text-[#1C1F1E] dark:text-[#FCFAEF]">Abura</div>
                   <div className="text-[#2F3332] dark:text-[#E6E7E7]">
-                    An educational hub with a population of around 60,000, housing the University of Education. 
+                    An educational hub with a population of around 60,000, housing the University of Cape Coast. 
                     Our clinic partners with local health authorities to reach underserved communities.
                   </div>
                 </div>
               </div>
             </div>
             <Button className="bg-[#007A73] hover:bg-[#C37B1E] text-[#FCFAEF] w-fit">
-              <Link href="/locations" className="flex items-center">
-                Visit Our Clinics <ArrowRight size={16} className="ml-2" />
+              <Link href="/our-ucc-clinic" className="flex items-center">
+                Visit Our Clinic <ArrowRight size={16} className="ml-2" />
               </Link>
             </Button>
           </motion.div>
@@ -216,11 +216,11 @@ export default function LocationsSection() {
             With successful implementation in our pilot locations, we aim to expand our model across Ghana, 
             creating a network of student-run clinics that serve communities and train the next generation of healthcare leaders.
           </p>
-          <Button className="bg-[#C37B1E] hover:bg-[#007A73] text-[#FCFAEF]">
+          {/* <Button className="bg-[#C37B1E] hover:bg-[#007A73] text-[#FCFAEF]">
             <Link href="/about/expansion" className="flex items-center">
               Our Expansion Plan <ArrowRight size={16} className="ml-2" />
             </Link>
-          </Button>
+          </Button> */}
         </div>
       </div>
     </section>

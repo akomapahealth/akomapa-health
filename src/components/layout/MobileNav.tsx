@@ -95,11 +95,16 @@ export default function MobileNav({ isOpen, onClose, navigation }: MobileNavProp
                   </div>
                 ))}
                 
-                <div className="pt-4 mt-4 border-t border-[#E6E7E7] dark:border-[#757A79]">
+                <div className="pt-4 mt-4 border-t border-[#E6E7E7] dark:border-[#757A79] space-y-3">
+                  <Button 
+                    className="w-full bg-[#007A73] text-[#FCFAEF] hover:bg-[#C37B1E] hover:text-[#FCFAEF] font-subheading font-bold"
+                  >
+                    <Link href="/join" onClick={onClose}>Get Involved</Link>
+                  </Button>
                   <Button 
                     className="w-full bg-[#C37B1E] text-[#FCFAEF] hover:bg-[#A36419] hover:text-[#FCFAEF] font-subheading font-bold"
                   >
-                    <Link href="/contact" onClick={onClose}>Get Involved</Link>
+                    <Link href="/partner" onClick={onClose}>Partner With Us</Link>
                   </Button>
                 </div>
               </div>

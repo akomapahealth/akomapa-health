@@ -3,35 +3,42 @@
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import Image from "next/image";
+import Image from "@/components/common/Image";
 import { useState, useEffect } from "react";
 
 // Array of hero images
 const heroImages = [
   {
-    src: "/images/hero-image.jpg",
+    src: "/hero-image.jpg",
     alt: "Healthcare professionals working in a community clinic",
     tagline: "Community Healthcare",
     caption: "Supporting communities with accessible healthcare services"
   },
   {
-    src: "/images/hero-image-2.jpg",
+    src: "/hero-image-4.jpg",
     alt: "Community healthcare worker with patients",
     tagline: "Health Education",
     caption: "Empowering communities through knowledge and prevention"
   },
   {
-    src: "/images/hero-image-3.jpg",
+    src: "/hero-image-3.jpg",
     alt: "Healthcare outreach in rural communities",
     tagline: "Rural Outreach",
     caption: "Bringing quality healthcare to remote and underserved areas"
   },
   {
-    src: "/images/hero-image-4.jpg",
+    src: "/hero-image-4.jpg",
     alt: "Medical professionals collaborating on healthcare solutions",
     tagline: "Innovation & Research",
     caption: "Developing sustainable solutions for healthcare challenges"
   },
+  {
+    src: "/ucc-dream-team.JPG",
+    alt: "UCC Dream Team",
+    tagline: "UCC Dream Team",
+    caption: "Passionate about healthcare and committed to making a difference in their communities."
+  },
+  
 ];
 
 export default function HeroSection() {
@@ -49,17 +56,17 @@ export default function HeroSection() {
   }, []);
 
   return (
-    <section className="relative bg-gradient-to-r from-[#FCFAEF] to-[#E6E7E7] dark:from-[#1C1F1E] dark:to-[#2F3332] overflow-hidden">
+    <section className="relative bg-gradient-to-r from-[#FCFAEF] to-[#E6E7E7] dark:from-[#1C1F1E] dark:to-[#2F3332] overflow-hidden min-h-screen flex items-center">
       <div className="absolute inset-0 z-0 opacity-20">
         <Image
-          src="/images/patterns/dots-pattern4.jpeg"
+          src="dot-pattern3.webp"
           alt=""
           fill
           className="object-cover"
         />
       </div>
       
-      <div className="container mx-auto px-4 py-16 md:py-24 lg:py-32 relative z-10">
+      <div className="container mx-auto px-4 py-16 md:py-24 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -67,24 +74,18 @@ export default function HeroSection() {
             transition={{ duration: 0.6 }}
             className="text-center lg:text-left lg:col-span-5"
           >
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-[#1C1F1E] dark:text-[#FCFAEF] mb-4">
-              Can Africa's next generation of health professionals lead the fight against NCDs?
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-[#1C1F1E] dark:text-[#FCFAEF] mb-6">
+              Can student health leaders tackle Africa's NCD crisis?
             </h1>
-            <p className="text-xl text-[#007A73] dark:text-[#63B0AC] font-medium mb-4 max-w-2xl mx-auto lg:mx-0">
+            <p className="text-xl md:text-2xl text-[#007A73] dark:text-[#63B0AC] font-medium mb-8 max-w-2xl mx-auto lg:mx-0">
               Guided by experts, powered by students, rooted in communities – Akomapa is reimagining preventative primary care in Africa.
             </p>
-            <p className="text-base text-[#2F3332] dark:text-[#E6E7E7] mb-8 max-w-2xl mx-auto lg:mx-0">
-              Akomapa is a network of student-powered, faculty-supervised clinics tackling Ghana and Africa's non-communicable disease crisis through early screening, health education, and self-care support. We collaborate with communities, universities, and the Ghana Health Service to deliver free, sustainable, and community-based care—led by the future of medicine.
-            </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start flex-wrap">
-              <Button className="bg-[#007A73] hover:bg-[#C37B1E] text-[#FCFAEF] px-6 py-5 h-auto text-base">
+              <Button className="bg-[#007A73] hover:bg-[#C37B1E] text-[#FCFAEF] px-8 py-6 h-auto text-lg">
                 <Link href="/join">Join the Movement</Link>
               </Button>
-              <Button className="bg-[#C37B1E] hover:bg-[#007A73] text-[#FCFAEF] px-6 py-5 h-auto text-base">
-                <Link href="/donate">Support Our Work</Link>
-              </Button>
-              <Button className="bg-[#FCFAEF] border-2 border-[#007A73] hover:bg-[#E6E7E7] text-[#007A73] dark:border-[#63B0AC] dark:text-[#63B0AC] dark:hover:bg-[#2F3332] px-6 py-5 h-auto text-base">
-                <Link href="/model">Explore Our Model</Link>
+              <Button className="bg-[#C37B1E] hover:bg-[#007A73] text-[#FCFAEF] px-8 py-6 h-auto text-lg">
+                <Link href="/partner">Support Our Work</Link>
               </Button>
             </div>
           </motion.div>
