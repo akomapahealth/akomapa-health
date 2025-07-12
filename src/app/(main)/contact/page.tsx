@@ -21,7 +21,7 @@ export default function ContactPage() {
         <div className="container mx-auto px-4">
           <PageHeader
             title="Contact Us"
-            description="Have questions or want to learn more about our healthcare programs? We'd love to hear from you."
+            description="Have questions or want to learn more about our healthcare programs? We&apos;d love to hear from you."
           />
         </div>
       </section>
@@ -32,9 +32,9 @@ export default function ContactPage() {
             <div>
               <h2 className="text-2xl font-bold mb-6 text-[#2F3332] dark:text-[#FCFAEF]">Get In Touch</h2>
               <p className="text-[#2F3332]/80 dark:text-[#FCFAEF]/80 mb-8">
-                Please fill out the form with your information and we'll get back to you as soon as possible.
+                Please fill out the form with your information and we&apos;ll get back to you as soon as possible.
                 Whether you have questions about our programs, want to volunteer, or discuss potential partnerships,
-                we're here to help.
+                we&apos;re here to help.
               </p>
               
               <ContactForm />

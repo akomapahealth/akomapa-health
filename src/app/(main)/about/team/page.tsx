@@ -209,7 +209,7 @@ export default function TeamPage() {
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-2xl md:text-3xl font-bold mb-6 text-[#2F3332] dark:text-[#FCFAEF]">Join Our Team</h2>
           <p className="text-lg text-[#2F3332]/80 dark:text-[#FCFAEF]/80 mb-8 max-w-2xl mx-auto">
-            We're always looking for talented professionals who are passionate about improving healthcare access and outcomes in underserved communities.
+            We&apos;re always looking for talented professionals who are passionate about improving healthcare access and outcomes in underserved communities.
           </p>
           <Link 
             href="/contact" 

@@ -3,10 +3,9 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { ArrowRight, Heart, Users, Globe, Building, Mail, CheckCircle, ChevronRight, Star, Leaf, Pill, Home, FileText, CreditCard, ShoppingBag } from "lucide-react";
+import { ArrowRight, Heart, Users, Globe, Building, Mail, Leaf, Pill, Home, FileText, CreditCard, ShoppingBag } from "lucide-react";
 import Link from "next/link";
 import Breadcrumb from "@/components/layout/Breadcrumb";
-import PageHeader from "@/components/shared/PageHeader";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -16,7 +15,7 @@ interface Program {
   id: number;
   title: string;
   description: string;
-  icon: React.ComponentType<any>;
+  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
   color: string;
   category: string;
   details?: string;
@@ -112,11 +111,7 @@ const futureInitiatives: Program[] = [
 
 export default function ProgramsPage() {
   const [activeTab, setActiveTab] = useState("current");
-  const [selectedProgram, setSelectedProgram] = useState<Program | null>(null);
-
-  const handleLearnMore = (program: Program) => {
-    setSelectedProgram(program);
-  };
+  // Removed unused selectedProgram and handleLearnMore
 
   return (
     <>
@@ -162,7 +157,7 @@ export default function ProgramsPage() {
               transition={{ delay: 0.2 }}
               className="text-xl text-[#2F3332] dark:text-[#E6E7E7] mb-8 max-w-3xl mx-auto"
             >
-              At Akomapa, we don't just treat illness — we build systems of care, support, and sustainability for underserved communities in Ghana.
+              At Akomapa, we don&apos;t just treat illness — we build systems of care, support, and sustainability for underserved communities in Ghana.
             </motion.p>
             
             <motion.div 
@@ -276,7 +271,7 @@ export default function ProgramsPage() {
               🤝 Be Part of the Movement
             </h2>
             <p className="text-xl text-[#FCFAEF]/90 mb-8 max-w-2xl mx-auto">
-              Your support powers every initiative. Whether through financial contributions, in-kind donations, or strategic partnerships — there's a place for you at Akomapa.
+              Your support powers every initiative. Whether through financial contributions, in-kind donations, or strategic partnerships — there&apos;s a place for you at Akomapa.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button 

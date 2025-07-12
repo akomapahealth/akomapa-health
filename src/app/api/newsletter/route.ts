@@ -42,7 +42,7 @@ export async function POST(request: NextRequest) {
     });
 
     // Handle the response safely with type checking
-    const subscriberData = (response as any)?.data;
+    const subscriberData = (response as unknown as { data?: { email?: string; status?: string } })?.data;
     
     return NextResponse.json(
       { 
@@ -55,7 +55,7 @@ export async function POST(request: NextRequest) {
       { status: 200 }
     );
 
-  } catch (error: any) {
+  } catch (error: unknown) {
     // console.error('Newsletter subscription error:', error);
     
     // Handle specific MailerLite SDK errors

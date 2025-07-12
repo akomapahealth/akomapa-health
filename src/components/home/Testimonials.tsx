@@ -71,7 +71,7 @@ export default function Testimonials() {
               
               <div className="relative z-10">
                 <blockquote className="text-xl md:text-2xl leading-relaxed text-[#2F3332] dark:text-[#E6E7E7] mb-8">
-                  "{testimonials[currentIndex].quote}"
+                  &quot;{testimonials[currentIndex].quote}&quot;
                 </blockquote>
                 
                 <div className="flex items-center">

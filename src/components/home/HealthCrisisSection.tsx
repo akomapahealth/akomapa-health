@@ -5,7 +5,6 @@ import { useRef, useEffect, useState } from "react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import Image from "next/image";
 
 // Stats for animation
 const stats = [

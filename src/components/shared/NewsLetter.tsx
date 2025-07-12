@@ -79,7 +79,7 @@ export default function Newsletter() {
               <CheckCircle2 className="h-12 w-12 text-[#007A73] dark:text-[#00A99D] mb-4" />
               <h3 className="text-xl font-semibold mb-2 dark:text-[#FCFAEF]">Thank You for Subscribing!</h3>
               <p className="text-[#2F3332]/80 dark:text-[#E6E7E7]">
-                You'll now receive our newsletter with the latest updates on our programs and initiatives.
+                You&apos;ll now receive our newsletter with the latest updates on our programs and initiatives.
               </p>
               <Button 
                 onClick={() => {

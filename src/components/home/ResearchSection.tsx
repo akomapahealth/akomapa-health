@@ -74,10 +74,10 @@ export default function ResearchSection() {
             Designed with Evidence. Driven by Collaboration.
           </h3>
           <p className="text-[#2F3332] dark:text-[#E6E7E7] text-lg">
-            Akomapa's clinic model is grounded in rigorous qualitative and quantitative research 
+            Akomapa&apos;s clinic model is grounded in rigorous qualitative and quantitative research 
             involving 316 health professional students, university faculty, Ghana Health Service officials, 
             and community members. The data is clear: supervised, student-led, interprofessional clinics are 
-            not only welcomed—they are essential to addressing Ghana's NCD burden.
+            not only welcomed—they are essential to addressing Ghana&apos;s NCD burden.
           </p>
         </div>
 

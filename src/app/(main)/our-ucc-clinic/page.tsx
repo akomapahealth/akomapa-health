@@ -11,11 +11,9 @@ import {
   Stethoscope, 
   Heart, 
   Shield, 
-  Award,
   ArrowRight,
   Calendar,
   CheckCircle,
-  Star,
   Building,
   Car,
   Bus,
@@ -98,27 +96,6 @@ const teamMembers = [
     specialization: "Community Medicine",
     experience: "5+ years",
     image: "/images/team/doctor-3.jpg"
-  }
-];
-
-const testimonials = [
-  {
-    name: "Ama Kufuor",
-    role: "UCC Student",
-    content: "The clinic has been a lifesaver for me and my friends. The staff is friendly and the care is excellent. I feel safe knowing quality healthcare is available right on campus.",
-    rating: 5
-  },
-  {
-    name: "Prof. Kwesi Boateng",
-    role: "Faculty Member",
-    content: "As a faculty member, I appreciate having access to reliable healthcare services. The clinic's preventive care programs have helped me maintain good health.",
-    rating: 5
-  },
-  {
-    name: "Kofi Mensah",
-    role: "Local Resident",
-    content: "The community outreach programs have made healthcare accessible to our neighborhood. The mobile clinics are a blessing for families who can't travel far.",
-    rating: 5
   }
 ];
 
