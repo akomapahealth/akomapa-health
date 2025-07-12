@@ -126,7 +126,7 @@ export async function POST(request: NextRequest) {
       { status: 200 }
     );
 
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: 'An unexpected error occurred. Please try again later.' },
       { status: 500 }

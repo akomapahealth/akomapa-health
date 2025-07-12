@@ -80,7 +80,7 @@ export default function ContactForm() {
         const errorData = await response.json();
         setError(errorData.message || "Failed to send message. Please try again.");
       }
-    } catch (err) {
+    } catch {
       setError("Network error. Please check your connection and try again.");
     } finally {
       setIsSubmitting(false);
@@ -124,7 +124,7 @@ export default function ContactForm() {
           Get in Touch
         </h3>
         <p className="text-[#2F3332] dark:text-[#E6E7E7]">
-          Have questions about partnerships or want to learn more? We'd love to hear from you.
+          Have questions about partnerships or want to learn more? We&apos;d love to hear from you.
         </p>
       </div>
 

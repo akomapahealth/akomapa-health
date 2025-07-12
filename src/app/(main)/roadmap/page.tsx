@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { ArrowRight, Calendar, Target, Users, Heart, Globe, Building, Leaf, TrendingUp, Star, CheckCircle, ChevronRight } from "lucide-react";
+import { ArrowRight, Target, Heart, Globe, TrendingUp, CheckCircle, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import Breadcrumb from "@/components/layout/Breadcrumb";
 import { Button } from "@/components/ui/button";
@@ -189,7 +189,7 @@ export default function RoadmapPage() {
                       Goal
                     </h3>
                     <p className="text-lg">
-                      {phase.goal}
+                      {phase.goal.replace(/'/g, "&apos;")}
                     </p>
                   </div>
                 </div>

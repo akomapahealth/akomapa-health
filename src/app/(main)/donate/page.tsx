@@ -53,7 +53,6 @@ export default function DonatePage() {
   const [selectedMethod, setSelectedMethod] = useState("card");
   const [selectedAmount, setSelectedAmount] = useState("25");
   const [customAmount, setCustomAmount] = useState("");
-  const [isProcessing, setIsProcessing] = useState(false);
   const [paymentStatus, setPaymentStatus] = useState<{
     type: "success" | "error" | null;
     message: string;
@@ -64,7 +63,6 @@ export default function DonatePage() {
       type: "success",
       message: "Thank you for your donation! Your payment was successful.",
     });
-    setIsProcessing(false);
   };
 
   const handlePaymentError = (error: string) => {
@@ -72,7 +70,6 @@ export default function DonatePage() {
       type: "error",
       message: error,
     });
-    setIsProcessing(false);
   };
 
   const getDonationAmount = () => {

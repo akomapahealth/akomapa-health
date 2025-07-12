@@ -109,7 +109,7 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <Link href="/about/mission" className="bg-white p-6 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
               <h3 className="text-xl font-bold mb-2 dark:text-[#1C1F1E]">Our Mission & Vision</h3>
-              <p className="text-gray-600 mb-4">Learn about our guiding principles and the future we're working to create.</p>
+              <p className="text-gray-600 mb-4">Learn about our guiding principles and the future we&apos;re working to create.</p>
               <span className="text-teal-600 font-medium inline-flex items-center">
                 Read More <ArrowRight size={16} className="ml-1" />
               </span>
@@ -117,7 +117,7 @@ export default function AboutPage() {
             
             <Link href="/about/team" className="bg-white p-6 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
               <h3 className="text-xl font-bold mb-2 dark:text-[#1C1F1E]">Leadership Team</h3>
-              <p className="text-gray-600 mb-4">Meet the dedicated professionals guiding our organization's strategy and operations.</p>
+              <p className="text-gray-600 mb-4">Meet the dedicated professionals guiding our organization&apos;s strategy and operations.</p>
               <span className="text-teal-600 font-medium inline-flex items-center">
                 Read More <ArrowRight size={16} className="ml-1" />
               </span>

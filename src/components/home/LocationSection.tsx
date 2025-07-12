@@ -68,7 +68,7 @@ export default function LocationsSection() {
             Local Impact with National Potential
           </h3>
           <p className="text-lg text-[#2F3332] dark:text-[#E6E7E7]">
-            We're piloting our first student-run clinics in Saltpond and Abura in partnership 
+            We&apos;re piloting our first student-run clinics in Saltpond and Abura in partnership 
             with the University of Cape Coast College of Health Sciences. These sites serve as 
             epicenters for innovation, care, and training.
           </p>
@@ -206,7 +206,7 @@ export default function LocationsSection() {
             ></iframe>
           </div>
           <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#1C1F1E]/80 to-transparent p-4 text-[#FCFAEF]">
-            <p className="font-medium">Our clinic locations in Ghana's Central Region</p>
+            <p className="font-medium">Our clinic locations in Ghana&apos;s Central Region</p>
           </div>
         </motion.div>
         

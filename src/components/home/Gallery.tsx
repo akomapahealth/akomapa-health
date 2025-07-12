@@ -220,7 +220,7 @@ export default function Gallery() {
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [selectedImage, currentIndex]);
+  }, [selectedImage, currentIndex, goToNext, goToPrevious]);
 
   // Prevent scrolling when lightbox is open
   useEffect(() => {

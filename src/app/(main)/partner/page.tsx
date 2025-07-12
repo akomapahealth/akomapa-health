@@ -6,8 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { CreditCard, Smartphone, Heart, Users, Globe, Building, Mail, DollarSign, Calendar, CheckCircle, Info } from "lucide-react";
-import { SiPaypal } from "react-icons/si";
+import { CreditCard, Smartphone, Heart, Users, Globe, Building, Mail, DollarSign, CheckCircle, Info } from "lucide-react";
 import Image from "@/components/common/Image";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
@@ -68,7 +67,6 @@ export default function PartnerPage() {
   const [selectedAmount, setSelectedAmount] = useState("20");
   const [customAmount, setCustomAmount] = useState("");
   const [selectedFrequency, setSelectedFrequency] = useState("one-time");
-  const [isProcessing, setIsProcessing] = useState(false);
   const [showMobileMoneyInfo, setShowMobileMoneyInfo] = useState(false);
   const [showDonorForm, setShowDonorForm] = useState(false);
   const [donorName, setDonorName] = useState("");
@@ -96,7 +94,6 @@ export default function PartnerPage() {
       type: "success",
       message: "Thank you for your partnership! Your payment was successful.",
     });
-    setIsProcessing(false);
     setShowDonorForm(false);
   };
 
@@ -105,7 +102,6 @@ export default function PartnerPage() {
       type: "error",
       message: error,
     });
-    setIsProcessing(false);
   };
 
   const sendDonationNotification = async () => {
@@ -535,7 +531,7 @@ export default function PartnerPage() {
                             <p><strong>Name:</strong> Akomapa Health Foundation</p>
                             <p><strong>Phone Number:</strong> +233 54 111 1111</p>
                             <p><strong>Amount:</strong> ${getDonationAmount()}</p>
-                            <p><strong>Reference:</strong> Your name + "Donation"</p>
+                            <p><strong>Reference:</strong> Your name + &quot;Donation&quot;</p>
                           </div>
                           <p className="mt-4 text-sm">
                             After sending the payment, please email us at{" "}
@@ -556,7 +552,7 @@ export default function PartnerPage() {
                 <Alert className="mt-6 bg-[#C37B1E]/10 border-[#C37B1E]">
                   <CheckCircle2 className="h-4 w-4 text-[#C37B1E]" />
                   <AlertDescription className="text-[#C37B1E]">
-                    You're joining our Akomapa Partner Program! You'll receive quarterly updates and personalized thank-yous.
+                    You&apos;re joining our Akomapa Partner Program! You&apos;ll receive quarterly updates and personalized thank-yous.
                   </AlertDescription>
                 </Alert>
               )}
@@ -640,7 +636,7 @@ export default function PartnerPage() {
               
               <div className="mt-8 p-6 bg-[#FCFAEF] dark:bg-[#1C1F1E] rounded-lg">
                 <p className="text-[#2F3332] dark:text-[#E6E7E7] mb-4">
-                  Your company's support can transform lives, and we're happy to work with you to recognize your contribution, including co-branding opportunities, features in our updates, and involvement in community events. Let's create impact together.
+                  Your company&apos;s support can transform lives, and we&apos;re happy to work with you to recognize your contribution, including co-branding opportunities, features in our updates, and involvement in community events. Let&apos;s create impact together.
                 </p>
                 <div className="text-center">
                   <a href="mailto:akomapahealth@gmail.com">

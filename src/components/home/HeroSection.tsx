@@ -75,7 +75,7 @@ export default function HeroSection() {
             className="text-center lg:text-left lg:col-span-5"
           >
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-[#1C1F1E] dark:text-[#FCFAEF] mb-6">
-              Can student health leaders tackle Africa's NCD crisis?
+              Can student health leaders tackle Africa&apos;s NCD crisis?
             </h1>
             <p className="text-xl md:text-2xl text-[#007A73] dark:text-[#63B0AC] font-medium mb-8 max-w-2xl mx-auto lg:mx-0">
               Guided by experts, powered by students, rooted in communities – Akomapa is reimagining preventative primary care in Africa.

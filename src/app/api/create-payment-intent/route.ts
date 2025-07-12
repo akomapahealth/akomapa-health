@@ -99,7 +99,7 @@ export async function POST(request: NextRequest) {
 
         return NextResponse.json({
           subscriptionId: subscription.id,
-          clientSecret: (subscription.latest_invoice as any)?.payment_intent?.client_secret,
+          clientSecret: (subscription.latest_invoice as unknown as { payment_intent?: { client_secret?: string } })?.payment_intent?.client_secret,
           customerId: customer.id,
           priceId: price.id,
         });
