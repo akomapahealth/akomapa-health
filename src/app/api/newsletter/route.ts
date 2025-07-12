@@ -59,7 +59,7 @@ export async function POST(request: NextRequest) {
     // console.error('Newsletter subscription error:', error);
     
     // Handle specific MailerLite SDK errors
-    const errorObj = error as any;
+    const errorObj = error as { status?: number; response?: { status?: number } };
     if (errorObj?.status === 422 || errorObj?.response?.status === 422) {
       return NextResponse.json(
         { error: 'This email is already subscribed or invalid' },
