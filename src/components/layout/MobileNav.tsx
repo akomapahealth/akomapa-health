@@ -1,6 +1,6 @@
 "use client";
 
-import { Fragment } from "react";
+import { Fragment, Suspense } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Dialog, DialogPanel, Transition, TransitionChild } from "@headlessui/react";
@@ -20,7 +20,7 @@ type MobileNavProps = {
   navigation: NavigationItem[];
 };
 
-export default function MobileNav({ isOpen, onClose, navigation }: MobileNavProps) {
+function MobileNavContent({ isOpen, onClose, navigation }: MobileNavProps) {
   const pathname = usePathname();
   
   return (
@@ -113,5 +113,13 @@ export default function MobileNav({ isOpen, onClose, navigation }: MobileNavProp
         </div>
       </Dialog>
     </Transition>
+  );
+}
+
+export default function MobileNav(props: MobileNavProps) {
+  return (
+    <Suspense fallback={null}>
+      <MobileNavContent {...props} />
+    </Suspense>
   );
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 import { Mail, Phone, MapPin, Send, CheckCircle } from "lucide-react";
@@ -10,7 +10,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
-export default function ContactForm() {
+function ContactFormContent() {
   const searchParams = useSearchParams();
   const [formData, setFormData] = useState({
     name: "",
@@ -278,5 +278,20 @@ export default function ContactForm() {
         </div>
       </div>
     </motion.form>
+  );
+}
+
+export default function ContactForm() {
+  return (
+    <Suspense fallback={
+      <div className="bg-white dark:bg-[#2F3332] rounded-2xl p-8 shadow-lg">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#007A73] mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading contact form...</p>
+        </div>
+      </div>
+    }>
+      <ContactFormContent />
+    </Suspense>
   );
 }
