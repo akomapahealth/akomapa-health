@@ -52,7 +52,7 @@ export default function TermsPage() {
                   Acceptance of Terms
                 </h2>
                 <p className="text-[#2F3332] dark:text-[#E6E7E7]">
-                  By accessing and using Akomapa's services, you agree to be bound by these Terms of Service and all applicable laws and regulations. If you do not agree with any of these terms, you are prohibited from using our services.
+                  By accessing and using Akomapa&apos;s services, you agree to be bound by these Terms of Service and all applicable laws and regulations. If you do not agree with any of these terms, you are prohibited from using our services.
                 </p>
               </div>
 

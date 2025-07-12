@@ -95,7 +95,7 @@ export default function RoadmapPage() {
               className="mb-6"
             >
               <Badge className="bg-[#007A73] text-[#FCFAEF] mb-4">
-                🧭 Akomapa's 3-Year Roadmap
+                🧭 Akomapa&apos;s 3-Year Roadmap
               </Badge>
             </motion.div>
             
@@ -294,7 +294,7 @@ export default function RoadmapPage() {
               📣 Help us bring this vision to life
             </h2>
             <p className="text-xl text-[#FCFAEF]/90 mb-8 max-w-2xl mx-auto">
-              Whether you're a donor, global health ally, or community partner — we invite you to walk this road with us.
+              Whether you&apos;re a donor, global health ally, or community partner — we invite you to walk this road with us.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button 

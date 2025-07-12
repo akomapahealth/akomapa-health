@@ -25,7 +25,7 @@ const currentPrograms: Program[] = [
   {
     id: 1,
     title: "Screening for Hypertension & Diabetes",
-    description: "We provide free, community-based screenings for hypertension and diabetes — two of Ghana's most common and underdiagnosed chronic diseases.",
+    description: "We provide free, community-based screenings for hypertension and diabetes — two of Ghana&apos;s most common and underdiagnosed chronic diseases.",
     icon: Heart,
     color: "bg-red-500",
     category: "Current Program"
@@ -41,7 +41,7 @@ const currentPrograms: Program[] = [
   {
     id: 3,
     title: "Drug Prescriptions & Counseling",
-    description: "We don't just prescribe medications — we counsel patients on how to take them safely and consistently.",
+    description: "We don&apos;t just prescribe medications — we counsel patients on how to take them safely and consistently.",
     icon: Pill,
     color: "bg-blue-500",
     category: "Current Program"
@@ -96,7 +96,7 @@ const futureInitiatives: Program[] = [
     icon: Building,
     color: "bg-pink-500",
     category: "Future Initiative",
-    details: "The pharmacy will reinvest its proceeds to help sustain the clinic's work long-term. We welcome sponsorships, medication donations, and corporate partnerships."
+    details: "The pharmacy will reinvest its proceeds to help sustain the clinic&apos;s work long-term. We welcome sponsorships, medication donations, and corporate partnerships."
   },
   {
     id: 10,
