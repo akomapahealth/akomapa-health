@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Breadcrumb from "@/components/layout/Breadcrumb";
 import PageHeader from "@/components/shared/PageHeader";
@@ -8,7 +8,7 @@ import ResourceGrid from "@/components/resources/ResourceGrid";
 import ResourceFilter from "@/components/resources/ResourceFilter";
 import { resources } from "@/data/resources";
 
-export default function ResourcesPage() {
+function ResourcesContent() {
   const searchParams = useSearchParams();
   const initialProgram = searchParams.get('program');
   
@@ -76,5 +76,20 @@ export default function ResourcesPage() {
         </div>
       </section>
     </>
+  );
+}
+
+export default function ResourcesPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#007A73] mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading resources...</p>
+        </div>
+      </div>
+    }>
+      <ResourcesContent />
+    </Suspense>
   );
 }
