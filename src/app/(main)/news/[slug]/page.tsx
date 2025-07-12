@@ -13,7 +13,7 @@ interface NewsPageProps {
   };
 }
 
-export async function generateMetadata({ params }: NewsPageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const article = news.find((item) => item.slug === params.slug);
   
   if (!article) {
