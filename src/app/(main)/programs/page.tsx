@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "@/components/common/Image";
-import { ArrowRight, Heart, Users, Globe, Building, Mail, Leaf, Pill, Home, FileText, CreditCard, ShoppingBag, Stethoscope, UserCheck, Sprout, Package } from "lucide-react";
+import { ArrowRight, Heart, Globe, Leaf, Pill, Home, FileText, CreditCard, Stethoscope, UserCheck, Sprout, Package, Building, Mail } from "lucide-react";
 import Link from "next/link";
 import Breadcrumb from "@/components/layout/Breadcrumb";
 import { Button } from "@/components/ui/button";
