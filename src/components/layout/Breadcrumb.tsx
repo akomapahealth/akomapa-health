@@ -3,8 +3,9 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ChevronRight, Home } from "lucide-react";
+import { Suspense } from "react";
 
-export default function Breadcrumb() {
+function BreadcrumbContent() {
   const pathname = usePathname();
   const segments = pathname.split('/').filter(Boolean);
 
@@ -46,5 +47,19 @@ export default function Breadcrumb() {
         ))}
       </ol>
     </nav>
+  );
+}
+
+export default function Breadcrumb() {
+  return (
+    <Suspense fallback={
+      <nav className="py-4 px-4 md:px-0">
+        <div className="flex items-center text-sm text-[#2F3332]/70 dark:text-[#FCFAEF]/70">
+          <div className="animate-pulse bg-gray-200 dark:bg-gray-700 h-4 w-32 rounded"></div>
+        </div>
+      </nav>
+    }>
+      <BreadcrumbContent />
+    </Suspense>
   );
 }

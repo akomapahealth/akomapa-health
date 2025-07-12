@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -90,7 +90,7 @@ const navigation = [
   { name: "Contact", href: "/contact" },
 ];
 
-export default function Header() {
+function HeaderContent() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname();
@@ -203,5 +203,25 @@ export default function Header() {
         navigation={navigation}
       />
     </header>
+  );
+}
+
+export default function Header() {
+  return (
+    <Suspense fallback={
+      <header className="sticky top-0 z-50 w-full bg-[#FCFAEF] dark:bg-[#4F5554] py-4">
+        <div className="container mx-auto px-4">
+          <div className="flex items-center justify-between">
+            <div className="animate-pulse bg-gray-200 dark:bg-gray-700 h-12 w-48 rounded"></div>
+            <div className="hidden lg:flex items-center space-x-4">
+              <div className="animate-pulse bg-gray-200 dark:bg-gray-700 h-10 w-24 rounded"></div>
+              <div className="animate-pulse bg-gray-200 dark:bg-gray-700 h-10 w-32 rounded"></div>
+            </div>
+          </div>
+        </div>
+      </header>
+    }>
+      <HeaderContent />
+    </Suspense>
   );
 }
