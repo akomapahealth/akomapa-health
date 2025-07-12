@@ -59,21 +59,22 @@ export async function POST(request: NextRequest) {
     // console.error('Newsletter subscription error:', error);
     
     // Handle specific MailerLite SDK errors
-    if (error?.status === 422 || error?.response?.status === 422) {
+    const errorObj = error as any;
+    if (errorObj?.status === 422 || errorObj?.response?.status === 422) {
       return NextResponse.json(
         { error: 'This email is already subscribed or invalid' },
         { status: 400 }
       );
     }
     
-    if (error?.status === 429 || error?.response?.status === 429) {
+    if (errorObj?.status === 429 || errorObj?.response?.status === 429) {
       return NextResponse.json(
         { error: 'Too many requests. Please try again later.' },
         { status: 429 }
       );
     }
 
-    if (error?.status === 401 || error?.response?.status === 401) {
+    if (errorObj?.status === 401 || errorObj?.response?.status === 401) {
       return NextResponse.json(
         { error: 'Newsletter service is currently unavailable' },
         { status: 500 }
