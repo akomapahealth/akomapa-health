@@ -2,8 +2,6 @@
 
 import { motion } from "framer-motion";
 import Image from "@/components/common/Image";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
 
 export default function MissionSection() {
   return (

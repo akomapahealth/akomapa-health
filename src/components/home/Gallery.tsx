@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Image from "@/components/common/Image";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ChevronLeft, ChevronRight, ChevronDown } from "lucide-react";
@@ -196,17 +196,17 @@ export default function Gallery() {
   };
 
   // Handle navigation in lightbox
-  const goToNext = () => {
+  const goToNext = useCallback(() => {
     const newIndex = (currentIndex + 1) % filteredItems.length;
     setSelectedImage(filteredItems[newIndex]);
     setCurrentIndex(newIndex);
-  };
+  }, [currentIndex, filteredItems]);
 
-  const goToPrevious = () => {
+  const goToPrevious = useCallback(() => {
     const newIndex = (currentIndex - 1 + filteredItems.length) % filteredItems.length;
     setSelectedImage(filteredItems[newIndex]);
     setCurrentIndex(newIndex);
-  };
+  }, [currentIndex, filteredItems]);
 
   // Handle keyboard navigation
   useEffect(() => {

@@ -11,7 +11,7 @@ const stats = [
   {
     id: 1,
     highlight: "2030",
-    description: "NCDs are projected to be Africa's leading cause of death by 2030.",
+    description: "NCDs are projected to be Africa&apos;s leading cause of death by 2030.",
     icon: "📈",
     color: "#007A73"
   },
@@ -39,7 +39,7 @@ const stats = [
 ];
 
 // Counter animation for statistics
-function Counter({ value, suffix = "", duration = 2 }: { value: string, suffix?: string, duration?: number }) {
+function Counter({ value, suffix = "" }: { value: string, suffix?: string }) {
   const [count, setCount] = useState("0");
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });

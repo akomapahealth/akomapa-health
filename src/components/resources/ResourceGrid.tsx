@@ -7,7 +7,7 @@ export default function ResourceGrid({ resources }: { resources: Resource[] }) {
       <div className="bg-gray-50 rounded-lg p-8 text-center">
         <h3 className="text-xl font-medium mb-2">No Resources Found</h3>
         <p className="text-gray-600">
-          Try adjusting your filters or search criteria to find what you're looking for.
+          Try adjusting your filters or search criteria to find what you&apos;re looking for.
         </p>
       </div>
     );

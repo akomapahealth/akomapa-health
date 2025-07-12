@@ -8,7 +8,7 @@ import SectionHeader from "@/components/shared/SectionHeader";
 
 export const metadata: Metadata = {
   title: "About Us",
-  description: "Learn about Akomapa Health Foundation's mission, vision, and our dedicated team working to improve healthcare access globally.",
+  description: "Learn about Akomapa Health Foundation&apos;s mission, vision, and our dedicated team working to improve healthcare access globally.",
 };
 
 export default function AboutPage() {

@@ -38,7 +38,7 @@ export default function ContactForm() {
         ...prev,
         subject: `Partnership Inquiry - ${partnershipTypes[type as keyof typeof partnershipTypes] || 'General'}`,
         partnershipType: partnershipTypes[type as keyof typeof partnershipTypes] || '',
-        message: `I'm interested in learning more about ${partnershipTypes[type as keyof typeof partnershipTypes] || 'partnership opportunities'} with Akomapa Health Foundation.`
+        message: `I&apos;m interested in learning more about ${partnershipTypes[type as keyof typeof partnershipTypes] || 'partnership opportunities'} with Akomapa Health Foundation.`
       }));
     }
   }, [searchParams]);
