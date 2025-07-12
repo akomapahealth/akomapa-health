@@ -99,7 +99,7 @@ export default function ContactForm() {
           Message Sent Successfully!
         </h3>
         <p className="text-[#2F3332] dark:text-[#E6E7E7] mb-6">
-          Thank you for contacting us. We'll get back to you within 24-48 hours.
+          Thank you for contacting us. We&apos;ll get back to you within 24-48 hours.
         </p>
         <Button
           onClick={() => setIsSubmitted(false)}
