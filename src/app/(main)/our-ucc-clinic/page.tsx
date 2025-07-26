@@ -424,7 +424,7 @@ export default function UCCClinicPage() {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            {testimonials.map((testimonial, index) => (
+            {/* {testimonials.map((testimonial, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
@@ -450,7 +450,7 @@ export default function UCCClinicPage() {
                   </p>
                 </div>
               </motion.div>
-            ))}
+            ))} */}
           </div>
         </div>
       </section> */}

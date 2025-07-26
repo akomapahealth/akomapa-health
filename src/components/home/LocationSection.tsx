@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import Image from "@/components/common/Image";
 import Link from "next/link";
-import { ArrowRight, MapPin, ArrowLeft as ChevronLeft, ArrowRight as ChevronRight } from "lucide-react";
+import { ArrowRight, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 // Array of community photos for slideshow
@@ -111,14 +111,14 @@ export default function LocationsSection() {
                 className="absolute left-4 top-1/2 -translate-y-1/2 bg-[#FCFAEF]/30 hover:bg-[#FCFAEF]/50 rounded-full p-2 text-[#1C1F1E] backdrop-blur-sm transition-all"
                 aria-label="Previous photo"
               >
-                <ChevronLeft className="h-6 w-6" />
+                ←
               </button>
               <button 
                 onClick={nextPhoto}
                 className="absolute right-4 top-1/2 -translate-y-1/2 bg-[#FCFAEF]/30 hover:bg-[#FCFAEF]/50 rounded-full p-2 text-[#1C1F1E] backdrop-blur-sm transition-all"
                 aria-label="Next photo"
               >
-                <ChevronRight className="h-6 w-6" />
+                →
               </button>
             </div>
             
