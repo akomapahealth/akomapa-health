@@ -59,7 +59,7 @@ export default function HeroSection({
 }: HeroSectionProps) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  // Rotate through images for slideshow
+  // Rotate through images for slideshow for slideshow
   useEffect(() => {
     if (backgroundType === "slideshow") {
       const interval = setInterval(() => {
