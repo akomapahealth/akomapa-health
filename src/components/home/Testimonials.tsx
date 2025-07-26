@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import Image from "next/image";
+import Image from "@/components/common/Image";
 import { ChevronLeft, ChevronRight, Quote } from "lucide-react";
 
 const testimonials = [
@@ -11,21 +11,21 @@ const testimonials = [
     quote: "I feel proud to serve my community while learning to be a doctor.",
     name: "Medical Student",
     title: "University of Cape Coast",
-    image: "/images/testimonials/testimonial-1.jpg"
+    image: "/avatar-2.jpg"
   },
   {
     id: 2,
     quote: "These students are coming to practice what they have been taught in taking care of us. And if these students are not given the requisite practical training, how then will they be able to effectively go about their future career, which entails taking care of us?",
     name: "Community Elder",
     title: "Saltpond",
-    image: "/images/testimonials/testimonial-2.jpg"
+    image: "/avatar-2.jpg"
   },
   {
     id: 3,
     quote: "When we mention our health promotion efforts, it's necessary to mention that we love to collaborate. So, by all means, we'll collaborate because one cannot do the work all alone. Students can partner with the Wellness Clinics and support the work we do. That will surely increase access for so many people.",
     name: "Public Health Nurse",
     title: "Mfantseman District Municipality",
-    image: "/images/testimonials/testimonial-3.jpg"
+    image: "/avatar-2.jpg"
   }
 ];
 

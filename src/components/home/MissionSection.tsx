@@ -53,7 +53,7 @@ export default function MissionSection() {
           >
             <div className="relative h-[400px] rounded-2xl overflow-hidden shadow-xl">
               <Image
-                src="/default-image.jpg"
+                src="/highlights/Akomapa-72.jpg"
                 alt="Healthcare professionals training in Ghana"
                 fill
                 className="object-cover"
