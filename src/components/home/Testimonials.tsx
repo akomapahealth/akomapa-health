@@ -22,7 +22,7 @@ const testimonials = [
   },
   {
     id: 3,
-    quote: "When we mention our health promotion efforts, it's necessary to mention that we love to collaborate. So, by all means, we'll collaborate because one cannot do the work all alone. Students can partner with the Wellness Clinics and support the work we do. That will surely increase access for so many people.",
+    quote: "When we mention our health promotion efforts, it&apos;s necessary to mention that we love to collaborate. So, by all means, we&apos;ll collaborate because one cannot do the work all alone. Students can partner with the Wellness Clinics and support the work we do. That will surely increase access for so many people.",
     name: "Public Health Nurse",
     title: "Mfantseman District Municipality",
     image: "/avatar-2.jpg"

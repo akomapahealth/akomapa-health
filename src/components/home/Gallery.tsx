@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import Image from "@/components/common/Image";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ChevronLeft, ChevronRight, ChevronDown } from "lucide-react";
+import { X, ChevronLeft, ChevronRight } from "lucide-react";
 
 // Define type for gallery items
 type GalleryItem = {
@@ -321,12 +321,12 @@ export default function Gallery() {
               {isExpanded ? (
                 <>
                   Show Less
-                  <ChevronDown className="w-4 h-4 rotate-180 transition-transform duration-200" />
+                  <span className="w-4 h-4 rotate-180 transition-transform duration-200">↑</span>
                 </>
               ) : (
                 <>
                   Show More ({filteredItems.length - 4} more)
-                  <ChevronDown className="w-4 h-4 transition-transform duration-200" />
+                  <span className="w-4 h-4 transition-transform duration-200">↓</span>
                 </>
               )}
             </motion.button>

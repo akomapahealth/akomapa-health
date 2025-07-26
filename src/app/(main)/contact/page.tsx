@@ -7,7 +7,7 @@ import { Mail, Phone, MapPin, Clock } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Contact Us",
-  description: "Get in touch with Akomapa Health. We'd love to hear from you regarding our programs, partnerships, or general inquiries.",
+  description: "Get in touch with Akomapa Health. We&apos;d love to hear from you regarding our programs, partnerships, or general inquiries.",
 };
 
 export default function ContactPage() {
