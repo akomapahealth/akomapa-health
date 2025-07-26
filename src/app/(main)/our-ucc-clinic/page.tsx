@@ -408,53 +408,6 @@ export default function UCCClinicPage() {
         </div>
       </section>
 
-      {/* Testimonials */}
-      {/* <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
-        <div className="container mx-auto px-4">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-[#C37B1E] dark:text-[#F3C677] font-bold text-lg mb-2">
-              PATIENT TESTIMONIALS
-            </h2>
-            <h3 className="text-3xl md:text-4xl font-bold mb-6 text-[#1C1F1E] dark:text-[#FCFAEF]">
-              What Our Patients Say
-            </h3>
-            <p className="text-lg text-[#2F3332] dark:text-[#E6E7E7]">
-              Hear from our patients about their experience at the Akomapa Health Clinic.
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            {/* {testimonials.map((testimonial, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="bg-white dark:bg-[#2F3332] rounded-2xl p-6 shadow-lg"
-              >
-                <div className="flex items-center mb-4">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} size={16} className="text-yellow-400 fill-current" />
-                  ))}
-                </div>
-                <p className="text-[#2F3332] dark:text-[#E6E7E7] mb-4 italic">
-                  "{testimonial.content}"
-                </p>
-                <div>
-                  <h4 className="font-bold text-[#1C1F1E] dark:text-[#FCFAEF]">
-                    {testimonial.name}
-                  </h4>
-                  <p className="text-sm text-[#007A73] dark:text-[#63B0AC]">
-                    {testimonial.role}
-                  </p>
-                </div>
-              </motion.div>
-            ))} */}
-          </div>
-        </div>
-      </section> */}
-
       {/* Contact & Hours Section */}
       <section id="contact" className="py-16 md:py-24">
         <div className="container mx-auto px-4">
