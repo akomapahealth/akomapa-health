@@ -10,22 +10,22 @@ import { Button } from "@/components/ui/button";
 // Array of community photos for slideshow
 const communityPhotos = [
   {
-    src: "/locations/saltpond.jpg",
+    src: "/highlights/Akomapa-20.jpg",
     alt: "Healthcare students providing care in Saltpond",
     location: "Saltpond"
   },
   {
-    src: "/locations/winneba.jpg",
+    src: "/highlights/Akomapa-42.jpg",
     alt: "Community engagement session in Winneba",
     location: "Winneba"
   },
   {
-    src: "/locations/saltpond.jpg",
+    src: "/highlights/Akomapa-37.jpg",
     alt: "Health education outreach with local community members",
     location: "Saltpond"
   },
   {
-    src: "/locations/winneba.jpg",
+    src: "/highlights/Akomapa-11.jpg",
     alt: "Student healthcare workers collaborating with local practitioners",
     location: "Winneba"
   }

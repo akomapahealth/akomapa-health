@@ -16,7 +16,7 @@ const pillars = [
     title: "Low-Cost Clinics",
     description: "Weekend clinics that are interprofessional, free, and based within communities to increase access to essential NCD services.",
     icon: "🏥",
-    image: "/programs/community-clinics.jpg",
+    image: "/highlights/Akomapa-62.jpg",
     slug: "low-cost-clinics"
   },
   {
@@ -24,7 +24,7 @@ const pillars = [
     title: "Student Leadership",
     description: "Interdisciplinary teams of health professional students—medical, nursing, pharmacy, optometry, and allied health—are trained and equipped to lead clinical care, patient education, and follow-up.",
     icon: "👩🏽‍⚕️",
-    image: "/programs/health-education.jpg",
+    image: "/highlights/Akomapa-10.jpg",
     slug: "student-leadership"
   },
   {
@@ -32,7 +32,7 @@ const pillars = [
     title: "Community Partnership",
     description: "Designed in collaboration with traditional leaders, community members, and the Ghana Health Service to ensure local trust and sustainability.",
     icon: "🤝",
-    image: "/programs/community-partnership.jpg",
+    image: "/highlights/Akomapa-20.jpg",
     slug: "community-partnership"
   },
   {
@@ -40,7 +40,7 @@ const pillars = [
     title: "Expert Supervision",
     description: "Every clinic is guided by licensed physicians, nurses, and public health faculty from local institutions.",
     icon: "🎓",
-    image: "/programs/expert-supervision.jpg",
+    image: "/highlights/Akomapa-13.jpg",
     slug: "expert-supervision"
   }
 ];
