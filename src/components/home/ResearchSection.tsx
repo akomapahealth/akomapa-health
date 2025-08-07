@@ -86,27 +86,55 @@ export default function ResearchSection() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
           viewport={{ once: true }}
-          className="bg-[#007A73]/5 dark:bg-[#007A73]/10 rounded-xl p-8 mb-12"
+          className="bg-[#007A73]/5 dark:bg-[#007A73]/10 rounded-xl p-6 md:p-8 mb-12"
         >
-          <div className="flex flex-col md:flex-row md:items-center gap-8">
+          <div className="flex flex-col md:flex-row md:items-start gap-6 md:gap-8">
             <div className="md:w-1/4">
               <div className="aspect-square w-16 h-16 flex items-center justify-center rounded-full bg-[#007A73]/10 dark:bg-[#007A73]/20 mb-4">
-                <span className="text-[#007A73] dark:text-[#63B0AC] text-2xl">📊</span>
+                <span className="text-[#007A73] dark:text-[#63B0AC] text-2xl">💡</span>
               </div>
-              <h4 className="text-xl font-bold text-[#1C1F1E] dark:text-[#FCFAEF] mb-2">Key Findings</h4>
+              <h4 className="text-xl font-bold text-[#1C1F1E] dark:text-[#FCFAEF] mb-2">Key Insights</h4>
             </div>
-            <div className="md:w-3/4 grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="bg-white dark:bg-[#2F3332] rounded-lg p-4 shadow-sm">
-                <div className="text-2xl font-bold text-[#007A73] dark:text-[#63B0AC]">92%</div>
-                <p className="text-[#2F3332] dark:text-[#E6E7E7]">of students want more clinical training opportunities</p>
+            <div className="md:w-3/4 grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="bg-white dark:bg-[#2F3332] rounded-lg p-4 md:p-5 shadow-sm border-l-4 border-[#007A73] dark:border-[#63B0AC]">
+                <div className="flex items-start">
+                  <div className="w-8 h-8 rounded-full bg-[#007A73]/10 dark:bg-[#63B0AC]/10 flex items-center justify-center mr-3 flex-shrink-0 mt-1">
+                    <span className="text-[#007A73] dark:text-[#63B0AC] text-sm">👨‍⚕️</span>
+                  </div>
+                  <p className="text-[#2F3332] dark:text-[#E6E7E7] text-sm md:text-base leading-relaxed">
+                    Strong student interest across health disciplines
+                  </p>
+                </div>
               </div>
-              <div className="bg-white dark:bg-[#2F3332] rounded-lg p-4 shadow-sm">
-                <div className="text-2xl font-bold text-[#C37B1E] dark:text-[#F3C677]">88%</div>
-                <p className="text-[#2F3332] dark:text-[#E6E7E7]">of community members expressed interest in accessing NCD care</p>
+              <div className="bg-white dark:bg-[#2F3332] rounded-lg p-4 md:p-5 shadow-sm border-l-4 border-[#C37B1E] dark:border-[#F3C677]">
+                <div className="flex items-start">
+                  <div className="w-8 h-8 rounded-full bg-[#C37B1E]/10 dark:bg-[#F3C677]/10 flex items-center justify-center mr-3 flex-shrink-0 mt-1">
+                    <span className="text-[#C37B1E] dark:text-[#F3C677] text-sm">🎓</span>
+                  </div>
+                  <p className="text-[#2F3332] dark:text-[#E6E7E7] text-sm md:text-base leading-relaxed">
+                    University leadership sees clinics as a win for community health and student training
+                  </p>
+                </div>
               </div>
-              <div className="bg-white dark:bg-[#2F3332] rounded-lg p-4 shadow-sm">
-                <div className="text-2xl font-bold text-[#007A73] dark:text-[#63B0AC]">74%</div>
-                <p className="text-[#2F3332] dark:text-[#E6E7E7]">more cost-effective than traditional care models</p>
+              <div className="bg-white dark:bg-[#2F3332] rounded-lg p-4 md:p-5 shadow-sm border-l-4 border-[#007A73] dark:border-[#63B0AC]">
+                <div className="flex items-start">
+                  <div className="w-8 h-8 rounded-full bg-[#007A73]/10 dark:bg-[#63B0AC]/10 flex items-center justify-center mr-3 flex-shrink-0 mt-1">
+                    <span className="text-[#007A73] dark:text-[#63B0AC] text-sm">🏥</span>
+                  </div>
+                  <p className="text-[#2F3332] dark:text-[#E6E7E7] text-sm md:text-base leading-relaxed">
+                    Mission aligns with the Ghana Health Service focus on community-based preventive care
+                  </p>
+                </div>
+              </div>
+              <div className="bg-white dark:bg-[#2F3332] rounded-lg p-4 md:p-5 shadow-sm border-l-4 border-[#C37B1E] dark:border-[#F3C677]">
+                <div className="flex items-start">
+                  <div className="w-8 h-8 rounded-full bg-[#C37B1E]/10 dark:bg-[#F3C677]/10 flex items-center justify-center mr-3 flex-shrink-0 mt-1">
+                    <span className="text-[#C37B1E] dark:text-[#F3C677] text-sm">👁️</span>
+                  </div>
+                  <p className="text-[#2F3332] dark:text-[#E6E7E7] text-sm md:text-base leading-relaxed">
+                    Expert supervision is essential for ensuring patient safety and high-quality student learning
+                  </p>
+                </div>
               </div>
             </div>
           </div>

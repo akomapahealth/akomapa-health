@@ -48,13 +48,26 @@ export default function ContactPage() {
                   <div className="flex items-start">
                     <MapPin className="h-6 w-6 text-[#007A73] dark:text-[#63B0AC] mt-1 mr-4" />
                     <div>
-                      <h3 className="font-medium text-lg mb-1 text-[#2F3332] dark:text-[#FCFAEF]">Main Office</h3>
+                      <h3 className="font-medium text-lg mb-1 text-[#2F3332] dark:text-[#FCFAEF]">Main Office (Ghana)</h3>
                       <p className="text-[#2F3332]/80 dark:text-[#FCFAEF]/80">
                         Department of Community Medicine<br />
                         School of Medical Sciences<br />
                         PMB, University of Cape Coast<br />
                         Cape Coast, Ghana<br />
                         +233 20 954 4834
+                      </p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-start">
+                    <MapPin className="h-6 w-6 text-[#007A73] dark:text-[#63B0AC] mt-1 mr-4" />
+                    <div>
+                      <h3 className="font-medium text-lg mb-1 text-[#2F3332] dark:text-[#FCFAEF]">US Office</h3>
+                      <p className="text-[#2F3332]/80 dark:text-[#FCFAEF]/80">
+                        University Towers, 5N<br />
+                        100 York Street<br />
+                        New Haven, CT 06511<br />
+                        United States
                       </p>
                     </div>
                   </div>
@@ -89,7 +102,7 @@ export default function ContactPage() {
                       <h3 className="font-medium text-lg mb-1 text-[#2F3332] dark:text-[#FCFAEF]">Hours</h3>
                       <p className="text-[#2F3332]/80 dark:text-[#FCFAEF]/80">
                         Monday - Friday: 8:00 AM - 5:00 PM<br />
-                        Saturday: 9:00 AM - 1:00 PM<br />
+                        Saturday: 7:00 AM - 1:00 PM<br />
                         Sunday: Closed
                       </p>
                     </div>

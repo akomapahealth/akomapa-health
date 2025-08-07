@@ -81,25 +81,25 @@ export default function HealthCrisisSection() {
           whileInView={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.3 }}
           viewport={{ once: true }}
-          className="mt-16 md:mt-24 p-8 bg-[#2F3332] rounded-xl relative overflow-hidden"
+          className="mt-16 md:mt-24 p-4 md:p-6 lg:p-8 bg-[#2F3332] rounded-xl relative overflow-hidden"
         >
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 items-start lg:items-center">
             <div>
-              <h3 className="text-2xl font-bold mb-4 text-[#FCFAEF]">The Growing Burden of NCDs in Africa</h3>
-              <p className="text-[#E6E7E7] mb-6">
+              <h3 className="text-xl md:text-2xl font-bold mb-4 text-[#FCFAEF]">The Growing Burden of NCDs in Africa</h3>
+              <p className="text-sm md:text-base text-[#E6E7E7] mb-6 leading-relaxed">
                 Non-communicable diseases (NCDs) like hypertension, diabetes, and cancer are 
                 projected to overtake infectious diseases as the leading causes of death across Africa by 2030.
                 This shift requires new approaches to healthcare that emphasize prevention and early intervention.
               </p>
               
-              <div className="flex space-x-8 mb-4">
+              <div className="flex flex-col sm:flex-row sm:space-x-8 space-y-4 sm:space-y-0 mb-4">
                 <div>
-                  <div className="text-2xl font-bold text-[#007A73]">67%</div>
-                  <div className="text-sm text-[#E6E7E7]">Projected NCD deaths by 2030</div>
+                  <div className="text-xl md:text-2xl font-bold text-[#007A73]">67%</div>
+                  <div className="text-xs md:text-sm text-[#E6E7E7]">Projected NCD deaths by 2030</div>
                 </div>
                 <div>
-                  <div className="text-2xl font-bold text-[#C37B1E]">48M</div>
-                  <div className="text-sm text-[#E6E7E7]">Africans with diabetes by 2045</div>
+                  <div className="text-xl md:text-2xl font-bold text-[#C37B1E]">48M</div>
+                  <div className="text-xs md:text-sm text-[#E6E7E7]">Africans with diabetes by 2045</div>
                 </div>
               </div>
               
@@ -110,9 +110,9 @@ export default function HealthCrisisSection() {
               </Button>
             </div>
             
-            <div className="relative h-64 md:h-80 mb-2">
+            <div className="relative">
               {/* Infographic section */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 relative">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 relative">
                 {stats.map((stat, index) => (
                   <motion.div
                     key={stat.id}
@@ -120,19 +120,19 @@ export default function HealthCrisisSection() {
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: index * 0.1 }}
                     viewport={{ once: true, margin: "-50px" }}
-                    className="relative bg-[#2F3332] rounded-xl p-6 border-l-4"
+                    className="relative bg-[#2F3332] rounded-xl p-4 md:p-6 border-l-4 h-auto"
                     style={{ borderLeftColor: stat.color }}
                   >
                     <div className="flex items-start">
-                      <div className="mr-4 text-3xl" aria-hidden="true">{stat.icon}</div>
-                      <div>
-                        <h5 className="text-2xl md:text-3xl font-bold mb-1" style={{ color: stat.color }}>
+                      <div className="mr-3 md:mr-4 text-2xl md:text-3xl flex-shrink-0" aria-hidden="true">{stat.icon}</div>
+                      <div className="flex-1 min-w-0">
+                        <h5 className="text-xl md:text-2xl lg:text-3xl font-bold mb-1" style={{ color: stat.color }}>
                           <Counter value={stat.highlight} />
                         </h5>
-                        <p className="text-[#E6E7E7]">{stat.description}</p>
+                        <p className="text-sm md:text-base text-[#E6E7E7] leading-relaxed">{stat.description}</p>
                       </div>
                     </div>
-                    <div className="absolute -bottom-3 -right-3 h-12 w-12 rounded-full bg-gradient-to-br" 
+                    <div className="absolute -bottom-2 -right-2 md:-bottom-3 md:-right-3 h-8 w-8 md:h-12 md:w-12 rounded-full bg-gradient-to-br" 
                       style={{ backgroundImage: `linear-gradient(to bottom right, ${stat.color}30, ${stat.color}05)` }}></div>
                   </motion.div>
                 ))}

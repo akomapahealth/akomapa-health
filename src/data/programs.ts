@@ -10,9 +10,9 @@ export const programs: Program[] = [
     approach: "We partner with local communities and healthcare institutions to set up clinics in areas with limited access to medical services. Each clinic is staffed by interdisciplinary teams of healthcare professionals and students, providing comprehensive care including screenings, consultations, and follow-up services.",
     category: "Healthcare Access",
     image: "/images/programs/community-clinics.jpg",
-    established: "2023",
+    established: "2025",
     locations: ["Ghana"],
-    peopleServed: "500+ patients per clinic",
+    peopleServed: "50+ patients per clinic",
     keyPoints: [
       "Free weekend clinics for essential NCD services",
       "Interprofessional healthcare teams",
@@ -37,7 +37,7 @@ export const programs: Program[] = [
     approach: "We recruit and train students from medical, nursing, pharmacy, optometry, and allied health programs. Students receive comprehensive training in clinical skills, patient communication, and community health leadership. They work under expert supervision while taking on increasing responsibilities in patient care and program management.",
     category: "Education & Training",
     image: "/images/programs/health-education.jpg",
-    established: "2023",
+    established: "2025",
     locations: ["Ghana"],
     peopleServed: "100+ students trained annually",
     keyPoints: [
@@ -64,7 +64,7 @@ export const programs: Program[] = [
     approach: "We engage with traditional leaders, community health committees, and local healthcare providers from the initial planning stages. This collaborative approach ensures our programs address real community needs, respect local customs and beliefs, and have the support needed for long-term success.",
     category: "Community Engagement",
     image: "/images/programs/community-partnership.jpg",
-    established: "2023",
+    established: "2025",
     locations: ["Ghana"],
     peopleServed: "Multiple communities across Ghana",
     keyPoints: [

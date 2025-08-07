@@ -69,16 +69,16 @@ export default function MissionSection() {
                       <span className="text-sm text-[#2F3332] dark:text-[#E6E7E7]">of NCDs are preventable</span>
                     </div>
                     <div className="text-center">
-                      <span className="block text-3xl font-bold text-[#C37B1E] dark:text-[#F3C677]">500+</span>
+                      <span className="block text-3xl font-bold text-[#C37B1E] dark:text-[#F3C677]">40+</span>
                       <span className="text-sm text-[#2F3332] dark:text-[#E6E7E7]">Students trained</span>
                     </div>
                     <div className="text-center">
-                      <span className="block text-3xl font-bold text-[#C37B1E] dark:text-[#F3C677]">20+</span>
+                      <span className="block text-3xl font-bold text-[#C37B1E] dark:text-[#F3C677]">2</span>
                       <span className="text-sm text-[#2F3332] dark:text-[#E6E7E7]">Communities served</span>
                     </div>
                     <div className="text-center">
-                      <span className="block text-3xl font-bold text-[#007A73] dark:text-[#63B0AC]">5,000+</span>
-                      <span className="text-sm text-[#2F3332] dark:text-[#E6E7E7]">Patients screened</span>
+                      <span className="block text-3xl font-bold text-[#007A73] dark:text-[#63B0AC]">500+</span>
+                      <span className="text-sm text-[#2F3332] dark:text-[#E6E7E7]">Patients by the end of pilot</span>
                     </div>
                   </div>
                 </div>
