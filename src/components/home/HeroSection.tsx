@@ -165,7 +165,7 @@ export default function HeroSection({
               transition={{ duration: 0.8, delay: 0.6 }}
               className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight text-[#F8F9FA] dark:text-[#FCFAEF] mb-6 leading-tight text-balance"
             >
-              Can student health leaders tackle Africa's NCD crisis?
+              Can student health leaders tackle Africa&apos;s NCD crisis?
             </motion.h1>
             
             <motion.p
@@ -174,7 +174,7 @@ export default function HeroSection({
               transition={{ duration: 0.6, delay: 0.8 }}
               className="text-xl md:text-2xl text-[#63B0AC] dark:text-[#63B0AC] font-medium mb-8 leading-relaxed max-w-2xl text-balance"
             >
-              Guided by experts, powered by students, rooted in communities – Akomapa is reimagining preventative primary care in Africa.
+              Powered by students, guided by experts, rooted in communities – Akomapa is redefining preventative primary care.
             </motion.p>
             
             <motion.div

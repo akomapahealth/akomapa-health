@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import HeroSection from "@/components/home/HeroSection";
+import AkomapaMeaningSection from "@/components/home/AkomapaMeaningSection";
 import ProgramsOverview from "@/components/home/ProgramsOverview";
 import Testimonials from "@/components/home/Testimonials";
 import CallToAction from "@/components/home/CallToAction";
@@ -21,6 +22,7 @@ export default function Home() {
   return (
     <div>
       <HeroSection />
+      <AkomapaMeaningSection />
       <MissionSection />
       <ProgramsOverview />
       <HealthCrisisSection />

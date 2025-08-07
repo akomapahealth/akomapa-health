@@ -11,8 +11,8 @@ import { Button } from "@/components/ui/button";
 const communityPhotos = [
   {
     src: "/highlights/Akomapa-20.jpg",
-    alt: "Healthcare students providing care in Saltpond",
-    location: "Saltpond"
+    alt: "Healthcare students providing care in Abeadze Domenase",
+    location: "Abeadze Domenase"
   },
   {
     src: "/highlights/Akomapa-42.jpg",
@@ -22,7 +22,7 @@ const communityPhotos = [
   {
     src: "/highlights/Akomapa-37.jpg",
     alt: "Health education outreach with local community members",
-    location: "Saltpond"
+    location: "Abeadze Domenase"
   },
   {
     src: "/highlights/Akomapa-11.jpg",
@@ -68,7 +68,7 @@ export default function LocationsSection() {
             Local Impact with National Potential
           </h3>
           <p className="text-lg text-[#2F3332] dark:text-[#E6E7E7]">
-            We&apos;re piloting our first student-run clinics in Saltpond and Abura in partnership 
+            We&apos;re piloting our first student-run clinics in Abeadze Domenase and Abura in partnership 
             with the University of Cape Coast College of Health Sciences. These sites serve as 
             epicenters for innovation, care, and training.
           </p>
@@ -151,7 +151,7 @@ export default function LocationsSection() {
               Building Health Capacity in Central Ghana
             </h4>
             <p className="text-[#2F3332] dark:text-[#E6E7E7] mb-6">
-              Our pilot locations in Saltpond and Abura were strategically chosen for their 
+              Our pilot locations in Abeadze Domenase and Abura were strategically chosen for their 
               mix of urban and rural populations, proximity to the University of Cape Coast, 
               and demonstrated need for expanded NCD care.
             </p>
@@ -159,10 +159,10 @@ export default function LocationsSection() {
               <div className="flex items-start mb-4">
                 <MapPin className="h-5 w-5 text-[#007A73] dark:text-[#63B0AC] mr-3 mt-1 flex-shrink-0" />
                 <div>
-                  <div className="font-bold text-[#1C1F1E] dark:text-[#FCFAEF]">Saltpond</div>
+                  <div className="font-bold text-[#1C1F1E] dark:text-[#FCFAEF]">Abeadze Domenase</div>
                   <div className="text-[#2F3332] dark:text-[#E6E7E7]">
-                    A coastal town with approximately 24,000 residents and limited specialty healthcare services. 
-                    Our program works closely with the Saltpond Municipal Hospital.
+                    A town with approximately 24,000 residents and limited specialty healthcare services. 
+                    Our program works closely with the Abeadze Domenase Municipal Hospital.
                   </div>
                 </div>
               </div>
