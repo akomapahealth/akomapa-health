@@ -7,7 +7,6 @@ import Image from "@/components/common/Image";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ProgramModal from "@/components/shared/ProgramModal";
-import { programs } from "@/data/programs";
 import { Program } from "@/lib/types";
 
 const pillars = [
