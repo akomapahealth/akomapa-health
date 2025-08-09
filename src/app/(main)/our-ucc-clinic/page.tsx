@@ -70,7 +70,18 @@ const trainingAreas = [
   "Implementation science and research design"
 ];
 
-
+// const clinicZones = [
+//   {
+//     name: "Zone A: Abeadze Dominase",
+//     description: "Primary clinic location serving the Abeadze Dominase community",
+//     color: "#007A73"
+//   },
+//   {
+//     name: "Zone B: Abura",
+//     description: "Secondary clinic location serving the Abura community",
+//     color: "#C37B1E"
+//   }
+// ];
 
 // Sample clinic photos for carousel
 const clinicPhotos = [
@@ -142,7 +153,6 @@ const zoneLocations = [
 ];
 
 export default function UCCClinicPage() {
-
 
   return (
     <>
