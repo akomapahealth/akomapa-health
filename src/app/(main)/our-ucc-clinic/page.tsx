@@ -12,19 +12,9 @@ import {
   Calendar,
   CheckCircle,
   Building,
-  Car,
-  Bus,
-  Wifi,
-  Car as Parking,
-  Accessibility as Wheelchair,
   Stethoscope,
   GraduationCap,
-  Globe,
   BookOpen,
-  Target,
-  Star,
-  Phone,
-  Mail,
   Navigation
 } from "lucide-react";
 import Breadcrumb from "@/components/layout/Breadcrumb";
@@ -81,18 +71,18 @@ const trainingAreas = [
   "Implementation science and research design"
 ];
 
-const clinicZones = [
-  {
-    name: "Zone A: Abeadze Dominase",
-    description: "Primary clinic location serving the Abeadze Dominase community",
-    color: "#007A73"
-  },
-  {
-    name: "Zone B: Abura",
-    description: "Secondary clinic location serving the Abura community",
-    color: "#C37B1E"
-  }
-];
+// const clinicZones = [
+//   {
+//     name: "Zone A: Abeadze Dominase",
+//     description: "Primary clinic location serving the Abeadze Dominase community",
+//     color: "#007A73"
+//   },
+//   {
+//     name: "Zone B: Abura",
+//     description: "Secondary clinic location serving the Abura community",
+//     color: "#C37B1E"
+//   }
+// ];
 
 // Sample clinic photos for carousel
 const clinicPhotos = [
@@ -164,15 +154,6 @@ const zoneLocations = [
 ];
 
 export default function UCCClinicPage() {
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ 
-        behavior: 'smooth',
-        block: 'start'
-      });
-    }
-  };
 
   return (
     <>
@@ -490,7 +471,7 @@ export default function UCCClinicPage() {
                 ✍️ A Note from Our Co-Directors
               </h2>
               <blockquote className="text-lg md:text-xl italic mb-6 leading-relaxed">
-                "Welcome to Akomapa at UCC. We are honored to serve our communities alongside students, faculty, and global partners. We believe in healthcare that listens, empowers, and uplifts—and we invite you to walk this journey with us as we grow Akomapa together."
+                &quot;Welcome to Akomapa at UCC. We are honored to serve our communities alongside students, faculty, and global partners. We believe in healthcare that listens, empowers, and uplifts—and we invite you to walk this journey with us as we grow Akomapa together.&quot;
               </blockquote>
               <p className="text-lg opacity-90">
                 — Co-Directors, UCC Akomapa Clinic
@@ -526,7 +507,7 @@ export default function UCCClinicPage() {
                     Head, Department of Community Medicine, College of Health and Allied Sciences
                   </p>
                   <blockquote className="text-[#2F3332] dark:text-[#E6E7E7] leading-relaxed italic">
-                    "Akomapa represents the kind of student-led innovation and community partnership that Ghana needs. We are proud to house the first Akomapa clinic at UCC and excited to support its continued growth and impact. These students exemplify the values of service, leadership, and excellence."
+                    &quot;Akomapa represents the kind of student-led innovation and community partnership that Ghana needs. We are proud to house the first Akomapa clinic at UCC and excited to support its continued growth and impact. These students exemplify the values of service, leadership, and excellence.&quot;
                   </blockquote>
                 </div>
               </div>
