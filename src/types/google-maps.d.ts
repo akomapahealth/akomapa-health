@@ -6,7 +6,7 @@ declare namespace google {
 
     class Marker {
       constructor(opts?: MarkerOptions);
-      addListener(eventName: string, handler: Function): void;
+      addListener(eventName: string, handler: () => void): void;
     }
 
     class InfoWindow {
@@ -60,7 +60,7 @@ declare namespace google {
     interface MapTypeStyle {
       featureType?: string;
       elementType?: string;
-      stylers?: Array<{ [key: string]: any }>;
+      stylers?: Array<Record<string, unknown>>;
     }
   }
 }

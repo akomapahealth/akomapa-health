@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { MapPin, Navigation, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -34,36 +34,7 @@ export default function InteractiveMap({
   const mapInstanceRef = useRef<google.maps.Map | null>(null);
   const markersRef = useRef<google.maps.Marker[]>([]);
 
-  // Initialize Google Maps
-  useEffect(() => {
-    if (!showMap || !apiKey || !mapRef.current) return;
-
-    const loadGoogleMaps = async () => {
-      try {
-        // Load Google Maps script if not already loaded
-        if (!window.google) {
-          const script = document.createElement('script');
-          script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places`;
-          script.async = true;
-          script.defer = true;
-          
-          script.onload = () => {
-            initializeMap();
-          };
-          
-          document.head.appendChild(script);
-        } else {
-          initializeMap();
-        }
-      } catch (error) {
-        console.error('Error loading Google Maps:', error);
-      }
-    };
-
-    loadGoogleMaps();
-  }, [showMap, apiKey]);
-
-  const initializeMap = () => {
+  const initializeMap = useCallback(() => {
     if (!mapRef.current || !window.google) return;
 
     // Calculate center point from all locations
@@ -137,7 +108,36 @@ export default function InteractiveMap({
         markersRef.current.push(marker);
       }
     });
-  };
+  }, [locations]);
+
+  // Initialize Google Maps
+  useEffect(() => {
+    if (!showMap || !apiKey || !mapRef.current) return;
+
+    const loadGoogleMaps = async () => {
+      try {
+        // Load Google Maps script if not already loaded
+        if (!window.google) {
+          const script = document.createElement('script');
+          script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places`;
+          script.async = true;
+          script.defer = true;
+          
+          script.onload = () => {
+            initializeMap();
+          };
+          
+          document.head.appendChild(script);
+        } else {
+          initializeMap();
+        }
+      } catch (error) {
+        console.error('Error loading Google Maps:', error);
+      }
+    };
+
+    loadGoogleMaps();
+  }, [showMap, apiKey, initializeMap]);
 
   const getDirections = (location: Location) => {
     if (location.lat && location.lng) {
