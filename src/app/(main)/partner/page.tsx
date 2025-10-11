@@ -267,7 +267,7 @@ export default function PartnerPage() {
               >
                 <button
                   onClick={() => setActiveSection("partner")}
-                  className={`w-full p-6 md:p-8 rounded-2xl text-center transition-all duration-500 relative overflow-hidden ${
+                  className={`w-full p-6 md:p-8 rounded-2xl text-center transition-all duration-500 relative overflow-hidden cursor-pointer ${
                     activeSection === "partner"
                       ? "bg-gradient-to-br from-[#C37B1E] via-[#D4851F] to-[#C37B1E] text-[#FCFAEF] shadow-2xl transform scale-105"
                       : "bg-white dark:bg-[#2F3332] text-[#2F3332] dark:text-[#E6E7E7] hover:bg-[#C37B1E]/10 shadow-lg hover:shadow-xl"
@@ -312,7 +312,7 @@ export default function PartnerPage() {
               >
                 <button
                   onClick={() => setActiveSection("one-time")}
-                  className={`w-full p-4 md:p-6 rounded-xl text-center transition-all duration-300 ${
+                  className={`w-full p-4 md:p-6 rounded-xl text-center transition-all duration-300 cursor-pointer ${
                     activeSection === "one-time"
                       ? "bg-[#007A73] text-[#FCFAEF] shadow-lg"
                       : "bg-white/60 dark:bg-[#2F3332]/60 text-[#2F3332] dark:text-[#E6E7E7] hover:bg-[#007A73]/10 border border-[#E6E7E7] dark:border-[#4F5554]"
@@ -335,7 +335,7 @@ export default function PartnerPage() {
                 className="mt-6"
               >
                 <a href="/corporate-sponsorship">
-                  <button className="w-full p-4 rounded-xl text-center transition-all duration-300 bg-gradient-to-r from-[#007A73]/10 to-[#C37B1E]/10 dark:from-[#007A73]/20 dark:to-[#C37B1E]/20 text-[#1C1F1E] dark:text-[#FCFAEF] hover:from-[#007A73]/20 hover:to-[#C37B1E]/20 border border-[#007A73]/30 dark:border-[#007A73]/50">
+                  <button className="w-full p-4 rounded-xl text-center transition-all duration-300 bg-gradient-to-r from-[#007A73]/10 to-[#C37B1E]/10 dark:from-[#007A73]/20 dark:to-[#C37B1E]/20 text-[#1C1F1E] dark:text-[#FCFAEF] hover:from-[#007A73]/20 hover:to-[#C37B1E]/20 border border-[#007A73]/30 dark:border-[#007A73]/50 cursor-pointer">
                     <div className="flex items-center justify-center space-x-3">
                       <Building className="h-6 w-6 text-[#007A73]" />
                       <span className="text-lg font-semibold">Corporate Sponsorship Opportunities</span>

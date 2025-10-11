@@ -7,7 +7,7 @@ export const teamMembers: TeamMember[] = [
     name: "Brian Fleischer, MD",
     title: "Founder and President",
     bio: "Brian Fleischer is the Founder and President of Akomapa Health Foundation. He holds an MD from Yale University and has extensive experience in global health initiatives across Africa.",
-    image: "/images/team/brian-fleischer.jpg",
+    image: "/placeholder.png",
     socialLinks: {
       linkedin: "https://linkedin.com/in/brian-fleischer",
       email: "brian.fleischer@akomapa.org"
@@ -18,7 +18,7 @@ export const teamMembers: TeamMember[] = [
     name: "Esi Bon Berkoh",
     title: "Co-founder and Vice President",
     bio: "Esi Bon Berkoh is the Co-founder and Vice President of Akomapa Health Foundation. She brings her expertise from the University of Cape Coast to drive our mission forward.",
-    image: "/images/team/esi-bon-berkoh.jpg",
+    image: "/placeholder.png",
     socialLinks: {
       linkedin: "https://linkedin.com/in/esi-bon-berkoh",
       email: "esi.berkoh@akomapa.org"
@@ -29,7 +29,7 @@ export const teamMembers: TeamMember[] = [
     name: "Afriyie Badu, MD",
     title: "Co-founder and Chief Financial Officer",
     bio: "Afriyie Badu serves as Co-founder and Chief Financial Officer. He holds an MD from the University of Ghana and oversees our financial operations and strategic planning.",
-    image: "/images/team/afriyie-badu.jpg",
+    image: "/placeholder.png",
     socialLinks: {
       linkedin: "https://linkedin.com/in/afriyie-badu",
       email: "afriyie.badu@akomapa.org"
@@ -40,7 +40,7 @@ export const teamMembers: TeamMember[] = [
     name: "Bismark Amoh",
     title: "Co-founder and Head of Research",
     bio: "Bismark Amoh is Co-founder and Head of Research at Akomapa Health Foundation. He brings his expertise from DGSOM UCLA to lead our research initiatives and evidence-based programs.",
-    image: "/images/team/bismark-amoh.jpg",
+    image: "/placeholder.png",
     socialLinks: {
       linkedin: "https://linkedin.com/in/bismark-amoh",
       email: "bismark.amoh@akomapa.org"
@@ -51,7 +51,7 @@ export const teamMembers: TeamMember[] = [
     name: "Dzifianu Ai Edoh-Torgah",
     title: "Head of Branding and Public Relations",
     bio: "Dzifianu Ai Edoh-Torgah leads our branding and public relations efforts, ensuring Akomapa Health Foundation maintains a strong presence and positive reputation in the global health community.",
-    image: "/images/team/dzifianu-edoh-torgah.jpg",
+    image: "/placeholder.png",
     socialLinks: {
       linkedin: "https://linkedin.com/in/dzifianu-edoh-torgah",
       email: "dzifianu.edoh-torgah@akomapa.org"
@@ -60,9 +60,9 @@ export const teamMembers: TeamMember[] = [
   {
     id: "6",
     name: "Prince Agyei Tuffour",
-    title: "Head of IT Services",
+    title: "Lead Software Engineer",
     bio: "Prince Agyei Tuffour oversees our technology infrastructure and digital solutions, ensuring our IT systems support our mission effectively and securely.",
-    image: "/images/team/prince-agyei-tuffour.jpg",
+    image: "/placeholder.png",
     socialLinks: {
       linkedin: "https://linkedin.com/in/prince-agyei-tuffour",
       email: "prince.tuffour@akomapa.org"
@@ -71,9 +71,9 @@ export const teamMembers: TeamMember[] = [
   {
     id: "7",
     name: "Mighty Doffoe",
-    title: "Asst Head of IT Services",
+    title: "Software Engineer",
     bio: "Mighty Doffoe serves as Assistant Head of IT Services, supporting our technology initiatives and ensuring smooth digital operations across all our programs.",
-    image: "/images/team/mighty-doffoe.jpg",
+    image: "/placeholder.png",
     socialLinks: {
       linkedin: "https://linkedin.com/in/mighty-doffoe",
       email: "mighty.doffoe@akomapa.org"
@@ -84,7 +84,7 @@ export const teamMembers: TeamMember[] = [
     name: "Samuel Kumi",
     title: "Head of Legal Services",
     bio: "Samuel Kumi leads our legal services, ensuring compliance with international regulations and providing legal guidance for our global health initiatives.",
-    image: "/images/team/samuel-kumi.jpg",
+    image: "/placeholder.png",
     socialLinks: {
       linkedin: "https://linkedin.com/in/samuel-kumi",
       email: "samuel.kumi@akomapa.org"
@@ -95,7 +95,7 @@ export const teamMembers: TeamMember[] = [
     name: "Sedem Dankwa",
     title: "Team Lead, Akomapa Health Foundation U.S",
     bio: "Sedem Dankwa serves as Team Lead for Akomapa Health Foundation U.S, coordinating our operations and partnerships in the United States.",
-    image: "/images/team/sedem-dankwa.jpg",
+    image: "/placeholder.png",
     socialLinks: {
       linkedin: "https://linkedin.com/in/sedem-dankwa",
       email: "sedem.dankwa@akomapa.org"
@@ -108,7 +108,7 @@ export const teamMembers: TeamMember[] = [
     name: "Sedem Dankwa",
     title: "Team Lead/ Head of International Partnerships",
     bio: "Sedem Dankwa from Yale University serves as Team Lead and Head of International Partnerships, driving our global collaborations and strategic partnerships.",
-    image: "/images/team/sedem-dankwa-usa.jpg",
+    image: "/placeholder.png",
     socialLinks: {
       linkedin: "https://linkedin.com/in/sedem-dankwa-usa",
       email: "sedem.dankwa@akomapa.org"
@@ -119,7 +119,7 @@ export const teamMembers: TeamMember[] = [
     name: "Brian Fleischer",
     title: "Team Lead",
     bio: "Brian Fleischer serves as Team Lead for our USA operations, bringing his leadership and expertise to drive our mission forward in the United States.",
-    image: "/images/team/brian-fleischer-usa.jpg",
+    image: "/placeholder.png",
     socialLinks: {
       linkedin: "https://linkedin.com/in/brian-fleischer-usa",
       email: "brian.fleischer@akomapa.org"
@@ -130,7 +130,7 @@ export const teamMembers: TeamMember[] = [
     name: "Adwoa Danso-Dodoo",
     title: "Finance and Compliance Officer",
     bio: "Adwoa Danso-Dodoo from Yale University serves as Finance and Compliance Officer, ensuring financial integrity and regulatory compliance across our operations.",
-    image: "/images/team/adwoa-danso-dodoo.jpg",
+    image: "/placeholder.png",
     socialLinks: {
       linkedin: "https://linkedin.com/in/adwoa-danso-dodoo",
       email: "adwoa.danso-dodoo@akomapa.org"
@@ -141,7 +141,7 @@ export const teamMembers: TeamMember[] = [
     name: "Nana Ama Ocran",
     title: "Head of the Akomapa Global Health Leadership Training program",
     bio: "Nana Ama Ocran from Yale University leads our Global Health Leadership Training program, developing the next generation of healthcare leaders.",
-    image: "/images/team/nana-ama-ocran.jpg",
+    image: "/placeholder.png",
     socialLinks: {
       linkedin: "https://linkedin.com/in/nana-ama-ocran",
       email: "nana.ocran@akomapa.org"
@@ -152,7 +152,7 @@ export const teamMembers: TeamMember[] = [
     name: "Amma Buckman",
     title: "Team Member",
     bio: "Amma Buckman from David Geffen School of Medicine at UCLA contributes her expertise to our USA team, supporting our mission to improve global health outcomes.",
-    image: "/images/team/amma-buckman.jpg",
+    image: "/placeholder.png",
     socialLinks: {
       linkedin: "https://linkedin.com/in/amma-buckman",
       email: "amma.buckman@akomapa.org"
@@ -163,7 +163,7 @@ export const teamMembers: TeamMember[] = [
     name: "Bismark Amoh",
     title: "Team Member",
     bio: "Bismark Amoh from David Geffen School of Medicine at UCLA brings his research expertise to our USA operations, supporting evidence-based healthcare initiatives.",
-    image: "/images/team/bismark-amoh-usa.jpg",
+    image: "/placeholder.png",
     socialLinks: {
       linkedin: "https://linkedin.com/in/bismark-amoh-usa",
       email: "bismark.amoh@akomapa.org"
@@ -310,7 +310,7 @@ export const teamMembers: TeamMember[] = [
     name: "Dr. Derek Anamaale Tuoyire",
     title: "Head of Community Medicine - University of Cape Coast",
     bio: "Dr. Derek Anamaale Tuoyire serves on our Advisory Board, bringing his expertise in community medicine from the University of Cape Coast to guide our community health initiatives.",
-    image: "/images/team/derek-anamaale-tuoyire.jpg",
+    image: "/placeholder.png",
     socialLinks: {
       linkedin: "https://linkedin.com/in/derek-anamaale-tuoyire",
       email: "derek.tuoyire@akomapa.org"
@@ -321,7 +321,7 @@ export const teamMembers: TeamMember[] = [
     name: "Prof. Martins Ekor",
     title: "Provost, College of Health and Allied Sciences, University of Cape Coast",
     bio: "Prof. Martins Ekor serves on our Advisory Board, providing strategic guidance from his position as Provost of the College of Health and Allied Sciences at the University of Cape Coast.",
-    image: "/images/team/martins-ekor.jpg",
+    image: "/placeholder.png",
     socialLinks: {
       linkedin: "https://linkedin.com/in/martins-ekor",
       email: "martins.ekor@akomapa.org"
@@ -332,7 +332,7 @@ export const teamMembers: TeamMember[] = [
     name: "Prof. Samuel Kyei",
     title: "Professor of Optometry, University of Cape Coast",
     bio: "Prof. Samuel Kyei serves on our Advisory Board, bringing his expertise in optometry and vision care to support our eye health programs and initiatives.",
-    image: "/images/team/samuel-kyei.jpg",
+    image: "/placeholder.png",
     socialLinks: {
       linkedin: "https://linkedin.com/in/samuel-kyei",
       email: "samuel.kyei@akomapa.org"
@@ -343,7 +343,7 @@ export const teamMembers: TeamMember[] = [
     name: "Dr. Jeremy Schwartz",
     title: "Head of Chronic Care Access Lab - Yale University",
     bio: "Dr. Jeremy Schwartz serves on our Advisory Board, providing expertise in chronic care access and healthcare delivery from his position at Yale University.",
-    image: "/images/team/jeremy-schwartz.jpg",
+    image: "/placeholder.png",
     socialLinks: {
       linkedin: "https://linkedin.com/in/jeremy-schwartz",
       email: "jeremy.schwartz@akomapa.org"
@@ -354,7 +354,7 @@ export const teamMembers: TeamMember[] = [
     name: "Dr. Adrian Mayo",
     title: "Assistant Clinical Professor - David Geffen School of Medicine, UCLA",
     bio: "Dr. Adrian Mayo serves on our Advisory Board, bringing clinical expertise and research insights from his position at the David Geffen School of Medicine at UCLA.",
-    image: "/images/team/adrian-mayo.jpg",
+    image: "/placeholder.png",
     socialLinks: {
       linkedin: "https://linkedin.com/in/adrian-mayo",
       email: "adrian.mayo@akomapa.org"
@@ -365,7 +365,7 @@ export const teamMembers: TeamMember[] = [
     name: "Dr. Elijah Paintsil",
     title: "Chief and Chair of Pediatrics, Boston Medical Center",
     bio: "Dr. Elijah Paintsil serves on our Advisory Board, providing pediatric expertise and healthcare leadership from his position as Chief and Chair of Pediatrics at Boston Medical Center.",
-    image: "/images/team/elijah-paintsil.jpg",
+    image: "/placeholder.png",
     socialLinks: {
       linkedin: "https://linkedin.com/in/elijah-paintsil",
       email: "elijah.paintsil@akomapa.org"

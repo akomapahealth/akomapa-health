@@ -61,7 +61,7 @@ export default function Newsletter() {
   }
 
   return (
-    <section className="py-16 md:py-20 bg-[#007A73]/5 dark:bg-[#1C1F1E]">
+    <section className="py-16 md:py-20 bg-[#FCFAEF]/50 dark:bg-[#4F5554]/90">
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-[#C37B1E] dark:text-[#F3C677] font-bold text-lg mb-2">
