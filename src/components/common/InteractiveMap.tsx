@@ -202,14 +202,14 @@ export default function InteractiveMap({
           </div>
           <h4 className="text-lg font-bold text-[#1C1F1E] dark:text-[#FCFAEF] mb-2">Interactive Map</h4>
           <p className="text-sm text-[#2F3332]/80 dark:text-[#E6E7E7]/80 mb-4">
-            Coming Soon
+            Add Google Maps API key to enable interactive map
           </p>
-          {/* <Button 
+          <Button 
             variant="outline" 
             className="border-[#007A73] text-[#007A73] hover:bg-[#007A73] hover:text-[#FCFAEF] dark:border-[#63B0AC] dark:text-[#63B0AC] dark:hover:bg-[#63B0AC]"
           >
             View Map & Directions
-          </Button> */}
+          </Button>
         </div>
       ) : null}
       

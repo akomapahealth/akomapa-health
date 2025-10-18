@@ -4,23 +4,22 @@ import { motion } from "framer-motion";
 import { 
   MapPin, 
   Clock, 
+  Users, 
   Heart, 
   Shield, 
+  ArrowRight,
   Calendar,
+  CheckCircle,
   Building,
   Stethoscope,
   GraduationCap,
   BookOpen,
-  Navigation,
-  Users,
-  ArrowRight
+  Navigation
 } from "lucide-react";
 import Breadcrumb from "@/components/layout/Breadcrumb";
 import Image from "@/components/common/Image";
 import InteractiveMap from "@/components/common/InteractiveMap";
 import PhotoCarousel from "@/components/common/PhotoCarousel";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
 
 const clinicPrograms = [
   {
@@ -387,6 +386,7 @@ export default function UCCClinicPage() {
                 <div className="space-y-3">
                   {trainingAreas.map((area, index) => (
                     <div key={index} className="flex items-center">
+                      <CheckCircle className="w-5 h-5 text-[#C37B1E] dark:text-[#F3C677] mr-3" />
                       <span className="text-[#2F3332] dark:text-[#E6E7E7]">{area}</span>
                     </div>
                   ))}

@@ -233,7 +233,7 @@ export default function CorporateSponsorshipPage() {
                             <option.icon className="h-8 w-8" style={{ color: option.color }} />
                           </div>
                           {/* Floating Badge */}
-                          <div className="absolute -top-2 right-1/4 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold text-white"
+                          <div className="absolute -top-2 -right-2 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold text-white"
                                style={{ backgroundColor: option.color }}>
                             {index + 1}
                           </div>
