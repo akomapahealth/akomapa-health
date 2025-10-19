@@ -98,27 +98,8 @@ const impactAreas = [
 ];
 
 export default function DonatePage() {
-  const [selectedMethod, setSelectedMethod] = useState("card");
-  const [selectedAmount, setSelectedAmount] = useState("25");
-  const [customAmount, setCustomAmount] = useState("");
-  const [paymentStatus, setPaymentStatus] = useState<{
-    type: "success" | "error" | null;
-    message: string;
-  }>({ type: null, message: "" });
-
-  const handlePaymentSuccess = () => {
-    setPaymentStatus({
-      type: "success",
-      message: "Thank you for your donation! Your payment was successful.",
-    });
-  };
-
-  const handlePaymentError = (error: string) => {
-    setPaymentStatus({
-      type: "error",
-      message: error,
-    });
-  };
+  const [activeSection, setActiveSection] = useState("partner");
+  const [expandedMethod, setExpandedMethod] = useState<string | null>(null);
 
   const toggleMethod = (methodId: string) => {
     setExpandedMethod(expandedMethod === methodId ? null : methodId);
