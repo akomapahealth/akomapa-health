@@ -18,10 +18,10 @@ import {
   Navigation
 } from "lucide-react";
 import Breadcrumb from "@/components/layout/Breadcrumb";
-import { Button } from "@/components/ui/button";
 import Image from "@/components/common/Image";
 import InteractiveMap from "@/components/common/InteractiveMap";
 import PhotoCarousel from "@/components/common/PhotoCarousel";
+import { Button } from "@/components/ui/button";
 
 const clinicPrograms = [
   {

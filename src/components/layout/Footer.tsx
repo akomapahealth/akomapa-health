@@ -6,7 +6,7 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
   
   return (
-    <footer className="bg-skobeloff text-floralwhite">
+    <footer className="bg-[#FCFAEF]/80 dark:bg-[#4F5554]/90 text-floralwhite">
       <div className="container mx-auto py-12 px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Logo and mission */}
@@ -71,7 +71,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/donate" className="text-floralwhite/80 hover:text-amber transition-colors">
-                  Donate
+                  Partner with Us
                 </Link>
               </li>
             </ul>
@@ -79,26 +79,26 @@ export default function Footer() {
 
           {/* Programs */}
           <div>
-            <h3 className="font-heading font-bold text-lg mb-4">Our Programs</h3>
+            <h3 className="font-heading font-bold text-lg mb-4">Our Core Programs</h3>
             <ul className="space-y-2 font-body">
               <li>
-                <Link href="/programs/community-clinics" className="text-floralwhite/80 hover:text-amber transition-colors">
-                  Community Clinics
+                <Link href="/programs" className="text-floralwhite/80 hover:text-amber transition-colors">
+                  Screening for Hypertension & Diabetes
                 </Link>
               </li>
               <li>
-                <Link href="/programs/health-education" className="text-floralwhite/80 hover:text-amber transition-colors">
-                  Health Education
+                <Link href="/programs" className="text-floralwhite/80 hover:text-amber transition-colors">
+                  Nutritional Counseling
                 </Link>
               </li>
               <li>
-                <Link href="/programs/medical-training" className="text-floralwhite/80 hover:text-amber transition-colors">
-                  Medical Training
+                <Link href="/programs" className="text-floralwhite/80 hover:text-amber transition-colors">
+                  Drug Prescriptions & Counseling
                 </Link>
               </li>
               <li>
-                <Link href="/programs/research" className="text-floralwhite/80 hover:text-amber transition-colors">
-                  Research Initiatives
+                <Link href="/programs" className="text-floralwhite/80 hover:text-amber transition-colors">
+                  Referrals & Patient Advocacy Program
                 </Link>
               </li>
             </ul>
