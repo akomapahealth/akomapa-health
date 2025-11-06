@@ -1,9 +1,29 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import { Facebook, Twitter, Instagram, Linkedin, Mail, MapPin, Phone } from "lucide-react";
+import { useTheme } from "@/components/theme/ThemeProvider";
+import { useEffect, useState } from "react";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
+  const { theme } = useTheme();
+  const [isDark, setIsDark] = useState(false);
+
+  useEffect(() => {
+    const checkTheme = () => {
+      if (theme === "system") {
+        setIsDark(window.matchMedia("(prefers-color-scheme: dark)").matches);
+      } else {
+        setIsDark(theme === "dark");
+      }
+    };
+    checkTheme();
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    mediaQuery.addEventListener("change", checkTheme);
+    return () => mediaQuery.removeEventListener("change", checkTheme);
+  }, [theme]);
   
   return (
     <footer className="bg-[#FCFAEF]/80 dark:bg-[#4F5554]/90 text-floralwhite">
@@ -13,7 +33,7 @@ export default function Footer() {
           <div className="space-y-4">
             <Link href="/" className="inline-block">
               <Image
-                src="/images/akomapa.png"
+                src={isDark ? "/images/akomapa-logo-dark.png" : "/images/akomapa-logo.png"}
                 alt="Akomapa Health Foundation Logo"
                 width={220}
                 height={60}
