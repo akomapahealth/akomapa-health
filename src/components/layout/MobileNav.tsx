@@ -1,17 +1,19 @@
 "use client";
 
-import { Fragment, Suspense } from "react";
+import { Fragment, Suspense, useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Dialog, DialogPanel, Transition, TransitionChild } from "@headlessui/react";
 import { X } from "lucide-react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import { useTheme } from "@/components/theme/ThemeProvider";
 
 type NavigationItem = {
   name: string;
   href: string;
   children?: NavigationItem[];
+  onClick?: (e: React.MouseEvent) => void;
 };
 
 type MobileNavProps = {
@@ -22,10 +24,26 @@ type MobileNavProps = {
 
 function MobileNavContent({ isOpen, onClose, navigation }: MobileNavProps) {
   const pathname = usePathname();
+  const { theme } = useTheme();
+  const [isDark, setIsDark] = useState(false);
+
+  useEffect(() => {
+    const checkTheme = () => {
+      if (theme === "system") {
+        setIsDark(window.matchMedia("(prefers-color-scheme: dark)").matches);
+      } else {
+        setIsDark(theme === "dark");
+      }
+    };
+    checkTheme();
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    mediaQuery.addEventListener("change", checkTheme);
+    return () => mediaQuery.removeEventListener("change", checkTheme);
+  }, [theme]);
   
   return (
     <Transition show={isOpen} as={Fragment}>
-      <Dialog as="div" className="relative z-50 lg:hidden" onClose={onClose}>
+      <Dialog as="div" className="relative z-50 xl:hidden" onClose={onClose}>
         {/* Backdrop */}
         <TransitionChild as={Fragment}>
           <div 
@@ -42,11 +60,11 @@ function MobileNavContent({ isOpen, onClose, navigation }: MobileNavProps) {
               <div className="flex items-center justify-between px-4">
                 <Link href="/" onClick={onClose} className="flex items-center">
                   <Image
-                    src="/images/logo.svg"
+                    src={isDark ? "/images/akomapa-logo-dark.png" : "/images/akomapa-logo.png"}
                     alt="Akomapa Health Foundation"
                     width={150}
                     height={30}
-                    className="h-8 w-auto"
+                    className="h-8 w-auto object-contain"
                   />
                 </Link>
                 <button
@@ -65,7 +83,7 @@ function MobileNavContent({ isOpen, onClose, navigation }: MobileNavProps) {
                     <Link 
                       href={item.href}
                       onClick={onClose}
-                      className={`block px-3 py-2 text-base font-subheading font-bold rounded-md ${
+                      className={`block px-3 py-2 text-base font-subheading font-medium rounded-md ${
                         pathname === item.href || pathname.startsWith(`${item.href}/`) 
                           ? 'bg-[#007A73]/10 dark:bg-[#007A73]/20 text-[#007A73] dark:text-[#FCFAEF]' 
                           : 'text-[#252828] dark:text-[#FCFAEF] hover:bg-[#C37B1E]/10 dark:hover:bg-[#C37B1E]/20 hover:text-[#C37B1E]'
@@ -80,7 +98,12 @@ function MobileNavContent({ isOpen, onClose, navigation }: MobileNavProps) {
                           <Link
                             key={child.name}
                             href={child.href}
-                            onClick={onClose}
+                            onClick={(e) => {
+                              if (child.onClick) {
+                                child.onClick(e);
+                              }
+                              onClose();
+                            }}
                             className={`block px-3 py-1.5 text-sm font-body rounded-md ${
                               pathname === child.href 
                                 ? 'bg-[#007A73]/10 dark:bg-[#007A73]/20 text-[#007A73] dark:text-[#FCFAEF]' 
@@ -97,12 +120,7 @@ function MobileNavContent({ isOpen, onClose, navigation }: MobileNavProps) {
                 
                 <div className="pt-4 mt-4 border-t border-[#E6E7E7] dark:border-[#757A79] space-y-3">
                   <Button 
-                    className="w-full bg-[#007A73] text-[#FCFAEF] hover:bg-[#C37B1E] hover:text-[#FCFAEF] font-subheading font-bold"
-                  >
-                    <Link href="/join" onClick={onClose}>Get Involved</Link>
-                  </Button>
-                  <Button 
-                    className="w-full bg-[#C37B1E] text-[#FCFAEF] hover:bg-[#A36419] hover:text-[#FCFAEF] font-subheading font-bold"
+                    className="w-full bg-[#C37B1E] text-[#FCFAEF] hover:bg-[#A36419] hover:text-[#FCFAEF] font-subheading font-medium"
                   >
                     <Link href="/partner" onClick={onClose}>Partner With Us</Link>
                   </Button>

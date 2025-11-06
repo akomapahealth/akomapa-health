@@ -4,10 +4,11 @@ import { useState, useEffect, Suspense } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Menu } from "lucide-react";
+import { Menu, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import MobileNav from "./MobileNav";
 import { ThemeToggle } from "@/components/theme/ThemeToggle";
+import { useTheme } from "@/components/theme/ThemeProvider";
 
 // Navigation structure
 const navigation = [
@@ -68,25 +69,26 @@ const navigation = [
     ]
   },
   { 
-    name: "Programs", 
-    href: "/programs",
-    // children: [
-    //   { name: "Community Clinics", href: "/programs/community-clinics" },
-    //   { name: "Health Education", href: "/programs/health-education" },
-    //   { name: "Medical Training", href: "/programs/medical-training" },
-    //   { name: "Research Initiatives", href: "/programs/research" },
-    // ]
+    name: "Our Clinics", 
+    href: "/clinics",
+    children: [
+      { name: "Akomapa UCC", href: "/clinics/akomapa-ucc" },
+      { name: "Akomapa UG", href: "/clinics/akomapa-ug" },
+      { name: "Akomapa - NHP, Yale", href: "/clinics/akomapa-nhp" },
+    ]
   },
-  { name: "Our UCC Clinic", href: "/our-ucc-clinic" },
-  // { 
-  //   name: "Resources", 
-  //   href: "/resources",
-  //   children: [
-  //     { name: "Educational Materials", href: "/resources/education" },
-  //     { name: "Research Publications", href: "/resources/research" },
-  //   ]
-  // },
-  // { name: "News", href: "/news" },
+  { 
+    name: "Our Programs", 
+    href: "/programs",
+    children: [
+      { name: "The Akomapa Network", href: "/programs/akomapa-network" },
+      { name: "Akomapa GHLTP", href: "/programs/akomapa-ghltp" },
+      { name: "Akomapa GHIP", href: "/programs/akomapa-ghip" },
+      { name: "Akomapa Farms", href: "/programs/akomapa-farms" },
+    ]
+  },
+  { name: "Our Science", href: "/research" },
+  { name: "Get Involved", href: "/join" },
   { name: "Contact", href: "/contact" },
 ];
 
@@ -94,6 +96,22 @@ function HeaderContent() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname();
+  const { theme } = useTheme();
+  const [isDark, setIsDark] = useState(false);
+
+  useEffect(() => {
+    const checkTheme = () => {
+      if (theme === "system") {
+        setIsDark(window.matchMedia("(prefers-color-scheme: dark)").matches);
+      } else {
+        setIsDark(theme === "dark");
+      }
+    };
+    checkTheme();
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    mediaQuery.addEventListener("change", checkTheme);
+    return () => mediaQuery.removeEventListener("change", checkTheme);
+  }, [theme]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -113,11 +131,11 @@ function HeaderContent() {
       isScrolled ? 'bg-[#FCFAEF] shadow-md py-2 dark:bg-[#4F5554]' : 'bg-[#FCFAEF]/80 backdrop-blur-md py-4 dark:bg-[#4F5554]/90'
     }`}>
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center">
           {/* Logo */}
-          <Link href="/" className="flex items-center">
+          <Link href="/" className="flex items-center flex-shrink-0">
             <Image
-              src="/images/akomapa.png"
+              src={isDark ? "/images/akomapa-logo-dark.png" : "/images/akomapa-logo.png"}
               alt="Akomapa Health Foundation Logo"
               width={250}
               height={70}
@@ -126,64 +144,65 @@ function HeaderContent() {
             />
           </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-8">
-            {navigation.map((item) => (
-              <div key={item.name} className="relative group">
-                <Link 
-                  href={item.href}
-                  className={`text-md font-subheading font-bold transition-colors hover:text-[#C37B1E] dark:hover:text-[#C37B1E] ${
-                    pathname === item.href || pathname.startsWith(`${item.href}/`) 
-                      ? 'text-[#007A73]' 
-                      : 'text-[#2F3332] dark:text-[#FCFAEF]'
-                  }`}
-                >
-                  {item.name}
-                </Link>
-                
-                {/* Dropdown for items with children */}
-                {item.children && (
-                  <div className="absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-[#FCFAEF] dark:bg-[#2F3332] ring-1 ring-[#C1C3C3] ring-opacity-5 dark:ring-[#FCFAEF] dark:ring-opacity-10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top-right">
-                    <div className="py-1" role="menu" aria-orientation="vertical">
-                      {item.children.map((child) => (
-                        <Link
-                          key={child.name}
-                          href={child.href}
-                          onClick={child.onClick}
-                          className={`block px-4 py-2 text-sm font-body ${
-                            pathname === child.href 
-                              ? 'bg-[#007A73]/10 dark:bg-[#007A73]/20 text-[#007A73] dark:text-[#FCFAEF]' 
-                              : 'text-[#2F3332] dark:text-[#FCFAEF] hover:bg-[#C37B1E]/10 dark:hover:bg-[#C37B1E]/20 hover:text-[#C37B1E]'
-                          }`}
-                          role="menuitem"
-                        >
-                          {child.name}
-                        </Link>
-                      ))}
+          {/* Desktop Navigation and Actions - Right Aligned */}
+          <div className="hidden xl:flex items-center ml-auto space-x-8">
+            {/* Desktop Navigation */}
+            <nav className="flex items-center space-x-8">
+              {navigation.map((item) => (
+                <div key={item.name} className="relative group">
+                  <Link 
+                    href={item.href}
+                    className={`flex items-center gap-1 text-md font-subheading font-medium transition-colors hover:text-[#C37B1E] dark:hover:text-[#C37B1E] ${
+                      pathname === item.href || pathname.startsWith(`${item.href}/`) 
+                        ? 'text-[#007A73]' 
+                        : 'text-[#2F3332] dark:text-[#FCFAEF]'
+                    }`}
+                  >
+                    {item.name}
+                    {item.children && (
+                      <ChevronDown className="h-4 w-4 transition-transform group-hover:rotate-180" />
+                    )}
+                  </Link>
+                  
+                  {/* Dropdown for items with children */}
+                  {item.children && (
+                    <div className="absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-[#FCFAEF] dark:bg-[#2F3332] ring-1 ring-[#C1C3C3] ring-opacity-5 dark:ring-[#FCFAEF] dark:ring-opacity-10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top-right">
+                      <div className="py-1" role="menu" aria-orientation="vertical">
+                        {item.children.map((child) => (
+                          <Link
+                            key={child.name}
+                            href={child.href}
+                            onClick={child.onClick}
+                            className={`block px-4 py-2 text-sm font-body ${
+                              pathname === child.href 
+                                ? 'bg-[#007A73]/10 dark:bg-[#007A73]/20 text-[#007A73] dark:text-[#FCFAEF]' 
+                                : 'text-[#2F3332] dark:text-[#FCFAEF] hover:bg-[#C37B1E]/10 dark:hover:bg-[#C37B1E]/20 hover:text-[#C37B1E]'
+                            }`}
+                            role="menuitem"
+                          >
+                            {child.name}
+                          </Link>
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                )}
-              </div>
-            ))}
-          </nav>
+                  )}
+                </div>
+              ))}
+            </nav>
 
-          {/* Contact button and Theme Toggle */}
-          <div className="hidden lg:flex items-center space-x-4">
-            <Button 
-              className="bg-[#007A73] text-[#FCFAEF] hover:bg-[#C37B1E] hover:text-[#FCFAEF] font-subheading font-bold"
-            >
-              <Link href="/join">Get Involved</Link>
-            </Button>
-            <Button 
-              className="bg-[#C37B1E] text-[#FCFAEF] hover:bg-[#A36419] hover:text-[#FCFAEF] font-subheading font-bold"
-            >
-              <Link href="/partner">Partner With Us</Link>
-            </Button>
-            <ThemeToggle />
+            {/* Partner button and Theme Toggle */}
+            <div className="flex items-center space-x-4">
+              <Button 
+                className="bg-[#C37B1E] text-[#FCFAEF] hover:bg-[#A36419] hover:text-[#FCFAEF] font-subheading font-medium"
+              >
+                <Link href="/partner">Partner With Us</Link>
+              </Button>
+              <ThemeToggle />
+            </div>
           </div>
 
-          {/* Mobile menu button */}
-          <div className="lg:hidden flex items-center space-x-2">
+          {/* Mobile menu button - Right Aligned */}
+          <div className="xl:hidden flex items-center ml-auto space-x-2">
             <ThemeToggle />
             <button
               onClick={() => setIsMobileMenuOpen(true)}
@@ -211,10 +230,9 @@ export default function Header() {
     <Suspense fallback={
       <header className="sticky top-0 z-50 w-full bg-[#FCFAEF] dark:bg-[#4F5554] py-4">
         <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between">
+          <div className="flex items-center">
             <div className="animate-pulse bg-gray-200 dark:bg-gray-700 h-12 w-48 rounded"></div>
-            <div className="hidden lg:flex items-center space-x-4">
-              <div className="animate-pulse bg-gray-200 dark:bg-gray-700 h-10 w-24 rounded"></div>
+            <div className="hidden xl:flex items-center ml-auto space-x-4">
               <div className="animate-pulse bg-gray-200 dark:bg-gray-700 h-10 w-32 rounded"></div>
             </div>
           </div>
