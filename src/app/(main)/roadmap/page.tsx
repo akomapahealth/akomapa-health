@@ -18,7 +18,7 @@ const phases = [
     period: "October 2025–October 2026",
     focus: "Deliver excellent care, build trust, and lay the legal and strategic foundation.",
     goal: "Deliver care to our first 500 patients and build strong organizational roots.",
-    color: "bg-[#007A73]",
+    color: "bg-[#0097b2]",
     icon: Target,
     achievements: [
       "Launch free clinic services (screenings, counseling, follow-up)",
@@ -39,7 +39,7 @@ const phases = [
     period: "October 2026–October 2027",
     focus: "Test social enterprise models and strengthen clinical impact.",
     goal: "Test bold, community-driven solutions that support long-term care.",
-    color: "bg-[#C37B1E]",
+    color: "bg-[#eeba2b]",
     icon: TrendingUp,
     achievements: [
       "Launch pilot Akomapa Pharmacy (affordable meds with reinvestment)",
@@ -94,7 +94,7 @@ export default function RoadmapPage() {
               animate={{ opacity: 1, y: 0 }}
               className="mb-6"
             >
-              <Badge className="bg-[#007A73] text-[#FCFAEF] mb-4">
+              <Badge className="bg-[#0097b2] text-[#FCFAEF] mb-4">
                 🧭 Akomapa&apos;s 3-Year Roadmap
               </Badge>
             </motion.div>
@@ -132,7 +132,7 @@ export default function RoadmapPage() {
                 className={`rounded-full px-6 py-3 ${
                   activePhase === phase.id
                     ? `${phase.color} text-[#FCFAEF] hover:${phase.color}`
-                    : "border-[#007A73] text-[#007A73] hover:bg-[#007A73] hover:text-[#FCFAEF] dark:border-[#63B0AC] dark:text-[#63B0AC] dark:hover:bg-[#63B0AC] dark:hover:text-[#1C1F1E]"
+                    : "border-[#0097b2] text-[#0097b2] hover:bg-[#0097b2] hover:text-[#FCFAEF] dark:border-[#66C4DC] dark:text-[#66C4DC] dark:hover:bg-[#66C4DC] dark:hover:text-[#1C1F1E]"
                 }`}
               >
                 <phase.icon className="h-4 w-4 mr-2" />
@@ -168,7 +168,7 @@ export default function RoadmapPage() {
                       <h2 className="text-3xl md:text-4xl font-bold text-[#1C1F1E] dark:text-[#FCFAEF]">
                         {phase.title}
                       </h2>
-                      <p className="text-lg text-[#007A73] dark:text-[#63B0AC] font-medium">
+                      <p className="text-lg text-[#0097b2] dark:text-[#66C4DC] font-medium">
                         {phase.period}
                       </p>
                     </div>
@@ -183,7 +183,7 @@ export default function RoadmapPage() {
                     </p>
                   </div>
 
-                  <div className="bg-gradient-to-r from-[#007A73] to-[#C37B1E] rounded-xl p-6 text-white">
+                  <div className="bg-gradient-to-r from-[#0097b2] to-[#eeba2b] rounded-xl p-6 text-white">
                     <h3 className="text-xl font-semibold mb-3 flex items-center">
                       <Target className="h-5 w-5 mr-2" />
                       Goal
@@ -209,7 +209,7 @@ export default function RoadmapPage() {
                             <div className={`w-8 h-8 rounded-full ${phase.color} flex items-center justify-center mr-4 mt-1`}>
                               <CheckCircle className="h-4 w-4 text-white" />
                             </div>
-                            <p className="text-[#2F3332] dark:text-[#E6E7E7] group-hover:text-[#007A73] dark:group-hover:text-[#63B0AC] transition-colors">
+                            <p className="text-[#2F3332] dark:text-[#E6E7E7] group-hover:text-[#0097b2] dark:group-hover:text-[#66C4DC] transition-colors">
                               {achievement}
                             </p>
                           </div>
@@ -240,7 +240,7 @@ export default function RoadmapPage() {
             
             <div className="relative">
               {/* Timeline Line */}
-              <div className="absolute left-1/2 transform -translate-x-1/2 w-1 bg-[#007A73] dark:bg-[#63B0AC] h-full"></div>
+              <div className="absolute left-1/2 transform -translate-x-1/2 w-1 bg-[#0097b2] dark:bg-[#66C4DC] h-full"></div>
               
               {phases.map((phase, index) => (
                 <motion.div
@@ -263,7 +263,7 @@ export default function RoadmapPage() {
                         <CardTitle className="text-[#1C1F1E] dark:text-[#FCFAEF]">
                           {phase.title}
                         </CardTitle>
-                        <CardDescription className="text-[#007A73] dark:text-[#63B0AC] font-medium">
+                        <CardDescription className="text-[#0097b2] dark:text-[#66C4DC] font-medium">
                           {phase.period}
                         </CardDescription>
                       </CardHeader>
@@ -282,7 +282,7 @@ export default function RoadmapPage() {
       </section>
 
       {/* Call to Action */}
-      <section className="py-16 bg-gradient-to-r from-[#007A73] to-[#C37B1E]">
+      <section className="py-16 bg-gradient-to-r from-[#0097b2] to-[#eeba2b]">
         <div className="container mx-auto px-4 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -299,7 +299,7 @@ export default function RoadmapPage() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button 
                 size="lg"
-                className="bg-[#FCFAEF] text-[#007A73] hover:bg-[#FCFAEF]/90 font-semibold"
+                className="bg-[#FCFAEF] text-[#0097b2] hover:bg-[#FCFAEF]/90 font-semibold"
               >
                 <Link href="/partner">
                   <span className="flex items-center">
@@ -309,7 +309,7 @@ export default function RoadmapPage() {
               </Button>
               <Button 
                 size="lg"
-                className="bg-[#C37B1E] text-[#FCFAEF] hover:bg-[#F3C677] font-semibold"
+                className="bg-[#eeba2b] text-[#FCFAEF] hover:bg-[#F5C94D] font-semibold"
               >
                 <Link href="/partner">
                   <span className="flex items-center">
@@ -320,7 +320,7 @@ export default function RoadmapPage() {
               <Button 
                 size="lg"
                 variant="outline" 
-                className="border-[#FCFAEF] text-[#FCFAEF] bg-transparent hover:bg-[#FCFAEF] hover:text-[#007A73] font-semibold"
+                className="border-[#FCFAEF] text-[#FCFAEF] bg-transparent hover:bg-[#FCFAEF] hover:text-[#0097b2] font-semibold"
               >
                 <Link href="mailto:akomapahealth@gmail.com">
                   <span className="flex items-center">

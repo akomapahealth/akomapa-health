@@ -135,7 +135,7 @@ export default function ResearchPage() {
                     disabled={pageNumber <= 1}
                     variant="outline"
                     size="sm"
-                    className="border-[#007A73] text-[#007A73] hover:bg-[#007A73] hover:text-[#FCFAEF]"
+                    className="border-[#0097b2] text-[#0097b2] hover:bg-[#0097b2] hover:text-[#FCFAEF]"
                   >
                     <ChevronLeft className="h-4 w-4" />
                   </Button>
@@ -149,7 +149,7 @@ export default function ResearchPage() {
                     disabled={pageNumber >= numPages}
                     variant="outline"
                     size="sm"
-                    className="border-[#007A73] text-[#007A73] hover:bg-[#007A73] hover:text-[#FCFAEF]"
+                    className="border-[#0097b2] text-[#0097b2] hover:bg-[#0097b2] hover:text-[#FCFAEF]"
                   >
                     <ChevronRight className="h-4 w-4" />
                   </Button>
@@ -161,7 +161,7 @@ export default function ResearchPage() {
                     onClick={zoomOut}
                     variant="outline"
                     size="sm"
-                    className="border-[#C37B1E] text-[#C37B1E] hover:bg-[#C37B1E] hover:text-[#FCFAEF]"
+                    className="border-[#eeba2b] text-[#eeba2b] hover:bg-[#eeba2b] hover:text-[#FCFAEF]"
                   >
                     <ZoomOut className="h-4 w-4" />
                   </Button>
@@ -174,7 +174,7 @@ export default function ResearchPage() {
                     onClick={zoomIn}
                     variant="outline"
                     size="sm"
-                    className="border-[#C37B1E] text-[#C37B1E] hover:bg-[#C37B1E] hover:text-[#FCFAEF]"
+                    className="border-[#eeba2b] text-[#eeba2b] hover:bg-[#eeba2b] hover:text-[#FCFAEF]"
                   >
                     <ZoomIn className="h-4 w-4" />
                   </Button>
@@ -183,7 +183,7 @@ export default function ResearchPage() {
                     onClick={rotate}
                     variant="outline"
                     size="sm"
-                    className="border-[#007A73] text-[#007A73] hover:bg-[#007A73] hover:text-[#FCFAEF]"
+                    className="border-[#0097b2] text-[#0097b2] hover:bg-[#0097b2] hover:text-[#FCFAEF]"
                   >
                     <RotateCw className="h-4 w-4" />
                   </Button>
@@ -193,7 +193,7 @@ export default function ResearchPage() {
                 <div className="flex items-center gap-2">
                   <Button
                     onClick={downloadPDF}
-                    className="bg-[#007A73] text-[#FCFAEF] hover:bg-[#C37B1E]"
+                    className="bg-[#0097b2] text-[#FCFAEF] hover:bg-[#eeba2b]"
                     size="sm"
                   >
                     <Download className="h-4 w-4 mr-2" />
@@ -204,7 +204,7 @@ export default function ResearchPage() {
                     onClick={printPDF}
                     variant="outline"
                     size="sm"
-                    className="border-[#007A73] text-[#007A73] hover:bg-[#007A73] hover:text-[#FCFAEF]"
+                    className="border-[#0097b2] text-[#0097b2] hover:bg-[#0097b2] hover:text-[#FCFAEF]"
                   >
                     <Printer className="h-4 w-4 mr-2" />
                     Print
@@ -230,7 +230,7 @@ export default function ResearchPage() {
               {isLoading && (
                 <div className="flex items-center justify-center py-20">
                   <div className="text-center">
-                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#007A73] mx-auto mb-4"></div>
+                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#0097b2] mx-auto mb-4"></div>
                     <p className="text-[#2F3332] dark:text-[#FCFAEF]">Loading PDF...</p>
                   </div>
                 </div>
@@ -268,7 +268,7 @@ export default function ResearchPage() {
               </p>
               <p className="text-sm">
                 For questions about our research, please contact us at{" "}
-                <a href="mailto:akomapahealth@gmail.com" className="text-[#007A73] hover:text-[#C37B1E]">
+                <a href="mailto:akomapahealth@gmail.com" className="text-[#0097b2] hover:text-[#eeba2b]">
                   akomapahealth@gmail.com
                 </a>
               </p>

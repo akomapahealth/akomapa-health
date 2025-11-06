@@ -76,7 +76,7 @@ export default function PhotoCarousel({
           variant="outline"
           size="sm"
           onClick={togglePlayPause}
-          className="border-[#007A73] text-[#007A73] hover:bg-[#007A73] hover:text-[#FCFAEF] dark:border-[#63B0AC] dark:text-[#63B0AC] dark:hover:bg-[#63B0AC]"
+          className="border-[#0097b2] text-[#0097b2] hover:bg-[#0097b2] hover:text-[#FCFAEF] dark:border-[#66C4DC] dark:text-[#66C4DC] dark:hover:bg-[#66C4DC]"
         >
           {isPlaying ? <Pause size={16} /> : <Play size={16} />}
         </Button>
@@ -131,7 +131,7 @@ export default function PhotoCarousel({
               onClick={() => goToSlide(index)}
               className={`w-2 h-2 rounded-full transition-colors ${
                 index === currentIndex
-                  ? "bg-[#007A73] dark:bg-[#63B0AC]"
+                  ? "bg-[#0097b2] dark:bg-[#66C4DC]"
                   : "bg-white/50 dark:bg-[#E6E7E7]/50 hover:bg-white dark:hover:bg-[#E6E7E7]"
               }`}
             />

@@ -69,7 +69,7 @@ function MobileNavContent({ isOpen, onClose, navigation }: MobileNavProps) {
                 </Link>
                 <button
                   type="button"
-                  className="-mr-2 inline-flex items-center justify-center rounded-md p-2 text-[#757A79] dark:text-[#FCFAEF]/70 hover:bg-[#C37B1E]/10 hover:text-[#C37B1E] focus:outline-none"
+                  className="-mr-2 inline-flex items-center justify-center rounded-md p-2 text-[#757A79] dark:text-[#FCFAEF]/70 hover:bg-[#eeba2b]/10 hover:text-[#eeba2b] focus:outline-none"
                   onClick={onClose}
                 >
                   <span className="sr-only">Close menu</span>
@@ -85,8 +85,8 @@ function MobileNavContent({ isOpen, onClose, navigation }: MobileNavProps) {
                       onClick={onClose}
                       className={`block px-3 py-2 text-base font-subheading font-medium rounded-md ${
                         pathname === item.href || pathname.startsWith(`${item.href}/`) 
-                          ? 'bg-[#007A73]/10 dark:bg-[#007A73]/20 text-[#007A73] dark:text-[#FCFAEF]' 
-                          : 'text-[#252828] dark:text-[#FCFAEF] hover:bg-[#C37B1E]/10 dark:hover:bg-[#C37B1E]/20 hover:text-[#C37B1E]'
+                          ? 'bg-[#0097b2]/10 dark:bg-[#0097b2]/20 text-[#0097b2] dark:text-[#FCFAEF]' 
+                          : 'text-[#252828] dark:text-[#FCFAEF] hover:bg-[#eeba2b]/10 dark:hover:bg-[#eeba2b]/20 hover:text-[#eeba2b]'
                       }`}
                     >
                       {item.name}
@@ -106,8 +106,8 @@ function MobileNavContent({ isOpen, onClose, navigation }: MobileNavProps) {
                             }}
                             className={`block px-3 py-1.5 text-sm font-body rounded-md ${
                               pathname === child.href 
-                                ? 'bg-[#007A73]/10 dark:bg-[#007A73]/20 text-[#007A73] dark:text-[#FCFAEF]' 
-                                : 'text-[#252828] dark:text-[#FCFAEF] hover:bg-[#C37B1E]/10 dark:hover:bg-[#C37B1E]/20 hover:text-[#C37B1E]'
+                                ? 'bg-[#0097b2]/10 dark:bg-[#0097b2]/20 text-[#0097b2] dark:text-[#FCFAEF]' 
+                                : 'text-[#252828] dark:text-[#FCFAEF] hover:bg-[#eeba2b]/10 dark:hover:bg-[#eeba2b]/20 hover:text-[#eeba2b]'
                             }`}
                           >
                             {child.name}
@@ -120,7 +120,7 @@ function MobileNavContent({ isOpen, onClose, navigation }: MobileNavProps) {
                 
                 <div className="pt-4 mt-4 border-t border-[#E6E7E7] dark:border-[#757A79] space-y-3">
                   <Button 
-                    className="w-full bg-[#C37B1E] text-[#FCFAEF] hover:bg-[#A36419] hover:text-[#FCFAEF] font-subheading font-medium"
+                    className="w-full bg-[#0097b2] text-[#FCFAEF] hover:bg-[#0097b2]/80 hover:text-[#FCFAEF] font-subheading font-medium"
                   >
                     <Link href="/partner" onClick={onClose}>Partner With Us</Link>
                   </Button>

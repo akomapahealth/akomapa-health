@@ -44,7 +44,7 @@ export default function Testimonials() {
     <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
       <div className="container mx-auto px-4">
         <div className="text-center max-w-3xl mx-auto mb-12">
-          <h2 className="text-[#C37B1E] dark:text-[#F3C677] font-bold text-lg mb-2">
+          <h2 className="text-[#eeba2b] dark:text-[#F5C94D] font-bold text-lg mb-2">
             VOICES FROM THE FIELD
           </h2>
           <h3 className="text-3xl md:text-4xl font-bold mb-6 text-[#1C1F1E] dark:text-[#FCFAEF]">
@@ -65,7 +65,7 @@ export default function Testimonials() {
               transition={{ duration: 0.3 }}
               className="bg-white dark:bg-[#2F3332] rounded-2xl shadow-lg p-8 md:p-12"
             >
-              <div className="absolute top-8 left-8 text-[#007A73] dark:text-[#63B0AC] opacity-20">
+              <div className="absolute top-8 left-8 text-[#0097b2] dark:text-[#66C4DC] opacity-20">
                 <Quote size={64} />
               </div>
               
@@ -86,7 +86,7 @@ export default function Testimonials() {
                   </div>
                   <div>
                     <div className="font-bold text-lg text-[#1C1F1E] dark:text-[#FCFAEF]">{testimonials[currentIndex].name}</div>
-                    <div className="text-[#C37B1E] dark:text-[#F3C677]">{testimonials[currentIndex].title}</div>
+                    <div className="text-[#eeba2b] dark:text-[#F5C94D]">{testimonials[currentIndex].title}</div>
                   </div>
                 </div>
               </div>
@@ -99,7 +99,7 @@ export default function Testimonials() {
                 key={index}
                 onClick={() => setCurrentIndex(index)}
                 className={`h-3 w-3 rounded-full ${
-                  index === currentIndex ? "bg-[#007A73] dark:bg-[#63B0AC]" : "bg-gray-300 dark:bg-gray-600"
+                  index === currentIndex ? "bg-[#0097b2] dark:bg-[#66C4DC]" : "bg-gray-300 dark:bg-gray-600"
                 }`}
                 aria-label={`Go to testimonial ${index + 1}`}
               />

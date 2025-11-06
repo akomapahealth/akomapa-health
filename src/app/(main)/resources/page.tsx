@@ -84,7 +84,7 @@ export default function ResourcesPage() {
     <Suspense fallback={
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#007A73] mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#0097b2] mx-auto mb-4"></div>
           <p className="text-gray-600">Loading resources...</p>
         </div>
       </div>

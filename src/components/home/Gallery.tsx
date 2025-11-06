@@ -243,7 +243,7 @@ export default function Gallery() {
     <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
       <div className="container mx-auto px-4">
         <div className="text-center max-w-3xl mx-auto mb-12">
-          <h2 className="text-[#C37B1E] dark:text-[#F3C677] font-bold text-lg mb-2">
+          <h2 className="text-[#eeba2b] dark:text-[#F5C94D] font-bold text-lg mb-2">
             OUR WORK IN ACTION
           </h2>
           <h3 className="text-3xl md:text-4xl font-bold mb-6 text-[#1C1F1E] dark:text-[#FCFAEF]">
@@ -262,7 +262,7 @@ export default function Gallery() {
               onClick={() => setSelectedCategory(category.id)}
               className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
                 selectedCategory === category.id
-                  ? "bg-[#007A73] text-white"
+                  ? "bg-[#0097b2] text-white"
                   : "bg-gray-100 dark:bg-gray-800 text-[#2F3332] dark:text-[#E6E7E7] hover:bg-gray-200 dark:hover:bg-gray-700"
               }`}
             >
@@ -314,7 +314,7 @@ export default function Gallery() {
           <div className="text-center mt-8">
             <motion.button
               onClick={() => setIsExpanded(!isExpanded)}
-              className="inline-flex items-center gap-2 px-6 py-3 bg-[#007A73] text-white rounded-full font-medium hover:bg-[#005A55] transition-colors duration-200 shadow-lg hover:shadow-xl"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-[#0097b2] text-white rounded-full font-medium hover:bg-[#005A55] transition-colors duration-200 shadow-lg hover:shadow-xl"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -382,7 +382,7 @@ export default function Gallery() {
                 </div>
                 <div className="p-4 bg-[#1C1F1E] text-[#FCFAEF] rounded-b">
                   <p>{selectedImage.alt}</p>
-                  <p className="text-sm text-[#C37B1E] mt-1 capitalize">Category: {selectedImage.category}</p>
+                  <p className="text-sm text-[#eeba2b] mt-1 capitalize">Category: {selectedImage.category}</p>
                 </div>
               </div>
             </motion.div>

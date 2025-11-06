@@ -7,8 +7,8 @@ export default function MissionSection() {
   return (
     <section id="mission" className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E] relative overflow-hidden">
       {/* Decorative elements */}
-      <div className="absolute top-0 right-0 w-64 h-64 bg-[#007A73]/10 dark:bg-[#007A73]/20 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl"></div>
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#C37B1E]/10 dark:bg-[#C37B1E]/20 rounded-full translate-y-1/2 -translate-x-1/2 blur-3xl"></div>
+      <div className="absolute top-0 right-0 w-64 h-64 bg-[#0097b2]/10 dark:bg-[#0097b2]/20 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl"></div>
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#eeba2b]/10 dark:bg-[#eeba2b]/20 rounded-full translate-y-1/2 -translate-x-1/2 blur-3xl"></div>
       
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
@@ -21,7 +21,7 @@ export default function MissionSection() {
             viewport={{ once: true }}
           >
             <div className="max-w-3xl">
-              <h2 className="text-[#C37B1E] dark:text-[#F3C677] font-bold text-lg mb-2">
+              <h2 className="text-[#eeba2b] dark:text-[#F5C94D] font-bold text-lg mb-2">
                 OUR MISSION
               </h2>
               <h3 className="text-3xl md:text-4xl font-bold text-[#1C1F1E] dark:text-[#FCFAEF] mb-6 leading-tight">
@@ -37,7 +37,7 @@ export default function MissionSection() {
                 Through expert faculty supervision and deep community partnerships, our clinic addresses 
                 today&apos;s public health challenges with tomorrow&apos;s leaders.
               </p>
-              {/* <Button className="bg-[#007A73] hover:bg-[#C37B1E] text-[#FCFAEF] px-6 py-5 h-auto text-base">
+              {/* <Button className="bg-[#0097b2] hover:bg-[#eeba2b] text-[#FCFAEF] px-6 py-5 h-auto text-base">
                 <Link href="/about">Learn More About Us</Link>
               </Button> */}
             </div>
@@ -58,26 +58,26 @@ export default function MissionSection() {
                 fill
                 className="object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-br from-[#007A73]/30 to-transparent"></div>
+              <div className="absolute inset-0 bg-gradient-to-br from-[#0097b2]/30 to-transparent"></div>
               
               {/* Stats overlay */}
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="bg-[#FCFAEF]/90 dark:bg-[#1C1F1E]/90 p-6 rounded-xl backdrop-blur-sm max-w-xs">
                   <div className="grid grid-cols-2 gap-6">
                     <div className="text-center">
-                      <span className="block text-3xl font-bold text-[#007A73] dark:text-[#63B0AC]">80%</span>
+                      <span className="block text-3xl font-bold text-[#0097b2] dark:text-[#66C4DC]">80%</span>
                       <span className="text-sm text-[#2F3332] dark:text-[#E6E7E7]">of NCDs are preventable</span>
                     </div>
                     <div className="text-center">
-                      <span className="block text-3xl font-bold text-[#C37B1E] dark:text-[#F3C677]">40+</span>
+                      <span className="block text-3xl font-bold text-[#eeba2b] dark:text-[#F5C94D]">40+</span>
                       <span className="text-sm text-[#2F3332] dark:text-[#E6E7E7]">Students trained</span>
                     </div>
                     <div className="text-center">
-                      <span className="block text-3xl font-bold text-[#C37B1E] dark:text-[#F3C677]">2</span>
+                      <span className="block text-3xl font-bold text-[#eeba2b] dark:text-[#F5C94D]">2</span>
                       <span className="text-sm text-[#2F3332] dark:text-[#E6E7E7]">Communities served</span>
                     </div>
                     <div className="text-center">
-                      <span className="block text-3xl font-bold text-[#007A73] dark:text-[#63B0AC]">500+</span>
+                      <span className="block text-3xl font-bold text-[#0097b2] dark:text-[#66C4DC]">500+</span>
                       <span className="text-sm text-[#2F3332] dark:text-[#E6E7E7]">Patients by the end of pilot</span>
                     </div>
                   </div>

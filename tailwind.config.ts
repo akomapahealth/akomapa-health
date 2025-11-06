@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 import type { Config } from "tailwindcss";
 
 // Define fontFamily constant 
@@ -58,19 +59,19 @@ const config = {
     extend: {
       colors: {
         floralwhite: "#FCFAEF",
-        lapis: "#005A9C",
-        skobeloff: "#007A73",
+        lapis: "#0097b2",
+        skobeloff: "#0097b2",
         amber: {
-          DEFAULT: "#C37B1E",
-          100: "#FAF0E0",
-          200: "#F2DDB9",
-          300: "#E9C891",
-          400: "#D99F57",
-          500: "#C37B1E",
-          600: "#A36419",
-          700: "#824D14",
-          800: "#62380E",
-          900: "#422409",
+          DEFAULT: "#eeba2b",
+          100: "#FEF8E8",
+          200: "#FCF1D1",
+          300: "#F9E3A3",
+          400: "#F5D575",
+          500: "#eeba2b",
+          600: "#BE9522",
+          700: "#8F701A",
+          800: "#5F4A11",
+          900: "#302509",
         },
         onyx: {
           DEFAULT: "#2F3332",
@@ -186,7 +187,7 @@ const config = {
   },
   plugins: [
     require("tailwindcss-animate"),
-    require('@tailwindcss/typography'),
+    require("@tailwindcss/typography"),
   ],
 } satisfies Config
 

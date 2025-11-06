@@ -157,7 +157,7 @@ export default function ProgramsOverview() {
     <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#4F5554]">
       <div className="container mx-auto px-4">
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-[#C37B1E] dark:text-[#F3C677] font-bold text-lg mb-2">
+          <h2 className="text-[#eeba2b] dark:text-[#F5C94D] font-bold text-lg mb-2">
             HOW WE WORK
           </h2>
           <h3 className="text-3xl md:text-4xl font-bold mb-6 text-[#1C1F1E] dark:text-[#FCFAEF]">
@@ -189,7 +189,7 @@ export default function ProgramsOverview() {
               </div>
               <div className="p-6">
                 <div className="flex items-center mb-4">
-                  <div className="h-10 w-10 rounded-full bg-[#007A73]/10 flex items-center justify-center mr-3">
+                  <div className="h-10 w-10 rounded-full bg-[#0097b2]/10 flex items-center justify-center mr-3">
                     <span className="text-xl" aria-hidden="true">{pillar.icon}</span>
                   </div>
                   <h3 className="text-xl font-bold text-[#1C1F1E] dark:text-[#FCFAEF]">{pillar.title}</h3>
@@ -199,7 +199,7 @@ export default function ProgramsOverview() {
                 </p>
                 <button
                   onClick={() => handleLearnMore(pillar.slug)}
-                  className="inline-flex items-center text-[#007A73] dark:text-[#63B0AC] font-medium hover:text-[#C37B1E] dark:hover:text-[#F3C677] transition-colors"
+                  className="inline-flex items-center text-[#0097b2] dark:text-[#66C4DC] font-medium hover:text-[#eeba2b] dark:hover:text-[#F5C94D] transition-colors"
                 >
                   Learn More <ArrowRight size={16} className="ml-1" />
                 </button>
@@ -209,7 +209,7 @@ export default function ProgramsOverview() {
         </div>
         
         <div className="text-center mt-12">
-          <Button className="bg-[#007A73] hover:bg-[#C37B1E] text-[#FCFAEF] transition-colors">
+          <Button className="bg-[#0097b2] hover:bg-[#eeba2b] text-[#FCFAEF] transition-colors">
             <Link href="/programs" className="flex items-center">
               Explore All Programs <ArrowRight size={16} className="ml-2" />
             </Link>

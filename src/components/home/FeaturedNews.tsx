@@ -21,7 +21,7 @@ export default function FeaturedNews() {
               Stay updated with our recent activities and achievements
             </p>
           </div>
-          <Button variant="outline" className="mt-4 md:mt-0 bg-[#007A73] hover:bg-[#C37B1E] text-[#FCFAEF]">
+          <Button variant="outline" className="mt-4 md:mt-0 bg-[#0097b2] hover:bg-[#eeba2b] text-[#FCFAEF]">
             <Link href="/news" className="flex items-center">
               View All News <ArrowRight size={16} className="ml-2" />
             </Link>
@@ -53,7 +53,7 @@ export default function FeaturedNews() {
                 <p className="text-gray-600 mb-4 line-clamp-2">{item.excerpt}</p>
                 <Link
                   href={`/news/${item.slug}`}
-                  className="text-[#007A73] font-medium hover:text-[#C37B1E] inline-flex items-center"
+                  className="text-[#0097b2] font-medium hover:text-[#eeba2b] inline-flex items-center"
                 >
                   Read More <ArrowRight size={16} className="ml-1" />
                 </Link>

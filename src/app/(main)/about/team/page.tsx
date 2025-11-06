@@ -36,7 +36,7 @@ export default function TeamPage() {
             <motion.h1 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="text-4xl md:text-5xl font-bold text-[#007A73] dark:text-[#FCFAEF] mb-6"
+              className="text-4xl md:text-5xl font-bold text-[#0097b2] dark:text-[#FCFAEF] mb-6"
             >
               Our Team
             </motion.h1>
@@ -86,7 +86,7 @@ export default function TeamPage() {
                 </div>
                 <div className="p-6">
                   <h3 className="text-lg font-bold mb-1 text-[#2F3332] dark:text-[#FCFAEF] line-clamp-2">{member.name}</h3>
-                  <p className="text-[#007A73] dark:text-[#63B0AC] text-sm font-medium mb-3 line-clamp-2">{member.title}</p>
+                  <p className="text-[#0097b2] dark:text-[#66C4DC] text-sm font-medium mb-3 line-clamp-2">{member.title}</p>
                   <p className="text-[#2F3332]/80 dark:text-[#FCFAEF]/80 text-sm mb-4 line-clamp-3">{member.bio}</p>
                   
                   <div className="flex space-x-3">
@@ -95,7 +95,7 @@ export default function TeamPage() {
                         href={member.socialLinks.linkedin}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-[#2F3332]/70 dark:text-[#FCFAEF]/70 hover:text-[#C37B1E] dark:hover:text-[#F3C677] transition-colors"
+                        className="text-[#2F3332]/70 dark:text-[#FCFAEF]/70 hover:text-[#eeba2b] dark:hover:text-[#F5C94D] transition-colors"
                         aria-label={`LinkedIn profile of ${member.name}`}
                       >
                         <Linkedin size={18} />
@@ -106,7 +106,7 @@ export default function TeamPage() {
                         href={member.socialLinks.twitter}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-[#2F3332]/70 dark:text-[#FCFAEF]/70 hover:text-[#C37B1E] dark:hover:text-[#F3C677] transition-colors"
+                        className="text-[#2F3332]/70 dark:text-[#FCFAEF]/70 hover:text-[#eeba2b] dark:hover:text-[#F5C94D] transition-colors"
                         aria-label={`Twitter profile of ${member.name}`}
                       >
                         <Twitter size={18} />
@@ -115,7 +115,7 @@ export default function TeamPage() {
                     {member.socialLinks?.email && (
                       <Link 
                         href={`mailto:${member.socialLinks.email}`}
-                        className="text-[#2F3332]/70 dark:text-[#FCFAEF]/70 hover:text-[#C37B1E] dark:hover:text-[#F3C677] transition-colors"
+                        className="text-[#2F3332]/70 dark:text-[#FCFAEF]/70 hover:text-[#eeba2b] dark:hover:text-[#F5C94D] transition-colors"
                         aria-label={`Email ${member.name}`}
                       >
                         <Mail size={18} />
@@ -146,7 +146,7 @@ export default function TeamPage() {
                 </div>
                 <div className="p-6">
                   <h3 className="text-lg font-bold mb-1 text-[#2F3332] dark:text-[#FCFAEF] line-clamp-2">{member.name}</h3>
-                  <p className="text-[#007A73] dark:text-[#63B0AC] text-sm font-medium mb-3 line-clamp-2">{member.title}</p>
+                  <p className="text-[#0097b2] dark:text-[#66C4DC] text-sm font-medium mb-3 line-clamp-2">{member.title}</p>
                   <p className="text-[#2F3332]/80 dark:text-[#FCFAEF]/80 text-sm mb-4 line-clamp-3">{member.bio}</p>
                   
                   <div className="flex space-x-3">
@@ -155,7 +155,7 @@ export default function TeamPage() {
                         href={member.socialLinks.linkedin}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-[#2F3332]/70 dark:text-[#FCFAEF]/70 hover:text-[#C37B1E] dark:hover:text-[#F3C677] transition-colors"
+                        className="text-[#2F3332]/70 dark:text-[#FCFAEF]/70 hover:text-[#eeba2b] dark:hover:text-[#F5C94D] transition-colors"
                         aria-label={`LinkedIn profile of ${member.name}`}
                       >
                         <Linkedin size={18} />
@@ -166,7 +166,7 @@ export default function TeamPage() {
                         href={member.socialLinks.twitter}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-[#2F3332]/70 dark:text-[#FCFAEF]/70 hover:text-[#C37B1E] dark:hover:text-[#F3C677] transition-colors"
+                        className="text-[#2F3332]/70 dark:text-[#FCFAEF]/70 hover:text-[#eeba2b] dark:hover:text-[#F5C94D] transition-colors"
                         aria-label={`Twitter profile of ${member.name}`}
                       >
                         <Twitter size={18} />
@@ -175,7 +175,7 @@ export default function TeamPage() {
                     {member.socialLinks?.email && (
                       <Link 
                         href={`mailto:${member.socialLinks.email}`}
-                        className="text-[#2F3332]/70 dark:text-[#FCFAEF]/70 hover:text-[#C37B1E] dark:hover:text-[#F3C677] transition-colors"
+                        className="text-[#2F3332]/70 dark:text-[#FCFAEF]/70 hover:text-[#eeba2b] dark:hover:text-[#F5C94D] transition-colors"
                         aria-label={`Email ${member.name}`}
                       >
                         <Mail size={18} />
@@ -206,7 +206,7 @@ export default function TeamPage() {
                 </div>
                 <div className="p-6">
                   <h3 className="text-lg font-bold mb-1 text-[#2F3332] dark:text-[#FCFAEF] line-clamp-2">{member.name}</h3>
-                  <p className="text-[#007A73] dark:text-[#63B0AC] text-sm font-medium mb-3 line-clamp-2">{member.title}</p>
+                  <p className="text-[#0097b2] dark:text-[#66C4DC] text-sm font-medium mb-3 line-clamp-2">{member.title}</p>
                   <p className="text-[#2F3332]/80 dark:text-[#FCFAEF]/80 text-sm mb-4 line-clamp-3">{member.bio}</p>
                   
                   <div className="flex space-x-3">
@@ -215,7 +215,7 @@ export default function TeamPage() {
                         href={member.socialLinks.linkedin}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-[#2F3332]/70 dark:text-[#FCFAEF]/70 hover:text-[#C37B1E] dark:hover:text-[#F3C677] transition-colors"
+                        className="text-[#2F3332]/70 dark:text-[#FCFAEF]/70 hover:text-[#eeba2b] dark:hover:text-[#F5C94D] transition-colors"
                         aria-label={`LinkedIn profile of ${member.name}`}
                       >
                         <Linkedin size={18} />
@@ -226,7 +226,7 @@ export default function TeamPage() {
                         href={member.socialLinks.twitter}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-[#2F3332]/70 dark:text-[#FCFAEF]/70 hover:text-[#C37B1E] dark:hover:text-[#F3C677] transition-colors"
+                        className="text-[#2F3332]/70 dark:text-[#FCFAEF]/70 hover:text-[#eeba2b] dark:hover:text-[#F5C94D] transition-colors"
                         aria-label={`Twitter profile of ${member.name}`}
                       >
                         <Twitter size={18} />
@@ -235,7 +235,7 @@ export default function TeamPage() {
                     {member.socialLinks?.email && (
                       <Link 
                         href={`mailto:${member.socialLinks.email}`}
-                        className="text-[#2F3332]/70 dark:text-[#FCFAEF]/70 hover:text-[#C37B1E] dark:hover:text-[#F3C677] transition-colors"
+                        className="text-[#2F3332]/70 dark:text-[#FCFAEF]/70 hover:text-[#eeba2b] dark:hover:text-[#F5C94D] transition-colors"
                         aria-label={`Email ${member.name}`}
                       >
                         <Mail size={18} />
@@ -266,7 +266,7 @@ export default function TeamPage() {
                 </div>
                 <div className="p-6">
                   <h3 className="text-lg font-bold mb-1 text-[#2F3332] dark:text-[#FCFAEF] line-clamp-2">{member.name}</h3>
-                  <p className="text-[#007A73] dark:text-[#63B0AC] text-sm font-medium mb-3 line-clamp-2">{member.title}</p>
+                  <p className="text-[#0097b2] dark:text-[#66C4DC] text-sm font-medium mb-3 line-clamp-2">{member.title}</p>
                   <p className="text-[#2F3332]/80 dark:text-[#FCFAEF]/80 text-sm mb-4 line-clamp-3">{member.bio}</p>
                   
                   <div className="flex space-x-3">
@@ -275,7 +275,7 @@ export default function TeamPage() {
                         href={member.socialLinks.linkedin}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-[#2F3332]/70 dark:text-[#FCFAEF]/70 hover:text-[#C37B1E] dark:hover:text-[#F3C677] transition-colors"
+                        className="text-[#2F3332]/70 dark:text-[#FCFAEF]/70 hover:text-[#eeba2b] dark:hover:text-[#F5C94D] transition-colors"
                         aria-label={`LinkedIn profile of ${member.name}`}
                       >
                         <Linkedin size={18} />
@@ -286,7 +286,7 @@ export default function TeamPage() {
                         href={member.socialLinks.twitter}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-[#2F3332]/70 dark:text-[#FCFAEF]/70 hover:text-[#C37B1E] dark:hover:text-[#F3C677] transition-colors"
+                        className="text-[#2F3332]/70 dark:text-[#FCFAEF]/70 hover:text-[#eeba2b] dark:hover:text-[#F5C94D] transition-colors"
                         aria-label={`Twitter profile of ${member.name}`}
                       >
                         <Twitter size={18} />
@@ -295,7 +295,7 @@ export default function TeamPage() {
                     {member.socialLinks?.email && (
                       <Link 
                         href={`mailto:${member.socialLinks.email}`}
-                        className="text-[#2F3332]/70 dark:text-[#FCFAEF]/70 hover:text-[#C37B1E] dark:hover:text-[#F3C677] transition-colors"
+                        className="text-[#2F3332]/70 dark:text-[#FCFAEF]/70 hover:text-[#eeba2b] dark:hover:text-[#F5C94D] transition-colors"
                         aria-label={`Email ${member.name}`}
                       >
                         <Mail size={18} />
@@ -317,7 +317,7 @@ export default function TeamPage() {
           </p>
           <Link 
             href="/contact" 
-            className="bg-[#007A73] hover:bg-[#C37B1E] text-[#FCFAEF] px-6 py-3 rounded-md font-medium inline-block transition-colors"
+            className="bg-[#0097b2] hover:bg-[#eeba2b] text-[#FCFAEF] px-6 py-3 rounded-md font-medium inline-block transition-colors"
           >
             Join Us!
           </Link>
