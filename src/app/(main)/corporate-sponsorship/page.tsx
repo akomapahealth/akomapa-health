@@ -29,7 +29,7 @@ const sponsorshipOptions = [
     title: "Sponsor a Clinic",
     description: "Fund an entire day, semester or year of care at one of our community sites in Abeadze Dominase or Abura. Your gift provides screenings, medication counseling, transportation, and essential follow-up services.",
     icon: Building,
-    color: "#007A73",
+    color: "#0097b2",
     recognition: [
       "Logo featured on that day's clinic banners and photo recap",
       "Social media spotlight and public thank-you",
@@ -41,7 +41,7 @@ const sponsorshipOptions = [
     title: "Sponsor Medical Supplies & Medications",
     description: "Help us stock our clinics with blood pressure cuffs, glucometers, test strips, counseling materials, and essential drugs. Your in-kind or financial gift keeps our shelves stocked and our patients safe.",
     icon: Pill,
-    color: "#C37B1E",
+    color: "#eeba2b",
     recognition: [
       "Your name featured on packaging and supply reports",
       "Akomapa impact report tailored to your donation"
@@ -52,7 +52,7 @@ const sponsorshipOptions = [
     title: "Make a Cash Contribution",
     description: "Support where the need is greatest. Flexible funds help us cover staff stipends, training costs, emergency referrals, and operations.",
     icon: DollarSign,
-    color: "#007A73",
+    color: "#0097b2",
     recognition: [
       "Tiered visibility based on giving level",
       "Logo placement on our website, annual report, and media decks",
@@ -64,7 +64,7 @@ const sponsorshipOptions = [
     title: "Sponsor the Akomapa Pharmacy",
     description: "Be a founding sponsor of our low-cost community pharmacy—a long-term solution for medication access and clinic sustainability. You'll be helping us build a future where care pays for itself.",
     icon: ShoppingBag,
-    color: "#C37B1E",
+    color: "#eeba2b",
     recognition: [
       "Prominent naming opportunity inside the pharmacy",
       "Featured placement in press releases and social campaigns",
@@ -76,7 +76,7 @@ const sponsorshipOptions = [
     title: "Support Akomapa Farms & Food Stores",
     description: "Partner with us to address food insecurity and fund healthcare through an innovative model that grows and sells affordable produce. Help us launch a community farm, supply tools, or underwrite the first food store.",
     icon: Leaf,
-    color: "#007A73",
+    color: "#0097b2",
     recognition: [
       "Naming opportunity for food stand or market display",
       "Recognition in nutrition outreach and wellness campaigns"
@@ -89,22 +89,22 @@ const recognitionBenefits = [
   {
     icon: Globe,
     title: "Logo inclusion on our website's sponsor wall",
-    color: "#007A73"
+    color: "#0097b2"
   },
   {
     icon: Star,
     title: "Feature in our quarterly 'Heartbeat' Impact Report",
-    color: "#C37B1E"
+    color: "#eeba2b"
   },
   {
     icon: Users,
     title: "Invites to site visits and virtual updates",
-    color: "#007A73"
+    color: "#0097b2"
   },
   {
     icon: Gift,
     title: "Customized content and visuals to showcase your support",
-    color: "#C37B1E"
+    color: "#eeba2b"
   }
 ];
 
@@ -132,7 +132,7 @@ export default function CorporateSponsorshipPage() {
             <motion.h1 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="text-4xl md:text-5xl font-bold text-[#007A73] dark:text-[#FCFAEF] mb-6"
+              className="text-4xl md:text-5xl font-bold text-[#0097b2] dark:text-[#FCFAEF] mb-6"
             >
               Corporate Sponsorship
             </motion.h1>
@@ -168,9 +168,9 @@ export default function CorporateSponsorshipPage() {
       <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E] relative overflow-hidden">
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-5 dark:opacity-10">
-          <div className="absolute top-20 left-10 w-32 h-32 bg-[#007A73] rounded-full blur-3xl"></div>
-          <div className="absolute bottom-20 right-10 w-24 h-24 bg-[#C37B1E] rounded-full blur-2xl"></div>
-          <div className="absolute top-1/2 left-1/3 w-16 h-16 bg-[#007A73] rounded-full blur-xl"></div>
+          <div className="absolute top-20 left-10 w-32 h-32 bg-[#0097b2] rounded-full blur-3xl"></div>
+          <div className="absolute bottom-20 right-10 w-24 h-24 bg-[#eeba2b] rounded-full blur-2xl"></div>
+          <div className="absolute top-1/2 left-1/3 w-16 h-16 bg-[#0097b2] rounded-full blur-xl"></div>
         </div>
 
         <div className="container mx-auto px-4 relative z-10">
@@ -182,14 +182,14 @@ export default function CorporateSponsorshipPage() {
               viewport={{ once: true }}
               className="text-center mb-20"
             >
-              <div className="inline-block px-6 py-2 bg-gradient-to-r from-[#C37B1E]/20 to-[#007A73]/20 rounded-full mb-6">
-                <span className="text-[#C37B1E] dark:text-[#F3C677] font-bold text-lg">
+              <div className="inline-block px-6 py-2 bg-gradient-to-r from-[#eeba2b]/20 to-[#0097b2]/20 rounded-full mb-6">
+                <span className="text-[#eeba2b] dark:text-[#F5C94D] font-bold text-lg">
                   🌟 WAYS TO SPONSOR AKOMAPA
                 </span>
               </div>
               <h3 className="text-3xl md:text-5xl font-bold mb-8 text-[#1C1F1E] dark:text-[#FCFAEF]">
                 Transform Lives Through <br />
-                <span className="bg-gradient-to-r from-[#C37B1E] to-[#007A73] bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-[#eeba2b] to-[#0097b2] bg-clip-text text-transparent">
                   Strategic Partnership
                 </span>
               </h3>
@@ -300,7 +300,7 @@ export default function CorporateSponsorshipPage() {
               viewport={{ once: true }}
               className="mt-20 text-center"
             >
-              <div className="bg-gradient-to-r from-[#007A73] to-[#C37B1E] rounded-2xl p-8 md:p-12 text-white relative overflow-hidden">
+              <div className="bg-gradient-to-r from-[#0097b2] to-[#eeba2b] rounded-2xl p-8 md:p-12 text-white relative overflow-hidden">
                 {/* Background Pattern */}
                 <div className="absolute inset-0 opacity-20">
                   <div className="absolute top-4 left-4 w-16 h-16 border-2 border-white rounded-full"></div>
@@ -319,7 +319,7 @@ export default function CorporateSponsorshipPage() {
                     <a href="mailto:akomapahealth@gmail.com">
                     <Button 
                       size="lg"
-                      className="bg-white text-[#007A73] hover:bg-[#FCFAEF] shadow-lg px-8 py-4 text-lg font-semibold"
+                      className="bg-white text-[#0097b2] hover:bg-[#FCFAEF] shadow-lg px-8 py-4 text-lg font-semibold"
                     >
                       <Mail className="h-5 w-5 mr-2" />
                       Start Your Partnership
@@ -330,7 +330,7 @@ export default function CorporateSponsorshipPage() {
                     {/* <Button 
                       variant="outline" 
                       size="lg"
-                      className="border-2 border-white text-white bg-transparent hover:bg-white hover:text-[#007A73] px-8 py-4 text-lg font-semibold"
+                      className="border-2 border-white text-white bg-transparent hover:bg-white hover:text-[#0097b2] px-8 py-4 text-lg font-semibold"
                     >
                       <Globe className="h-5 w-5 mr-2" />
                       Learn More
@@ -349,8 +349,8 @@ export default function CorporateSponsorshipPage() {
         <div className="absolute inset-0 bg-gradient-to-br from-white via-[#FCFAEF]/50 to-[#F8F6F0] dark:from-[#2F3332] dark:via-[#1C1F1E]/50 dark:to-[#252828]"></div>
         
         {/* Floating Elements */}
-        <div className="absolute top-10 right-10 w-20 h-20 bg-[#C37B1E]/10 rounded-full blur-xl"></div>
-        <div className="absolute bottom-10 left-10 w-16 h-16 bg-[#007A73]/10 rounded-full blur-lg"></div>
+        <div className="absolute top-10 right-10 w-20 h-20 bg-[#eeba2b]/10 rounded-full blur-xl"></div>
+        <div className="absolute bottom-10 left-10 w-16 h-16 bg-[#0097b2]/10 rounded-full blur-lg"></div>
 
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-6xl mx-auto">
@@ -361,15 +361,15 @@ export default function CorporateSponsorshipPage() {
               viewport={{ once: true }}
               className="text-center mb-16"
             >
-              <div className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-[#C37B1E]/20 to-[#007A73]/20 rounded-full mb-6">
-                <Award className="h-5 w-5 mr-2 text-[#C37B1E]" />
-                <span className="text-[#C37B1E] dark:text-[#F3C677] font-bold text-lg">
+              <div className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-[#eeba2b]/20 to-[#0097b2]/20 rounded-full mb-6">
+                <Award className="h-5 w-5 mr-2 text-[#eeba2b]" />
+                <span className="text-[#eeba2b] dark:text-[#F5C94D] font-bold text-lg">
                   YOUR RECOGNITION MATTERS
                 </span>
               </div>
               <h3 className="text-3xl md:text-5xl font-bold mb-8 text-[#1C1F1E] dark:text-[#FCFAEF]">
                 We Believe in <br />
-                <span className="bg-gradient-to-r from-[#C37B1E] to-[#007A73] bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-[#eeba2b] to-[#0097b2] bg-clip-text text-transparent">
                   Celebrating Our Partners
                 </span>
               </h3>
@@ -410,7 +410,7 @@ export default function CorporateSponsorshipPage() {
                         />
                       </div>
                       <div className="flex-1">
-                        <h4 className="text-lg md:text-xl font-bold text-[#1C1F1E] dark:text-[#FCFAEF] mb-2 group-hover:text-[#007A73] dark:group-hover:text-[#63B0AC] transition-colors duration-300">
+                        <h4 className="text-lg md:text-xl font-bold text-[#1C1F1E] dark:text-[#FCFAEF] mb-2 group-hover:text-[#0097b2] dark:group-hover:text-[#66C4DC] transition-colors duration-300">
                           {benefit.title}
                         </h4>
                         <div className="w-12 h-1 rounded-full mb-3 transition-all duration-500"
@@ -430,26 +430,26 @@ export default function CorporateSponsorshipPage() {
               viewport={{ once: true }}
               className="relative"
             >
-              <div className="bg-gradient-to-r from-[#007A73]/10 via-[#007A73]/5 to-[#C37B1E]/10 dark:from-[#007A73]/20 dark:via-[#007A73]/10 dark:to-[#C37B1E]/20 rounded-3xl p-8 md:p-12 text-center relative overflow-hidden">
+              <div className="bg-gradient-to-r from-[#0097b2]/10 via-[#0097b2]/5 to-[#eeba2b]/10 dark:from-[#0097b2]/20 dark:via-[#0097b2]/10 dark:to-[#eeba2b]/20 rounded-3xl p-8 md:p-12 text-center relative overflow-hidden">
                 {/* Background Pattern */}
                 <div className="absolute inset-0 opacity-10">
                   <div className="absolute top-0 left-0 w-full h-full">
-                    <div className="absolute top-4 left-4 w-12 h-12 border-2 border-[#007A73] rounded-full"></div>
-                    <div className="absolute top-8 right-8 w-8 h-8 border-2 border-[#C37B1E] rounded-full"></div>
-                    <div className="absolute bottom-4 left-1/3 w-16 h-16 border-2 border-[#007A73] rounded-full"></div>
-                    <div className="absolute bottom-8 right-1/4 w-6 h-6 border-2 border-[#C37B1E] rounded-full"></div>
+                    <div className="absolute top-4 left-4 w-12 h-12 border-2 border-[#0097b2] rounded-full"></div>
+                    <div className="absolute top-8 right-8 w-8 h-8 border-2 border-[#eeba2b] rounded-full"></div>
+                    <div className="absolute bottom-4 left-1/3 w-16 h-16 border-2 border-[#0097b2] rounded-full"></div>
+                    <div className="absolute bottom-8 right-1/4 w-6 h-6 border-2 border-[#eeba2b] rounded-full"></div>
                   </div>
                 </div>
                 
                 <div className="relative z-10">
-                  <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-[#C37B1E] to-[#007A73] rounded-2xl mb-6">
+                  <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-[#eeba2b] to-[#0097b2] rounded-2xl mb-6">
                     <Star className="h-8 w-8 text-white" />
                   </div>
                   <h4 className="text-2xl md:text-3xl font-bold text-[#1C1F1E] dark:text-[#FCFAEF] mb-4">
                     Exclusive Major Sponsor Benefits
                   </h4>
                   <p className="text-lg md:text-xl text-[#2F3332] dark:text-[#E6E7E7] font-medium max-w-3xl mx-auto leading-relaxed">
-                    Major sponsors may receive <span className="text-[#C37B1E] dark:text-[#F3C677] font-bold">naming rights</span> to clinic days, pharmacy spaces, or leadership training events, creating lasting legacy partnerships.
+                    Major sponsors may receive <span className="text-[#eeba2b] dark:text-[#F5C94D] font-bold">naming rights</span> to clinic days, pharmacy spaces, or leadership training events, creating lasting legacy partnerships.
                   </p>
                 </div>
               </div>
@@ -462,8 +462,8 @@ export default function CorporateSponsorshipPage() {
       <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E] relative overflow-hidden">
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-5 dark:opacity-10">
-          <div className="absolute top-10 left-10 w-40 h-40 bg-[#007A73] rounded-full blur-3xl"></div>
-          <div className="absolute bottom-10 right-10 w-32 h-32 bg-[#C37B1E] rounded-full blur-2xl"></div>
+          <div className="absolute top-10 left-10 w-40 h-40 bg-[#0097b2] rounded-full blur-3xl"></div>
+          <div className="absolute bottom-10 right-10 w-32 h-32 bg-[#eeba2b] rounded-full blur-2xl"></div>
         </div>
 
         <div className="container mx-auto px-4 relative z-10">
@@ -475,14 +475,14 @@ export default function CorporateSponsorshipPage() {
               viewport={{ once: true }}
               className="text-center mb-16"
             >
-              <div className="inline-block px-6 py-2 bg-gradient-to-r from-[#C37B1E]/20 to-[#007A73]/20 rounded-full mb-6">
-                <span className="text-[#C37B1E] dark:text-[#F3C677] font-bold text-lg">
+              <div className="inline-block px-6 py-2 bg-gradient-to-r from-[#eeba2b]/20 to-[#0097b2]/20 rounded-full mb-6">
+                <span className="text-[#eeba2b] dark:text-[#F5C94D] font-bold text-lg">
                   🌍 LET&apos;S BUILD A HEALTHIER FUTURE—TOGETHER
                 </span>
               </div>
               <h3 className="text-3xl md:text-5xl font-bold mb-8 text-[#1C1F1E] dark:text-[#FCFAEF]">
                 Your Company&apos;s <br />
-                <span className="bg-gradient-to-r from-[#C37B1E] to-[#007A73] bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-[#eeba2b] to-[#0097b2] bg-clip-text text-transparent">
                   Generosity Can Change Lives
                 </span>
               </h3>
@@ -502,14 +502,14 @@ export default function CorporateSponsorshipPage() {
               <div className="bg-white dark:bg-[#2F3332] rounded-3xl shadow-2xl p-8 md:p-12 relative overflow-hidden">
                 {/* Background Elements */}
                 <div className="absolute top-0 right-0 w-32 h-32 opacity-5">
-                  <Mail className="w-full h-full text-[#007A73]" />
+                  <Mail className="w-full h-full text-[#0097b2]" />
                 </div>
                 <div className="absolute bottom-0 left-0 w-24 h-24 opacity-5">
-                  <Globe className="w-full h-full text-[#C37B1E]" />
+                  <Globe className="w-full h-full text-[#eeba2b]" />
                 </div>
 
                 <div className="relative z-10 text-center">
-                  <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-[#007A73] to-[#C37B1E] rounded-2xl mb-8">
+                  <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-[#0097b2] to-[#eeba2b] rounded-2xl mb-8">
                     <Mail className="h-10 w-10 text-white" />
                   </div>
                   
@@ -534,7 +534,7 @@ export default function CorporateSponsorshipPage() {
                         </p>
                         <a 
                           href="mailto:akomapahealth@gmail.com" 
-                          className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-[#007A73] to-[#C37B1E] text-white rounded-xl hover:shadow-lg transition-all duration-300 transform hover:scale-105 font-semibold"
+                          className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-[#0097b2] to-[#eeba2b] text-white rounded-xl hover:shadow-lg transition-all duration-300 transform hover:scale-105 font-semibold"
                         >
                           <Mail className="h-5 w-5 mr-2" />
                           akomapahealth@gmail.com
@@ -547,24 +547,24 @@ export default function CorporateSponsorshipPage() {
                   {/* Partnership Benefits Preview */}
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div className="text-center p-4">
-                      <div className="w-12 h-12 bg-[#007A73]/10 dark:bg-[#007A73]/20 rounded-xl flex items-center justify-center mx-auto mb-3">
-                        <CheckCircle className="h-6 w-6 text-[#007A73] dark:text-[#63B0AC]" />
+                      <div className="w-12 h-12 bg-[#0097b2]/10 dark:bg-[#0097b2]/20 rounded-xl flex items-center justify-center mx-auto mb-3">
+                        <CheckCircle className="h-6 w-6 text-[#0097b2] dark:text-[#66C4DC]" />
                       </div>
                       <h5 className="font-semibold text-[#1C1F1E] dark:text-[#FCFAEF] mb-2">Quick Response</h5>
                       <p className="text-sm text-[#2F3332] dark:text-[#E6E7E7]">We&apos;ll respond within 24 hours</p>
                     </div>
                     
                     <div className="text-center p-4">
-                      <div className="w-12 h-12 bg-[#C37B1E]/10 dark:bg-[#C37B1E]/20 rounded-xl flex items-center justify-center mx-auto mb-3">
-                        <Users className="h-6 w-6 text-[#C37B1E] dark:text-[#F3C677]" />
+                      <div className="w-12 h-12 bg-[#eeba2b]/10 dark:bg-[#eeba2b]/20 rounded-xl flex items-center justify-center mx-auto mb-3">
+                        <Users className="h-6 w-6 text-[#eeba2b] dark:text-[#F5C94D]" />
                       </div>
                       <h5 className="font-semibold text-[#1C1F1E] dark:text-[#FCFAEF] mb-2">Custom Solutions</h5>
                       <p className="text-sm text-[#2F3332] dark:text-[#E6E7E7]">Tailored partnership packages</p>
                     </div>
                     
                     <div className="text-center p-4">
-                      <div className="w-12 h-12 bg-[#007A73]/10 dark:bg-[#007A73]/20 rounded-xl flex items-center justify-center mx-auto mb-3">
-                        <Shield className="h-6 w-6 text-[#007A73] dark:text-[#63B0AC]" />
+                      <div className="w-12 h-12 bg-[#0097b2]/10 dark:bg-[#0097b2]/20 rounded-xl flex items-center justify-center mx-auto mb-3">
+                        <Shield className="h-6 w-6 text-[#0097b2] dark:text-[#66C4DC]" />
                       </div>
                       <h5 className="font-semibold text-[#1C1F1E] dark:text-[#FCFAEF] mb-2">Secure Processing</h5>
                       <p className="text-sm text-[#2F3332] dark:text-[#E6E7E7]">All donations via Stripe</p>
@@ -587,14 +587,14 @@ export default function CorporateSponsorshipPage() {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <a href="mailto:akomapahealth@gmail.com">
-                  <Button size="lg" className="bg-[#007A73] hover:bg-[#C37B1E] text-[#FCFAEF] px-8 py-4 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300">
+                  <Button size="lg" className="bg-[#0097b2] hover:bg-[#eeba2b] text-[#FCFAEF] px-8 py-4 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300">
                     <Globe className="h-5 w-5 mr-2" />
                     Become a Sponsor
                     <ArrowRight className="h-5 w-5 ml-2" />
                   </Button>
                 </a>
                 <a href="/partner">
-                  <Button variant="outline" size="lg" className="border-2 border-[#007A73] text-[#007A73] hover:bg-[#007A73]/10 px-8 py-4 text-lg font-semibold">
+                  <Button variant="outline" size="lg" className="border-2 border-[#0097b2] text-[#0097b2] hover:bg-[#0097b2]/10 px-8 py-4 text-lg font-semibold">
                     <Heart className="h-5 w-5 mr-2" />
                     Individual Donations
                     <ArrowRight className="h-5 w-5 ml-2" />

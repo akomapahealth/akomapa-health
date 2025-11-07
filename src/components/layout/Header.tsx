@@ -152,9 +152,9 @@ function HeaderContent() {
                 <div key={item.name} className="relative group">
                   <Link 
                     href={item.href}
-                    className={`flex items-center gap-1 text-md font-subheading font-medium transition-colors hover:text-[#C37B1E] dark:hover:text-[#C37B1E] ${
+                    className={`flex items-center gap-1 text-md font-subheading font-medium transition-colors hover:text-[#eeba2b] dark:hover:text-[#eeba2b] ${
                       pathname === item.href || pathname.startsWith(`${item.href}/`) 
-                        ? 'text-[#007A73]' 
+                        ? 'text-[#0097b2]' 
                         : 'text-[#2F3332] dark:text-[#FCFAEF]'
                     }`}
                   >
@@ -175,8 +175,8 @@ function HeaderContent() {
                             onClick={child.onClick}
                             className={`block px-4 py-2 text-sm font-body ${
                               pathname === child.href 
-                                ? 'bg-[#007A73]/10 dark:bg-[#007A73]/20 text-[#007A73] dark:text-[#FCFAEF]' 
-                                : 'text-[#2F3332] dark:text-[#FCFAEF] hover:bg-[#C37B1E]/10 dark:hover:bg-[#C37B1E]/20 hover:text-[#C37B1E]'
+                                ? 'bg-[#0097b2]/10 dark:bg-[#0097b2]/20 text-[#0097b2] dark:text-[#FCFAEF]' 
+                                : 'text-[#2F3332] dark:text-[#FCFAEF] hover:bg-[#eeba2b]/10 dark:hover:bg-[#eeba2b]/20 hover:text-[#eeba2b]'
                             }`}
                             role="menuitem"
                           >
@@ -193,7 +193,7 @@ function HeaderContent() {
             {/* Partner button and Theme Toggle */}
             <div className="flex items-center space-x-4">
               <Button 
-                className="bg-[#C37B1E] text-[#FCFAEF] hover:bg-[#A36419] hover:text-[#FCFAEF] font-subheading font-medium"
+                className="bg-[#0097b2] text-[#FCFAEF] hover:bg-[#0097b2]/80 hover:text-[#FCFAEF] font-subheading font-medium"
               >
                 <Link href="/partner">Partner With Us</Link>
               </Button>
@@ -206,7 +206,7 @@ function HeaderContent() {
             <ThemeToggle />
             <button
               onClick={() => setIsMobileMenuOpen(true)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-[#2F3332] dark:text-[#FCFAEF] hover:text-[#C37B1E] hover:bg-[#C37B1E]/10 dark:hover:bg-[#C37B1E]/20 focus:outline-none"
+              className="inline-flex items-center justify-center p-2 rounded-md text-[#2F3332] dark:text-[#FCFAEF] hover:text-[#eeba2b] hover:bg-[#eeba2b]/10 dark:hover:bg-[#eeba2b]/20 focus:outline-none"
             >
               <span className="sr-only">Open main menu</span>
               <Menu className="h-6 w-6" aria-hidden="true" />

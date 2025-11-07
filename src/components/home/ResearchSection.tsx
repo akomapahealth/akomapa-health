@@ -67,7 +67,7 @@ export default function ResearchSection() {
     <section id="research" className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto text-center mb-16">
-          <h2 className="text-[#C37B1E] dark:text-[#F3C677] font-bold text-lg mb-2">
+          <h2 className="text-[#eeba2b] dark:text-[#F5C94D] font-bold text-lg mb-2">
             BACKED BY RESEARCH
           </h2>
           <h3 className="text-3xl md:text-4xl font-bold mb-6 text-[#1C1F1E] dark:text-[#FCFAEF]">
@@ -86,50 +86,50 @@ export default function ResearchSection() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
           viewport={{ once: true }}
-          className="bg-[#007A73]/5 dark:bg-[#007A73]/10 rounded-xl p-6 md:p-8 mb-12"
+          className="bg-[#0097b2]/5 dark:bg-[#0097b2]/10 rounded-xl p-6 md:p-8 mb-12"
         >
           <div className="flex flex-col md:flex-row md:items-start gap-6 md:gap-8">
             <div className="md:w-1/4">
-              <div className="aspect-square w-16 h-16 flex items-center justify-center rounded-full bg-[#007A73]/10 dark:bg-[#007A73]/20 mb-4">
-                <span className="text-[#007A73] dark:text-[#63B0AC] text-2xl">💡</span>
+              <div className="aspect-square w-16 h-16 flex items-center justify-center rounded-full bg-[#0097b2]/10 dark:bg-[#0097b2]/20 mb-4">
+                <span className="text-[#0097b2] dark:text-[#66C4DC] text-2xl">💡</span>
               </div>
               <h4 className="text-xl font-bold text-[#1C1F1E] dark:text-[#FCFAEF] mb-2">Key Insights</h4>
             </div>
             <div className="md:w-3/4 grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="bg-white dark:bg-[#2F3332] rounded-lg p-4 md:p-5 shadow-sm border-l-4 border-[#007A73] dark:border-[#63B0AC]">
+              <div className="bg-white dark:bg-[#2F3332] rounded-lg p-4 md:p-5 shadow-sm border-l-4 border-[#0097b2] dark:border-[#66C4DC]">
                 <div className="flex items-start">
-                  <div className="w-8 h-8 rounded-full bg-[#007A73]/10 dark:bg-[#63B0AC]/10 flex items-center justify-center mr-3 flex-shrink-0 mt-1">
-                    <span className="text-[#007A73] dark:text-[#63B0AC] text-sm">👨‍⚕️</span>
+                  <div className="w-8 h-8 rounded-full bg-[#0097b2]/10 dark:bg-[#66C4DC]/10 flex items-center justify-center mr-3 flex-shrink-0 mt-1">
+                    <span className="text-[#0097b2] dark:text-[#66C4DC] text-sm">👨‍⚕️</span>
                   </div>
                   <p className="text-[#2F3332] dark:text-[#E6E7E7] text-sm md:text-base leading-relaxed">
                     Strong student interest across health disciplines
                   </p>
                 </div>
               </div>
-              <div className="bg-white dark:bg-[#2F3332] rounded-lg p-4 md:p-5 shadow-sm border-l-4 border-[#C37B1E] dark:border-[#F3C677]">
+              <div className="bg-white dark:bg-[#2F3332] rounded-lg p-4 md:p-5 shadow-sm border-l-4 border-[#eeba2b] dark:border-[#F5C94D]">
                 <div className="flex items-start">
-                  <div className="w-8 h-8 rounded-full bg-[#C37B1E]/10 dark:bg-[#F3C677]/10 flex items-center justify-center mr-3 flex-shrink-0 mt-1">
-                    <span className="text-[#C37B1E] dark:text-[#F3C677] text-sm">🎓</span>
+                  <div className="w-8 h-8 rounded-full bg-[#eeba2b]/10 dark:bg-[#F5C94D]/10 flex items-center justify-center mr-3 flex-shrink-0 mt-1">
+                    <span className="text-[#eeba2b] dark:text-[#F5C94D] text-sm">🎓</span>
                   </div>
                   <p className="text-[#2F3332] dark:text-[#E6E7E7] text-sm md:text-base leading-relaxed">
                     University leadership sees clinics as a win for community health and student training
                   </p>
                 </div>
               </div>
-              <div className="bg-white dark:bg-[#2F3332] rounded-lg p-4 md:p-5 shadow-sm border-l-4 border-[#007A73] dark:border-[#63B0AC]">
+              <div className="bg-white dark:bg-[#2F3332] rounded-lg p-4 md:p-5 shadow-sm border-l-4 border-[#0097b2] dark:border-[#66C4DC]">
                 <div className="flex items-start">
-                  <div className="w-8 h-8 rounded-full bg-[#007A73]/10 dark:bg-[#63B0AC]/10 flex items-center justify-center mr-3 flex-shrink-0 mt-1">
-                    <span className="text-[#007A73] dark:text-[#63B0AC] text-sm">🏥</span>
+                  <div className="w-8 h-8 rounded-full bg-[#0097b2]/10 dark:bg-[#66C4DC]/10 flex items-center justify-center mr-3 flex-shrink-0 mt-1">
+                    <span className="text-[#0097b2] dark:text-[#66C4DC] text-sm">🏥</span>
                   </div>
                   <p className="text-[#2F3332] dark:text-[#E6E7E7] text-sm md:text-base leading-relaxed">
                     Mission aligns with the Ghana Health Service focus on community-based preventive care
                   </p>
                 </div>
               </div>
-              <div className="bg-white dark:bg-[#2F3332] rounded-lg p-4 md:p-5 shadow-sm border-l-4 border-[#C37B1E] dark:border-[#F3C677]">
+              <div className="bg-white dark:bg-[#2F3332] rounded-lg p-4 md:p-5 shadow-sm border-l-4 border-[#eeba2b] dark:border-[#F5C94D]">
                 <div className="flex items-start">
-                  <div className="w-8 h-8 rounded-full bg-[#C37B1E]/10 dark:bg-[#F3C677]/10 flex items-center justify-center mr-3 flex-shrink-0 mt-1">
-                    <span className="text-[#C37B1E] dark:text-[#F3C677] text-sm">👁️</span>
+                  <div className="w-8 h-8 rounded-full bg-[#eeba2b]/10 dark:bg-[#F5C94D]/10 flex items-center justify-center mr-3 flex-shrink-0 mt-1">
+                    <span className="text-[#eeba2b] dark:text-[#F5C94D] text-sm">👁️</span>
                   </div>
                   <p className="text-[#2F3332] dark:text-[#E6E7E7] text-sm md:text-base leading-relaxed">
                     Expert supervision is essential for ensuring patient safety and high-quality student learning
@@ -185,7 +185,7 @@ export default function ResearchSection() {
         </div>
 
         <div className="text-center mt-12">
-          <Button className="bg-[#007A73] hover:bg-[#C37B1E] text-[#FCFAEF]">
+          <Button className="bg-[#0097b2] hover:bg-[#eeba2b] text-[#FCFAEF]">
             <Link href="/research" className="flex items-center">
               Read the Research <ArrowRight size={16} className="ml-2" />
             </Link>

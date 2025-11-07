@@ -28,37 +28,37 @@ const clinicPrograms = [
     icon: Stethoscope,
     title: "Chronic Disease Screening",
     description: "Free blood pressure and glucose checks with personalized education.",
-    color: "#007A73"
+    color: "#0097b2"
   },
   {
     icon: Shield,
     title: "Medication Counseling",
     description: "Safe, evidence-based prescribing and guidance by pharmacists and clinicians.",
-    color: "#C37B1E"
+    color: "#eeba2b"
   },
   {
     icon: Heart,
     title: "Nutrition & Lifestyle Coaching",
     description: "Community health workers provide culturally tailored nutrition and wellness advice.",
-    color: "#007A73"
+    color: "#0097b2"
   },
   {
     icon: Navigation,
     title: "Referral & Navigation Services",
     description: "We help patients access district hospitals, enroll in NHIS, and schedule follow-up care.",
-    color: "#C37B1E"
+    color: "#eeba2b"
   },
   {
     icon: BookOpen,
     title: "Community Education & School Outreach",
     description: "We are developing health education workshops for schools and families.",
-    color: "#007A73"
+    color: "#0097b2"
   },
   {
     icon: GraduationCap,
     title: "Global Health Leadership Program",
     description: "Ongoing mentorship from UCC, Yale, and UCLA faculty to train students in research, ethics, and implementation.",
-    color: "#C37B1E"
+    color: "#eeba2b"
   }
 ];
 
@@ -75,12 +75,12 @@ const trainingAreas = [
 //   {
 //     name: "Zone A: Abeadze Dominase",
 //     description: "Primary clinic location serving the Abeadze Dominase community",
-//     color: "#007A73"
+//     color: "#0097b2"
 //   },
 //   {
 //     name: "Zone B: Abura",
 //     description: "Secondary clinic location serving the Abura community",
-//     color: "#C37B1E"
+//     color: "#eeba2b"
 //   }
 // ];
 
@@ -177,10 +177,10 @@ export default function UCCClinicPage() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="inline-flex items-center px-4 py-2 bg-[#007A73]/10 dark:bg-[#63B0AC]/10 rounded-full mb-6"
+              className="inline-flex items-center px-4 py-2 bg-[#0097b2]/10 dark:bg-[#66C4DC]/10 rounded-full mb-6"
             >
-              <Building size={20} className="text-[#007A73] dark:text-[#63B0AC] mr-2" />
-              <span className="text-[#007A73] dark:text-[#63B0AC] font-medium">University of Cape Coast</span>
+              <Building size={20} className="text-[#0097b2] dark:text-[#66C4DC] mr-2" />
+              <span className="text-[#0097b2] dark:text-[#66C4DC] font-medium">University of Cape Coast</span>
             </motion.div>
             
             <motion.h1 
@@ -226,9 +226,9 @@ export default function UCCClinicPage() {
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
             >
-              <div className="inline-flex items-center px-4 py-2 bg-[#C37B1E]/10 dark:bg-[#F3C677]/10 rounded-full mb-6">
-                <Heart size={20} className="text-[#C37B1E] dark:text-[#F3C677] mr-2" />
-                <span className="text-[#C37B1E] dark:text-[#F3C677] font-medium">Our Mission</span>
+              <div className="inline-flex items-center px-4 py-2 bg-[#eeba2b]/10 dark:bg-[#F5C94D]/10 rounded-full mb-6">
+                <Heart size={20} className="text-[#eeba2b] dark:text-[#F5C94D] mr-2" />
+                <span className="text-[#eeba2b] dark:text-[#F5C94D] font-medium">Our Mission</span>
               </div>
               <h2 className="text-3xl md:text-4xl font-bold mb-6 text-[#1C1F1E] dark:text-[#FCFAEF]">
                 🩺 Our Mission
@@ -252,26 +252,26 @@ export default function UCCClinicPage() {
               <div className="space-y-6">
                 <div className="bg-white dark:bg-[#2F3332] rounded-xl p-6 shadow-lg">
                   <div className="flex items-center mb-4">
-                    <Calendar className="w-6 h-6 text-[#007A73] dark:text-[#63B0AC] mr-3" />
+                    <Calendar className="w-6 h-6 text-[#0097b2] dark:text-[#66C4DC] mr-3" />
                     <h4 className="font-bold text-[#1C1F1E] dark:text-[#FCFAEF]">Every Other Saturday</h4>
                   </div>
                   <div className="flex items-center mb-2">
-                    <Clock className="w-5 h-5 text-[#C37B1E] dark:text-[#F3C677] mr-2" />
+                    <Clock className="w-5 h-5 text-[#eeba2b] dark:text-[#F5C94D] mr-2" />
                     <span className="text-[#2F3332] dark:text-[#E6E7E7]">8:00 AM – 12:00 Noon</span>
                   </div>
                   <div className="flex items-center">
-                    <MapPin className="w-5 h-5 text-[#C37B1E] dark:text-[#F3C677] mr-2" />
+                    <MapPin className="w-5 h-5 text-[#eeba2b] dark:text-[#F5C94D] mr-2" />
                     <span className="text-[#2F3332] dark:text-[#E6E7E7]">Abeadze Dominase & Abura (Cape Coast Area)</span>
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="bg-[#007A73]/10 dark:bg-[#007A73]/20 rounded-lg p-4 text-center">
-                    <div className="text-sm text-[#007A73] dark:text-[#63B0AC] font-medium mb-1">Pre-Pilot Clinics</div>
+                  <div className="bg-[#0097b2]/10 dark:bg-[#0097b2]/20 rounded-lg p-4 text-center">
+                    <div className="text-sm text-[#0097b2] dark:text-[#66C4DC] font-medium mb-1">Pre-Pilot Clinics</div>
                     <div className="text-lg font-bold text-[#1C1F1E] dark:text-[#FCFAEF]">July 12th & 19th, 2025</div>
                   </div>
-                  <div className="bg-[#C37B1E]/10 dark:bg-[#C37B1E]/20 rounded-lg p-4 text-center">
-                    <div className="text-sm text-[#C37B1E] dark:text-[#F3C677] font-medium mb-1">Official Pilot Launch</div>
+                  <div className="bg-[#eeba2b]/10 dark:bg-[#eeba2b]/20 rounded-lg p-4 text-center">
+                    <div className="text-sm text-[#eeba2b] dark:text-[#F5C94D] font-medium mb-1">Official Pilot Launch</div>
                     <div className="text-lg font-bold text-[#1C1F1E] dark:text-[#FCFAEF]">October 2025</div>
                   </div>
                 </div>
@@ -364,8 +364,8 @@ export default function UCCClinicPage() {
                 <p className="text-[#2F3332] dark:text-[#E6E7E7] mb-6 leading-relaxed">
                   Our volunteers are compassionate, driven students from across all schools under the College of Health and Allied Sciences (COHAS) at the University of Cape Coast. They represent a wide range of disciplines—medicine, nursing, pharmacy, nutrition, physician assistantship, and public health—united by a shared passion for community service and interprofessional collaboration.
                 </p>
-                <div className="bg-[#007A73]/10 dark:bg-[#007A73]/20 rounded-lg p-6">
-                  <div className="text-3xl font-bold text-[#007A73] dark:text-[#63B0AC] mb-2">93%</div>
+                <div className="bg-[#0097b2]/10 dark:bg-[#0097b2]/20 rounded-lg p-6">
+                  <div className="text-3xl font-bold text-[#0097b2] dark:text-[#66C4DC] mb-2">93%</div>
                   <p className="text-[#2F3332] dark:text-[#E6E7E7]">
                     of students expressed a preference for working in interprofessional teams, citing the holistic care it provides to patients and the many opportunities for learning, mentorship, and professional growth.
                   </p>
@@ -388,7 +388,7 @@ export default function UCCClinicPage() {
                 <div className="space-y-3">
                   {trainingAreas.map((area, index) => (
                     <div key={index} className="flex items-center">
-                      <CheckCircle className="w-5 h-5 text-[#C37B1E] dark:text-[#F3C677] mr-3" />
+                      <CheckCircle className="w-5 h-5 text-[#eeba2b] dark:text-[#F5C94D] mr-3" />
                       <span className="text-[#2F3332] dark:text-[#E6E7E7]">{area}</span>
                     </div>
                   ))}
@@ -465,7 +465,7 @@ export default function UCCClinicPage() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
-              className="bg-gradient-to-br from-[#007A73] to-[#C37B1E] rounded-2xl p-8 md:p-12 text-center text-white"
+              className="bg-gradient-to-br from-[#0097b2] to-[#eeba2b] rounded-2xl p-8 md:p-12 text-center text-white"
             >
               <h2 className="text-2xl md:text-3xl font-bold mb-6">
                 ✍️ A Note from Our Co-Directors
@@ -496,14 +496,14 @@ export default function UCCClinicPage() {
                 🧑🏾‍⚕️ Faculty Endorsement
               </h2>
               <div className="flex items-start space-x-4">
-                <div className="w-16 h-16 bg-[#007A73]/10 dark:bg-[#63B0AC]/10 rounded-full flex items-center justify-center flex-shrink-0">
-                  <Users size={32} className="text-[#007A73] dark:text-[#63B0AC]" />
+                <div className="w-16 h-16 bg-[#0097b2]/10 dark:bg-[#66C4DC]/10 rounded-full flex items-center justify-center flex-shrink-0">
+                  <Users size={32} className="text-[#0097b2] dark:text-[#66C4DC]" />
                 </div>
                 <div>
                   <h3 className="text-lg font-bold text-[#1C1F1E] dark:text-[#FCFAEF] mb-2">
                     From Dr. Anamaale Tuoyire
                   </h3>
-                  <p className="text-sm text-[#007A73] dark:text-[#63B0AC] mb-4">
+                  <p className="text-sm text-[#0097b2] dark:text-[#66C4DC] mb-4">
                     Head, Department of Community Medicine, College of Health and Allied Sciences
                   </p>
                   <blockquote className="text-[#2F3332] dark:text-[#E6E7E7] leading-relaxed italic">
@@ -547,7 +547,7 @@ export default function UCCClinicPage() {
       </section>
 
       {/* Support Section */}
-      <section className="py-16 md:py-24 bg-[#007A73] dark:bg-[#2F3332]">
+      <section className="py-16 md:py-24 bg-[#0097b2] dark:bg-[#2F3332]">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <motion.div
@@ -566,12 +566,12 @@ export default function UCCClinicPage() {
                 Help us grow Akomapa. Help us build a healthier Ghana.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button className="bg-[#C37B1E] hover:bg-[#F3C677] text-[#FCFAEF] text-lg px-8 py-3">
+                <Button className="bg-[#eeba2b] hover:bg-[#F5C94D] text-[#FCFAEF] text-lg px-8 py-3">
                   <Link href="/join" className="flex items-center">
                     Volunteer with Us <ArrowRight size={20} className="ml-2" />
                   </Link>
                 </Button>
-                <Button variant="outline" className="border-[#FCFAEF] text-[#FCFAEF] hover:bg-[#FCFAEF] hover:text-[#007A73] text-lg px-8 py-3">
+                <Button variant="outline" className="border-[#FCFAEF] text-[#FCFAEF] hover:bg-[#FCFAEF] hover:text-[#0097b2] text-lg px-8 py-3">
                   <Link href="/donate" className="flex items-center">
                     Make a Donation <ArrowRight size={20} className="ml-2" />
                   </Link>

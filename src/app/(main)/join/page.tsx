@@ -438,13 +438,13 @@ export default function JoinPage() {
                 <Button
                   type="submit"
                   disabled={isSubmitting || formData.selectedDates.length < 4}
-                  className="w-full h-12 bg-[#007A73] hover:bg-[#C37B1E] text-[#FCFAEF] text-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full h-12 bg-[#0097b2] hover:bg-[#eeba2b] text-[#FCFAEF] text-lg disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isSubmitting ? "Submitting Application..." : "Submit Application"}
                 </Button>
                 
                 {formData.selectedDates.length < 4 && formData.selectedDates.length > 0 && (
-                  <p className="text-sm text-[#C37B1E] text-center">
+                  <p className="text-sm text-[#eeba2b] text-center">
                     Please select at least 4 available dates to submit your application
                   </p>
                 )}
@@ -463,7 +463,7 @@ export default function JoinPage() {
               </p>
               <p className="text-sm">
                 For questions about volunteering, please contact us at{" "}
-                <a href="mailto:akomapahealth@gmail.com" className="text-[#007A73] hover:text-[#C37B1E]">
+                <a href="mailto:akomapahealth@gmail.com" className="text-[#0097b2] hover:text-[#eeba2b]">
                   akomapahealth@gmail.com
                 </a>
               </p>

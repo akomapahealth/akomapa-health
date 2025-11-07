@@ -17,7 +17,7 @@ export default function ContactPage() {
         <Breadcrumb />
       </div>
       
-      <section className="bg-[#C37B1E]/50 dark:bg-[#1C1F1E] py-16 md:py-24">
+      <section className="bg-[#eeba2b]/50 dark:bg-[#1C1F1E] py-16 md:py-24">
         <div className="container mx-auto px-4">
           <PageHeader
             title="Contact Us"
@@ -46,7 +46,7 @@ export default function ContactPage() {
               <div className="bg-white dark:bg-[#2F3332] rounded-xl shadow-sm border border-[#C1C3C3] dark:border-[#4F5554] p-6 mb-8">
                 <div className="space-y-6">
                   <div className="flex items-start">
-                    <MapPin className="h-6 w-6 text-[#007A73] dark:text-[#63B0AC] mt-1 mr-4" />
+                    <MapPin className="h-6 w-6 text-[#0097b2] dark:text-[#66C4DC] mt-1 mr-4" />
                     <div>
                       <h3 className="font-medium text-lg mb-1 text-[#2F3332] dark:text-[#FCFAEF]">Main Office (Ghana)</h3>
                       <p className="text-[#2F3332]/80 dark:text-[#FCFAEF]/80">
@@ -60,7 +60,7 @@ export default function ContactPage() {
                   </div>
                   
                   <div className="flex items-start">
-                    <MapPin className="h-6 w-6 text-[#007A73] dark:text-[#63B0AC] mt-1 mr-4" />
+                    <MapPin className="h-6 w-6 text-[#0097b2] dark:text-[#66C4DC] mt-1 mr-4" />
                     <div>
                       <h3 className="font-medium text-lg mb-1 text-[#2F3332] dark:text-[#FCFAEF]">US Office</h3>
                       <p className="text-[#2F3332]/80 dark:text-[#FCFAEF]/80">
@@ -73,11 +73,11 @@ export default function ContactPage() {
                   </div>
                   
                   <div className="flex items-start">
-                    <Phone className="h-6 w-6 text-[#007A73] dark:text-[#63B0AC] mt-1 mr-4" />
+                    <Phone className="h-6 w-6 text-[#0097b2] dark:text-[#66C4DC] mt-1 mr-4" />
                     <div>
                       <h3 className="font-medium text-lg mb-1 text-[#2F3332] dark:text-[#FCFAEF]">Phone</h3>
                       <p className="text-[#2F3332]/80 dark:text-[#FCFAEF]/80">
-                        <a href="tel:+233209544834" className="hover:text-[#C37B1E] dark:hover:text-[#F3C677] transition-colors">
+                        <a href="tel:+233209544834" className="hover:text-[#eeba2b] dark:hover:text-[#F5C94D] transition-colors">
                         +233 20 954 4834
                         </a>
                       </p>
@@ -85,11 +85,11 @@ export default function ContactPage() {
                   </div>
                   
                   <div className="flex items-start">
-                    <Mail className="h-6 w-6 text-[#007A73] dark:text-[#63B0AC] mt-1 mr-4" />
+                    <Mail className="h-6 w-6 text-[#0097b2] dark:text-[#66C4DC] mt-1 mr-4" />
                     <div>
                       <h3 className="font-medium text-lg mb-1 text-[#2F3332] dark:text-[#FCFAEF]">Email</h3>
                       <p className="text-[#2F3332]/80 dark:text-[#FCFAEF]/80">
-                        <a href="mailto:akomapahealth@gmail.com" className="hover:text-[#C37B1E] dark:hover:text-[#F3C677] transition-colors">
+                        <a href="mailto:akomapahealth@gmail.com" className="hover:text-[#eeba2b] dark:hover:text-[#F5C94D] transition-colors">
                           akomapahealth@gmail.com
                         </a>
                       </p>
@@ -97,7 +97,7 @@ export default function ContactPage() {
                   </div>
                   
                   <div className="flex items-start">
-                    <Clock className="h-6 w-6 text-[#007A73] dark:text-[#63B0AC] mt-1 mr-4" />
+                    <Clock className="h-6 w-6 text-[#0097b2] dark:text-[#66C4DC] mt-1 mr-4" />
                     <div>
                       <h3 className="font-medium text-lg mb-1 text-[#2F3332] dark:text-[#FCFAEF]">Hours</h3>
                       <p className="text-[#2F3332]/80 dark:text-[#FCFAEF]/80">

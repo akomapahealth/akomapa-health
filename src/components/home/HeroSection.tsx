@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ChevronUp } from "lucide-react";
 import Image from "@/components/common/Image";
 
 // Background options
@@ -148,6 +148,16 @@ export default function HeroSection({
         {overlay && backgroundType !== "static" && (
           <div className="absolute inset-0 bg-black/40" />
         )}
+        
+        {/* Left-side gradient fade - stronger on left, fading to transparent */}
+        {backgroundType !== "static" && (
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0097b2]/70 dark:from-[#0097b2]/70 via-[#0097b2]/30 dark:via-[#0097b2]/30 to-transparent" />
+        )}
+        
+        {/* Left-side gradient fade for static backgrounds - more opaque from left */}
+        {backgroundType === "static" && (
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0097b2]/60 dark:from-[#0097b2]/60 via-[#0097b2]/20 dark:via-[#0097b2]/20 to-transparent" />
+        )}
       </div>
 
       {/* Content */}
@@ -163,18 +173,19 @@ export default function HeroSection({
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
-              className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight text-[#F8F9FA] dark:text-[#FCFAEF] mb-6 leading-tight text-balance"
+              className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl tracking-tight text-[#FCFAEF] dark:text-[#FCFAEF] mb-6 leading-tight text-balance font-medium"
             >
-              Can student health leaders tackle Africa&apos;s NCD crisis?
+              Can a <span className="text-[#8DD4E6] dark:text-[#B0E8F5]">global partnership</span> of <span className="text-[#eeba2b] dark:text-[#eeba2b]">students</span> lead the fight against NCDs?
             </motion.h1>
             
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.8 }}
-              className="text-xl md:text-2xl text-[#63B0AC] dark:text-[#63B0AC] font-medium mb-8 leading-relaxed max-w-2xl text-balance"
+              className="text-xl md:text-2xl text-[#FCFAEF] dark:text-[#FCFAEF] font-medium mb-8 leading-relaxed max-w-2xl"
             >
-              Powered by students, guided by experts, rooted in communities – Akomapa is redefining preventative primary care.
+              Student-powered. <span className="text-[#8DD4E6] dark:text-[#B0E8F5]">Expert-supervised</span>. Community-rooted.<br />
+              Akomapa is redefining preventative primary care.
             </motion.p>
             
             <motion.div
@@ -186,7 +197,7 @@ export default function HeroSection({
               <Button
                 asChild
                 size="lg"
-                className="group bg-[#007A73] hover:bg-[#C37B1E] text-[#FCFAEF] px-8 py-6 h-auto text-lg font-medium rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+                className="group bg-[#0097b2] hover:bg-[#0097b2]/80 text-[#FCFAEF] px-8 py-6 h-auto text-lg font-medium rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
               >
                 <Link href="/join" className="flex items-center space-x-2">
                   <span>Join the Movement</span>
@@ -197,7 +208,7 @@ export default function HeroSection({
               <Button
                 asChild
                 size="lg"
-                className="group bg-[#C37B1E] hover:bg-[#007A73] text-[#FCFAEF] px-8 py-6 h-auto text-lg font-medium rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+                className="group bg-[#eeba2b] hover:bg-[#eeba2b]/80 text-[#FCFAEF] px-8 py-6 h-auto text-lg font-medium rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
               >
                 <Link href="/partner" className="flex items-center space-x-2">
                   <span>Support Our Work</span>
@@ -218,7 +229,7 @@ export default function HeroSection({
               onClick={() => setCurrentImageIndex(index)}
               className={`w-3 h-3 rounded-full transition-all duration-300 ${
                 currentImageIndex === index 
-                  ? "bg-[#C37B1E] scale-110" 
+                  ? "bg-[#eeba2b] scale-110" 
                   : "bg-[#FCFAEF]/60 hover:bg-[#FCFAEF]/80"
               }`}
               aria-label={`Go to slide ${index + 1}`}
@@ -227,19 +238,48 @@ export default function HeroSection({
         </div>
       )}
 
-      {/* Scroll Indicator */}
+      {/* Scroll Indicator - Right Side with Arc Boundary */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1, delay: 1.5 }}
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20"
+        className="absolute bottom-8 right-8 z-20 flex items-center justify-center"
       >
-        <div className="w-6 h-10 border-2 border-[#1C1F1E]/50 dark:border-[#FCFAEF]/50 rounded-full flex justify-center">
-          <motion.div
-            animate={{ y: [0, 12, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-            className="w-1 h-3 bg-[#1C1F1E]/70 dark:bg-[#FCFAEF]/70 rounded-full mt-2"
-          />
+        <div className="relative w-16 h-16">
+          {/* Arc Boundary */}
+          <svg
+            className="absolute inset-0 w-full h-full transform -rotate-90"
+            viewBox="0 0 64 64"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle
+              cx="32"
+              cy="32"
+              r="30"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeDasharray="94 188"
+              strokeLinecap="round"
+              className="text-[#FCFAEF]/60 dark:text-[#FCFAEF]/60"
+            />
+          </svg>
+          
+          {/* Scroll Button */}
+          <button
+            onClick={() => {
+              window.scrollTo({ top: window.innerHeight, behavior: 'smooth' });
+            }}
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 rounded-full border-2 border-[#FCFAEF]/80 dark:border-[#FCFAEF]/80 bg-[#FCFAEF]/10 dark:bg-[#FCFAEF]/10 backdrop-blur-sm hover:bg-[#FCFAEF]/20 dark:hover:bg-[#FCFAEF]/20 transition-all duration-300 flex items-center justify-center group"
+            aria-label="Scroll down"
+          >
+            <motion.div
+              animate={{ y: [0, 4, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+            >
+              <ChevronUp className="w-5 h-5 text-[#FCFAEF] dark:text-[#FCFAEF] rotate-180 group-hover:scale-110 transition-transform" />
+            </motion.div>
+          </button>
         </div>
       </motion.div>
     </section>

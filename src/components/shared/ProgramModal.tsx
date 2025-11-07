@@ -71,7 +71,7 @@ export default function ProgramModal({ program, isOpen, onClose }: ProgramModalP
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent rounded-t-2xl" />
               <div className="absolute bottom-4 left-4 text-white">
-                <div className="text-sm font-medium text-[#F3C677] mb-1">
+                <div className="text-sm font-medium text-[#F5C94D] mb-1">
                   {program.category}
                 </div>
                 <h2 className="text-2xl md:text-3xl font-bold">{program.title}</h2>
@@ -87,7 +87,7 @@ export default function ProgramModal({ program, isOpen, onClose }: ProgramModalP
               {/* Program Details */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
                 <div className="flex items-center">
-                  <MapPin className="h-5 w-5 text-[#007A73] dark:text-[#63B0AC] mr-3" />
+                  <MapPin className="h-5 w-5 text-[#0097b2] dark:text-[#66C4DC] mr-3" />
                   <div>
                     <div className="font-medium text-[#1C1F1E] dark:text-[#FCFAEF]">Locations</div>
                     <div className="text-sm text-[#2F3332] dark:text-[#E6E7E7]">
@@ -97,7 +97,7 @@ export default function ProgramModal({ program, isOpen, onClose }: ProgramModalP
                 </div>
                 
                 <div className="flex items-center">
-                  <Clock className="h-5 w-5 text-[#007A73] dark:text-[#63B0AC] mr-3" />
+                  <Clock className="h-5 w-5 text-[#0097b2] dark:text-[#66C4DC] mr-3" />
                   <div>
                     <div className="font-medium text-[#1C1F1E] dark:text-[#FCFAEF]">Established</div>
                     <div className="text-sm text-[#2F3332] dark:text-[#E6E7E7]">
@@ -107,7 +107,7 @@ export default function ProgramModal({ program, isOpen, onClose }: ProgramModalP
                 </div>
                 
                 <div className="flex items-center">
-                  <Users className="h-5 w-5 text-[#007A73] dark:text-[#63B0AC] mr-3" />
+                  <Users className="h-5 w-5 text-[#0097b2] dark:text-[#66C4DC] mr-3" />
                   <div>
                     <div className="font-medium text-[#1C1F1E] dark:text-[#FCFAEF]">People Served</div>
                     <div className="text-sm text-[#2F3332] dark:text-[#E6E7E7]">
@@ -125,7 +125,7 @@ export default function ProgramModal({ program, isOpen, onClose }: ProgramModalP
                 <ul className="space-y-2">
                   {program.keyPoints.map((point, index) => (
                     <li key={index} className="flex items-start">
-                      <span className="text-[#007A73] dark:text-[#63B0AC] mr-2 mt-1">•</span>
+                      <span className="text-[#0097b2] dark:text-[#66C4DC] mr-2 mt-1">•</span>
                       <span className="text-[#2F3332] dark:text-[#E6E7E7]">{point}</span>
                     </li>
                   ))}
@@ -140,7 +140,7 @@ export default function ProgramModal({ program, isOpen, onClose }: ProgramModalP
                 <ul className="space-y-2">
                   {program.impacts.map((impact, index) => (
                     <li key={index} className="flex items-start">
-                      <span className="text-[#C37B1E] dark:text-[#F3C677] mr-2 mt-1">✓</span>
+                      <span className="text-[#eeba2b] dark:text-[#F5C94D] mr-2 mt-1">✓</span>
                       <span className="text-[#2F3332] dark:text-[#E6E7E7]">{impact}</span>
                     </li>
                   ))}
@@ -151,13 +151,13 @@ export default function ProgramModal({ program, isOpen, onClose }: ProgramModalP
               <div className="flex flex-col sm:flex-row gap-4 pt-6 border-t border-[#E6E7E7] dark:border-[#4F5554]">
                 <Button 
                   onClick={onClose}
-                  className="flex-1 bg-[#007A73] hover:bg-[#C37B1E] text-[#FCFAEF]"
+                  className="flex-1 bg-[#0097b2] hover:bg-[#eeba2b] text-[#FCFAEF]"
                 >
                   Close
                 </Button>
                 <Button 
                   variant="outline"
-                  className="flex-1 border-[#007A73] text-[#007A73] hover:bg-[#007A73]/10 dark:border-[#63B0AC] dark:text-[#63B0AC] dark:hover:bg-[#63B0AC]/10"
+                  className="flex-1 border-[#0097b2] text-[#0097b2] hover:bg-[#0097b2]/10 dark:border-[#66C4DC] dark:text-[#66C4DC] dark:hover:bg-[#66C4DC]/10"
                 >
                   Get Involved
                 </Button>

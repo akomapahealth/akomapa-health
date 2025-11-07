@@ -54,33 +54,33 @@
   --card-foreground: 47 51 50;
   --popover: 252 250 239;
   --popover-foreground: 47 51 50;
-  --primary: 0 122 115;
+  --primary: 0 151 178;
   --primary-foreground: 252 250 239;
-  --secondary: 0 90 156;
+  --secondary: 0 151 178;
   --secondary-foreground: 252 250 239;
   --muted: 47 51 50;
   --muted-foreground: 47 51 50;
-  --accent: 195 123 30;
+  --accent: 238 186 43;
   --accent-foreground: 252 250 239;
-  --destructive: 195 123 30;
+  --destructive: 238 186 43;
   --destructive-foreground: 252 250 239;
   --border: 47 51 50;
   --input: 47 51 50;
-  --ring: 0 122 115;
+  --ring: 0 151 178;
 
   /* Chart colors */
-  --chart-1: 0 122 115;
-  --chart-2: 0 90 156;
-  --chart-3: 195 123 30;
+  --chart-1: 0 151 178;
+  --chart-2: 0 151 178;
+  --chart-3: 238 186 43;
   --chart-4: 47 51 50;
   --chart-5: 252 250 239;
 
   /* Sidebar colors */
-  --sidebar: 0 122 115;
+  --sidebar: 0 151 178;
   --sidebar-foreground: 252 250 239;
-  --sidebar-primary: 0 90 156;
+  --sidebar-primary: 0 151 178;
   --sidebar-primary-foreground: 252 250 239;
-  --sidebar-accent: 195 123 30;
+  --sidebar-accent: 238 186 43;
   --sidebar-accent-foreground: 252 250 239;
   --sidebar-border: 252 250 239;
   --sidebar-ring: 252 250 239;
@@ -89,19 +89,19 @@
 .dark {
   --background: 47 51 50;
   --foreground: 252 250 239;
-  --card: 0 122 115;
+  --card: 0 151 178;
   --card-foreground: 252 250 239;
-  --popover: 0 122 115;
+  --popover: 0 151 178;
   --popover-foreground: 252 250 239;
-  --primary: 0 122 115;
+  --primary: 0 151 178;
   --primary-foreground: 252 250 239;
-  --secondary: 0 90 156;
+  --secondary: 0 151 178;
   --secondary-foreground: 252 250 239;
   --muted: 252 250 239;
   --muted-foreground: 252 250 239;
-  --accent: 195 123 30;
+  --accent: 238 186 43;
   --accent-foreground: 252 250 239;
-  --destructive: 195 123 30;
+  --destructive: 238 186 43;
   --destructive-foreground: 252 250 239;
   --border: 252 250 239;
   --input: 252 250 239;
@@ -133,7 +133,7 @@ a:hover {
 
 /* Custom focus styles using standard CSS */
 :focus-visible {
-  outline: 2px solid #C37B1E;
+  outline: 2px solid #eeba2b;
   outline-offset: 2px;
 }
 

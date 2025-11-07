@@ -36,7 +36,7 @@ export default function AboutPage() {
               <div className="flex space-x-4">
                 <Link 
                   href="/#mission"
-                  className="text-[#007A73] dark:text-[#63B0AC] font-medium hover:text-[#007A73] dark:hover:text-[#63B0AC] inline-flex items-center"
+                  className="text-[#0097b2] dark:text-[#66C4DC] font-medium hover:text-[#0097b2] dark:hover:text-[#66C4DC] inline-flex items-center"
                 >
                   Our Mission & Vision <ArrowRight size={16} className="ml-1" />
                 </Link>

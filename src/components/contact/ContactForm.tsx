@@ -103,7 +103,7 @@ function ContactFormContent() {
         </p>
         <Button
           onClick={() => setIsSubmitted(false)}
-          className="bg-[#007A73] hover:bg-[#C37B1E] text-[#FCFAEF]"
+          className="bg-[#0097b2] hover:bg-[#eeba2b] text-[#FCFAEF]"
         >
           Send Another Message
         </Button>
@@ -146,7 +146,7 @@ function ContactFormContent() {
             required
             value={formData.name}
             onChange={handleChange}
-            className="mt-2 border-[#007A73] focus:border-[#C37B1E] dark:border-[#63B0AC] dark:focus:border-[#F3C677]"
+            className="mt-2 border-[#0097b2] focus:border-[#eeba2b] dark:border-[#66C4DC] dark:focus:border-[#F5C94D]"
             placeholder="Enter your full name"
           />
         </div>
@@ -162,7 +162,7 @@ function ContactFormContent() {
             required
             value={formData.email}
             onChange={handleChange}
-            className="mt-2 border-[#007A73] focus:border-[#C37B1E] dark:border-[#63B0AC] dark:focus:border-[#F3C677]"
+            className="mt-2 border-[#0097b2] focus:border-[#eeba2b] dark:border-[#66C4DC] dark:focus:border-[#F5C94D]"
             placeholder="Enter your email address"
           />
         </div>
@@ -179,7 +179,7 @@ function ContactFormContent() {
             type="tel"
             value={formData.phone}
             onChange={handleChange}
-            className="mt-2 border-[#007A73] focus:border-[#C37B1E] dark:border-[#63B0AC] dark:focus:border-[#F3C677]"
+            className="mt-2 border-[#0097b2] focus:border-[#eeba2b] dark:border-[#66C4DC] dark:focus:border-[#F5C94D]"
             placeholder="Enter your phone number"
           />
         </div>
@@ -189,7 +189,7 @@ function ContactFormContent() {
             Partnership Type
           </Label>
           <Select value={formData.partnershipType} onValueChange={handleSelectChange}>
-            <SelectTrigger className="mt-2 border-[#007A73] focus:border-[#C37B1E] dark:border-[#63B0AC] dark:focus:border-[#F3C677]">
+            <SelectTrigger className="mt-2 border-[#0097b2] focus:border-[#eeba2b] dark:border-[#66C4DC] dark:focus:border-[#F5C94D]">
               <SelectValue placeholder="Select partnership type" />
             </SelectTrigger>
             <SelectContent>
@@ -213,7 +213,7 @@ function ContactFormContent() {
           required
           value={formData.subject}
           onChange={handleChange}
-          className="mt-2 border-[#007A73] focus:border-[#C37B1E] dark:border-[#63B0AC] dark:focus:border-[#F3C677]"
+          className="mt-2 border-[#0097b2] focus:border-[#eeba2b] dark:border-[#66C4DC] dark:focus:border-[#F5C94D]"
           placeholder="Enter subject"
         />
       </div>
@@ -229,7 +229,7 @@ function ContactFormContent() {
           value={formData.message}
           onChange={handleChange}
           rows={6}
-          className="mt-2 border-[#007A73] focus:border-[#C37B1E] dark:border-[#63B0AC] dark:focus:border-[#F3C677] resize-none"
+          className="mt-2 border-[#0097b2] focus:border-[#eeba2b] dark:border-[#66C4DC] dark:focus:border-[#F5C94D] resize-none"
           placeholder="Tell us about your partnership interest or inquiry..."
         />
       </div>
@@ -237,7 +237,7 @@ function ContactFormContent() {
       <Button
         type="submit"
         disabled={isSubmitting}
-        className="w-full bg-[#007A73] hover:bg-[#C37B1E] text-[#FCFAEF] text-lg py-3 disabled:opacity-50 disabled:cursor-not-allowed"
+        className="w-full bg-[#0097b2] hover:bg-[#eeba2b] text-[#FCFAEF] text-lg py-3 disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {isSubmitting ? (
           <div className="flex items-center">
@@ -255,21 +255,21 @@ function ContactFormContent() {
       <div className="mt-8 pt-8 border-t border-gray-200 dark:border-gray-700">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="flex items-center">
-            <Mail className="w-5 h-5 text-[#007A73] dark:text-[#63B0AC] mr-3" />
+            <Mail className="w-5 h-5 text-[#0097b2] dark:text-[#66C4DC] mr-3" />
             <div>
               <p className="text-sm font-medium text-[#1C1F1E] dark:text-[#FCFAEF]">Email</p>
               <p className="text-sm text-[#2F3332] dark:text-[#E6E7E7]">akomapahealth@gmail.com</p>
             </div>
           </div>
           <div className="flex items-center">
-            <Phone className="w-5 h-5 text-[#007A73] dark:text-[#63B0AC] mr-3" />
+            <Phone className="w-5 h-5 text-[#0097b2] dark:text-[#66C4DC] mr-3" />
             <div>
               <p className="text-sm font-medium text-[#1C1F1E] dark:text-[#FCFAEF]">Phone</p>
               <p className="text-sm text-[#2F3332] dark:text-[#E6E7E7]">+233 20 954 4834</p>
             </div>
           </div>
           <div className="flex items-center">
-            <MapPin className="w-5 h-5 text-[#007A73] dark:text-[#63B0AC] mr-3" />
+            <MapPin className="w-5 h-5 text-[#0097b2] dark:text-[#66C4DC] mr-3" />
             <div>
               <p className="text-sm font-medium text-[#1C1F1E] dark:text-[#FCFAEF]">Location</p>
               <p className="text-sm text-[#2F3332] dark:text-[#E6E7E7]">Cape Coast, Ghana</p>
@@ -286,7 +286,7 @@ export default function ContactForm() {
     <Suspense fallback={
       <div className="bg-white dark:bg-[#2F3332] rounded-2xl p-8 shadow-lg">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#007A73] mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#0097b2] mx-auto mb-4"></div>
           <p className="text-gray-600">Loading contact form...</p>
         </div>
       </div>

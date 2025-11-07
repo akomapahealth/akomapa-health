@@ -24,7 +24,7 @@ function BreadcrumbContent() {
     <nav className="py-4 px-4 md:px-0">
       <ol className="flex flex-wrap items-center text-sm text-[#2F3332]/70 dark:text-[#FCFAEF]/70">
         <li className="flex items-center">
-          <Link href="/" className="flex items-center hover:text-[#C37B1E] dark:hover:text-[#F3C677] transition-colors">
+          <Link href="/" className="flex items-center hover:text-[#eeba2b] dark:hover:text-[#F5C94D] transition-colors">
             <Home className="h-4 w-4" />
             <span className="sr-only">Home</span>
           </Link>
@@ -38,7 +38,7 @@ function BreadcrumbContent() {
             ) : (
               <Link 
                 href={crumb.href} 
-                className="hover:text-[#C37B1E] dark:hover:text-[#F3C677] transition-colors"
+                className="hover:text-[#eeba2b] dark:hover:text-[#F5C94D] transition-colors"
               >
                 {crumb.label}
               </Link>

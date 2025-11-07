@@ -25,8 +25,8 @@ const corePrograms: CoreProgram[] = [
     emoji: "🩺",
     description: "We provide free, community-based screenings for hypertension and diabetes — two of Ghana's most common and underdiagnosed chronic diseases. Early detection allows us to begin life-saving interventions and reduce long-term complications.",
     icon: Stethoscope,
-    color: "#007A73",
-    bgGradient: "from-[#007A73]/10 to-[#007A73]/5"
+    color: "#0097b2",
+    bgGradient: "from-[#0097b2]/10 to-[#0097b2]/5"
   },
   {
     id: 2,
@@ -34,8 +34,8 @@ const corePrograms: CoreProgram[] = [
     emoji: "🥗",
     description: "Our team offers personalized, culturally sensitive nutritional guidance to help patients manage chronic conditions, improve energy, and adopt sustainable, healthful eating habits — even with limited resources.",
     icon: Leaf,
-    color: "#C37B1E",
-    bgGradient: "from-[#C37B1E]/10 to-[#C37B1E]/5"
+    color: "#eeba2b",
+    bgGradient: "from-[#eeba2b]/10 to-[#eeba2b]/5"
   },
   {
     id: 3,
@@ -43,8 +43,8 @@ const corePrograms: CoreProgram[] = [
     emoji: "💊",
     description: "We don't just prescribe medications — we counsel patients on how to take them safely and consistently. Our pharmacy partners and student clinicians ensure medications are both accessible and well-understood.",
     icon: Pill,
-    color: "#007A73",
-    bgGradient: "from-[#007A73]/10 to-[#007A73]/5"
+    color: "#0097b2",
+    bgGradient: "from-[#0097b2]/10 to-[#0097b2]/5"
   },
   {
     id: 4,
@@ -52,8 +52,8 @@ const corePrograms: CoreProgram[] = [
     emoji: "🏥",
     description: "When patients require more advanced care, we refer them to trusted health centers and assign them a patient advocate — a trained member of our team who supports them through Ghana's health system, from appointments to NHIS registration.",
     icon: UserCheck,
-    color: "#C37B1E",
-    bgGradient: "from-[#C37B1E]/10 to-[#C37B1E]/5"
+    color: "#eeba2b",
+    bgGradient: "from-[#eeba2b]/10 to-[#eeba2b]/5"
   },
   {
     id: 5,
@@ -61,8 +61,8 @@ const corePrograms: CoreProgram[] = [
     emoji: "🏡",
     description: "Our home visitation teams monitor patient progress between clinic days, reinforce treatment plans, and build meaningful relationships. This community-rooted model strengthens continuity of care and improves outcomes.",
     icon: Home,
-    color: "#007A73",
-    bgGradient: "from-[#007A73]/10 to-[#007A73]/5"
+    color: "#0097b2",
+    bgGradient: "from-[#0097b2]/10 to-[#0097b2]/5"
   },
   {
     id: 6,
@@ -70,8 +70,8 @@ const corePrograms: CoreProgram[] = [
     emoji: "📊",
     description: "Our Research Team collects data to evaluate outcomes, improve services, and generate insights that shape the future of student-led healthcare. We aim to contribute evidence that informs national and global health policies.",
     icon: FileText,
-    color: "#C37B1E",
-    bgGradient: "from-[#C37B1E]/10 to-[#C37B1E]/5"
+    color: "#eeba2b",
+    bgGradient: "from-[#eeba2b]/10 to-[#eeba2b]/5"
   },
   {
     id: 7,
@@ -79,8 +79,8 @@ const corePrograms: CoreProgram[] = [
     emoji: "🪪",
     description: "We assist patients with enrollment in the National Health Insurance Scheme (NHIS), reducing out-of-pocket costs and connecting them to broader services. This is a key step in our commitment to long-term, equitable care.",
     icon: CreditCard,
-    color: "#007A73",
-    bgGradient: "from-[#007A73]/10 to-[#007A73]/5"
+    color: "#0097b2",
+    bgGradient: "from-[#0097b2]/10 to-[#0097b2]/5"
   },
   {
     id: 8,
@@ -88,8 +88,8 @@ const corePrograms: CoreProgram[] = [
     emoji: "🌍",
     description: "In collaboration with global health leaders from Yale University, UCLA, and the University of Cape Coast, we offer hands-on training and mentorship for the next generation of healthcare changemakers. This program equips medical students and early-career health professionals with the skills to lead community-centered, equity-driven interventions across Ghana and beyond.",
     icon: Globe,
-    color: "#C37B1E",
-    bgGradient: "from-[#C37B1E]/10 to-[#C37B1E]/5"
+    color: "#eeba2b",
+    bgGradient: "from-[#eeba2b]/10 to-[#eeba2b]/5"
   }
 ];
 
@@ -115,8 +115,8 @@ const futureInitiatives: FutureInitiative[] = [
     details: "Whether through bulk purchasing, donated stock, or public-private partnerships, we aim to create a pharmacy that is both affordable and reliable.",
     seeking: "📦 Seeking: sponsorships, corporate partners, and medication donations to make this vision real.",
     icon: Package,
-    color: "#007A73",
-    bgGradient: "from-[#007A73]/10 to-[#007A73]/5"
+    color: "#0097b2",
+    bgGradient: "from-[#0097b2]/10 to-[#0097b2]/5"
   },
   {
     id: 2,
@@ -126,8 +126,8 @@ const futureInitiatives: FutureInitiative[] = [
     details: "This model dares to turn agriculture into access, and nutrition into impact.",
     seeking: "🌿 We welcome agricultural experts, entrepreneurs, and donors ready to nourish Ghana's future.",
     icon: Sprout,
-    color: "#C37B1E",
-    bgGradient: "from-[#C37B1E]/10 to-[#C37B1E]/5"
+    color: "#eeba2b",
+    bgGradient: "from-[#eeba2b]/10 to-[#eeba2b]/5"
   }
 ];
 
@@ -156,8 +156,8 @@ export default function ProgramsPage() {
               animate={{ opacity: 1, y: 0 }}
               className="mb-8"
             >
-              <div className="inline-block px-6 py-3 bg-gradient-to-r from-[#C37B1E]/20 to-[#007A73]/20 rounded-full mb-6">
-                <span className="text-[#007A73] dark:text-[#63B0AC] font-bold text-lg">
+              <div className="inline-block px-6 py-3 bg-gradient-to-r from-[#eeba2b]/20 to-[#0097b2]/20 rounded-full mb-6">
+                <span className="text-[#0097b2] dark:text-[#66C4DC] font-bold text-lg">
                   🌿 Akomapa Programs & Initiatives
                 </span>
               </div>
@@ -170,7 +170,7 @@ export default function ProgramsPage() {
               className="text-4xl md:text-6xl font-bold mb-8"
             >
               <span className="text-[#1C1F1E] dark:text-[#FCFAEF]">Healing. Advocacy.</span><br />
-              <span className="bg-gradient-to-r from-[#C37B1E] to-[#007A73] bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-[#eeba2b] to-[#0097b2] bg-clip-text text-transparent">
                 Empowerment.
               </span>
             </motion.h1>
@@ -196,8 +196,8 @@ export default function ProgramsPage() {
       <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E] relative overflow-hidden">
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-5 dark:opacity-10">
-          <div className="absolute top-20 left-10 w-32 h-32 bg-[#007A73] rounded-full blur-3xl"></div>
-          <div className="absolute bottom-20 right-10 w-24 h-24 bg-[#C37B1E] rounded-full blur-2xl"></div>
+          <div className="absolute top-20 left-10 w-32 h-32 bg-[#0097b2] rounded-full blur-3xl"></div>
+          <div className="absolute bottom-20 right-10 w-24 h-24 bg-[#eeba2b] rounded-full blur-2xl"></div>
         </div>
 
         <div className="container mx-auto px-4 relative z-10">
@@ -284,14 +284,14 @@ export default function ProgramsPage() {
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
             >
-              <div className="inline-block px-6 py-3 bg-gradient-to-r from-[#C37B1E]/20 to-[#007A73]/20 rounded-full mb-6">
-                <span className="text-[#C37B1E] dark:text-[#F3C677] font-bold text-lg">
+              <div className="inline-block px-6 py-3 bg-gradient-to-r from-[#eeba2b]/20 to-[#0097b2]/20 rounded-full mb-6">
+                <span className="text-[#eeba2b] dark:text-[#F5C94D] font-bold text-lg">
                   🌍 Akomapa: Daring to Dream Forward
                 </span>
               </div>
               <h2 className="text-3xl md:text-5xl font-bold mb-8 text-[#1C1F1E] dark:text-[#FCFAEF]">
                 Investing in Bold, <br />
-                <span className="bg-gradient-to-r from-[#C37B1E] to-[#007A73] bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-[#eeba2b] to-[#0097b2] bg-clip-text text-transparent">
                   Sustainable Solutions
                 </span>
               </h2>
@@ -302,7 +302,7 @@ export default function ProgramsPage() {
                 <p className="text-base md:text-lg text-[#2F3332] dark:text-[#E6E7E7] font-medium">
                   As we serve our first patients, we are also building the systems that will outlast us—systems that are community-owned, self-sustaining, and radically human.
                 </p>
-                <div className="mt-6 p-4 bg-gradient-to-r from-[#007A73]/10 to-[#C37B1E]/10 rounded-xl">
+                <div className="mt-6 p-4 bg-gradient-to-r from-[#0097b2]/10 to-[#eeba2b]/10 rounded-xl">
                   <p className="text-lg font-bold text-[#1C1F1E] dark:text-[#FCFAEF]">
                     This is not just a clinic. It&apos;s a movement.
                   </p>
@@ -317,8 +317,8 @@ export default function ProgramsPage() {
       <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E] relative overflow-hidden">
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-5 dark:opacity-10">
-          <div className="absolute top-10 right-10 w-40 h-40 bg-[#C37B1E] rounded-full blur-3xl"></div>
-          <div className="absolute bottom-10 left-10 w-32 h-32 bg-[#007A73] rounded-full blur-2xl"></div>
+          <div className="absolute top-10 right-10 w-40 h-40 bg-[#eeba2b] rounded-full blur-3xl"></div>
+          <div className="absolute bottom-10 left-10 w-32 h-32 bg-[#0097b2] rounded-full blur-2xl"></div>
         </div>
 
         <div className="container mx-auto px-4 relative z-10">
@@ -331,14 +331,14 @@ export default function ProgramsPage() {
               viewport={{ once: true }}
               className="text-center mb-16"
             >
-              <div className="inline-block px-6 py-3 bg-gradient-to-r from-[#C37B1E]/20 to-[#007A73]/20 rounded-full mb-6">
-                <span className="text-[#C37B1E] dark:text-[#F3C677] font-bold text-lg">
+              <div className="inline-block px-6 py-3 bg-gradient-to-r from-[#eeba2b]/20 to-[#0097b2]/20 rounded-full mb-6">
+                <span className="text-[#eeba2b] dark:text-[#F5C94D] font-bold text-lg">
                   🌱 Future Initiatives
                 </span>
               </div>
               <h2 className="text-3xl md:text-5xl font-bold text-[#1C1F1E] dark:text-[#FCFAEF] mb-8">
                 Healthcare That <br />
-                <span className="bg-gradient-to-r from-[#C37B1E] to-[#007A73] bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-[#eeba2b] to-[#0097b2] bg-clip-text text-transparent">
                   Sustains Itself
                 </span>
               </h2>
@@ -415,7 +415,7 @@ export default function ProgramsPage() {
       </section>
 
       {/* Call to Action */}
-      <section className="py-16 md:py-24 bg-gradient-to-r from-[#007A73] to-[#C37B1E] relative overflow-hidden">
+      <section className="py-16 md:py-24 bg-gradient-to-r from-[#0097b2] to-[#eeba2b] relative overflow-hidden">
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-20">
           <div className="absolute top-4 left-4 w-16 h-16 border-2 border-white rounded-full"></div>
@@ -440,7 +440,7 @@ export default function ProgramsPage() {
               <Link href="/partner">
                 <Button 
                   size="lg"
-                  className="bg-[#FCFAEF] text-[#007A73] hover:bg-[#FCFAEF]/90 font-semibold px-8 py-4 text-lg shadow-lg hover:shadow-xl transition-all duration-300"
+                  className="bg-[#FCFAEF] text-[#0097b2] hover:bg-[#FCFAEF]/90 font-semibold px-8 py-4 text-lg shadow-lg hover:shadow-xl transition-all duration-300"
                 >
                   <Heart className="h-5 w-5 mr-2" />
                   Partner with Us
@@ -450,7 +450,7 @@ export default function ProgramsPage() {
               <Link href="/corporate-sponsorship">
                 <Button 
                   size="lg"
-                  className="bg-[#C37B1E] text-[#FCFAEF] hover:bg-[#F3C677] hover:text-[#1C1F1E] font-semibold px-8 py-4 text-lg shadow-lg hover:shadow-xl transition-all duration-300"
+                  className="bg-[#eeba2b] text-[#FCFAEF] hover:bg-[#F5C94D] hover:text-[#1C1F1E] font-semibold px-8 py-4 text-lg shadow-lg hover:shadow-xl transition-all duration-300"
                 >
                   <Building className="h-5 w-5 mr-2" />
                   Corporate Sponsorship
@@ -461,7 +461,7 @@ export default function ProgramsPage() {
                 <Button 
                   size="lg"
                   variant="outline" 
-                  className="border-2 border-[#FCFAEF] text-[#FCFAEF] bg-transparent hover:bg-[#FCFAEF] hover:text-[#007A73] font-semibold px-8 py-4 text-lg"
+                  className="border-2 border-[#FCFAEF] text-[#FCFAEF] bg-transparent hover:bg-[#FCFAEF] hover:text-[#0097b2] font-semibold px-8 py-4 text-lg"
                 >
                   <Mail size={20} className="mr-2" />
                   Contact Us
