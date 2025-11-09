@@ -84,7 +84,8 @@ const navigation = [
       { name: "The Akomapa Network", href: "/programs/akomapa-network" },
       { name: "Akomapa GHLTP", href: "/programs/akomapa-ghltp" },
       { name: "Akomapa GHIP", href: "/programs/akomapa-ghip" },
-      { name: "Akomapa Farms", href: "/programs/akomapa-farms" },
+      { name: "Akomapa Young Advocates", href: "/programs/akomapa-young-advocates" },
+      { name: "Akomapa Foods", href: "/programs/akomapa-foods" },
     ]
   },
   { name: "Our Science", href: "/research" },

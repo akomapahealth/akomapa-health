@@ -1,7 +1,9 @@
 "use client";
 
+import Link from "next/link";
 import { motion } from "framer-motion";
 import Image from "@/components/common/Image";
+import { Button } from "@/components/ui/button";
 
 export default function AkomapaMeaningSection() {
   return (
@@ -21,7 +23,7 @@ export default function AkomapaMeaningSection() {
       </div>
       
       <div className="container mx-auto px-4 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 lg:gap-16 items-start lg:items-center">
           {/* Visual Element */}
           <motion.div 
             className="lg:col-span-5"
@@ -31,8 +33,8 @@ export default function AkomapaMeaningSection() {
             viewport={{ once: true }}
           >
             <div className="relative">
-              {/* Main image container */}
-              <div className="relative h-[500px] rounded-2xl overflow-hidden shadow-2xl">
+              {/* Main image container - taller height */}
+              <div className="relative h-[600px] md:h-[700px] lg:h-[750px] rounded-2xl overflow-hidden shadow-2xl">
                 <Image
                   src="/highlights/Akomapa-47.jpg"
                   alt="Healthcare professionals showing compassion and care"
@@ -76,68 +78,54 @@ export default function AkomapaMeaningSection() {
           
           {/* Text Content */}
           <motion.div 
-            className="lg:col-span-7"
+            className="lg:col-span-7 flex items-center"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.3 }}
             viewport={{ once: true }}
           >
-            <div className="max-w-3xl">
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6, delay: 0.4 }}
-                viewport={{ once: true }}
-                className="inline-block mb-6"
-              >
-                <span className="inline-flex items-center px-4 py-2 rounded-full bg-[#0097b2]/10 dark:bg-[#0097b2]/20 text-[#0097b2] dark:text-[#66C4DC] text-sm font-medium">
-                  <span className="w-2 h-2 bg-[#0097b2] dark:bg-[#66C4DC] rounded-full mr-2"></span>
-                  The Meaning Behind Our Name
-                </span>
-              </motion.div>
-              
-              <motion.h2
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.5 }}
-                viewport={{ once: true }}
-                className="text-4xl md:text-5xl font-bold text-[#1C1F1E] dark:text-[#FCFAEF] mb-6 leading-tight"
-              >
-                What <span className="text-[#0097b2] dark:text-[#66C4DC]">Akomapa</span> Means
-              </motion.h2>
-              
+            <div className="w-full max-w-3xl h-full flex flex-col justify-center">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.6 }}
+                transition={{ duration: 0.7, delay: 0.4 }}
                 viewport={{ once: true }}
-                className="space-y-6 text-lg text-[#2F3332] dark:text-[#E6E7E7] leading-relaxed"
+                className="space-y-8 md:space-y-10 lg:space-y-12 text-lg md:text-xl text-[#2F3332] dark:text-[#E6E7E7] leading-relaxed"
               >
-                <p className="text-xl font-medium text-[#0097b2] dark:text-[#66C4DC]">
+                <p className="text-2xl md:text-3xl font-medium text-[#0097b2] dark:text-[#66C4DC]">
                   In Akan, Akomapa means &quot;a good heart.&quot;
                 </p>
                 
-                <p>
+                <p className="text-lg md:text-xl">
                   It&apos;s more than just a name — it&apos;s our guiding belief.
                 </p>
                 
-                <p>
+                <p className="text-lg md:text-xl leading-relaxed">
                   At Akomapa, we care for the physical heart — screening for hypertension, managing diabetes, offering nutrition support — but we also care for the moral heart of healthcare. The part that listens. The part that sees dignity in every patient. The part that refuses to walk away from people just because they are poor.
                 </p>
                 
-                <div className="bg-[#FCFAEF]/50 dark:bg-[#1C1F1E]/50 p-6 rounded-xl border-l-4 border-[#eeba2b] dark:border-[#F5C94D]">
-                  <p className="text-lg font-medium text-[#1C1F1E] dark:text-[#FCFAEF] mb-2">
+                <div className="bg-[#FCFAEF]/50 dark:bg-[#1C1F1E]/50 p-6 md:p-8 rounded-xl border-l-4 border-[#eeba2b] dark:border-[#F5C94D]">
+                  <p className="text-lg md:text-xl font-medium text-[#1C1F1E] dark:text-[#FCFAEF] leading-relaxed">
                     To have akomapa is to lead with empathy, to live in health, and to believe that everyone deserves to be well — in body, mind, and spirit.
                   </p>
                 </div>
                 
-                <p>
+                <p className="text-lg md:text-xl">
                   Whether you&apos;re a patient, a volunteer, or a partner — welcome to the Akomapa family.
                 </p>
                 
-                <p className="text-xl font-semibold text-[#eeba2b] dark:text-[#F5C94D]">
-                  Welcome to a clinic with a good heart.
+                <p className="text-xl md:text-2xl font-semibold text-[#eeba2b] dark:text-[#F5C94D]">
+                  Welcome to a family with a good heart.
                 </p>
+
+                <div>
+                  <Button
+                    asChild
+                  className="inline-flex items-center justify-center bg-[#0097b2] text-[#FCFAEF] hover:bg-[#0097b2]/85 px-10 py-7 rounded-half text-lg md:text-xl font-semibold shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 hover:scale-[1.02]"
+                  >
+                    <Link href="/about">Our Story</Link>
+                  </Button>
+                </div>
               </motion.div>
             </div>
           </motion.div>

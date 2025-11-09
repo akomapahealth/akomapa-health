@@ -151,15 +151,15 @@ export default function ProgramModal({ program, isOpen, onClose }: ProgramModalP
               <div className="flex flex-col sm:flex-row gap-4 pt-6 border-t border-[#E6E7E7] dark:border-[#4F5554]">
                 <Button 
                   onClick={onClose}
-                  className="flex-1 bg-[#0097b2] hover:bg-[#eeba2b] text-[#FCFAEF]"
+                  className="flex-1 bg-[#0097b2] hover:bg-[#eeba2b] text-[#FCFAEF] cursor-pointer"
                 >
                   Close
                 </Button>
                 <Button 
                   variant="outline"
-                  className="flex-1 border-[#0097b2] text-[#0097b2] hover:bg-[#0097b2]/10 dark:border-[#66C4DC] dark:text-[#66C4DC] dark:hover:bg-[#66C4DC]/10"
+                  className="flex-1 border-[#0097b2] text-[#0097b2] hover:bg-[#0097b2]/10 dark:border-[#66C4DC] dark:text-[#66C4DC] dark:hover:bg-[#66C4DC]/10 cursor-pointer"
                 >
-                  Get Involved
+                  Explore Program
                 </Button>
               </div>
             </div>
