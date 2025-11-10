@@ -179,21 +179,20 @@ export default function LocationsSection() {
             </div>
             <Button className="bg-[#0097b2] hover:bg-[#eeba2b] text-[#FCFAEF] w-fit">
               <Link href="/our-ucc-clinic" className="flex items-center">
-                Visit Our Clinic <ArrowRight size={16} className="ml-2" />
+                Visit Our UCC Clinic <ArrowRight size={16} className="ml-2" />
               </Link>
             </Button>
           </motion.div>
         </div>
 
         {/* Full-width map section with hidden header */}
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
           viewport={{ once: true }}
           className="relative rounded-xl overflow-hidden shadow-lg border-2 border-[#E6E7E7] dark:border-[#2F3332]"
         >
-          {/* Using the wrapper div with overflow hidden technique from Stack Overflow */}
           <div style={{ width: "100%", overflow: "hidden", height: "550px" }}>
             <iframe 
               src="https://www.google.com/maps/d/embed?mid=1qJUWg-0TeIfD_zTnUhkTJE7DplYWnVg&ehbc=2E312F" 
@@ -208,7 +207,7 @@ export default function LocationsSection() {
           <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#1C1F1E]/80 to-transparent p-4 text-[#FCFAEF]">
             <p className="font-medium">Our clinic locations in Ghana&apos;s Central Region</p>
           </div>
-        </motion.div>
+        </motion.div> */}
         
         {/* Bottom CTA */}
         <div className="text-center mt-12">
