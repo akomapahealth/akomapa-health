@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import Image from "@/components/common/Image";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ChevronLeft, ChevronRight } from "lucide-react";
+import { X, ChevronLeft, ChevronRight, ChevronUp, ChevronDown } from "lucide-react";
 
 // Define type for gallery items
 type GalleryItem = {
@@ -250,7 +250,7 @@ export default function Gallery() {
             Gallery
           </h3>
           <p className="text-[#2F3332] dark:text-[#E6E7E7] text-lg">
-            Highlight our students, community events, faculty supervisors, and pilot clinics in action—offering a human view of our mission at work.
+            Highlight our students, community events, faculty supervisors, and pilot clinics in action offering a human view of our mission at work.
           </p>
         </div>
 
@@ -321,12 +321,12 @@ export default function Gallery() {
               {isExpanded ? (
                 <>
                   Show Less
-                  <span className="w-4 h-4 rotate-180 transition-transform duration-200">↑</span>
+                  <span className="w-4 h-4 rotate-180 transition-transform duration-200"><ChevronUp size={16} /></span>
                 </>
               ) : (
                 <>
                   Show More ({filteredItems.length - 4} more)
-                  <span className="w-4 h-4 transition-transform duration-200">↓</span>
+                  <span className="w-4 h-4 transition-transform duration-200"><ChevronDown size={16} /></span>
                 </>
               )}
             </motion.button>

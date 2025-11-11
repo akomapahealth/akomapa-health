@@ -8,6 +8,7 @@ import MissionSection from "@/components/home/MissionSection";
 import HealthCrisisSection from "@/components/home/HealthCrisisSection";
 import LocationSection from "@/components/home/LocationSection";
 import ResearchSection from "@/components/home/ResearchSection";
+import ImpactMetrics from "@/components/home/ImpactMetrics";
 import Gallery from "@/components/home/Gallery";
 
 
@@ -28,6 +29,7 @@ export default function Home() {
       <HealthCrisisSection />
       <LocationSection />
       <ResearchSection />
+      <ImpactMetrics />
       <Testimonials />
       <Gallery />
       <CallToAction />
