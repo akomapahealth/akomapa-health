@@ -1,0 +1,167 @@
+name: E2E Tests
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+  workflow_dispatch:
+  schedule:
+    # Run tests daily at 2 AM UTC
+    - cron: '0 2 * * *'
+
+jobs:
+  test:
+    timeout-minutes: 60
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        browser: [chromium, firefox, webkit]
+        exclude:
+          # Reduce matrix size for faster feedback
+          - os: windows-latest
+            browser: webkit
+          - os: macos-latest
+            browser: firefox
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps ${{ matrix.browser }}
+
+      - name: Build application
+        run: npm run build
+        env:
+          CI: true
+
+      - name: Run E2E tests
+        run: npm run test:e2e
+        env:
+          CI: true
+          PLAYWRIGHT_TEST_BASE_URL: http://localhost:3000
+        continue-on-error: false
+        timeout-minutes: 30
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results-${{ matrix.os }}-${{ matrix.browser }}
+          path: |
+            test-results/
+            playwright-report/
+          retention-days: 30
+
+      - name: Upload test report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report-${{ matrix.os }}-${{ matrix.browser }}
+          path: playwright-report/
+          retention-days: 7
+
+  test-summary:
+    needs: test
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Download all test results
+        uses: actions/download-artifact@v4
+        with:
+          path: all-test-results
+
+      - name: Generate test summary
+        run: |
+          echo "## E2E Test Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Tests completed across all browsers and operating systems." >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Test Artifacts" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Download test results and reports from the artifacts section above." >> $GITHUB_STEP_SUMMARY
+
+  comment-pr:
+    if: github.event_name == 'pull_request' && always()
+    needs: [test, test-summary]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Comment PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+            
+            const botComment = comments.find(comment => 
+              comment.user.type === 'Bot' && 
+              comment.body.includes('E2E Test Results')
+            );
+            
+            // Check if tests failed
+            const testJobs = await github.rest.actions.listJobsForWorkflowRun({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              run_id: context.runId,
+            });
+            
+            const failedJobs = testJobs.data.jobs.filter(job => job.conclusion === 'failure');
+            const hasFailures = failedJobs.length > 0;
+            
+            const statusText = hasFailures ? 'FAILED' : 'PASSED';
+            
+            const body = `## E2E Test Results - ${statusText}
+            
+            Tests have completed with status: **${statusText}**
+            
+            ${hasFailures ? '**Some tests failed.** Please review the test results and fix any issues.' : '**All tests passed.**'}
+            
+            ### Test Details
+            - **Workflow Run**: [View Details](${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId})
+            - **Test Artifacts**: Download test results, screenshots, videos, and traces from the workflow run
+            - **Test Reports**: View HTML test reports in the artifacts section
+            
+            ${hasFailures ? `### Failed Jobs\n${failedJobs.map(job => `- ${job.name} (${job.conclusion})`).join('\n')}\n` : ''}
+            
+            ### Next Steps
+            ${hasFailures 
+              ? '1. Review the test failures in the workflow run\n2. Check test artifacts for screenshots and videos\n3. Fix the issues and push again\n4. Tests will run automatically on the next push'
+              : '1. Review the test results in the workflow run\n2. Merge the pull request if all tests pass\n3. Continue development'}
+            
+            ---
+            *This comment is automatically generated by GitHub Actions.*`;
+            
+            if (botComment) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: botComment.id,
+                body: body
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: body
+              });
+            }
+
