@@ -197,7 +197,7 @@ export default function HeroSection({
               <Button
                 asChild
                 size="lg"
-                className="group bg-[#0097b2] hover:bg-[#0097b2]/80 text-[#FCFAEF] px-8 py-6 h-auto text-lg font-medium rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+                className="group bg-[#0097b2] hover:bg-[#0097b2]/80 text-[#FCFAEF] px-8 py-6 h-auto text-lg font-medium rounded-half transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
               >
                 <Link href="/join" className="flex items-center space-x-2">
                   <span>Join the Movement</span>
@@ -208,7 +208,7 @@ export default function HeroSection({
               <Button
                 asChild
                 size="lg"
-                className="group bg-[#eeba2b] hover:bg-[#eeba2b]/80 text-[#FCFAEF] px-8 py-6 h-auto text-lg font-medium rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+                className="group bg-[#eeba2b] hover:bg-[#eeba2b]/80 text-[#FCFAEF] px-8 py-6 h-auto text-lg font-medium rounded-half transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
               >
                 <Link href="/partner" className="flex items-center space-x-2">
                   <span>Support Our Work</span>

@@ -189,14 +189,14 @@ function ContactFormContent() {
             Partnership Type
           </Label>
           <Select value={formData.partnershipType} onValueChange={handleSelectChange}>
-            <SelectTrigger className="mt-2 border-[#0097b2] focus:border-[#eeba2b] dark:border-[#66C4DC] dark:focus:border-[#F5C94D]">
-              <SelectValue placeholder="Select partnership type" />
+            <SelectTrigger className="mt-2 w-full border-[#0097b2] focus:border-[#eeba2b] dark:border-[#66C4DC] dark:focus:border-[#F5C94D] bg-[#FCFAEF] dark:bg-[#1C1F1E] hover:bg-white dark:hover:bg-[#1C1F1E] cursor-pointer">
+              <SelectValue placeholder="Select partnership type" className="text-[#1C1F1E] dark:text-[#FCFAEF]" />
             </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="Monetary Sponsorship">Monetary Sponsorship</SelectItem>
-              <SelectItem value="Host Outreach Programs">Host Outreach Programs</SelectItem>
-              <SelectItem value="Strategic Partnerships">Strategic Partnerships</SelectItem>
-              <SelectItem value="General Inquiry">General Inquiry</SelectItem>
+            <SelectContent className="bg-[#FCFAEF] dark:bg-[#1C1F1E] text-[#1C1F1E] dark:text-[#FCFAEF]">
+              <SelectItem value="Monetary Sponsorship" className="cursor-pointer">Monetary Sponsorship</SelectItem>
+              <SelectItem value="Host Outreach Programs" className="cursor-pointer">Host Outreach Programs</SelectItem>
+              <SelectItem value="Strategic Partnerships" className="cursor-pointer">Strategic Partnerships</SelectItem>
+              <SelectItem value="General Inquiry" className="cursor-pointer">General Inquiry</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -272,7 +272,7 @@ function ContactFormContent() {
             <MapPin className="w-5 h-5 text-[#0097b2] dark:text-[#66C4DC] mr-3" />
             <div>
               <p className="text-sm font-medium text-[#1C1F1E] dark:text-[#FCFAEF]">Location</p>
-              <p className="text-sm text-[#2F3332] dark:text-[#E6E7E7]">Cape Coast, Ghana</p>
+              <p className="text-sm text-[#2F3332] dark:text-[#E6E7E7]">New Haven, CT, USA</p>
             </div>
           </div>
         </div>

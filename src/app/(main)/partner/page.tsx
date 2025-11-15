@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { CreditCard, Smartphone, Heart, Users, Globe, Building, Mail, DollarSign, CheckCircle, Info, Star, Gift, Shield, Target } from "lucide-react";
+import { CreditCard, Smartphone, Info, ArrowRight, DollarSign, Calendar, Heart, Sparkles } from "lucide-react";
 import Image from "@/components/common/Image";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
@@ -56,22 +56,18 @@ const oneTimeAmounts = [
 // Partner benefits
 const partnerBenefits = [
   {
-    icon: Heart,
     title: "Quarterly 'Heartbeat' Updates",
     description: "Clinic impact and stories from the field"
   },
   {
-    icon: Star,
     title: "Early Event Invitations",
     description: "Akomapa events and webinars"
   },
   {
-    icon: Gift,
     title: "Behind-the-Scenes Access",
     description: "Research, photos, and clinic milestones"
   },
   {
-    icon: Shield,
     title: "Part of Something Bold",
     description: "Deep sense of knowing you're part of something lasting"
   }
@@ -80,23 +76,23 @@ const partnerBenefits = [
 // Impact areas
 const impactAreas = [
   {
-    icon: Target,
-    title: "Reach patients with high blood pressure and diabetes before it's too late",
+    title: "Early Disease Detection",
+    description: "Reach patients with high blood pressure and diabetes before it's too late, preventing life-threatening complications through regular screenings and monitoring.",
     color: "#0097b2"
   },
   {
-    icon: Users,
-    title: "Train the next generation of ethical, community-minded health professionals",
+    title: "Professional Development",
+    description: "Train the next generation of ethical, community-minded health professionals who understand the unique needs of underserved populations.",
     color: "#eeba2b"
   },
   {
-    icon: Building,
-    title: "Power our upcoming pharmacy and food security programs",
+    title: "Program Expansion",
+    description: "Power our upcoming pharmacy and food security programs that will provide comprehensive care beyond clinical services.",
     color: "#0097b2"
   },
   {
-    icon: Globe,
-    title: "Build a replicable model of healthcare in Ghana and beyond",
+    title: "Scalable Model",
+    description: "Build a replicable model of healthcare delivery in Ghana and beyond, demonstrating sustainable solutions for underserved communities.",
     color: "#eeba2b"
   }
 ];
@@ -207,145 +203,92 @@ export default function PartnerPage() {
       </div>
       
       {/* Hero Section */}
-      <section className="relative py-16 md:py-24 overflow-hidden">
-        <div className="absolute inset-0 z-0 opacity-20">
-          <Image
-            src="/highlights/Akomapa-73.jpg"
-            alt="group of people"
-            fill
-            className="object-cover"
-          />
-        </div>
+      <section className="relative py-16 sm:py-20 md:py-28 bg-gradient-to-r from-[#0097b2] to-[#0F4C5C] overflow-hidden">
+        <div className="absolute top-0 right-0 w-64 h-64 bg-[#FCFAEF]/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl" />
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#FCFAEF]/10 rounded-full translate-y-1/2 -translate-x-1/2 blur-3xl" />
         
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-4xl mx-auto text-center">
+        <div className="container mx-auto px-4 sm:px-6 relative z-10">
+          <div className="max-w-5xl pt-4 sm:pt-8">
             <motion.h1 
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
-              className="text-4xl md:text-5xl font-bold text-[#0097b2] dark:text-[#FCFAEF] mb-6"
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-light text-[#FCFAEF] mb-6 leading-tight"
             >
-              Partner With Us
+              Every act of generosity saves a life.
             </motion.h1>
             <motion.p 
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              className="text-xl text-[#2F3332]/80 dark:text-[#E6E7E7]/80 mb-8"
+              transition={{ delay: 0.15, duration: 0.8, ease: "easeOut" }}
+              className="text-base sm:text-lg md:text-2xl text-[#FCFAEF]/80 font-light max-w-3xl"
             >
-              Every cedi, every dollar, every act of generosity saves a life.
+              At Akomapa, we believe that healing is a shared calling—and transformation begins with bold hearts who dare to act. We are building something rare: a student-powered, community-rooted, and ethically led model of care for people who&apos;ve long been left behind.
             </motion.p>
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="bg-white/10 backdrop-blur-sm rounded-xl p-6 md:p-8 text-left"
-            >
-              <p className="text-lg text-[#2F3332]/80 dark:text-[#E6E7E7]/80 mb-4">
-                At Akomapa, we believe that healing is a shared calling—and transformation begins with bold hearts who dare to act.
-              </p>
-              <p className="text-lg text-[#2F3332]/80 dark:text-[#E6E7E7]/80">
-                We are building something rare: a student-powered, community-rooted, and ethically led model of care for people who&apos;ve long been left behind. We are not waiting for change—we are becoming it. One patient. One clinic day. One act of compassion at a time.
-              </p>
-            </motion.div>
           </div>
         </div>
       </section>
 
-      {/* Partnership Options - Enhanced Layout */}
+      {/* Partnership Options - Bento Style Tab Switcher */}
       <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-7xl mx-auto">
-            {/* Enhanced Tab Navigation with Visual Hierarchy */}
-            <div className="mb-16">
-              {/* Featured Partner Program - More Prominent */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-                viewport={{ once: true }}
-                className="relative mb-8"
-              >
-                <button
-                  onClick={() => setActiveSection("partner")}
-                  className={`w-full p-6 md:p-8 rounded-2xl text-center transition-all duration-500 relative overflow-hidden ${
-                    activeSection === "partner"
-                      ? "bg-gradient-to-br from-[#eeba2b] via-[#D4851F] to-[#eeba2b] text-[#FCFAEF] shadow-2xl transform scale-105"
-                      : "bg-white dark:bg-[#2F3332] text-[#2F3332] dark:text-[#E6E7E7] hover:bg-[#eeba2b]/10 shadow-lg hover:shadow-xl"
-                  }`}
-                >
-                  {/* Background Pattern */}
-                  <div className="absolute inset-0 opacity-10">
-                    <div className="absolute top-4 right-4 w-24 h-24 bg-white rounded-full"></div>
-                    <div className="absolute bottom-4 left-4 w-16 h-16 bg-white rounded-full"></div>
-                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-white rounded-full opacity-50"></div>
-                  </div>
+            {/* Bento Style Tab Switcher */}
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              viewport={{ once: true }}
+              className="mb-12 sm:mb-16"
+            >
+              <div className="relative max-w-2xl mx-auto">
+                <div className="relative bg-white dark:bg-[#2F3332] rounded-3xl p-2 shadow-2xl border border-[#E6E7E7]/20 dark:border-[#4F5554]/20 overflow-hidden">
+                  {/* Animated Background Indicator */}
+                  <motion.div
+                    className="absolute top-2 bottom-2 rounded-2xl bg-gradient-to-r from-[#eeba2b] to-[#F5C94D]"
+                    initial={false}
+                    animate={{
+                      left: activeSection === "partner" ? "4px" : "50%",
+                      width: "calc(50% - 4px)",
+                    }}
+                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                  />
                   
-                  <div className="relative z-10">
-                    <div className="flex items-center justify-center space-x-3 mb-4">
-                      <div className={`p-3 rounded-full ${activeSection === "partner" ? "bg-white/20" : "bg-[#eeba2b]/10"}`}>
-                        <Heart className={`h-8 w-8 ${activeSection === "partner" ? "text-white" : "text-[#eeba2b]"}`} />
-                      </div>
-                      <span className="text-2xl md:text-3xl font-bold">The Akomapa Partners Program</span>
-                    </div>
-                    <p className="text-lg md:text-xl opacity-90 mb-2">💛 Our Featured Partnership Opportunity</p>
-                    <p className="text-base md:text-lg opacity-80">Join a community of monthly donors changing lives in Ghana</p>
-                    
-                    {activeSection === "partner" && (
-                      <motion.div
-                        initial={{ opacity: 0, scale: 0.9 }}
+                  {/* Tab Buttons */}
+                  <div className="relative flex gap-2">
+                    <button
+                      onClick={() => setActiveSection("partner")}
+                      className={`flex-1 relative z-10 py-4 sm:py-5 px-4 sm:px-6 rounded-2xl text-center font-semibold text-sm sm:text-base md:text-lg transition-all duration-300 cursor-pointer flex items-center justify-center gap-2 ${
+                        activeSection === "partner"
+                          ? "text-[#1C1F1E] shadow-lg"
+                          : "text-[#2F3332]/60 dark:text-[#E6E7E7]/60 hover:text-[#2F3332] dark:hover:text-[#E6E7E7]"
+                      }`}
+                    >
+                      <span>Partners Program</span>
+                      <motion.span
+                        initial={{ opacity: 0.8, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        className="mt-4 inline-block px-6 py-2 bg-white/20 rounded-full text-sm font-medium"
+                        transition={{ duration: 0.3 }}
+                        className="flex items-center gap-1 px-2 py-0.5 bg-gradient-to-r from-[#eeba2b] to-[#F5C94D] text-[#1C1F1E] rounded-full text-xs font-bold shadow-sm"
                       >
-                        ✨ Currently Active
-                      </motion.div>
-                    )}
+                        <Sparkles className="w-3 h-3" />
+                        <span className="hidden sm:inline">Featured</span>
+                      </motion.span>
+                    </button>
+                    <button
+                      onClick={() => setActiveSection("one-time")}
+                      className={`flex-1 relative z-10 py-4 sm:py-5 px-4 sm:px-6 rounded-2xl text-center font-semibold text-sm sm:text-base md:text-lg transition-all duration-300 cursor-pointer ${
+                        activeSection === "one-time"
+                          ? "text-[#1C1F1E] shadow-lg"
+                          : "text-[#2F3332]/60 dark:text-[#E6E7E7]/60 hover:text-[#2F3332] dark:hover:text-[#E6E7E7]"
+                      }`}
+                    >
+                      One-Time Gift
+                    </button>
                   </div>
-                </button>
-              </motion.div>
-
-              {/* Secondary Option - More Subtle */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.1 }}
-                viewport={{ once: true }}
-              >
-                <button
-                  onClick={() => setActiveSection("one-time")}
-                  className={`w-full p-4 md:p-6 rounded-xl text-center transition-all duration-300 ${
-                    activeSection === "one-time"
-                      ? "bg-[#0097b2] text-[#FCFAEF] shadow-lg"
-                      : "bg-white/60 dark:bg-[#2F3332]/60 text-[#2F3332] dark:text-[#E6E7E7] hover:bg-[#0097b2]/10 border border-[#E6E7E7] dark:border-[#4F5554]"
-                  }`}
-                >
-                  <div className="flex items-center justify-center space-x-3">
-                    <Gift className="h-6 w-6" />
-                    <span className="text-lg font-semibold">Alternative: Make a One-Time or Monthly Gift</span>
-                  </div>
-                  <p className="text-sm mt-1 opacity-80">Flexible giving options for your convenience</p>
-                </button>
-              </motion.div>
-
-              {/* Corporate Sponsorship Link */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                viewport={{ once: true }}
-                className="mt-6"
-              >
-                <a href="/corporate-sponsorship">
-                  <button className="w-full p-4 rounded-xl text-center transition-all duration-300 bg-gradient-to-r from-[#0097b2]/10 to-[#eeba2b]/10 dark:from-[#0097b2]/20 dark:to-[#eeba2b]/20 text-[#1C1F1E] dark:text-[#FCFAEF] hover:from-[#0097b2]/20 hover:to-[#eeba2b]/20 border border-[#0097b2]/30 dark:border-[#0097b2]/50">
-                    <div className="flex items-center justify-center space-x-3">
-                      <Building className="h-6 w-6 text-[#0097b2]" />
-                      <span className="text-lg font-semibold">Corporate Sponsorship Opportunities</span>
-                      <span className="text-sm bg-[#eeba2b] text-white px-2 py-1 rounded-full">NEW</span>
-                    </div>
-                    <p className="text-sm mt-1 opacity-80">Comprehensive partnership opportunities for businesses and organizations</p>
-                  </button>
-                </a>
-              </motion.div>
-            </div>
+                </div>
+              </div>
+            </motion.div>
 
             {/* Partner Program Section */}
             {activeSection === "partner" && (
@@ -355,251 +298,157 @@ export default function PartnerPage() {
                 transition={{ duration: 0.6 }}
                 className="space-y-12"
               >
-                {/* Partner Program Description with Slideshow */}
-                <div className="bg-white dark:bg-[#2F3332] rounded-2xl p-6 md:p-8 shadow-lg border-2 border-[#eeba2b]">
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center mb-8">
-                    {/* Text Content */}
-                    <div className="order-2 lg:order-1">
-                      <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#1C1F1E] dark:text-[#FCFAEF] mb-4">
-                        The Akomapa Partners Program
-                      </h2>
-                      <p className="text-base md:text-lg text-[#2F3332] dark:text-[#E6E7E7] mb-6 leading-relaxed">
-                        But we cannot do it alone. The Akomapa Partners Program is a growing community of monthly donors who believe in our mission and walk with us—month by month, life by life. Whether you give $20, $50, $100, or more, your partnership sustains free care, medication, NHIS enrollment, and student training in some of Ghana&apos;s most underserved communities.
-                      </p>
-                      
-                      {/* Key Stats */}
-                      <div className="grid grid-cols-2 gap-4 mb-6">
-                        <div className="bg-[#eeba2b]/10 dark:bg-[#eeba2b]/20 rounded-lg p-4 text-center">
-                          <div className="text-2xl md:text-3xl font-bold text-[#eeba2b] dark:text-[#F5C94D]">50+</div>
-                          <div className="text-sm text-[#2F3332] dark:text-[#E6E7E7]">Patients Served Monthly</div>
-                        </div>
-                        <div className="bg-[#0097b2]/10 dark:bg-[#0097b2]/20 rounded-lg p-4 text-center">
-                          <div className="text-2xl md:text-3xl font-bold text-[#0097b2] dark:text-[#66C4DC]">$20</div>
-                          <div className="text-sm text-[#2F3332] dark:text-[#E6E7E7]">Monthly Impact Starts</div>
-                        </div>
+                {/* Partner Program Description */}
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6 }}
+                  viewport={{ once: true }}
+                  className="bg-white dark:bg-[#2F3332] rounded-2xl p-6 sm:p-8 md:p-10 shadow-xl border border-[#E6E7E7]/20 dark:border-[#4F5554]/20 mb-8 sm:mb-12"
+                >
+                  <div className="text-center mb-8 sm:mb-10">
+                    <div className="flex items-center gap-2 justify-center mb-4">
+                      <span className="h-2.5 w-2.5 rounded-full bg-[#eeba2b]" />
+                      <span className="h-2.5 w-2.5 rounded-full bg-[#eeba2b]" />
+                      <span className="h-2.5 w-2.5 rounded-full bg-[#C1C3C3]" />
+                    </div>
+                    <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-[#1C1F1E] dark:text-[#FCFAEF] mb-4 sm:mb-6">
+                      The Akomapa Partners Program
+                    </h2>
+                    <p className="text-base sm:text-lg text-[#2F3332]/80 dark:text-[#E6E7E7]/80 leading-relaxed max-w-3xl mx-auto">
+                      But we cannot do it alone. The Akomapa Partners Program is a growing community of monthly donors who believe in our mission and walk with us—month by month, life by life. Whether you give $20, $50, $100, or more, your partnership sustains free care, medication, NHIS enrollment, and student training in some of Ghana&apos;s most underserved communities.
+                    </p>
+                  </div>
+                  
+                  {/* Key Stats */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-8 sm:mb-10 max-w-md mx-auto">
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.5, delay: 0.1 }}
+                      viewport={{ once: true }}
+                      className="bg-gradient-to-br from-[#eeba2b]/20 to-[#eeba2b]/10 dark:from-[#eeba2b]/30 dark:to-[#eeba2b]/20 rounded-xl p-4 sm:p-6 text-center border border-[#eeba2b]/30"
+                    >
+                      <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#eeba2b] dark:text-[#F5C94D] mb-2">50+</div>
+                      <div className="text-xs sm:text-sm text-[#2F3332] dark:text-[#E6E7E7] font-medium">Patients Served Monthly</div>
+                    </motion.div>
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.5, delay: 0.2 }}
+                      viewport={{ once: true }}
+                      className="bg-gradient-to-br from-[#0097b2]/20 to-[#0097b2]/10 dark:from-[#0097b2]/30 dark:to-[#0097b2]/20 rounded-xl p-4 sm:p-6 text-center border border-[#0097b2]/30"
+                    >
+                      <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#0097b2] dark:text-[#66C4DC] mb-2">$20</div>
+                      <div className="text-xs sm:text-sm text-[#2F3332] dark:text-[#E6E7E7] font-medium">Monthly Impact Starts</div>
+                    </motion.div>
+                  </div>
+                  
+                  {/* Partner Image */}
+                  <div className="mt-8 sm:mt-10">
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.8 }}
+                      viewport={{ once: true }}
+                      className="relative w-full h-[300px] sm:h-[400px] md:h-[500px] rounded-3xl overflow-hidden shadow-2xl border border-[#E6E7E7]/20 dark:border-[#4F5554]/20"
+                    >
+                      <Image
+                        src="/highlights/Akomapa-66.jpg"
+                        alt="Akomapa Partners Program - Community healthcare delivery"
+                        fill
+                        className="object-cover"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
+                      <div className="absolute top-4 right-4 bg-[#eeba2b] text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium z-20">
+                        Partners Program
                       </div>
-                    </div>
-
-                    {/* Image Slideshow */}
-                    <div className="order-1 lg:order-2">
-                      <motion.div
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.8 }}
-                        className="relative h-80 md:h-96 rounded-xl overflow-hidden shadow-2xl"
-                      >
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#eeba2b]/40 via-transparent to-transparent z-10"></div>
-                        
-                        {/* Slideshow Container */}
-                        <div className="relative w-full h-full">
-                          {/* Image 1 */}
-                          <motion.div
-                            key="slide1"
-                            initial={{ opacity: 1 }}
-                            animate={{ 
-                              opacity: [1, 1, 0, 0, 0, 0, 0, 0, 0, 1],
-                              scale: [1, 1.05, 1.05, 1, 1, 1, 1, 1, 1, 1]
-                            }}
-                            transition={{ 
-                              duration: 20,
-                              repeat: Infinity,
-                              ease: "easeInOut"
-                            }}
-                            className="absolute inset-0"
-                          >
-                            <Image
-                              src="/gallery/gallery-pic-4.JPG"
-                              alt="Healthcare professionals providing compassionate care"
-                              fill
-                              className="object-cover"
-                            />
-                          </motion.div>
-
-                          {/* Image 2 */}
-                          <motion.div
-                            key="slide2"
-                            initial={{ opacity: 0 }}
-                            animate={{ 
-                              opacity: [0, 0, 1, 1, 0, 0, 0, 0, 0, 0],
-                              scale: [1, 1, 1, 1.05, 1.05, 1, 1, 1, 1, 1]
-                            }}
-                            transition={{ 
-                              duration: 20,
-                              repeat: Infinity,
-                              ease: "easeInOut"
-                            }}
-                            className="absolute inset-0"
-                          >
-                            <Image
-                              src="/highlights/Akomapa-66.jpg"
-                              alt="Students leading clinical care in community settings"
-                              fill
-                              className="object-cover"
-                            />
-                          </motion.div>
-
-                          {/* Image 3 */}
-                          <motion.div
-                            key="slide3"
-                            initial={{ opacity: 0 }}
-                            animate={{ 
-                              opacity: [0, 0, 0, 0, 1, 1, 0, 0, 0, 0],
-                              scale: [1, 1, 1, 1, 1, 1.05, 1.05, 1, 1, 1]
-                            }}
-                            transition={{ 
-                              duration: 20,
-                              repeat: Infinity,
-                              ease: "easeInOut"
-                            }}
-                            className="absolute inset-0"
-                          >
-                            <Image
-                              src="/gallery/gallery-pic-24.JPG"
-                              alt="Global health leadership training in action"
-                              fill
-                              className="object-cover"
-                            />
-                          </motion.div>
-
-                          {/* Image 4 */}
-                          <motion.div
-                            key="slide4"
-                            initial={{ opacity: 0 }}
-                            animate={{ 
-                              opacity: [0, 0, 0, 0, 0, 0, 1, 1, 0, 0],
-                              scale: [1, 1, 1, 1, 1, 1, 1, 1.05, 1.05, 1]
-                            }}
-                            transition={{ 
-                              duration: 20,
-                              repeat: Infinity,
-                              ease: "easeInOut"
-                            }}
-                            className="absolute inset-0"
-                          >
-                            <Image
-                              src="/highlights/Akomapa-30.jpg"
-                              alt="Community partnership and collaboration"
-                              fill
-                              className="object-cover"
-                            />
-                          </motion.div>
-
-                          {/* Image 5 */}
-                          <motion.div
-                            key="slide5"
-                            initial={{ opacity: 0 }}
-                            animate={{ 
-                              opacity: [0, 0, 0, 0, 0, 0, 0, 0, 1, 0],
-                              scale: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1.05]
-                            }}
-                            transition={{ 
-                              duration: 20,
-                              repeat: Infinity,
-                              ease: "easeInOut"
-                            }}
-                            className="absolute inset-0"
-                          >
-                            <Image
-                              src="/highlights/Akomapa-23.jpg"
-                              alt="Expert supervision ensuring quality care"
-                              fill
-                              className="object-cover"
-                            />
-                          </motion.div>
-                        </div>
-
-                        {/* Slideshow Indicators */}
-                        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-20">
-                          {[1, 2, 3, 4, 5].map((dot) => (
-                            <motion.div
-                              key={dot}
-                              className="w-2 h-2 rounded-full bg-white/60"
-                              animate={{
-                                backgroundColor: [
-                                  "rgba(255,255,255,0.6)",
-                                  "rgba(255,255,255,0.6)",
-                                  dot === 1 ? "rgba(255,255,255,1)" : "rgba(255,255,255,0.6)",
-                                  dot === 2 ? "rgba(255,255,255,1)" : "rgba(255,255,255,0.6)",
-                                  dot === 3 ? "rgba(255,255,255,1)" : "rgba(255,255,255,0.6)",
-                                  dot === 4 ? "rgba(255,255,255,1)" : "rgba(255,255,255,0.6)",
-                                  dot === 5 ? "rgba(255,255,255,1)" : "rgba(255,255,255,0.6)",
-                                  "rgba(255,255,255,0.6)"
-                                ]
-                              }}
-                              transition={{
-                                duration: 12,
-                                repeat: Infinity,
-                                ease: "easeInOut"
-                              }}
-                            />
-                          ))}
-                        </div>
-
-                        {/* Partner Program Badge */}
-                        <div className="absolute top-4 right-4 bg-[#eeba2b] text-white px-3 py-1 rounded-full text-sm font-medium z-20">
-                          Partners Program
-                        </div>
-                      </motion.div>
-                    </div>
+                    </motion.div>
                   </div>
 
                   {/* Impact Areas */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 mb-8 sm:mb-10">
                     {impactAreas.map((impact, index) => (
                       <motion.div
                         key={index}
-                        initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: index * 0.1 }}
-                        className="flex items-start space-x-4 p-4 rounded-lg bg-[#FCFAEF]/50 dark:bg-[#1C1F1E]/50"
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, delay: index * 0.1 }}
+                        viewport={{ once: true }}
+                        className="group relative rounded-2xl bg-gradient-to-br from-white to-white/80 dark:from-[#2F3332] dark:to-[#2F3332]/80 p-5 sm:p-6 md:p-7 border-2 border-[#E6E7E7]/60 dark:border-[#4F5554]/60 hover:border-opacity-100 transition-all duration-300 hover:shadow-xl hover:scale-[1.02]"
+                        style={{ 
+                          borderLeftColor: `${impact.color}40`,
+                          borderLeftWidth: '4px'
+                        }}
                       >
-                        <div 
-                          className="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0"
-                          style={{ backgroundColor: `${impact.color}20` }}
-                        >
-                          <impact.icon className="h-6 w-6" style={{ color: impact.color }} />
+                        <div className="space-y-3 sm:space-y-4">
+                          <div className="flex items-center gap-3">
+                            <div 
+                              className="w-3 h-3 rounded-full flex-shrink-0"
+                              style={{ backgroundColor: impact.color }}
+                            />
+                            <h3 className="text-base sm:text-lg md:text-xl font-semibold text-[#1C1F1E] dark:text-[#FCFAEF] leading-tight">
+                              {impact.title}
+                            </h3>
+                          </div>
+                          <p className="text-sm sm:text-base text-[#2F3332]/80 dark:text-[#E6E7E7]/80 leading-relaxed pl-6">
+                            {impact.description}
+                          </p>
                         </div>
-                        <p className="text-[#2F3332] dark:text-[#E6E7E7] leading-relaxed">
-                          {impact.title}
-                        </p>
+                        <div 
+                          className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-5 transition-opacity duration-300 pointer-events-none"
+                          style={{ backgroundColor: impact.color }}
+                        />
                       </motion.div>
                     ))}
                   </div>
 
                   {/* Partner Benefits */}
-                  <div className="bg-[#FCFAEF] dark:bg-[#1C1F1E] rounded-xl p-6">
-                    <h3 className="text-xl font-bold text-[#1C1F1E] dark:text-[#FCFAEF] mb-4 text-center">
-                      🤝 As a Partner, you&apos;ll receive:
+                  <div className="bg-gradient-to-br from-[#eeba2b]/10 to-[#eeba2b]/5 dark:from-[#2F3332] dark:to-[#1C1F1E] rounded-xl p-6 sm:p-8 border border-[#eeba2b]/20 dark:border-[#eeba2b]/30">
+                    <div className="flex items-center gap-2 justify-center mb-6">
+                      <span className="h-2.5 w-2.5 rounded-full bg-[#eeba2b]" />
+                      <span className="h-2.5 w-2.5 rounded-full bg-[#eeba2b]" />
+                      <span className="h-2.5 w-2.5 rounded-full bg-[#C1C3C3]" />
+                    </div>
+                    <h3 className="text-xl sm:text-2xl font-semibold text-[#1C1F1E] dark:text-[#FCFAEF] mb-6 text-center">
+                      As a Partner, you&apos;ll receive:
                     </h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                       {partnerBenefits.map((benefit, index) => (
                         <motion.div
                           key={index}
                           initial={{ opacity: 0, y: 20 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ delay: index * 0.1 }}
-                          className="flex items-start space-x-3"
+                          whileInView={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.6, delay: index * 0.1 }}
+                          viewport={{ once: true }}
+                          className="flex flex-col p-4 rounded-lg bg-white/60 dark:bg-[#2F3332]/60 hover:bg-white/80 dark:hover:bg-[#2F3332]/80 transition-colors"
                         >
-                          <div className="w-8 h-8 bg-[#eeba2b]/10 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                            <benefit.icon className="h-4 w-4 text-[#eeba2b]" />
-                          </div>
-                          <div>
-                            <h4 className="font-medium text-[#1C1F1E] dark:text-[#FCFAEF] mb-1">
-                              {benefit.title}
-                            </h4>
-                            <p className="text-sm text-[#2F3332] dark:text-[#E6E7E7]">
-                              {benefit.description}
-                            </p>
-                          </div>
+                          <h4 className="font-semibold text-base sm:text-lg text-[#1C1F1E] dark:text-[#FCFAEF] mb-2">
+                            {benefit.title}
+                          </h4>
+                          <p className="text-sm sm:text-base text-[#2F3332]/80 dark:text-[#E6E7E7]/80 leading-relaxed">
+                            {benefit.description}
+                          </p>
                         </motion.div>
                       ))}
                     </div>
                   </div>
-                </div>
+                </motion.div>
 
                 {/* Partner Donation Form */}
-                <div className="bg-white dark:bg-[#2F3332] rounded-2xl shadow-xl p-4 md:p-6 lg:p-8">
-                  <h3 className="text-xl md:text-2xl font-bold text-[#1C1F1E] dark:text-[#FCFAEF] mb-6 text-center">
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                  viewport={{ once: true }}
+                  className="bg-white dark:bg-[#2F3332] rounded-2xl shadow-xl p-6 sm:p-8 md:p-10 border border-[#E6E7E7]/20 dark:border-[#4F5554]/20"
+                >
+                  <div className="flex items-center gap-2 justify-center mb-6">
+                    <span className="h-2.5 w-2.5 rounded-full bg-[#eeba2b]" />
+                    <span className="h-2.5 w-2.5 rounded-full bg-[#eeba2b]" />
+                    <span className="h-2.5 w-2.5 rounded-full bg-[#C1C3C3]" />
+                  </div>
+                  <h3 className="text-xl sm:text-2xl md:text-3xl font-semibold text-[#1C1F1E] dark:text-[#FCFAEF] mb-8 text-center">
                     Choose Your Monthly Partnership Amount
                   </h3>
                   
@@ -626,8 +475,14 @@ export default function PartnerPage() {
                   </div>
 
                   {selectedPartnerAmount === "custom" && (
-                    <div className="mb-6">
-                      <Label className="text-[#2F3332] dark:text-[#E6E7E7] mb-2 block">
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      exit={{ opacity: 0, height: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="mb-6 sm:mb-8"
+                    >
+                      <Label className="text-[#1C1F1E] dark:text-[#FCFAEF] mb-2 block text-sm sm:text-base">
                         Enter your monthly amount
                       </Label>
                       <Input
@@ -635,28 +490,28 @@ export default function PartnerPage() {
                         placeholder="Enter amount"
                         value={customPartnerAmount}
                         onChange={(e) => setCustomPartnerAmount(e.target.value)}
-                        className="h-12"
+                        className="h-12 bg-[#FCFAEF] dark:bg-[#1C1F1E] border-[#0097b2] focus:border-[#eeba2b] dark:border-[#66C4DC] dark:focus:border-[#F5C94D] text-base sm:text-lg"
                       />
-                    </div>
+                    </motion.div>
                   )}
 
                   {/* Payment Method */}
                   <div className="mb-8">
-                    <Label className="text-lg font-medium text-[#1C1F1E] dark:text-[#FCFAEF] mb-4 block">
+                    <Label className="text-base sm:text-lg font-semibold text-[#1C1F1E] dark:text-[#FCFAEF] mb-4 block">
                       Select Payment Method
                     </Label>
                     <RadioGroup
                       value={selectedMethod}
                       onValueChange={setSelectedMethod}
-                      className="space-y-4"
+                      className="space-y-3 sm:space-y-4"
                     >
                       {paymentMethods.map((method) => (
                         <div
                           key={method.id}
-                          className={`flex items-center space-x-4 p-4 rounded-lg border-2 cursor-pointer transition-colors ${
+                          className={`flex items-center space-x-3 sm:space-x-4 p-4 sm:p-5 rounded-xl border-2 cursor-pointer transition-all duration-300 ${
                             selectedMethod === method.id
-                              ? "border-[#eeba2b] bg-[#eeba2b]/5"
-                              : "border-[#E6E7E7] dark:border-[#4F5554] hover:border-[#eeba2b]/50"
+                              ? "border-[#eeba2b] bg-[#eeba2b]/10 shadow-lg"
+                              : "border-[#E6E7E7] dark:border-[#4F5554] hover:border-[#eeba2b]/50 hover:shadow-md"
                           }`}
                           onClick={() => setSelectedMethod(method.id)}
                         >
@@ -669,15 +524,12 @@ export default function PartnerPage() {
                             htmlFor={method.id}
                             className="flex-1 cursor-pointer"
                           >
-                            <div className="flex items-center">
-                              <method.icon className="h-6 w-6 mr-3 text-[#eeba2b]" />
-                              <div>
-                                <div className="font-medium text-[#1C1F1E] dark:text-[#FCFAEF]">
-                                  {method.name}
-                                </div>
-                                <div className="text-sm text-[#2F3332] dark:text-[#E6E7E7]">
-                                  {method.description}
-                                </div>
+                            <div>
+                              <div className="font-semibold text-base sm:text-lg text-[#1C1F1E] dark:text-[#FCFAEF] mb-1">
+                                {method.name}
+                              </div>
+                              <div className="text-sm sm:text-base text-[#2F3332]/80 dark:text-[#E6E7E7]/80">
+                                {method.description}
                               </div>
                             </div>
                           </Label>
@@ -790,7 +642,7 @@ export default function PartnerPage() {
                       )}
                     </div>
                   )}
-                </div>
+                </motion.div>
               </motion.div>
             )}
 
@@ -803,36 +655,87 @@ export default function PartnerPage() {
                 className="space-y-12"
               >
                 {/* One-Time Gift Description */}
-                <div className="bg-white dark:bg-[#2F3332] rounded-2xl p-4 md:p-6 lg:p-8 shadow-lg">
-                  <div className="text-center mb-8">
-                    <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#1C1F1E] dark:text-[#FCFAEF] mb-4">
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6 }}
+                  viewport={{ once: true }}
+                  className="bg-white dark:bg-[#2F3332] rounded-2xl p-6 sm:p-8 md:p-10 shadow-xl border border-[#E6E7E7]/20 dark:border-[#4F5554]/20 mb-8 sm:mb-12"
+                >
+                  <div className="text-center mb-8 sm:mb-10">
+                    <div className="flex items-center gap-2 justify-center mb-4">
+                      <span className="h-2.5 w-2.5 rounded-full bg-[#0097b2]" />
+                      <span className="h-2.5 w-2.5 rounded-full bg-[#0097b2]" />
+                      <span className="h-2.5 w-2.5 rounded-full bg-[#C1C3C3]" />
+                    </div>
+                    <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-[#1C1F1E] dark:text-[#FCFAEF] mb-4 sm:mb-6">
                       Make a One-Time or Monthly Gift
                     </h2>
-                    <p className="text-base md:text-lg text-[#2F3332] dark:text-[#E6E7E7] max-w-3xl mx-auto leading-relaxed">
+                    <p className="text-base sm:text-lg text-[#2F3332]/80 dark:text-[#E6E7E7]/80 max-w-3xl mx-auto leading-relaxed">
                       Want to give at your own pace? Use our secure donation form to give any amount, once or monthly. Every contribution, large or small, fuels medications, labs, and care at our clinic sites.
                     </p>
                   </div>
 
-                  {/* Benefits List - Enhanced Responsive Design */}
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
-                    <div className="text-center p-4 bg-[#0097b2]/5 dark:bg-[#0097b2]/10 rounded-lg">
-                      <CheckCircle className="h-6 w-6 md:h-8 md:w-8 text-[#0097b2] dark:text-[#66C4DC] mx-auto mb-3" />
-                      <h4 className="text-sm md:text-base font-medium text-[#1C1F1E] dark:text-[#FCFAEF]">Choose any amount</h4>
-                    </div>
-                    <div className="text-center p-4 bg-[#0097b2]/5 dark:bg-[#0097b2]/10 rounded-lg">
-                      <CheckCircle className="h-6 w-6 md:h-8 md:w-8 text-[#0097b2] dark:text-[#66C4DC] mx-auto mb-3" />
-                      <h4 className="text-sm md:text-base font-medium text-[#1C1F1E] dark:text-[#FCFAEF]">Set your own frequency</h4>
-                    </div>
-                    <div className="text-center p-4 bg-[#0097b2]/5 dark:bg-[#0097b2]/10 rounded-lg">
-                      <CheckCircle className="h-6 w-6 md:h-8 md:w-8 text-[#0097b2] dark:text-[#66C4DC] mx-auto mb-3" />
-                      <h4 className="text-sm md:text-base font-medium text-[#1C1F1E] dark:text-[#FCFAEF]">100% supports care</h4>
-                    </div>
+                  {/* Benefits List */}
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
+                    {[
+                      { 
+                        title: "Choose any amount",
+                        icon: DollarSign,
+                        description: "Give what feels right for you, whether it's $10 or $1,000"
+                      },
+                      { 
+                        title: "Set your own frequency",
+                        icon: Calendar,
+                        description: "One-time, monthly, or annual—you decide when and how often"
+                      },
+                      { 
+                        title: "100% supports care",
+                        icon: Heart,
+                        description: "Every dollar goes directly to patient care and clinic operations"
+                      }
+                    ].map((benefit, index) => {
+                      const IconComponent = benefit.icon;
+                      return (
+                        <motion.div
+                          key={index}
+                          initial={{ opacity: 0, y: 20 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.5, delay: index * 0.1 }}
+                          viewport={{ once: true }}
+                          className="text-center p-5 sm:p-6 md:p-7 bg-gradient-to-br from-[#0097b2]/10 to-[#0097b2]/5 dark:from-[#0097b2]/20 dark:to-[#0097b2]/10 rounded-2xl border-2 border-[#0097b2]/30 dark:border-[#0097b2]/40 hover:border-[#0097b2]/60 dark:hover:border-[#0097b2]/70 hover:shadow-lg transition-all duration-300"
+                        >
+                          <div className="flex items-center justify-center mb-4">
+                            <div className="p-3 sm:p-4 rounded-full bg-[#0097b2]/20 dark:bg-[#0097b2]/30 border-2 border-[#0097b2]/40">
+                              <IconComponent className="h-5 w-5 sm:h-6 sm:w-6 md:h-7 md:w-7 text-[#0097b2] dark:text-[#66C4DC]" />
+                            </div>
+                          </div>
+                          <h4 className="text-base sm:text-lg font-semibold text-[#1C1F1E] dark:text-[#FCFAEF] mb-2 sm:mb-3">
+                            {benefit.title}
+                          </h4>
+                          <p className="text-xs sm:text-sm text-[#2F3332]/70 dark:text-[#E6E7E7]/70 leading-relaxed">
+                            {benefit.description}
+                          </p>
+                        </motion.div>
+                      );
+                    })}
                   </div>
-                </div>
+                </motion.div>
 
                 {/* One-Time Donation Form */}
-                <div className="bg-white dark:bg-[#2F3332] rounded-2xl shadow-xl p-4 md:p-6 lg:p-8">
-                  <h3 className="text-xl md:text-2xl font-bold text-[#1C1F1E] dark:text-[#FCFAEF] mb-6 text-center">
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                  viewport={{ once: true }}
+                  className="bg-white dark:bg-[#2F3332] rounded-2xl shadow-xl p-6 sm:p-8 md:p-10 border border-[#E6E7E7]/20 dark:border-[#4F5554]/20"
+                >
+                  <div className="flex items-center gap-2 justify-center mb-6">
+                    <span className="h-2.5 w-2.5 rounded-full bg-[#0097b2]" />
+                    <span className="h-2.5 w-2.5 rounded-full bg-[#0097b2]" />
+                    <span className="h-2.5 w-2.5 rounded-full bg-[#C1C3C3]" />
+                  </div>
+                  <h3 className="text-xl sm:text-2xl md:text-3xl font-semibold text-[#1C1F1E] dark:text-[#FCFAEF] mb-8 text-center">
                     Choose Your Gift Amount
                   </h3>
                   
@@ -856,8 +759,14 @@ export default function PartnerPage() {
                   </div>
 
                   {selectedOneTimeAmount === "custom" && (
-                    <div className="mb-6">
-                      <Label className="text-[#2F3332] dark:text-[#E6E7E7] mb-2 block">
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      exit={{ opacity: 0, height: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="mb-6 sm:mb-8"
+                    >
+                      <Label className="text-[#1C1F1E] dark:text-[#FCFAEF] mb-2 block text-sm sm:text-base">
                         Enter your gift amount
                       </Label>
                       <Input
@@ -865,9 +774,9 @@ export default function PartnerPage() {
                         placeholder="Enter amount"
                         value={customOneTimeAmount}
                         onChange={(e) => setCustomOneTimeAmount(e.target.value)}
-                        className="h-12"
+                        className="h-12 bg-[#FCFAEF] dark:bg-[#1C1F1E] border-[#0097b2] focus:border-[#eeba2b] dark:border-[#66C4DC] dark:focus:border-[#F5C94D] text-base sm:text-lg"
                       />
-                    </div>
+                    </motion.div>
                   )}
 
                   {/* Donation Frequency */}
@@ -1062,7 +971,7 @@ export default function PartnerPage() {
                       )}
                     </div>
                   )}
-                </div>
+                </motion.div>
               </motion.div>
             )}
           </div>
@@ -1086,75 +995,106 @@ export default function PartnerPage() {
         </div>
       )}
 
-      {/* Corporate Sponsorship */}
-      <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
+      {/* Corporate Sponsorship Section */}
+      <section className="py-16 md:py-24 bg-gradient-to-r from-[#0097b2] via-[#0F4C5C] to-[#031C3A] text-[#FCFAEF] relative overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute -top-28 -left-32 h-72 w-72 rounded-full bg-[#FCFAEF]/10 blur-3xl" />
+          <div className="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-[#F5C94D]/10 blur-3xl" />
+        </div>
+
+        <div className="relative container mx-auto px-4 sm:px-6">
+          <div className="max-w-6xl mx-auto">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
               viewport={{ once: true }}
-              className="text-center mb-12"
+              className="text-center mb-12 sm:mb-16"
             >
-              <h2 className="text-[#eeba2b] dark:text-[#F5C94D] font-bold text-lg mb-2">
+              <h2 className="text-[#F5C94D] font-bold text-base sm:text-lg mb-2">
                 CORPORATE PARTNERSHIPS
               </h2>
-              <h3 className="text-3xl md:text-4xl font-bold mb-6 text-[#1C1F1E] dark:text-[#FCFAEF]">
-                Corporate Sponsorship
-              </h3>
-              <p className="text-lg text-[#2F3332] dark:text-[#E6E7E7]">
-                We also welcome corporate partnerships with mission-aligned businesses and organizations seeking to invest in health equity.
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 text-[#FCFAEF]">
+                Corporate Sponsorship Opportunities
+              </h2>
+              <p className="text-base sm:text-lg text-[#FCFAEF]/85 leading-relaxed max-w-3xl mx-auto">
+                We welcome corporate partnerships with mission-aligned businesses and organizations seeking to invest in health equity.
               </p>
             </motion.div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              viewport={{ once: true }}
-              className="bg-white dark:bg-[#2F3332] rounded-2xl p-8 shadow-lg"
-            >
-              <h4 className="text-xl font-bold mb-6 text-[#1C1F1E] dark:text-[#FCFAEF]">
-                Akomapa gratefully accepts:
-              </h4>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 items-center">
+              {/* Description */}
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6 }}
+                viewport={{ once: true }}
+                className="space-y-6 sm:space-y-8"
+              >
+                <div>
+                  <h3 className="text-xl sm:text-2xl font-semibold mb-4 text-[#FCFAEF]">
+                    Transform Lives Together
+                  </h3>
+                  <p className="text-base sm:text-lg text-[#FCFAEF]/85 leading-relaxed mb-6">
+                    Your company&apos;s support can transform lives, and we&apos;re happy to work with you to recognize your contribution, including co-branding opportunities, features in our updates, and involvement in community events.
+                  </p>
+                </div>
+
                 <div className="space-y-4">
-                  <div className="flex items-start">
-                    <DollarSign className="h-5 w-5 text-[#0097b2] dark:text-[#66C4DC] mr-3 mt-1" />
-                    <span className="text-[#2F3332] dark:text-[#E6E7E7]">Financial contributions</span>
+                  <div className="flex items-start gap-3">
+                    <div className="w-2 h-2 rounded-full bg-[#F5C94D] mt-2 flex-shrink-0" />
+                    <p className="text-base sm:text-lg text-[#FCFAEF]/85 leading-relaxed">
+                      Financial contributions
+                    </p>
                   </div>
-                  <div className="flex items-start">
-                    <Building className="h-5 w-5 text-[#0097b2] dark:text-[#66C4DC] mr-3 mt-1" />
-                    <span className="text-[#2F3332] dark:text-[#E6E7E7]">Donations of medications and medical supplies</span>
+                  <div className="flex items-start gap-3">
+                    <div className="w-2 h-2 rounded-full bg-[#F5C94D] mt-2 flex-shrink-0" />
+                    <p className="text-base sm:text-lg text-[#FCFAEF]/85 leading-relaxed">
+                      Donations of medications and medical supplies
+                    </p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <div className="w-2 h-2 rounded-full bg-[#F5C94D] mt-2 flex-shrink-0" />
+                    <p className="text-base sm:text-lg text-[#FCFAEF]/85 leading-relaxed">
+                      Equipment or service support for our clinics
+                    </p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <div className="w-2 h-2 rounded-full bg-[#F5C94D] mt-2 flex-shrink-0" />
+                    <p className="text-base sm:text-lg text-[#FCFAEF]/85 leading-relaxed">
+                      Collaboration on health education or outreach campaigns
+                    </p>
                   </div>
                 </div>
-                <div className="space-y-4">
-                  <div className="flex items-start">
-                    <Globe className="h-5 w-5 text-[#0097b2] dark:text-[#66C4DC] mr-3 mt-1" />
-                    <span className="text-[#2F3332] dark:text-[#E6E7E7]">Equipment or service support for our clinics</span>
-                  </div>
-                  <div className="flex items-start">
-                    <Users className="h-5 w-5 text-[#0097b2] dark:text-[#66C4DC] mr-3 mt-1" />
-                    <span className="text-[#2F3332] dark:text-[#E6E7E7]">Collaboration on health education or outreach campaigns</span>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="mt-8 p-6 bg-[#FCFAEF] dark:bg-[#1C1F1E] rounded-lg">
-                <p className="text-[#2F3332] dark:text-[#E6E7E7] mb-4">
-                  Your company&apos;s support can transform lives, and we&apos;re happy to work with you to recognize your contribution, including co-branding opportunities, features in our updates, and involvement in community events. Let&apos;s create impact together.
-                </p>
-                <div className="text-center">
-                  <a href="/corporate-sponsorship">
-                    <Button className="bg-[#0097b2] hover:bg-[#eeba2b] text-[#FCFAEF]">
-                      <Mail className="h-4 w-4 mr-2" />
-                      Check out our Corporate Sponsorship
-                    </Button>
+
+                <Button
+                  asChild
+                  className="group bg-[#FCFAEF] text-[#0097b2] hover:bg-[#F5C94D] hover:text-[#1C1F1E] mt-6 sm:mt-8"
+                >
+                  <a href="/partner/corporate-sponsorship" className="flex items-center">
+                    Learn More About Corporate Sponsorship
+                    <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                   </a>
-                </div>
-              </div>
-            </motion.div>
+                </Button>
+              </motion.div>
+
+              {/* Image */}
+              <motion.div
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                viewport={{ once: true }}
+                className="relative w-full h-[300px] sm:h-[400px] md:h-[500px] rounded-3xl overflow-hidden shadow-2xl border border-white/10"
+              >
+                <Image
+                  src="/highlights/Akomapa-73.jpg"
+                  alt="Corporate partnerships and collaboration"
+                  fill
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
+              </motion.div>
+            </div>
           </div>
         </div>
       </section>

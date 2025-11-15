@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X, ChevronLeft, ChevronRight, ChevronUp, ChevronDown } from "lucide-react";
 
 // Define type for gallery items
-type GalleryItem = {
+export type GalleryItem = {
   id: number;
   src: string;
   alt: string;
@@ -14,7 +14,7 @@ type GalleryItem = {
   featured?: boolean;
 };
 
-const galleryItems: GalleryItem[] = [
+const defaultGalleryItems: GalleryItem[] = [
   {
     id: 1,
     src: "/gallery/gallery-pic-1.JPG",
@@ -175,16 +175,22 @@ const categories = [
   { id: "clinics", label: "Clinics" },
 ];
 
-export default function Gallery() {
+export type GalleryProps = {
+  items?: GalleryItem[];
+};
+
+export default function Gallery({ items }: GalleryProps = {}) {
+  const sourceItems = items ?? defaultGalleryItems;
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [selectedImage, setSelectedImage] = useState<GalleryItem | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isExpanded, setIsExpanded] = useState(false);
   
   // Filter gallery items based on selected category
-  const filteredItems = selectedCategory === "all"
-    ? galleryItems
-    : galleryItems.filter(item => item.category === selectedCategory);
+  const filteredItems =
+    selectedCategory === "all"
+      ? sourceItems
+      : sourceItems.filter((item) => item.category === selectedCategory);
 
   // Get items to display based on expansion state
   const displayedItems = isExpanded ? filteredItems : filteredItems.slice(0, 4);
@@ -197,12 +203,14 @@ export default function Gallery() {
 
   // Handle navigation in lightbox
   const goToNext = useCallback(() => {
+    if (filteredItems.length === 0) return;
     const newIndex = (currentIndex + 1) % filteredItems.length;
     setSelectedImage(filteredItems[newIndex]);
     setCurrentIndex(newIndex);
   }, [currentIndex, filteredItems]);
 
   const goToPrevious = useCallback(() => {
+    if (filteredItems.length === 0) return;
     const newIndex = (currentIndex - 1 + filteredItems.length) % filteredItems.length;
     setSelectedImage(filteredItems[newIndex]);
     setCurrentIndex(newIndex);
@@ -238,6 +246,21 @@ export default function Gallery() {
   useEffect(() => {
     setIsExpanded(false);
   }, [selectedCategory]);
+
+  useEffect(() => {
+    if (filteredItems.length === 0) {
+      setSelectedImage(null);
+      setCurrentIndex(0);
+      return;
+    }
+
+    if (currentIndex >= filteredItems.length) {
+      setCurrentIndex(0);
+      setSelectedImage(null);
+    } else if (selectedImage) {
+      setSelectedImage(filteredItems[currentIndex]);
+    }
+  }, [filteredItems, currentIndex, selectedImage]);
 
   return (
     <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
