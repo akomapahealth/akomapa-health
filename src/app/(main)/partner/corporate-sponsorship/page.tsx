@@ -405,13 +405,13 @@ export default function CorporateSponsorshipPage() {
                 <span className="h-2.5 w-2.5 rounded-full bg-[#C1C3C3]" />
               </div>
               <h2 className="text-[#F5C94D] font-bold text-base sm:text-lg mb-2">
-                LET'S BUILD A HEALTHIER FUTURE—TOGETHER
+                LET&apos;S BUILD A HEALTHIER FUTURE—TOGETHER
               </h2>
               <h3 className="text-2xl sm:text-3xl md:text-4xl font-semibold mb-4 sm:mb-6 text-[#FCFAEF]">
-                Your Company's Generosity Can Change Lives
+                Your Company&apos;s Generosity Can Change Lives
               </h3>
               <p className="text-base sm:text-lg md:text-xl text-[#FCFAEF]/85 max-w-4xl mx-auto leading-relaxed">
-                Your company's generosity can change lives, uplift communities, and inspire a new standard of sustainable care in Ghana. Join us in rewriting what is possible.
+                Your company&apos;s generosity can change lives, uplift communities, and inspire a new standard of sustainable care in Ghana. Join us in rewriting what is possible.
               </p>
             </motion.div>
 
@@ -430,7 +430,7 @@ export default function CorporateSponsorshipPage() {
                   </h3>
                   
                   <p className="text-base sm:text-lg text-[#FCFAEF]/85 mb-8 sm:mb-10 max-w-2xl mx-auto leading-relaxed">
-                    Let's start a conversation about how your organization can create lasting impact through strategic partnership.
+                    Let&apos;s start a conversation about how your organization can create lasting impact through strategic partnership.
                   </p>
 
                   {/* Contact Information */}

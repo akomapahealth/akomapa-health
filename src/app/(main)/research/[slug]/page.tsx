@@ -4,7 +4,6 @@ import { useState, useCallback, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Document, Page, pdfjs } from "react-pdf";
 import { Button } from "@/components/ui/button";
-import Image from "@/components/common/Image";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import Breadcrumb from "@/components/layout/Breadcrumb";
