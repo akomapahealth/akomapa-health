@@ -1,0 +1,8 @@
+<svg width="200" height="80" viewBox="0 0 200 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="200" height="80" rx="16" fill="#F4F1E8" stroke="#0F4C5C" stroke-width="2"/>
+  <path d="M34 56C22 48 22 32 34 24C44 18 56 18 66 24C78 32 78 48 66 56" stroke="#0097B2" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M50 26V54" stroke="#0097B2" stroke-width="2.5" stroke-linecap="round"/>
+  <text x="92" y="36" fill="#0F4C5C" font-size="18" font-family="Arial,Helvetica,sans-serif" font-weight="600">Local Co-ops</text>
+  <text x="92" y="56" fill="#5A5E5D" font-size="12" font-family="Arial,Helvetica,sans-serif">Climate-Smart Agriculture</text>
+</svg>
+

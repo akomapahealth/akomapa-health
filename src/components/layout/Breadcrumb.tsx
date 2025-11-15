@@ -12,9 +12,43 @@ function BreadcrumbContent() {
   // Create breadcrumb items with proper formatting
   const breadcrumbs = segments.map((segment, index) => {
     const href = `/${segments.slice(0, index + 1).join('/')}`;
+    const parentSegment = segments[0];
+
+    const formatSegment = (value: string) => {
+      // Special handling for known acronyms
+      const acronyms: Record<string, string> = {
+        'ghltp': 'GHLTP',
+        'ghip': 'GHIP',
+      };
+
+      return value
+        .split('-')
+        .map((word) => {
+          // Check if word is a known acronym
+          if (acronyms[word.toLowerCase()]) {
+            return acronyms[word.toLowerCase()];
+          }
+          if (word.length <= 3) {
+            return word.toUpperCase();
+          }
+          return word.charAt(0).toUpperCase() + word.slice(1);
+        })
+        .join(' ');
+    };
+
+    const label = (() => {
+      if (
+        index > 0 &&
+        (parentSegment === "clinics" || parentSegment === "programs")
+      ) {
+        return formatSegment(segment);
+      }
+      return segment.charAt(0).toUpperCase() + segment.slice(1).replace(/-/g, ' ');
+    })();
+
     return {
       href,
-      label: segment.charAt(0).toUpperCase() + segment.slice(1).replace(/-/g, ' '),
+      label,
     };
   });
 
