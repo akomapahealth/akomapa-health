@@ -101,7 +101,7 @@ const partnerClinics = [
     location: "University of Cape Coast, Ghana",
     description: "Our first clinic and proof of concept—serving over 1,000 patients while training 75+ students.",
     href: "/clinics/akomapa-ucc",
-    logo: "/images/logo.svg",
+    logo: "/images/partners/akomapa-logo.png",
     accentColor: "#0097b2"
   },
   {
@@ -118,7 +118,7 @@ const partnerClinics = [
     location: "University of Chicago, USA",
     description: "A model clinic empowering students to lead in primary care and chronic disease management.",
     href: "#",
-    logo: "/images/partners/african-health-logo.png",
+    logo: "/images/partners/uchicago.png",
     accentColor: "#0097b2"
   }
 ];
@@ -463,7 +463,7 @@ export default function AkomapaNetworkPage() {
                 className="group relative bg-white dark:bg-[#2F3332] rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 border border-[#E6E7E7]/20 dark:border-[#4F5554]/20 hover:-translate-y-1"
               >
                 <div className="p-6 md:p-8">
-                  <div className="flex items-center justify-center h-24 mb-6 rounded-xl bg-[#FCFAEF] dark:bg-[#1C1F1E] p-4">
+                  <div className="flex items-center justify-center h-28 md:h-32 mb-6">
                     <div className="relative h-full w-full">
                       <Image
                         src={clinic.logo}

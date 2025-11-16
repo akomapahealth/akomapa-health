@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Clock, MapPin, ArrowLeft } from "lucide-react";
+import { Clock, MapPin, ArrowLeft, Calendar, ArrowRight } from "lucide-react";
 
 import Breadcrumb from "@/components/layout/Breadcrumb";
 import Image from "@/components/common/Image";
@@ -43,7 +43,7 @@ const partners = [
   },
   {
     name: "Akomapa Health Foundation",
-    logo: "/images/logo.svg"
+    logo: "/images/partners/akomapa-logo.png"
   },
   {
     name: "Yale University",
@@ -223,7 +223,7 @@ export default function NHPClinicPage() {
           >
             <div className="relative w-full h-[280px] sm:h-[360px] md:h-[520px] lg:h-[640px] rounded-3xl overflow-hidden shadow-2xl border border-white/10">
               <Image
-                src="/highlights/Akomapa-38.jpg"
+                src="/highlights/yale-uni.jpg"
                 alt="Akomapa–NHP Yale Clinic community screening event"
                 fill
                 priority
@@ -269,7 +269,7 @@ export default function NHPClinicPage() {
             >
               <div className="relative w-full min-h-[320px] h-[320px] sm:h-[380px] md:h-[420px] lg:h-[460px] rounded-3xl overflow-hidden shadow-2xl">
                 <Image
-                  src="/highlights/Akomapa-2.jpg"
+                  src="/highlights/yale-med.jpg"
                   alt="Community health screening in New Haven"
                   fill
                   className="object-cover object-center"
@@ -296,7 +296,7 @@ export default function NHPClinicPage() {
               className="relative order-2 md:order-1 min-h-[280px] sm:min-h-[320px] lg:min-h-[360px] lg:h-full rounded-3xl overflow-hidden border border-white/20 bg-white/10 shadow-2xl shadow-black/30"
             >
               <Image
-                src="/highlights/Akomapa-66.jpg"
+                src="/highlights/yale-nhp-program.jpg"
                 alt="Community health education and screening"
                 fill
                 className="object-cover object-center"
@@ -381,14 +381,14 @@ export default function NHPClinicPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
                 viewport={{ once: true, amount: 0.2 }}
-                className="group relative flex h-16 w-40 sm:h-20 sm:w-48 md:h-24 md:w-56 lg:h-28 lg:w-64 flex-shrink-0 items-center justify-center rounded-2xl sm:rounded-3xl border border-[#E6E7E7]/60 bg-white px-3 py-3 sm:px-4 sm:py-4 md:px-6 md:py-6 shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl dark:border-[#2F3332] dark:bg-[#2F3332]"
+                className="group relative flex h-20 w-48 sm:h-24 sm:w-56 md:h-28 md:w-64 lg:h-32 lg:w-72 flex-shrink-0 items-center justify-center rounded-2xl sm:rounded-3xl border border-[#E6E7E7]/60 px-3 py-3 sm:px-4 sm:py-4 md:px-6 md:py-6 shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl dark:border-[#2F3332]"
               >
-                <div className="relative h-10 w-28 sm:h-12 sm:w-36 md:h-16 md:w-44 lg:h-20 lg:w-52">
+                <div className="relative h-12 w-32 sm:h-14 sm:w-40 md:h-18 md:w-48 lg:h-22 lg:w-60">
                   <Image
                     src={partner.logo}
                     alt={partner.name}
                     fill
-                    className="object-contain transition-transform duration-300 ease-out filter grayscale group-hover:scale-105 group-hover:grayscale-0"
+                    className="object-contain transition-transform duration-300 ease-out group-hover:scale-105"
                   />
                 </div>
               </motion.div>
@@ -475,12 +475,21 @@ export default function NHPClinicPage() {
               viewport={{ once: true, amount: 0.3 }}
               className="bg-white dark:bg-[#2F3332] rounded-3xl p-8 md:p-12 shadow-xl border border-[#E6E7E7]/60 dark:border-[#3A3E3D]"
             >
-              <p className="text-lg text-[#2F3332] dark:text-[#E6E7E7] leading-relaxed mb-6">
-                Each site offers free screenings, counseling, and connection to care — transforming everyday spaces into centers of health and empowerment. We are located in:
-              </p>
-              <div className="flex items-center gap-3 text-[#0097b2] dark:text-[#66C4DC] font-medium">
-                <MapPin className="h-5 w-5" />
-                <span>Barber Shop and Salon locations across New Haven, Connecticut</span>
+              <div className="space-y-6">
+                <p className="text-lg text-[#2F3332] dark:text-[#E6E7E7] leading-relaxed">
+                  Each site offers free screenings, counseling, and connection to care — transforming everyday spaces into centers of health and empowerment.
+                </p>
+                <div className="flex items-center gap-3 text-[#0097b2] dark:text-[#66C4DC] font-medium">
+                  <MapPin className="h-5 w-5" />
+                  <span>Rotating barbershop and salon locations across New Haven, Connecticut</span>
+                </div>
+                <div className="pt-2">
+                  <Link href="/clinics#upcoming" className="inline-flex items-center gap-2 rounded-xl bg-[#0097b2] px-4 py-2 text-white shadow-md transition-colors hover:bg-[#0F4C5C] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0097b2] dark:focus:ring-offset-[#2F3332]">
+                    <Calendar className="h-4 w-4" />
+                    <span>View Upcoming Clinic Dates</span>
+                    <ArrowRight className="h-4 w-4" />
+                  </Link>
+                </div>
               </div>
             </motion.div>
           </div>
@@ -496,15 +505,12 @@ export default function NHPClinicPage() {
             viewport={{ once: true, amount: 0.3 }}
             className="text-center max-w-3xl mx-auto mb-12 space-y-4"
           >
-            <p className="text-sm font-semibold tracking-[0.25em] uppercase text-[#F5C94D]">
-              Clinic Operations
-            </p>
-            <h2 className="text-3xl md:text-4xl font-bold leading-tight">
-              Consistent access for every clinic day
-            </h2>
-            <p className="text-lg text-[#FCFAEF]/85 leading-relaxed">
-              Akomapa–NHP Yale Clinic runs on a dependable rhythm so patients know when and where to find care.
-            </p>
+            <div className="inline-flex items-center gap-2 rounded-full bg-[#F5C94D]/15 px-4 py-2 text-[#F5C94D]">
+              <Calendar className="h-4 w-4" />
+              <span className="text-sm font-semibold uppercase tracking-widest">Clinic Operations</span>
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold leading-tight">Consistent access for every clinic day</h2>
+            <p className="text-lg text-[#FCFAEF]/85 leading-relaxed">Akomapa–NHP Yale Clinic runs on a dependable rhythm so patients know when and where to find care.</p>
           </motion.div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
@@ -530,7 +536,6 @@ export default function NHPClinicPage() {
                 </p>
               </div>
             </motion.div>
-
             <motion.div
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
