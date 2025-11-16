@@ -3,10 +3,10 @@
 import { useState, useEffect, useCallback } from "react";
 import Image from "@/components/common/Image";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ChevronLeft, ChevronRight } from "lucide-react";
+import { X, ChevronLeft, ChevronRight, ChevronUp, ChevronDown } from "lucide-react";
 
 // Define type for gallery items
-type GalleryItem = {
+export type GalleryItem = {
   id: number;
   src: string;
   alt: string;
@@ -14,7 +14,7 @@ type GalleryItem = {
   featured?: boolean;
 };
 
-const galleryItems: GalleryItem[] = [
+const defaultGalleryItems: GalleryItem[] = [
   {
     id: 1,
     src: "/gallery/gallery-pic-1.JPG",
@@ -175,16 +175,22 @@ const categories = [
   { id: "clinics", label: "Clinics" },
 ];
 
-export default function Gallery() {
+export type GalleryProps = {
+  items?: GalleryItem[];
+};
+
+export default function Gallery({ items }: GalleryProps = {}) {
+  const sourceItems = items ?? defaultGalleryItems;
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [selectedImage, setSelectedImage] = useState<GalleryItem | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isExpanded, setIsExpanded] = useState(false);
   
   // Filter gallery items based on selected category
-  const filteredItems = selectedCategory === "all"
-    ? galleryItems
-    : galleryItems.filter(item => item.category === selectedCategory);
+  const filteredItems =
+    selectedCategory === "all"
+      ? sourceItems
+      : sourceItems.filter((item) => item.category === selectedCategory);
 
   // Get items to display based on expansion state
   const displayedItems = isExpanded ? filteredItems : filteredItems.slice(0, 4);
@@ -197,12 +203,14 @@ export default function Gallery() {
 
   // Handle navigation in lightbox
   const goToNext = useCallback(() => {
+    if (filteredItems.length === 0) return;
     const newIndex = (currentIndex + 1) % filteredItems.length;
     setSelectedImage(filteredItems[newIndex]);
     setCurrentIndex(newIndex);
   }, [currentIndex, filteredItems]);
 
   const goToPrevious = useCallback(() => {
+    if (filteredItems.length === 0) return;
     const newIndex = (currentIndex - 1 + filteredItems.length) % filteredItems.length;
     setSelectedImage(filteredItems[newIndex]);
     setCurrentIndex(newIndex);
@@ -239,18 +247,33 @@ export default function Gallery() {
     setIsExpanded(false);
   }, [selectedCategory]);
 
+  useEffect(() => {
+    if (filteredItems.length === 0) {
+      setSelectedImage(null);
+      setCurrentIndex(0);
+      return;
+    }
+
+    if (currentIndex >= filteredItems.length) {
+      setCurrentIndex(0);
+      setSelectedImage(null);
+    } else if (selectedImage) {
+      setSelectedImage(filteredItems[currentIndex]);
+    }
+  }, [filteredItems, currentIndex, selectedImage]);
+
   return (
     <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
       <div className="container mx-auto px-4">
         <div className="text-center max-w-3xl mx-auto mb-12">
-          <h2 className="text-[#C37B1E] dark:text-[#F3C677] font-bold text-lg mb-2">
+          <h2 className="text-[#eeba2b] dark:text-[#F5C94D] font-bold text-lg mb-2">
             OUR WORK IN ACTION
           </h2>
           <h3 className="text-3xl md:text-4xl font-bold mb-6 text-[#1C1F1E] dark:text-[#FCFAEF]">
             Gallery
           </h3>
           <p className="text-[#2F3332] dark:text-[#E6E7E7] text-lg">
-            Highlight our students, community events, faculty supervisors, and pilot clinics in action—offering a human view of our mission at work.
+            Highlight our students, community events, faculty supervisors, and pilot clinics in action offering a human view of our mission at work.
           </p>
         </div>
 
@@ -262,7 +285,7 @@ export default function Gallery() {
               onClick={() => setSelectedCategory(category.id)}
               className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
                 selectedCategory === category.id
-                  ? "bg-[#007A73] text-white"
+                  ? "bg-[#0097b2] text-white"
                   : "bg-gray-100 dark:bg-gray-800 text-[#2F3332] dark:text-[#E6E7E7] hover:bg-gray-200 dark:hover:bg-gray-700"
               }`}
             >
@@ -314,19 +337,19 @@ export default function Gallery() {
           <div className="text-center mt-8">
             <motion.button
               onClick={() => setIsExpanded(!isExpanded)}
-              className="inline-flex items-center gap-2 px-6 py-3 bg-[#007A73] text-white rounded-full font-medium hover:bg-[#005A55] transition-colors duration-200 shadow-lg hover:shadow-xl"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-[#0097b2] text-white rounded-full font-medium hover:bg-[#005A55] transition-colors duration-200 shadow-lg hover:shadow-xl"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
               {isExpanded ? (
                 <>
                   Show Less
-                  <span className="w-4 h-4 rotate-180 transition-transform duration-200">↑</span>
+                  <span className="w-4 h-4 rotate-180 transition-transform duration-200"><ChevronUp size={16} /></span>
                 </>
               ) : (
                 <>
                   Show More ({filteredItems.length - 4} more)
-                  <span className="w-4 h-4 transition-transform duration-200">↓</span>
+                  <span className="w-4 h-4 transition-transform duration-200"><ChevronDown size={16} /></span>
                 </>
               )}
             </motion.button>
@@ -382,7 +405,7 @@ export default function Gallery() {
                 </div>
                 <div className="p-4 bg-[#1C1F1E] text-[#FCFAEF] rounded-b">
                   <p>{selectedImage.alt}</p>
-                  <p className="text-sm text-[#C37B1E] mt-1 capitalize">Category: {selectedImage.category}</p>
+                  <p className="text-sm text-[#eeba2b] mt-1 capitalize">Category: {selectedImage.category}</p>
                 </div>
               </div>
             </motion.div>

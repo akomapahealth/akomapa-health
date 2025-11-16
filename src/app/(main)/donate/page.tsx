@@ -38,14 +38,14 @@ const donationMethods = [
     name: "Mobile Money",
     icon: Smartphone,
     description: "Pay using any mobile money service in Ghana",
-    color: "#007A73"
+    color: "#0097b2"
   },
   {
     id: "bank",
     name: "Bank Transfer",
     icon: CreditCard,
     description: "Direct bank transfer to our account",
-    color: "#C37B1E"
+    color: "#eeba2b"
   }
 ];
 
@@ -78,22 +78,22 @@ const impactAreas = [
   {
     icon: Target,
     title: "Reach patients with high blood pressure and diabetes before it's too late",
-    color: "#007A73"
+    color: "#0097b2"
   },
   {
     icon: Users,
     title: "Train the next generation of ethical, community-minded health professionals",
-    color: "#C37B1E"
+    color: "#eeba2b"
   },
   {
     icon: Building,
     title: "Power our upcoming pharmacy and food security programs",
-    color: "#007A73"
+    color: "#0097b2"
   },
   {
     icon: Globe,
     title: "Build a replicable model of healthcare in Ghana and beyond",
-    color: "#C37B1E"
+    color: "#eeba2b"
   }
 ];
 
@@ -127,7 +127,7 @@ export default function DonatePage() {
             <motion.h1 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="text-4xl md:text-5xl font-bold text-[#007A73] dark:text-[#FCFAEF] mb-6"
+              className="text-4xl md:text-5xl font-bold text-[#0097b2] dark:text-[#FCFAEF] mb-6"
             >
               Support Our Mission
             </motion.h1>
@@ -174,8 +174,8 @@ export default function DonatePage() {
                   onClick={() => setActiveSection("partner")}
                   className={`w-full p-6 md:p-8 rounded-2xl text-center transition-all duration-500 relative overflow-hidden ${
                     activeSection === "partner"
-                      ? "bg-gradient-to-br from-[#C37B1E] via-[#D4851F] to-[#C37B1E] text-[#FCFAEF] shadow-2xl transform scale-105"
-                      : "bg-white dark:bg-[#2F3332] text-[#2F3332] dark:text-[#E6E7E7] hover:bg-[#C37B1E]/10 shadow-lg hover:shadow-xl"
+                      ? "bg-gradient-to-br from-[#eeba2b] via-[#D4851F] to-[#eeba2b] text-[#FCFAEF] shadow-2xl transform scale-105"
+                      : "bg-white dark:bg-[#2F3332] text-[#2F3332] dark:text-[#E6E7E7] hover:bg-[#eeba2b]/10 shadow-lg hover:shadow-xl"
                   }`}
                 >
                   {/* Background Pattern */}
@@ -187,8 +187,8 @@ export default function DonatePage() {
                   
                   <div className="relative z-10">
                     <div className="flex items-center justify-center space-x-3 mb-4">
-                      <div className={`p-3 rounded-full ${activeSection === "partner" ? "bg-white/20" : "bg-[#C37B1E]/10"}`}>
-                        <Heart className={`h-8 w-8 ${activeSection === "partner" ? "text-white" : "text-[#C37B1E]"}`} />
+                      <div className={`p-3 rounded-full ${activeSection === "partner" ? "bg-white/20" : "bg-[#eeba2b]/10"}`}>
+                        <Heart className={`h-8 w-8 ${activeSection === "partner" ? "text-white" : "text-[#eeba2b]"}`} />
                       </div>
                       <span className="text-2xl md:text-3xl font-bold">The Akomapa Partners Program</span>
                     </div>
@@ -219,8 +219,8 @@ export default function DonatePage() {
                   onClick={() => setActiveSection("one-time")}
                   className={`w-full p-4 md:p-6 rounded-xl text-center transition-all duration-300 ${
                     activeSection === "one-time"
-                      ? "bg-[#007A73] text-[#FCFAEF] shadow-lg"
-                      : "bg-white/60 dark:bg-[#2F3332]/60 text-[#2F3332] dark:text-[#E6E7E7] hover:bg-[#007A73]/10 border border-[#E6E7E7] dark:border-[#4F5554]"
+                      ? "bg-[#0097b2] text-[#FCFAEF] shadow-lg"
+                      : "bg-white/60 dark:bg-[#2F3332]/60 text-[#2F3332] dark:text-[#E6E7E7] hover:bg-[#0097b2]/10 border border-[#E6E7E7] dark:border-[#4F5554]"
                   }`}
                 >
                   <div className="flex items-center justify-center space-x-3">
@@ -240,11 +240,11 @@ export default function DonatePage() {
                 className="mt-6"
               >
                 <a href="/corporate-sponsorship">
-                  <button className="w-full p-4 rounded-xl text-center transition-all duration-300 bg-gradient-to-r from-[#007A73]/10 to-[#C37B1E]/10 dark:from-[#007A73]/20 dark:to-[#C37B1E]/20 text-[#1C1F1E] dark:text-[#FCFAEF] hover:from-[#007A73]/20 hover:to-[#C37B1E]/20 border border-[#007A73]/30 dark:border-[#007A73]/50">
+                  <button className="w-full p-4 rounded-xl text-center transition-all duration-300 bg-gradient-to-r from-[#0097b2]/10 to-[#eeba2b]/10 dark:from-[#0097b2]/20 dark:to-[#eeba2b]/20 text-[#1C1F1E] dark:text-[#FCFAEF] hover:from-[#0097b2]/20 hover:to-[#eeba2b]/20 border border-[#0097b2]/30 dark:border-[#0097b2]/50">
                     <div className="flex items-center justify-center space-x-3">
-                      <Building className="h-6 w-6 text-[#007A73]" />
+                      <Building className="h-6 w-6 text-[#0097b2]" />
                       <span className="text-lg font-semibold">Corporate Sponsorship Opportunities</span>
-                      <span className="text-sm bg-[#C37B1E] text-white px-2 py-1 rounded-full">NEW</span>
+                      <span className="text-sm bg-[#eeba2b] text-white px-2 py-1 rounded-full">NEW</span>
                     </div>
                     <p className="text-sm mt-1 opacity-80">Comprehensive partnership opportunities for businesses and organizations</p>
                   </button>
@@ -261,7 +261,7 @@ export default function DonatePage() {
                 className="space-y-12"
               >
                 {/* Partner Program Description with Slideshow */}
-                <div className="bg-white dark:bg-[#2F3332] rounded-2xl p-6 md:p-8 shadow-lg border-2 border-[#C37B1E]">
+                <div className="bg-white dark:bg-[#2F3332] rounded-2xl p-6 md:p-8 shadow-lg border-2 border-[#eeba2b]">
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center mb-8">
                     {/* Text Content */}
                     <div className="order-2 lg:order-1">
@@ -274,12 +274,12 @@ export default function DonatePage() {
                       
                       {/* Key Stats */}
                       <div className="grid grid-cols-2 gap-4 mb-6">
-                        <div className="bg-[#C37B1E]/10 dark:bg-[#C37B1E]/20 rounded-lg p-4 text-center">
-                          <div className="text-2xl md:text-3xl font-bold text-[#C37B1E] dark:text-[#F3C677]">50+</div>
+                        <div className="bg-[#eeba2b]/10 dark:bg-[#eeba2b]/20 rounded-lg p-4 text-center">
+                          <div className="text-2xl md:text-3xl font-bold text-[#eeba2b] dark:text-[#F5C94D]">50+</div>
                           <div className="text-sm text-[#2F3332] dark:text-[#E6E7E7]">Patients Served Monthly</div>
                         </div>
-                        <div className="bg-[#007A73]/10 dark:bg-[#007A73]/20 rounded-lg p-4 text-center">
-                          <div className="text-2xl md:text-3xl font-bold text-[#007A73] dark:text-[#63B0AC]">$20</div>
+                        <div className="bg-[#0097b2]/10 dark:bg-[#0097b2]/20 rounded-lg p-4 text-center">
+                          <div className="text-2xl md:text-3xl font-bold text-[#0097b2] dark:text-[#66C4DC]">$20</div>
                           <div className="text-sm text-[#2F3332] dark:text-[#E6E7E7]">Monthly Impact Starts</div>
                         </div>
                       </div>
@@ -293,7 +293,7 @@ export default function DonatePage() {
                         transition={{ duration: 0.8 }}
                         className="relative h-80 md:h-96 rounded-xl overflow-hidden shadow-2xl"
                       >
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#C37B1E]/40 via-transparent to-transparent z-10"></div>
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#eeba2b]/40 via-transparent to-transparent z-10"></div>
                         
                         {/* Slideshow Container */}
                         <div className="relative w-full h-full">
@@ -441,7 +441,7 @@ export default function DonatePage() {
                         </div>
 
                         {/* Partner Program Badge */}
-                        <div className="absolute top-4 right-4 bg-[#C37B1E] text-white px-3 py-1 rounded-full text-sm font-medium z-20">
+                        <div className="absolute top-4 right-4 bg-[#eeba2b] text-white px-3 py-1 rounded-full text-sm font-medium z-20">
                           Partners Program
                         </div>
                       </motion.div>
@@ -485,8 +485,8 @@ export default function DonatePage() {
                           transition={{ delay: index * 0.1 }}
                           className="flex items-start space-x-3"
                         >
-                          <div className="w-8 h-8 bg-[#C37B1E]/10 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                            <benefit.icon className="h-4 w-4 text-[#C37B1E]" />
+                          <div className="w-8 h-8 bg-[#eeba2b]/10 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                            <benefit.icon className="h-4 w-4 text-[#eeba2b]" />
                           </div>
                           <div>
                             <h4 className="font-medium text-[#1C1F1E] dark:text-[#FCFAEF] mb-1">
@@ -638,11 +638,11 @@ export default function DonatePage() {
                                       </p>
                                     </div>
                                   </div>
-                                  <div className="bg-[#007A73]/10 dark:bg-[#007A73]/20 rounded-lg p-4">
+                                  <div className="bg-[#0097b2]/10 dark:bg-[#0097b2]/20 rounded-lg p-4">
                                     <h6 className="font-medium text-[#1C1F1E] dark:text-[#FCFAEF] mb-2">After sending payment:</h6>
                                     <p className="text-sm text-[#2F3332] dark:text-[#E6E7E7]">
                                       Please email us at{" "}
-                                      <a href="mailto:akomapahealth@gmail.com" className="text-[#007A73] hover:text-[#C37B1E]">
+                                      <a href="mailto:akomapahealth@gmail.com" className="text-[#0097b2] hover:text-[#eeba2b]">
                                         akomapahealth@gmail.com
                                       </a>{" "}
                                       with your payment confirmation and name for our records.
@@ -665,11 +665,11 @@ export default function DonatePage() {
                                       </p>
                                     </div>
                                   </div>
-                                  <div className="bg-[#C37B1E]/10 dark:bg-[#C37B1E]/20 rounded-lg p-4">
+                                  <div className="bg-[#eeba2b]/10 dark:bg-[#eeba2b]/20 rounded-lg p-4">
                                     <h6 className="font-medium text-[#1C1F1E] dark:text-[#FCFAEF] mb-2">After sending payment:</h6>
                                     <p className="text-sm text-[#2F3332] dark:text-[#E6E7E7]">
                                       Please email us at{" "}
-                                      <a href="mailto:akomapahealth@gmail.com" className="text-[#C37B1E] hover:text-[#007A73]">
+                                      <a href="mailto:akomapahealth@gmail.com" className="text-[#eeba2b] hover:text-[#0097b2]">
                                         akomapahealth@gmail.com
                                       </a>{" "}
                                       with your transfer confirmation and name for our records.
@@ -708,16 +708,16 @@ export default function DonatePage() {
 
                   {/* Benefits List - Enhanced Responsive Design */}
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
-                    <div className="text-center p-4 bg-[#007A73]/5 dark:bg-[#007A73]/10 rounded-lg">
-                      <CheckCircle className="h-6 w-6 md:h-8 md:w-8 text-[#007A73] dark:text-[#63B0AC] mx-auto mb-3" />
+                    <div className="text-center p-4 bg-[#0097b2]/5 dark:bg-[#0097b2]/10 rounded-lg">
+                      <CheckCircle className="h-6 w-6 md:h-8 md:w-8 text-[#0097b2] dark:text-[#66C4DC] mx-auto mb-3" />
                       <h4 className="text-sm md:text-base font-medium text-[#1C1F1E] dark:text-[#FCFAEF]">Choose any amount</h4>
                     </div>
-                    <div className="text-center p-4 bg-[#007A73]/5 dark:bg-[#007A73]/10 rounded-lg">
-                      <CheckCircle className="h-6 w-6 md:h-8 md:w-8 text-[#007A73] dark:text-[#63B0AC] mx-auto mb-3" />
+                    <div className="text-center p-4 bg-[#0097b2]/5 dark:bg-[#0097b2]/10 rounded-lg">
+                      <CheckCircle className="h-6 w-6 md:h-8 md:w-8 text-[#0097b2] dark:text-[#66C4DC] mx-auto mb-3" />
                       <h4 className="text-sm md:text-base font-medium text-[#1C1F1E] dark:text-[#FCFAEF]">Set your own frequency</h4>
                     </div>
-                    <div className="text-center p-4 bg-[#007A73]/5 dark:bg-[#007A73]/10 rounded-lg">
-                      <CheckCircle className="h-6 w-6 md:h-8 md:w-8 text-[#007A73] dark:text-[#63B0AC] mx-auto mb-3" />
+                    <div className="text-center p-4 bg-[#0097b2]/5 dark:bg-[#0097b2]/10 rounded-lg">
+                      <CheckCircle className="h-6 w-6 md:h-8 md:w-8 text-[#0097b2] dark:text-[#66C4DC] mx-auto mb-3" />
                       <h4 className="text-sm md:text-base font-medium text-[#1C1F1E] dark:text-[#FCFAEF]">100% supports care</h4>
                     </div>
                   </div>
@@ -859,11 +859,11 @@ export default function DonatePage() {
                                       </p>
                                     </div>
                                   </div>
-                                  <div className="bg-[#007A73]/10 dark:bg-[#007A73]/20 rounded-lg p-4">
+                                  <div className="bg-[#0097b2]/10 dark:bg-[#0097b2]/20 rounded-lg p-4">
                                     <h6 className="font-medium text-[#1C1F1E] dark:text-[#FCFAEF] mb-2">After sending payment:</h6>
                                     <p className="text-sm text-[#2F3332] dark:text-[#E6E7E7]">
                                       Please email us at{" "}
-                                      <a href="mailto:akomapahealth@gmail.com" className="text-[#007A73] hover:text-[#C37B1E]">
+                                      <a href="mailto:akomapahealth@gmail.com" className="text-[#0097b2] hover:text-[#eeba2b]">
                                         akomapahealth@gmail.com
                                       </a>{" "}
                                       with your payment confirmation and name for our records.
@@ -886,11 +886,11 @@ export default function DonatePage() {
                                       </p>
                                     </div>
                                   </div>
-                                  <div className="bg-[#C37B1E]/10 dark:bg-[#C37B1E]/20 rounded-lg p-4">
+                                  <div className="bg-[#eeba2b]/10 dark:bg-[#eeba2b]/20 rounded-lg p-4">
                                     <h6 className="font-medium text-[#1C1F1E] dark:text-[#FCFAEF] mb-2">After sending payment:</h6>
                                     <p className="text-sm text-[#2F3332] dark:text-[#E6E7E7]">
                                       Please email us at{" "}
-                                      <a href="mailto:akomapahealth@gmail.com" className="text-[#C37B1E] hover:text-[#007A73]">
+                                      <a href="mailto:akomapahealth@gmail.com" className="text-[#eeba2b] hover:text-[#0097b2]">
                                         akomapahealth@gmail.com
                                       </a>{" "}
                                       with your transfer confirmation and name for our records.
@@ -922,7 +922,7 @@ export default function DonatePage() {
               viewport={{ once: true }}
               className="text-center mb-12"
             >
-              <h2 className="text-[#C37B1E] dark:text-[#F3C677] font-bold text-lg mb-2">
+              <h2 className="text-[#eeba2b] dark:text-[#F5C94D] font-bold text-lg mb-2">
                 CORPORATE PARTNERSHIPS
               </h2>
               <h3 className="text-3xl md:text-4xl font-bold mb-6 text-[#1C1F1E] dark:text-[#FCFAEF]">
@@ -946,21 +946,21 @@ export default function DonatePage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-4">
                   <div className="flex items-start">
-                    <DollarSign className="h-5 w-5 text-[#007A73] dark:text-[#63B0AC] mr-3 mt-1" />
+                    <DollarSign className="h-5 w-5 text-[#0097b2] dark:text-[#66C4DC] mr-3 mt-1" />
                     <span className="text-[#2F3332] dark:text-[#E6E7E7]">Financial contributions</span>
                   </div>
                   <div className="flex items-start">
-                    <Building className="h-5 w-5 text-[#007A73] dark:text-[#63B0AC] mr-3 mt-1" />
+                    <Building className="h-5 w-5 text-[#0097b2] dark:text-[#66C4DC] mr-3 mt-1" />
                     <span className="text-[#2F3332] dark:text-[#E6E7E7]">Donations of medications and medical supplies</span>
                   </div>
                 </div>
                 <div className="space-y-4">
                   <div className="flex items-start">
-                    <Globe className="h-5 w-5 text-[#007A73] dark:text-[#63B0AC] mr-3 mt-1" />
+                    <Globe className="h-5 w-5 text-[#0097b2] dark:text-[#66C4DC] mr-3 mt-1" />
                     <span className="text-[#2F3332] dark:text-[#E6E7E7]">Equipment or service support for our clinics</span>
                   </div>
                   <div className="flex items-start">
-                    <Users className="h-5 w-5 text-[#007A73] dark:text-[#63B0AC] mr-3 mt-1" />
+                    <Users className="h-5 w-5 text-[#0097b2] dark:text-[#66C4DC] mr-3 mt-1" />
                     <span className="text-[#2F3332] dark:text-[#E6E7E7]">Collaboration on health education or outreach campaigns</span>
                   </div>
                 </div>
@@ -972,7 +972,7 @@ export default function DonatePage() {
                 </p>
                 <div className="text-center">
                   <a href="/corporate-sponsorship">
-                    <Button className="bg-[#007A73] hover:bg-[#C37B1E] text-[#FCFAEF]">
+                    <Button className="bg-[#0097b2] hover:bg-[#eeba2b] text-[#FCFAEF]">
                       <Mail className="h-4 w-4 mr-2" />
                       Check out our Corporate Sponsorship
                     </Button>

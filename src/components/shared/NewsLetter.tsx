@@ -64,7 +64,7 @@ export default function Newsletter() {
     <section className="py-16 md:py-20 bg-[#FCFAEF]/50 dark:bg-[#4F5554]/90">
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-[#C37B1E] dark:text-[#F3C677] font-bold text-lg mb-2">
+          <h2 className="text-[#eeba2b] dark:text-[#F5C94D] font-bold text-lg mb-2">
             STAY CONNECTED
           </h2>
           <h3 className="text-3xl md:text-4xl font-bold mb-6 text-[#1C1F1E] dark:text-[#FCFAEF] font-heading">
@@ -76,7 +76,7 @@ export default function Newsletter() {
 
           {isSubmitted ? (
             <div className="bg-white dark:bg-[#2F3332] p-6 rounded-lg shadow-sm flex flex-col items-center">
-              <CheckCircle2 className="h-12 w-12 text-[#007A73] dark:text-[#00A99D] mb-4" />
+              <CheckCircle2 className="h-12 w-12 text-[#0097b2] dark:text-[#00A99D] mb-4" />
               <h3 className="text-xl font-semibold mb-2 dark:text-[#FCFAEF]">Thank You for Subscribing!</h3>
               <p className="text-[#2F3332]/80 dark:text-[#E6E7E7]">
                 You&apos;ll now receive our newsletter with the latest updates on our programs and initiatives.
@@ -87,7 +87,7 @@ export default function Newsletter() {
                   setError(null);
                 }}
                 variant="outline"
-                className="mt-4 border-[#007A73] text-[#007A73] hover:bg-[#007A73] hover:text-white dark:border-[#C37B1E] dark:text-[#C37B1E] dark:hover:bg-[#C37B1E] dark:hover:text-white"
+                className="mt-4 border-[#0097b2] text-[#0097b2] hover:bg-[#0097b2] hover:text-white dark:border-[#eeba2b] dark:text-[#eeba2b] dark:hover:bg-[#eeba2b] dark:hover:text-white"
               >
                 Subscribe Another Email
               </Button>
@@ -116,14 +116,14 @@ export default function Newsletter() {
                             className="h-12 border-[#2F3332]/20 dark:border-[#FCFAEF]/20 bg-white dark:bg-[#2F3332] text-[#2F3332] dark:text-[#FCFAEF]"
                           />
                         </FormControl>
-                        <FormMessage className="text-[#C37B1E]" />
+                        <FormMessage className="text-[#eeba2b]" />
                       </FormItem>
                     )}
                   />
                   <Button 
                     type="submit" 
                     disabled={isLoading}
-                    className="bg-[#007A73] hover:bg-[#005A5F] text-[#FCFAEF] dark:bg-[#C37B1E] dark:hover:bg-[#A36419] dark:text-[#FCFAEF] h-12 px-8 font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="bg-[#0097b2] hover:bg-[#005A5F] text-[#FCFAEF] dark:bg-[#eeba2b] dark:hover:bg-[#BE9522] dark:text-[#FCFAEF] h-12 px-8 font-medium disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {isLoading ? (
                       <>

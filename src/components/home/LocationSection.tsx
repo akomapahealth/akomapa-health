@@ -61,7 +61,7 @@ export default function LocationsSection() {
     <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
       <div className="container mx-auto px-4">
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-[#C37B1E] dark:text-[#F3C677] font-bold text-lg mb-2">
+          <h2 className="text-[#eeba2b] dark:text-[#F5C94D] font-bold text-lg mb-2">
             Our First Clinic - Akomapa Free Clinic UCC Chapter
           </h2>
           <h3 className="text-3xl md:text-4xl font-bold mb-6 text-[#1C1F1E] dark:text-[#FCFAEF]">
@@ -97,7 +97,7 @@ export default function LocationsSection() {
               {/* Overlay with gradient and caption */}
               <div className="absolute inset-0 bg-gradient-to-t from-[#1C1F1E]/70 via-transparent to-transparent"></div>
               <div className="absolute bottom-0 left-0 right-0 p-6 text-[#FCFAEF]">
-                <span className="bg-[#007A73]/90 text-[#FCFAEF] px-3 py-1 rounded-full text-sm font-medium backdrop-blur-sm">
+                <span className="bg-[#0097b2]/90 text-[#FCFAEF] px-3 py-1 rounded-full text-sm font-medium backdrop-blur-sm">
                   {communityPhotos[currentPhotoIndex].location}
                 </span>
                 <p className="text-lg font-medium mt-2">
@@ -130,8 +130,8 @@ export default function LocationsSection() {
                   onClick={() => setCurrentPhotoIndex(index)}
                   className={`w-2.5 h-2.5 rounded-full transition-all ${
                     currentPhotoIndex === index 
-                      ? "bg-[#007A73] scale-110 w-4" 
-                      : "bg-[#007A73]/30 hover:bg-[#007A73]/50"
+                      ? "bg-[#0097b2] scale-110 w-4" 
+                      : "bg-[#0097b2]/30 hover:bg-[#0097b2]/50"
                   }`}
                   aria-label={`Go to image ${index + 1}`}
                 ></button>
@@ -157,7 +157,7 @@ export default function LocationsSection() {
             </p>
             <div className="mb-6">
               <div className="flex items-start mb-4">
-                <MapPin className="h-5 w-5 text-[#007A73] dark:text-[#63B0AC] mr-3 mt-1 flex-shrink-0" />
+                <MapPin className="h-5 w-5 text-[#0097b2] dark:text-[#66C4DC] mr-3 mt-1 flex-shrink-0" />
                 <div>
                   <div className="font-bold text-[#1C1F1E] dark:text-[#FCFAEF]">Abeadze Domenase</div>
                   <div className="text-[#2F3332] dark:text-[#E6E7E7]">
@@ -167,7 +167,7 @@ export default function LocationsSection() {
                 </div>
               </div>
               <div className="flex items-start">
-                <MapPin className="h-5 w-5 text-[#C37B1E] dark:text-[#F3C677] mr-3 mt-1 flex-shrink-0" />
+                <MapPin className="h-5 w-5 text-[#eeba2b] dark:text-[#F5C94D] mr-3 mt-1 flex-shrink-0" />
                 <div>
                   <div className="font-bold text-[#1C1F1E] dark:text-[#FCFAEF]">Abura</div>
                   <div className="text-[#2F3332] dark:text-[#E6E7E7]">
@@ -177,23 +177,22 @@ export default function LocationsSection() {
                 </div>
               </div>
             </div>
-            <Button className="bg-[#007A73] hover:bg-[#C37B1E] text-[#FCFAEF] w-fit">
+            <Button className="bg-[#0097b2] hover:bg-[#eeba2b] text-[#FCFAEF] w-fit">
               <Link href="/our-ucc-clinic" className="flex items-center">
-                Visit Our Clinic <ArrowRight size={16} className="ml-2" />
+                Visit Our UCC Clinic <ArrowRight size={16} className="ml-2" />
               </Link>
             </Button>
           </motion.div>
         </div>
 
         {/* Full-width map section with hidden header */}
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
           viewport={{ once: true }}
           className="relative rounded-xl overflow-hidden shadow-lg border-2 border-[#E6E7E7] dark:border-[#2F3332]"
         >
-          {/* Using the wrapper div with overflow hidden technique from Stack Overflow */}
           <div style={{ width: "100%", overflow: "hidden", height: "550px" }}>
             <iframe 
               src="https://www.google.com/maps/d/embed?mid=1qJUWg-0TeIfD_zTnUhkTJE7DplYWnVg&ehbc=2E312F" 
@@ -208,7 +207,7 @@ export default function LocationsSection() {
           <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#1C1F1E]/80 to-transparent p-4 text-[#FCFAEF]">
             <p className="font-medium">Our clinic locations in Ghana&apos;s Central Region</p>
           </div>
-        </motion.div>
+        </motion.div> */}
         
         {/* Bottom CTA */}
         <div className="text-center mt-12">
@@ -216,7 +215,7 @@ export default function LocationsSection() {
             With successful implementation in our pilot locations, we aim to expand our model across Ghana, 
             creating a network of student-run clinics that serve communities and train the next generation of healthcare leaders.
           </p>
-          {/* <Button className="bg-[#C37B1E] hover:bg-[#007A73] text-[#FCFAEF]">
+          {/* <Button className="bg-[#eeba2b] hover:bg-[#0097b2] text-[#FCFAEF]">
             <Link href="/about/expansion" className="flex items-center">
               Our Expansion Plan <ArrowRight size={16} className="ml-2" />
             </Link>

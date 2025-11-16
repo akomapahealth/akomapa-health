@@ -1,28 +1,28 @@
-import { Work_Sans, DM_Sans, Bree_Serif } from 'next/font/google';
+import { Inter, Poppins, Source_Sans_3 } from 'next/font/google';
 import './globals.css';
 import { Metadata } from 'next';
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from '@/components/theme/ThemeProvider';
 
-// Work Sans for headings
-const workSans = Work_Sans({
+// Poppins for headings
+const poppins = Poppins({
   subsets: ["latin"],
-  weight: ["700"], // Bold weight
-  variable: "--font-work-sans",
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-poppins",
 });
 
-// DM Sans for subheadings and body
-const dmSans = DM_Sans({
+// Inter for headings (alternative/fallback)
+const inter = Inter({
   subsets: ["latin"],
-  weight: ["400", "700"], // Regular and Bold weights
-  variable: "--font-dm-sans",
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-inter",
 });
 
-// Bree Serif for accents
-const breeSerif = Bree_Serif({
+// Source Sans 3 for body text
+const sourceSans3 = Source_Sans_3({
   subsets: ["latin"],
-  weight: ["400"], // Only comes in regular weight
-  variable: "--font-bree-serif",
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-source-sans-3",
 });
 
 export const metadata: Metadata = {
@@ -67,9 +67,9 @@ export default function RootLayout({
       <head />
       <body className={cn(
         "min-h-screen bg-background font-sans antialiased",
-        workSans.variable,
-        dmSans.variable,
-        breeSerif.variable
+        poppins.variable,
+        inter.variable,
+        sourceSans3.variable
       )}>
         <ThemeProvider defaultTheme="system" storageKey="akomapa-theme">
           {children}

@@ -1,153 +1,133 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
-import { useRef, useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { AlertTriangle, Users2, GraduationCap, Globe2, ArrowRight, Book, HeartHandshake, Ambulance, Stethoscope, User } from "lucide-react";
 
-// Stats for animation
-const stats = [
+type Bullet = {
+  text: string;
+  icon?: React.ReactNode;
+};
+
+type CardContent = {
+  title: string;
+  bullets: Bullet[];
+  accentColor: string;
+  icon: React.ReactNode;
+};
+
+const cards: CardContent[] = [
   {
-    id: 1,
-    highlight: "2030",
-    description: "NCDs are projected to be Africa&apos;s leading cause of death by 2030.",
-    icon: "📈",
-    color: "#007A73"
+    title: "The Problem",
+    accentColor: "#F5C94D",
+    icon: <AlertTriangle className="h-7 w-7 text-[#F5C94D]" aria-hidden="true" />,
+    bullets: [
+      {
+        text: "Non-communicable diseases (NCDs) are the leading cause of death worldwide, responsible for over 70% of global deaths each year.",
+        icon: <HeartHandshake className="h-5 w-5 text-[#F5C94D]" aria-hidden="true" />
+      },
+      {
+        text: "In the United States, NCDs account for 9 in 10 deaths; in many African countries, they are projected to become the top cause of mortality by 2030.",
+        icon: <Ambulance className="h-5 w-5 text-[#F5C94D]" aria-hidden="true" />
+      },
+      {
+        text: "Across settings, millions still lack access to basic screening, education, and preventative care—leaving treatable conditions undetected until it’s too late.",
+        icon: <Stethoscope className="h-5 w-5 text-[#F5C94D]" aria-hidden="true" />
+      }
+    ]
   },
   {
-    id: 2,
-    highlight: "15.3%",
-    description: "In Ghana, hypertension is the leading cause of death, accounting for 15.3% of total deaths.",
-    icon: "💔",
-    color: "#C37B1E"
-  },
-  {
-    id: 3,
-    highlight: "85%+",
-    description: "Of surveyed health professional students expressed strong interest in leading change.",
-    icon: "👩🏽‍⚕️",
-    color: "#007A73"
-  },
-  {
-    id: 4,
-    highlight: "100%",
-    description: "Community members and institutions have voiced strong support for supervised, student-run clinics.",
-    icon: "🤝",
-    color: "#C37B1E"
+    title: "Our Solution",
+    accentColor: "#66C4DC",
+    icon: <Users2 className="h-7 w-7 text-[#66C4DC]" aria-hidden="true" />,
+    bullets: [
+      {
+        text: "Student-powered, expert-supervised clinics bring early screening, counseling, and continuity of care directly into communities.",
+        icon: <User className="h-5 w-5 text-[#66C4DC]" aria-hidden="true" />
+      },
+      {
+        text: "Global health training programs equip students with leadership, ethics, and systems-thinking skills to drive equitable change.",
+        icon: <GraduationCap className="h-5 w-5 text-[#66C4DC]" aria-hidden="true" />
+      },
+      {
+        text: "An international network links clinics across countries, fostering shared learning, mentorship, and collaborative research.",
+        icon: <Globe2 className="h-5 w-5 text-[#66C4DC]" aria-hidden="true" />
+      },
+      {
+        text: "Evidence from our multi-country feasibility study shows that with expert guidance, students are capable, trusted agents of change—able to strengthen health systems from the ground up.",
+        icon: <Book className="h-5 w-5 text-[#66C4DC]" aria-hidden="true" />
+      }
+    ]
   }
 ];
 
-// Counter animation for statistics
-function Counter({ value, suffix = "" }: { value: string, suffix?: string }) {
-  const [count, setCount] = useState("0");
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-  
-  useEffect(() => {
-    if (isInView) {
-      setCount(value);
-    }
-  }, [isInView, value]);
-  
-  return <span ref={ref}>{count}{suffix}</span>;
-}
-
 export default function HealthCrisisSection() {
   return (
-    <section id="why-it-matters" className="py-16 md:py-24 bg-[#005A9C] dark:bg-[#1C1F1E] text-[#FCFAEF]">
+    <section
+      id="why-it-matters"
+      className="py-16 md:py-24 bg-[#0097b2] dark:bg-[#1C1F1E] text-[#FCFAEF] relative overflow-hidden"
+    >
       {/* Background decorative elements */}
-      <div className="absolute right-0 top-0 w-64 h-64 rounded-full bg-[#007A73]/20 blur-3xl"></div>
-      <div className="absolute left-0 bottom-0 w-96 h-96 rounded-full bg-[#C37B1E]/20 blur-3xl"></div>
+      <div className="absolute right-0 top-0 w-64 h-64 rounded-full bg-[#0097b2]/20 blur-3xl"></div>
+      <div className="absolute left-0 bottom-0 w-96 h-96 rounded-full bg-[#eeba2b]/20 blur-3xl"></div>
       
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-[#F3C677] font-bold text-lg mb-2">
+          <h2 className="text-[#F5C94D] font-bold text-lg mb-2">
             WHY IT MATTERS
           </h2>
           <h3 className="text-3xl md:text-4xl font-bold mb-6 text-[#FCFAEF]">
-            Responding to an Urgent Health Crisis with Innovation and Evidence
+            Responding to a Global Health Crisis with Innovation and Evidence
           </h3>
-          <div className="h-1 w-20 bg-[#007A73] mx-auto mb-8"></div>
           <p className="text-lg text-[#E6E7E7]">
-            Non-communicable diseases are rapidly becoming a major health challenge across Africa,
-            requiring innovative approaches to healthcare delivery and prevention.
+            Non-communicable diseases are a rising global crisis. We&apos;re meeting the challenge with student-led
+            innovations—anchored in research, fueled by global partnerships, and built alongside communities.
           </p>
         </div>
-        
-        {/* Chart visualization - Optional */}
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          viewport={{ once: true }}
-          className="mt-16 md:mt-24 p-4 md:p-6 lg:p-8 bg-[#2F3332] rounded-xl relative overflow-hidden"
-        >
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 items-start lg:items-center">
-            <div>
-              <h3 className="text-xl md:text-2xl font-bold mb-4 text-[#FCFAEF]">The Growing Burden of NCDs in Africa</h3>
-              <p className="text-sm md:text-base text-[#E6E7E7] mb-6 leading-relaxed">
-                Non-communicable diseases (NCDs) like hypertension, diabetes, and cancer are 
-                projected to overtake infectious diseases as the leading causes of death across Africa by 2030.
-                This shift requires new approaches to healthcare that emphasize prevention and early intervention.
-              </p>
-              
-              <div className="flex flex-col sm:flex-row sm:space-x-8 space-y-4 sm:space-y-0 mb-4">
-                <div>
-                  <div className="text-xl md:text-2xl font-bold text-[#007A73]">67%</div>
-                  <div className="text-xs md:text-sm text-[#E6E7E7]">Projected NCD deaths by 2030</div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10">
+          {cards.map((card) => (
+            <motion.div
+              key={card.title}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true, margin: "-80px" }}
+              className="bg-[#0F4C5C]/60 dark:bg-[#2F3332] rounded-2xl p-6 md:p-8 shadow-xl border border-[#66C4DC]/20 backdrop-blur-sm"
+            >
+              <div className="flex items-center mb-6">
+                <div className="h-12 w-12 rounded-full bg-[#FCFAEF]/10 flex items-center justify-center mr-4">
+                  {card.icon}
                 </div>
-                <div>
-                  <div className="text-xl md:text-2xl font-bold text-[#C37B1E]">48M</div>
-                  <div className="text-xs md:text-sm text-[#E6E7E7]">Africans with diabetes by 2045</div>
-                </div>
+                <h4 className="text-2xl font-semibold">{card.title}</h4>
               </div>
-              
-              <Button className="bg-[#007A73] hover:bg-[#C37B1E] text-[#FCFAEF] mt-2">
-                <Link href="/research" className="flex items-center">
-                  Read Our Award-Winning Research <ArrowRight size={16} className="ml-2" />
-                </Link>
-              </Button>
-            </div>
-            
-            <div className="relative">
-              {/* Infographic section */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 relative">
-                {stats.map((stat, index) => (
-                  <motion.div
-                    key={stat.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: index * 0.1 }}
-                    viewport={{ once: true, margin: "-50px" }}
-                    className="relative bg-[#2F3332] rounded-xl p-4 md:p-6 border-l-4 h-auto"
-                    style={{ borderLeftColor: stat.color }}
-                  >
-                    <div className="flex items-start">
-                      <div className="mr-3 md:mr-4 text-2xl md:text-3xl flex-shrink-0" aria-hidden="true">{stat.icon}</div>
-                      <div className="flex-1 min-w-0">
-                        <h5 className="text-xl md:text-2xl lg:text-3xl font-bold mb-1" style={{ color: stat.color }}>
-                          <Counter value={stat.highlight} />
-                        </h5>
-                        <p className="text-sm md:text-base text-[#E6E7E7] leading-relaxed">{stat.description}</p>
-                      </div>
-                    </div>
-                    <div className="absolute -bottom-2 -right-2 md:-bottom-3 md:-right-3 h-8 w-8 md:h-12 md:w-12 rounded-full bg-gradient-to-br" 
-                      style={{ backgroundImage: `linear-gradient(to bottom right, ${stat.color}30, ${stat.color}05)` }}></div>
-                  </motion.div>
+
+              <ul className="space-y-4 md:space-y-5 text-[#E6E7E7] text-base md:text-lg leading-relaxed">
+                {card.bullets.map((bullet, idx) => (
+                  <li key={idx} className="flex items-start gap-3">
+                    {bullet.icon ? (
+                      <span className="mt-1.5">{bullet.icon}</span>
+                    ) : (
+                      <span
+                        className="mt-2 block h-2 w-2 rounded-full flex-shrink-0"
+                        style={{ backgroundColor: card.accentColor }}
+                      />
+                    )}
+                    <span className="flex-1">{bullet.text}</span>
+                  </li>
                 ))}
-              </div>
-            </div>
-          </div>
-        </motion.div>
-        
-        {/* <div className="text-center mt-12">
-          <Button className="bg-[#C37B1E] hover:bg-[#007A73] text-[#FCFAEF]">
-            <Link href="/about/impact" className="flex items-center">
-              Learn About Our Impact <ArrowRight size={16} className="ml-2" />
+              </ul>
+            </motion.div>
+          ))}
+        </div>
+
+        <div className="text-center mt-12 md:mt-14">
+          <Button className="bg-[#FCFAEF] text-[#0097b2] hover:bg-[#F5C94D] hover:text-[#1C1F1E] transition-colors cursor-pointer">
+            <Link href="/research" className="flex items-center">
+              Explore Our Science <ArrowRight size={18} className="ml-2" />
             </Link>
           </Button>
-        </div> */}
+        </div>
       </div>
     </section>
   );

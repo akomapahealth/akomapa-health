@@ -12,6 +12,9 @@
 
 # testing
 /coverage
+/test-results
+/playwright-report
+/playwright/.cache
 
 # next.js
 /.next/
@@ -41,3 +44,4 @@ yarn-error.log*
 next-env.d.ts
 
 .next
+.cursor

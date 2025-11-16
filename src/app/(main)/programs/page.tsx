@@ -1,135 +1,231 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useState, useEffect, useRef } from "react";
+import { motion, useInView, useMotionValue, useSpring } from "framer-motion";
 import Image from "@/components/common/Image";
-import { ArrowRight, Heart, Globe, Leaf, Pill, Home, FileText, CreditCard, Stethoscope, UserCheck, Sprout, Package, Building, Mail } from "lucide-react";
+import { ArrowRight, Globe, GraduationCap, Users, Building, ChevronsDown, Sparkles, Sprout } from "lucide-react";
 import Link from "next/link";
 import Breadcrumb from "@/components/layout/Breadcrumb";
 import { Button } from "@/components/ui/button";
 
-// Core Programs Data
-interface CoreProgram {
+// Program Data
+interface Program {
   id: number;
   title: string;
-  emoji: string;
   description: string;
+  details: string[];
+  href: string;
   icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
   color: string;
   bgGradient: string;
+  image: string;
+  alt: string;
+  features?: string[];
 }
 
-const corePrograms: CoreProgram[] = [
+const programs: Program[] = [
   {
     id: 1,
-    title: "Screening for Hypertension & Diabetes",
-    emoji: "🩺",
-    description: "We provide free, community-based screenings for hypertension and diabetes — two of Ghana's most common and underdiagnosed chronic diseases. Early detection allows us to begin life-saving interventions and reduce long-term complications.",
-    icon: Stethoscope,
-    color: "#007A73",
-    bgGradient: "from-[#007A73]/10 to-[#007A73]/5"
+    title: "Akomapa Clinics",
+    description: "We establish interprofessional, expert-supervised clinics built in partnership with local health authorities, traditional leaders, and community members. These student-run clinics deliver free, community-based care focused on the early detection and management of non-communicable diseases (NCDs), serving as both real-world classrooms for students and lifelines for underserved communities.",
+    details: [
+      "Interprofessional student teams coordinate care across medical, nursing, pharmacy, nutrition, and public health disciplines",
+      "Expert supervision ensures every patient encounter meets the highest clinical and ethical standards",
+      "Community-rooted model transforms trusted spaces into care hubs accessible to families",
+      "Free services focus on NCD screening, counseling, and referrals with cultural sensitivity"
+    ],
+    href: "/clinics",
+    icon: Building,
+    color: "#0097b2",
+    bgGradient: "from-[#0097b2]/10 to-[#0097b2]/5",
+    image: "/highlights/Akomapa-28.jpg",
+    alt: "Akomapa clinic team providing community healthcare",
+    features: [
+      "Community-Based Care",
+      "Student Leadership",
+      "Expert Supervision",
+      "Local Partnership"
+    ]
   },
   {
     id: 2,
-    title: "Nutritional Counseling",
-    emoji: "🥗",
-    description: "Our team offers personalized, culturally sensitive nutritional guidance to help patients manage chronic conditions, improve energy, and adopt sustainable, healthful eating habits — even with limited resources.",
-    icon: Leaf,
-    color: "#C37B1E",
-    bgGradient: "from-[#C37B1E]/10 to-[#C37B1E]/5"
+    title: "The Akomapa Network",
+    description: "Our global community of practice connects Akomapa chapters with partner student-run clinics around the world—like SHAWCO, South Side SRFC, and Yale's Neighborhood Health Project—to share best practices, mentorship, and collaborative research. Together, we're turning local innovations into global impact.",
+    details: [
+      "Connects student-run clinics across continents to share innovations and learnings",
+      "Facilitates mentorship exchanges between experienced and emerging clinic leaders",
+      "Enables collaborative research that strengthens evidence for student-powered care",
+      "Builds a global movement of health professionals committed to equity and access"
+    ],
+    href: "/programs/akomapa-network",
+    icon: Globe,
+    color: "#eeba2b",
+    bgGradient: "from-[#eeba2b]/10 to-[#eeba2b]/5",
+    image: "/highlights/Akomapa-40.jpg",
+    alt: "Global network of student healthcare leaders",
+    features: [
+      "Global Community",
+      "Knowledge Sharing",
+      "Mentorship Exchange",
+      "Collaborative Research"
+    ]
   },
   {
     id: 3,
-    title: "Drug Prescriptions & Counseling",
-    emoji: "💊",
-    description: "We don't just prescribe medications — we counsel patients on how to take them safely and consistently. Our pharmacy partners and student clinicians ensure medications are both accessible and well-understood.",
-    icon: Pill,
-    color: "#007A73",
-    bgGradient: "from-[#007A73]/10 to-[#007A73]/5"
+    title: "Global Health Leadership Training Program",
+    description: "We equip emerging health leaders with the skills, ethics, and cross-cultural experience needed to drive equitable change. Through expert-led courses, interactive seminars, and global mentorship, students learn to merge clinical care with leadership and systems thinking.",
+    details: [
+      "Intensive leadership curriculum combining classroom learning with hands-on rotations",
+      "Expert-led courses on ethics, cultural humility, and systems thinking",
+      "Interactive seminars with global health leaders from Yale, UCLA, and University of Cape Coast",
+      "Mentorship program connecting students with experienced practitioners worldwide"
+    ],
+    href: "/programs/akomapa-ghltp",
+    icon: GraduationCap,
+    color: "#0097b2",
+    bgGradient: "from-[#0097b2]/10 to-[#0097b2]/5",
+    image: "/highlights/Akomapa-66.jpg",
+    alt: "Students participating in leadership training",
+    features: [
+      "Leadership Development",
+      "Expert Mentorship",
+      "Cross-Cultural Training",
+      "Systems Thinking"
+    ]
   },
   {
     id: 4,
-    title: "Referrals & Patient Advocacy Program",
-    emoji: "🏥",
-    description: "When patients require more advanced care, we refer them to trusted health centers and assign them a patient advocate — a trained member of our team who supports them through Ghana's health system, from appointments to NHIS registration.",
-    icon: UserCheck,
-    color: "#C37B1E",
-    bgGradient: "from-[#C37B1E]/10 to-[#C37B1E]/5"
+    title: "Global Health Immersion Camp",
+    description: "Starting in Ghana and expanding globally, our 3-week Summer Immersion Camp gives students hands-on exposure to community and public health in low-resource settings. Participants engage in clinical service, health education, and cultural exchange—bridging classroom learning with lived experience.",
+    details: [
+      "Three-week intensive program in Ghana combining clinical service with cultural immersion",
+      "Hands-on experience in community health, public health, and primary care delivery",
+      "Cultural exchange activities that build understanding and respect for local contexts",
+      "Designed to bridge theoretical learning with real-world application in resource-limited settings"
+    ],
+    href: "/programs/akomapa-ghip",
+    icon: Users,
+    color: "#eeba2b",
+    bgGradient: "from-[#eeba2b]/10 to-[#eeba2b]/5",
+    image: "/highlights/Akomapa-61.jpg",
+    alt: "Students participating in global health immersion program",
+    features: [
+      "Hands-On Experience",
+      "Cultural Immersion",
+      "Clinical Service",
+      "Global Expansion"
+    ]
   },
   {
     id: 5,
-    title: "Home Health & Follow-Up Teams",
-    emoji: "🏡",
-    description: "Our home visitation teams monitor patient progress between clinic days, reinforce treatment plans, and build meaningful relationships. This community-rooted model strengthens continuity of care and improves outcomes.",
-    icon: Home,
-    color: "#007A73",
-    bgGradient: "from-[#007A73]/10 to-[#007A73]/5"
+    title: "Akomapa Young Advocates",
+    description: "The Akomapa Young Advocates Program is a youth empowerment and health education initiative that brings community health, mentorship, and leadership development directly to high schools. Led by interprofessional university health professional students trained through Akomapa clinics, the program equips young people with practical knowledge about non-communicable diseases (NCDs) and empowers them to become champions of healthy living and positive change in their schools and communities.",
+    details: [
+      "Interactive health education sessions delivered directly in high schools by trained student mentors",
+      "Practical knowledge about non-communicable diseases (NCDs) and preventive health measures",
+      "Ongoing mentorship that nurtures the next generation of ethical, community-minded leaders",
+      "Bridges education and action, empowering youth to become health champions in their communities"
+    ],
+    href: "/programs/akomapa-young-advocates",
+    icon: Sparkles,
+    color: "#0097b2",
+    bgGradient: "from-[#0097b2]/10 to-[#0097b2]/5",
+    image: "/highlights/Akomapa-40.jpg",
+    alt: "Young advocates participating in health education",
+    features: [
+      "Youth Empowerment",
+      "Health Education",
+      "Mentorship",
+      "Leadership Development"
+    ]
   },
   {
     id: 6,
-    title: "Research & Impact Team",
-    emoji: "📊",
-    description: "Our Research Team collects data to evaluate outcomes, improve services, and generate insights that shape the future of student-led healthcare. We aim to contribute evidence that informs national and global health policies.",
-    icon: FileText,
-    color: "#C37B1E",
-    bgGradient: "from-[#C37B1E]/10 to-[#C37B1E]/5"
-  },
-  {
-    id: 7,
-    title: "NHIS Registration Support",
-    emoji: "🪪",
-    description: "We assist patients with enrollment in the National Health Insurance Scheme (NHIS), reducing out-of-pocket costs and connecting them to broader services. This is a key step in our commitment to long-term, equitable care.",
-    icon: CreditCard,
-    color: "#007A73",
-    bgGradient: "from-[#007A73]/10 to-[#007A73]/5"
-  },
-  {
-    id: 8,
-    title: "Global Health Leaders Training Partnership",
-    emoji: "🌍",
-    description: "In collaboration with global health leaders from Yale University, UCLA, and the University of Cape Coast, we offer hands-on training and mentorship for the next generation of healthcare changemakers. This program equips medical students and early-career health professionals with the skills to lead community-centered, equity-driven interventions across Ghana and beyond.",
-    icon: Globe,
-    color: "#C37B1E",
-    bgGradient: "from-[#C37B1E]/10 to-[#C37B1E]/5"
-  }
-];
-
-// Future Initiatives Data
-interface FutureInitiative {
-  id: number;
-  title: string;
-  emoji: string;
-  description: string;
-  details: string;
-  seeking: string;
-  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
-  color: string;
-  bgGradient: string;
-}
-
-const futureInitiatives: FutureInitiative[] = [
-  {
-    id: 1,
-    title: "Akomapa Pharmacy",
-    emoji: "🧴",
-    description: "We're developing a low-cost, high-impact community pharmacy that increases access to essential medications. But this isn't just about dispensing pills—it's about creating a closed loop of care. Revenue from the pharmacy will reinvest directly into sustaining the clinic's operations, staff, and outreach services.",
-    details: "Whether through bulk purchasing, donated stock, or public-private partnerships, we aim to create a pharmacy that is both affordable and reliable.",
-    seeking: "📦 Seeking: sponsorships, corporate partners, and medication donations to make this vision real.",
-    icon: Package,
-    color: "#007A73",
-    bgGradient: "from-[#007A73]/10 to-[#007A73]/5"
-  },
-  {
-    id: 2,
-    title: "Akomapa Farms & Food Stores",
-    emoji: "🥬",
-    description: "Food is medicine—and access matters. We plan to launch a community farm to grow healthy, organic produce and distribute it through urban food stores at subsidized rates. These sales will directly support clinic operations, while simultaneously promoting nutrition, reducing food insecurity, and stimulating local economies.",
-    details: "This model dares to turn agriculture into access, and nutrition into impact.",
-    seeking: "🌿 We welcome agricultural experts, entrepreneurs, and donors ready to nourish Ghana's future.",
+    title: "Akomapa Foods & Stores",
+    description: "The Akomapa Foods & Stores Initiative is the sustainability arm of the Akomapa Health model—connecting food security, economic empowerment, and healthcare access into one self-sustaining ecosystem. We believe that health doesn't start in hospitals; it starts in homes, kitchens, and markets. By linking agriculture and nutrition to our student-run clinics, Akomapa creates a cycle where communities not only receive care but also co-own the means to sustain it.",
+    details: [
+      "Community farms and food stores that make healthy, affordable food accessible to families",
+      "Revenue from food sales directly supports clinic operations, creating a self-sustaining model",
+      "Addresses food insecurity while promoting nutrition and reducing long-term health complications",
+      "Economic empowerment that strengthens local economies and builds community ownership"
+    ],
+    href: "/programs/akomapa-foods",
     icon: Sprout,
-    color: "#C37B1E",
-    bgGradient: "from-[#C37B1E]/10 to-[#C37B1E]/5"
+    color: "#eeba2b",
+    bgGradient: "from-[#eeba2b]/10 to-[#eeba2b]/5",
+    image: "/highlights/Akomapa-19.jpg",
+    alt: "Community farm and food store initiative",
+    features: [
+      "Food Security",
+      "Economic Empowerment",
+      "Self-Sustaining Model",
+      "Community Ownership"
+    ]
   }
 ];
+
+const impactMetrics = [
+  {
+    value: 1000,
+    suffix: "+",
+    label: "Students Trained",
+    description: "Emerging health leaders equipped with skills to transform healthcare systems",
+    color: "#0097b2"
+  },
+  {
+    value: 15,
+    suffix: "+",
+    label: "Partner Clinics",
+    description: "Student-run clinics connected through the Akomapa Network worldwide",
+    color: "#eeba2b"
+  },
+  {
+    value: 6,
+    label: "Programs & Initiatives",
+    description: "Comprehensive programs working together to deliver holistic healthcare",
+    color: "#0097b2"
+  },
+  {
+    value: 50,
+    suffix: "+",
+    label: "Global Mentors",
+    description: "Expert practitioners guiding the next generation of health leaders",
+    color: "#eeba2b"
+  }
+];
+
+function ImpactCounter({ value, suffix = "", color }: { value: number; suffix?: string; color: string }) {
+  const ref = useRef<HTMLSpanElement | null>(null);
+  const isInView = useInView(ref, { once: true, amount: 0.6 });
+  const motionValue = useMotionValue(0);
+  const springValue = useSpring(motionValue, { stiffness: 120, damping: 20, mass: 0.8 });
+  const [displayValue, setDisplayValue] = useState(0);
+
+  useEffect(() => {
+    if (isInView) {
+      motionValue.set(value);
+    }
+  }, [isInView, value, motionValue]);
+
+  useEffect(() => {
+    const unsubscribe = springValue.on("change", (latest) => {
+      setDisplayValue(latest);
+    });
+    return () => unsubscribe();
+  }, [springValue]);
+
+  const formatted = `${Math.round(displayValue).toLocaleString()}${suffix}`;
+
+  return (
+    <span
+      ref={ref}
+      className="text-4xl md:text-5xl font-semibold tracking-tight"
+      style={{ color }}
+    >
+      {formatted}
+    </span>
+  );
+}
 
 export default function ProgramsPage() {
   return (
@@ -139,336 +235,266 @@ export default function ProgramsPage() {
       </div>
       
       {/* Hero Section */}
-      <section className="relative py-16 md:py-24 overflow-hidden">
-        <div className="absolute inset-0 z-0 opacity-20">
-          <Image
-            src="/highlights/Akomapa-47.jpg"
-            alt="Akomapa healthcare professionals"
-            fill
-            className="object-cover"
-          />
-        </div>
+      <section className="relative min-h-screen py-16 sm:py-20 md:py-28 bg-gradient-to-r from-[#0097b2] to-[#0F4C5C] overflow-hidden">
+        <div className="absolute top-0 right-0 w-64 h-64 bg-[#FCFAEF]/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl" />
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#FCFAEF]/10 rounded-full translate-y-1/2 -translate-x-1/2 blur-3xl" />
         
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-5xl mx-auto text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="mb-8"
-            >
-              <div className="inline-block px-6 py-3 bg-gradient-to-r from-[#C37B1E]/20 to-[#007A73]/20 rounded-full mb-6">
-                <span className="text-[#007A73] dark:text-[#63B0AC] font-bold text-lg">
-                  🌿 Akomapa Programs & Initiatives
-                </span>
-              </div>
-            </motion.div>
-            
+        <div className="container mx-auto px-4 sm:px-6 relative z-10 h-full flex flex-col gap-12 sm:gap-14">
+          <div className="max-w-5xl pt-4 sm:pt-8">
             <motion.h1 
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              className="text-4xl md:text-6xl font-bold mb-8"
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-light text-[#FCFAEF] mb-6 leading-tight"
             >
-              <span className="text-[#1C1F1E] dark:text-[#FCFAEF]">Healing. Advocacy.</span><br />
-              <span className="bg-gradient-to-r from-[#C37B1E] to-[#007A73] bg-clip-text text-transparent">
-                Empowerment.
-              </span>
+              Students. Communities. Partnerships. One Vision for Health.
             </motion.h1>
-            
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
+            <motion.p 
+              initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="bg-white/90 dark:bg-[#2F3332]/90 backdrop-blur-sm rounded-2xl p-6 md:p-8 shadow-xl"
+              transition={{ delay: 0.15, duration: 0.8, ease: "easeOut" }}
+              className="text-base sm:text-lg md:text-2xl text-[#FCFAEF]/80 font-light max-w-3xl"
             >
-              <p className="text-lg md:text-xl text-[#2F3332] dark:text-[#E6E7E7] mb-6 leading-relaxed">
-                At Akomapa, we don&apos;t just treat illness — we build systems of care, support, and sustainability for underserved communities in Ghana. Our work is driven by an interprofessional team of student volunteers, clinicians, and community members who believe in a healthier future for all.
-              </p>
-              <p className="text-base md:text-lg text-[#2F3332] dark:text-[#E6E7E7] font-medium">
-                Explore our core programs and visionary future initiatives below:
-              </p>
-            </motion.div>
+              At Akomapa, we&apos;re reimagining how the next generation of health professionals learn, lead, and serve. Through our integrated programs, we build student-run clinics, leadership pathways, and global partnerships that make care more accessible—while preparing students to transform the health systems of tomorrow.
+            </motion.p>
           </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3, duration: 0.8, ease: "easeOut" }}
+            className="flex-1 w-full"
+          >
+            <div className="relative w-full h-[280px] sm:h-[360px] md:h-[520px] lg:h-[640px] rounded-3xl overflow-hidden shadow-2xl border border-white/10">
+              <Image
+                src="/highlights/Akomapa-47.jpg"
+                alt="Akomapa programs and initiatives"
+                fill
+                priority
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
+              <div className="absolute -top-6 left-6 sm:left-8">
+                <div className="relative w-20 h-20">
+                  <div className="absolute inset-0 bg-[#0F4C5C] rounded-full" />
+                  <div className="absolute inset-2 bg-gradient-to-br from-[#66C4DC] via-[#0097b2] to-[#0F4C5C] rounded-full opacity-30" />
+                  <div className="absolute inset-0 flex items-center justify-center text-[#FCFAEF]">
+                    <ChevronsDown className="w-8 h-8" />
+                  </div>
+                  <div className="absolute -bottom-5 inset-x-6 h-7 bg-[#0F4C5C] rounded-b-full" />
+                </div>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* Core Programs Section */}
-      <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E] relative overflow-hidden">
-        {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-5 dark:opacity-10">
-          <div className="absolute top-20 left-10 w-32 h-32 bg-[#007A73] rounded-full blur-3xl"></div>
-          <div className="absolute bottom-20 right-10 w-24 h-24 bg-[#C37B1E] rounded-full blur-2xl"></div>
-        </div>
-
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-7xl mx-auto">
-            {/* Section Header */}
+      {/* Programs Section */}
+      <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto text-center mb-12 sm:mb-16">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
               viewport={{ once: true }}
-              className="text-center mb-16"
             >
-              <h2 className="text-3xl md:text-5xl font-bold text-[#1C1F1E] dark:text-[#FCFAEF] mb-8">
-                Core Programs
+              <h2 className="text-[#F5C94D] font-bold text-base sm:text-lg mb-2">
+                OUR PROGRAMS
               </h2>
-              <p className="text-lg md:text-xl text-[#2F3332] dark:text-[#E6E7E7] max-w-3xl mx-auto">
-                Eight comprehensive programs working together to deliver holistic, community-centered healthcare
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 text-[#1C1F1E] dark:text-[#FCFAEF]">
+                Integrated Pathways for Impact
+              </h2>
+              <p className="text-base sm:text-lg text-[#2F3332] dark:text-[#E6E7E7] leading-relaxed max-w-3xl mx-auto px-4 sm:px-0">
+                Each program is designed to build upon the others, creating a comprehensive ecosystem that prepares students, serves communities, and transforms healthcare systems.
               </p>
             </motion.div>
+          </div>
 
-            {/* Programs Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
-              {corePrograms.map((program, index) => (
-                <motion.div
-                  key={program.id}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.7, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  className="group"
-                >
-                  <div className={`bg-gradient-to-br ${program.bgGradient} dark:bg-[#2F3332] rounded-3xl p-6 md:p-8 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-[#E6E7E7]/20 dark:border-[#4F5554]/20`}>
-                    {/* Header */}
-                    <div className="flex items-start mb-6">
-                      <div className="relative mr-6">
+          <div className="space-y-12 sm:space-y-16 lg:space-y-24">
+            {programs.map((program, index) => (
+              <motion.div
+                key={program.id}
+                initial={{ opacity: 0, y: 60 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: index * 0.1, ease: "easeOut" }}
+                viewport={{ once: true }}
+              >
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+                  <div className={`${index % 2 === 0 ? "order-1" : "order-1 lg:order-2"} w-full h-full`}>
+                    <div className="relative w-full min-h-[320px] h-[320px] sm:h-[360px] md:h-[420px] lg:h-[450px] xl:h-[500px] rounded-3xl overflow-hidden shadow-xl group">
+                      <Image
+                        src={program.image}
+                        alt={program.alt}
+                        fill
+                        className="object-cover group-hover:scale-110 transition-transform duration-700"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent" />
+                      <div className="absolute top-4 left-4">
                         <div 
-                          className="w-16 h-16 rounded-2xl flex items-center justify-center shadow-lg transition-all duration-500 group-hover:scale-110"
-                          style={{ 
-                            backgroundColor: program.color + '20',
-                            border: `2px solid ${program.color}30`
-                          }}
+                          className="w-16 h-16 rounded-2xl flex items-center justify-center shadow-lg backdrop-blur-sm bg-white/90 dark:bg-[#2F3332]/90"
+                          style={{ border: `2px solid ${program.color}30` }}
                         >
                           <program.icon className="h-8 w-8" style={{ color: program.color }} />
                         </div>
-                        {/* Number Badge */}
-                        <div 
-                          className="absolute -top-2 -right-2 w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold text-white"
-                          style={{ backgroundColor: program.color }}
-                        >
-                          {program.id}
-                        </div>
-                      </div>
-                      <div className="flex-1">
-                        <div className="flex items-center mb-3">
-                          <span className="text-2xl mr-3">{program.emoji}</span>
-                          <h3 className="text-xl md:text-2xl font-bold text-[#1C1F1E] dark:text-[#FCFAEF] leading-tight">
-                            {program.title}
-                          </h3>
-                        </div>
                       </div>
                     </div>
-
-                    {/* Description */}
-                    <p className="text-[#2F3332] dark:text-[#E6E7E7] leading-relaxed text-base md:text-lg">
+                  </div>
+                  <div className={`${index % 2 === 0 ? "order-2" : "order-2 lg:order-1"} h-full flex flex-col justify-center`}>
+                    <div className="flex items-center gap-2 mb-4">
+                      <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: program.color }} />
+                      <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: program.color }} />
+                      <span className="h-2.5 w-2.5 rounded-full bg-[#C1C3C3]" />
+                    </div>
+                    <h3 className="text-xl sm:text-2xl md:text-3xl font-semibold text-[#1C1F1E] dark:text-[#FCFAEF] mb-4">
+                      {program.title}
+                    </h3>
+                    <p className="text-sm sm:text-base text-[#2F3332] dark:text-[#E6E7E7] leading-relaxed mb-6 max-w-xl">
                       {program.description}
                     </p>
+                    
+                    {program.features && (
+                      <div className="grid grid-cols-2 gap-2 sm:gap-3 mb-6">
+                        {program.features.map((feature, featureIndex) => (
+                          <div
+                            key={featureIndex}
+                            className={`bg-gradient-to-br ${program.bgGradient} dark:bg-[#2F3332] rounded-lg p-2 sm:p-3 border border-[#E6E7E7]/20 dark:border-[#4F5554]/20`}
+                          >
+                            <p className="text-xs sm:text-sm font-medium text-[#1C1F1E] dark:text-[#FCFAEF]">
+                              {feature}
+                            </p>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+
+                    <div className="space-y-3 text-[#2F3332] dark:text-[#E6E7E7] leading-relaxed max-w-xl mb-6">
+                      {program.details.slice(0, 2).map((detail, detailIndex) => (
+                        <p key={detailIndex} className="text-sm md:text-base">{detail}</p>
+                      ))}
+                    </div>
+
+                    <Button
+                      asChild
+                      className="w-full sm:w-auto bg-[#0097b2] hover:bg-[#0097b2]/80 text-[#FCFAEF] group"
+                    >
+                      <Link href={program.href} className="flex items-center justify-center">
+                        {program.id === 1 ? "Explore Akomapa Clinics" : program.id === 2 ? "Discover the Akomapa Network" : program.id === 3 ? "Join the Leadership Program" : program.id === 4 ? "Experience the Immersion Camp" : program.id === 5 ? "Join the Akomapa Young Advocates" : program.id === 6 ? "Discover the Akomapa Foods & Stores" : "Learn More"}
+                        <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                      </Link>
+                    </Button>
                   </div>
-                </motion.div>
-              ))}
-            </div>
+                </div>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Transition Section */}
-      <section className="py-16 md:py-20 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-white via-[#FCFAEF]/50 to-[#F8F6F0] dark:from-[#2F3332] dark:via-[#1C1F1E]/50 dark:to-[#252828]"></div>
-        
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-4xl mx-auto text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-            >
-              <div className="inline-block px-6 py-3 bg-gradient-to-r from-[#C37B1E]/20 to-[#007A73]/20 rounded-full mb-6">
-                <span className="text-[#C37B1E] dark:text-[#F3C677] font-bold text-lg">
-                  🌍 Akomapa: Daring to Dream Forward
-                </span>
-              </div>
-              <h2 className="text-3xl md:text-5xl font-bold mb-8 text-[#1C1F1E] dark:text-[#FCFAEF]">
-                Investing in Bold, <br />
-                <span className="bg-gradient-to-r from-[#C37B1E] to-[#007A73] bg-clip-text text-transparent">
-                  Sustainable Solutions
-                </span>
-              </h2>
-              <div className="bg-white dark:bg-[#2F3332] rounded-2xl p-6 md:p-8 shadow-xl">
-                <p className="text-lg md:text-xl text-[#2F3332] dark:text-[#E6E7E7] mb-6 leading-relaxed">
-                  At Akomapa, we are not only responding to today&apos;s care gaps—we are reimagining what tomorrow&apos;s healthcare can look like. Our future is rooted in innovation, shaped by research, and sustained by enterprise.
-                </p>
-                <p className="text-base md:text-lg text-[#2F3332] dark:text-[#E6E7E7] font-medium">
-                  As we serve our first patients, we are also building the systems that will outlast us—systems that are community-owned, self-sustaining, and radically human.
-                </p>
-                <div className="mt-6 p-4 bg-gradient-to-r from-[#007A73]/10 to-[#C37B1E]/10 rounded-xl">
-                  <p className="text-lg font-bold text-[#1C1F1E] dark:text-[#FCFAEF]">
-                    This is not just a clinic. It&apos;s a movement.
+      {/* Impact Section */}
+      <section className="py-16 md:py-24 bg-gradient-to-r from-[#0097b2] to-[#0F4C5C] text-[#FCFAEF] relative overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute -top-24 -left-24 h-64 w-64 rounded-full bg-[#FCFAEF]/10 blur-3xl" />
+          <div className="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-[#F5C94D]/10 blur-3xl" />
+        </div>
+
+        <div className="relative container mx-auto px-4">
+          <div className="text-center max-w-3xl mx-auto mb-12 space-y-4">
+            <p className="text-sm font-semibold tracking-[0.2em] text-[#F5C94D] uppercase">
+              Our Impact
+            </p>
+            <h2 className="text-3xl md:text-4xl font-bold text-[#FCFAEF] leading-tight">
+              Building a Movement, One Program at a Time
+            </h2>
+            <p className="text-base sm:text-lg text-[#FCFAEF]/85 leading-relaxed">
+              Our programs work together to create lasting change—training leaders, connecting communities, and transforming healthcare systems worldwide.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 md:gap-8">
+            {impactMetrics.map((metric, index) => (
+              <motion.div
+                key={metric.label}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                viewport={{ once: true, amount: 0.4 }}
+                className="group relative rounded-2xl bg-[#FCFAEF]/95 text-[#1C1F1E] shadow-xl border border-[#E6E7E7]/40 overflow-hidden p-6 md:p-8 flex flex-col hover:scale-105 transition-transform duration-300"
+              >
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-br from-[#0097b2]/10 via-transparent to-[#F5C94D]/15" />
+                <div className="relative flex flex-col h-full">
+                  <ImpactCounter value={metric.value} suffix={metric.suffix} color={metric.color} />
+                  <h3 className="mt-4 text-xl font-semibold uppercase tracking-[0.3em] text-[#1C1F1E] mb-3">
+                    {metric.label}
+                  </h3>
+                  <p className="text-sm md:text-base text-[#2F3332]/85 leading-relaxed flex-1">
+                    {metric.description}
                   </p>
                 </div>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Future Initiatives Section */}
-      <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E] relative overflow-hidden">
-        {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-5 dark:opacity-10">
-          <div className="absolute top-10 right-10 w-40 h-40 bg-[#C37B1E] rounded-full blur-3xl"></div>
-          <div className="absolute bottom-10 left-10 w-32 h-32 bg-[#007A73] rounded-full blur-2xl"></div>
-        </div>
-
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-6xl mx-auto">
-            {/* Section Header */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-              className="text-center mb-16"
-            >
-              <div className="inline-block px-6 py-3 bg-gradient-to-r from-[#C37B1E]/20 to-[#007A73]/20 rounded-full mb-6">
-                <span className="text-[#C37B1E] dark:text-[#F3C677] font-bold text-lg">
-                  🌱 Future Initiatives
-                </span>
-              </div>
-              <h2 className="text-3xl md:text-5xl font-bold text-[#1C1F1E] dark:text-[#FCFAEF] mb-8">
-                Healthcare That <br />
-                <span className="bg-gradient-to-r from-[#C37B1E] to-[#007A73] bg-clip-text text-transparent">
-                  Sustains Itself
-                </span>
-              </h2>
-              <p className="text-lg md:text-xl text-[#2F3332] dark:text-[#E6E7E7] max-w-3xl mx-auto">
-                Food that funds care. A future that feeds its people.
-              </p>
-            </motion.div>
-
-            {/* Initiatives Grid */}
-            <div className="space-y-12">
-              {futureInitiatives.map((initiative, index) => (
-                <motion.div
-                  key={initiative.id}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.7, delay: index * 0.2 }}
-                  viewport={{ once: true }}
-                  className="group"
-                >
-                  <div className="bg-white dark:bg-[#2F3332] rounded-3xl p-6 md:p-10 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-[#E6E7E7]/20 dark:border-[#4F5554]/20 overflow-hidden relative">
-                    {/* Background Pattern */}
-                    <div className="absolute top-0 right-0 w-32 h-32 opacity-5">
-                      <initiative.icon className="w-full h-full" style={{ color: initiative.color }} />
-                    </div>
-
-                    <div className="relative z-10">
-                      {/* Header */}
-                      <div className="flex flex-col md:flex-row md:items-start gap-6 mb-8">
-                        <div className="flex items-center gap-4">
-                          <div 
-                            className="w-20 h-20 rounded-2xl flex items-center justify-center shadow-lg"
-                            style={{ 
-                              backgroundColor: initiative.color + '20',
-                              border: `2px solid ${initiative.color}30`
-                            }}
-                          >
-                            <initiative.icon className="h-10 w-10" style={{ color: initiative.color }} />
-                          </div>
-                          <div>
-                            <div className="flex items-center mb-2">
-                              <span className="text-3xl mr-3">{initiative.emoji}</span>
-                              <h3 className="text-2xl md:text-3xl font-bold text-[#1C1F1E] dark:text-[#FCFAEF]">
-                                {initiative.title}
-                              </h3>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Content */}
-                      <div className="space-y-6">
-                        <p className="text-lg md:text-xl text-[#2F3332] dark:text-[#E6E7E7] leading-relaxed">
-                          {initiative.description}
-                        </p>
-                        
-                        <p className="text-base md:text-lg text-[#2F3332] dark:text-[#E6E7E7] leading-relaxed">
-                          {initiative.details}
-                        </p>
-
-                        {/* Seeking Section */}
-                        <div className={`bg-gradient-to-r ${initiative.bgGradient} rounded-2xl p-6`}>
-                          <p className="text-lg font-semibold text-[#1C1F1E] dark:text-[#FCFAEF]">
-                            {initiative.seeking}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* Call to Action */}
-      <section className="py-16 md:py-24 bg-gradient-to-r from-[#007A73] to-[#C37B1E] relative overflow-hidden">
-        {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-20">
-          <div className="absolute top-4 left-4 w-16 h-16 border-2 border-white rounded-full"></div>
-          <div className="absolute bottom-4 right-4 w-12 h-12 border-2 border-white rounded-full"></div>
-          <div className="absolute top-1/2 right-1/4 w-8 h-8 border-2 border-white rounded-full"></div>
+      <section className="py-16 md:py-24 bg-gradient-to-r from-[#0097b2] via-[#0F4C5C] to-[#0B2F3A] text-[#FCFAEF] relative overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute -top-28 -left-32 h-72 w-72 rounded-full bg-[#FCFAEF]/10 blur-3xl" />
+          <div className="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-[#F5C94D]/10 blur-3xl" />
         </div>
 
-        <div className="container mx-auto px-4 text-center relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-3xl md:text-5xl font-bold mb-8 text-[#FCFAEF]">
-              🤝 Be Part of the Movement
-            </h2>
-            <p className="text-lg md:text-xl text-[#FCFAEF]/90 mb-12 max-w-3xl mx-auto leading-relaxed">
-              Your support powers every initiative. Whether through financial contributions, in-kind donations, or strategic partnerships — there&apos;s a place for you at Akomapa.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-6 justify-center">
-              <Link href="/partner">
-                <Button 
+        <div className="relative container mx-auto px-4 sm:px-6">
+          <div className="text-center max-w-4xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true, amount: 0.4 }}
+              className="space-y-6"
+            >
+              <div>
+                <p className="text-sm font-semibold tracking-[0.2em] text-[#F5C94D] uppercase mb-4">
+                  Get Involved
+                </p>
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 text-[#FCFAEF] leading-tight">
+                  Be Part of the Movement
+                </h2>
+              </div>
+              <p className="text-base sm:text-lg md:text-xl text-[#FCFAEF]/85 leading-relaxed max-w-3xl mx-auto">
+                Your support powers every program. Whether through financial contributions, in-kind donations, or strategic partnerships—there&apos;s a place for you at Akomapa.
+              </p>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                viewport={{ once: true }}
+                className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 pt-6"
+              >
+                <Button
+                  asChild
                   size="lg"
-                  className="bg-[#FCFAEF] text-[#007A73] hover:bg-[#FCFAEF]/90 font-semibold px-8 py-4 text-lg shadow-lg hover:shadow-xl transition-all duration-300"
+                  className="group bg-[#FCFAEF] text-[#0097b2] hover:bg-[#F5C94D] hover:text-[#1C1F1E] px-6 sm:px-8 py-6 h-auto text-base sm:text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
                 >
-                  <Heart className="h-5 w-5 mr-2" />
-                  Partner with Us
-                  <ArrowRight size={20} className="ml-2" />
+                  <Link href="/partner" className="flex items-center whitespace-nowrap">
+                    Partner with Us
+                    <ArrowRight className="h-5 w-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                  </Link>
                 </Button>
-              </Link>
-              <Link href="/corporate-sponsorship">
-                <Button 
+                <Button
+                  asChild
                   size="lg"
-                  className="bg-[#C37B1E] text-[#FCFAEF] hover:bg-[#F3C677] hover:text-[#1C1F1E] font-semibold px-8 py-4 text-lg shadow-lg hover:shadow-xl transition-all duration-300"
+                  variant="outline"
+                  className="group border-2 border-[#FCFAEF] text-[#FCFAEF] bg-transparent hover:bg-[#FCFAEF] hover:text-[#0097b2] px-6 sm:px-8 py-6 h-auto text-base sm:text-lg font-semibold transition-all duration-300 transform hover:scale-105"
                 >
-                  <Building className="h-5 w-5 mr-2" />
-                  Corporate Sponsorship
-                  <ArrowRight size={20} className="ml-2" />
+                  <Link href="mailto:akomapahealth@gmail.com" className="flex items-center">
+                    Contact Us
+                    <ArrowRight className="h-5 w-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                  </Link>
                 </Button>
-              </Link>
-              <a href="mailto:akomapahealth@gmail.com">
-                <Button 
-                  size="lg"
-                  variant="outline" 
-                  className="border-2 border-[#FCFAEF] text-[#FCFAEF] bg-transparent hover:bg-[#FCFAEF] hover:text-[#007A73] font-semibold px-8 py-4 text-lg"
-                >
-                  <Mail size={20} className="mr-2" />
-                  Contact Us
-                </Button>
-              </a>
-            </div>
-          </motion.div>
+              </motion.div>
+            </motion.div>
+          </div>
         </div>
       </section>
     </>

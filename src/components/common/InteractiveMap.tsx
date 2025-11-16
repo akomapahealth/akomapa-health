@@ -80,7 +80,7 @@ export default function InteractiveMap({
           icon: {
             url: `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(`
               <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="20" cy="20" r="20" fill="#007A73"/>
+                <circle cx="20" cy="20" r="20" fill="#0097b2"/>
                 <text x="20" y="25" text-anchor="middle" fill="white" font-size="14" font-weight="bold">${index + 1}</text>
               </svg>
             `)}`,
@@ -93,7 +93,7 @@ export default function InteractiveMap({
         const infoWindow = new window.google.maps.InfoWindow({
           content: `
             <div style="padding: 10px; max-width: 200px;">
-              <h3 style="margin: 0 0 8px 0; color: #007A73; font-weight: bold;">${location.name}</h3>
+              <h3 style="margin: 0 0 8px 0; color: #0097b2; font-weight: bold;">${location.name}</h3>
               <p style="margin: 0 0 8px 0; font-size: 14px;">${location.description}</p>
               ${location.address ? `<p style="margin: 0; font-size: 12px; color: #666;">${location.address}</p>` : ''}
             </div>
@@ -154,14 +154,14 @@ export default function InteractiveMap({
     <div className={`bg-white dark:bg-[#2F3332] rounded-2xl p-6 shadow-lg ${className}`}>
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center">
-          <MapPin className="w-6 h-6 text-[#007A73] dark:text-[#63B0AC] mr-3" />
+          <MapPin className="w-6 h-6 text-[#0097b2] dark:text-[#66C4DC] mr-3" />
           <h3 className="text-xl font-bold text-[#1C1F1E] dark:text-[#FCFAEF]">{title}</h3>
         </div>
         <Button
           variant="outline"
           size="sm"
           onClick={toggleMap}
-          className="border-[#007A73] text-[#007A73] hover:bg-[#007A73] hover:text-[#FCFAEF] dark:border-[#63B0AC] dark:text-[#63B0AC] dark:hover:bg-[#63B0AC]"
+          className="border-[#0097b2] text-[#0097b2] hover:bg-[#0097b2] hover:text-[#FCFAEF] dark:border-[#66C4DC] dark:text-[#66C4DC] dark:hover:bg-[#66C4DC]"
         >
           {showMap ? 'Hide Map' : 'Show Map'}
         </Button>
@@ -186,7 +186,7 @@ export default function InteractiveMap({
                 <Button
                   size="sm"
                   onClick={() => getDirections(selectedLocation)}
-                  className="bg-[#007A73] hover:bg-[#C37B1E] text-[#FCFAEF]"
+                  className="bg-[#0097b2] hover:bg-[#eeba2b] text-[#FCFAEF]"
                 >
                   <Navigation size={16} className="mr-2" />
                   Directions
@@ -196,9 +196,9 @@ export default function InteractiveMap({
           )}
         </div>
       ) : !apiKey ? (
-        <div className="bg-gradient-to-br from-[#007A73]/20 to-[#C37B1E]/20 rounded-xl p-8 mb-6 text-center">
-          <div className="w-16 h-16 bg-[#007A73]/20 dark:bg-[#63B0AC]/20 rounded-full flex items-center justify-center mx-auto mb-4">
-            <Navigation size={32} className="text-[#007A73] dark:text-[#63B0AC]" />
+        <div className="bg-gradient-to-br from-[#0097b2]/20 to-[#eeba2b]/20 rounded-xl p-8 mb-6 text-center">
+          <div className="w-16 h-16 bg-[#0097b2]/20 dark:bg-[#66C4DC]/20 rounded-full flex items-center justify-center mx-auto mb-4">
+            <Navigation size={32} className="text-[#0097b2] dark:text-[#66C4DC]" />
           </div>
           <h4 className="text-lg font-bold text-[#1C1F1E] dark:text-[#FCFAEF] mb-2">Interactive Map</h4>
           <p className="text-sm text-[#2F3332]/80 dark:text-[#E6E7E7]/80 mb-4">
@@ -206,7 +206,7 @@ export default function InteractiveMap({
           </p>
           <Button 
             variant="outline" 
-            className="border-[#007A73] text-[#007A73] hover:bg-[#007A73] hover:text-[#FCFAEF] dark:border-[#63B0AC] dark:text-[#63B0AC] dark:hover:bg-[#63B0AC]"
+            className="border-[#0097b2] text-[#0097b2] hover:bg-[#0097b2] hover:text-[#FCFAEF] dark:border-[#66C4DC] dark:text-[#66C4DC] dark:hover:bg-[#66C4DC]"
           >
             View Map & Directions
           </Button>
@@ -217,7 +217,7 @@ export default function InteractiveMap({
       <div className="space-y-4">
         {locations.map((location, index) => (
           <div key={index} className="flex items-start p-4 bg-[#FCFAEF]/50 dark:bg-[#1C1F1E]/50 rounded-lg">
-            <div className="w-6 h-6 bg-[#007A73] text-white rounded-full flex items-center justify-center text-xs font-bold mr-3 flex-shrink-0">
+            <div className="w-6 h-6 bg-[#0097b2] text-white rounded-full flex items-center justify-center text-xs font-bold mr-3 flex-shrink-0">
               {index + 1}
             </div>
             <div className="flex-1">
@@ -232,7 +232,7 @@ export default function InteractiveMap({
                 size="sm"
                 variant="outline"
                 onClick={() => getDirections(location)}
-                className="ml-2 border-[#007A73] text-[#007A73] hover:bg-[#007A73] hover:text-[#FCFAEF] dark:border-[#63B0AC] dark:text-[#63B0AC] dark:hover:bg-[#63B0AC]"
+                className="ml-2 border-[#0097b2] text-[#0097b2] hover:bg-[#0097b2] hover:text-[#FCFAEF] dark:border-[#66C4DC] dark:text-[#66C4DC] dark:hover:bg-[#66C4DC]"
               >
                 <ExternalLink size={14} />
               </Button>

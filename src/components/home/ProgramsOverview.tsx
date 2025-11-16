@@ -1,33 +1,54 @@
 "use client";
 
-import { useState } from "react";
+import { useState, KeyboardEvent } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "@/components/common/Image";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Stethoscope, Network, GraduationCap, Globe2 } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ProgramModal from "@/components/shared/ProgramModal";
 import { Program } from "@/lib/types";
 
-const pillars = [
+type Pillar = {
+  id: number;
+  title: string;
+  shortDescription: string;
+  longDescription: string;
+  icon: LucideIcon;
+  image: string;
+  slug: string;
+  category: string;
+  established: string;
+  peopleServed: string;
+  locations: string[];
+  keyPoints: string[];
+  impacts: string[];
+  href: string;
+  ctaLabel: string;
+};
+
+const pillars: Pillar[] = [
   {
     id: 1,
-    title: "Low-Cost Clinics",
-    shortDescription: "Under the supervision of licensed faculty, health professional students lead weekend clinics that are interprofessional, free, and based within communities to increase access to essential NCD services.",
-    longDescription: "Our low-cost clinics represent the cornerstone of Akomapa&apos;s approach to healthcare delivery. Under the careful supervision of licensed faculty from local institutions, health professional students from diverse backgrounds—medical, nursing, pharmacy, optometry, and allied health—come together to lead weekend clinics that are truly interprofessional, completely free, and strategically based within communities to maximize access to essential non-communicable disease (NCD) services. These clinics operate on a rotating schedule, ensuring consistent care while providing students with hands-on clinical experience in a real-world setting. The interprofessional model allows for comprehensive patient care, where each student contributes their unique expertise while learning to work as part of a cohesive healthcare team. This approach not only addresses immediate healthcare needs but also builds the foundation for sustainable, community-based healthcare solutions.",
-    icon: "🏥",
+    title: "Akomapa Clinics",
+    shortDescription:
+      "Student-led, faculty-supervised clinics delivering free, community-based care for the early detection and management of NCDs.",
+    longDescription:
+      "We establish interprofessional, expert-supervised clinics built in partnership with local health authorities, traditional leaders, and community members. These student-run clinics deliver free, community-based care focused on the early detection and management of non-communicable diseases (NCDs), serving as both real-world classrooms for students and lifelines for underserved communities.",
+    icon: Stethoscope,
     image: "/highlights/Akomapa-62.jpg",
-    slug: "low-cost-clinics",
+    slug: "akomapa-clinics",
     category: "Clinical Services",
     established: "2025",
     peopleServed: "50+",
     locations: ["Cape Coast", "Accra"],
     keyPoints: [
       "Interprofessional student teams under faculty supervision",
-      "Free weekend clinics in community settings",
+      "Free clinics embedded within communities",
       "Comprehensive NCD screening and management",
       "Hands-on clinical training for health students",
-      "Community-based healthcare delivery model"
+      "Co-designed with local partners"
     ],
     impacts: [
       "Increased access to essential NCD services in underserved communities",
@@ -35,17 +56,21 @@ const pillars = [
       "Enhanced clinical skills and interprofessional collaboration among students",
       "Strengthened community trust in healthcare systems",
       "Sustainable model for healthcare delivery in resource-limited settings"
-    ]
+    ],
+    href: "/programs/akomapa-clinics",
+    ctaLabel: "Explore Akomapa Clinics"
   },
   {
     id: 2,
-    title: "Global Health Leadership",
-    shortDescription: "Interdisciplinary teams of health professional students—medical, nursing, pharmacy, optometry, and allied health—are trained and equipped to lead clinical care, patient education, and follow-up.",
-    longDescription: "Our Global Health Leadership program represents a comprehensive approach to developing the next generation of healthcare leaders. Interdisciplinary teams of health professional students—medical, nursing, pharmacy, optometry, and allied health—are trained through a global health leadership program taught by faculty from the University of Cape Coast, the University of California, Los Angeles, and Yale. They are equipped to work interprofessionally and trained to lead clinical care, patient education, follow-up, and manage the administrative affairs of the clinic. ",
-    icon: "👩🏽‍⚕️",
+    title: "The Akomapa Network",
+    shortDescription:
+      "A global community of practice linking Akomapa chapters with partner student-run clinics to share mentorship, research, and innovation.",
+    longDescription:
+      "Our global community of practice connects Akomapa chapters with partner student-run clinics around the world—like SHAWCO, South Side SRFC, and Yale’s Neighborhood Health Project—to share best practices, mentorship, and collaborative research. Together, we’re turning local innovations into global impact.",
+    icon: Network,
     image: "/highlights/Akomapa-10.jpg",
-    slug: "student-leadership",
-    category: "Leadership Development",
+    slug: "akomapa-network",
+    category: "Global Collaboration",
     established: "2025",
     peopleServed: "40+",
     locations: ["University of Cape Coast", "University of Ghana"],
@@ -62,17 +87,21 @@ const pillars = [
       "Improved cultural competency in healthcare delivery",
       "Created sustainable leadership pipeline",
       "Fostered innovation in community healthcare"
-    ]
+    ],
+    href: "/programs/akomapa-network",
+    ctaLabel: "Discover the Akomapa Network"
   },
   {
     id: 3,
-    title: "Community Partnership",
-    shortDescription: "Designed in collaboration with traditional leaders, community members, and the Ghana Health Service to ensure local trust and sustainability.",
-    longDescription: "Our Community Partnership program is built on the fundamental principle that sustainable healthcare solutions must be co-created with the communities they serve. We work in close collaboration with traditional leaders, community members, and the Ghana Health Service to ensure local trust, cultural relevance, and long-term sustainability. This partnership approach involves extensive community engagement, including regular meetings with traditional leaders, community health workers, and local stakeholders. We conduct needs assessments, gather feedback, and adapt our programs based on community input. This collaborative model ensures that our healthcare interventions are not only medically sound but also culturally appropriate and socially acceptable. By building strong relationships with community leaders and members, we create a foundation of trust that enables effective healthcare delivery and ensures the long-term success of our programs.",
-    icon: "🤝",
+    title: "Global Health Leadership Training Program",
+    shortDescription:
+      "Courses, seminars, and mentorship equipping emerging health leaders to merge clinical care with leadership and systems thinking.",
+    longDescription:
+      "We equip emerging health leaders with the skills, ethics, and cross-cultural experience needed to drive equitable change. Through expert-led courses, interactive seminars, and global mentorship, students learn to merge clinical care with leadership and systems thinking.",
+    icon: GraduationCap,
     image: "/highlights/Akomapa-20.jpg",
-    slug: "community-partnership",
-    category: "Community Engagement",
+    slug: "global-health-leadership",
+    category: "Leadership Development",
     established: "2025",
     peopleServed: "2 Communities",
     locations: ["Cape Coast", "Accra"],
@@ -89,17 +118,21 @@ const pillars = [
       "Enhanced community engagement in health initiatives",
       "Strengthened partnerships with local health authorities",
       "Created sustainable healthcare models"
-    ]
+    ],
+    href: "/programs/global-health-leadership",
+    ctaLabel: "Join the Leadership Program"
   },
   {
     id: 4,
-    title: "Expert Supervision",
-    shortDescription: "Every clinic is guided by licensed physicians, nurses, and public health faculty from local institutions.",
-    longDescription: "Our Expert Supervision program ensures that every aspect of our clinical operations meets the highest standards of healthcare delivery. Every clinic is carefully guided by licensed physicians, nurses, and public health faculty from local institutions, providing comprehensive oversight and mentorship. These expert supervisors bring decades of combined experience in clinical practice, public health, and medical education. They work closely with student teams, providing real-time guidance, reviewing patient cases, and ensuring that all clinical decisions meet established medical standards. The supervision model includes regular case reviews, clinical skills assessments, and ongoing professional development for both students and supervisors. This expert oversight not only ensures patient safety and quality of care but also provides students with invaluable mentorship and professional development opportunities. The program maintains strict quality assurance protocols while fostering an environment of continuous learning and improvement.",
-    icon: "🎓",
+    title: "Global Health Immersion Camp",
+    shortDescription:
+      "A three-week summer immersion that bridges classroom learning with hands-on community and public health experience.",
+    longDescription:
+      "Starting in Ghana and expanding globally, our 3-week Summer Immersion Camp gives students hands-on exposure to community and public health in low-resource settings. Participants engage in clinical service, health education, and cultural exchange—bridging classroom learning with lived experience.",
+    icon: Globe2,
     image: "/highlights/Akomapa-13.jpg",
-    slug: "expert-supervision",
-    category: "Quality Assurance",
+    slug: "global-health-immersion",
+    category: "Experiential Learning",
     established: "2025",
     peopleServed: "All Patients",
     locations: ["University of Cape Coast", "University of Ghana"],
@@ -116,7 +149,9 @@ const pillars = [
       "Improved quality of healthcare delivery",
       "Strengthened academic-clinical partnerships",
       "Established best practices in student supervision"
-    ]
+    ],
+    href: "/programs/global-health-immersion",
+    ctaLabel: "Experience the Immersion Camp"
   }
 ];
 
@@ -124,28 +159,24 @@ export default function ProgramsOverview() {
   const [selectedProgram, setSelectedProgram] = useState<Program | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleLearnMore = (slug: string) => {
-    const pillar = pillars.find(p => p.slug === slug);
-    if (pillar) {
-      // Create a Program object from pillar data
-      const program: Program = {
-        id: pillar.id.toString(),
-        title: pillar.title,
-        description: pillar.longDescription,
-        image: pillar.image,
-        slug: pillar.slug,
-        category: pillar.category,
-        established: pillar.established,
-        peopleServed: pillar.peopleServed,
-        locations: pillar.locations,
-        keyPoints: pillar.keyPoints,
-        impacts: pillar.impacts,
-        fullDescription: pillar.longDescription,
-        approach: pillar.shortDescription
-      };
-      setSelectedProgram(program);
-      setIsModalOpen(true);
-    }
+  const openProgramModal = (pillar: Pillar) => {
+    const program: Program = {
+      id: pillar.id.toString(),
+      title: pillar.title,
+      description: pillar.longDescription,
+      image: pillar.image,
+      slug: pillar.slug,
+      category: pillar.category,
+      established: pillar.established,
+      peopleServed: pillar.peopleServed,
+      locations: pillar.locations,
+      keyPoints: pillar.keyPoints,
+      impacts: pillar.impacts,
+      fullDescription: pillar.longDescription,
+      approach: pillar.shortDescription
+    };
+    setSelectedProgram(program);
+    setIsModalOpen(true);
   };
 
   const handleCloseModal = () => {
@@ -153,19 +184,27 @@ export default function ProgramsOverview() {
     setSelectedProgram(null);
   };
 
+  const handleCardKeyDown = (event: KeyboardEvent<HTMLDivElement>, pillar: Pillar) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      openProgramModal(pillar);
+    }
+  };
+
   return (
     <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#4F5554]">
       <div className="container mx-auto px-4">
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-[#C37B1E] dark:text-[#F3C677] font-bold text-lg mb-2">
-            HOW WE WORK
+          <h2 className="text-[#eeba2b] dark:text-[#F5C94D] font-bold text-lg mb-2">
+            OUR PROGRAMS
           </h2>
           <h3 className="text-3xl md:text-4xl font-bold mb-6 text-[#1C1F1E] dark:text-[#FCFAEF]">
-            A Scalable, Sustainable, Community-Based Model
+            Students. Communities. Partnerships. One Vision for Health.
           </h3>
           <p className="text-lg text-[#2F3332] dark:text-[#E6E7E7]">
-            Our approach combines clinical excellence, education, and community engagement
-            to create lasting healthcare solutions in underserved communities.
+            From community-rooted clinics to global leadership development, our programs connect students,
+            partners, and communities to deliver sustainable, preventative care and train the next generation
+            of health leaders.
           </p>
         </div>
         
@@ -177,7 +216,11 @@ export default function ProgramsOverview() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
-              className="group bg-[#FCFAEF] dark:bg-[#4F5554] rounded-xl overflow-hidden shadow-sm border border-[#E6E7E7] dark:border-[#2F3332] hover:shadow-md transition-shadow"
+              className="group bg-[#FCFAEF] dark:bg-[#4F5554] rounded-xl overflow-hidden shadow-sm border border-[#E6E7E7] dark:border-[#2F3332] hover:shadow-md transition-shadow cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0097b2] flex flex-col"
+              onClick={() => openProgramModal(pillar)}
+              onKeyDown={(event) => handleCardKeyDown(event, pillar)}
+              role="button"
+              tabIndex={0}
             >
               <div className="relative h-48">
                 <Image
@@ -187,29 +230,31 @@ export default function ProgramsOverview() {
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
                 />
               </div>
-              <div className="p-6">
+              <div className="p-6 flex flex-col flex-1">
                 <div className="flex items-center mb-4">
-                  <div className="h-10 w-10 rounded-full bg-[#007A73]/10 flex items-center justify-center mr-3">
-                    <span className="text-xl" aria-hidden="true">{pillar.icon}</span>
+                  <div className="h-11 w-11 rounded-full bg-[#0097b2]/10 flex items-center justify-center mr-3">
+                    <pillar.icon className="h-6 w-6 text-[#0097b2] dark:text-[#66C4DC]" aria-hidden="true" />
                   </div>
                   <h3 className="text-xl font-bold text-[#1C1F1E] dark:text-[#FCFAEF]">{pillar.title}</h3>
                 </div>
-                <p className="text-[#2F3332] mb-4 dark:text-[#E6E7E7]">
+                <p className="text-[#2F3332] dark:text-[#E6E7E7] mb-6 flex-grow">
                   {pillar.shortDescription}
                 </p>
-                <button
-                  onClick={() => handleLearnMore(pillar.slug)}
-                  className="inline-flex items-center text-[#007A73] dark:text-[#63B0AC] font-medium hover:text-[#C37B1E] dark:hover:text-[#F3C677] transition-colors"
+                <Link
+                  href={pillar.href}
+                  onClick={(event) => event.stopPropagation()}
+                  className="mt-auto inline-flex items-center text-[#0097b2] dark:text-[#66C4DC] font-semibold hover:text-[#eeba2b] dark:hover:text-[#F5C94D] transition-colors"
                 >
-                  Learn More <ArrowRight size={16} className="ml-1" />
-                </button>
+                  {pillar.ctaLabel}
+                  <ArrowRight size={16} className="ml-2" aria-hidden="true" />
+                </Link>
               </div>
             </motion.div>
           ))}
         </div>
         
         <div className="text-center mt-12">
-          <Button className="bg-[#007A73] hover:bg-[#C37B1E] text-[#FCFAEF] transition-colors">
+          <Button className="bg-[#0097b2] hover:bg-[#eeba2b] text-[#FCFAEF] transition-colors">
             <Link href="/programs" className="flex items-center">
               Explore All Programs <ArrowRight size={16} className="ml-2" />
             </Link>
