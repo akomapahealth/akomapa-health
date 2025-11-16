@@ -285,7 +285,7 @@ export default function UCCClinicPage() {
           >
             <div className="relative w-full h-[280px] sm:h-[360px] md:h-[520px] lg:h-[640px] rounded-3xl overflow-hidden shadow-2xl border border-white/10">
               <Image
-                src="/highlights/Akomapa-28.jpg"
+                src="/akomapa-hangout/Akomapa_hangout-114.jpg"
                 alt="Akomapa clinic team supporting community members at UCC"
                 fill
                 priority
@@ -337,7 +337,7 @@ export default function UCCClinicPage() {
             >
               <div className="relative w-full min-h-[320px] h-[320px] sm:h-[380px] md:h-[420px] lg:h-[460px] rounded-3xl overflow-hidden shadow-2xl">
                 <Image
-                  src="/highlights/Akomapa-66.jpg"
+                  src="/highlights/Akomapa-69.jpg"
                   alt="Students collaborating inside the Akomapa UCC clinic"
                   fill
                   className="object-cover object-center"

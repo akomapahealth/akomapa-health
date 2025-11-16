@@ -34,22 +34,22 @@ const navigation = [
         }
       },
       { name: "Our Team", href: "/about/team" },
-      { 
-        name: "Our Research", 
-        href: "/#why-it-matters", 
-        onClick: (e: React.MouseEvent) => {
-          e.preventDefault();
-          const currentPath = window.location.pathname;
-          if (currentPath !== '/') {
-            window.location.href = '/#why-it-matters';
-          } else {
-            const whyItMattersSection = document.getElementById('why-it-matters');
-            if (whyItMattersSection) {
-              whyItMattersSection.scrollIntoView({ behavior: 'smooth' });
-            }
-          }
-        }
-      },
+      // { 
+      //   name: "Our Science", 
+      //   href: "/research", 
+      //   onClick: (e: React.MouseEvent) => {
+      //     e.preventDefault();
+      //     const currentPath = window.location.pathname;
+      //     if (currentPath !== '/') {
+      //       window.location.href = '/research';
+      //     } else {
+      //       const researchSection = document.getElementById('research');
+      //       if (researchSection) {
+      //         researchSection.scrollIntoView({ behavior: 'smooth' });
+      //       }
+      //     }
+      //   }
+      // },
       { 
         name: "Our Partners", 
         href: "/#research", 

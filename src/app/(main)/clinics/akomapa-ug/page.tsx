@@ -389,7 +389,7 @@ export default function UGClinicPage() {
           >
             <div className="relative w-full h-[280px] sm:h-[360px] md:h-[520px] lg:h-[640px] rounded-3xl overflow-hidden shadow-2xl border border-white/10">
               <Image
-                src="/highlights/Akomapa-2.jpg"
+                src="/university-of-ghana.jpg"
                 alt="Student leaders planning the Akomapa UG Clinic launch"
                 fill
                 priority
@@ -468,7 +468,7 @@ export default function UGClinicPage() {
               className="relative order-2 md:order-1 min-h-[280px] sm:min-h-[320px] lg:min-h-[360px] lg:h-full rounded-3xl overflow-hidden border border-white/20 bg-white/10 shadow-2xl shadow-black/30"
             >
               <Image
-                src="/highlights/Akomapa-66.jpg"
+                src="/highlights/Akomapa-7.jpg"
                 alt="Students collaborating to design the Akomapa UG Clinic"
                 fill
                 className="object-cover object-center"
@@ -539,7 +539,7 @@ export default function UGClinicPage() {
               className="relative order-2 min-h-[280px] sm:min-h-[320px] lg:min-h-[360px] lg:h-full rounded-3xl overflow-hidden border border-[#F5C94D]/30"
             >
               <Image
-                src="/highlights/Akomapa-12.jpg"
+                src="/highlights/Akomapa-5.jpg"
                 alt="Community outreach event led by student volunteers"
                 fill
                 className="object-cover object-center"

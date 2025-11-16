@@ -13,7 +13,7 @@ const modelPillars = [
     title: "Community-Based Care",
     description: "Clinics operate directly within neighborhoods and rural communities, embedding services in the daily fabric of the places we call home.",
     color: "#0097b2",
-    image: "/highlights/Akomapa-40.jpg",
+    image: "/highlights/Akomapa-41.jpg",
     alt: "Community health screening taking place in Ghana",
     body: [
       "We transform trusted community spaces—schools, churches, markets—into care hubs so families can access screening, counseling, and referrals without long travel or stigma. The clinic experience is intentionally warm, circular, and anchored in community rhythms so patients feel welcomed rather than referred.",
@@ -37,7 +37,7 @@ const modelPillars = [
     title: "Expert Supervision",
     description: "Licensed clinicians and faculty mentors partner with students, reviewing every plan to uphold the highest clinical and ethical standards.",
     color: "#0097b2",
-    image: "/highlights/Akomapa-61.jpg",
+    image: "/highlights/Akomapa-36.jpg",
     alt: "Clinicians supervising students providing community care",
     body: [
       "Supervising physicians, pharmacists, and nurses are present at every clinic session to guide decision-making, triage escalations, and model compassionate care. They ground every encounter in evidence-based practice while giving students space to lead.",
@@ -49,7 +49,7 @@ const modelPillars = [
     title: "Local Partnership",
     description: "Every clinic is co-built with community members, health services, and national agencies so impact lasts long after launch.",
     color: "#eeba2b",
-    image: "/highlights/Akomapa-19.jpg",
+    image: "/highlights/Akomapa-50.jpg",
     alt: "Community partners and clinic team meeting outdoors",
     body: [
       "Traditional authorities, district health teams, and civil society partners shape the clinic footprint, ensuring services respond to real community priorities. We co-create protocols, signage, and patient journeys so the clinic speaks the language of the community.",
@@ -192,7 +192,7 @@ export default function ClinicsPage() {
           >
             <div className="relative w-full h-[280px] sm:h-[360px] md:h-[520px] lg:h-[640px] rounded-3xl overflow-hidden shadow-2xl border border-white/10">
               <Image
-                src="/highlights/Akomapa-28.jpg"
+                src="/highlights/Akomapa-64.jpg"
                 alt="Akomapa clinic team supporting community members"
                 fill
                 priority

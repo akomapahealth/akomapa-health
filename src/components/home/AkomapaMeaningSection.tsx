@@ -36,7 +36,7 @@ export default function AkomapaMeaningSection() {
               {/* Main image container - taller height */}
               <div className="relative h-[600px] md:h-[700px] lg:h-[750px] rounded-2xl overflow-hidden shadow-2xl">
                 <Image
-                  src="/highlights/Akomapa-47.jpg"
+                  src="/highlights/Akomapa-48.jpg"
                   alt="Healthcare professionals showing compassion and care"
                   fill
                   className="object-cover"
