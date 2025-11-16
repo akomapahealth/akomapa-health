@@ -150,7 +150,7 @@ export default function StripePayment({
       <Button
         type="submit"
         disabled={!stripe || isProcessing}
-        className="w-full h-12 bg-[#007A73] hover:bg-[#C37B1E] text-[#FCFAEF] text-lg"
+        className="w-full h-12 bg-[#0097b2] hover:bg-[#eeba2b] text-[#FCFAEF] text-lg"
       >
         {getButtonText()}
       </Button>

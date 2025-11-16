@@ -128,6 +128,41 @@ The website is fully responsive and optimized for:
 - **Tablet** (768px - 1199px): Adapted layouts with touch-friendly interactions
 - **Mobile** (320px - 767px): Mobile-first design with optimized navigation
 
+## 🧪 Testing
+
+### E2E Tests
+
+This project includes comprehensive end-to-end tests using Playwright to ensure the homepage works correctly across all browsers and devices.
+
+![E2E Tests](https://github.com/akomapahealth/akomapa-health/workflows/E2E%20Tests/badge.svg)
+
+**Test Coverage:**
+- Responsive design across 8 viewport sizes (mobile, tablet, desktop)
+- Interactive features (carousels, counters, modals, galleries)
+- Content verification and accessibility
+- Cross-browser compatibility (Chrome, Firefox, Safari)
+- Visual regression testing
+
+**Run Tests:**
+```bash
+# Run all tests
+npm run test:e2e
+
+# Run tests in UI mode (recommended)
+npm run test:e2e:ui
+
+# Run specific test suites
+npm run test:e2e:responsive
+npm run test:e2e:interactive
+npm run test:e2e:content
+```
+
+**Test Documentation:**
+- See `e2e/README.md` for detailed documentation
+- See `e2e/DEPLOYMENT_GUIDE.md` for online test deployment options
+- See `e2e/SETUP_GITHUB_ACTIONS.md` for GitHub Actions setup
+- Repository: [https://github.com/akomapahealth/akomapa-health](https://github.com/akomapahealth/akomapa-health)
+
 ## 🔒 Security & Privacy
 
 - **Environment variable protection** for sensitive data

@@ -1,0 +1,8 @@
+<svg width="200" height="80" viewBox="0 0 200 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="200" height="80" rx="16" fill="#EAF7FB" stroke="#0F4C5C" stroke-width="2"/>
+  <circle cx="60" cy="40" r="20" fill="#66C4DC" fill-opacity="0.4" stroke="#0097B2" stroke-width="2"/>
+  <path d="M46 40C60 28 60 52 74 40" stroke="#0F4C5C" stroke-width="2.5" stroke-linecap="round"/>
+  <text x="92" y="34" fill="#0F4C5C" font-size="18" font-family="Arial,Helvetica,sans-serif" font-weight="600">Global Alliance</text>
+  <text x="92" y="54" fill="#5A5E5D" font-size="12" font-family="Arial,Helvetica,sans-serif">Nutrition & Sustainability</text>
+</svg>
+

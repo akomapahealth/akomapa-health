@@ -12,9 +12,43 @@ function BreadcrumbContent() {
   // Create breadcrumb items with proper formatting
   const breadcrumbs = segments.map((segment, index) => {
     const href = `/${segments.slice(0, index + 1).join('/')}`;
+    const parentSegment = segments[0];
+
+    const formatSegment = (value: string) => {
+      // Special handling for known acronyms
+      const acronyms: Record<string, string> = {
+        'ghltp': 'GHLTP',
+        'ghip': 'GHIP',
+      };
+
+      return value
+        .split('-')
+        .map((word) => {
+          // Check if word is a known acronym
+          if (acronyms[word.toLowerCase()]) {
+            return acronyms[word.toLowerCase()];
+          }
+          if (word.length <= 3) {
+            return word.toUpperCase();
+          }
+          return word.charAt(0).toUpperCase() + word.slice(1);
+        })
+        .join(' ');
+    };
+
+    const label = (() => {
+      if (
+        index > 0 &&
+        (parentSegment === "clinics" || parentSegment === "programs")
+      ) {
+        return formatSegment(segment);
+      }
+      return segment.charAt(0).toUpperCase() + segment.slice(1).replace(/-/g, ' ');
+    })();
+
     return {
       href,
-      label: segment.charAt(0).toUpperCase() + segment.slice(1).replace(/-/g, ' '),
+      label,
     };
   });
 
@@ -24,7 +58,7 @@ function BreadcrumbContent() {
     <nav className="py-4 px-4 md:px-0">
       <ol className="flex flex-wrap items-center text-sm text-[#2F3332]/70 dark:text-[#FCFAEF]/70">
         <li className="flex items-center">
-          <Link href="/" className="flex items-center hover:text-[#C37B1E] dark:hover:text-[#F3C677] transition-colors">
+          <Link href="/" className="flex items-center hover:text-[#eeba2b] dark:hover:text-[#F5C94D] transition-colors">
             <Home className="h-4 w-4" />
             <span className="sr-only">Home</span>
           </Link>
@@ -38,7 +72,7 @@ function BreadcrumbContent() {
             ) : (
               <Link 
                 href={crumb.href} 
-                className="hover:text-[#C37B1E] dark:hover:text-[#F3C677] transition-colors"
+                className="hover:text-[#eeba2b] dark:hover:text-[#F5C94D] transition-colors"
               >
                 {crumb.label}
               </Link>

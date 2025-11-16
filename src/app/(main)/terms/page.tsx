@@ -129,7 +129,7 @@ export default function TermsPage() {
                 </h2>
                 <p className="text-[#2F3332] dark:text-[#E6E7E7]">
                   For questions about these Terms of Service, please contact us at{" "}
-                  <a href="mailto:akomapahealth@gmail.com" className="text-[#007A73] hover:text-[#C37B1E]">
+                  <a href="mailto:akomapahealth@gmail.com" className="text-[#0097b2] hover:text-[#eeba2b]">
                     akomapahealth@gmail.com
                   </a>
                 </p>
