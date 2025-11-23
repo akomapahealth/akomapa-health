@@ -175,7 +175,7 @@ export default function HeroSection({
               transition={{ duration: 0.8, delay: 0.6 }}
               className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl tracking-tight text-[#FCFAEF] dark:text-[#FCFAEF] mb-6 leading-tight text-balance font-medium"
             >
-              Can a <span className="text-[#8DD4E6] dark:text-[#B0E8F5]">global partnership</span> of <span className="text-[#eeba2b] dark:text-[#eeba2b]">students</span> lead the fight against NCDs?
+              Can a <span className="text-[#8DD4E6] dark:text-[#B0E8F5]">global partnership</span> of <span className="text-[#eeba2b] dark:text-[#eeba2b]">students</span> lead the fight against <span className="text-[#8DD4E6] dark:text-[#B0E8F5]">non-communicable diseases</span>?
             </motion.h1>
             
             <motion.p
