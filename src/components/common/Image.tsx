@@ -74,10 +74,10 @@ export default function Image({
         loading={priority ? undefined : "lazy"}
         sizes={sizes}
         transformation={[{
-          q: quality,
-          ...(minWidth && { w: minWidth }),
-          ...(minHeight && { h: minHeight }),
-        }]}
+          quality: quality,
+          ...(minWidth && { width: minWidth }),
+          ...(minHeight && { height: minHeight }),
+        }] as Record<string, number>[]}
         style={{
           ...style,
           ...(fill && {
