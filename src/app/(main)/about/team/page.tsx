@@ -25,7 +25,7 @@ const heroRows: Array<{
   {
     offset: "pr-2 lg:pr-4",
     faces: [
-      { image: "/images/team/brian-fleischer.jpg", delay: 0 },
+      { image: "/images/team/brian-fleischer.jpeg", delay: 0 },
       { image: "/images/team/esi-bon-berkoh.jpg", delay: 0.05 }
     ]
   },
@@ -34,14 +34,14 @@ const heroRows: Array<{
     faces: [
       { image: "/images/team/bismark-amoh.jpg", delay: 0.1 },
       { image: "/images/team/sedem-dankwa.jpg", delay: 0.15 },
-      { image: "/images/team/nana-ama-ocran.jpg", delay: 0.2 }
+      { image: "/images/team/nana-ama-ocran.PNG", delay: 0.2 }
     ]
   },
   {
     offset: "pr-14 lg:pr-20",
     faces: [
       { image: "/images/team/afriyie-badu.jpg", delay: 0.25 },
-      { image: "/images/team/prince-agyei-tuffour.jpg", delay: 0.3 },
+      { image: "/images/team/prince-agyei.jpg", delay: 0.3 },
       { image: "/images/team/adwoa-danso-dodoo.jpg", delay: 0.35 },
       { image: "/images/team/amma-buckman.jpg", delay: 0.4 }
     ]
@@ -50,7 +50,7 @@ const heroRows: Array<{
     offset: "pr-20 lg:pr-28",
     faces: [
       { image: "/ucc-team/david_kojo_ofosu.JPG", delay: 0.45 },
-      { image: "/images/team/dzifianu-edoh-torgah.jpg", delay: 0.5 },
+      { image: "/images/team/gabrielle-nartey.JPG", delay: 0.5 },
       { image: "/ucc-team/wilfred_obeng.JPG", delay: 0.55 },
       { image: "/images/team/samuel-kumi.jpg", delay: 0.6 }
     ]
@@ -60,7 +60,7 @@ const heroRows: Array<{
     faces: [
       { image: "/ucc-team/hafiz_shaban.JPG", delay: 0.65 },
       { image: "/images/team/mighty-doffoe.jpg", delay: 0.7 },
-      { image: "/images/team/derek-anamaale-tuoyire.jpg", delay: 0.75 },
+      { image: "/images/team/dr-tuoyire.jpeg", delay: 0.75 },
       { image: "/images/team/jeremy-schwartz.jpg", delay: 0.8 }
     ]
   },
@@ -69,7 +69,7 @@ const heroRows: Array<{
     faces: [
       { image: "/images/team/martins-ekor.jpg", delay: 0.85 },
       { image: "/images/team/samuel-kyei.jpg", delay: 0.9 },
-      { image: "/images/team/adrian-mayo.jpg", delay: 0.95 }
+      { image: "/images/team/patrick-ampofo.jpg", delay: 0.95 }
     ]
   },
   {
@@ -86,7 +86,7 @@ const executiveTeam: SpotlightMember[] = [
     name: "Brian Amu Fleischer, MD",
     role: "Founder & President",
     org: "Yale University",
-    image: "/images/team/brian-fleischer.jpg"
+    image: "/images/team/brian-fleischer.jpeg"
   },
   {
     name: "Esi Bon Berkoh",
@@ -134,7 +134,7 @@ const executiveTeam: SpotlightMember[] = [
     name: "Nana Ama Ocran",
     role: "Leadership Training Program Lead",
     org: "Yale University",
-    image: "/images/team/nana-ama-ocran.jpg"
+    image: "/images/team/nana-ama-ocran.PNG"
   },
   {
     name: "Wilfred Obeng",
@@ -143,10 +143,10 @@ const executiveTeam: SpotlightMember[] = [
     image: "/ucc-team/wilfred_obeng.JPG"
   },
   {
-    name: "Dzifianu Afi Edoh-Torgah",
-    role: "Branding & Creative Lead",
-    org: "University of Cape Coast",
-    image: "/images/team/dzifianu-edoh-torgah.jpg"
+    name: "Gabrielle Nartey",
+    role: "Social Media Lead",
+    org: "Akomapa Health Foundation",
+    image: "/images/team/gabrielle-nartey.JPG"
   },
   {
     name: "Christabel Amma Buckman",
@@ -155,10 +155,16 @@ const executiveTeam: SpotlightMember[] = [
     image: "/images/team/amma-buckman.jpg"
   },
   {
+    name: "Patrick Ampofo",
+    role: "UG Expansion Lead",
+    org: "University of Ghana Medical School",
+    image: "/images/team/patrick-ampofo.jpg"
+  },
+  {
     name: "Prince Agyei Tuffour",
     role: "IT Services Lead",
     org: "Akomapa Health Foundation",
-    image: "/images/team/prince-agyei-tuffour.jpg"
+    image: "/images/team/prince-tuffour.jpg"
   },
   {
     name: "Mighty Doffoe",
@@ -179,19 +185,19 @@ const advisoryBoard: SpotlightMember[] = [
     name: "Dr. Derek Anamaale Tuoyire",
     role: "Head of Community Medicine",
     org: "University of Cape Coast",
-    image: "/images/team/derek-anamaale-tuoyire.jpg"
+    image: "/images/team/dr-tuoyire.jpeg"
   },
   {
     name: "Prof. Martins Ekor",
     role: "Provost, College of Health and Allied Sciences",
     org: "University of Cape Coast",
-    image: "/images/team/martins-ekor.jpg"
+    image: "/images/team/prof-martin-ekor.jpg"
   },
   {
     name: "Prof. Samuel Kyei",
     role: "Professor of Optometry",
     org: "University of Cape Coast",
-    image: "/images/team/samuel-kyei.jpg"
+    image: "/images/team/prof-samuel-kyei.png"
   },
   {
     name: "Dr. Jeremy Schwartz",
@@ -235,7 +241,7 @@ function TeamCard({
   member: SpotlightMember;
   variant?: "default" | "compact";
 }) {
-  const imageHeight = variant === "compact" ? "h-56 sm:h-64" : "h-64 sm:h-72 md:h-80";
+  const imageHeight = variant === "compact" ? "h-80 sm:h-96 md:h-[28rem] lg:h-[32rem]" : "h-80 sm:h-96 md:h-[28rem] lg:h-[32rem]";
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -248,10 +254,8 @@ function TeamCard({
           src={member.image}
           alt={member.name}
           fill
-          className="object-cover rounded-t-[28px]"
-          style={{
-            objectPosition: 'center 20%'
-          }}
+          className="object-cover object-center rounded-t-[28px]"
+          quality={100}
           sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
         />
       </div>
@@ -359,6 +363,10 @@ export default function TeamPage() {
                         alt=""
                         fill
                         className="rounded-full object-cover object-center"
+                        quality={100}
+                        minWidth={240}
+                        minHeight={240}
+                        sizes="(max-width: 640px) 64px, (max-width: 1024px) 80px, 80px"
                       />
                     </motion.div>
                     {faceIndex !== row.faces.length - 1 && (
