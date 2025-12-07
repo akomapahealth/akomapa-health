@@ -342,9 +342,8 @@ export default function ProgramsPage() {
                   </div>
                   <div className={`${index % 2 === 0 ? "order-2" : "order-2 lg:order-1"} h-full flex flex-col justify-center`}>
                     <div className="flex items-center gap-2 mb-4">
-                      <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: program.color }} />
-                      <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: program.color }} />
-                      <span className="h-2.5 w-2.5 rounded-full bg-[#C1C3C3]" />
+                      <div className="h-1 w-8 rounded-full" style={{ backgroundColor: program.color }} />
+                      <div className="h-1 w-1 rounded-full" style={{ backgroundColor: program.color }} />
                     </div>
                     <h3 className="text-xl sm:text-2xl md:text-3xl font-semibold text-[#1C1F1E] dark:text-[#FCFAEF] mb-4">
                       {program.title}

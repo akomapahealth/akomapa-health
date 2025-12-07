@@ -178,9 +178,8 @@ export default function ResearchPage() {
                     <div className="p-6 sm:p-8 flex flex-col justify-between">
                       <div>
                         <div className="flex items-center gap-2 mb-4">
-                          <span className="h-2.5 w-2.5 rounded-full bg-[#0097b2]" />
-                          <span className="h-2.5 w-2.5 rounded-full bg-[#0097b2]" />
-                          <span className="h-2.5 w-2.5 rounded-full bg-[#C1C3C3]" />
+                          <div className="h-1 w-8 bg-[#0097b2] rounded-full" />
+                          <div className="h-1 w-1 bg-[#0097b2] rounded-full" />
                         </div>
                         <h3 className="text-xl sm:text-2xl font-semibold mb-3 text-[#1C1F1E] dark:text-[#FCFAEF] group-hover:text-[#0097b2] dark:group-hover:text-[#66C4DC] transition-colors">
                           {paper.title}

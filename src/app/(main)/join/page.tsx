@@ -203,9 +203,8 @@ export default function JoinPage() {
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-br from-[#0097b2]/10 via-transparent to-[#F5C94D]/10" />
                 <div className="relative">
                   <div className="flex items-center gap-2 mb-4">
-                    <span className="h-2.5 w-2.5 rounded-full bg-[#0097b2]" />
-                    <span className="h-2.5 w-2.5 rounded-full bg-[#0097b2]" />
-                    <span className="h-2.5 w-2.5 rounded-full bg-[#C1C3C3]" />
+                    <div className="h-1 w-8 bg-[#0097b2] rounded-full" />
+                    <div className="h-1 w-1 bg-[#0097b2] rounded-full" />
                   </div>
                   <h3 className="text-xl sm:text-2xl font-semibold mb-4 text-[#1C1F1E] dark:text-[#FCFAEF]">
                     Hands-On Experience
@@ -226,9 +225,8 @@ export default function JoinPage() {
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-br from-[#eeba2b]/10 via-transparent to-[#0097b2]/10" />
                 <div className="relative">
                   <div className="flex items-center gap-2 mb-4">
-                    <span className="h-2.5 w-2.5 rounded-full bg-[#eeba2b]" />
-                    <span className="h-2.5 w-2.5 rounded-full bg-[#eeba2b]" />
-                    <span className="h-2.5 w-2.5 rounded-full bg-[#C1C3C3]" />
+                    <div className="h-1 w-8 bg-[#eeba2b] rounded-full" />
+                    <div className="h-1 w-1 bg-[#eeba2b] rounded-full" />
                   </div>
                   <h3 className="text-xl sm:text-2xl font-semibold mb-4 text-[#1C1F1E] dark:text-[#FCFAEF]">
                     Leadership Development
@@ -249,9 +247,8 @@ export default function JoinPage() {
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-br from-[#0097b2]/10 via-transparent to-[#F5C94D]/10" />
                 <div className="relative">
                   <div className="flex items-center gap-2 mb-4">
-                    <span className="h-2.5 w-2.5 rounded-full bg-[#0097b2]" />
-                    <span className="h-2.5 w-2.5 rounded-full bg-[#0097b2]" />
-                    <span className="h-2.5 w-2.5 rounded-full bg-[#C1C3C3]" />
+                    <div className="h-1 w-8 bg-[#0097b2] rounded-full" />
+                    <div className="h-1 w-1 bg-[#0097b2] rounded-full" />
                   </div>
                   <h3 className="text-xl sm:text-2xl font-semibold mb-4 text-[#1C1F1E] dark:text-[#FCFAEF]">
                     Community Impact
@@ -278,9 +275,8 @@ export default function JoinPage() {
               className="text-center mb-8 sm:mb-12"
             >
               <div className="flex items-center gap-2 justify-center mb-4">
-                <span className="h-2.5 w-2.5 rounded-full bg-[#0097b2]" />
-                <span className="h-2.5 w-2.5 rounded-full bg-[#0097b2]" />
-                <span className="h-2.5 w-2.5 rounded-full bg-[#C1C3C3]" />
+                <div className="h-1 w-8 bg-[#0097b2] rounded-full" />
+                <div className="h-1 w-1 bg-[#0097b2] rounded-full" />
               </div>
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold mb-4 text-[#1C1F1E] dark:text-[#FCFAEF]">
                 Volunteer Application

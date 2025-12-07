@@ -52,9 +52,8 @@ export default function ContactPage() {
             >
               <div className="mb-6 sm:mb-8">
                 <div className="flex items-center gap-2 mb-4">
-                  <span className="h-2.5 w-2.5 rounded-full bg-[#0097b2]" />
-                  <span className="h-2.5 w-2.5 rounded-full bg-[#0097b2]" />
-                  <span className="h-2.5 w-2.5 rounded-full bg-[#C1C3C3]" />
+                  <div className="h-1 w-8 bg-[#0097b2] rounded-full" />
+                  <div className="h-1 w-1 bg-[#0097b2] rounded-full" />
                 </div>
                 <h2 className="text-2xl sm:text-3xl font-semibold mb-4 text-[#1C1F1E] dark:text-[#FCFAEF]">
                   Send us a message
@@ -76,9 +75,8 @@ export default function ContactPage() {
             >
               <div className="mb-6 sm:mb-8">
                 <div className="flex items-center gap-2 mb-4">
-                  <span className="h-2.5 w-2.5 rounded-full bg-[#eeba2b]" />
-                  <span className="h-2.5 w-2.5 rounded-full bg-[#eeba2b]" />
-                  <span className="h-2.5 w-2.5 rounded-full bg-[#C1C3C3]" />
+                  <div className="h-1 w-8 bg-[#eeba2b] rounded-full" />
+                  <div className="h-1 w-1 bg-[#eeba2b] rounded-full" />
                 </div>
                 <h2 className="text-2xl sm:text-3xl font-semibold mb-4 text-[#1C1F1E] dark:text-[#FCFAEF]">
                   Our Information

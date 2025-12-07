@@ -253,12 +253,12 @@ function ContactFormContent() {
       </Button>
 
       <div className="mt-8 pt-8 border-t border-gray-200 dark:border-gray-700">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
           <div className="flex items-start">
             <Mail className="w-5 h-5 text-[#0097b2] dark:text-[#66C4DC] mr-3 flex-shrink-0 mt-0.5" />
             <div className="min-w-0 flex-1">
               <p className="text-sm font-medium text-[#1C1F1E] dark:text-[#FCFAEF] mb-1">Email</p>
-              <p className="text-sm text-[#2F3332] dark:text-[#E6E7E7] break-words">akomapahealth@gmail.com</p>
+              <p className="text-sm text-[#2F3332] dark:text-[#E6E7E7]">akomapahealth@gmail.com</p>
             </div>
           </div>
           <div className="flex items-start">

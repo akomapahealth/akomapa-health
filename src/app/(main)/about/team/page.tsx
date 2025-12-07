@@ -35,8 +35,8 @@ const heroRows: Array<{
   {
     offset: "pr-8 lg:pr-12",
     faces: [
-      { image: "/images/team/bismark-amoh.jpg", delay: 0.1 },
-      { image: "/images/team/sedem-dankwa.jpg", delay: 0.15 },
+      { image: "/ucc-team/getwell_ebiram_essuman.JPG", delay: 0.1 },
+      { image: "/ucc-team/david_konadu_kombate.JPG", delay: 0.15 },
       { image: "/images/team/nana-ama-ocran.PNG", delay: 0.2 }
     ]
   },
@@ -46,7 +46,7 @@ const heroRows: Array<{
       { image: "/images/team/afriyie-badu.jpg", delay: 0.25 },
       { image: "/images/team/prince-agyei.jpg", delay: 0.3 },
       { image: "/images/team/adwoa-danso-dodoo.jpg", delay: 0.35 },
-      { image: "/images/team/amma-buckman.jpg", delay: 0.4 }
+      { image: "/ucc-team/queenster_aduse_opoku.JPG", delay: 0.4 }
     ]
   },
   {
@@ -55,7 +55,7 @@ const heroRows: Array<{
       { image: "/ucc-team/david_kojo_ofosu.JPG", delay: 0.45 },
       { image: "/images/team/gabrielle-nartey.JPG", delay: 0.5 },
       { image: "/ucc-team/wilfred_obeng.JPG", delay: 0.55 },
-      { image: "/images/team/samuel-kumi.jpg", delay: 0.6 }
+      { image: "/ucc-team/belinda_odoom.JPG", delay: 0.6 }
     ]
   },
   {
@@ -70,16 +70,16 @@ const heroRows: Array<{
   {
     offset: "pr-28 lg:pr-44",
     faces: [
-      { image: "/images/team/martins-ekor.jpg", delay: 0.85 },
-      { image: "/images/team/samuel-kyei.jpg", delay: 0.9 },
-      { image: "/images/team/patrick-ampofo.jpg", delay: 0.95 }
+      { image: "/ucc-team/martha_bawa.JPG", delay: 0.85 },
+      { image: "/ucc-team/prince_nyarkoh.JPG", delay: 0.9 },
+      { image: "/ucc-team/geraldine_cristal_apeadua_agyepong.JPG", delay: 0.95 }
     ]
   },
   {
     offset: "pr-32 lg:pr-52",
     faces: [
-      { image: "/images/team/elijah-paintsil.jpg", delay: 1.0 },
-      { image: "/images/team/adrian-mayo.jpg", delay: 1.05 }
+      { image: "/ucc-team/frederick_baffour.JPG", delay: 1.0 },
+      { image: "/ucc-team/gloria_tawia_blay.JPG", delay: 1.05 }
     ]
   }
 ];
@@ -107,7 +107,7 @@ const executiveTeam: SpotlightMember[] = [
     name: "Bismark Amoh",
     role: "Co-Founder & Research Lead",
     org: "David Geffen School of Medicine at UCLA",
-    image: "/images/team/bismark-amoh.jpg",
+    image: "/images/team/placeholder.jpg",
     email: "bismark.amoh@akomapa.org",
     linkedin: "https://linkedin.com/in/bismark-amoh",
     bio: "Bismark Amoh leads Akomapa's research initiatives, bringing rigorous scientific methodology to evaluate and improve our healthcare programs. His work ensures that every intervention is evidence-based and continuously refined for maximum impact on community health outcomes."
@@ -152,7 +152,7 @@ const executiveTeam: SpotlightMember[] = [
     name: "Sedem Dankwa",
     role: "Global Partnerships Lead",
     org: "Yale University",
-    image: "/images/team/sedem-dankwa.jpg",
+    image: "/images/team/placeholder.jpg",
     email: "sedem.dankwa@akomapa.org",
     linkedin: "https://linkedin.com/in/sedem-dankwa",
     bio: "Sedem Dankwa builds strategic partnerships that amplify Akomapa's impact globally. Her work connects our mission with organizations, institutions, and individuals who share our commitment to equitable healthcare access."
@@ -188,7 +188,7 @@ const executiveTeam: SpotlightMember[] = [
     name: "Christabel Amma Buckman",
     role: "Development & Communications Lead",
     org: "David Geffen School of Medicine at UCLA",
-    image: "/images/team/amma-buckman.jpg",
+    image: "/images/team/placeholder.jpg",
     email: "amma.buckman@akomapa.org",
     linkedin: "https://linkedin.com/in/amma-buckman",
     bio: "Amma Buckman leads development and communications efforts, crafting compelling narratives that showcase Akomapa's impact. Her strategic approach helps secure resources and partnerships that fuel our growth and expansion."
@@ -233,7 +233,7 @@ const executiveTeam: SpotlightMember[] = [
     name: "Samuel Kumi",
     role: "Legal Affairs Lead",
     org: "Akomapa Health Foundation",
-    image: "/images/team/samuel-kumi.jpg",
+    image: "/images/team/placeholder.jpg",
     email: "samuel.kumi@akomapa.org",
     linkedin: "https://linkedin.com/in/samuel-kumi",
     bio: "Samuel Kwame Kumi, Esq. is a private legal practitioner and lecturer. Samuel has valuable experience in litigation and Alternative Dispute Resolution, notably acting as lawyer for medical professionals in medical matters. His interests span medical, IT, Intellectual Property and energy law, areas in which he has published. As Akomapa's Head of Legal, Samuel oversees corporate affairs, advises on risk, and ensures compliance. He sees Akomapa's strategic community-focused initiatives establishing it as a trailblazer in community health. "
@@ -263,19 +263,19 @@ const advisoryBoard: SpotlightMember[] = [
     name: "Dr. Jeremy Schwartz",
     role: "Head, Chronic Care Access Lab",
     org: "Yale University",
-    image: "/images/team/jeremy-schwartz.jpg"
+    image: "/images/team/placeholder.jpg"
   },
   {
     name: "Dr. Adrian Mayo",
     role: "Assistant Clinical Professor",
     org: "David Geffen School of Medicine, UCLA",
-    image: "/images/team/adrian-mayo.jpg"
+    image: "/images/team/placeholder.jpg"
   },
   {
     name: "Dr. Elijah Paintsil",
     role: "Chief & Chair of Pediatrics",
     org: "Boston Medical Center",
-    image: "/images/team/elijah-paintsil.jpg"
+    image: "/images/team/placeholder.jpg"
   }
 ];
 
