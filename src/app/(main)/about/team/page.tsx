@@ -426,7 +426,7 @@ function TeamCard({
   onClick?: () => void;
   isClickable?: boolean;
 }) {
-  const imageHeight = variant === "compact" ? "h-80 sm:h-96 md:h-[28rem] lg:h-[32rem]" : "h-80 sm:h-96 md:h-[28rem] lg:h-[32rem]";
+  const imageHeight = variant === "compact" ? "h-56 sm:h-64 md:h-72 lg:h-80" : "h-80 sm:h-96 md:h-[28rem] lg:h-[32rem]";
   
   const handleClick = (e: React.MouseEvent) => {
     if (isClickable && onClick) {
