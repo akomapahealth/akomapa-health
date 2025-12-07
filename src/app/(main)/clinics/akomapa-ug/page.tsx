@@ -205,7 +205,7 @@ const partners = [
   },
   {
     name: "Akomapa Health Foundation",
-    logo: "/images/partners/akomapa-logo.png"
+    logo: "/images/akomapa-logo.png"
   },
   {
     name: "Ghana Health Service",
