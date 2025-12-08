@@ -62,8 +62,7 @@ function MobileNavContent({ isOpen, onClose, navigation }: MobileNavProps) {
         <div className="fixed inset-0 z-50 flex">
           {/* Sidebar */}
           <TransitionChild 
-            as="div"
-            className="relative ml-auto flex h-full w-full max-w-xs"
+            as={Fragment}
             enter="transform transition ease-out duration-500"
             enterFrom="translate-x-full opacity-0"
             enterTo="translate-x-0 opacity-100"
@@ -72,7 +71,7 @@ function MobileNavContent({ isOpen, onClose, navigation }: MobileNavProps) {
             leaveTo="translate-x-full opacity-0"
           >
             <DialogPanel 
-              className="flex h-full w-full flex-col overflow-y-auto bg-[#FCFAEF] dark:bg-[#2F3332] py-4 pb-12 shadow-xl"
+              className="relative ml-auto flex h-full w-full max-w-xs flex-col overflow-y-auto bg-[#FCFAEF] dark:bg-[#2F3332] py-4 pb-12 shadow-xl"
             >
               <div className="flex items-center justify-between px-4">
                 <Link href="/" onClick={onClose} className="flex items-center">

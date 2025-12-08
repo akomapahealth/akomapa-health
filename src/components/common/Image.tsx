@@ -73,11 +73,13 @@ export default function Image({
         className={className}
         loading={priority ? undefined : "lazy"}
         sizes={sizes}
-        transformation={[{
-          quality: quality,
-          ...(minWidth && { width: minWidth }),
-          ...(minHeight && { height: minHeight }),
-        }] as Record<string, number>[]}
+        transformation={[
+          {
+            quality: quality,
+            ...(minWidth && { width: minWidth }),
+            ...(minHeight && { height: minHeight }),
+          } as Record<string, number>
+        ]}
         style={{
           ...style,
           ...(fill && {
