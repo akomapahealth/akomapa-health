@@ -13,6 +13,9 @@ interface ImageProps {
   priority?: boolean;
   sizes?: string;
   style?: React.CSSProperties;
+  quality?: number;
+  minWidth?: number;
+  minHeight?: number;
 }
 
 export default function Image({ 
@@ -24,7 +27,10 @@ export default function Image({
   fill, 
   priority,
   sizes,
-  style 
+  style,
+  quality = 100,
+  minWidth,
+  minHeight
 }: ImageProps) {
   const [isClient, setIsClient] = useState(false);
 
@@ -67,6 +73,13 @@ export default function Image({
         className={className}
         loading={priority ? undefined : "lazy"}
         sizes={sizes}
+        transformation={[
+          {
+            quality: quality,
+            ...(minWidth && { width: minWidth }),
+            ...(minHeight && { height: minHeight }),
+          } as Record<string, number>
+        ]}
         style={{
           ...style,
           ...(fill && {

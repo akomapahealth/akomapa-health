@@ -142,9 +142,8 @@ export default function AboutPage() {
               <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-br from-[#0097b2]/10 via-transparent to-[#F5C94D]/10" />
               <div className="relative">
                 <div className="flex items-center gap-2 mb-4">
-                  <span className="h-2.5 w-2.5 rounded-full bg-[#0097b2]" />
-                  <span className="h-2.5 w-2.5 rounded-full bg-[#0097b2]" />
-                  <span className="h-2.5 w-2.5 rounded-full bg-[#C1C3C3]" />
+                  <div className="h-1 w-8 bg-[#0097b2] rounded-full" />
+                  <div className="h-1 w-1 bg-[#0097b2] rounded-full" />
                 </div>
                 <h3 className="text-xl sm:text-2xl font-semibold mb-4 text-[#1C1F1E] dark:text-[#FCFAEF]">
                   Access to Care
@@ -165,9 +164,8 @@ export default function AboutPage() {
               <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-br from-[#eeba2b]/10 via-transparent to-[#0097b2]/10" />
               <div className="relative">
                 <div className="flex items-center gap-2 mb-4">
-                  <span className="h-2.5 w-2.5 rounded-full bg-[#eeba2b]" />
-                  <span className="h-2.5 w-2.5 rounded-full bg-[#eeba2b]" />
-                  <span className="h-2.5 w-2.5 rounded-full bg-[#C1C3C3]" />
+                  <div className="h-1 w-8 bg-[#eeba2b] rounded-full" />
+                  <div className="h-1 w-1 bg-[#eeba2b] rounded-full" />
                 </div>
                 <h3 className="text-xl sm:text-2xl font-semibold mb-4 text-[#1C1F1E] dark:text-[#FCFAEF]">
                   Health Education
@@ -188,9 +186,8 @@ export default function AboutPage() {
               <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-br from-[#0097b2]/10 via-transparent to-[#F5C94D]/10" />
               <div className="relative">
                 <div className="flex items-center gap-2 mb-4">
-                  <span className="h-2.5 w-2.5 rounded-full bg-[#0097b2]" />
-                  <span className="h-2.5 w-2.5 rounded-full bg-[#0097b2]" />
-                  <span className="h-2.5 w-2.5 rounded-full bg-[#C1C3C3]" />
+                  <div className="h-1 w-8 bg-[#0097b2] rounded-full" />
+                  <div className="h-1 w-1 bg-[#0097b2] rounded-full" />
                 </div>
                 <h3 className="text-xl sm:text-2xl font-semibold mb-4 text-[#1C1F1E] dark:text-[#FCFAEF]">
                   Healthcare Workforce
@@ -243,9 +240,8 @@ export default function AboutPage() {
                 className="group block relative rounded-2xl bg-[#FCFAEF]/10 backdrop-blur-md border border-[#FCFAEF]/15 p-6 sm:p-8 hover:bg-[#FCFAEF]/15 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 h-full flex flex-col"
               >
                 <div className="flex items-center gap-2 mb-4">
-                  <span className="h-2.5 w-2.5 rounded-full bg-[#F5C94D]" />
-                  <span className="h-2.5 w-2.5 rounded-full bg-[#F5C94D]" />
-                  <span className="h-2.5 w-2.5 rounded-full bg-[#FCFAEF]/40" />
+                  <div className="h-1 w-8 bg-[#F5C94D] rounded-full" />
+                  <div className="h-1 w-1 bg-[#F5C94D] rounded-full" />
                 </div>
                 <h3 className="text-xl sm:text-2xl font-semibold mb-3 text-[#FCFAEF]">Our Programs</h3>
                 <p className="text-sm sm:text-base text-[#FCFAEF]/80 mb-6 leading-relaxed flex-1">
@@ -268,9 +264,8 @@ export default function AboutPage() {
                 className="group block relative rounded-2xl bg-[#FCFAEF]/10 backdrop-blur-md border border-[#FCFAEF]/15 p-6 sm:p-8 hover:bg-[#FCFAEF]/15 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 h-full flex flex-col"
               >
                 <div className="flex items-center gap-2 mb-4">
-                  <span className="h-2.5 w-2.5 rounded-full bg-[#F5C94D]" />
-                  <span className="h-2.5 w-2.5 rounded-full bg-[#F5C94D]" />
-                  <span className="h-2.5 w-2.5 rounded-full bg-[#FCFAEF]/40" />
+                  <div className="h-1 w-8 bg-[#F5C94D] rounded-full" />
+                  <div className="h-1 w-1 bg-[#F5C94D] rounded-full" />
                 </div>
                 <h3 className="text-xl sm:text-2xl font-semibold mb-3 text-[#FCFAEF]">Our Team</h3>
                 <p className="text-sm sm:text-base text-[#FCFAEF]/80 mb-6 leading-relaxed flex-1">
@@ -293,9 +288,8 @@ export default function AboutPage() {
                 className="group block relative rounded-2xl bg-[#FCFAEF]/10 backdrop-blur-md border border-[#FCFAEF]/15 p-6 sm:p-8 hover:bg-[#FCFAEF]/15 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 h-full flex flex-col"
               >
                 <div className="flex items-center gap-2 mb-4">
-                  <span className="h-2.5 w-2.5 rounded-full bg-[#F5C94D]" />
-                  <span className="h-2.5 w-2.5 rounded-full bg-[#F5C94D]" />
-                  <span className="h-2.5 w-2.5 rounded-full bg-[#FCFAEF]/40" />
+                  <div className="h-1 w-8 bg-[#F5C94D] rounded-full" />
+                  <div className="h-1 w-1 bg-[#F5C94D] rounded-full" />
                 </div>
                 <h3 className="text-xl sm:text-2xl font-semibold mb-3 text-[#FCFAEF]">Our Journey</h3>
                 <p className="text-sm sm:text-base text-[#FCFAEF]/80 mb-6 leading-relaxed flex-1">
@@ -318,9 +312,8 @@ export default function AboutPage() {
                 className="group block relative rounded-2xl bg-[#FCFAEF]/10 backdrop-blur-md border border-[#FCFAEF]/15 p-6 sm:p-8 hover:bg-[#FCFAEF]/15 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 h-full flex flex-col"
               >
                 <div className="flex items-center gap-2 mb-4">
-                  <span className="h-2.5 w-2.5 rounded-full bg-[#F5C94D]" />
-                  <span className="h-2.5 w-2.5 rounded-full bg-[#F5C94D]" />
-                  <span className="h-2.5 w-2.5 rounded-full bg-[#FCFAEF]/40" />
+                  <div className="h-1 w-8 bg-[#F5C94D] rounded-full" />
+                  <div className="h-1 w-1 bg-[#F5C94D] rounded-full" />
                 </div>
                 <h3 className="text-xl sm:text-2xl font-semibold mb-3 text-[#FCFAEF]">Our Partners</h3>
                 <p className="text-sm sm:text-base text-[#FCFAEF]/80 mb-6 leading-relaxed flex-1">
