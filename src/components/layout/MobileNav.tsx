@@ -45,17 +45,33 @@ function MobileNavContent({ isOpen, onClose, navigation }: MobileNavProps) {
     <Transition show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-50 xl:hidden" onClose={onClose}>
         {/* Backdrop */}
-        <TransitionChild as={Fragment}>
+        <TransitionChild 
+          as={Fragment}
+          enter="transition-opacity ease-out duration-500"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="transition-opacity ease-in duration-500"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+        >
           <div 
-            className="fixed inset-0 bg-[#4F5554]/50 transition duration-300 ease-in-out data-closed:opacity-0" 
+            className="fixed inset-0 bg-[#4F5554]/50" 
           />
         </TransitionChild>
 
         <div className="fixed inset-0 z-50 flex">
           {/* Sidebar */}
-          <TransitionChild as={Fragment}>
+          <TransitionChild 
+            as={Fragment}
+            enter="transform transition ease-out duration-500"
+            enterFrom="translate-x-full opacity-0"
+            enterTo="translate-x-0 opacity-100"
+            leave="transform transition ease-in duration-500"
+            leaveFrom="translate-x-0 opacity-100"
+            leaveTo="translate-x-full opacity-0"
+          >
             <DialogPanel 
-              className="relative ml-auto flex h-full w-full max-w-xs flex-col overflow-y-auto bg-[#FCFAEF] dark:bg-[#2F3332] py-4 pb-12 shadow-xl transition duration-300 ease-in-out transform data-closed:translate-x-full"
+              className="relative ml-auto flex h-full w-full max-w-xs flex-col overflow-y-auto bg-[#FCFAEF] dark:bg-[#2F3332] py-4 pb-12 shadow-xl"
             >
               <div className="flex items-center justify-between px-4">
                 <Link href="/" onClick={onClose} className="flex items-center">

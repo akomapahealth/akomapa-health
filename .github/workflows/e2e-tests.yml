@@ -46,6 +46,11 @@ jobs:
         run: npm run build
         env:
           CI: true
+          STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+          STRIPE_PUBLISHABLE_KEY: ${{ secrets.STRIPE_PUBLISHABLE_KEY }}
+          NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY }}
+          NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT: ${{ secrets.NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT }}
+          NEXT_PUBLIC_IMAGEKIT_PUBLIC_KEY: ${{ secrets.NEXT_PUBLIC_IMAGEKIT_PUBLIC_KEY }}
 
       - name: Run E2E tests
         run: npm run test:e2e

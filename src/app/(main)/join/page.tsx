@@ -1,141 +1,141 @@
 "use client";
 
-import { useState } from "react";
+// import { useState } from "react";
 import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Slider } from "@/components/ui/slider";
-import { Checkbox } from "@/components/ui/checkbox";
+// import { Button } from "@/components/ui/button";
+// import { Input } from "@/components/ui/input";
+// import { Label } from "@/components/ui/label";
+// import { Textarea } from "@/components/ui/textarea";
+// import {
+//   Select,
+//   SelectContent,
+//   SelectItem,
+//   SelectTrigger,
+//   SelectValue,
+// } from "@/components/ui/select";
+// import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+// import { Slider } from "@/components/ui/slider";
+// import { Checkbox } from "@/components/ui/checkbox";
 import Breadcrumb from "@/components/layout/Breadcrumb";
-import { Alert, AlertDescription } from "@/components/ui/alert";
-import { AlertCircle, CheckCircle2 } from "lucide-react";
+// import { Alert, AlertDescription } from "@/components/ui/alert";
+// import { AlertCircle, CheckCircle2 } from "lucide-react";
 
 // School options
-const schools = [
-  "School of Medicine and Surgery",
-  "School of Pharmacy and Pharmaceutical Sciences",
-  "School of Optometry and Vision Science",
-  "School of Nursing and Midwifery",
-  "School of Allied Health Sciences",
-  "Other",
-];
+// const schools = [
+//   "School of Medicine and Surgery",
+//   "School of Pharmacy and Pharmaceutical Sciences",
+//   "School of Optometry and Vision Science",
+//   "School of Nursing and Midwifery",
+//   "School of Allied Health Sciences",
+//   "Other",
+// ];
 
 // Level options
-const levels = ["100", "200", "300", "400", "500", "600"];
+// const levels = ["100", "200", "300", "400", "500", "600"];
 
 // Team preferences
-const teams = [
-  "Screening Team",
-  "Education/Counseling Team",
-  "Next steps Team (scheduling, referrals, follow ups)",
-  "Media and Publicity",
-];
+// const teams = [
+//   "Screening Team",
+//   "Education/Counseling Team",
+//   "Next steps Team (scheduling, referrals, follow ups)",
+//   "Media and Publicity",
+// ];
 
 // Available dates
-const availableDates = [
-  "14th June",
-  "21st June",
-  "28th June",
-  "5th July",
-  "12th July",
-  "19th July",
-  "26th July",
-  "2nd August",
-];
+// const availableDates = [
+//   "14th June",
+//   "21st June",
+//   "28th June",
+//   "5th July",
+//   "12th July",
+//   "19th July",
+//   "26th July",
+//   "2nd August",
+// ];
 
 export default function JoinPage() {
-  const [formData, setFormData] = useState({
-    name: "",
-    school: "",
-    otherSchool: "",
-    level: "",
-    phone: "",
-    email: "",
-    motivation: "",
-    expectations: "",
-    screeningExperience: 5,
-    counselingExperience: 5,
-    selectedDates: [] as string[],
-    teamPreference: "",
-    isBackupVolunteer: false,
-    clinicalExperience: "",
-  });
+//   const [formData, setFormData] = useState({
+//     name: "",
+//     school: "",
+//     otherSchool: "",
+//     level: "",
+//     phone: "",
+//     email: "",
+//     motivation: "",
+//     expectations: "",
+//     screeningExperience: 5,
+//     counselingExperience: 5,
+//     selectedDates: [] as string[],
+//     teamPreference: "",
+//     isBackupVolunteer: false,
+//     clinicalExperience: "",
+//   });
 
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<{
-    type: "success" | "error" | null;
-    message: string;
-  }>({ type: null, message: "" });
+  // const [isSubmitting, setIsSubmitting] = useState(false);
+  // const [submitStatus, setSubmitStatus] = useState<{
+  //   type: "success" | "error" | null;
+  //   message: string;
+  // }>({ type: null, message: "" });
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    setSubmitStatus({ type: null, message: "" });
+  // const handleSubmit = async (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   setIsSubmitting(true);
+  //   setSubmitStatus({ type: null, message: "" });
 
-    try {
-      const response = await fetch("/api/volunteer-application", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+  //   try {
+  //     const response = await fetch("/api/volunteer-application", {
+  //       method: "POST",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify(formData),
+  //     });
 
-      const result = await response.json();
+  //     const result = await response.json();
 
-      if (!response.ok) {
-        throw new Error(result.error || 'Failed to submit application');
-      }
+  //     if (!response.ok) {
+  //       throw new Error(result.error || 'Failed to submit application');
+  //     }
 
-      setSubmitStatus({
-        type: "success",
-        message: "Thank you for your application! We'll be in touch soon.",
-      });
+  //     setSubmitStatus({
+  //       type: "success",
+  //       message: "Thank you for your application! We'll be in touch soon.",
+  //     });
       
-      // Reset form
-      setFormData({
-        name: "",
-        school: "",
-        otherSchool: "",
-        level: "",
-        phone: "",
-        email: "",
-        motivation: "",
-        expectations: "",
-        screeningExperience: 5,
-        counselingExperience: 5,
-        selectedDates: [],
-        teamPreference: "",
-        isBackupVolunteer: false,
-        clinicalExperience: "",
-      });
-    } catch (error) {
-      console.error('Application submission error:', error);
-      setSubmitStatus({
-        type: "error",
-        message: error instanceof Error ? error.message : "An error occurred. Please try again later.",
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
+  //     // Reset form
+  //     setFormData({
+  //       name: "",
+  //       school: "",
+  //       otherSchool: "",
+  //       level: "",
+  //       phone: "",
+  //       email: "",
+  //       motivation: "",
+  //       expectations: "",
+  //       screeningExperience: 5,
+  //       counselingExperience: 5,
+  //       selectedDates: [],
+  //       teamPreference: "",
+  //       isBackupVolunteer: false,
+  //       clinicalExperience: "",
+  //     });
+  //   } catch (error) {
+  //     console.error('Application submission error:', error);
+  //     setSubmitStatus({
+  //       type: "error",
+  //       message: error instanceof Error ? error.message : "An error occurred. Please try again later.",
+  //     });
+  //   } finally {
+  //     setIsSubmitting(false);
+  //   }
+  // };
 
-  const handleDateToggle = (date: string) => {
-    setFormData((prev) => ({
-      ...prev,
-      selectedDates: prev.selectedDates.includes(date)
-        ? prev.selectedDates.filter((d) => d !== date)
-        : [...prev.selectedDates, date],
-    }));
-  };
+  // const handleDateToggle = (date: string) => {
+  //   setFormData((prev) => ({
+  //     ...prev,
+  //     selectedDates: prev.selectedDates.includes(date)
+  //       ? prev.selectedDates.filter((d) => d !== date)
+  //       : [...prev.selectedDates, date],
+  //   }));
+  // };
 
   return (
     <>
@@ -203,9 +203,8 @@ export default function JoinPage() {
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-br from-[#0097b2]/10 via-transparent to-[#F5C94D]/10" />
                 <div className="relative">
                   <div className="flex items-center gap-2 mb-4">
-                    <span className="h-2.5 w-2.5 rounded-full bg-[#0097b2]" />
-                    <span className="h-2.5 w-2.5 rounded-full bg-[#0097b2]" />
-                    <span className="h-2.5 w-2.5 rounded-full bg-[#C1C3C3]" />
+                    <div className="h-1 w-8 bg-[#0097b2] rounded-full" />
+                    <div className="h-1 w-1 bg-[#0097b2] rounded-full" />
                   </div>
                   <h3 className="text-xl sm:text-2xl font-semibold mb-4 text-[#1C1F1E] dark:text-[#FCFAEF]">
                     Hands-On Experience
@@ -226,9 +225,8 @@ export default function JoinPage() {
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-br from-[#eeba2b]/10 via-transparent to-[#0097b2]/10" />
                 <div className="relative">
                   <div className="flex items-center gap-2 mb-4">
-                    <span className="h-2.5 w-2.5 rounded-full bg-[#eeba2b]" />
-                    <span className="h-2.5 w-2.5 rounded-full bg-[#eeba2b]" />
-                    <span className="h-2.5 w-2.5 rounded-full bg-[#C1C3C3]" />
+                    <div className="h-1 w-8 bg-[#eeba2b] rounded-full" />
+                    <div className="h-1 w-1 bg-[#eeba2b] rounded-full" />
                   </div>
                   <h3 className="text-xl sm:text-2xl font-semibold mb-4 text-[#1C1F1E] dark:text-[#FCFAEF]">
                     Leadership Development
@@ -249,9 +247,8 @@ export default function JoinPage() {
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-br from-[#0097b2]/10 via-transparent to-[#F5C94D]/10" />
                 <div className="relative">
                   <div className="flex items-center gap-2 mb-4">
-                    <span className="h-2.5 w-2.5 rounded-full bg-[#0097b2]" />
-                    <span className="h-2.5 w-2.5 rounded-full bg-[#0097b2]" />
-                    <span className="h-2.5 w-2.5 rounded-full bg-[#C1C3C3]" />
+                    <div className="h-1 w-8 bg-[#0097b2] rounded-full" />
+                    <div className="h-1 w-1 bg-[#0097b2] rounded-full" />
                   </div>
                   <h3 className="text-xl sm:text-2xl font-semibold mb-4 text-[#1C1F1E] dark:text-[#FCFAEF]">
                     Community Impact
@@ -278,9 +275,8 @@ export default function JoinPage() {
               className="text-center mb-8 sm:mb-12"
             >
               <div className="flex items-center gap-2 justify-center mb-4">
-                <span className="h-2.5 w-2.5 rounded-full bg-[#0097b2]" />
-                <span className="h-2.5 w-2.5 rounded-full bg-[#0097b2]" />
-                <span className="h-2.5 w-2.5 rounded-full bg-[#C1C3C3]" />
+                <div className="h-1 w-8 bg-[#0097b2] rounded-full" />
+                <div className="h-1 w-1 bg-[#0097b2] rounded-full" />
               </div>
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold mb-4 text-[#1C1F1E] dark:text-[#FCFAEF]">
                 Volunteer Application
@@ -297,7 +293,30 @@ export default function JoinPage() {
               viewport={{ once: true }}
               className="bg-[#FCFAEF] dark:bg-[#1C1F1E] rounded-2xl shadow-xl p-6 sm:p-8 md:p-10 border border-[#E6E7E7]/20 dark:border-[#4F5554]/20"
             >
-              {submitStatus.type && (
+              {/* Applications Coming Soon Notice */}
+              <div className="text-center py-12 sm:py-16">
+                <div className="inline-flex items-center justify-center w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-br from-[#0097b2] to-[#0F4C5C] mb-6">
+                  <svg className="w-10 h-10 sm:w-12 sm:h-12 text-[#FCFAEF]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <h3 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-[#1C1F1E] dark:text-[#FCFAEF] mb-4">
+                  Applications Opening Soon!
+                </h3>
+                <p className="text-base sm:text-lg text-[#2F3332] dark:text-[#E6E7E7] leading-relaxed max-w-2xl mx-auto mb-6">
+                  We&apos;re currently preparing our volunteer application process. Applications will be opening soon, and we can&apos;t wait to welcome new members to our team!
+                </p>
+                <p className="text-sm sm:text-base text-[#2F3332]/80 dark:text-[#E6E7E7]/80 leading-relaxed max-w-xl mx-auto">
+                  In the meantime, feel free to reach out to us at{" "}
+                  <a href="mailto:akomapahealth@gmail.com" className="text-[#0097b2] dark:text-[#66C4DC] hover:text-[#eeba2b] dark:hover:text-[#F5C94D] transition-colors font-medium">
+                    akomapahealth@gmail.com
+                  </a>
+                  {" "}if you have any questions about volunteering with Akomapa.
+                </p>
+              </div>
+
+              {/* Form commented out - will be restored later */}
+              {/* {submitStatus.type && (
                 <Alert
                   variant={submitStatus.type === "success" ? "default" : "destructive"}
                   className="mb-6"
@@ -312,7 +331,7 @@ export default function JoinPage() {
               )}
 
               <form onSubmit={handleSubmit} className="space-y-8 sm:space-y-10">
-                {/* Personal Information */}
+
                 <div className="space-y-6">
                   <h3 className="text-xl sm:text-2xl font-semibold text-[#1C1F1E] dark:text-[#FCFAEF]">
                     Personal Information
@@ -415,7 +434,7 @@ export default function JoinPage() {
                   </div>
                 </div>
 
-                {/* Motivation and Experience */}
+
                 <div className="space-y-6 pt-6 border-t border-[#E6E7E7]/40 dark:border-[#4F5554]/40">
                   <h3 className="text-xl sm:text-2xl font-semibold text-[#1C1F1E] dark:text-[#FCFAEF]">
                     Motivation and Experience
@@ -487,7 +506,7 @@ export default function JoinPage() {
                   </div>
                 </div>
 
-                {/* Availability */}
+
                 <div className="space-y-6 pt-6 border-t border-[#E6E7E7]/40 dark:border-[#4F5554]/40">
                   <h3 className="text-xl sm:text-2xl font-semibold text-[#1C1F1E] dark:text-[#FCFAEF]">
                     Availability
@@ -552,7 +571,7 @@ export default function JoinPage() {
                   </div>
                 </div>
 
-                {/* Additional Information */}
+
                 <div className="space-y-6 pt-6 border-t border-[#E6E7E7]/40 dark:border-[#4F5554]/40">
                   <h3 className="text-xl sm:text-2xl font-semibold text-[#1C1F1E] dark:text-[#FCFAEF]">
                     Additional Information
@@ -589,6 +608,7 @@ export default function JoinPage() {
                   )}
                 </div>
               </form>
+              */}
             </motion.div>
           </div>
         </div>
