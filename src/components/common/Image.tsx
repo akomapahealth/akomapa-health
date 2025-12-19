@@ -53,6 +53,12 @@ export default function Image({
     });
   }, [src, quality, width, height, minWidth, minHeight]);
 
+  // Reset loading state when image URL changes
+  // This ensures the placeholder shows when switching between images
+  useEffect(() => {
+    setImageLoaded(false);
+  }, [imageUrl]);
+
   // Show placeholder during SSR and initial client render
   if (!isClient) {
     return (
