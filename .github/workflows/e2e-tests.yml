@@ -82,13 +82,15 @@ jobs:
               comment.body.includes('E2E Test Results')
             );
             
-            const testJob = await github.rest.actions.listJobsForWorkflowRun({
+            const jobs = await github.rest.actions.listJobsForWorkflowRun({
               owner: context.repo.owner,
               repo: context.repo.repo,
               run_id: context.runId,
             });
             
-            const hasFailures = testJob.data.jobs.some(job => job.conclusion === 'failure');
+            // Check only the 'test' job conclusion, not all jobs
+            const testJobResult = jobs.data.jobs.find(job => job.name === 'test');
+            const hasFailures = testJobResult?.conclusion === 'failure';
             const statusText = hasFailures ? 'FAILED' : 'PASSED';
             
             const body = `## E2E Test Results - ${statusText}
