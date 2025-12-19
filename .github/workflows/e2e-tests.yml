@@ -7,6 +7,12 @@ on:
     branches: [ main, develop ]
   workflow_dispatch:
 
+# Permissions needed for commenting on PRs
+permissions:
+  issues: write
+  pull-requests: write
+  contents: read
+
 jobs:
   test:
     timeout-minutes: 30
