@@ -89,9 +89,10 @@ export default function Image({
       width: "100%",
       inset: 0,
     }),
+    // Always include transition so opacity changes animate smoothly
+    transition: "opacity 0.3s ease-in-out",
     ...(!imageLoaded && {
       opacity: 0,
-      transition: "opacity 0.3s ease-in-out",
     }),
     ...(imageLoaded && {
       opacity: 1,
