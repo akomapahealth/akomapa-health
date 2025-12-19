@@ -129,8 +129,8 @@ export default function Image({
         sizes={sizes}
         style={imageStyle}
         onLoad={() => setImageLoaded(true)}
-        // Add fetchpriority for priority images to improve caching behavior
-        {...(priority && { fetchPriority: "high" })}
+        // Add fetchpriority (lowercase HTML attribute) for priority images to improve caching behavior
+        {...(priority && { fetchpriority: "high" })}
       />
     </>
   );
