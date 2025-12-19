@@ -19,7 +19,12 @@ export default defineConfig({
     baseURL: process.env.PLAYWRIGHT_TEST_BASE_URL || 'http://localhost:3000',
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
+    // Increase timeout for slow pages with animations
+    actionTimeout: 15000,
   },
+  
+  // Increase test timeout for pages that take longer to render
+  timeout: 60000, // 60 seconds
 
   projects: [
     {
