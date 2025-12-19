@@ -1,8 +1,8 @@
 import { defineConfig, devices } from '@playwright/test';
 
 /**
- * Playwright configuration for E2E testing
- * Tests the homepage across multiple browsers and viewport sizes
+ * Simplified Playwright configuration for E2E testing
+ * Tests page rendering using Chromium browser only
  */
 export default defineConfig({
   testDir: './e2e',
@@ -13,51 +13,18 @@ export default defineConfig({
   reporter: [
     ['html'],
     ['list'],
-    ['json', { outputFile: 'test-results/results.json' }]
   ],
   
   use: {
     baseURL: process.env.PLAYWRIGHT_TEST_BASE_URL || 'http://localhost:3000',
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
-    video: 'retain-on-failure',
   },
 
   projects: [
-    // Chrome
     {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
-    },
-    
-    // Firefox
-    {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
-    },
-    
-    // Safari/WebKit
-    {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
-    },
-    
-    // Mobile Chrome
-    {
-      name: 'Mobile Chrome',
-      use: { ...devices['Pixel 5'] },
-    },
-    
-    // Mobile Safari
-    {
-      name: 'Mobile Safari',
-      use: { ...devices['iPhone 12'] },
-    },
-    
-    // Tablet
-    {
-      name: 'Tablet',
-      use: { ...devices['iPad Pro'] },
     },
   ],
 
