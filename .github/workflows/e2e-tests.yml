@@ -96,7 +96,8 @@ jobs:
             
             // Check only the 'test' job conclusion, not all jobs
             const testJobResult = jobs.data.jobs.find(job => job.name === 'test');
-            const hasFailures = testJobResult?.conclusion === 'failure';
+            // Ensure hasFailures is always a boolean, even if test job is not found
+            const hasFailures = testJobResult ? testJobResult.conclusion === 'failure' : false;
             const statusText = hasFailures ? 'FAILED' : 'PASSED';
             
             const body = `## E2E Test Results - ${statusText}
