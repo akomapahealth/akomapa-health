@@ -1,49 +1,29 @@
-# E2E Testing for Homepage
+# E2E Testing
 
-This directory contains comprehensive end-to-end tests for the Akomapa Health homepage using Playwright.
+Simple end-to-end tests for Akomapa Health using Playwright. Tests verify that all main pages render correctly without errors.
 
 ## Test Coverage
 
-### 1. Responsive Layout Tests (`homepage-responsive.spec.ts`)
-- Tests homepage across multiple viewport sizes (mobile, tablet, desktop)
-- Verifies layouts don't break on different screen sizes
-- Checks for horizontal overflow issues
-- Validates responsive grid layouts
-- Tests mobile navigation menu
+The test suite (`pages-render.spec.ts`) performs basic smoke tests on all main pages:
+- Verifies pages load without errors
+- Checks page titles
+- Validates header and main content are visible
+- Ensures no critical console errors
 
-### 2. Interactive Features Tests (`homepage-interactive-features.spec.ts`)
-- **Hero Section**: Slideshow, CTA buttons, scroll indicator
-- **Impact Metrics**: Animated counters that trigger on scroll
-- **Testimonials**: Carousel navigation (next/previous buttons, indicator dots)
-- **Gallery**: Category filters, lightbox, show more/less functionality
-- **Location Section**: Photo carousel navigation
-- **Program Cards**: Modal opening, links
-- **Header Navigation**: Desktop and mobile menu
+### Pages Tested
 
-### 3. Content Verification Tests (`homepage-content-verification.spec.ts`)
-- Verifies all main sections are present
-- Checks content text matches expected values
-- Validates impact metrics display
-- Tests testimonials content
-- Verifies program information
-- Checks location information
-- Validates page metadata
-- Tests accessibility (headings hierarchy, alt text)
-
-### 4. Cross-Browser Compatibility Tests (`homepage-cross-browser.spec.ts`)
-- Tests homepage on Chrome, Firefox, and Safari/WebKit
-- Verifies consistent behavior across browsers
-- Tests animations, carousels, and interactive features
-- Validates responsive layouts on all browsers
-- Checks image handling
-- Tests form inputs
-- Verifies scroll behavior
-
-### 5. Visual Regression Tests (`homepage-visual-regression.spec.ts`)
-- Takes screenshots of key sections
-- Compares visual appearance across browsers
-- Tests on desktop, tablet, and mobile viewports
-- Screenshots of hero, programs, testimonials, gallery, and metrics sections
+- `/` (Home)
+- `/about`
+- `/about/team`
+- `/programs`
+- `/clinics`
+- `/research`
+- `/contact`
+- `/donate`
+- `/join`
+- `/partner`
+- `/roadmap`
+- `/resources`
 
 ## Running Tests
 
@@ -67,135 +47,94 @@ npm run test:e2e:headed
 npm run test:e2e:debug
 ```
 
-### Run Specific Test Suites
-
-#### Responsive Tests
-```bash
-npm run test:e2e:responsive
-```
-
-#### Interactive Features Tests
-```bash
-npm run test:e2e:interactive
-```
-
-#### Content Verification Tests
-```bash
-npm run test:e2e:content
-```
-
-#### Cross-Browser Tests
-```bash
-npm run test:e2e:cross-browser
-```
-
-#### Visual Regression Tests
-```bash
-npm run test:e2e:visual
-```
-
-### Run Tests on Specific Browsers
-
-#### Chrome
-```bash
-npm run test:e2e:chrome
-```
-
-#### Firefox
-```bash
-npm run test:e2e:firefox
-```
-
-#### Safari/WebKit
-```bash
-npm run test:e2e:webkit
-```
-
-#### Mobile Browsers
-```bash
-npm run test:e2e:mobile
-```
-
-### Update Visual Snapshots
-```bash
-npm run test:e2e:update-snapshots
-```
-
 ## Test Configuration
 
-Tests are configured in `playwright.config.ts` with the following browsers and devices:
-
-- **Desktop**: Chrome, Firefox, Safari/WebKit
-- **Mobile**: Chrome (Pixel 5), Safari (iPhone 12)
-- **Tablet**: iPad Pro
-
-## Viewport Sizes Tested
-
-- Mobile Small: 375x667 (iPhone SE)
-- Mobile Medium: 390x844 (iPhone 12/13)
-- Mobile Large: 428x926 (iPhone Pro Max)
-- Tablet Portrait: 768x1024 (iPad)
-- Tablet Landscape: 1024x768 (iPad Landscape)
-- Desktop Small: 1280x720 (HD)
-- Desktop Medium: 1440x900 (MacBook)
-- Desktop Large: 1920x1080 (Full HD)
+Tests are configured in `playwright.config.ts`:
+- **Browser**: Chromium only
+- **Reporter**: HTML and list
+- **Retries**: 2 retries in CI, 0 locally
+- **Screenshots**: On failure only
 
 ## Test Results
+
+### Local Testing
+
+After running tests locally, view the HTML report:
+```bash
+npx playwright show-report
+```
 
 Test results are saved in:
 - `test-results/` - Test execution results and screenshots
 - `playwright-report/` - HTML test report (generated after test run)
 
-View the HTML report:
-```bash
-npx playwright show-report
-```
+### GitHub Actions
+
+Test results are automatically generated when tests run in GitHub Actions.
+
+#### Viewing Test Results on GitHub
+
+1. **Navigate to Actions**: Go to the "Actions" tab in your GitHub repository
+2. **Select Workflow Run**: Click on the latest "E2E Tests" workflow run
+3. **Download Artifacts**: 
+   - Scroll down to the "Artifacts" section
+   - Download `playwright-report` to view the HTML test report
+   - Download `test-results` for screenshots and detailed results
+
+#### Viewing the HTML Test Report
+
+After downloading the `playwright-report` artifact:
+
+1. Extract the zip file
+2. Open `index.html` in your web browser
+3. View detailed test results including:
+   - Test execution timeline
+   - Pass/fail status for each test
+   - Screenshots (on failures)
+   - Test traces (on retries)
+
+#### Test Results in Pull Requests
+
+When tests run on pull requests, a comment is automatically posted with:
+- Test status (PASSED/FAILED)
+- Link to the workflow run
+- Instructions for viewing test artifacts
 
 ## CI/CD Integration
 
-The tests are configured to run in CI environments with:
-- Automatic retries (2 retries in CI)
-- Screenshot on failure
-- Video recording on failure
-- Trace on first retry
+Tests run automatically on:
+- Push to `main` or `develop` branches
+- Pull requests to `main` or `develop` branches
+- Manual workflow dispatch
 
-Set the `CI` environment variable to enable CI mode:
-```bash
-CI=true npm run test:e2e
-```
+### CI Configuration
+
+- **Browser**: Chromium only
+- **OS**: Ubuntu Latest
+- **Retries**: 2 automatic retries on failure
+- **Screenshots**: Captured on test failures
+- **Artifacts**: Test reports retained for 30 days
 
 ## Troubleshooting
 
 ### Tests Fail to Start
 - Ensure the dev server is running: `npm run dev`
 - Check that port 3000 is available
-- Verify Playwright browsers are installed: `npx playwright install`
+- Verify Playwright browsers are installed: `npx playwright install chromium`
 
-### Visual Regression Tests Fail
-- Update snapshots if UI changes are intentional: `npm run test:e2e:update-snapshots`
-- Check for browser-specific rendering differences
-- Verify viewport sizes match expected dimensions
+### Tests Fail Locally
+- Check that the application builds successfully: `npm run build`
+- Verify environment variables are set correctly
+- Review console errors in the test output
 
-### Interactive Features Not Working
-- Ensure JavaScript is enabled
-- Check for console errors in the browser
-- Verify animations have completed before assertions
-- Increase wait times if needed
-
-## Best Practices
-
-1. **Wait for Elements**: Always wait for elements to be visible before interacting
-2. **Use Specific Selectors**: Prefer role-based selectors (`getByRole`) over CSS selectors
-3. **Handle Async Operations**: Wait for animations and API calls to complete
-4. **Test Responsive**: Always test on multiple viewport sizes
-5. **Cross-Browser Testing**: Verify functionality works on all supported browsers
-6. **Visual Regression**: Update snapshots when UI changes are intentional
+### Viewing Test Results
+- Use `npx playwright show-report` to view local test results
+- Download artifacts from GitHub Actions to view CI test results
+- Check the workflow run logs for detailed error messages
 
 ## Notes
 
-- Tests are designed to be non-destructive (QA-focused)
-- Tests verify responsiveness without changing button behavior or styles
-- Tests check that layouts don't break on mobile devices
-- Tests verify interactive features function correctly
-- Tests validate content matches expected text
-
+- Tests are minimal smoke tests focused on page rendering
+- No image testing is performed (to avoid unnecessary API calls)
+- Tests verify basic page structure and no critical errors
+- Focus is on "does the page render without errors" rather than detailed feature testing

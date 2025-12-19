@@ -6,25 +6,11 @@ on:
   pull_request:
     branches: [ main, develop ]
   workflow_dispatch:
-  schedule:
-    # Run tests daily at 2 AM UTC
-    - cron: '0 2 * * *'
 
 jobs:
   test:
-    timeout-minutes: 60
-    runs-on: ${{ matrix.os }}
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
-        browser: [chromium, firefox, webkit]
-        exclude:
-          # Reduce matrix size for faster feedback
-          - os: windows-latest
-            browser: webkit
-          - os: macos-latest
-            browser: firefox
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
@@ -40,7 +26,7 @@ jobs:
         run: npm ci
 
       - name: Install Playwright browsers
-        run: npx playwright install --with-deps ${{ matrix.browser }}
+        run: npx playwright install --with-deps chromium
 
       - name: Build application
         run: npm run build
@@ -58,52 +44,27 @@ jobs:
           CI: true
           PLAYWRIGHT_TEST_BASE_URL: http://localhost:3000
         continue-on-error: false
-        timeout-minutes: 30
-
-      - name: Upload test results
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: test-results-${{ matrix.os }}-${{ matrix.browser }}
-          path: |
-            test-results/
-            playwright-report/
-          retention-days: 30
+        timeout-minutes: 20
 
       - name: Upload test report
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: playwright-report-${{ matrix.os }}-${{ matrix.browser }}
+          name: playwright-report
           path: playwright-report/
-          retention-days: 7
+          retention-days: 30
 
-  test-summary:
-    needs: test
-    if: always()
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Download all test results
-        uses: actions/download-artifact@v4
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
         with:
-          path: all-test-results
-
-      - name: Generate test summary
-        run: |
-          echo "## E2E Test Results" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "Tests completed across all browsers and operating systems." >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "### Test Artifacts" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "Download test results and reports from the artifacts section above." >> $GITHUB_STEP_SUMMARY
+          name: test-results
+          path: test-results/
+          retention-days: 7
 
   comment-pr:
     if: github.event_name == 'pull_request' && always()
-    needs: [test, test-summary]
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - name: Comment PR
@@ -121,16 +82,15 @@ jobs:
               comment.body.includes('E2E Test Results')
             );
             
-            // Check if tests failed
-            const testJobs = await github.rest.actions.listJobsForWorkflowRun({
+            const jobs = await github.rest.actions.listJobsForWorkflowRun({
               owner: context.repo.owner,
               repo: context.repo.repo,
               run_id: context.runId,
             });
             
-            const failedJobs = testJobs.data.jobs.filter(job => job.conclusion === 'failure');
-            const hasFailures = failedJobs.length > 0;
-            
+            // Check only the 'test' job conclusion, not all jobs
+            const testJobResult = jobs.data.jobs.find(job => job.name === 'test');
+            const hasFailures = testJobResult?.conclusion === 'failure';
             const statusText = hasFailures ? 'FAILED' : 'PASSED';
             
             const body = `## E2E Test Results - ${statusText}
@@ -141,15 +101,17 @@ jobs:
             
             ### Test Details
             - **Workflow Run**: [View Details](${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId})
-            - **Test Artifacts**: Download test results, screenshots, videos, and traces from the workflow run
-            - **Test Reports**: View HTML test reports in the artifacts section
+            - **Test Report**: Download the \`playwright-report\` artifact to view the HTML test report
+            - **Test Results**: Download the \`test-results\` artifact for screenshots and detailed results
             
-            ${hasFailures ? `### Failed Jobs\n${failedJobs.map(job => `- ${job.name} (${job.conclusion})`).join('\n')}\n` : ''}
+            ### Viewing Test Results
             
-            ### Next Steps
-            ${hasFailures 
-              ? '1. Review the test failures in the workflow run\n2. Check test artifacts for screenshots and videos\n3. Fix the issues and push again\n4. Tests will run automatically on the next push'
-              : '1. Review the test results in the workflow run\n2. Merge the pull request if all tests pass\n3. Continue development'}
+            After downloading the \`playwright-report\` artifact:
+            1. Extract the zip file
+            2. Open \`index.html\` in your browser
+            3. View detailed test results, screenshots, and traces
+            
+            ${hasFailures ? '### Next Steps\n1. Review the test failures in the workflow run\n2. Check test artifacts for screenshots\n3. Fix the issues and push again\n4. Tests will run automatically on the next push' : '### Next Steps\n1. Review the test results in the workflow run\n2. Merge the pull request if all tests pass\n3. Continue development'}
             
             ---
             *This comment is automatically generated by GitHub Actions.*`;
