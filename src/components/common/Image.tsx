@@ -44,15 +44,20 @@ export default function Image({
     setIsClient(true);
   }, []);
 
+  // Calculate display dimensions - use minWidth/minHeight if provided, otherwise use width/height
+  // This ensures consistency between URL generation and img element attributes
+  const displayWidth = minWidth || width;
+  const displayHeight = minHeight || height;
+
   // Generate ImageKit URL with transformations
   // Use useMemo to ensure consistent URLs for caching (prevents unnecessary re-renders and API calls)
   const imageUrl = useMemo(() => {
     return getImageKitUrl(src, {
       quality,
-      width: minWidth || width,
-      height: minHeight || height,
+      width: displayWidth,
+      height: displayHeight,
     });
-  }, [src, quality, width, height, minWidth, minHeight]);
+  }, [src, quality, displayWidth, displayHeight]);
 
   // Reset loading state when image URL changes
   // This ensures the placeholder shows when switching between images
@@ -74,9 +79,9 @@ export default function Image({
             inset: 0,
             minHeight: '100px', // Fallback minimum height for fill mode
           }),
-          ...(width && height && !fill && {
-            width: `${width}px`,
-            height: `${height}px`,
+          ...(displayWidth && displayHeight && !fill && {
+            width: `${displayWidth}px`,
+            height: `${displayHeight}px`,
           }),
         }}
         aria-hidden="true"
@@ -114,9 +119,9 @@ export default function Image({
       // Ensure placeholder has proper dimensions even in fill mode
       minHeight: '100px', // Fallback minimum height for fill mode
     }),
-    ...(width && height && !fill && {
-      width: `${width}px`,
-      height: `${height}px`,
+    ...(displayWidth && displayHeight && !fill && {
+      width: `${displayWidth}px`,
+      height: `${displayHeight}px`,
     }),
   };
 
@@ -143,8 +148,8 @@ export default function Image({
           <img
             src={imageUrl}
             alt={alt}
-            width={fill ? undefined : width}
-            height={fill ? undefined : height}
+            width={fill ? undefined : displayWidth}
+            height={fill ? undefined : displayHeight}
             className={className}
             loading={priority ? "eager" : "lazy"}
             sizes={sizes}
@@ -157,8 +162,8 @@ export default function Image({
               setImageError(true);
               setImageLoaded(false);
             }}
-            // Add fetchpriority (lowercase HTML attribute) for priority images to improve caching behavior
-            {...(priority && { fetchpriority: "high" })}
+            // Add fetchPriority (uppercase HTML attribute) for priority images to improve caching behavior
+            {...(priority && { fetchPriority: "high" })}
           />
         </>
       )}
