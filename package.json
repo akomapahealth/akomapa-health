@@ -12,17 +12,7 @@
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:headed": "playwright test --headed",
-    "test:e2e:debug": "playwright test --debug",
-    "test:e2e:chrome": "playwright test --project=chromium",
-    "test:e2e:firefox": "playwright test --project=firefox",
-    "test:e2e:webkit": "playwright test --project=webkit",
-    "test:e2e:mobile": "playwright test --project='Mobile Chrome' --project='Mobile Safari'",
-    "test:e2e:responsive": "playwright test e2e/homepage-responsive.spec.ts",
-    "test:e2e:interactive": "playwright test e2e/homepage-interactive-features.spec.ts",
-    "test:e2e:content": "playwright test e2e/homepage-content-verification.spec.ts",
-    "test:e2e:cross-browser": "playwright test e2e/homepage-cross-browser.spec.ts",
-    "test:e2e:visual": "playwright test e2e/homepage-visual-regression.spec.ts",
-    "test:e2e:update-snapshots": "playwright test --update-snapshots"
+    "test:e2e:debug": "playwright test --debug"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.2",
