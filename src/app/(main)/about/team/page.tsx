@@ -218,7 +218,7 @@ const executiveTeam: SpotlightMember[] = [
     image: "/images/team/mighty-doffoe.jpg",
     email: "mighty.doffoe@akomapa.org",
     linkedin: "https://linkedin.com/in/mighty-doffoe",
-    bio: "Mighty Doffoe is a final year Computer Science student at Bridgewater College. He currrently serves as the Assistant Head of IT for Akomapa. Mighty Doffoe supports Akomapa's IT operations, maintaining systems and developing tools that streamline our workflows. His contributions ensure that technology enhances rather than hinders our mission delivery."
+    bio: "Mighty Doffoe is a final year Computer Science student at Bridgewater College. He currrently serves as the Associate Head of IT for Akomapa. Mighty Doffoe supports Akomapa's IT operations, maintaining systems and developing tools that streamline our workflows. His contributions ensure that technology enhances rather than hinders our mission delivery."
   },
   {
     name: "Kelvin Fiifi",
