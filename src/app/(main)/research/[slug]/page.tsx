@@ -40,43 +40,13 @@ interface ResearchPaper {
 const researchPapers: ResearchPaper[] = [
   {
     id: "1",
-    title: "Student-Powered Community Clinics: A Model for Sustainable Healthcare Delivery in Underserved Communities",
-    authors: "B. A. Fleischer, E. B. Berkoh, B. Amoh, et al.",
+    title: "Exploring Health Professional Student-Led Interventions To Address Gaps In Common Non-Communicable Disease (NCD) Screening, Management, And Self-Care Education In Ghana.",
+    authors: "B. A. Fleischer",
     abstract: "This research presents the Akomapa model of student-powered community clinics, examining their effectiveness in delivering primary care and chronic disease management in underserved communities across Ghana. We analyze clinical outcomes, patient satisfaction, and the educational impact on student healthcare leaders.",
-    date: "2024",
+    date: "January 2025",
     pdfUrl: "/documents/research.pdf",
     image: "/highlights/Akomapa-28.jpg",
-    slug: "student-powered-community-clinics"
-  },
-  {
-    id: "2",
-    title: "Impact of Interprofessional Education on Community Health Outcomes: A Longitudinal Study",
-    authors: "E. B. Berkoh, D. K. Ofosu, H. Shaban, et al.",
-    abstract: "Longitudinal analysis of how interprofessional student teams trained through the Akomapa Leadership Program deliver coordinated care that improves health outcomes in rural and peri-urban settings. This study tracks patient outcomes, student learning gains, and community engagement metrics over a 24-month period.",
-    date: "2024",
-    pdfUrl: "/documents/research.pdf",
-    image: "/highlights/Akomapa-40.jpg",
-    slug: "interprofessional-education-impact"
-  },
-  {
-    id: "3",
-    title: "Non-Communicable Disease Screening and Management in Low-Resource Settings: Evidence from Community-Based Clinics",
-    authors: "A. Badu, W. Obeng, S. Dankwa, et al.",
-    abstract: "This paper examines the effectiveness of free community-based screening programs for hypertension, diabetes, and other non-communicable diseases in Ghana. We present data on early detection rates, treatment adherence, and the role of community partnerships in sustaining these initiatives.",
-    date: "2023",
-    pdfUrl: "/documents/research.pdf",
-    image: "/highlights/Akomapa-61.jpg",
-    slug: "ncd-screening-management"
-  },
-  {
-    id: "4",
-    title: "Global Health Leadership Training: Preparing the Next Generation of Ethical Practitioners",
-    authors: "N. A. Ocran, C. A. Buckman, D. A. Tuoyire, et al.",
-    abstract: "Evaluation of the Akomapa Global Health Leadership Training Program, assessing how intensive leadership curricula combined with hands-on clinical rotations prepare students to address health inequities with cultural humility, evidence-based practice, and systems thinking.",
-    date: "2023",
-    pdfUrl: "/documents/research.pdf",
-    image: "/highlights/Akomapa-66.jpg",
-    slug: "global-health-leadership-training"
+    slug: "student-led-interventions"
   }
 ];
 

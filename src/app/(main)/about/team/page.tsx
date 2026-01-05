@@ -242,7 +242,7 @@ const executiveTeam: SpotlightMember[] = [
 
 const advisoryBoard: SpotlightMember[] = [
   {
-    name: "Dr. Derek Anamaale Tuoyire",
+    name: "Prof. Derek Anamaale Tuoyire",
     role: "Head of Community Medicine",
     org: "University of Cape Coast",
     image: "/images/team/dr-tuoyire.jpeg"
@@ -261,9 +261,9 @@ const advisoryBoard: SpotlightMember[] = [
   },
   {
     name: "Dr. Jeremy Schwartz",
-    role: "Head, Chronic Care Access Lab",
+    role: "PI, Chronic Care Access Lab",
     org: "Yale University",
-    image: "/images/team/placeholder.jpg"
+    image: "/images/team/jeremy-schwartz.jpeg"
   },
   {
     name: "Dr. Adrian Mayo",
