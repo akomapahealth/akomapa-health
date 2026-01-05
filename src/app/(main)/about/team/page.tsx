@@ -261,7 +261,7 @@ const advisoryBoard: SpotlightMember[] = [
   },
   {
     name: "Dr. Jeremy Schwartz",
-    role: "PI, Chronic Care Access Lab",
+    role: "Associate Professor of Medicine",
     org: "Yale University",
     image: "/images/team/jeremy-schwartz.jpeg"
   },
