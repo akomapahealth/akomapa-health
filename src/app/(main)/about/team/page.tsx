@@ -114,7 +114,7 @@ const executiveTeam: SpotlightMember[] = [
   },
   {
     name: "Afriyie Badu, MD",
-    role: "Co-Founder & Finance Lead",
+    role: "Co-Founder & CFO",
     org: "University of Ghana",
     image: "/images/team/afriyie-badu.jpg",
     email: "afriyie.badu@akomapa.org",
@@ -122,8 +122,17 @@ const executiveTeam: SpotlightMember[] = [
     bio: "Dr. Afriyie Badu oversees Akomapa's financial strategy and sustainability initiatives. With expertise in healthcare economics and resource management, he ensures that every dollar invested creates lasting value for the communities we serve.Dr. Nana Yaw Afriyie Badu is a medical doctor and a Co-founder and Chief Financial Officer (CFO) of Akomapa. In his role, he oversees the organization’s financial strategy and sustainability, ensuring that programs are effectively resourced to make a lasting community impact. He co-founded Akomapa out of a desire to transform the approach to non-communicable diseases by shifting the focus from treatment to prevention through early detection, education, and lifestyle interventions. Outside Akomapa, Dr. Badu is deeply passionate about orthopaedic surgery, sports medicine, and public health advocacy, and continues to champion initiatives that bridge healthcare access and community wellness."
   },
   {
+    name: "Prince Agyei Tuffour",
+    role: "CTO",
+    org: "Akomapa Health Foundation",
+    image: "/images/team/prince-tuffour.jpg",
+    email: "prince.tuffour@akomapa.org",
+    linkedin: "https://linkedin.com/in/prince-agyei-tuffour",
+    bio: "Prince Agyei Tuffour manages Akomapa's technology infrastructure, ensuring our digital systems support efficient operations and data management. His technical expertise enables scalable solutions for our growing organization."
+  },
+  {
     name: "Adwoa Danso-Dodoo",
-    role: "Finance Associate Lead",
+    role: "Associate Finance Lead",
     org: "Yale University",
     image: "/images/team/adwoa-danso-dodoo.jpg",
     email: "adwoa.danso@akomapa.org",
@@ -203,22 +212,13 @@ const executiveTeam: SpotlightMember[] = [
     bio: "Dr. Patrick Ampofo, an alumnus of UGMS and a first-year MPH student at Yale School of Public Health, currently serves as the UG expansion lead. He has a passion for bridging the gap in healthcare access disparities through evidence-based approaches and community-based interventions. In his current role, Dr. Ampofo is focused on helping establish the UG chapter of Akomapa by actively engaging key personnel and mobilizing medical students."
   },
   {
-    name: "Prince Agyei Tuffour",
-    role: "IT Services Lead",
-    org: "Akomapa Health Foundation",
-    image: "/images/team/prince-tuffour.jpg",
-    email: "prince.tuffour@akomapa.org",
-    linkedin: "https://linkedin.com/in/prince-tuffour",
-    bio: "Prince Agyei Tuffour manages Akomapa's technology infrastructure, ensuring our digital systems support efficient operations and data management. His technical expertise enables scalable solutions for our growing organization."
-  },
-  {
     name: "Mighty Doffoe",
-    role: "IT Services Associate Lead",
+    role: "Associate Head of IT",
     org: "Akomapa Health Foundation",
     image: "/images/team/mighty-doffoe.jpg",
     email: "mighty.doffoe@akomapa.org",
     linkedin: "https://linkedin.com/in/mighty-doffoe",
-    bio: "Mighty Doffoe is a final year Computer Science student at Bridgewater College. He currrently serves as the Assistant Head of IT for Akomapa. Mighty Doffoe supports Akomapa's IT operations, maintaining systems and developing tools that streamline our workflows. His contributions ensure that technology enhances rather than hinders our mission delivery."
+    bio: "Mighty Doffoe is a final year Computer Science student at Bridgewater College. He currrently serves as the Associate Head of IT for Akomapa. Mighty Doffoe supports Akomapa's IT operations, maintaining systems and developing tools that streamline our workflows. His contributions ensure that technology enhances rather than hinders our mission delivery."
   },
   {
     name: "Kelvin Fiifi",
@@ -242,7 +242,7 @@ const executiveTeam: SpotlightMember[] = [
 
 const advisoryBoard: SpotlightMember[] = [
   {
-    name: "Dr. Derek Anamaale Tuoyire",
+    name: "Prof. Derek Anamaale Tuoyire",
     role: "Head of Community Medicine",
     org: "University of Cape Coast",
     image: "/images/team/dr-tuoyire.jpeg"
@@ -261,9 +261,9 @@ const advisoryBoard: SpotlightMember[] = [
   },
   {
     name: "Dr. Jeremy Schwartz",
-    role: "Head, Chronic Care Access Lab",
+    role: "Associate Professor of Medicine",
     org: "Yale University",
-    image: "/images/team/placeholder.jpg"
+    image: "/images/team/jeremy-schwartz.jpeg"
   },
   {
     name: "Dr. Adrian Mayo",
