@@ -165,6 +165,20 @@ html.dark {
 /* Hero orbit portrait responsive sizing */
 @media (min-width: 1024px) {
   .hero-portrait {
+    width: 44px !important;
+    height: 44px !important;
+  }
+}
+
+@media (min-width: 1280px) {
+  .hero-portrait {
+    width: 56px !important;
+    height: 56px !important;
+  }
+}
+
+@media (min-width: 1536px) {
+  .hero-portrait {
     width: var(--portrait-size) !important;
     height: var(--portrait-size) !important;
   }

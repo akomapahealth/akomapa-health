@@ -8,6 +8,7 @@ import Image from "@/components/common/Image";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { Dialog, DialogPanel, Transition, TransitionChild } from "@headlessui/react";
+import { FadeIn, FadeInStagger, FadeInStaggerItem } from "@/components/animations";
 
 type SpotlightMember = {
   name: string;
@@ -26,14 +27,14 @@ const heroRows: Array<{
   faces: Array<{ image: string; delay: number }>;
 }> = [
   {
-    offset: "pr-2 lg:pr-4",
+    offset: "lg:pr-1 xl:pr-2 2xl:pr-4",
     faces: [
       { image: "/images/team/brian-fleischer.jpeg", delay: 0 },
       { image: "/images/team/esi-bon-berkoh.jpg", delay: 0.05 }
     ]
   },
   {
-    offset: "pr-8 lg:pr-12",
+    offset: "lg:pr-4 xl:pr-8 2xl:pr-12",
     faces: [
       { image: "/ucc-team/getwell_ebiram_essuman.JPG", delay: 0.1 },
       { image: "/ucc-team/david_konadu_kombate.JPG", delay: 0.15 },
@@ -41,7 +42,7 @@ const heroRows: Array<{
     ]
   },
   {
-    offset: "pr-14 lg:pr-20",
+    offset: "lg:pr-8 xl:pr-14 2xl:pr-20",
     faces: [
       { image: "/images/team/afriyie-badu.jpg", delay: 0.25 },
       { image: "/images/team/prince-agyei.jpg", delay: 0.3 },
@@ -50,7 +51,7 @@ const heroRows: Array<{
     ]
   },
   {
-    offset: "pr-20 lg:pr-28",
+    offset: "lg:pr-12 xl:pr-20 2xl:pr-28",
     faces: [
       { image: "/ucc-team/david_kojo_ofosu.JPG", delay: 0.45 },
       { image: "/images/team/gabrielle-nartey.JPG", delay: 0.5 },
@@ -59,7 +60,7 @@ const heroRows: Array<{
     ]
   },
   {
-    offset: "pr-24 lg:pr-36",
+    offset: "lg:pr-16 xl:pr-28 2xl:pr-36",
     faces: [
       { image: "/ucc-team/hafiz_shaban.JPG", delay: 0.65 },
       { image: "/images/team/mighty-doffoe.jpg", delay: 0.7 },
@@ -68,7 +69,7 @@ const heroRows: Array<{
     ]
   },
   {
-    offset: "pr-28 lg:pr-44",
+    offset: "lg:pr-20 xl:pr-36 2xl:pr-44",
     faces: [
       { image: "/ucc-team/martha_bawa.JPG", delay: 0.85 },
       { image: "/ucc-team/prince_nyarkoh.JPG", delay: 0.9 },
@@ -76,7 +77,7 @@ const heroRows: Array<{
     ]
   },
   {
-    offset: "pr-32 lg:pr-52",
+    offset: "lg:pr-24 xl:pr-44 2xl:pr-52",
     faces: [
       { image: "/ucc-team/frederick_baffour.JPG", delay: 1.0 },
       { image: "/ucc-team/gloria_tawia_blay.JPG", delay: 1.05 }
@@ -510,7 +511,7 @@ export default function TeamPage() {
 
   return (
     <>
-      <div className="container mx-auto">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-10 xl:px-12 2xl:px-6">
         <Breadcrumb />
       </div>
 
@@ -524,47 +525,51 @@ export default function TeamPage() {
         <div className="absolute top-0 right-0 w-64 h-64 bg-[#FCFAEF]/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl" />
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#FCFAEF]/10 rounded-full translate-y-1/2 -translate-x-1/2 blur-3xl" />
 
-        <div className="relative z-10 container mx-auto px-4 sm:px-6 flex flex-col gap-8 sm:gap-10 md:gap-12 lg:flex-row lg:items-center">
-          <div className="max-w-3xl w-full">
-            <p className="text-xs sm:text-sm uppercase tracking-[0.3em] sm:tracking-[0.5em] text-[#FCFAEF]/80 mb-3 sm:mb-4">
+        <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-10 xl:px-12 2xl:px-6 flex flex-col gap-8 sm:gap-10 md:gap-12 lg:flex-row lg:items-center">
+          <FadeIn direction="up" className="max-w-3xl lg:max-w-xl xl:max-w-2xl 2xl:max-w-3xl w-full">
+            <p className="text-xs sm:text-sm lg:text-xs xl:text-sm uppercase tracking-[0.3em] sm:tracking-[0.5em] text-[#FCFAEF]/80 mb-3 sm:mb-4">
               A team of young leaders for young people
             </p>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light leading-tight mb-4 sm:mb-6 text-[#FCFAEF]">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-light leading-tight mb-4 sm:mb-6 text-[#FCFAEF]">
               We are a youth-powered team reimagining healthcare with heart, science, and shared purpose.
             </h1>
-            <p className="text-base sm:text-lg md:text-xl text-[#FCFAEF]/80 mb-6 sm:mb-8">
+            <p className="text-base sm:text-lg lg:text-sm xl:text-base 2xl:text-lg text-[#FCFAEF]/80 mb-6 sm:mb-8">
               From Cape Coast to Yale and UCLA, Akomapa leaders blend academic rigor, community roots,
               and relentless hope to build a student-run model of care that is ethical, joyful, and
               unstoppable.
             </p>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-6 sm:mb-8">
+            <FadeInStagger className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 lg:gap-3 xl:gap-4 mb-6 sm:mb-8" staggerDelay={0.1}>
               {heroStats.map((stat) => (
-                <div key={stat.label} className="rounded-xl sm:rounded-2xl border border-white/10 bg-white/5 p-3 sm:p-4">
-                  <p className="text-2xl sm:text-3xl font-semibold text-white">{stat.value}</p>
-                  <p className="text-xs sm:text-sm uppercase tracking-[0.2em] sm:tracking-[0.3em] text-white/70 mt-1">{stat.label}</p>
-                </div>
+                <FadeInStaggerItem key={stat.label} direction="up">
+                  <div className="rounded-xl sm:rounded-2xl border border-white/10 bg-white/5 p-3 sm:p-4 lg:p-3 xl:p-4">
+                    <p className="text-2xl sm:text-3xl lg:text-xl xl:text-2xl 2xl:text-3xl font-semibold text-white">{stat.value}</p>
+                    <p className="text-xs sm:text-sm lg:text-xs xl:text-xs 2xl:text-sm uppercase tracking-[0.2em] sm:tracking-[0.3em] text-white/70 mt-1">{stat.label}</p>
+                  </div>
+                </FadeInStaggerItem>
               ))}
-            </div>
-            <div className="flex flex-wrap gap-3 sm:gap-4">
-              <Button asChild className={primaryCtaClass}>
-                <Link href="/contact">Meet with Us</Link>
-              </Button>
-              <Button asChild className={secondaryCtaClass}>
-                <Link href="/join">Join the Movement</Link>
-              </Button>
-            </div>
-          </div>
+            </FadeInStagger>
+            <FadeIn direction="up" delay={0.3}>
+              <div className="flex flex-wrap gap-3 sm:gap-4">
+                <Button asChild className={primaryCtaClass}>
+                  <Link href="/contact">Meet with Us</Link>
+                </Button>
+                <Button asChild className={secondaryCtaClass}>
+                  <Link href="/join">Join the Movement</Link>
+                </Button>
+              </div>
+            </FadeIn>
+          </FadeIn>
 
-          <div className="w-full max-w-full lg:w-[480px] flex flex-col gap-4 sm:gap-5 md:gap-6 lg:gap-7 self-center lg:self-start lg:ml-auto lg:pt-8 lg:translate-x-10 mt-8 lg:mt-0">
+          <div className="hidden lg:flex w-full max-w-full lg:w-[280px] xl:w-[360px] 2xl:w-[480px] flex-col lg:gap-4 xl:gap-5 2xl:gap-7 self-center lg:self-start lg:ml-auto lg:pt-8 lg:translate-x-2 xl:translate-x-6 2xl:translate-x-10 mt-8 lg:mt-0">
             {heroRows.map((row, rowIndex) => (
               <div
                 key={`row-${rowIndex}`}
-                className={`flex items-center justify-end gap-2 sm:gap-3 md:gap-4 ${row.offset}`}
+                className={`flex items-center justify-end lg:gap-2 xl:gap-3 2xl:gap-4 ${row.offset}`}
               >
                 {row.faces.map((face, faceIndex) => (
                   <div
                     key={`${face.image}-${faceIndex}`}
-                    className="flex items-center gap-2 sm:gap-3 md:gap-4"
+                    className="flex items-center lg:gap-2 xl:gap-3 2xl:gap-4"
                   >
                     <motion.div
                       initial={{ opacity: 0, scale: 0.8 }}
@@ -589,7 +594,7 @@ export default function TeamPage() {
                       />
                     </motion.div>
                     {faceIndex !== row.faces.length - 1 && (
-                      <span className="h-px w-6 sm:w-8 md:w-10 lg:w-14 border-t border-dotted border-white/30" />
+                      <span className="h-px lg:w-6 xl:w-10 2xl:w-14 border-t border-dotted border-white/30" />
                     )}
                   </div>
                 ))}
@@ -601,7 +606,7 @@ export default function TeamPage() {
 
       <section className="py-12 sm:py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
         <div className="container mx-auto px-4 sm:px-6">
-          <div className="max-w-3xl mb-8 sm:mb-12 text-center mx-auto space-y-3 sm:space-y-4">
+          <FadeIn direction="up" className="max-w-3xl mb-8 sm:mb-12 text-center mx-auto space-y-3 sm:space-y-4">
             <p className="text-xs sm:text-sm font-semibold tracking-[0.3em] sm:tracking-[0.5em] text-[#0097b2]">Executive Team</p>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#0B2F3A] dark:text-[#FCFAEF]">
               The builders behind the Akomapa model
@@ -610,7 +615,7 @@ export default function TeamPage() {
               Each leader blends academic excellence, community credibility, and operational discipline to
               ensure every clinic day reflects empathy, rigor, and trust.
             </p>
-          </div>
+          </FadeIn>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {executiveTeam.map((member) => (
@@ -627,7 +632,7 @@ export default function TeamPage() {
 
       <section className="py-12 sm:py-16 md:py-24 bg-gradient-to-r from-[#0097b2] via-[#0F4C5C] to-[#031C3A] text-white">
         <div className="container mx-auto px-4 sm:px-6">
-          <div className="max-w-3xl mb-8 sm:mb-12 text-center mx-auto space-y-3 sm:space-y-4">
+          <FadeIn direction="up" className="max-w-3xl mb-8 sm:mb-12 text-center mx-auto space-y-3 sm:space-y-4">
             <p className="text-xs sm:text-sm font-semibold tracking-[0.3em] sm:tracking-[0.5em] text-[#F5C94D]">Advisory Board</p>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold">
               Global experts guiding our ethics, science, and scale
@@ -636,7 +641,7 @@ export default function TeamPage() {
               Our advisors ensure Akomapa remains clinically sound, academically rigorous, and deeply
               community-rooted as we expand across regions.
             </p>
-          </div>
+          </FadeIn>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {advisoryBoard.map((member) => (
@@ -647,7 +652,7 @@ export default function TeamPage() {
       </section>
 
       <section className="py-12 sm:py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
-        <div className="container mx-auto px-4 sm:px-6 text-center space-y-4 sm:space-y-6">
+        <FadeIn direction="up" className="container mx-auto px-4 sm:px-6 text-center space-y-4 sm:space-y-6">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#0B2F3A] dark:text-[#FCFAEF]">
             Join the hearts behind the mission
           </h2>
@@ -656,15 +661,17 @@ export default function TeamPage() {
             student-powered healthcare. Your skills, story, or sponsorship could open the next door for
             patients we serve.
           </p>
-          <div className="flex flex-wrap gap-3 sm:gap-4 justify-center">
-            <Button asChild className={primaryCtaClass}>
-              <Link href="/partner">Partner with Akomapa</Link>
-            </Button>
-            <Button asChild className={secondaryCtaClass}>
-              <Link href="/join">Apply to Serve</Link>
-            </Button>
-          </div>
-        </div>
+          <FadeIn direction="up" delay={0.2}>
+            <div className="flex flex-wrap gap-3 sm:gap-4 justify-center">
+              <Button asChild className={primaryCtaClass}>
+                <Link href="/partner">Partner with Akomapa</Link>
+              </Button>
+              <Button asChild className={secondaryCtaClass}>
+                <Link href="/join">Apply to Serve</Link>
+              </Button>
+            </div>
+          </FadeIn>
+        </FadeIn>
       </section>
     </>
   );
