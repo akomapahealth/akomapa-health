@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, type Variants } from "framer-motion";
-import { ReactNode } from "react";
+import { ReactNode, type ElementType } from "react";
 
 type FadeInDirection = "up" | "down" | "left" | "right" | "none";
 
@@ -13,7 +13,7 @@ type FadeInProps = {
   duration?: number;
   once?: boolean;
   amount?: number;
-  as?: keyof JSX.IntrinsicElements;
+  as?: ElementType;
 };
 
 const getDirectionOffset = (direction: FadeInDirection) => {
@@ -62,7 +62,7 @@ export function FadeIn({
     },
   };
 
-  const MotionComponent = motion[as as keyof typeof motion] as typeof motion.div;
+  const MotionComponent = motion(as);
 
   return (
     <MotionComponent
