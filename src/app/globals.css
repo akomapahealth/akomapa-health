@@ -144,22 +144,22 @@ a:hover {
   body {
     @apply bg-background text-foreground font-body;
   }
+  
+  /* Add transitions for smooth dark mode changes - in base layer so utilities can override */
+  html {
+    transition: background-color 0.3s ease;
+  }
+  
+  html.dark body * {
+    transition-property: background-color, border-color, color, fill, stroke, transform, opacity;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 0.2s;
+  }
 }
 
 /* Add these styles to support theme switching while preserving all existing code */
 html.dark {
   color-scheme: dark;
-}
-
-/* Add transitions for smooth dark mode changes */
-html {
-  transition: background-color 0.3s ease;
-}
-
-html.dark body * {
-  transition-property: background-color, border-color, color, fill, stroke;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 0.2s;
 }
 
 /* Hero orbit portrait responsive sizing */
