@@ -91,8 +91,8 @@ const executiveTeam: SpotlightMember[] = [
     role: "Founder & President",
     org: "Yale University",
     image: "/images/team/brian-fleischer.jpeg",
-    email: "brian.fleischer@akomapa.org",
-    linkedin: "https://linkedin.com/in/brian-fleischer",
+    email: "brian.fleischer@yale.edu",
+    linkedin: "https://www.linkedin.com/in/brian-fleischer-md-37011010b/",
     bio: "Dr. Brian Fleischer is a visionary physician and global health leader dedicated to advancing equitable care for non-communicable diseases in underserved communities. A graduate of Yale School of Medicine and Stanford University, he founded the Akomapa Health Foundation to empower students and communities to drive sustainable solutions for hypertension and diabetes care across Ghana and beyond—building a movement of compassionate health leaders with akomapa, a “good heart.”"
   },
   {
@@ -100,8 +100,8 @@ const executiveTeam: SpotlightMember[] = [
     role: "Co-Founder & Vice President",
     org: "University of Cape Coast",
     image: "/images/team/esi-bon-berkoh.jpg",
-    email: "esi.berkoh@akomapa.org",
-    linkedin: "https://linkedin.com/in/esi-berkoh",
+    email: "esibberkoh@gmail.com",
+    linkedin: "https://linkedin.com/in/esiberkoh",
     bio: "Esi Berkoh is a final-year medical student at the University of Cape Coast School of Medical Sciences. She holds a BSc in Biology from Mount Holyoke College and an MSc in Infection, Immunity & Human Disease from the University of Leeds. As Vice President and co-founder of Akomapa Health, she coordinates clinic operations, supports leadership, and organizes outreach programs to serve underserved communities while gaining hands-on experience and leadership training."
   },
   {
@@ -109,8 +109,8 @@ const executiveTeam: SpotlightMember[] = [
     role: "Co-Founder & Research Lead",
     org: "David Geffen School of Medicine at UCLA",
     image: "/images/team/placeholder.jpg",
-    email: "bismark.amoh@akomapa.org",
-    linkedin: "https://linkedin.com/in/bismark-amoh",
+    email: "abismac@gmail.com",
+    linkedin: "https://linkedin.com/in/bismarkamoh",
     bio: "Bismark Amoh leads Akomapa's research initiatives, bringing rigorous scientific methodology to evaluate and improve our healthcare programs. His work ensures that every intervention is evidence-based and continuously refined for maximum impact on community health outcomes."
   },
   {
@@ -118,7 +118,7 @@ const executiveTeam: SpotlightMember[] = [
     role: "Co-Founder & CFO",
     org: "University of Ghana",
     image: "/images/team/afriyie-badu.jpg",
-    email: "afriyie.badu@akomapa.org",
+    email: "nanabadu59@gmail.com",
     linkedin: "https://linkedin.com/in/afriyie-badu",
     bio: "Dr. Afriyie Badu oversees Akomapa's financial strategy and sustainability initiatives. With expertise in healthcare economics and resource management, he ensures that every dollar invested creates lasting value for the communities we serve.Dr. Nana Yaw Afriyie Badu is a medical doctor and a Co-founder and Chief Financial Officer (CFO) of Akomapa. In his role, he oversees the organization’s financial strategy and sustainability, ensuring that programs are effectively resourced to make a lasting community impact. He co-founded Akomapa out of a desire to transform the approach to non-communicable diseases by shifting the focus from treatment to prevention through early detection, education, and lifestyle interventions. Outside Akomapa, Dr. Badu is deeply passionate about orthopaedic surgery, sports medicine, and public health advocacy, and continues to champion initiatives that bridge healthcare access and community wellness."
   },
@@ -127,7 +127,7 @@ const executiveTeam: SpotlightMember[] = [
     role: "CTO",
     org: "Akomapa Health Foundation",
     image: "/images/team/prince-tuffour.jpg",
-    email: "prince.tuffour@akomapa.org",
+    email: "prince.agyei.tuffour@gmail.com",
     linkedin: "https://linkedin.com/in/prince-agyei-tuffour",
     bio: "Prince Agyei Tuffour manages Akomapa's technology infrastructure, ensuring our digital systems support efficient operations and data management. His technical expertise enables scalable solutions for our growing organization."
   },
@@ -136,8 +136,8 @@ const executiveTeam: SpotlightMember[] = [
     role: "Associate Finance Lead",
     org: "Yale University",
     image: "/images/team/adwoa-danso-dodoo.jpg",
-    email: "adwoa.danso@akomapa.org",
-    linkedin: "https://linkedin.com/in/adwoa-danso",
+    email: "akomapahealth@gmail.com",
+    linkedin: "https://www.linkedin.com/in/adwoadanso-dodoo/",
     bio: "Adwoa Danso-Dodoo brings financial acumen and operational excellence to Akomapa's finance team. Her meticulous approach to budgeting and resource allocation ensures transparency and accountability in all our financial operations.Adwoa Danso-Dodoo is a Business Analyst at McKinsey & Company and a graduate of Yale College and the Yale School of Management, where she studied Chemical Engineering and Technology Management, respectively. She serves as Associate Finance Lead at Akomapa Health Foundation, helping to manage the organization’s budget. In addition, she is helping develop the Akomapa Summer Immersion Program. Adwoa joined the team because she is passionate about Akomapa’s mission to bring care to more communities and to encourage students to lead with empathy and purpose."
   },
   {
@@ -145,8 +145,8 @@ const executiveTeam: SpotlightMember[] = [
     role: "Chapter Co-Director, Akomapa UCC",
     org: "University of Cape Coast",
     image: "/ucc-team/david_kojo_ofosu.JPG",
-    email: "david.ofosu@akomapa.org",
-    linkedin: "https://linkedin.com/in/david-ofosu",
+    email: "ofosud.kojo@gmail.com",
+    linkedin: "https://linkedin.com/in/david-kojo-ofosu-9a592a300",
     bio: "David Kojo Ofosu is a final year medical student at the University of Cape Coast School (UCC) of Medical Sciences. He currently serves as the Co-Director of the UCC Chapter Akomapa. In his role,  he oversees all aspects of the clinic’s operations, ensuring alignment with its mission and goals, he together with his team develop strategic plans to guide the clinic’s growth and impact. He coordinate and chair leadership team meetings, ensuring all roles collaborate effectively. He acts as the primary point of contact for external partners, and funding organizations.he address operational challenges and ensure compliance with relevant guidelines and regulations He also represent the clinic in public forums, presentations, and community events."
   },
   {
@@ -154,8 +154,8 @@ const executiveTeam: SpotlightMember[] = [
     role: "Chapter Co-Director, Akomapa UCC",
     org: "University of Cape Coast",
     image: "/ucc-team/hafiz_shaban.JPG",
-    email: "hafiz.shaban@akomapa.org",
-    linkedin: "https://linkedin.com/in/hafiz-shaban",
+    email: "hafiz.shaban@stu.ucc.edu.gh",
+    linkedin: "https://linkedin.com/in/akomapahealth",
     bio: "Hafiz Shaban is a final-year nursing student at the University of Cape Coast and Co-Director of the UCC chapter of Akomapa. Passionate about global health and community-based medicine, he joined the clinic to expand access to quality healthcare for underserved communities. Hafiz is committed to promoting equitable, community-centered healthcare and developing as a global health leader."
   },
   {
@@ -163,8 +163,8 @@ const executiveTeam: SpotlightMember[] = [
     role: "Global Partnerships Lead",
     org: "Yale University",
     image: "/images/team/placeholder.jpg",
-    email: "sedem.dankwa@akomapa.org",
-    linkedin: "https://linkedin.com/in/sedem-dankwa",
+    email: "akomapahealth@gmail.com",
+    linkedin: "https://www.linkedin.com/in/sedem-dankwa-b651401b7/",
     bio: "Sedem Dankwa builds strategic partnerships that amplify Akomapa's impact globally. Her work connects our mission with organizations, institutions, and individuals who share our commitment to equitable healthcare access."
   },
   {
@@ -173,7 +173,7 @@ const executiveTeam: SpotlightMember[] = [
     org: "Yale University",
     image: "/images/team/nana-ama-ocran.PNG",
     email: "nana.ocran@akomapa.org",
-    linkedin: "https://linkedin.com/in/nana-ocran",
+    linkedin: "https://www.linkedin.com/in/nana-ama-nhyira-ocran-16957626b/",
     bio: "Nana Ama Ocran is a senior at Yale University studying History of Science, Medicine & Public Health, and French. She currently serves as the Leadership Training Program Lead for Akomapa Health Foundation, US. In her role, she designs and organizes opportunities for bidirectional learning that emphasize equity, collaboration, and community-rooted approaches to care. She joined Akomapa to support youth-driven health systems and strengthen cross-continental pathways for learning and leadership."
   },
   {
@@ -181,8 +181,8 @@ const executiveTeam: SpotlightMember[] = [
     role: "Clinical Standards Lead",
     org: "University of Cape Coast",
     image: "/ucc-team/wilfred_obeng.JPG",
-    email: "wilfred.obeng@akomapa.org",
-    linkedin: "https://linkedin.com/in/wilfred-obeng",
+    email: "wilfred.obeng7@gmail.com",
+    linkedin: "https://www.linkedin.com/company/akomapahealth/",
     bio: "Wilfred Obeng is currently studying Medicine at the University of Cape Coast, Ghana. He serves as a Training and Standards lead with Akomapa UCC and as Clinical Standards Coordinator with Akomapa Global. He joined the project to learn about and contribute towards addressing the health problems of rural Ghanaian communities and helps with the development of training resources for volunteers and with the monitoring, evaluation, and improvement of the clinic's standards."
   },
   {
@@ -190,8 +190,8 @@ const executiveTeam: SpotlightMember[] = [
     role: "Lead Social Media Manager",
     org: "Akomapa Health Foundation",
     image: "/images/team/gabrielle-nartey.JPG",
-    email: "gabrielle.nartey@akomapa.org",
-    linkedin: "https://linkedin.com/in/gabrielle-nartey",
+    email: "akomapahealth@gmail.com",
+    linkedin: "https://www.linkedin.com/in/gabrielle-nartey-a2456128b/",
     bio: "Gabrielle Nartey is a sophomore at Yale University studying Neuroscience on the pre-medical track. She currently serves as Lead Social Media Manager for Akomapa, where she oversees marketing across all social media platforms and works to expand the clinic’s reach and visibility on an international scale. Gabrielle joined the clinic to help bridge the gap between healthcare and access—ensuring that individuals who need care most are aware of and empowered to seek Akomapa’s services."
   },
   {
@@ -226,8 +226,8 @@ const executiveTeam: SpotlightMember[] = [
     role: "Branding and Public Relations Lead",
     org: "Akomapa Health Foundation",
     image: "/images/team/kelvin-fiifi.jpeg",
-    email: "kelvin.fiifi@akomapa.org",
-    linkedin: "https://linkedin.com/in/kelvin-fiifi",
+    email: "kelvinocran17@gmail.com",
+    linkedin: "https://linkedin.com/in/kelvin-ocran",
     bio: "Kelvin is a naturally creative mind who enjoys building ideas, designing brands, and exploring anything that blends art, tech, and problem solving. Calm but unpredictable in the best way, he connects with people easily, yet values trust deeply. Tall, caramel-toned, and openly expressive, he’s someone who loves good music, good food, and any space that lets him create freely. He's always learning, always experimenting, and always ready for the next project or opportunity that challenges him to grow."
   },
   {

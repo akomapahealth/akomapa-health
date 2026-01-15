@@ -205,7 +205,7 @@ const partners = [
   },
   {
     name: "Akomapa Health Foundation",
-    logo: "/images/akomapa-logo.png"
+    logo: "/images/partners/akomapa-logo.png"
   },
   {
     name: "Ghana Health Service",
@@ -222,19 +222,19 @@ const foundingTeam = [
     name: "Dr. Patrick Ampofo",
     role: "UGMS Alum; New Clinics Expansion Lead, Akomapa Health",
     bio: "Leads the strategy and partnerships that guide new clinic development across Ghana.",
-    image: "/team/patrick-ampofo.jpg"
+    image: "/images/team/patrick-ampofo.jpg"
   },
   {
     name: "Dr. Afriyie Badu",
     role: "UGMS Alum; Co-founder & Finance Officer, Akomapa Health",
     bio: "Builds sustainable financial models that ensure clinics deliver equitable access to care.",
-    image: "/team/afriyie-badu.jpg"
+    image: "/images/team/afriyie-badu.jpg"
   },
   {
     name: "Dr. Esi Bon Berkoh",
     role: "Co-founder & Vice President, Akomapa Health",
     bio: "Guides student leadership development and community partnerships with a global health lens.",
-    image: "/team/esi-bon-berkoh.jpg"
+    image: "/images/team/esi-bon-berkoh.jpg"
   }
 ];
 
