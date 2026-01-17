@@ -99,17 +99,17 @@ const facultyMentors = [
   {
     name: "Dr. Derek Anamaale Tuoyire",
     title: "Head, Department of Community Medicine, UCC",
-    image: "/images/team/derek-anamaale-tuoyire.jpg"
+    image: "/images/team/dr-tuoyire.jpeg"
   },
   {
     name: "Prof. Martins Ekor",
     title: "Provost, College of Health and Allied Sciences, UCC",
-    image: "/images/team/martins-ekor.jpg"
+    image: "/images/team/prof-martin-ekor.jpg"
   },
   {
     name: "Prof. Samuel Kyei",
     title: "Professor of Optometry, UCC",
-    image: "/images/team/samuel-kyei.jpg"
+    image: "/images/team/prof-samuel-kyei.png"
   }
 ];
 
