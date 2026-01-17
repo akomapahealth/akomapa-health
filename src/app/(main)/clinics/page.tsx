@@ -451,7 +451,7 @@ export default function ClinicsPage() {
                 <div className="flex-shrink-0">
                   <div className="h-20 w-20 sm:h-24 sm:w-24 rounded-full overflow-hidden ring-4 ring-[#FCFAEF]/20">
                     <Image
-                      src="/highlights/Akomapa-40.jpg"
+                      src="/images/team/esi-bon-berkoh.jpg"
                       alt="Esi Berkoh"
                       width={96}
                       height={96}

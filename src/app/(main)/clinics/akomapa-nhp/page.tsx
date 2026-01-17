@@ -56,37 +56,37 @@ const foundingTeam = [
     name: "Dr. Brian Amu Fleischer",
     role: "Founder & President, Akomapa Health; Resident Physician, Yale",
     bio: "Co-developed the Akomapa–NHP Yale Clinic, building bridges between global innovation and local impact.",
-    image: "/team/brian-fleischer.jpg"
+    image: "/images/team/brian-fleischer.jpeg"
   },
   {
     name: "Sedem Dankwa",
     role: "Global Partnerships Lead, Akomapa Health; Co-founder, Akomapa–NHP Initiative",
     bio: "Leads strategic partnerships and co-founded the Akomapa–NHP Initiative to expand community-based care.",
-    image: "/team/sedem-dankwa.jpg"
+    image: "/images/team/placeholder.jpg"
   },
   {
     name: "Nana Ama Ocran",
     role: "Leadership Training Program Lead, Akomapa Health",
     bio: "Develops leadership training programs that empower students to deliver compassionate, community-centered care.",
-    image: "/team/nana-ama-ocran.jpg"
+    image: "/images/team/nana-ama-ocran.PNG"
   },
   {
     name: "Dr. Jeremy Schwartz",
     role: "Faculty Mentor; Associate Professor of Medicine, Yale University",
     bio: "Provides expert guidance and mentorship, ensuring excellence in education, ethics, and patient care.",
-    image: "/team/jeremy-schwartz.jpg"
+    image: "/images/team/jeremy-schwartz.jpeg"
   },
   {
     name: "Stacy Uchendu",
     role: "Co-Director, Neighborhood Health Project",
     bio: "Co-directs the Neighborhood Health Project, facilitating community partnerships and sustainable care delivery.",
-    image: "/team/stacy-uchendu.jpg"
+    image: "/images/team/placeholder.jpg"
   },
   {
     name: "Dr. Erica Spatz",
     role: "Community Engagement Advisor; Director, Preventive Cardiovascular Health Program, Yale",
     bio: "Advises on community engagement strategies and directs preventive cardiovascular health initiatives.",
-    image: "/team/erica-spatz.jpg"
+    image: "/images/team/placeholder.jpg"
   }
 ];
 
@@ -580,7 +580,7 @@ export default function NHPClinicPage() {
             <div className="flex items-center justify-center gap-4 pt-2">
               <div className="relative h-16 w-16 rounded-full overflow-hidden border-2 border-[#F5C94D]/40 shadow-lg flex-shrink-0">
                 <Image
-                  src="/team/brian-fleischer.jpg"
+                  src="/images/team/brian-fleischer.jpeg"
                   alt="Dr. Brian Fleischer"
                   fill
                   className="object-cover object-center"
