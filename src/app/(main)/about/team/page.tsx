@@ -172,7 +172,7 @@ const executiveTeam: SpotlightMember[] = [
     role: "Leadership Training Program Lead",
     org: "Yale University",
     image: "/images/team/nana-ama-ocran.PNG",
-    email: "nana.ocran@akomapa.org",
+    email: "naamaocran@gmail.com",
     linkedin: "https://www.linkedin.com/in/nana-ama-nhyira-ocran-16957626b/",
     bio: "Nana Ama Ocran is a senior at Yale University studying History of Science, Medicine & Public Health, and French. She currently serves as the Leadership Training Program Lead for Akomapa Health Foundation, US. In her role, she designs and organizes opportunities for bidirectional learning that emphasize equity, collaboration, and community-rooted approaches to care. She joined Akomapa to support youth-driven health systems and strengthen cross-continental pathways for learning and leadership."
   },
@@ -234,9 +234,9 @@ const executiveTeam: SpotlightMember[] = [
     name: "Samuel Kumi",
     role: "Legal Affairs Lead",
     org: "Akomapa Health Foundation",
-    image: "/images/team/placeholder.jpg",
-    email: "samuel.kumi@akomapa.org",
-    linkedin: "https://linkedin.com/in/samuel-kumi",
+    image: "/images/team/samuel-kumi.JPG",
+    email: "samuelkumik@gmail.com",
+    linkedin: "https://www.linkedin.com/in/samuel-k-kumi-41627a161/", 
     bio: "Samuel Kwame Kumi, Esq. is a private legal practitioner and lecturer. Samuel has valuable experience in litigation and Alternative Dispute Resolution, notably acting as lawyer for medical professionals in medical matters. His interests span medical, IT, Intellectual Property and energy law, areas in which he has published. As Akomapa's Head of Legal, Samuel oversees corporate affairs, advises on risk, and ensures compliance. He sees Akomapa's strategic community-focused initiatives establishing it as a trailblazer in community health. "
   }
 ];
