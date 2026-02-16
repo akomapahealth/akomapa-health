@@ -7,6 +7,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import Breadcrumb from "@/components/layout/Breadcrumb";
 import Image from "@/components/common/Image";
 import { Button } from "@/components/ui/button";
+import { LEADERSHIP_APP_FORM_URL } from "@/config/links";
+import LeadershipApplicationCTA from "@/components/cta/LeadershipApplicationCTA";
 import {
   Card,
   CardContent,
@@ -370,7 +372,14 @@ export default function UGClinicPage() {
               className="mt-6 sm:mt-8 flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4"
             >
               <Button asChild className={primaryCtaClass}>
-                <Link href="/join" className="whitespace-nowrap">Join the Founding Team</Link>
+                <a
+                  href={LEADERSHIP_APP_FORM_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="whitespace-nowrap"
+                >
+                  Apply Now
+                </a>
               </Button>
               <Button asChild className={secondaryCtaClass}>
                 <Link href="/donate" className="whitespace-nowrap">Donate</Link>
@@ -745,36 +754,14 @@ export default function UGClinicPage() {
         </div>
       </section>
 
-      <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
-        <div className="container mx-auto px-4">
-            <motion.div
-            initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-            viewport={{ once: true, amount: 0.3 }}
-            className="max-w-3xl mx-auto text-center space-y-6"
-            >
-            <h2 className="text-3xl md:text-4xl font-bold text-[#1C1F1E] dark:text-[#FCFAEF]">
-              Join the Founding Team
-              </h2>
-            <p className="text-lg text-[#2F3332] dark:text-[#E6E7E7] leading-relaxed">
-              We are recruiting student leaders, faculty mentors, and community partners who are ready
-              to co-create compassionate, resilient healthcare for Greater Accra.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-              <Button asChild className={primaryCtaClass}>
-                <Link href="/join" className="whitespace-nowrap">Join the Founding Team</Link>
-              </Button>
-              <Button asChild className={outlineBlueCtaClass}>
-                <Link href="/partners" className="whitespace-nowrap">Partner with Us</Link>
-                </Button>
-              <Button asChild className={outlineGoldCtaClass}>
-                <Link href="/donate" className="whitespace-nowrap">Donate</Link>
-                </Button>
-              </div>
-            </motion.div>
-          </div>
-      </section>
+      <LeadershipApplicationCTA
+        primaryHref={LEADERSHIP_APP_FORM_URL}
+        openInNewTab
+        secondaryButtons={[
+          { label: "Partner with Us", href: "/partners" },
+          { label: "Donate", href: "/donate" },
+        ]}
+      />
 
       <section className="py-16 md:py-24 bg-gradient-to-r from-[#0F4C5C] via-[#0097b2] to-[#0B2F3A] text-[#FCFAEF]">
         <div className="container mx-auto px-4">
