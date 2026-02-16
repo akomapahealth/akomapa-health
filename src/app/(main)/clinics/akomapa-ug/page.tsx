@@ -307,12 +307,6 @@ const primaryCtaClass =
 const secondaryCtaClass =
   `${ctaBaseClass} bg-[#eeba2b] hover:bg-[#eeba2b]/80 text-[#FCFAEF] shadow-lg hover:shadow-xl focus-visible:ring-[#F5C94D]`;
 
-const outlineBlueCtaClass =
-  `${ctaBaseClass} border-2 border-[#0097b2] bg-transparent text-[#0097b2] shadow-none hover:bg-[#0097b2]/10 hover:shadow-lg focus-visible:ring-[#8DD4E6] dark:text-[#8DD4E6] dark:hover:bg-[#0097b2]/20`;
-
-const outlineGoldCtaClass =
-  `${ctaBaseClass} border-2 border-[#eeba2b] bg-transparent text-[#eeba2b] shadow-none hover:bg-[#eeba2b]/10 hover:shadow-lg focus-visible:ring-[#F5C94D] dark:text-[#F5C94D] dark:hover:bg-[#eeba2b]/20`;
-
 export default function UGClinicPage() {
   return (
     <>
