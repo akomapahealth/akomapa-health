@@ -6,6 +6,7 @@ import { Clock, MapPin, ArrowLeft } from "lucide-react";
 import Breadcrumb from "@/components/layout/Breadcrumb";
 import Image from "@/components/common/Image";
 import Gallery, { type GalleryItem } from "@/components/home/Gallery";
+import VolunteerGrid from "@/components/clinics/VolunteerGrid";
 import { Button } from "@/components/ui/button";
 
 const impactHighlights = [
@@ -576,6 +577,8 @@ export default function UCCClinicPage() {
           </div>
         </div>
       </section>
+
+      <VolunteerGrid />
 
       <section className="py-16 md:py-24 bg-gradient-to-r from-[#0097b2] to-[#0F4C5C] text-[#FCFAEF]">
         <div className="container mx-auto px-4">
