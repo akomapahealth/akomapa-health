@@ -60,3 +60,16 @@ export interface Program {
     title: string;
     image: string;
   }
+
+  export interface UpdateSlide {
+    id: string;
+    title: string;
+    description: string;
+    ctaText: string;
+    ctaLink: string;
+    image?: string;
+    startDate?: string;
+    endDate?: string;
+    priority: number;
+    isExternal?: boolean;
+  }
