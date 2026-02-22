@@ -139,52 +139,88 @@ const testimonials = [
 const uccGalleryItems: GalleryItem[] = [
   {
     id: 201,
-    src: "/highlights/Akomapa-40.jpg",
-    alt: "Student leader guiding a blood pressure screening during clinic day",
+    src: "/gallery/gallery-pic-1.jpg",
+    alt: "First meeting of the Akomapa UCC clinic team",
     category: "students",
     featured: true
   },
   {
     id: 202,
-    src: "/highlights/Akomapa-39.jpg",
-    alt: "Community members participating in a health education session",
+    src: "/gallery/gallery-pic-2.jpg",
+    alt: "Akomapa UCC clinic team with volunteers",
     category: "community"
   },
   {
     id: 203,
-    src: "/highlights/Akomapa-61.jpg",
-    alt: "Faculty mentor coaching student volunteers on best practices",
-    category: "faculty"
+    src: "/gallery/gallery-pic-3.jpg",
+    alt: "Akomapa UCC clinic team with volunteers",
+    category: "students"
   },
   {
     id: 204,
-    src: "/highlights/Akomapa-19.jpg",
-    alt: "Clinic leaders coordinating patient flow outdoors",
-    category: "clinics",
+    src: "/gallery/gallery-pic-4.jpg",
+    alt: "Akomapa UCC meeting session with volunteers",
+    category: "faculty",
     featured: true
   },
   {
     id: 205,
-    src: "/gallery/gallery-pic-10.JPG",
+    src: "/gallery/gallery-pic-10.jpg",
     alt: "Volunteers preparing educational materials for outreach",
     category: "community"
   },
   {
     id: 206,
-    src: "/gallery/gallery-pic-12.JPG",
-    alt: "Set-up inside the Akomapa UCC clinic treatment room",
+    src: "/gallery/gallery-pic-12.jpg",
+    alt: "Educational session with community members",
     category: "clinics"
   },
   {
     id: 207,
-    src: "/gallery/gallery-pic-7.JPG",
+    src: "/gallery/gallery-pic-7.jpg",
     alt: "Faculty supervisors aligning on clinic standards",
     category: "faculty"
   },
   {
     id: 208,
-    src: "/gallery/gallery-pic-5.JPG",
-    alt: "Student clinician counseling a patient during consultations",
+    src: "/gallery/gallery-pic-5.jpg",
+    alt: "Akomapa UCC clinic team with volunteers",
+    category: "students"
+  },
+  {
+    id: 209,
+    src: "/akomapa-hangout/Akomapa_hangout-31.jpg",
+    alt: "Akomapa UCC hangout session",
+    category: "community"
+  },
+  {
+    id: 210,
+    src: "/akomapa-hangout/Akomapa_hangout-108.jpg",
+    alt: "Akomapa UCC hangout session",
+    category: "students"
+  },
+  {
+    id: 211,
+    src: "/akomapa-hangout/Akomapa_hangout-2.jpg",
+    alt: "Akomapa UCC hangout session",
+    category: "community"
+  },
+  {
+    id: 212,
+    src: "/akomapa-hangout/Akomapa_hangout-100.jpg",
+    alt: "Akomapa UCC hangout session",
+    category: "students"
+  },
+  {
+    id: 213,
+    src: "/akomapa-hangout/Akomapa_hangout-81.jpg",
+    alt: "Akomapa UCC hangout session",
+    category: "community"
+  },
+  {
+    id: 214,
+    src: "/akomapa-hangout/Akomapa_hangout-6.jpg",
+    alt: "Akomapa UCC hangout session",
     category: "students"
   }
 ];
@@ -349,8 +385,8 @@ export default function UCCClinicPage() {
         </div>
       </section>
 
-      <section className="py-16 md:py-24 bg-gradient-to-r from-[#0097b2] to-[#0F4C5C] text-[#FCFAEF] relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none">
+      <section className="py-16 md:py-24 bg-gradient-to-r from-[#0097b2] to-[#0F4C5C] text-[#FCFAEF] relative overflow-x-hidden overflow-y-visible">
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <div className="absolute -top-24 -left-24 h-64 w-64 rounded-full bg-[#FCFAEF]/10 blur-3xl" />
           <div className="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-[#F5C94D]/10 blur-3xl" />
         </div>
@@ -425,8 +461,8 @@ export default function UCCClinicPage() {
                     alt={director.name}
                     fill
                     className="object-cover object-top"
-                    sizes="(min-width: 1024px) 25vw, (min-width: 640px) 45vw, 100vw"
-                    priority={director.name === "David Ofosu"}
+                    sizes="(min-width: 1024px) 25vw, (min-width: 640px) 45vw, 50vw"
+                    priority
                   />
                 </div>
               ))}
@@ -449,8 +485,8 @@ export default function UCCClinicPage() {
         </div>
       </section>
 
-      <section className="py-16 md:py-24 bg-gradient-to-r from-[#0097b2] to-[#0F4C5C] text-[#FCFAEF] overflow-hidden relative">
-        <div className="absolute inset-0 pointer-events-none">
+      <section className="py-16 md:py-24 bg-gradient-to-r from-[#0097b2] to-[#0F4C5C] text-[#FCFAEF] overflow-x-hidden overflow-y-visible relative">
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <div className="absolute -top-16 left-12 h-48 w-48 bg-[#FCFAEF]/10 rounded-full blur-3xl" />
           <div className="absolute bottom-0 right-0 h-64 w-64 bg-[#F5C94D]/10 rounded-full blur-3xl" />
         </div>
@@ -524,7 +560,7 @@ export default function UCCClinicPage() {
                     alt={leader.name}
                     fill
                     className="object-cover object-top"
-                    sizes="(min-width: 1024px) 33vw, 100vw"
+                    sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                   />
                 </div>
                 <div className="p-6 text-left">
