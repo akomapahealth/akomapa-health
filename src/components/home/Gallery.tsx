@@ -17,82 +17,82 @@ export type GalleryItem = {
 const defaultGalleryItems: GalleryItem[] = [
   {
     id: 1,
-    src: "/gallery/gallery-pic-1.JPG",
+    src: "/gallery/gallery-pic-1.jpg",
     alt: "Medical students practicing clinical skills",
     category: "students",
     featured: true,
   },
   {
     id: 2,
-    src: "/gallery/gallery-pic-2.JPG",
+    src: "/gallery/gallery-pic-2.jpg",
     alt: "Community health education session in Saltpond",
     category: "community",
   },
   {
     id: 3,
-    src: "/gallery/gallery-pic-3.JPG",
+    src: "/gallery/gallery-pic-3.jpg",
     alt: "Faculty supervisor guiding student examination",
     category: "faculty",
   },
   {
     id: 4,
-    src: "/gallery/gallery-pic-4.JPG",
+    src: "/gallery/gallery-pic-4.jpg",
     alt: "Exterior of Winneba pilot clinic",
     category: "clinics",
   },
   {
     id: 5,
-    src: "/gallery/gallery-pic-5.JPG",
+    src: "/gallery/gallery-pic-5.jpg",
     alt: "Student conducting patient consultation with supervision",
     category: "students",
     featured: true,
   },
   {
     id: 6,
-    src: "/gallery/gallery-pic-6.JPG",
+    src: "/gallery/gallery-pic-6.jpg",
     alt: "Town hall meeting with community leaders",
     category: "community",
   },
   {
     id: 7,
-    src: "/gallery/gallery-pic-7.JPG",
+    src: "/gallery/gallery-pic-7.jpg",
     alt: "Faculty supervisors planning session",
     category: "faculty",
   },
   {
     id: 8,
-    src: "/gallery/gallery-pic-8.JPG",
+    src: "/gallery/gallery-pic-8.jpg",
     alt: "Patients in clinic waiting area",
     category: "clinics",
   },
   {
     id: 9,
-    src: "/gallery/gallery-pic-9.JPG",
+    src: "/gallery/gallery-pic-9.jpg",
     alt: "Interprofessional student team discussing patient care",
     category: "students",
   },
   {
     id: 10,
-    src: "/gallery/gallery-pic-10.JPG",
+    src: "/gallery/gallery-pic-10.jpg",
     alt: "Community health fair in Saltpond",
     category: "community",
     featured: true,
   },
   {
     id: 11,
-      src: "/gallery/gallery-pic-11.JPG",
+      src: "/gallery/gallery-pic-11.jpg",
     alt: "Faculty member demonstrating clinical procedure",
     category: "faculty",
   },
   {
     id: 12,
-    src: "/gallery/gallery-pic-12.JPG",
+    src: "/gallery/gallery-pic-12.jpg",
     alt: "Treatment room in pilot clinic",
     category: "clinics",
   },
   {
     id: 13,
-    src: "/gallery/gallery-pic-13.JPG",
+    src: "/gallery/gallery-pic-13.jpg",
     alt: "Faculty member demonstrating clinical procedure",
     category: "faculty",
   },
@@ -263,7 +263,7 @@ export default function Gallery({ items }: GalleryProps = {}) {
   }, [filteredItems, currentIndex, selectedImage]);
 
   return (
-    <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
+    <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E] overflow-x-hidden">
       <div className="container mx-auto px-4">
         <div className="text-center max-w-3xl mx-auto mb-12">
           <h2 className="text-[#eeba2b] dark:text-[#F5C94D] font-bold text-lg mb-2">
@@ -283,6 +283,7 @@ export default function Gallery({ items }: GalleryProps = {}) {
             <button
               key={category.id}
               onClick={() => setSelectedCategory(category.id)}
+              aria-pressed={selectedCategory === category.id}
               className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
                 selectedCategory === category.id
                   ? "bg-[#0097b2] text-white"
@@ -308,19 +309,36 @@ export default function Gallery({ items }: GalleryProps = {}) {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.3 }}
+                role="button"
+                tabIndex={0}
+                aria-label={`View ${item.alt}`}
                 className={`${
                   item.featured ? "sm:col-span-2 sm:row-span-2" : ""
-                } overflow-hidden rounded-lg shadow-md cursor-pointer hover:shadow-xl transition-shadow duration-300 bg-white dark:bg-[#2F3332]`}
+                } overflow-hidden rounded-lg shadow-md cursor-pointer hover:shadow-xl transition-shadow duration-300 bg-white dark:bg-[#2F3332] focus:outline-none focus:ring-2 focus:ring-[#0097b2] focus:ring-offset-2`}
                 onClick={() => openLightbox(item, index)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    openLightbox(item, index);
+                  }
+                }}
               >
-                <div className="relative w-full h-full" style={{ 
-                  aspectRatio: item.featured ? "16/9" : "4/3" 
-                }}>
+                <div 
+                  className="relative w-full" 
+                  style={{ 
+                    paddingBottom: item.featured ? "56.25%" : "75%",
+                    aspectRatio: item.featured ? "16/9" : "4/3" 
+                  }}
+                >
                   <Image
                     src={item.src}
                     alt={item.alt}
                     fill
-                    sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 25vw"
+                    priority={index < 4}
+                    sizes={item.featured 
+                      ? "(max-width: 640px) 100vw, (max-width: 1024px) 66vw, 50vw"
+                      : "(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                    }
                     className="object-cover hover:scale-105 transition-transform duration-300"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end p-3">
@@ -363,18 +381,23 @@ export default function Gallery({ items }: GalleryProps = {}) {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
+              role="dialog"
+              aria-modal="true"
+              aria-label="Image lightbox"
               className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
               onClick={() => setSelectedImage(null)}
             >
               <button 
-                className="absolute top-4 right-4 text-white p-2 rounded-full bg-black/30 hover:bg-black/50 z-10"
+                aria-label="Close lightbox"
+                className="absolute top-4 right-4 text-white p-2 rounded-full bg-black/30 hover:bg-black/50 z-10 focus:outline-none focus:ring-2 focus:ring-white"
                 onClick={() => setSelectedImage(null)}
               >
                 <X size={24} />
               </button>
               
               <button 
-                className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white p-2 rounded-full bg-black/30 hover:bg-black/50 z-10"
+                aria-label="Previous image"
+                className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white p-2 rounded-full bg-black/30 hover:bg-black/50 z-10 focus:outline-none focus:ring-2 focus:ring-white"
                 onClick={(e) => {
                   e.stopPropagation();
                   goToPrevious();
@@ -384,7 +407,8 @@ export default function Gallery({ items }: GalleryProps = {}) {
               </button>
               
               <button 
-                className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white p-2 rounded-full bg-black/30 hover:bg-black/50 z-10"
+                aria-label="Next image"
+                className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white p-2 rounded-full bg-black/30 hover:bg-black/50 z-10 focus:outline-none focus:ring-2 focus:ring-white"
                 onClick={(e) => {
                   e.stopPropagation();
                   goToNext();

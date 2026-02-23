@@ -2,6 +2,7 @@
 
 // import { useState } from "react";
 import { motion } from "framer-motion";
+import { LEADERSHIP_APP_FORM_URL } from "@/config/links";
 // import { Button } from "@/components/ui/button";
 // import { Input } from "@/components/ui/input";
 // import { Label } from "@/components/ui/label";
@@ -279,10 +280,10 @@ export default function JoinPage() {
                 <div className="h-1 w-1 bg-[#0097b2] rounded-full" />
               </div>
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold mb-4 text-[#1C1F1E] dark:text-[#FCFAEF]">
-                Volunteer Application
+                Apply to Join Our Global Leadership
               </h2>
               <p className="text-base sm:text-lg text-[#2F3332]/80 dark:text-[#E6E7E7]/80 leading-relaxed max-w-2xl mx-auto">
-                Fill out the form below to apply. All fields marked with * are required.
+                Student leaders from health professional schools can apply to help roll out our free clinic and join a global leadership collaborative.
               </p>
             </motion.div>
 
@@ -293,25 +294,34 @@ export default function JoinPage() {
               viewport={{ once: true }}
               className="bg-[#FCFAEF] dark:bg-[#1C1F1E] rounded-2xl shadow-xl p-6 sm:p-8 md:p-10 border border-[#E6E7E7]/20 dark:border-[#4F5554]/20"
             >
-              {/* Applications Coming Soon Notice */}
+              {/* Global Leadership application – external form (internal form commented below) */}
               <div className="text-center py-12 sm:py-16">
-                <div className="inline-flex items-center justify-center w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-br from-[#0097b2] to-[#0F4C5C] mb-6">
-                  <svg className="w-10 h-10 sm:w-12 sm:h-12 text-[#FCFAEF]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                <div className="inline-flex items-center justify-center w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-br from-[#0097b2] to-[#0F4C5C] mb-6" aria-hidden="true">
+                  <svg className="w-10 h-10 sm:w-12 sm:h-12 text-[#FCFAEF]" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                   </svg>
                 </div>
                 <h3 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-[#1C1F1E] dark:text-[#FCFAEF] mb-4">
-                  Applications Opening Soon!
+                  We are accepting applications today!
                 </h3>
-                <p className="text-base sm:text-lg text-[#2F3332] dark:text-[#E6E7E7] leading-relaxed max-w-2xl mx-auto mb-6">
-                  We&apos;re currently preparing our volunteer application process. Applications will be opening soon, and we can&apos;t wait to welcome new members to our team!
+                <p className="text-base sm:text-lg text-[#2F3332] dark:text-[#E6E7E7] leading-relaxed max-w-2xl mx-auto mb-8">
+                  Join the inaugural board of student leaders, collaborate with peers and faculty across our network, and build skills in global health leadership. Deadline is March 14th, 2026.
                 </p>
-                <p className="text-sm sm:text-base text-[#2F3332]/80 dark:text-[#E6E7E7]/80 leading-relaxed max-w-xl mx-auto">
-                  In the meantime, feel free to reach out to us at{" "}
-                  <a href="mailto:akomapahealth@gmail.com" className="text-[#0097b2] dark:text-[#66C4DC] hover:text-[#eeba2b] dark:hover:text-[#F5C94D] transition-colors font-medium">
+                <a
+                  href={LEADERSHIP_APP_FORM_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center w-full sm:w-auto min-w-[12rem] h-12 px-6 sm:px-8 rounded-lg bg-[#0097b2] hover:bg-[#0097b2]/90 text-[#FCFAEF] text-base sm:text-lg font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0097b2] focus-visible:ring-offset-2 focus-visible:ring-offset-[#FCFAEF] dark:focus-visible:ring-offset-[#1C1F1E]"
+                  aria-label="Apply to join global leadership – opens in new tab"
+                >
+                  Apply Now
+                </a>
+                <p className="text-sm sm:text-base text-[#2F3332]/80 dark:text-[#E6E7E7]/80 leading-relaxed max-w-xl mx-auto mt-8">
+                  Questions? Reach out at{" "}
+                  <a href="mailto:akomapahealth@gmail.com" className="text-[#0097b2] dark:text-[#66C4DC] hover:text-[#eeba2b] dark:hover:text-[#F5C94D] transition-colors font-medium focus:outline-none focus-visible:underline">
                     akomapahealth@gmail.com
                   </a>
-                  {" "}if you have any questions about volunteering with Akomapa.
+                  .
                 </p>
               </div>
 

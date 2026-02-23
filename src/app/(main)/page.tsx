@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import HeroSection from "@/components/home/HeroSection";
+import UpdatesCarousel from "@/components/home/UpdatesCarousel";
 import AkomapaMeaningSection from "@/components/home/AkomapaMeaningSection";
 import ProgramsOverview from "@/components/home/ProgramsOverview";
 import Testimonials from "@/components/home/Testimonials";
@@ -30,6 +31,7 @@ export default function Home() {
       <LocationSection />
       <ResearchSection />
       <ImpactMetrics />
+      <UpdatesCarousel />
       <Testimonials />
       <Gallery />
       <CallToAction />
