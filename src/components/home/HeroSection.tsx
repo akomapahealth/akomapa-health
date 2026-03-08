@@ -56,6 +56,7 @@ export default function HeroSection({
   textAlign = "left"
 }: HeroSectionProps) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const textShadowClass = "[text-shadow:0_2px_12px_rgba(0,0,0,0.4)]";
 
   // Rotate through images for slideshow
   useEffect(() => {
@@ -136,10 +137,10 @@ export default function HeroSection({
 
   return (
     <section
-      className={`relative ${heightClasses[height]} flex items-center justify-center overflow-hidden`}
+      className={`relative ${heightClasses[height]} flex items-center justify-center overflow-hidden rounded-none`}
     >
       {/* Background */}
-      <div className="absolute inset-0 z-0">
+      <div className="absolute inset-0 z-0 overflow-hidden rounded-none">
         {renderBackground()}
       </div>
 
@@ -156,7 +157,7 @@ export default function HeroSection({
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
-              className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl tracking-tight text-[#FCFAEF] dark:text-[#FCFAEF] mb-6 leading-tight text-balance font-medium [text-shadow:0_1px_3px_rgba(0,0,0,0.8),0_2px_6px_rgba(0,0,0,0.5)]"
+              className={`text-4xl md:text-5xl lg:text-6xl xl:text-7xl tracking-tight text-[#FCFAEF] dark:text-[#FCFAEF] mb-6 leading-tight text-balance font-medium ${textShadowClass}`}
             >
               Can a <span className="text-[#8DD4E6] dark:text-[#B0E8F5]">global partnership</span> of <span className="text-[#eeba2b] dark:text-[#eeba2b]">students</span> lead the fight against <span className="text-[#8DD4E6] dark:text-[#B0E8F5]">non-communicable diseases</span>?
             </motion.h1>
@@ -165,7 +166,7 @@ export default function HeroSection({
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.8 }}
-              className="text-xl md:text-2xl text-[#FCFAEF] dark:text-[#FCFAEF] font-medium mb-8 leading-relaxed max-w-2xl [text-shadow:0_1px_3px_rgba(0,0,0,0.8),0_2px_6px_rgba(0,0,0,0.5)]"
+              className={`text-xl md:text-2xl text-[#FCFAEF] dark:text-[#FCFAEF] font-medium mb-8 leading-relaxed max-w-2xl ${textShadowClass}`}
             >
               Student-powered. <span className="text-[#8DD4E6] dark:text-[#B0E8F5]">Expert-supervised</span>. Community-rooted.<br />
               Akomapa is redefining preventative primary care.
