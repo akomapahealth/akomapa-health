@@ -3,60 +3,82 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { AlertTriangle, Users2, GraduationCap, Globe2, ArrowRight, Book, HeartHandshake, Ambulance, Stethoscope, User } from "lucide-react";
-
-type Bullet = {
-  text: string;
-  icon?: React.ReactNode;
-};
+import { FeatureSectionWithBentoGrid, type BentoGridItem } from "@/components/ui/feature-section-with-bento-grid";
+import { ArrowRight } from "lucide-react";
 
 type CardContent = {
+  badge: string;
   title: string;
-  bullets: Bullet[];
-  accentColor: string;
-  icon: React.ReactNode;
+  summary: string;
+  highlight: string;
+  highlightLabel: string;
+  supportingCopy: string;
+  items: BentoGridItem[];
+  tone: "gold" | "teal";
 };
 
 const cards: CardContent[] = [
   {
-    title: "The Problem",
-    accentColor: "#F5C94D",
-    icon: <AlertTriangle className="h-7 w-7 text-[#F5C94D]" aria-hidden="true" />,
-    bullets: [
+    badge: "The Problem",
+    title: "Prevention is not keeping pace",
+    tone: "gold",
+    summary:
+      "Non-communicable diseases now drive most deaths worldwide, while access to screening and prevention still lags.",
+    highlight: "70%",
+    highlightLabel: "of global deaths each year are linked to NCDs",
+    supportingCopy:
+      "The gap is not only disease burden, but how late prevention begins when basic screening and education are still out of reach.",
+    items: [
       {
-        text: "Non-communicable diseases (NCDs) are the leading cause of death worldwide, responsible for over 70% of global deaths each year.",
-        icon: <HeartHandshake className="h-5 w-5 text-[#F5C94D]" aria-hidden="true" />
+        title: "Global burden",
+        description:
+          "NCDs are the leading cause of death worldwide, responsible for more than 70% of deaths each year.",
+        span: "wide",
+        eyebrow: "Worldwide"
       },
       {
-        text: "In the United States, NCDs account for 9 in 10 deaths; in many African countries, they are projected to become the top cause of mortality by 2030.",
-        icon: <Ambulance className="h-5 w-5 text-[#F5C94D]" aria-hidden="true" />
+        title: "Rapid escalation",
+        description:
+          "In the U.S., NCDs account for 9 in 10 deaths; in many African countries, they are projected to lead mortality by 2030.",
+        eyebrow: "2030"
       },
       {
-        text: "Across settings, millions still lack access to basic screening, education, and preventative care—leaving treatable conditions undetected until it’s too late.",
-        icon: <Stethoscope className="h-5 w-5 text-[#F5C94D]" aria-hidden="true" />
+        title: "Missed prevention",
+        description:
+          "Millions still lack basic screening, education, and preventative care, leaving treatable conditions undetected for too long.",
+        eyebrow: "Access gap"
       }
     ]
   },
   {
-    title: "Our Solution",
-    accentColor: "#66C4DC",
-    icon: <Users2 className="h-7 w-7 text-[#66C4DC]" aria-hidden="true" />,
-    bullets: [
+    badge: "Our Solution",
+    title: "A student-powered response",
+    tone: "teal",
+    summary:
+      "Akomapa pairs student leadership with expert supervision to bring prevention, continuity of care, and research closer to communities.",
+    highlight: "Evidence-led",
+    highlightLabel: "student-powered clinics and partnerships built for scale",
+    supportingCopy:
+      "The model combines service, training, and shared learning so early progress can grow into stronger local systems and cross-border collaboration.",
+    items: [
       {
-        text: "Student-powered, expert-supervised clinics bring early screening, counseling, and continuity of care directly into communities.",
-        icon: <User className="h-5 w-5 text-[#66C4DC]" aria-hidden="true" />
+        title: "Community clinics",
+        description:
+          "Student-powered, expert-supervised clinics bring early screening, counseling, and continuity of care into communities.",
+        span: "wide",
+        eyebrow: "Care first"
       },
       {
-        text: "Global health training programs equip students with leadership, ethics, and systems-thinking skills to drive equitable change.",
-        icon: <GraduationCap className="h-5 w-5 text-[#66C4DC]" aria-hidden="true" />
+        title: "Training pipeline",
+        description:
+          "Leadership development and cross-site mentorship prepare students to lead ethically, think systemically, and improve care delivery.",
+        eyebrow: "Training"
       },
       {
-        text: "An international network links clinics across countries, fostering shared learning, mentorship, and collaborative research.",
-        icon: <Globe2 className="h-5 w-5 text-[#66C4DC]" aria-hidden="true" />
-      },
-      {
-        text: "Evidence from our multi-country feasibility study shows that with expert guidance, students are capable, trusted agents of change—able to strengthen health systems from the ground up.",
-        icon: <Book className="h-5 w-5 text-[#66C4DC]" aria-hidden="true" />
+        title: "Research backbone",
+        description:
+          "Evidence from multi-country feasibility work and shared learning networks helps the model scale with credibility.",
+        eyebrow: "Validated"
       }
     ]
   }
@@ -85,46 +107,35 @@ export default function HealthCrisisSection() {
             innovations—anchored in research, fueled by global partnerships, and built alongside communities.
           </p>
         </div>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10">
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 md:gap-10">
           {cards.map((card) => (
             <motion.div
-              key={card.title}
+              key={card.badge}
+              className="h-full"
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
               viewport={{ once: true, margin: "-80px" }}
-              className="bg-[#0F4C5C]/60 dark:bg-[#2F3332] rounded-2xl p-6 md:p-8 shadow-xl border border-[#66C4DC]/20 backdrop-blur-sm"
             >
-              <div className="flex items-center mb-6">
-                <div className="h-12 w-12 rounded-full bg-[#FCFAEF]/10 flex items-center justify-center mr-4">
-                  {card.icon}
-                </div>
-                <h4 className="text-2xl font-semibold">{card.title}</h4>
-              </div>
-
-              <ul className="space-y-4 md:space-y-5 text-[#E6E7E7] text-base md:text-lg leading-relaxed">
-                {card.bullets.map((bullet, idx) => (
-                  <li key={idx} className="flex items-start gap-3">
-                    {bullet.icon ? (
-                      <span className="mt-1.5">{bullet.icon}</span>
-                    ) : (
-                      <span
-                        className="mt-2 block h-2 w-2 rounded-full flex-shrink-0"
-                        style={{ backgroundColor: card.accentColor }}
-                      />
-                    )}
-                    <span className="flex-1">{bullet.text}</span>
-                  </li>
-                ))}
-              </ul>
+              <FeatureSectionWithBentoGrid
+                badge={card.badge}
+                title={card.title}
+                description={card.summary}
+                tone={card.tone}
+                compact
+                highlightLabel={card.highlightLabel}
+                highlightValue={card.highlight}
+                supportingCopy={card.supportingCopy}
+                items={card.items}
+              />
             </motion.div>
           ))}
         </div>
 
         <div className="text-center mt-12 md:mt-14">
-          <Button className="bg-[#FCFAEF] text-[#0097b2] hover:bg-[#F5C94D] hover:text-[#1C1F1E] transition-colors cursor-pointer">
+          <Button className="h-14 rounded-full px-8 text-base font-semibold bg-[#FCFAEF] text-[#0097b2] hover:bg-[#F5C94D] hover:text-[#1C1F1E] transition-colors cursor-pointer md:h-16 md:px-10 md:text-lg">
             <Link href="/research" className="flex items-center">
-              Explore Our Science <ArrowRight size={18} className="ml-2" />
+              Explore Our Science <ArrowRight size={20} className="ml-2.5" />
             </Link>
           </Button>
         </div>
