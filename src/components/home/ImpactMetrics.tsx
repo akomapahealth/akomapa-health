@@ -142,7 +142,7 @@ export default function ImpactMetrics() {
           <h2 className="text-[#F5C94D] font-bold text-lg mb-2">
             OUR IMPACT
           </h2>
-          <h3 className="text-3xl md:text-4xl font-bold mb-6 text-[#1C1F1E] dark:text-[#FCFAEF]">
+          <h3 className="mb-6 font-heading text-3xl font-bold leading-tight text-[#1C1F1E] dark:text-[#FCFAEF] md:text-4xl">
             Measured in people, partnerships, and momentum
           </h3>
           <p className="text-lg text-[#2F3332]/80 dark:text-[#E6E7E7]/80">

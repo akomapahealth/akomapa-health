@@ -71,7 +71,7 @@ function MobileNavContent({ isOpen, onClose, navigation }: MobileNavProps) {
             leaveTo="translate-x-full opacity-0"
           >
             <DialogPanel 
-              className="relative ml-auto flex h-full w-full max-w-xs flex-col overflow-y-auto bg-[#FCFAEF] dark:bg-[#2F3332] py-4 pb-12 shadow-xl"
+              className="relative ml-auto flex h-full w-full max-w-sm flex-col overflow-y-auto bg-[#FCFAEF] dark:bg-[#2F3332] py-4 pb-12 shadow-xl"
             >
               <div className="flex items-center justify-between px-4">
                 <Link href="/" onClick={onClose} className="flex items-center">
@@ -93,13 +93,13 @@ function MobileNavContent({ isOpen, onClose, navigation }: MobileNavProps) {
                 </button>
               </div>
 
-              <div className="mt-6 px-4 space-y-3">
+              <div className="mt-6 px-4 space-y-2.5">
                 {navigation.map((item) => (
                   <div key={item.name} className="space-y-2">
                     <Link 
                       href={item.href}
                       onClick={onClose}
-                      className={`block px-3 py-2 text-base font-subheading font-medium rounded-md ${
+                      className={`block rounded-md px-3 py-2.5 font-subheading text-[15px] font-medium leading-none ${
                         pathname === item.href || pathname.startsWith(`${item.href}/`) 
                           ? 'bg-[#0097b2]/10 dark:bg-[#0097b2]/20 text-[#0097b2] dark:text-[#FCFAEF]' 
                           : 'text-[#252828] dark:text-[#FCFAEF] hover:bg-[#eeba2b]/10 dark:hover:bg-[#eeba2b]/20 hover:text-[#eeba2b]'
@@ -120,7 +120,7 @@ function MobileNavContent({ isOpen, onClose, navigation }: MobileNavProps) {
                               }
                               onClose();
                             }}
-                            className={`block px-3 py-1.5 text-sm font-body rounded-md ${
+                            className={`block rounded-md px-3 py-2 font-body text-sm leading-snug ${
                               pathname === child.href 
                                 ? 'bg-[#0097b2]/10 dark:bg-[#0097b2]/20 text-[#0097b2] dark:text-[#FCFAEF]' 
                                 : 'text-[#252828] dark:text-[#FCFAEF] hover:bg-[#eeba2b]/10 dark:hover:bg-[#eeba2b]/20 hover:text-[#eeba2b]'
@@ -134,9 +134,9 @@ function MobileNavContent({ isOpen, onClose, navigation }: MobileNavProps) {
                   </div>
                 ))}
                 
-                <div className="pt-4 mt-4 border-t border-[#E6E7E7] dark:border-[#757A79] space-y-3">
+                <div className="mt-4 space-y-3 border-t border-[#E6E7E7] pt-4 dark:border-[#757A79]">
                   <Button 
-                    className="w-full bg-[#0097b2] text-[#FCFAEF] hover:bg-[#0097b2]/80 hover:text-[#FCFAEF] font-subheading font-medium"
+                    className="min-h-12 w-full bg-[#0097b2] text-[#FCFAEF] hover:bg-[#0097b2]/80 hover:text-[#FCFAEF] font-subheading font-medium"
                   >
                     <Link href="/partner" onClick={onClose}>Partner With Us</Link>
                   </Button>

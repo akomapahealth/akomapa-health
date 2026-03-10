@@ -31,7 +31,7 @@ export default function CardWithButton({
       </div>
       
       <div className="p-6">
-        <h3 className="text-xl font-subheading font-bold text-skobeloff dark:text-floralwhite mb-3">
+        <h3 className="mb-3 font-heading text-xl font-bold leading-tight text-skobeloff dark:text-floralwhite">
           {title}
         </h3>
         <p className="text-onyx-600 dark:text-floralwhite/90 mb-4 font-body">

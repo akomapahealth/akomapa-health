@@ -246,7 +246,7 @@ function FeatureSectionWithBentoGrid({
               {badge}
             </Badge>
             <div className={cn(compact ? "space-y-2" : "space-y-3")}>
-              <h3 className={cn("font-semibold leading-tight text-[#FCFAEF]", compact ? "text-[1.8rem] md:text-[2.15rem]" : "text-2xl md:text-[2rem]")}>
+              <h3 className={cn("font-heading font-semibold leading-tight text-[#FCFAEF]", compact ? "text-[1.8rem] md:text-[2.15rem]" : "text-2xl md:text-[2rem]")}>
                 {title}
               </h3>
               <p className={cn("text-[#E6E7E7]", compact ? "text-[15px] leading-6 md:text-base" : "text-base leading-7 md:text-lg")}>
@@ -266,7 +266,7 @@ function FeatureSectionWithBentoGrid({
               <p className={cn("text-[11px] font-semibold uppercase tracking-[0.24em]", styles.eyebrow)}>
                 {highlightLabel}
               </p>
-              <p className={cn("font-semibold tracking-tight text-[#FCFAEF]", compact ? "mt-2 text-[2.5rem] md:text-[2.9rem]" : "mt-3 text-4xl md:text-5xl")}>
+              <p className={cn("font-heading font-semibold tracking-tight text-[#FCFAEF]", compact ? "mt-2 text-[2.5rem] md:text-[2.9rem]" : "mt-3 text-4xl md:text-5xl")}>
                 {highlightValue}
               </p>
             </div>
@@ -313,7 +313,7 @@ function FeatureSectionWithBentoGrid({
                   </div>
 
                   <div className={cn(compact ? "mt-5" : "mt-8")}>
-                    <h4 className={cn("font-semibold text-[#FCFAEF]", compact ? "text-base md:text-lg" : "text-lg md:text-xl")}>
+                    <h4 className={cn("font-heading font-semibold text-[#FCFAEF]", compact ? "text-base md:text-lg" : "text-lg md:text-xl")}>
                       {item.title}
                     </h4>
                     <p className={cn("text-[#E6E7E7]", compact ? "mt-2 text-sm leading-5.5 md:text-[15px]" : "mt-3 text-sm leading-6 md:text-base")}>
@@ -379,7 +379,7 @@ function BentoMetricsGroup({
             >
               {badge}
             </Badge>
-            <h3 className="mt-5 max-w-2xl text-2xl font-semibold leading-tight text-[#1C1F1E] md:text-[2rem] dark:text-[#FCFAEF]">
+            <h3 className="mt-5 max-w-2xl font-heading text-2xl font-semibold leading-tight text-[#1C1F1E] md:text-[2rem] dark:text-[#FCFAEF]">
               {title}
             </h3>
             <p className="mt-4 max-w-2xl text-base leading-7 text-[#2F3332]/80 md:text-lg dark:text-[#E6E7E7]/80">
@@ -395,7 +395,7 @@ function BentoMetricsGroup({
                   <p className={cn("text-[11px] font-semibold uppercase tracking-[0.24em]", styles.eyebrow)}>
                     Lead indicator
                   </p>
-                  <p className="mt-4 text-4xl font-semibold tracking-tight text-[#1C1F1E] md:text-5xl dark:text-[#FCFAEF]">
+                  <p className="mt-4 font-heading text-4xl font-semibold tracking-tight text-[#1C1F1E] md:text-5xl dark:text-[#FCFAEF]">
                     {leadValue}
                   </p>
                   <p className="mt-3 text-base font-medium text-[#1C1F1E] dark:text-[#FCFAEF]">
@@ -459,7 +459,7 @@ function BentoMetricsGroup({
                   ) : null}
                 </div>
                 <div className="mt-6">
-                  <p className="text-3xl font-semibold tracking-tight text-[#1C1F1E] md:text-4xl dark:text-[#FCFAEF]">
+                  <p className="font-heading text-3xl font-semibold tracking-tight text-[#1C1F1E] md:text-4xl dark:text-[#FCFAEF]">
                     {item.value}
                   </p>
                   <p className="mt-2 text-sm leading-6 text-[#2F3332]/80 md:text-base dark:text-[#E6E7E7]/80">
