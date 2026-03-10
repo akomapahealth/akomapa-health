@@ -57,6 +57,11 @@ const config = {
       },
     },
     extend: {
+      spacing: {
+        "section-mobile": "48px",
+        "section-tablet": "70px",
+        "section-desktop": "100px",
+      },
       colors: {
         floralwhite: "#FCFAEF",
         lapis: "#0097b2",

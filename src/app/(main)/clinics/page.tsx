@@ -158,9 +158,9 @@ export default function ClinicsPage() {
       <div className="container mx-auto">
         <Breadcrumb />
       </div>
-      
-      {/* Hero Section */}
-      <section className="relative min-h-screen py-16 sm:py-20 md:py-28 bg-gradient-to-r from-[#0097b2] to-[#0F4C5C] overflow-hidden">
+      <div className="flex flex-col gap-y-section-mobile md:gap-y-section-tablet lg:gap-y-section-desktop">
+        {/* Hero Section */}
+        <section className="relative min-h-screen py-16 sm:py-20 md:py-28 bg-gradient-to-r from-[#0097b2] to-[#0F4C5C] overflow-hidden">
         <div className="absolute top-0 right-0 w-64 h-64 bg-[#FCFAEF]/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl" />
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#FCFAEF]/10 rounded-full translate-y-1/2 -translate-x-1/2 blur-3xl" />
         
@@ -212,10 +212,10 @@ export default function ClinicsPage() {
             </div>
           </motion.div>
         </div>
-      </section>
+        </section>
 
-      {/* Our Model Section */}
-      <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
+        {/* Our Model Section */}
+        <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center mb-16">
             <motion.div
@@ -279,10 +279,10 @@ export default function ClinicsPage() {
             ))}
           </div>
         </div>
-      </section>
+        </section>
 
-      {/* Our Impact Section */}
-      <section className="py-16 md:py-24 bg-gradient-to-r from-[#0097b2] to-[#0F4C5C] text-[#FCFAEF] relative overflow-hidden">
+        {/* Our Impact Section */}
+        <section className="py-16 md:py-24 bg-gradient-to-r from-[#0097b2] to-[#0F4C5C] text-[#FCFAEF] relative overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute -top-24 -left-24 h-64 w-64 rounded-full bg-[#FCFAEF]/10 blur-3xl" />
           <div className="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-[#F5C94D]/10 blur-3xl" />
@@ -325,10 +325,10 @@ export default function ClinicsPage() {
             ))}
           </div>
         </div>
-      </section>
+        </section>
 
-      {/* Our Clinic Sites Section */}
-      <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
+        {/* Our Clinic Sites Section */}
+        <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center mb-12">
             <motion.div
@@ -402,10 +402,10 @@ export default function ClinicsPage() {
             ))}
           </div>
         </div>
-      </section>
+        </section>
 
-      {/* The Bigger Picture & Founder Section */}
-      <section className="relative overflow-hidden bg-gradient-to-r from-[#0097b2] via-[#0F4C5C] to-[#0B2F3A] py-16 md:py-24 text-[#FCFAEF]">
+        {/* The Bigger Picture & Founder Section */}
+        <section className="relative overflow-hidden bg-gradient-to-r from-[#0097b2] via-[#0F4C5C] to-[#0B2F3A] py-16 md:py-24 text-[#FCFAEF]">
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute -top-28 -left-32 h-72 w-72 rounded-full bg-[#FCFAEF]/10 blur-3xl" />
           <div className="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-[#F5C94D]/10 blur-3xl" />
@@ -477,7 +477,8 @@ export default function ClinicsPage() {
             </motion.div>
           </div>
         </div>
-      </section>
+        </section>
+      </div>
     </>
   );
 }

@@ -11,9 +11,9 @@ export default function ContactPage() {
       <div className="container mx-auto">
         <Breadcrumb />
       </div>
-      
-      {/* Hero Section */}
-      <section className="relative py-16 sm:py-20 md:py-28 bg-gradient-to-r from-[#0097b2] to-[#0F4C5C] overflow-hidden">
+      <div className="flex flex-col gap-y-section-mobile md:gap-y-section-tablet lg:gap-y-section-desktop">
+        {/* Hero Section */}
+        <section className="relative py-16 sm:py-20 md:py-28 bg-gradient-to-r from-[#0097b2] to-[#0F4C5C] overflow-hidden">
         <div className="absolute top-0 right-0 w-64 h-64 bg-[#FCFAEF]/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl" />
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#FCFAEF]/10 rounded-full translate-y-1/2 -translate-x-1/2 blur-3xl" />
         
@@ -37,10 +37,10 @@ export default function ContactPage() {
             </motion.p>
           </div>
         </div>
-      </section>
-      
-      {/* Contact Section */}
-      <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
+        </section>
+        
+        {/* Contact Section */}
+        <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12">
             {/* Contact Form */}
@@ -146,7 +146,8 @@ export default function ContactPage() {
             </motion.div>
           </div>
         </div>
-      </section>
+        </section>
+      </div>
     </>
   );
 }
