@@ -16,7 +16,7 @@ export default defineConfig({
   ],
   
   use: {
-    baseURL: process.env.PLAYWRIGHT_TEST_BASE_URL || 'http://localhost:3000',
+    baseURL: process.env.PLAYWRIGHT_TEST_BASE_URL || 'http://127.0.0.1:3000',
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
     // Increase timeout for slow pages with animations
@@ -34,17 +34,16 @@ export default defineConfig({
   ],
 
   webServer: process.env.CI ? {
-    command: 'npm run start',
-    url: 'http://localhost:3000',
+    command: 'npm run start -- --hostname 127.0.0.1 --port 3000',
+    url: 'http://127.0.0.1:3000',
     reuseExistingServer: false,
     timeout: 120 * 1000,
     stdout: 'ignore',
     stderr: 'pipe',
   } : {
-    command: 'npm run dev',
-    url: 'http://localhost:3000',
+    command: 'npm run dev -- --hostname 127.0.0.1 --port 3000',
+    url: 'http://127.0.0.1:3000',
     reuseExistingServer: true,
     timeout: 120 * 1000,
   },
 });
-

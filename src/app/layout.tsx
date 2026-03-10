@@ -1,28 +1,36 @@
-import { Inter, Poppins, Source_Sans_3 } from 'next/font/google';
+import localFont from "next/font/local";
 import './globals.css';
 import { Metadata } from 'next';
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from '@/components/theme/ThemeProvider';
 
-// Poppins for headings
-const poppins = Poppins({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-poppins",
+const chillax = localFont({
+  src: [
+    {
+      path: "../fonts/chillax/Chillax-Semibold.woff2",
+      weight: "600",
+      style: "normal",
+    },
+    {
+      path: "../fonts/chillax/Chillax-Bold.woff2",
+      weight: "700",
+      style: "normal",
+    },
+  ],
+  variable: "--font-chillax",
+  display: "swap",
 });
 
-// Inter for headings (alternative/fallback)
-const inter = Inter({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-inter",
-});
-
-// Source Sans 3 for body text
-const sourceSans3 = Source_Sans_3({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-source-sans-3",
+const plusJakartaSans = localFont({
+  src: [
+    {
+      path: "../fonts/plus-jakarta-sans/PlusJakartaSans-Latin.woff2",
+      weight: "300 700",
+      style: "normal",
+    },
+  ],
+  variable: "--font-plus-jakarta-sans",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -67,9 +75,8 @@ export default function RootLayout({
       <head />
       <body className={cn(
         "min-h-screen bg-background font-sans antialiased",
-        poppins.variable,
-        inter.variable,
-        sourceSans3.variable
+        chillax.variable,
+        plusJakartaSans.variable
       )}>
         <ThemeProvider defaultTheme="system" storageKey="akomapa-theme">
           {children}

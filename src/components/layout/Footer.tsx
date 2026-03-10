@@ -27,8 +27,8 @@ export default function Footer() {
   
   return (
     <footer className="bg-[#FCFAEF]/80 dark:bg-[#4F5554]/90 text-floralwhite">
-      <div className="container mx-auto py-12 px-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div className="container mx-auto px-4 py-12">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4 lg:gap-10">
           {/* Logo and mission */}
           <div className="space-y-4">
             <Link href="/" className="inline-block">
@@ -74,8 +74,8 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h3 className="font-heading font-bold text-lg mb-4">Quick Links</h3>
-            <ul className="space-y-2 font-body">
+            <h3 className="mb-4 font-heading text-lg font-bold tracking-tight">Quick Links</h3>
+            <ul className="space-y-2.5 font-body text-sm leading-relaxed md:text-base">
               <li>
                 <Link href="/about" className="text-floralwhite/80 hover:text-amber transition-colors">
                   About Us
@@ -111,8 +111,8 @@ export default function Footer() {
 
           {/* Programs */}
           <div>
-            <h3 className="font-heading font-bold text-lg mb-4">Our Core Programs</h3>
-            <ul className="space-y-2 font-body">
+            <h3 className="mb-4 font-heading text-lg font-bold tracking-tight">Our Core Programs</h3>
+            <ul className="space-y-2.5 font-body text-sm leading-relaxed md:text-base">
               <li>
                 <Link href="/programs/akomapa-network" className="text-floralwhite/80 hover:text-amber transition-colors">
                   The Akomapa Network
@@ -143,7 +143,7 @@ export default function Footer() {
 
           {/* Contact Information */}
           <div>
-            <h3 className="font-heading font-bold text-lg mb-4">Contact Us</h3>
+            <h3 className="mb-4 font-heading text-lg font-bold tracking-tight">Contact Us</h3>
             <div className="space-y-6 font-body text-floralwhite/80">
               <div>
                 <h4 className="font-semibold text-floralwhite mb-1">USA Office</h4>

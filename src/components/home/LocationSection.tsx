@@ -58,7 +58,7 @@ export default function LocationsSection() {
   };
 
   return (
-    <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
+    <section className="overflow-x-hidden bg-[#FCFAEF] py-16 md:py-24 dark:bg-[#1C1F1E]">
       <div className="container mx-auto px-4">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="text-[#eeba2b] dark:text-[#F5C94D] font-bold text-lg mb-2">

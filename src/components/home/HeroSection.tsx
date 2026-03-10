@@ -157,7 +157,7 @@ export default function HeroSection({
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
-              className={`text-4xl md:text-5xl lg:text-6xl xl:text-7xl tracking-tight text-[#FCFAEF] dark:text-[#FCFAEF] mb-6 leading-tight text-balance font-medium ${textShadowClass}`}
+              className={`font-heading mb-6 text-4xl tracking-tight text-balance text-[#FCFAEF] dark:text-[#FCFAEF] md:text-5xl lg:text-6xl xl:text-7xl leading-[1.02] md:leading-[1.04] ${textShadowClass}`}
             >
               Can a <span className="text-[#8DD4E6] dark:text-[#B0E8F5]">global partnership</span> of <span className="text-[#eeba2b] dark:text-[#eeba2b]">students</span> lead the fight against <span className="text-[#8DD4E6] dark:text-[#B0E8F5]">non-communicable diseases</span>?
             </motion.h1>
@@ -166,7 +166,7 @@ export default function HeroSection({
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.8 }}
-              className={`text-xl md:text-2xl text-[#FCFAEF] dark:text-[#FCFAEF] font-medium mb-8 leading-relaxed max-w-2xl ${textShadowClass}`}
+              className={`font-body mb-8 max-w-2xl text-xl font-medium leading-relaxed text-[#FCFAEF] dark:text-[#FCFAEF] md:text-2xl ${textShadowClass}`}
             >
               Student-powered. <span className="text-[#8DD4E6] dark:text-[#B0E8F5]">Expert-supervised</span>. Community-rooted.<br />
               Akomapa is redefining preventative primary care.
