@@ -57,6 +57,11 @@ const config = {
       },
     },
     extend: {
+      spacing: {
+        "section-mobile": "48px",
+        "section-tablet": "70px",
+        "section-desktop": "100px",
+      },
       colors: {
         floralwhite: "#FCFAEF",
         lapis: "#0097b2",
@@ -120,11 +125,11 @@ const config = {
         },
       },
       fontFamily: {
-        sans: ["var(--font-source-sans-3)", "var(--font-inter)", ...fontFamily.sans],
-        heading: ["var(--font-poppins)", "var(--font-inter)", ...fontFamily.sans],
-        subheading: ["var(--font-inter)", "var(--font-poppins)", ...fontFamily.sans],
-        accent: ["var(--font-poppins)", ...fontFamily.sans],
-        body: ["var(--font-source-sans-3)", "var(--font-inter)", ...fontFamily.sans],
+        sans: ["var(--font-plus-jakarta-sans)", ...fontFamily.sans],
+        heading: ["var(--font-chillax)", "var(--font-plus-jakarta-sans)", ...fontFamily.sans],
+        subheading: ["var(--font-plus-jakarta-sans)", ...fontFamily.sans],
+        accent: ["var(--font-chillax)", "var(--font-plus-jakarta-sans)", ...fontFamily.sans],
+        body: ["var(--font-plus-jakarta-sans)", ...fontFamily.sans],
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -158,27 +163,27 @@ const config = {
               },
             },
             h1: {
-              fontFamily: 'var(--font-poppins), var(--font-inter)',
+              fontFamily: 'var(--font-chillax), var(--font-plus-jakarta-sans)',
               fontWeight: '700',
             },
             h2: {
-              fontFamily: 'var(--font-poppins), var(--font-inter)',
+              fontFamily: 'var(--font-chillax), var(--font-plus-jakarta-sans)',
               fontWeight: '700',
             },
             h3: {
-              fontFamily: 'var(--font-poppins), var(--font-inter)',
+              fontFamily: 'var(--font-chillax), var(--font-plus-jakarta-sans)',
               fontWeight: '700',
             },
             h4: {
-              fontFamily: 'var(--font-poppins), var(--font-inter)',
+              fontFamily: 'var(--font-chillax), var(--font-plus-jakarta-sans)',
               fontWeight: '700',
             },
             h5: {
-              fontFamily: 'var(--font-inter), var(--font-poppins)',
+              fontFamily: 'var(--font-chillax), var(--font-plus-jakarta-sans)',
               fontWeight: '600',
             },
             h6: {
-              fontFamily: 'var(--font-inter), var(--font-poppins)',
+              fontFamily: 'var(--font-chillax), var(--font-plus-jakarta-sans)',
               fontWeight: '600',
             },
           },

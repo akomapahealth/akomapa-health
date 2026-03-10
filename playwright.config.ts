@@ -1,8 +1,8 @@
 import { defineConfig, devices } from '@playwright/test';
 
 /**
- * Simplified Playwright configuration for E2E testing
- * Tests page rendering using Chromium browser only
+ * E2E test configuration
+ * Runs the full smoke suite in Chromium and targeted visual coverage in Firefox/WebKit.
  */
 export default defineConfig({
   testDir: './e2e',
@@ -16,7 +16,7 @@ export default defineConfig({
   ],
   
   use: {
-    baseURL: process.env.PLAYWRIGHT_TEST_BASE_URL || 'http://localhost:3000',
+    baseURL: process.env.PLAYWRIGHT_TEST_BASE_URL || 'http://127.0.0.1:3000',
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
     // Increase timeout for slow pages with animations
@@ -31,20 +31,29 @@ export default defineConfig({
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
     },
+    {
+      name: 'firefox',
+      testMatch: /research-carousel\.spec\.ts/,
+      use: { ...devices['Desktop Firefox'] },
+    },
+    {
+      name: 'webkit',
+      testMatch: /research-carousel\.spec\.ts/,
+      use: { ...devices['Desktop Safari'] },
+    },
   ],
 
   webServer: process.env.CI ? {
-    command: 'npm run start',
-    url: 'http://localhost:3000',
+    command: 'npm run start -- --hostname 127.0.0.1 --port 3000',
+    url: 'http://127.0.0.1:3000',
     reuseExistingServer: false,
     timeout: 120 * 1000,
     stdout: 'ignore',
     stderr: 'pipe',
   } : {
-    command: 'npm run dev',
-    url: 'http://localhost:3000',
+    command: 'npm run dev -- --hostname 127.0.0.1 --port 3000',
+    url: 'http://127.0.0.1:3000',
     reuseExistingServer: true,
     timeout: 120 * 1000,
   },
 });
-

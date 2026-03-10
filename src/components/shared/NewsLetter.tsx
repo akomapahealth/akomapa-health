@@ -67,7 +67,7 @@ export default function Newsletter() {
           <h2 className="text-[#eeba2b] dark:text-[#F5C94D] font-bold text-lg mb-2">
             STAY CONNECTED
           </h2>
-          <h3 className="text-3xl md:text-4xl font-bold mb-6 text-[#1C1F1E] dark:text-[#FCFAEF] font-heading">
+          <h3 className="mb-6 font-heading text-3xl font-bold leading-tight text-[#1C1F1E] dark:text-[#FCFAEF] md:text-4xl">
             Newsletter Signup
           </h3>
           <p className="text-[#2F3332] dark:text-[#E6E7E7] text-lg mb-8 font-body">
@@ -102,7 +102,7 @@ export default function Newsletter() {
               )}
               
               <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col sm:flex-row gap-3">
+                <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-3 sm:flex-row sm:items-start">
                   <FormField
                     control={form.control}
                     name="email"
@@ -113,7 +113,7 @@ export default function Newsletter() {
                             placeholder="Enter your email address" 
                             {...field} 
                             disabled={isLoading}
-                            className="h-12 border-[#2F3332]/20 dark:border-[#FCFAEF]/20 bg-white dark:bg-[#2F3332] text-[#2F3332] dark:text-[#FCFAEF]"
+                            className="h-12 border-[#2F3332]/20 bg-white text-[#2F3332] dark:border-[#FCFAEF]/20 dark:bg-[#2F3332] dark:text-[#FCFAEF]"
                           />
                         </FormControl>
                         <FormMessage className="text-[#eeba2b]" />
@@ -123,7 +123,7 @@ export default function Newsletter() {
                   <Button 
                     type="submit" 
                     disabled={isLoading}
-                    className="bg-[#0097b2] hover:bg-[#005A5F] text-[#FCFAEF] dark:bg-[#eeba2b] dark:hover:bg-[#BE9522] dark:text-[#FCFAEF] h-12 px-8 font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="h-12 shrink-0 bg-[#0097b2] px-6 font-medium text-[#FCFAEF] hover:bg-[#005A5F] disabled:cursor-not-allowed disabled:opacity-50 sm:px-8 dark:bg-[#eeba2b] dark:text-[#FCFAEF] dark:hover:bg-[#BE9522]"
                   >
                     {isLoading ? (
                       <>

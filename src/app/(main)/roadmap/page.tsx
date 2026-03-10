@@ -75,9 +75,9 @@ export default function RoadmapPage() {
       <div className="container mx-auto">
         <Breadcrumb />
       </div>
-      
-      {/* Hero Section */}
-      <section className="relative py-16 md:py-24 overflow-hidden">
+      <div className="flex flex-col gap-y-section-mobile md:gap-y-section-tablet lg:gap-y-section-desktop">
+        {/* Hero Section */}
+        <section className="relative py-16 md:py-24 overflow-hidden">
         <div className="absolute inset-0 z-0 opacity-10">
           <Image
             src="/images/hero-image.jpg"
@@ -118,10 +118,10 @@ export default function RoadmapPage() {
             </motion.p>
           </div>
         </div>
-      </section>
+        </section>
 
-      {/* Phase Navigation */}
-      <section className="py-8 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
+        {/* Phase Navigation */}
+        <section className="py-8 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
         <div className="container mx-auto px-4">
           <div className="flex flex-wrap justify-center gap-4">
             {phases.map((phase) => (
@@ -141,10 +141,10 @@ export default function RoadmapPage() {
             ))}
           </div>
         </div>
-      </section>
+        </section>
 
-      {/* Active Phase Details */}
-      <section className="py-16">
+        {/* Active Phase Details */}
+        <section className="py-16">
         <div className="container mx-auto px-4">
           {phases.map((phase) => (
             <motion.div
@@ -222,10 +222,10 @@ export default function RoadmapPage() {
             </motion.div>
           ))}
         </div>
-      </section>
+        </section>
 
-      {/* Progress Timeline */}
-      <section className="py-16 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
+        {/* Progress Timeline */}
+        <section className="py-16 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <motion.h2
@@ -279,10 +279,10 @@ export default function RoadmapPage() {
             </div>
           </div>
         </div>
-      </section>
+        </section>
 
-      {/* Call to Action */}
-      <section className="py-16 bg-gradient-to-r from-[#0097b2] to-[#eeba2b]">
+        {/* Call to Action */}
+        <section className="py-16 bg-gradient-to-r from-[#0097b2] to-[#eeba2b]">
         <div className="container mx-auto px-4 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -331,7 +331,8 @@ export default function RoadmapPage() {
             </div>
           </motion.div>
         </div>
-      </section>
+        </section>
+      </div>
     </>
   );
 } 

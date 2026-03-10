@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useAnimation } from "framer-motion";
-import { useEffect } from "react";
+import { useEffect, type CSSProperties } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
@@ -43,6 +43,11 @@ const partners = [
 
 // Duplicate the partners array for seamless infinite scroll
 const allPartners = [...partners, ...partners];
+
+const carouselFadeVars = {
+  "--partner-carousel-left-rgb": "0 151 178",
+  "--partner-carousel-right-rgb": "15 76 92",
+} as CSSProperties;
 
 export default function ResearchSection() {
   // Controls for the logo animation
@@ -92,30 +97,30 @@ export default function ResearchSection() {
         </div>
 
         {/* Logo carousel container */}
-        <div className="w-full overflow-hidden my-12 relative">
-          {/* Add fading edges to enhance the scrolling effect */}
-          <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-24 z-10 bg-gradient-to-r from-[#0097b2] via-[#0097b2]/60 to-transparent dark:from-[#1C1F1E] dark:via-[#1C1F1E]/60"></div>
-          <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-24 z-10 bg-gradient-to-l from-[#0F4C5C] via-[#0F4C5C]/60 to-transparent dark:from-[#1C1F1E] dark:via-[#1C1F1E]/60"></div>
-          
+        <div
+          className="partner-carousel-fade my-12 w-full"
+          data-testid="partner-logo-carousel"
+          style={carouselFadeVars}
+        >
           {/* The animated logo container */}
-          <motion.div 
+          <motion.div
             className="flex items-center"
             animate={controls}
             style={{ width: "fit-content" }}
           >
             {allPartners.map((partner, index) => (
-              <div 
-                key={`${partner.name}-${index}`} 
+              <div
+                key={`${partner.name}-${index}`}
                 className="group mx-6 sm:mx-10 lg:mx-12 flex-shrink-0 opacity-85 hover:opacity-100 transition-all duration-300"
               >
                 {/* Updated logo container with larger dimensions */}
-                <div 
-                  className="relative bg-transparent dark:bg-transparent rounded-xl p-4 sm:p-6 flex items-center justify-center w-[180px] h-[90px] sm:w-[220px] sm:h-[110px] lg:w-[280px] lg:h-[140px]"
+                <div
+                  className="relative flex h-[90px] w-[180px] items-center justify-center rounded-xl bg-transparent p-4 dark:bg-transparent sm:h-[110px] sm:w-[220px] sm:p-6 lg:h-[140px] lg:w-[280px]"
                 >
                   {/* Image with adjusted dimensions to fit the larger container */}
-                  <Image 
-                    src={partner.logo} 
-                    alt={partner.name} 
+                  <Image
+                    src={partner.logo}
+                    alt={partner.name}
                     fill
                     className="object-contain transition-transform duration-300 group-hover:scale-110"
                   />

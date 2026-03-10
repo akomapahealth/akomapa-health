@@ -13,9 +13,9 @@ export default function AboutPage() {
       <div className="container mx-auto">
         <Breadcrumb />
       </div>
-      
-      {/* Hero Section */}
-      <section className="relative min-h-screen py-16 sm:py-20 md:py-28 bg-gradient-to-r from-[#0097b2] to-[#0F4C5C] overflow-hidden">
+      <div className="flex flex-col gap-y-section-mobile md:gap-y-section-tablet lg:gap-y-section-desktop">
+        {/* Hero Section */}
+        <section className="relative min-h-screen py-16 sm:py-20 md:py-28 bg-gradient-to-r from-[#0097b2] to-[#0F4C5C] overflow-hidden">
         <div className="absolute top-0 right-0 w-64 h-64 bg-[#FCFAEF]/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl" />
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#FCFAEF]/10 rounded-full translate-y-1/2 -translate-x-1/2 blur-3xl" />
         
@@ -67,10 +67,10 @@ export default function AboutPage() {
             </div>
           </motion.div>
         </div>
-      </section>
+        </section>
 
-      {/* About Content Section */}
-      <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
+        {/* About Content Section */}
+        <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
             <motion.div
@@ -107,10 +107,10 @@ export default function AboutPage() {
             </motion.div>
           </div>
         </div>
-      </section>
-      
-      {/* What We Focus On Section */}
-      <section className="py-16 md:py-24 bg-white dark:bg-[#2F3332]">
+        </section>
+        
+        {/* What We Focus On Section */}
+        <section className="py-16 md:py-24 bg-white dark:bg-[#2F3332]">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto text-center mb-12 sm:mb-16">
             <motion.div
@@ -199,10 +199,10 @@ export default function AboutPage() {
             </motion.div>
           </div>
         </div>
-      </section>
-      
-      {/* Explore More Section */}
-      <section className="py-16 md:py-24 bg-gradient-to-r from-[#0097b2] via-[#0F4C5C] to-[#031C3A] text-[#FCFAEF] relative overflow-hidden">
+        </section>
+        
+        {/* Explore More Section */}
+        <section className="py-16 md:py-24 bg-gradient-to-r from-[#0097b2] via-[#0F4C5C] to-[#031C3A] text-[#FCFAEF] relative overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute -top-28 -left-32 h-72 w-72 rounded-full bg-[#FCFAEF]/10 blur-3xl" />
           <div className="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-[#F5C94D]/10 blur-3xl" />
@@ -237,7 +237,7 @@ export default function AboutPage() {
             >
               <Link 
                 href="/about/mission" 
-                className="group block relative rounded-2xl bg-[#FCFAEF]/10 backdrop-blur-md border border-[#FCFAEF]/15 p-6 sm:p-8 hover:bg-[#FCFAEF]/15 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 h-full flex flex-col"
+                className="group relative rounded-2xl bg-[#FCFAEF]/10 backdrop-blur-md border border-[#FCFAEF]/15 p-6 sm:p-8 hover:bg-[#FCFAEF]/15 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 h-full flex flex-col"
               >
                 <div className="flex items-center gap-2 mb-4">
                   <div className="h-1 w-8 bg-[#F5C94D] rounded-full" />
@@ -261,7 +261,7 @@ export default function AboutPage() {
             >
               <Link 
                 href="/about/team" 
-                className="group block relative rounded-2xl bg-[#FCFAEF]/10 backdrop-blur-md border border-[#FCFAEF]/15 p-6 sm:p-8 hover:bg-[#FCFAEF]/15 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 h-full flex flex-col"
+                className="group relative rounded-2xl bg-[#FCFAEF]/10 backdrop-blur-md border border-[#FCFAEF]/15 p-6 sm:p-8 hover:bg-[#FCFAEF]/15 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 h-full flex flex-col"
               >
                 <div className="flex items-center gap-2 mb-4">
                   <div className="h-1 w-8 bg-[#F5C94D] rounded-full" />
@@ -285,7 +285,7 @@ export default function AboutPage() {
             >
               <Link 
                 href="/about" 
-                className="group block relative rounded-2xl bg-[#FCFAEF]/10 backdrop-blur-md border border-[#FCFAEF]/15 p-6 sm:p-8 hover:bg-[#FCFAEF]/15 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 h-full flex flex-col"
+                className="group relative rounded-2xl bg-[#FCFAEF]/10 backdrop-blur-md border border-[#FCFAEF]/15 p-6 sm:p-8 hover:bg-[#FCFAEF]/15 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 h-full flex flex-col"
               >
                 <div className="flex items-center gap-2 mb-4">
                   <div className="h-1 w-8 bg-[#F5C94D] rounded-full" />
@@ -309,7 +309,7 @@ export default function AboutPage() {
             >
               <Link 
                 href="/partner" 
-                className="group block relative rounded-2xl bg-[#FCFAEF]/10 backdrop-blur-md border border-[#FCFAEF]/15 p-6 sm:p-8 hover:bg-[#FCFAEF]/15 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 h-full flex flex-col"
+                className="group relative rounded-2xl bg-[#FCFAEF]/10 backdrop-blur-md border border-[#FCFAEF]/15 p-6 sm:p-8 hover:bg-[#FCFAEF]/15 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 h-full flex flex-col"
               >
                 <div className="flex items-center gap-2 mb-4">
                   <div className="h-1 w-8 bg-[#F5C94D] rounded-full" />
@@ -326,7 +326,8 @@ export default function AboutPage() {
             </motion.div>
           </div>
         </div>
-      </section>
+        </section>
+      </div>
     </>
   );
 }

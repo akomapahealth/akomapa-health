@@ -92,10 +92,10 @@ function ContactFormContent() {
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
-        className="bg-white dark:bg-[#2F3332] rounded-2xl p-8 shadow-lg text-center"
+        className="rounded-2xl bg-white p-8 text-center shadow-lg dark:bg-[#2F3332]"
       >
         <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
-        <h3 className="text-2xl font-bold text-[#1C1F1E] dark:text-[#FCFAEF] mb-2">
+        <h3 className="mb-2 font-heading text-2xl font-bold leading-tight text-[#1C1F1E] dark:text-[#FCFAEF]">
           Message Sent Successfully!
         </h3>
         <p className="text-[#2F3332] dark:text-[#E6E7E7] mb-6">
@@ -117,10 +117,10 @@ function ContactFormContent() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
       onSubmit={handleSubmit}
-      className="bg-white dark:bg-[#2F3332] rounded-2xl p-8 shadow-lg"
+      className="rounded-2xl bg-white p-6 shadow-lg md:p-8 dark:bg-[#2F3332]"
     >
       <div className="mb-6">
-        <h3 className="text-2xl font-bold text-[#1C1F1E] dark:text-[#FCFAEF] mb-2">
+        <h3 className="mb-2 font-heading text-2xl font-bold leading-tight text-[#1C1F1E] dark:text-[#FCFAEF]">
           Get in Touch
         </h3>
         <p className="text-[#2F3332] dark:text-[#E6E7E7]">
@@ -237,7 +237,7 @@ function ContactFormContent() {
       <Button
         type="submit"
         disabled={isSubmitting}
-        className="w-full bg-[#0097b2] hover:bg-[#eeba2b] text-[#FCFAEF] text-lg py-3 disabled:opacity-50 disabled:cursor-not-allowed"
+        className="min-h-12 w-full bg-[#0097b2] px-6 py-3 text-base text-[#FCFAEF] hover:bg-[#eeba2b] disabled:cursor-not-allowed disabled:opacity-50 sm:text-lg"
       >
         {isSubmitting ? (
           <div className="flex items-center">

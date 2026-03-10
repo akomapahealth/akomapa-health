@@ -54,7 +54,7 @@ export default function Testimonials() {
   };
   
   return (
-    <section className="py-16 md:py-24 bg-gradient-to-r from-[#0097b2] to-[#0F4C5C] dark:bg-[#1C1F1E] text-[#FCFAEF]">
+    <section className="overflow-x-hidden bg-gradient-to-r from-[#0097b2] to-[#0F4C5C] py-16 text-[#FCFAEF] md:py-24 dark:bg-[#1C1F1E]">
       <div className="container mx-auto px-4">
         <div className="text-center max-w-3xl mx-auto mb-12">
           <h2 className="text-[#F5C94D] font-bold text-lg mb-2">

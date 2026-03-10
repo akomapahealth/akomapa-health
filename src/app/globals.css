@@ -7,10 +7,11 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-heading: var(--font-work-sans);
-  --font-subheading: var(--font-dm-sans);
-  --font-accent: var(--font-bree-serif);
-  --font-body: var(--font-dm-sans);
+  --font-sans: var(--font-plus-jakarta-sans);
+  --font-heading: var(--font-chillax);
+  --font-subheading: var(--font-plus-jakarta-sans);
+  --font-accent: var(--font-chillax);
+  --font-body: var(--font-plus-jakarta-sans);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -114,7 +115,11 @@ h1, h2, h3, h4 {
 }
 
 h5, h6 {
-  @apply font-subheading font-bold;
+  @apply font-heading font-semibold;
+}
+
+:is(h1, h2, h3, h4)[class*="font-light"] {
+  font-weight: 600;
 }
 
 body {
@@ -129,6 +134,13 @@ body {
 button:hover, 
 a:hover {
   @apply transition-colors duration-200;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
 }
 
 /* Custom focus styles using standard CSS */
@@ -160,6 +172,103 @@ a:hover {
 /* Add these styles to support theme switching while preserving all existing code */
 html.dark {
   color-scheme: dark;
+}
+
+.homepage-hover-card,
+.homepage-hover-panel {
+  transition-property: transform, box-shadow, border-color;
+  transition-duration: 200ms;
+  transition-timing-function: ease;
+  will-change: transform, box-shadow;
+}
+
+.homepage-hover-card {
+  --homepage-hover-transform: translateY(-4px);
+  --homepage-hover-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+}
+
+.homepage-hover-panel {
+  --homepage-hover-transform: translateY(-2px);
+  --homepage-hover-shadow: 0 28px 80px rgba(15, 76, 92, 0.22);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .homepage-hover-card:hover,
+  .homepage-hover-panel:hover {
+    transform: var(--homepage-hover-transform);
+    box-shadow: var(--homepage-hover-shadow);
+    border-color: var(--homepage-hover-border-color);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .homepage-hover-card,
+  .homepage-hover-panel {
+    transition-property: box-shadow, border-color;
+  }
+
+  .homepage-hover-card:hover,
+  .homepage-hover-panel:hover {
+    transform: none;
+  }
+}
+
+.partner-carousel-fade {
+  --partner-carousel-fade-width: clamp(2.5rem, 8vw, 6rem);
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    white var(--partner-carousel-fade-width),
+    white calc(100% - var(--partner-carousel-fade-width)),
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    white var(--partner-carousel-fade-width),
+    white calc(100% - var(--partner-carousel-fade-width)),
+    transparent 100%
+  );
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  mask-size: 100% 100%;
+  -webkit-mask-size: 100% 100%;
+}
+
+@supports not ((mask-image: linear-gradient(white, white)) or (-webkit-mask-image: linear-gradient(white, white))) {
+  .partner-carousel-fade::before,
+  .partner-carousel-fade::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    z-index: 1;
+    width: var(--partner-carousel-fade-width);
+    pointer-events: none;
+  }
+
+  .partner-carousel-fade::before {
+    left: 0;
+    background-image: linear-gradient(
+      to right,
+      rgb(var(--partner-carousel-left-rgb)),
+      rgb(var(--partner-carousel-left-rgb) / 0.65),
+      transparent
+    );
+  }
+
+  .partner-carousel-fade::after {
+    right: 0;
+    background-image: linear-gradient(
+      to left,
+      rgb(var(--partner-carousel-right-rgb)),
+      rgb(var(--partner-carousel-right-rgb) / 0.65),
+      transparent
+    );
+  }
 }
 
 /* Hero orbit portrait responsive sizing */

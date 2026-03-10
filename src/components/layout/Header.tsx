@@ -132,7 +132,7 @@ function HeaderContent() {
       isScrolled ? 'bg-[#FCFAEF] shadow-md py-2 dark:bg-[#4F5554]' : 'bg-[#FCFAEF]/80 backdrop-blur-md py-4 dark:bg-[#4F5554]/90'
     }`}>
       <div className="container mx-auto px-4">
-        <div className="flex items-center">
+        <div className="flex items-center gap-4">
           {/* Logo */}
           <Link href="/" className="flex items-center flex-shrink-0">
             <Image
@@ -146,14 +146,14 @@ function HeaderContent() {
           </Link>
 
           {/* Desktop Navigation and Actions - Right Aligned */}
-          <div className="hidden xl:flex items-center ml-auto space-x-8">
+          <div className="hidden xl:flex items-center gap-6 ml-auto 2xl:gap-8">
             {/* Desktop Navigation */}
-            <nav className="flex items-center space-x-8">
+            <nav className="flex items-center gap-5 2xl:gap-6">
               {navigation.map((item) => (
                 <div key={item.name} className="relative group">
                   <Link 
                     href={item.href}
-                    className={`flex items-center gap-1 text-md font-subheading font-medium transition-colors hover:text-[#eeba2b] dark:hover:text-[#eeba2b] ${
+                    className={`flex items-center gap-1.5 whitespace-nowrap text-sm font-subheading font-medium leading-none transition-colors hover:text-[#eeba2b] dark:hover:text-[#eeba2b] ${
                       pathname === item.href || pathname.startsWith(`${item.href}/`) 
                         ? 'text-[#0097b2]' 
                         : 'text-[#2F3332] dark:text-[#FCFAEF]'
@@ -167,7 +167,7 @@ function HeaderContent() {
                   
                   {/* Dropdown for items with children */}
                   {item.children && (
-                    <div className="absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-[#FCFAEF] dark:bg-[#2F3332] ring-1 ring-[#C1C3C3] ring-opacity-5 dark:ring-[#FCFAEF] dark:ring-opacity-10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top-right">
+                    <div className="absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-[#FCFAEF] dark:bg-[#2F3332] ring-1 ring-[#C1C3C3] ring-opacity-5 dark:ring-[#FCFAEF] dark:ring-opacity-10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top-right">
                       <div className="py-1" role="menu" aria-orientation="vertical">
                         {item.children.map((child) => (
                           <Link
@@ -192,9 +192,9 @@ function HeaderContent() {
             </nav>
 
             {/* Partner button and Theme Toggle */}
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center gap-3">
               <Button 
-                className="bg-[#0097b2] text-[#FCFAEF] hover:bg-[#0097b2]/80 hover:text-[#FCFAEF] font-subheading font-medium"
+                className="bg-[#0097b2] px-5 text-[#FCFAEF] hover:bg-[#0097b2]/80 hover:text-[#FCFAEF] font-subheading font-medium"
               >
                 <Link href="/partner">Partner With Us</Link>
               </Button>
