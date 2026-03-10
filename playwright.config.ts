@@ -1,8 +1,8 @@
 import { defineConfig, devices } from '@playwright/test';
 
 /**
- * Simplified Playwright configuration for E2E testing
- * Tests page rendering using Chromium browser only
+ * E2E test configuration
+ * Runs the full smoke suite in Chromium and targeted visual coverage in Firefox/WebKit.
  */
 export default defineConfig({
   testDir: './e2e',
@@ -30,6 +30,16 @@ export default defineConfig({
     {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
+    },
+    {
+      name: 'firefox',
+      testMatch: /research-carousel\.spec\.ts/,
+      use: { ...devices['Desktop Firefox'] },
+    },
+    {
+      name: 'webkit',
+      testMatch: /research-carousel\.spec\.ts/,
+      use: { ...devices['Desktop Safari'] },
     },
   ],
 
