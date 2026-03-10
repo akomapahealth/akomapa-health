@@ -44,6 +44,7 @@ const toneStyles: Record<
     highlight: string;
     itemGlow: string;
     border: string;
+    hoverBorder: string;
     eyebrow: string;
   }
 > = {
@@ -53,6 +54,7 @@ const toneStyles: Record<
     highlight: "from-[#66C4DC]/14 via-[#66C4DC]/8 to-transparent",
     itemGlow: "before:bg-[#66C4DC]/12",
     border: "#66C4DC",
+    hoverBorder: "rgba(102, 196, 220, 0.32)",
     eyebrow: "text-[#66C4DC]"
   },
   gold: {
@@ -61,6 +63,7 @@ const toneStyles: Record<
     highlight: "from-[#F5C94D]/16 via-[#F5C94D]/8 to-transparent",
     itemGlow: "before:bg-[#F5C94D]/12",
     border: "#F5C94D",
+    hoverBorder: "rgba(245, 201, 77, 0.32)",
     eyebrow: "text-[#F5C94D]"
   }
 };
@@ -75,6 +78,12 @@ const metricSpanClasses: Record<NonNullable<BentoMetricItem["span"]>, string> = 
   default: "md:col-span-1",
   wide: "md:col-span-2"
 };
+
+function hoverBorderStyle(borderColor: string): React.CSSProperties {
+  return {
+    ["--homepage-hover-border-color" as string]: borderColor
+  };
+}
 
 function FeatureSectionWithBentoGrid({
   badge,
@@ -96,9 +105,10 @@ function FeatureSectionWithBentoGrid({
     return (
       <article
         className={cn(
-          "relative h-full overflow-hidden rounded-[30px] border border-[#FCFAEF]/10 bg-[#0F4C5C]/55 p-4 shadow-[0_24px_70px_rgba(15,76,92,0.18)] backdrop-blur-sm sm:p-5 md:p-6",
+          "homepage-hover-panel relative h-full overflow-hidden rounded-[30px] border border-[#FCFAEF]/10 bg-[#0F4C5C]/55 p-4 shadow-[0_24px_70px_rgba(15,76,92,0.18)] backdrop-blur-sm sm:p-5 md:p-6",
           className
         )}
+        style={hoverBorderStyle("rgba(252, 250, 239, 0.18)")}
       >
         <div
           className={cn(
@@ -176,11 +186,12 @@ function FeatureSectionWithBentoGrid({
               <li
                 key={item.title}
                 className={cn(
-                  "relative isolate overflow-hidden rounded-[24px] border border-[#FCFAEF]/10 bg-[#FCFAEF]/[0.05] p-4 md:p-5",
+                  "homepage-hover-card relative isolate overflow-hidden rounded-[24px] border border-[#FCFAEF]/10 bg-[#FCFAEF]/[0.05] p-4 md:p-5",
                   "before:absolute before:right-0 before:top-0 before:h-20 before:w-20 before:rounded-full before:blur-2xl before:content-['']",
                   styles.itemGlow,
                   spanClasses[item.span ?? "default"]
                 )}
+                style={hoverBorderStyle("rgba(252, 250, 239, 0.18)")}
               >
                 <div
                   className="absolute left-0 top-0 h-1 w-16 rounded-full"
@@ -288,13 +299,14 @@ function FeatureSectionWithBentoGrid({
               <li
                 key={item.title}
                 className={cn(
-                  "relative isolate overflow-hidden rounded-[24px] border border-[#FCFAEF]/10 bg-[#FCFAEF]/[0.05] p-5 md:p-6",
+                  "homepage-hover-card relative isolate overflow-hidden rounded-[24px] border border-[#FCFAEF]/10 bg-[#FCFAEF]/[0.05] p-5 md:p-6",
                   "before:absolute before:right-0 before:top-0 before:h-24 before:w-24 before:rounded-full before:blur-2xl before:content-['']",
                   compact && "p-4 md:p-5",
                   styles.itemGlow,
                   spanClasses[item.span ?? "default"],
                   itemClassName
                 )}
+                style={hoverBorderStyle("rgba(252, 250, 239, 0.18)")}
               >
                 <div
                   className="absolute left-0 top-0 h-1 w-20 rounded-full"
@@ -369,7 +381,10 @@ function BentoMetricsGroup({
 
       <div className="relative z-10">
         <div className="grid gap-4 2xl:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] xl:gap-5">
-          <div className="rounded-[28px] border border-[#E6E7E7] bg-[#FCFAEF]/75 p-6 md:p-8 dark:border-[#2F3332] dark:bg-[#2F3332]/70">
+          <div
+            className="homepage-hover-card rounded-[28px] border border-[#E6E7E7] bg-[#FCFAEF]/75 p-6 md:p-8 dark:border-[#2F3332] dark:bg-[#2F3332]/70"
+            style={hoverBorderStyle(styles.hoverBorder)}
+          >
             <Badge
               variant="outline"
               className={cn(
@@ -388,7 +403,10 @@ function BentoMetricsGroup({
           </div>
 
           <div className="grid gap-4 lg:grid-cols-2 2xl:grid-cols-1">
-            <div className="relative overflow-hidden rounded-[28px] border border-[#E6E7E7] bg-white/90 p-6 dark:border-[#2F3332] dark:bg-[#1C1F1E]/75">
+            <div
+              className="homepage-hover-card relative overflow-hidden rounded-[28px] border border-[#E6E7E7] bg-white/90 p-6 dark:border-[#2F3332] dark:bg-[#1C1F1E]/75"
+              style={hoverBorderStyle(styles.hoverBorder)}
+            >
               <div className="absolute right-0 top-0 h-28 w-28 rounded-full bg-black/5 blur-3xl dark:bg-white/5" />
               <div className="relative z-10 flex items-start justify-between gap-4">
                 <div>
@@ -415,7 +433,10 @@ function BentoMetricsGroup({
             </div>
 
             {supportingCopy ? (
-              <div className="rounded-[28px] border border-[#E6E7E7] bg-[#FCFAEF]/65 p-6 dark:border-[#2F3332] dark:bg-[#2F3332]/65">
+              <div
+                className="homepage-hover-card rounded-[28px] border border-[#E6E7E7] bg-[#FCFAEF]/65 p-6 dark:border-[#2F3332] dark:bg-[#2F3332]/65"
+                style={hoverBorderStyle(styles.hoverBorder)}
+              >
                 <p className={cn("text-[11px] font-semibold uppercase tracking-[0.24em]", styles.eyebrow)}>
                   What this unlocks
                 </p>
@@ -432,9 +453,10 @@ function BentoMetricsGroup({
             <li
               key={`${item.value}-${item.label}`}
               className={cn(
-                "relative overflow-hidden rounded-[24px] border border-[#E6E7E7] bg-white/85 p-4 dark:border-[#2F3332] dark:bg-[#2F3332]/70 md:p-5",
+                "homepage-hover-card relative overflow-hidden rounded-[24px] border border-[#E6E7E7] bg-white/85 p-4 dark:border-[#2F3332] dark:bg-[#2F3332]/70 md:p-5",
                 metricSpanClasses[item.span ?? "default"]
               )}
+              style={hoverBorderStyle(styles.hoverBorder)}
             >
               <div
                 className="absolute left-0 top-0 h-1 w-20 rounded-full"
