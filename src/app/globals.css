@@ -174,6 +174,45 @@ html.dark {
   color-scheme: dark;
 }
 
+.homepage-hover-card,
+.homepage-hover-panel {
+  transition-property: transform, box-shadow, border-color;
+  transition-duration: 200ms;
+  transition-timing-function: ease;
+  will-change: transform, box-shadow;
+}
+
+.homepage-hover-card {
+  --homepage-hover-transform: translateY(-4px);
+  --homepage-hover-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+}
+
+.homepage-hover-panel {
+  --homepage-hover-transform: translateY(-2px);
+  --homepage-hover-shadow: 0 28px 80px rgba(15, 76, 92, 0.22);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .homepage-hover-card:hover,
+  .homepage-hover-panel:hover {
+    transform: var(--homepage-hover-transform);
+    box-shadow: var(--homepage-hover-shadow);
+    border-color: var(--homepage-hover-border-color);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .homepage-hover-card,
+  .homepage-hover-panel {
+    transition-property: box-shadow, border-color;
+  }
+
+  .homepage-hover-card:hover,
+  .homepage-hover-panel:hover {
+    transform: none;
+  }
+}
+
 .partner-carousel-fade {
   --partner-carousel-fade-width: clamp(2.5rem, 8vw, 6rem);
   position: relative;

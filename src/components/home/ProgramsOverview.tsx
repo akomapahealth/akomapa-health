@@ -216,7 +216,7 @@ export default function ProgramsOverview() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
-              className="group bg-[#FCFAEF] dark:bg-[#4F5554] rounded-xl overflow-hidden shadow-sm border border-[#E6E7E7] dark:border-[#2F3332] hover:shadow-md transition-shadow cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0097b2] flex flex-col"
+              className="homepage-hover-card group flex cursor-pointer flex-col overflow-hidden rounded-xl border border-[#E6E7E7] bg-[#FCFAEF] shadow-sm [--homepage-hover-border-color:rgba(0,151,178,0.18)] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0097b2] dark:border-[#2F3332] dark:bg-[#4F5554] dark:[--homepage-hover-border-color:rgba(102,196,220,0.22)]"
               onClick={() => openProgramModal(pillar)}
               onKeyDown={(event) => handleCardKeyDown(event, pillar)}
               role="button"
@@ -227,7 +227,7 @@ export default function ProgramsOverview() {
                   src={pillar.image}
                   alt={pillar.title}
                   fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  className="object-cover transition-transform duration-200 ease-[ease] group-hover:scale-[1.02] motion-reduce:transform-none motion-reduce:transition-none"
                 />
               </div>
               <div className="p-6 flex flex-col flex-1">
