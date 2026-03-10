@@ -97,7 +97,7 @@ export default function UpdatesCarousel({
 
   return (
     <section
-      className="py-8 md:py-12 bg-gradient-to-r from-[#0097b2] to-[#0F4C5C] relative overflow-hidden"
+      className="py-16 md:py-24 bg-gradient-to-r from-[#0097b2] to-[#0F4C5C] relative overflow-hidden"
       aria-roledescription="carousel"
       aria-label="Latest updates and announcements"
     >

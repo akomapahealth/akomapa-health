@@ -110,9 +110,9 @@ export default function DonatePage() {
       <div className="container mx-auto">
         <Breadcrumb />
       </div>
-      
-      {/* Hero Section */}
-      <section className="relative py-16 md:py-24 overflow-hidden">
+      <div className="flex flex-col gap-y-section-mobile md:gap-y-section-tablet lg:gap-y-section-desktop">
+        {/* Hero Section */}
+        <section className="relative py-16 md:py-24 overflow-hidden">
         <div className="absolute inset-0 z-0 opacity-20">
           <Image
             src="/highlights/Akomapa-73.jpg"
@@ -154,10 +154,10 @@ export default function DonatePage() {
             </motion.div>
           </div>
         </div>
-      </section>
+        </section>
 
-      {/* Partnership Options - Enhanced Layout */}
-      <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
+        {/* Partnership Options - Enhanced Layout */}
+        <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
         <div className="container mx-auto px-4">
           <div className="max-w-7xl mx-auto">
             {/* Enhanced Tab Navigation with Visual Hierarchy */}
@@ -909,10 +909,10 @@ export default function DonatePage() {
             )}
           </div>
         </div>
-      </section>
+        </section>
 
-      {/* Corporate Sponsorship */}
-      <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
+        {/* Corporate Sponsorship */}
+        <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <motion.div
@@ -982,7 +982,8 @@ export default function DonatePage() {
             </motion.div>
           </div>
         </div>
-      </section>
+        </section>
+      </div>
     </>
   );
 }
