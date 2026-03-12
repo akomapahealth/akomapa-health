@@ -93,7 +93,7 @@ const executiveTeam: SpotlightMember[] = [
     image: "/images/team/brian-fleischer.jpeg",
     email: "brian.fleischer@yale.edu",
     linkedin: "https://www.linkedin.com/in/brian-fleischer-md-37011010b/",
-    bio: "Dr. Brian Fleischer is a visionary physician and global health leader dedicated to advancing equitable care for non-communicable diseases in underserved communities. A graduate of Yale School of Medicine and Stanford University, he founded the Akomapa Health Foundation to empower students and communities to drive sustainable solutions for hypertension and diabetes care across Ghana and beyond—building a movement of compassionate health leaders with akomapa, a “good heart.”"
+    bio: "Dr. Brian Fleischer is a visionary physician and global health leader dedicated to advancing equitable care for non-communicable diseases in underserved communities. A graduate of Yale School of Medicine and Stanford University, he founded the Akomapa Health Foundation to empower students and communities to drive sustainable solutions for hypertension, diabetes, and mental health care across Ghana and beyond—building a movement of compassionate health leaders with akomapa, a “good heart.”"
   },
   {
     name: "Esi Bon Berkoh",

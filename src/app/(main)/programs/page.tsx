@@ -119,10 +119,10 @@ const programs: Program[] = [
   {
     id: 5,
     title: "Akomapa Young Advocates",
-    description: "The Akomapa Young Advocates Program is a youth empowerment and health education initiative that brings community health, mentorship, and leadership development directly to high schools. Led by interprofessional university health professional students trained through Akomapa clinics, the program equips young people with practical knowledge about non-communicable diseases (NCDs) and empowers them to become champions of healthy living and positive change in their schools and communities.",
+    description: "The Akomapa Young Advocates Program is a youth empowerment and health education initiative that brings community health, mentorship, and leadership development directly to high schools. Led by interprofessional university health professional students trained through Akomapa clinics, the program equips young people with practical knowledge about non-communicable diseases (NCDs) such as hypertension and diabetes, mental wellness, and preventive health so they can become champions of healthy living and positive change in their schools and communities.",
     details: [
       "Interactive health education sessions delivered directly in high schools by trained student mentors",
-      "Practical knowledge about non-communicable diseases (NCDs) and preventive health measures",
+      "Practical knowledge about non-communicable diseases (NCDs), stress management, and preventive health measures",
       "Ongoing mentorship that nurtures the next generation of ethical, community-minded leaders",
       "Bridges education and action, empowering youth to become health champions in their communities"
     ],

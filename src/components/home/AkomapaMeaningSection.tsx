@@ -101,7 +101,7 @@ export default function AkomapaMeaningSection() {
                 </p>
                 
                 <p className="text-lg md:text-xl leading-relaxed">
-                  At Akomapa, we care for the physical heart — screening for hypertension, managing diabetes, offering nutrition support — but we also care for the moral heart of healthcare. The part that listens. The part that sees dignity in every patient. The part that refuses to walk away from people just because they are poor. To have akomapa is to lead with empathy, to live in health, and to believe that everyone deserves to be well — in body, mind, and spirit. Whether you&apos;re a patient, a volunteer, or a partner — welcome to the Akomapa family.
+                  At Akomapa, we care for the physical heart — screening for hypertension, managing diabetes, offering nutrition and mental wellness support — but we also care for the moral heart of healthcare. The part that listens. The part that sees dignity in every patient. The part that refuses to walk away from people just because they are poor. To have akomapa is to lead with empathy, to live in health, and to believe that everyone deserves to be well — in body, mind, and spirit. Whether you&apos;re a patient, a volunteer, or a partner — welcome to the Akomapa family.
                 </p>
                 
                 <p className="text-xl md:text-2xl font-semibold text-[#eeba2b] dark:text-[#F5C94D]">
