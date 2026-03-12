@@ -13,7 +13,7 @@ const whatWeDo = [
     id: "ncd-education",
     title: "Educate on NCDs",
     description:
-      "We translate complex topics like hypertension, diabetes, nutrition, and mental wellness into relatable lessons tailored for high school students.",
+      "We translate complex topics—hypertension, diabetes, mental health, and nutrition—into relatable lessons, helping students see how these non-communicable concerns connect to stress, emotional well-being, and long-term health.",
     color: "#0097b2"
   },
   {
@@ -27,14 +27,14 @@ const whatWeDo = [
     id: "healthy-lifestyles",
     title: "Promote Healthy Lifestyles",
     description:
-      "Interactive demonstrations share practical strategies for balanced nutrition, movement, and stress management that families can use immediately.",
+      "Interactive demonstrations share practical strategies for preventing hypertension, diabetes, and mental health challenges through balanced nutrition, movement, stress management, and emotional well-being.",
     color: "#0F4C5C"
   },
   {
     id: "advocate-training",
     title: "Train Young Advocates",
     description:
-      "We mentor student leaders to run awareness campaigns, lead peer education, and champion wellness initiatives on their campuses.",
+      "We mentor student leaders to run awareness campaigns on hypertension, diabetes, and mental health—leading peer education and championing wellness initiatives on their campuses.",
     color: "#0097b2"
   },
   {
@@ -56,7 +56,7 @@ const mentorshipBenefits = [
   {
     title: "Training Studios",
     description:
-      "Periodic workshops dive into community engagement and NCD prevention using real cases from Akomapa clinics.",
+      "Periodic workshops dive into community engagement and prevention of hypertension, diabetes, and mental health challenges using real cases from Akomapa clinics.",
     color: "#eeba2b"
   },
   {
@@ -108,7 +108,7 @@ const howItWorks = [
     eyebrow: "Step 02",
     title: "Student Facilitation",
     description:
-      "Interprofessional university teams deliver interactive sessions that blend storytelling, demonstrations, and screenings."
+      "Interprofessional university teams deliver interactive sessions that blend storytelling, demonstrations, and screenings for hypertension, diabetes, and mental wellness."
   },
   {
     eyebrow: "Step 03",
@@ -127,34 +127,38 @@ const howItWorks = [
 const impactMetrics = [
   {
     id: "students",
-    value: 10000,
+    eyebrow: "Health Education",
+    value: 9000,
     suffix: "+",
     label: "Students Reached",
-    description: "Educate 10,000+ high school students on NCD prevention and health literacy.",
+    description: "Educating high school students on preventing hypertension, diabetes, and mental health challenges—building lifelong health literacy.",
     color: "#0097b2"
   },
   {
     id: "advocates",
+    eyebrow: "Peer Leadership",
     value: 300,
     suffix: "+",
     label: "Youth Advocates",
-    description: "Train and mentor hundreds of advocates who lead change on their campuses.",
+    description: "Training peer leaders to champion healthy habits and support students around hypertension, diabetes, mental health, and stress on their campuses.",
     color: "#eeba2b"
   },
   {
     id: "partnerships",
+    eyebrow: "Community Care",
     value: 6,
     suffix: "+",
     label: "Clinic Regions",
-    description: "Strengthen university–community partnerships across Ghana and beyond.",
+    description: "Linking schools to clinic teams that reinforce prevention and referrals for hypertension, diabetes, mental health, and whole-person care across regions.",
     color: "#0F4C5C"
   },
   {
     id: "pipeline",
+    eyebrow: "Future Leaders",
     value: 1,
     suffix: "",
     label: "Leadership Pipeline",
-    description: "Create an early pathway for global health and leadership talent.",
+    description: "Building an early pathway into compassionate health leadership grounded in care for body and mind.",
     color: "#0097b2"
   }
 ];
@@ -193,7 +197,7 @@ function ImpactCounter({ value, suffix = "", color }: { value: number; suffix?: 
   return (
     <span
       ref={ref}
-      className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight"
+      className="text-5xl md:text-6xl lg:text-7xl font-semibold tracking-tight leading-none"
       style={{ color }}
     >
       {formatted}
@@ -203,14 +207,14 @@ function ImpactCounter({ value, suffix = "", color }: { value: number; suffix?: 
 
 export default function YoungAdvocatesPage() {
   return (
-    <>
+    <div className="overflow-x-hidden">
       <div className="container mx-auto">
         <Breadcrumb />
       </div>
 
       <section className="relative min-h-[80vh] py-16 sm:py-20 md:py-28 bg-gradient-to-r from-[#0B2F3A] via-[#0F4C5C] to-[#0097b2] overflow-hidden">
-        <div className="absolute top-0 right-0 w-64 h-64 bg-[#FCFAEF]/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#FCFAEF]/10 rounded-full translate-y-1/2 -translate-x-1/2 blur-3xl" />
+        <div className="absolute top-6 right-6 w-64 h-64 bg-[#FCFAEF]/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-6 left-6 w-96 h-96 bg-[#FCFAEF]/10 rounded-full blur-3xl" />
 
         <div className="container mx-auto px-4 sm:px-6 relative z-10 flex flex-col gap-12 sm:gap-14">
           <motion.div
@@ -250,7 +254,7 @@ export default function YoungAdvocatesPage() {
               transition={{ delay: 0.2, duration: 0.8, ease: "easeOut" }}
               className="text-base sm:text-lg md:text-2xl text-[#FCFAEF]/85 font-light max-w-3xl"
             >
-              Led by university students trained through Akomapa clinics, the Young Advocates Program brings community health, mentorship, and leadership development directly to high schools.
+              Led by university students trained through Akomapa clinics, the Young Advocates Program brings education on hypertension, diabetes, mental health, and whole-person wellness—alongside mentorship and leadership development—directly to high schools.
             </motion.p>
             <motion.div
               initial={{ opacity: 0, y: 40 }}
@@ -275,7 +279,7 @@ export default function YoungAdvocatesPage() {
           >
             <div className="relative w-full h-[280px] sm:h-[360px] md:h-[520px] lg:h-[640px] rounded-3xl overflow-hidden shadow-2xl border border-white/10">
               <Image
-                src="/highlights/Akomapa-40.jpg"
+                src="/gallery/gallery-pic-2.jpg"
                 alt="Young advocates participating in a health education session"
                 fill
                 priority
@@ -305,10 +309,10 @@ export default function YoungAdvocatesPage() {
                   The Young Advocates Program brings community health, mentorship, and leadership development directly to high schools. University student teams trained through Akomapa clinics facilitate learning, screenings, and storytelling that meet teens where they are.
                 </p>
                 <p>
-                  Through interactive sessions, health screenings, and ongoing mentorship, students gain practical knowledge about non-communicable diseases and learn how to transform that knowledge into action.
+                  Education on hypertension, diabetes, and mental health—as key non-communicable concerns—helps students understand how lifestyle, stress, and emotional well-being shape long-term health outcomes.
                 </p>
                 <p className="font-semibold text-[#1C1F1E] dark:text-[#FCFAEF]">
-                  Every session bridges education and community care—nurturing ethical, community-minded leaders who champion health in their schools and neighborhoods.
+                  Every session bridges education and community care—nurturing ethical, community-minded leaders who champion physical and mental well-being in their schools and neighborhoods.
                 </p>
               </div>
             </motion.div>
@@ -365,7 +369,7 @@ export default function YoungAdvocatesPage() {
           >
             <h2 className="text-3xl md:text-4xl font-bold text-[#1C1F1E] dark:text-[#FCFAEF]">What We Do</h2>
             <p className="text-lg text-[#2F3332] dark:text-[#E6E7E7] leading-relaxed">
-              University student teams lead immersive sessions that turn classrooms into hubs of curiosity, health literacy, and leadership.
+              University student teams lead immersive sessions that turn classrooms into hubs of curiosity and leadership—where students learn to prevent hypertension, diabetes, and mental health challenges through health literacy and peer support.
             </p>
           </motion.div>
 
@@ -397,7 +401,7 @@ export default function YoungAdvocatesPage() {
 
       <section className="py-16 md:py-24 bg-gradient-to-r from-[#0F4C5C] via-[#0097b2] to-[#0B2F3A] text-[#FCFAEF] relative overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute -top-24 -left-24 h-64 w-64 rounded-full bg-[#FCFAEF]/10 blur-3xl" />
+          <div className="absolute top-6 left-6 h-64 w-64 rounded-full bg-[#FCFAEF]/10 blur-3xl" />
           <div className="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-[#F5C94D]/10 blur-3xl" />
         </div>
         <div className="relative container mx-auto px-4">
@@ -415,7 +419,7 @@ export default function YoungAdvocatesPage() {
                 </p>
                 <h2 className="text-3xl md:text-4xl font-bold">Ongoing Mentorship</h2>
                 <p className="text-lg text-[#FCFAEF]/85 leading-relaxed">
-                  Students who show enthusiasm join a long-term mentorship journey guided by university mentors from local Akomapa clinics—turning curiosity into consistent leadership.
+                  Students who show enthusiasm join a long-term mentorship journey guided by university mentors from local Akomapa clinics—turning curiosity into consistent leadership, resilience, and peer support.
                 </p>
               </div>
 
@@ -451,7 +455,7 @@ export default function YoungAdvocatesPage() {
               viewport={{ once: true, amount: 0.3 }}
               className="relative"
             >
-              <div className="absolute -top-6 -right-6 h-24 w-24 bg-[#FCFAEF]/10 rounded-full blur-3xl" />
+              <div className="absolute top-4 right-4 h-24 w-24 bg-[#FCFAEF]/10 rounded-full blur-3xl" />
               <div className="relative">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   {mentorshipBenefits.map((benefit, index) => (
@@ -535,7 +539,10 @@ export default function YoungAdvocatesPage() {
         </div>
       </section>
 
-      <section className="py-16 md:py-24 bg-gradient-to-r from-[#0097b2] to-[#0F4C5C] text-[#FCFAEF] relative overflow-hidden">
+      <section
+        data-testid="young-advocates-impact-section"
+        className="py-16 md:py-24 bg-gradient-to-r from-[#0097b2] to-[#0F4C5C] text-[#FCFAEF] relative overflow-hidden"
+      >
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute -top-20 left-10 h-56 w-56 rounded-full bg-[#FCFAEF]/10 blur-3xl" />
           <div className="absolute bottom-0 right-0 h-72 w-72 rounded-full bg-[#F5C94D]/10 blur-3xl" />
@@ -554,23 +561,41 @@ export default function YoungAdvocatesPage() {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 max-w-6xl mx-auto">
+          <div
+            data-testid="young-advocates-impact-grid"
+            className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 md:gap-8 xl:gap-10 items-stretch w-full max-w-[90rem] mx-auto"
+          >
             {impactMetrics.map((metric, index) => (
               <motion.div
                 key={metric.id}
+                data-testid="young-advocates-impact-card"
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 viewport={{ once: true, amount: 0.3 }}
-                className="rounded-2xl bg-[#FCFAEF]/95 text-[#1C1F1E] p-6 md:p-8 shadow-xl border border-[#E6E7E7]/40 flex flex-col gap-4"
+                className="group relative h-full min-w-0 rounded-[28px] border border-white/35 bg-[#FCFAEF]/95 p-7 sm:p-8 md:p-9 xl:p-10 text-[#1C1F1E] shadow-xl backdrop-blur-[2px] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_10px_20px_rgba(0,0,0,0.08)]"
               >
-                <ImpactCounter value={metric.value} suffix={metric.suffix} color={metric.color} />
-                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#1C1F1E]/70">
-                  {metric.label}
-                </p>
-                <p className="text-sm md:text-base text-[#2F3332]/85 leading-relaxed">
-                  {metric.description}
-                </p>
+                <div
+                  className="absolute inset-x-0 top-0 h-1.5"
+                  style={{ backgroundColor: metric.color }}
+                />
+                <div className="relative flex h-full flex-col gap-5 md:gap-6 pt-2 md:pt-3">
+                  <p
+                    className="text-xs font-semibold uppercase tracking-[0.28em]"
+                    style={{ color: metric.color }}
+                  >
+                    {metric.eyebrow}
+                  </p>
+                  <div className="space-y-3">
+                    <ImpactCounter value={metric.value} suffix={metric.suffix} color={metric.color} />
+                    <h3 className="text-2xl md:text-[1.75rem] font-semibold leading-tight text-[#1C1F1E]">
+                      {metric.label}
+                    </h3>
+                  </div>
+                  <p className="text-base text-[#2F3332]/85 leading-relaxed flex-1">
+                    {metric.description}
+                  </p>
+                </div>
               </motion.div>
             ))}
           </div>
@@ -594,7 +619,7 @@ export default function YoungAdvocatesPage() {
                 Each local Akomapa clinic leads the Young Advocates Program in its region. The Akomapa UCC Clinic runs the initiative across high schools in Cape Coast and surrounding towns, mentoring students to become youth health ambassadors connected to real community care.
               </p>
               <p>
-                Partnerships between clinics, faculty mentors, and education authorities ensure students receive accurate information, compassionate guidance, and real pathways to care.
+                Partnerships between clinics, faculty mentors, and education authorities ensure students receive accurate information and compassionate guidance on hypertension, diabetes, and mental health—with real pathways to care that support whole-person well-being.
               </p>
             </motion.div>
 
@@ -639,7 +664,7 @@ export default function YoungAdvocatesPage() {
             <div className="flex items-center gap-4">
               <div className="relative h-16 w-16 rounded-full overflow-hidden border-2 border-[#F5C94D]/40 shadow-lg flex-shrink-0 bg-white/90">
                 <Image
-                  src="/images/logo.svg"
+                  src="/images/team/brian-fleischer.jpeg"
                   alt="Akomapa Health"
                   fill
                   className="object-contain p-2"
@@ -673,7 +698,7 @@ export default function YoungAdvocatesPage() {
             <p className="text-lg text-[#2F3332] dark:text-[#E6E7E7] leading-relaxed">
               We welcome partnerships with schools, education authorities, and organizations dedicated to youth development and community health.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row sm:flex-wrap gap-4 justify-center">
               <Button asChild className={primaryCtaClass}>
                 <Link href="/partner" className="flex items-center">
                   Partner with Us
@@ -699,7 +724,6 @@ export default function YoungAdvocatesPage() {
           </motion.div>
         </div>
       </section>
-    </>
+    </div>
   );
 }
-

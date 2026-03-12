@@ -13,13 +13,13 @@ const servicesOffered = [
   {
     id: "service-1",
     title: "Monthly Community Clinics",
-    description: "Free hypertension and diabetes screenings at local barbershops and salons.",
+    description: "Free hypertension and diabetes screenings at local barbershops and salons, paired with prevention guidance that addresses stress, mental wellness, and whole-person health.",
     accentColor: "#0097b2"
   },
   {
     id: "service-2",
     title: "Health Education",
-    description: "On-site counseling about nutrition, stress management, and chronic disease prevention.",
+    description: "On-site counseling about nutrition, stress management, emotional well-being, and chronic disease prevention.",
     accentColor: "#eeba2b"
   },
   {

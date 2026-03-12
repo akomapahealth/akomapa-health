@@ -55,7 +55,7 @@ function BreadcrumbContent() {
   if (segments.length === 0) return null;
 
   return (
-    <nav className="py-4 px-4 md:px-0">
+    <nav className="py-4 pl-4 pr-4 sm:pl-5 md:pl-6 md:pr-0">
       <ol className="flex flex-wrap items-center text-sm text-[#2F3332]/70 dark:text-[#FCFAEF]/70">
         <li className="flex items-center">
           <Link href="/" className="flex items-center hover:text-[#eeba2b] dark:hover:text-[#F5C94D] transition-colors">
@@ -87,7 +87,7 @@ function BreadcrumbContent() {
 export default function Breadcrumb() {
   return (
     <Suspense fallback={
-      <nav className="py-4 px-4 md:px-0">
+      <nav className="py-4 pl-4 pr-4 sm:pl-5 md:pl-6 md:pr-0">
         <div className="flex items-center text-sm text-[#2F3332]/70 dark:text-[#FCFAEF]/70">
           <div className="animate-pulse bg-gray-200 dark:bg-gray-700 h-4 w-32 rounded"></div>
         </div>

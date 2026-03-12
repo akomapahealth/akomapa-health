@@ -160,9 +160,12 @@ export default function Footer() {
                   +233 (0)50 296 6072
                 </p>
               </div>
-              <div className="flex items-center">
+              <div className="flex items-start">
                 <Mail className="h-5 w-5 mr-2 text-amber flex-shrink-0" />
-                <a href="mailto:akomapahealth@gmail.com" className="text-floralwhite/80 hover:text-amber transition-colors">
+                <a
+                  href="mailto:akomapahealth@gmail.com"
+                  className="min-w-0 break-all text-floralwhite/80 transition-colors hover:text-amber"
+                >
                   akomapahealth@gmail.com
                 </a>
               </div>

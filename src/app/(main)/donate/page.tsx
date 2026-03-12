@@ -77,7 +77,7 @@ const partnerBenefits = [
 const impactAreas = [
   {
     icon: Target,
-    title: "Reach patients with high blood pressure and diabetes before it's too late",
+    title: "Reach patients with high blood pressure, diabetes, and stress-related risks earlier — including mental health awareness and emotional well-being",
     color: "#0097b2"
   },
   {
