@@ -10,6 +10,7 @@ const pages = [
   { path: '/about', title: 'About' },
   { path: '/about/team', title: 'Team' },
   { path: '/programs', title: 'Programs' },
+  { path: '/programs/akomapa-young-advocates', title: 'Young Advocates' },
   { path: '/clinics', title: 'Clinics' },
   { path: '/research', title: 'Research' },
   { path: '/contact', title: 'Contact' },
@@ -85,4 +86,3 @@ test.describe('Page Rendering Tests', () => {
     });
   }
 });
-

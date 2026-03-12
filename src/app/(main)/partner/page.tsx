@@ -77,7 +77,7 @@ const partnerBenefits = [
 const impactAreas = [
   {
     title: "Early Disease Detection",
-    description: "Reach patients with high blood pressure and diabetes before it's too late, preventing life-threatening complications through regular screenings and monitoring.",
+    description: "Reach patients with high blood pressure and diabetes before it's too late, while reinforcing that prevention also requires mental health awareness, stress management, emotional well-being, and regular screenings.",
     color: "#0097b2"
   },
   {

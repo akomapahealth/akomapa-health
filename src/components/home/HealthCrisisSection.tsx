@@ -64,7 +64,7 @@ const cards: CardContent[] = [
       {
         title: "Community clinics",
         description:
-          "Student-powered, expert-supervised clinics bring early screening, counseling, and continuity of care into communities.",
+          "Student-powered, expert-supervised clinics bring early screening, counseling, mental health support, and continuity of care into communities.",
         span: "wide",
         eyebrow: "Care first"
       },

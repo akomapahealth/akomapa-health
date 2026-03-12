@@ -352,7 +352,8 @@ export default function UCCClinicPage() {
                   Founded with the University of Cape Coast College of Health and Allied Sciences,
                   the Ghana Health Service, and community leaders, Akomapa at UCC delivers free,
                   community-based screening and education for non-communicable diseases such as
-                  hypertension and diabetes.
+                  hypertension and diabetes while reinforcing how mental health, stress, emotional well-being,
+                  and prevention are connected.
                 </p>
                 <p>
                   The clinic serves as a real-world classroom for medical, nursing, pharmacy,
@@ -785,4 +786,3 @@ export default function UCCClinicPage() {
     </>
   );
 }
-
