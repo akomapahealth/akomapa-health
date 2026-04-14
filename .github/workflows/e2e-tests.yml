@@ -1,4 +1,4 @@
-name: E2E Tests
+name: Lint, typecheck, build, and E2E
 
 on:
   push:
@@ -33,6 +33,12 @@ jobs:
 
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
+
+      - name: ESLint
+        run: npm run lint
+
+      - name: TypeScript
+        run: npm run typecheck
 
       - name: Build application
         run: npm run build

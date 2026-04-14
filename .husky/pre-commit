@@ -1,0 +1,16 @@
+#!/usr/bin/env sh
+# Blocks commit if staged files fail ESLint (with fixes applied) or TypeScript check fails.
+# Bypass (emergency only): HUSKY=0 git commit ...
+set -e
+
+echo ""
+echo "=== pre-commit: lint-staged (ESLint) ==="
+npx lint-staged
+
+echo ""
+echo "=== pre-commit: TypeScript (tsc --noEmit) ==="
+npm run typecheck
+
+echo ""
+echo "OK pre-commit passed"
+echo ""

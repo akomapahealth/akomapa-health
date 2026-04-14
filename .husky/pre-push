@@ -1,0 +1,24 @@
+#!/usr/bin/env sh
+# Blocks push if lint, types, production build, or E2E tests fail.
+# Bypass (emergency only): git push --no-verify  OR  HUSKY=0 git push
+set -e
+
+echo ""
+echo "=== pre-push: ESLint (full project) ==="
+npm run lint
+
+echo ""
+echo "=== pre-push: TypeScript ==="
+npm run typecheck
+
+echo ""
+echo "=== pre-push: production build ==="
+npm run build
+
+echo ""
+echo "=== pre-push: Playwright E2E ==="
+npm run test:e2e
+
+echo ""
+echo "OK pre-push passed"
+echo ""
