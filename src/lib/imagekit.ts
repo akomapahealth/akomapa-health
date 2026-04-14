@@ -92,3 +92,25 @@ export function getImageKitSrcSet(
     .join(', ');
 }
 
+/** Parameters passed by `next/image` to a custom loader (see Next.js Image docs). */
+export type ImageKitLoaderParams = {
+  src: string;
+  width: number;
+  quality?: number;
+};
+
+/**
+ * `next/image` loader for ImageKit asset paths (e.g. `/highlights/photo.jpg`).
+ * Applies `tr=w-` and `tr=q-` so ImageKit serves appropriately sized bytes; `src` may be a full HTTPS URL (passed through by `getImageKitUrl`).
+ *
+ * **Optimization chain:** With the default Next.js Image pipeline, the URL returned here is fetched and may be further optimized by Next (`remotePatterns` must allow the host). To rely on ImageKit transformations only, render `next/image` with `unoptimized` (not used by our wrapper).
+ */
+export function imageKitLoader({
+  src,
+  width,
+  quality,
+}: ImageKitLoaderParams): string {
+  const q = quality ?? 75;
+  return getImageKitUrl(src, { width, quality: q });
+}
+

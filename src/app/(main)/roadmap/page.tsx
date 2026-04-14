@@ -83,6 +83,7 @@ export default function RoadmapPage() {
             src="/images/hero-image.jpg"
             alt=""
             fill
+            sizes="100vw"
             className="object-cover"
           />
         </div>

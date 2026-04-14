@@ -122,6 +122,7 @@ export default function ResearchSection() {
                     src={partner.logo}
                     alt={partner.name}
                     fill
+                    sizes="(max-width: 640px) 180px, (max-width: 1024px) 220px, 280px"
                     className="object-contain transition-transform duration-300 group-hover:scale-110"
                   />
                 </div>

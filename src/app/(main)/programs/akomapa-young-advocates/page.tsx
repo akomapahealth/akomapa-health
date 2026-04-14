@@ -282,7 +282,7 @@ export default function YoungAdvocatesPage() {
                 src="/gallery/gallery-pic-2.jpg"
                 alt="Young advocates participating in a health education session"
                 fill
-                priority
+                sizes="(min-width: 1024px) 50vw, 100vw"
                 className="object-cover object-center"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
@@ -328,6 +328,7 @@ export default function YoungAdvocatesPage() {
                   src="/highlights/Akomapa-66.jpg"
                   alt="University mentors guiding high school students"
                   fill
+                  sizes="(min-width: 1024px) 50vw, 100vw"
                   className="object-cover object-center"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent" />
@@ -634,6 +635,7 @@ export default function YoungAdvocatesPage() {
                 src="/highlights/Akomapa-19.jpg"
                 alt="Akomapa clinic mentors supporting youth"
                 fill
+                sizes="(min-width: 1024px) 50vw, 100vw"
                 className="object-cover object-center"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent" />
@@ -667,6 +669,7 @@ export default function YoungAdvocatesPage() {
                   src="/images/team/brian-fleischer.jpeg"
                   alt="Akomapa Health"
                   fill
+                  sizes="64px"
                   className="object-contain p-2"
                 />
               </div>

@@ -226,7 +226,7 @@ export default function NHPClinicPage() {
                 src="/highlights/yale-uni.jpg"
                 alt="Akomapa–NHP Yale Clinic community screening event"
                 fill
-                priority
+                sizes="(min-width: 1024px) 50vw, 100vw"
                 className="object-cover object-center"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
@@ -272,6 +272,7 @@ export default function NHPClinicPage() {
                   src="/highlights/yale-med.jpg"
                   alt="Community health screening in New Haven"
                   fill
+                  sizes="(min-width: 1024px) 50vw, 100vw"
                   className="object-cover object-center"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent" />
@@ -299,6 +300,7 @@ export default function NHPClinicPage() {
                 src="/highlights/yale-nhp-program.jpg"
                 alt="Community health education and screening"
                 fill
+                sizes="(min-width: 1024px) 45vw, 100vw"
                 className="object-cover object-center"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
@@ -388,6 +390,7 @@ export default function NHPClinicPage() {
                     src={partner.logo}
                     alt={partner.name}
                     fill
+                    sizes="(min-width: 1024px) 18rem, 45vw"
                     className="object-contain transition-transform duration-300 ease-out group-hover:scale-105"
                   />
                 </div>

@@ -357,6 +357,7 @@ export default function PartnerPage() {
                         src="/highlights/Akomapa-66.jpg"
                         alt="Akomapa Partners Program - Community healthcare delivery"
                         fill
+                        sizes="(min-width: 1024px) 80vw, 100vw"
                         className="object-cover"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
@@ -1090,6 +1091,7 @@ export default function PartnerPage() {
                   src="/highlights/Akomapa-73.jpg"
                   alt="Corporate partnerships and collaboration"
                   fill
+                  sizes="(min-width: 1024px) 80vw, 100vw"
                   className="object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />

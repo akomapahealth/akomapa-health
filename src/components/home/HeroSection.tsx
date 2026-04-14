@@ -113,6 +113,7 @@ export default function HeroSection({
                 alt={backgroundOptions.slideshow.images[currentImageIndex].alt}
                 fill
                 priority
+                sizes="100vw"
                 className="object-cover"
               />
             </motion.div>
@@ -127,6 +128,7 @@ export default function HeroSection({
                 src="/images/patterns/dot-pattern3.webp"
                 alt=""
                 fill
+                sizes="100vw"
                 className="object-cover"
               />
             </div>

@@ -118,6 +118,7 @@ export default function DonatePage() {
             src="/highlights/Akomapa-73.jpg"
             alt="group of people"
             fill
+            sizes="100vw"
             className="object-cover"
           />
         </div>
@@ -316,6 +317,7 @@ export default function DonatePage() {
                               src="/gallery/gallery-pic-4.JPG"
                               alt="Healthcare professionals providing compassionate care"
                               fill
+                              sizes="(min-width: 1024px) 50vw, 100vw"
                               className="object-cover"
                             />
                           </motion.div>
@@ -339,6 +341,7 @@ export default function DonatePage() {
                               src="/highlights/Akomapa-66.jpg"
                               alt="Students leading clinical care in community settings"
                               fill
+                              sizes="(min-width: 1024px) 50vw, 100vw"
                               className="object-cover"
                             />
                           </motion.div>
@@ -362,6 +365,7 @@ export default function DonatePage() {
                               src="/gallery/gallery-pic-24.JPG"
                               alt="Global health leadership training in action"
                               fill
+                              sizes="(min-width: 1024px) 50vw, 100vw"
                               className="object-cover"
                             />
                           </motion.div>
@@ -385,6 +389,7 @@ export default function DonatePage() {
                               src="/highlights/Akomapa-30.jpg"
                               alt="Community partnership and collaboration"
                               fill
+                              sizes="(min-width: 1024px) 50vw, 100vw"
                               className="object-cover"
                             />
                           </motion.div>
@@ -408,6 +413,7 @@ export default function DonatePage() {
                               src="/highlights/Akomapa-23.jpg"
                               alt="Expert supervision ensuring quality care"
                               fill
+                              sizes="(min-width: 1024px) 50vw, 100vw"
                               className="object-cover"
                             />
                           </motion.div>

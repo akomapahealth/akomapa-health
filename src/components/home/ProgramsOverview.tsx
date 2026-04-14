@@ -227,6 +227,7 @@ export default function ProgramsOverview() {
                   src={pillar.image}
                   alt={pillar.title}
                   fill
+                  sizes="(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 100vw"
                   className="object-cover transition-transform duration-200 ease-[ease] group-hover:scale-[1.02] motion-reduce:transform-none motion-reduce:transition-none"
                 />
               </div>

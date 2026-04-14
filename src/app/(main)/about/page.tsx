@@ -50,7 +50,7 @@ export default function AboutPage() {
                 src="/highlights/Akomapa-69.jpg"
                 alt="Akomapa Health Foundation Team"
                 fill
-                priority
+                sizes="(min-width: 1024px) 50vw, 100vw"
                 className="object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />

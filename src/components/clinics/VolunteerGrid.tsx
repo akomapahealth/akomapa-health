@@ -45,7 +45,7 @@ const volunteerImages = [
   "/ucc-team/volunteers/Akomapa-75.jpg",
 ];
 
-function VolunteerThumbnail({ src, index, onOpen }: { src: string; index: number; onOpen: () => void }) {
+function VolunteerThumbnail({ src, onOpen }: { src: string; onOpen: () => void }) {
   return (
     <button
       onClick={onOpen}
@@ -64,7 +64,6 @@ function VolunteerThumbnail({ src, index, onOpen }: { src: string; index: number
         fill
         className="object-cover"
         sizes="56px"
-        priority={index < 12}
       />
     </button>
   );
@@ -127,11 +126,10 @@ export default function VolunteerGrid() {
           viewport={{ once: true, amount: 0.2 }}
           className="grid grid-cols-6 sm:grid-cols-8 lg:grid-cols-12 gap-2 sm:gap-3 justify-items-center mb-8 max-w-4xl mx-auto"
         >
-          {volunteerImages.map((src, index) => (
+          {volunteerImages.map((src) => (
             <VolunteerThumbnail
               key={src}
               src={src}
-              index={index}
               onOpen={() => setSelectedImage(src)}
             />
           ))}

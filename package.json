@@ -8,11 +8,20 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "validate": "npm run lint && npm run typecheck && npm run build && npm run test:e2e",
+    "postinstall": "node scripts/ensure-husky-hooks.mjs",
+    "prepare": "husky",
     "clean": "rm -rf .next && rm -rf node_modules/.cache",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:headed": "playwright test --headed",
     "test:e2e:debug": "playwright test --debug"
+  },
+  "lint-staged": {
+    "*.{js,jsx,mjs,cjs,ts,tsx}": [
+      "eslint --max-warnings 0 --fix"
+    ]
   },
   "dependencies": {
     "@headlessui/react": "^2.2.2",
@@ -59,6 +68,8 @@
     "autoprefixer": "^10.4.21",
     "eslint": "^9",
     "eslint-config-next": "^15.3.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.4.3",
     "playwright": "^1.56.1",
     "postcss": "^8.5.3",
     "tailwindcss": "^4.1.4",
