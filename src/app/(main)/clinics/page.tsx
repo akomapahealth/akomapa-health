@@ -195,7 +195,7 @@ export default function ClinicsPage() {
                 src="/highlights/Akomapa-64.jpg"
                 alt="Akomapa clinic team supporting community members"
                 fill
-                priority
+                sizes="(min-width: 1024px) 50vw, 100vw"
                 className="object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
@@ -252,6 +252,7 @@ export default function ClinicsPage() {
                         src={pillar.image}
                         alt={pillar.alt}
                         fill
+                        sizes="(min-width: 1024px) 50vw, 100vw"
                         className="object-cover"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent" />
@@ -364,6 +365,7 @@ export default function ClinicsPage() {
                     src={clinic.image}
                     alt={clinic.name}
                     fill
+                    sizes="(min-width: 1024px) 33vw, 100vw"
                     className="object-cover group-hover:scale-110 transition-transform duration-300"
                   />
                   <div className="absolute top-4 left-4">

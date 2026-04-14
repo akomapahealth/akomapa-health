@@ -73,7 +73,7 @@ export default function ResearchPage() {
                 src="/highlights/Akomapa-61.jpg"
                 alt="Research and data collection in community settings"
                 fill
-                priority
+                sizes="(min-width: 1024px) 50vw, 100vw"
                 className="object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
@@ -134,6 +134,7 @@ export default function ResearchPage() {
                         src={paper.image}
                         alt={paper.title}
                         fill
+                        sizes="(min-width: 1024px) 300px, 100vw"
                         className="object-cover group-hover:scale-110 transition-transform duration-500"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />

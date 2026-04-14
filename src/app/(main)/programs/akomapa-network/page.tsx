@@ -244,7 +244,7 @@ export default function AkomapaNetworkPage() {
                 src="/highlights/Akomapa-40.jpg"
                 alt="Global network of student healthcare leaders"
                 fill
-                priority
+                sizes="(min-width: 1024px) 50vw, 100vw"
                 className="object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
@@ -291,6 +291,7 @@ export default function AkomapaNetworkPage() {
                   src="/highlights/Akomapa-66.jpg"
                   alt="Students collaborating across the network"
                   fill
+                  sizes="(min-width: 1024px) 50vw, 100vw"
                   className="object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent" />
@@ -469,6 +470,7 @@ export default function AkomapaNetworkPage() {
                         src={clinic.logo}
                         alt={clinic.name}
                         fill
+                        sizes="(min-width: 1024px) 28vw, 90vw"
                         className="object-contain"
                       />
                     </div>

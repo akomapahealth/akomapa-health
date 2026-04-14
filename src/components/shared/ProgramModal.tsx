@@ -67,6 +67,7 @@ export default function ProgramModal({ program, isOpen, onClose }: ProgramModalP
                 src={program.image}
                 alt={program.title}
                 fill
+                sizes="(min-width: 768px) 672px, 100vw"
                 className="object-cover rounded-t-2xl"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent rounded-t-2xl" />

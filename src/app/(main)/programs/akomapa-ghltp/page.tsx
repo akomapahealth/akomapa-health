@@ -6,6 +6,7 @@ import Link from "next/link";
 import { ArrowLeft, ArrowRight, Quote } from "lucide-react";
 import Breadcrumb from "@/components/layout/Breadcrumb";
 import Image from "@/components/common/Image";
+/** `next/image` for static files under `public/` (partner logos). ImageKit paths use `Image` above. */
 import NextImage from "next/image";
 import { Button } from "@/components/ui/button";
 
@@ -306,7 +307,7 @@ export default function GHLTPPage() {
                 src="/highlights/Akomapa-40.jpg"
                 alt="Global health leadership training program"
                 fill
-                priority
+                sizes="(min-width: 1024px) 50vw, 100vw"
                 className="object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
@@ -353,6 +354,7 @@ export default function GHLTPPage() {
                   src="/highlights/Akomapa-66.jpg"
                   alt="Students in global health leadership training"
                   fill
+                  sizes="(min-width: 1024px) 50vw, 100vw"
                   className="object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent" />

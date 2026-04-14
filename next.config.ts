@@ -6,6 +6,7 @@ const nextConfig: NextConfig = {
     devtoolSegmentExplorer: false,
   },
   images: {
+    qualities: [75, 85, 100],
     // Configure ImageKit as a remote pattern for Next.js Image optimization
     // This enables future use of Next.js Image component with ImageKit URLs
     remotePatterns: [

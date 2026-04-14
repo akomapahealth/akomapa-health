@@ -90,8 +90,8 @@ export default function LocationsSection() {
                 src={communityPhotos[currentPhotoIndex].src}
                 alt={communityPhotos[currentPhotoIndex].alt}
                 fill
+                sizes="(min-width: 1024px) 50vw, 100vw"
                 className="object-cover transition-opacity duration-500"
-                priority
               />
               
               {/* Overlay with gradient and caption */}
