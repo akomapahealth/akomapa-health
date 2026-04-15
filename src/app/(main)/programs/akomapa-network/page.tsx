@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
-import { motion, useInView, useMotionValue, useSpring } from "framer-motion";
+import { motion } from "framer-motion";
+import { AnimatedMetric } from "@/components/motion/AnimatedMetric";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, Quote } from "lucide-react";
 import Breadcrumb from "@/components/layout/Breadcrumb";
@@ -122,39 +122,6 @@ const partnerClinics = [
     accentColor: "#0097b2"
   }
 ];
-
-function GoalCounter({ value, suffix = "", color }: { value: number; suffix?: string; color: string }) {
-  const ref = useRef<HTMLSpanElement | null>(null);
-  const isInView = useInView(ref, { once: true, amount: 0.6 });
-  const motionValue = useMotionValue(0);
-  const springValue = useSpring(motionValue, { stiffness: 120, damping: 20, mass: 0.8 });
-  const [displayValue, setDisplayValue] = useState(0);
-
-  useEffect(() => {
-    if (isInView) {
-      motionValue.set(value);
-    }
-  }, [isInView, value, motionValue]);
-
-  useEffect(() => {
-    const unsubscribe = springValue.on("change", (latest) => {
-      setDisplayValue(latest);
-    });
-    return () => unsubscribe();
-  }, [springValue]);
-
-  const formatted = `${Math.round(displayValue).toLocaleString()}${suffix}`;
-
-  return (
-    <span
-      ref={ref}
-      className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight"
-      style={{ color }}
-    >
-      {formatted}
-    </span>
-  );
-}
 
 const ctaBaseClass =
   "group inline-flex items-center justify-center gap-2 rounded-half px-8 py-6 h-auto text-base sm:text-lg font-medium transition-all duration-300 transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2";
@@ -415,7 +382,12 @@ export default function AkomapaNetworkPage() {
                 />
                 {goal.value !== null && (
                   <div className="mb-4">
-                    <GoalCounter value={goal.value} suffix={goal.suffix || ""} color={goal.color} />
+                    <AnimatedMetric
+                      value={goal.value}
+                      suffix={goal.suffix ?? ""}
+                      className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight"
+                      style={{ color: goal.color }}
+                    />
                     {goal.label && (
                       <p className="mt-2 text-sm font-semibold uppercase tracking-[0.2em] text-[#1C1F1E]/70">
                         {goal.label}

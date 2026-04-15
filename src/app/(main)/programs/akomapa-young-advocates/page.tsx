@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { motion, useInView, useMotionValue, useSpring } from "framer-motion";
+import { motion } from "framer-motion";
+import { AnimatedMetric } from "@/components/motion/AnimatedMetric";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import Breadcrumb from "@/components/layout/Breadcrumb";
@@ -171,39 +171,6 @@ const primaryCtaClass =
 
 const secondaryCtaClass =
   `${ctaBaseClass} bg-[#eeba2b] hover:bg-[#eeba2b]/80 text-[#FCFAEF] shadow-lg hover:shadow-xl focus-visible:ring-[#F5C94D]`;
-
-function ImpactCounter({ value, suffix = "", color }: { value: number; suffix?: string; color: string }) {
-  const ref = useRef<HTMLSpanElement | null>(null);
-  const isInView = useInView(ref, { once: true, amount: 0.6 });
-  const motionValue = useMotionValue(0);
-  const springValue = useSpring(motionValue, { stiffness: 120, damping: 20, mass: 0.8 });
-  const [displayValue, setDisplayValue] = useState(0);
-
-  useEffect(() => {
-    if (isInView) {
-      motionValue.set(value);
-    }
-  }, [isInView, value, motionValue]);
-
-  useEffect(() => {
-    const unsubscribe = springValue.on("change", (latest) => {
-      setDisplayValue(latest);
-    });
-    return () => unsubscribe();
-  }, [springValue]);
-
-  const formatted = `${Math.round(displayValue).toLocaleString()}${suffix}`;
-
-  return (
-    <span
-      ref={ref}
-      className="text-5xl md:text-6xl lg:text-7xl font-semibold tracking-tight leading-none"
-      style={{ color }}
-    >
-      {formatted}
-    </span>
-  );
-}
 
 export default function YoungAdvocatesPage() {
   return (
@@ -588,7 +555,12 @@ export default function YoungAdvocatesPage() {
                     {metric.eyebrow}
                   </p>
                   <div className="space-y-3">
-                    <ImpactCounter value={metric.value} suffix={metric.suffix} color={metric.color} />
+                    <AnimatedMetric
+                      value={metric.value}
+                      suffix={metric.suffix ?? ""}
+                      className="text-5xl md:text-6xl lg:text-7xl font-semibold tracking-tight leading-none"
+                      style={{ color: metric.color }}
+                    />
                     <h3 className="text-2xl md:text-[1.75rem] font-semibold leading-tight text-[#1C1F1E]">
                       {metric.label}
                     </h3>
