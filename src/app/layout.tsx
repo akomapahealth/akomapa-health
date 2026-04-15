@@ -3,6 +3,7 @@ import './globals.css';
 import { Metadata } from 'next';
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from '@/components/theme/ThemeProvider';
+import { MotionConfigProvider } from '@/components/motion/MotionConfigProvider';
 
 const chillax = localFont({
   src: [
@@ -79,7 +80,9 @@ export default function RootLayout({
         plusJakartaSans.variable
       )}>
         <ThemeProvider defaultTheme="system" storageKey="akomapa-theme">
-          {children}
+          <MotionConfigProvider>
+            {children}
+          </MotionConfigProvider>
         </ThemeProvider>
       </body>
     </html>

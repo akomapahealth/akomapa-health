@@ -2,6 +2,7 @@
 
 import { useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
+import { FadeIn } from "@/components/animations";
 import Breadcrumb from "@/components/layout/Breadcrumb";
 import PageHeader from "@/components/shared/PageHeader";
 import ResourceGrid from "@/components/resources/ResourceGrid";
@@ -51,27 +52,29 @@ function ResourcesContent() {
       <div className="flex flex-col gap-y-section-mobile md:gap-y-section-tablet lg:gap-y-section-desktop">
         <section className="bg-blue-50 py-16 md:py-24">
           <div className="container mx-auto px-4">
-            <PageHeader
-              title="Healthcare Resources"
-              description="Access educational materials, research publications, and tools to support healthcare knowledge and practices."
-            />
+            <FadeIn>
+              <PageHeader
+                title="Healthcare Resources"
+                description="Access educational materials, research publications, and tools to support healthcare knowledge and practices."
+              />
+            </FadeIn>
           </div>
         </section>
         
         <section className="py-16">
           <div className="container mx-auto px-4">
             <div className="flex flex-col lg:flex-row gap-8">
-              <div className="w-full lg:w-1/4">
+              <FadeIn className="w-full lg:w-1/4" delay={0.05}>
                 <ResourceFilter 
                   filters={filters} 
                   setFilters={setFilters} 
                   totalResources={filteredResources.length}
                 />
-              </div>
+              </FadeIn>
               
-              <div className="w-full lg:w-3/4">
+              <FadeIn className="w-full lg:w-3/4" delay={0.1}>
                 <ResourceGrid resources={filteredResources} />
-              </div>
+              </FadeIn>
             </div>
           </div>
         </section>

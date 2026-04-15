@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { FadeIn } from "@/components/animations";
+import { HeroEntranceH1, HeroEntranceP } from "@/components/motion/HeroEntrance";
 import Breadcrumb from "@/components/layout/Breadcrumb";
 import Link from "next/link";
 
@@ -18,22 +19,15 @@ export default function PrivacyPage() {
         
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
           <div className="max-w-5xl pt-4 sm:pt-8">
-            <motion.h1 
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-              className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-light text-[#FCFAEF] mb-6 leading-tight"
-            >
+            <HeroEntranceH1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-light text-[#FCFAEF] mb-6 leading-tight">
               Privacy Policy
-            </motion.h1>
-            <motion.p 
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.15, duration: 0.8, ease: "easeOut" }}
+            </HeroEntranceH1>
+            <HeroEntranceP
+              delay={0.1}
               className="text-base sm:text-lg md:text-2xl text-[#FCFAEF]/80 font-light max-w-3xl"
             >
               Your privacy is important to us. Learn how we collect, use, and protect your information.
-            </motion.p>
+            </HeroEntranceP>
           </div>
         </div>
       </section>
@@ -42,13 +36,7 @@ export default function PrivacyPage() {
       <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-              className="bg-white dark:bg-[#2F3332] rounded-2xl shadow-xl p-6 sm:p-8 md:p-10 space-y-8 sm:space-y-10"
-            >
+            <FadeIn className="bg-white dark:bg-[#2F3332] rounded-2xl shadow-xl p-6 sm:p-8 md:p-10 space-y-8 sm:space-y-10">
               <div className="space-y-4 sm:space-y-6">
                 <div className="flex items-center gap-2 mb-4">
                   <div className="h-1 w-8 bg-[#0097b2] rounded-full" />
@@ -242,7 +230,7 @@ export default function PrivacyPage() {
                   Last updated: {new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
                 </p>
               </div>
-            </motion.div>
+            </FadeIn>
           </div>
         </div>
       </section>

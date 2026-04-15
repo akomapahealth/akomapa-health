@@ -211,6 +211,10 @@ html.dark {
   .homepage-hover-panel:hover {
     transform: none;
   }
+
+  .akomapa-btn-interaction {
+    transform: none !important;
+  }
 }
 
 .partner-carousel-fade {
