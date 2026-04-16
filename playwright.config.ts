@@ -51,9 +51,11 @@ export default defineConfig({
     stdout: 'ignore',
     stderr: 'pipe',
   } : {
-    command: 'npm run dev -- --hostname 127.0.0.1 --port 3000',
+    command: 'npm run start -- --hostname 127.0.0.1 --port 3000',
     url: 'http://127.0.0.1:3000',
-    reuseExistingServer: true,
+    reuseExistingServer: false,
     timeout: 120 * 1000,
+    stdout: 'ignore',
+    stderr: 'pipe',
   },
 });
