@@ -10,7 +10,7 @@ export const announcementCampaign: AnnouncementCampaign = {
       title: "Join the Akomapa Student Clinic",
       description:
         "Work with a global team to deliver screenings, education, and care in underserved communities. Applications are open for the 2026 cohort — limited spots available.",
-      image: "/highlights/Akomapa-38.jpg",
+      image: "/images/call-for-volunteers.jpg",
       ctaText: "Apply Now",
       ctaLink: "/join",
       isExternal: false,
@@ -22,10 +22,10 @@ export const announcementCampaign: AnnouncementCampaign = {
       title: "Akomapa at Yale Innovation Summit",
       description:
         "We have been selected to pitch at the Yale Innovation Summit. Stay tuned for updates on our groundbreaking NCD prevention research.",
-      image: "/highlights/Akomapa-2.jpg",
+      image: "/images/yale-innovation.png",
       ctaText: "Learn More",
-      ctaLink: "/news",
-      isExternal: false,
+      ctaLink: "https://ventures.yale.edu/yale-innovation-summit-yale-ventures",
+      isExternal: true,
     },
     {
       id: "nkwapa-emr-launch",
@@ -46,7 +46,7 @@ export const announcementCampaign: AnnouncementCampaign = {
       title: "Join Our Student Leadership Program",
       description:
         "Applications are now open for the 2026 cohort. Be part of a global movement of student leaders tackling non-communicable diseases in underserved communities.",
-      image: "/highlights/Akomapa-5.jpg",
+      image: "/highlights/Akomapa-68.jpg",
       ctaText: "Apply Now",
       ctaLink: "/join",
       isExternal: false,
@@ -58,9 +58,9 @@ export const announcementCampaign: AnnouncementCampaign = {
       title: "Upcoming: Community Health Fair",
       description:
         "Join us for our annual community health screening event. Free health checks, educational sessions, and resources for the whole family.",
-      image: "/highlights/Akomapa-42.jpg",
+      image: "/highlights/Akomapa-61.jpg",
       ctaText: "Learn More",
-      ctaLink: "/news",
+      ctaLink: "/join",
       isExternal: false,
     },
     {
@@ -70,9 +70,9 @@ export const announcementCampaign: AnnouncementCampaign = {
       title: "Research Partnership Milestone",
       description:
         "Our collaborative research with leading institutions has reached a significant milestone in understanding NCD prevention strategies in Ghana.",
-      image: "/highlights/Akomapa-20.jpg",
+      image: "/highlights/Akomapa-46.jpg",
       ctaText: "Read More",
-      ctaLink: "/news",
+      ctaLink: "/join",
       isExternal: false,
     },
   ],
