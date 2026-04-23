@@ -61,15 +61,19 @@ export interface Program {
     image: string;
   }
 
-  export interface UpdateSlide {
+  export interface Announcement {
     id: string;
     title: string;
     description: string;
-    ctaText: string;
-    ctaLink: string;
+    tag?: string;
+    tagColor?: "lapis" | "amber" | "skobeloff";
     image?: string;
-    startDate?: string;
-    endDate?: string;
-    priority: number;
+    ctaText?: string;
+    ctaLink?: string;
     isExternal?: boolean;
+  }
+
+  export interface AnnouncementCampaign {
+    version: string;
+    slides: Announcement[];
   }

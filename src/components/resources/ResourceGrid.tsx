@@ -1,3 +1,6 @@
+"use client";
+
+import { FadeInStagger, FadeInStaggerItem } from "@/components/animations";
 import ResourceCard from "./ResourceCard";
 import { Resource } from "@/lib/types";
 
@@ -19,11 +22,16 @@ export default function ResourceGrid({ resources }: { resources: Resource[] }) {
         Showing {resources.length} resource{resources.length !== 1 ? "s" : ""}
       </div>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <FadeInStagger
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+        staggerDelay={0.08}
+      >
         {resources.map((resource) => (
-          <ResourceCard key={resource.id} resource={resource} />
+          <FadeInStaggerItem key={resource.id}>
+            <ResourceCard resource={resource} />
+          </FadeInStaggerItem>
         ))}
-      </div>
+      </FadeInStagger>
     </div>
   );
 }

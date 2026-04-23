@@ -334,7 +334,6 @@ export default function Gallery({ items }: GalleryProps = {}) {
                     src={item.src}
                     alt={item.alt}
                     fill
-                    priority={index < 4}
                     sizes={item.featured 
                       ? "(max-width: 640px) 100vw, (max-width: 1024px) 66vw, 50vw"
                       : "(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"

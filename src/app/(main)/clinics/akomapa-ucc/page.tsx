@@ -325,7 +325,7 @@ export default function UCCClinicPage() {
                 src="/akomapa-hangout/Akomapa_hangout-114.jpg"
                 alt="Akomapa clinic team supporting community members at UCC"
                 fill
-                priority
+                sizes="(min-width: 1024px) 50vw, 100vw"
                 className="object-cover object-center"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
@@ -378,6 +378,7 @@ export default function UCCClinicPage() {
                   src="/highlights/Akomapa-69.jpg"
                   alt="Students collaborating inside the Akomapa UCC clinic"
                   fill
+                  sizes="(min-width: 1024px) 50vw, 100vw"
                   className="object-cover object-center"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent" />
@@ -464,7 +465,6 @@ export default function UCCClinicPage() {
                     fill
                     className="object-cover object-top"
                     sizes="(min-width: 1024px) 25vw, (min-width: 640px) 45vw, 50vw"
-                    priority
                   />
                 </div>
               ))}

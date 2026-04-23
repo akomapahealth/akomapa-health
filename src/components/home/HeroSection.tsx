@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ChevronUp } from "lucide-react";
 import Image from "@/components/common/Image";
+import { cn } from "@/lib/utils";
 
 // Background options
 const backgroundOptions = {
@@ -56,7 +57,6 @@ export default function HeroSection({
   textAlign = "left"
 }: HeroSectionProps) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const textShadowClass = "[text-shadow:0_2px_12px_rgba(0,0,0,0.4)]";
 
   // Rotate through images for slideshow
   useEffect(() => {
@@ -113,6 +113,7 @@ export default function HeroSection({
                 alt={backgroundOptions.slideshow.images[currentImageIndex].alt}
                 fill
                 priority
+                sizes="100vw"
                 className="object-cover"
               />
             </motion.div>
@@ -127,6 +128,7 @@ export default function HeroSection({
                 src="/images/patterns/dot-pattern3.webp"
                 alt=""
                 fill
+                sizes="100vw"
                 className="object-cover"
               />
             </div>
@@ -139,68 +141,92 @@ export default function HeroSection({
     <section
       className={`relative ${heightClasses[height]} flex items-center justify-center overflow-hidden rounded-none`}
     >
-      {/* Background */}
-      <div className="absolute inset-0 z-0 overflow-hidden rounded-none">
+      {/* Background — mild tone mapping on photo/video only (not static gradient) */}
+      <div
+        className={cn(
+          "absolute inset-0 z-0 overflow-hidden rounded-none",
+          backgroundType !== "static" &&
+            "brightness-[0.96] contrast-[1.03]"
+        )}
+      >
         {renderBackground()}
       </div>
 
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
         <div className={`max-w-4xl ${textAlign === "center" ? "mx-auto" : ""}`}>
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className={textAlignClasses[textAlign]}
-          >
-            <motion.h1
+          <div className="relative">
+            {/* Localized readability scrim — left-weighted for default layout; soft symmetric tint when centered */}
+            <div
+              className={cn(
+                "pointer-events-none absolute rounded-2xl sm:rounded-3xl",
+                "-inset-x-3 -inset-y-4 sm:-inset-x-5 sm:-inset-y-5",
+                textAlign === "center"
+                  ? "bg-[radial-gradient(ellipse_85%_75%_at_50%_45%,rgba(0,0,0,0.2),rgba(0,0,0,0.08)_45%,transparent_72%)]"
+                  : "bg-gradient-to-r from-black/25 via-black/12 via-50% to-transparent"
+              )}
+              aria-hidden
+            />
+            <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-              className={`font-heading mb-6 text-4xl tracking-tight text-balance text-[#FCFAEF] dark:text-[#FCFAEF] md:text-5xl lg:text-6xl xl:text-7xl leading-[1.02] md:leading-[1.04] ${textShadowClass}`}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className={cn("relative", textAlignClasses[textAlign])}
             >
-              Can a <span className="text-[#8DD4E6] dark:text-[#B0E8F5]">global partnership</span> of <span className="text-[#eeba2b] dark:text-[#eeba2b]">students</span> lead the fight against <span className="text-[#8DD4E6] dark:text-[#B0E8F5]">non-communicable diseases</span>?
-            </motion.h1>
-            
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.8 }}
-              className={`font-body mb-8 max-w-2xl text-xl font-medium leading-relaxed text-[#FCFAEF] dark:text-[#FCFAEF] md:text-2xl ${textShadowClass}`}
-            >
-              Student-powered. <span className="text-[#8DD4E6] dark:text-[#B0E8F5]">Expert-supervised</span>. Community-rooted.<br />
-              Akomapa is redefining preventative primary care.
-            </motion.p>
-            
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 1 }}
-              className={`flex flex-col sm:flex-row gap-4 ${textAlign === "center" ? "justify-center" : ""} flex-wrap`}
-            >
-              <Button
-                asChild
-                size="lg"
-                className="group bg-[#0097b2] hover:bg-[#0097b2]/80 text-[#FCFAEF] px-8 py-6 h-auto text-lg font-medium rounded-half transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+              <motion.h1
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.6 }}
+                className="font-heading hero-heading-shadow mb-6 text-4xl tracking-tight text-balance text-[#FCFAEF] dark:text-[#FCFAEF] md:text-5xl lg:text-6xl xl:text-7xl leading-[1.02] md:leading-[1.04]"
               >
-                <Link href="/join" className="flex items-center space-x-2">
-                  <span>Join the Movement</span>
-                  <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
-                </Link>
-              </Button>
-              
-              <Button
-                asChild
-                size="lg"
-                className="group bg-[#eeba2b] hover:bg-[#eeba2b]/80 text-[#FCFAEF] px-8 py-6 h-auto text-lg font-medium rounded-half transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+                Can a{" "}
+                <span className="text-[#8DD4E6] dark:text-[#B0E8F5]">global partnership</span> of{" "}
+                <span className="text-[#eeba2b] dark:text-[#eeba2b]">students</span> lead the fight against{" "}
+                <span className="text-[#8DD4E6] dark:text-[#B0E8F5]">non-communicable diseases</span>?
+              </motion.h1>
+
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.8 }}
+                className="font-body hero-body-shadow mb-8 max-w-2xl text-xl font-medium leading-relaxed text-[#FCFAEF] dark:text-[#FCFAEF] md:text-2xl"
               >
-                <Link href="/partner" className="flex items-center space-x-2">
-                  <span>Support Our Work</span>
-                  <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
-                </Link>
-              </Button>
+                Student-powered.{" "}
+                <span className="text-[#8DD4E6] dark:text-[#B0E8F5]">Expert-supervised</span>. Community-rooted.
+                <br />
+                Akomapa is redefining preventative primary care.
+              </motion.p>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 1 }}
+                className={`flex flex-col sm:flex-row gap-4 ${textAlign === "center" ? "justify-center" : ""} flex-wrap`}
+              >
+                <Button
+                  asChild
+                  size="lg"
+                  className="group bg-[#0097b2] hover:bg-[#0097b2]/80 text-[#FCFAEF] px-8 py-6 h-auto text-lg font-medium rounded-half transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+                >
+                  <Link href="/join" className="flex items-center space-x-2">
+                    <span>Join the Movement</span>
+                    <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
+                  </Link>
+                </Button>
+
+                <Button
+                  asChild
+                  size="lg"
+                  className="group bg-[#eeba2b] hover:bg-[#eeba2b]/80 text-[#FCFAEF] px-8 py-6 h-auto text-lg font-medium rounded-half transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+                >
+                  <Link href="/partner" className="flex items-center space-x-2">
+                    <span>Support Our Work</span>
+                    <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
+                  </Link>
+                </Button>
+              </motion.div>
             </motion.div>
-          </motion.div>
+          </div>
         </div>
       </div>
 

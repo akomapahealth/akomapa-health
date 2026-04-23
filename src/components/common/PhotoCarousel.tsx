@@ -96,6 +96,7 @@ export default function PhotoCarousel({
                 src={photo.src}
                 alt={photo.alt}
                 fill
+                sizes="100vw"
                 className="object-cover"
               />
               <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">

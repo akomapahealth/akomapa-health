@@ -348,6 +348,7 @@ function BioModal({
                       src={member.image}
                       alt={member.name}
                       fill
+                      sizes="(min-width: 768px) 672px, 100vw"
                       className="object-cover object-center"
                       quality={100}
                     />

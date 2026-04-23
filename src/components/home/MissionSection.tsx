@@ -51,6 +51,7 @@ export default function MissionSection() {
                 src="/highlights/Akomapa-72.jpg"
                 alt="Healthcare professionals training in Ghana"
                 fill
+                sizes="(min-width: 1024px) 42vw, 100vw"
                 className="object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-br from-black/30 via-transparent to-transparent"></div>

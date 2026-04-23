@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
-import { motion, useInView, useMotionValue, useSpring } from "framer-motion";
+import { motion } from "framer-motion";
+import { AnimatedMetric } from "@/components/motion/AnimatedMetric";
 import Image from "@/components/common/Image";
 import { ArrowRight, Globe, GraduationCap, Users, Building, ChevronsDown, Sparkles, Sprout } from "lucide-react";
 import Link from "next/link";
@@ -194,39 +194,6 @@ const impactMetrics = [
   }
 ];
 
-function ImpactCounter({ value, suffix = "", color }: { value: number; suffix?: string; color: string }) {
-  const ref = useRef<HTMLSpanElement | null>(null);
-  const isInView = useInView(ref, { once: true, amount: 0.6 });
-  const motionValue = useMotionValue(0);
-  const springValue = useSpring(motionValue, { stiffness: 120, damping: 20, mass: 0.8 });
-  const [displayValue, setDisplayValue] = useState(0);
-
-  useEffect(() => {
-    if (isInView) {
-      motionValue.set(value);
-    }
-  }, [isInView, value, motionValue]);
-
-  useEffect(() => {
-    const unsubscribe = springValue.on("change", (latest) => {
-      setDisplayValue(latest);
-    });
-    return () => unsubscribe();
-  }, [springValue]);
-
-  const formatted = `${Math.round(displayValue).toLocaleString()}${suffix}`;
-
-  return (
-    <span
-      ref={ref}
-      className="text-4xl md:text-5xl font-semibold tracking-tight"
-      style={{ color }}
-    >
-      {formatted}
-    </span>
-  );
-}
-
 export default function ProgramsPage() {
   return (
     <>
@@ -270,7 +237,7 @@ export default function ProgramsPage() {
                 src="/highlights/Akomapa-47.jpg"
                 alt="Akomapa programs and initiatives"
                 fill
-                priority
+                sizes="(min-width: 1024px) 50vw, 100vw"
                 className="object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
@@ -327,6 +294,7 @@ export default function ProgramsPage() {
                         src={program.image}
                         alt={program.alt}
                         fill
+                        sizes="(min-width: 1024px) 50vw, 100vw"
                         className="object-cover group-hover:scale-110 transition-transform duration-700"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent" />
@@ -422,7 +390,12 @@ export default function ProgramsPage() {
               >
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-br from-[#0097b2]/10 via-transparent to-[#F5C94D]/15" />
                 <div className="relative flex flex-col h-full">
-                  <ImpactCounter value={metric.value} suffix={metric.suffix} color={metric.color} />
+                  <AnimatedMetric
+                  value={metric.value}
+                  suffix={metric.suffix ?? ""}
+                  className="text-4xl md:text-5xl font-semibold tracking-tight"
+                  style={{ color: metric.color }}
+                />
                   <h3 className="mt-4 text-xl font-semibold uppercase tracking-[0.3em] text-[#1C1F1E] mb-3">
                     {metric.label}
                   </h3>

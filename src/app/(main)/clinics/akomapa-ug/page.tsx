@@ -395,7 +395,7 @@ export default function UGClinicPage() {
                 src="/university-of-ghana.jpg"
                 alt="Student leaders planning the Akomapa UG Clinic launch"
                 fill
-                priority
+                sizes="(min-width: 1024px) 50vw, 100vw"
                 className="object-cover object-center"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
@@ -447,6 +447,7 @@ export default function UGClinicPage() {
                   src="/highlights/Akomapa-18.jpg"
                   alt="Students collaborating to design the Akomapa UG Clinic"
                   fill
+                  sizes="(min-width: 1024px) 50vw, 100vw"
                   className="object-cover object-center"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent" />
@@ -474,6 +475,7 @@ export default function UGClinicPage() {
                 src="/highlights/Akomapa-7.jpg"
                 alt="Students collaborating to design the Akomapa UG Clinic"
                 fill
+                sizes="(min-width: 1024px) 45vw, 100vw"
                 className="object-cover object-center"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
@@ -545,6 +547,7 @@ export default function UGClinicPage() {
                 src="/highlights/Akomapa-5.jpg"
                 alt="Community outreach event led by student volunteers"
                 fill
+                sizes="(min-width: 1024px) 45vw, 100vw"
                 className="object-cover object-center"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
@@ -586,6 +589,7 @@ export default function UGClinicPage() {
                     src={partner.logo}
                     alt={partner.name}
                     fill
+                    sizes="(min-width: 1024px) 16rem, 40vw"
                     className="object-contain transition-transform duration-300 ease-out filter grayscale group-hover:scale-105 group-hover:grayscale-0"
                   />
                 </div>

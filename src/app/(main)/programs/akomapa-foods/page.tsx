@@ -181,7 +181,6 @@ export default function FoodsPage() {
                 src="/highlights/Akomapa-47.jpg"
                 alt="Akomapa Foods team cultivating community farms"
                 fill
-                priority
                 sizes="(min-width: 1024px) 50vw, 100vw"
                 className="object-cover object-center"
               />
@@ -205,6 +204,7 @@ export default function FoodsPage() {
                 src="/highlights/Akomapa-61.jpg"
                 alt="Fresh produce harvested for the Akomapa Foods Initiative"
                 fill
+                sizes="(min-width: 1024px) 50vw, 100vw"
                 className="object-cover object-center"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent" />

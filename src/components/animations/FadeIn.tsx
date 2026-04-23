@@ -2,8 +2,16 @@
 
 import { motion, type Variants } from "framer-motion";
 import { ReactNode, type ElementType } from "react";
+import {
+  defaultScrollViewport,
+  fadeUpStaggerContainerVariants,
+  fadeUpStaggerItemVariants,
+  fadeUpVariants,
+  motionDurations,
+  type FadeDirection,
+} from "@/lib/motion/tokens";
 
-type FadeInDirection = "up" | "down" | "left" | "right" | "none";
+type FadeInDirection = FadeDirection;
 
 type FadeInProps = {
   children: ReactNode;
@@ -16,51 +24,17 @@ type FadeInProps = {
   as?: ElementType;
 };
 
-const getDirectionOffset = (direction: FadeInDirection) => {
-  switch (direction) {
-    case "up":
-      return { y: 40, x: 0 };
-    case "down":
-      return { y: -40, x: 0 };
-    case "left":
-      return { x: 40, y: 0 };
-    case "right":
-      return { x: -40, y: 0 };
-    case "none":
-    default:
-      return { x: 0, y: 0 };
-  }
-};
-
 export function FadeIn({
   children,
   className = "",
   direction = "up",
   delay = 0,
-  duration = 0.5,
+  duration = motionDurations.enter,
   once = true,
-  amount = 0.2,
+  amount = defaultScrollViewport.amount,
   as = "div",
 }: FadeInProps) {
-  const offset = getDirectionOffset(direction);
-
-  const variants: Variants = {
-    hidden: {
-      opacity: 0,
-      x: offset.x,
-      y: offset.y,
-    },
-    visible: {
-      opacity: 1,
-      x: 0,
-      y: 0,
-      transition: {
-        duration,
-        delay,
-        ease: [0.25, 0.4, 0.25, 1],
-      },
-    },
-  };
+  const variants: Variants = fadeUpVariants({ direction, duration, delay });
 
   const MotionComponent = motion(as);
 
@@ -77,6 +51,9 @@ export function FadeIn({
   );
 }
 
+/** Alias for semantic clarity — same behavior as {@link FadeIn}. */
+export const SectionReveal = FadeIn;
+
 type FadeInStaggerProps = {
   children: ReactNode;
   className?: string;
@@ -88,19 +65,12 @@ type FadeInStaggerProps = {
 export function FadeInStagger({
   children,
   className = "",
-  staggerDelay = 0.1,
+  staggerDelay = motionDurations.staggerContainer,
   once = true,
-  amount = 0.2,
+  amount = defaultScrollViewport.amount,
 }: FadeInStaggerProps) {
-  const containerVariants: Variants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: staggerDelay,
-      },
-    },
-  };
+  const containerVariants: Variants =
+    fadeUpStaggerContainerVariants(staggerDelay);
 
   return (
     <motion.div
@@ -126,26 +96,12 @@ export function FadeInStaggerItem({
   children,
   className = "",
   direction = "up",
-  duration = 0.5,
+  duration = motionDurations.enter,
 }: FadeInStaggerItemProps) {
-  const offset = getDirectionOffset(direction);
-
-  const itemVariants: Variants = {
-    hidden: {
-      opacity: 0,
-      x: offset.x,
-      y: offset.y,
-    },
-    visible: {
-      opacity: 1,
-      x: 0,
-      y: 0,
-      transition: {
-        duration,
-        ease: [0.25, 0.4, 0.25, 1],
-      },
-    },
-  };
+  const itemVariants: Variants = fadeUpStaggerItemVariants({
+    direction,
+    duration,
+  });
 
   return (
     <motion.div variants={itemVariants} className={className}>
@@ -153,4 +109,3 @@ export function FadeInStaggerItem({
     </motion.div>
   );
 }
-

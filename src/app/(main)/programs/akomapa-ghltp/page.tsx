@@ -1,11 +1,13 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
-import { motion, useInView, useMotionValue, useSpring, AnimatePresence } from "framer-motion";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { AnimatedMetric } from "@/components/motion/AnimatedMetric";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, Quote } from "lucide-react";
 import Breadcrumb from "@/components/layout/Breadcrumb";
 import Image from "@/components/common/Image";
+/** `next/image` for static files under `public/` (partner logos). ImageKit paths use `Image` above. */
 import NextImage from "next/image";
 import { Button } from "@/components/ui/button";
 
@@ -163,39 +165,6 @@ const testimonials = [
   }
 ];
 
-function ImpactCounter({ value, suffix = "", color }: { value: number; suffix?: string; color: string }) {
-  const ref = useRef<HTMLSpanElement | null>(null);
-  const isInView = useInView(ref, { once: true, amount: 0.6 });
-  const motionValue = useMotionValue(0);
-  const springValue = useSpring(motionValue, { stiffness: 120, damping: 20, mass: 0.8 });
-  const [displayValue, setDisplayValue] = useState(0);
-
-  useEffect(() => {
-    if (isInView) {
-      motionValue.set(value);
-    }
-  }, [isInView, value, motionValue]);
-
-  useEffect(() => {
-    const unsubscribe = springValue.on("change", (latest) => {
-      setDisplayValue(latest);
-    });
-    return () => unsubscribe();
-  }, [springValue]);
-
-  const formatted = `${Math.round(displayValue).toLocaleString()}${suffix}`;
-
-  return (
-    <span
-      ref={ref}
-      className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight"
-      style={{ color }}
-    >
-      {formatted}
-    </span>
-  );
-}
-
 const ctaBaseClass =
   "group inline-flex items-center justify-center gap-2 rounded-half px-8 py-6 h-auto text-base sm:text-lg font-medium transition-all duration-300 transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2";
 
@@ -306,7 +275,7 @@ export default function GHLTPPage() {
                 src="/highlights/Akomapa-40.jpg"
                 alt="Global health leadership training program"
                 fill
-                priority
+                sizes="(min-width: 1024px) 50vw, 100vw"
                 className="object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
@@ -353,6 +322,7 @@ export default function GHLTPPage() {
                   src="/highlights/Akomapa-66.jpg"
                   alt="Students in global health leadership training"
                   fill
+                  sizes="(min-width: 1024px) 50vw, 100vw"
                   className="object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent" />
@@ -638,7 +608,12 @@ export default function GHLTPPage() {
                   style={{ backgroundColor: "#0097b2" }}
                 />
                 <div className="mb-4">
-                  <ImpactCounter value={1000} suffix="+" color="#0097b2" />
+                  <AnimatedMetric
+                    value={1000}
+                    suffix="+"
+                    className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight"
+                    style={{ color: "#0097b2" }}
+                  />
                 </div>
                 <p className="text-base md:text-lg text-[#2F3332] dark:text-[#E6E7E7] leading-relaxed flex-1">
                   Train students and young professionals in ethical, community-driven leadership
@@ -656,7 +631,12 @@ export default function GHLTPPage() {
                   style={{ backgroundColor: "#eeba2b" }}
                 />
                 <div className="mb-4">
-                  <ImpactCounter value={5} suffix="+" color="#eeba2b" />
+                  <AnimatedMetric
+                    value={5}
+                    suffix="+"
+                    className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight"
+                    style={{ color: "#eeba2b" }}
+                  />
                 </div>
                 <p className="text-base md:text-lg text-[#2F3332] dark:text-[#E6E7E7] leading-relaxed flex-1">
                   Build a sustainable pipeline of interprofessional global health leaders across countries
@@ -674,7 +654,11 @@ export default function GHLTPPage() {
                   style={{ backgroundColor: "#0097b2" }}
                 />
                 <div className="mb-4">
-                  <ImpactCounter value={1} suffix="" color="#0097b2" />
+                  <AnimatedMetric
+                    value={1}
+                    className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight"
+                    style={{ color: "#0097b2" }}
+                  />
                 </div>
                 <p className="text-base md:text-lg text-[#2F3332] dark:text-[#E6E7E7] leading-relaxed flex-1">
                   Strengthen links between academic learning and real-world systems change through the Akomapa Network

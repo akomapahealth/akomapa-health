@@ -18,6 +18,7 @@ export default function AkomapaMeaningSection() {
           src="/images/patterns/dots-pattern.webp"
           alt=""
           fill
+          sizes="100vw"
           className="object-cover"
         />
       </div>
@@ -39,6 +40,7 @@ export default function AkomapaMeaningSection() {
                   src="/highlights/Akomapa-48.jpg"
                   alt="Healthcare professionals showing compassion and care"
                   fill
+                  sizes="(min-width: 1024px) 42vw, 100vw"
                   className="object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0097b2]/40 via-transparent to-transparent"></div>

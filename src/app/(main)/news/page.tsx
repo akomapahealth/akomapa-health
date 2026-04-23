@@ -93,7 +93,7 @@ export default function NewsPage() {
                 src="/highlights/Akomapa-2.jpg"
                 alt="Akomapa community health activities"
                 fill
-                priority
+                sizes="(min-width: 1024px) 42vw, 100vw"
                 className="object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />

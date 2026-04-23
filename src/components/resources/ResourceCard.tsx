@@ -8,13 +8,14 @@ export default function ResourceCard({ resource }: { resource: Resource }) {
   const isExternal = resource.url.startsWith('http');
   
   return (
-    <div className="bg-white rounded-xl overflow-hidden border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+    <div className="homepage-hover-card flex flex-col overflow-hidden rounded-xl border border-[#E6E7E7] bg-white shadow-sm [--homepage-hover-border-color:rgba(0,151,178,0.18)] dark:border-[#2F3332] dark:bg-[#4F5554] dark:[--homepage-hover-border-color:rgba(102,196,220,0.22)]">
       <div className="relative h-48">
         {resource.image ? (
           <Image
             src={resource.image}
             alt={resource.title}
             fill
+            sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
             className="object-cover"
           />
         ) : (
