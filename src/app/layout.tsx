@@ -4,6 +4,7 @@ import { Metadata } from 'next';
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from '@/components/theme/ThemeProvider';
 import { MotionConfigProvider } from '@/components/motion/MotionConfigProvider';
+import AnnouncementModal from '@/components/announcement/AnnouncementModal';
 
 const chillax = localFont({
   src: [
@@ -82,6 +83,7 @@ export default function RootLayout({
         <ThemeProvider defaultTheme="system" storageKey="akomapa-theme">
           <MotionConfigProvider>
             {children}
+            <AnnouncementModal />
           </MotionConfigProvider>
         </ThemeProvider>
       </body>
