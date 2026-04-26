@@ -1,136 +1,22 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, ExternalLink } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { ArrowRight } from "lucide-react";
 import { motionDurations } from "@/lib/motion/tokens";
 import {
   FadeIn,
   FadeInStagger,
   FadeInStaggerItem,
 } from "@/components/animations";
-import Image from "@/components/common/Image";
+import { Button } from "@/components/ui/button";
 import { announcementCampaign } from "@/data/announcements";
-import { TAG_COLORS } from "@/data/announcement-colors";
-import type { Announcement } from "@/lib/types";
+import { AnnouncementCard } from "@/components/common/AnnouncementCard";
 
-function AnnouncementCard({ item }: { item: Announcement }) {
-  const isExternal = item.isExternal && item.ctaLink;
-
-  const cardContent = (
-    <article
-      className={cn(
-        "group relative flex flex-col overflow-hidden rounded-2xl",
-        "bg-white dark:bg-[#2F3332]",
-        "border border-black/[0.04] dark:border-white/[0.06]",
-        "shadow-[0_1px_3px_rgba(0,0,0,0.04)]",
-        "transition-all duration-300 ease-out",
-        "hover:-translate-y-1.5 hover:shadow-[0_12px_32px_rgba(0,0,0,0.08)]",
-        "dark:hover:shadow-[0_12px_32px_rgba(0,0,0,0.3)]",
-        "h-full"
-      )}
-    >
-      {/* Image */}
-      {item.image && (
-        <div className="relative aspect-[16/10] overflow-hidden">
-          <Image
-            src={item.image}
-            alt={item.title}
-            fill
-            sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
-            className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
-          />
-
-          {/* Gradient overlay for tag readability */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-transparent to-transparent" />
-
-          {/* Tag badge on image */}
-          {item.tag && (
-            <span
-              className={cn(
-                "absolute top-3 left-3 inline-block rounded-full px-3 py-1",
-                "text-[11px] font-bold uppercase tracking-wider",
-                "backdrop-blur-md shadow-sm",
-                TAG_COLORS[item.tagColor ?? "lapis"]
-              )}
-            >
-              {item.tag}
-            </span>
-          )}
-        </div>
-      )}
-
-      {/* Tag badge without image */}
-      {!item.image && item.tag && (
-        <div className="px-5 pt-5 sm:px-6 sm:pt-6">
-          <span
-            className={cn(
-              "inline-block rounded-full px-3 py-1",
-              "text-[11px] font-bold uppercase tracking-wider",
-              TAG_COLORS[item.tagColor ?? "lapis"]
-            )}
-          >
-            {item.tag}
-          </span>
-        </div>
-      )}
-
-      {/* Content */}
-      <div className="flex flex-1 flex-col p-5 sm:p-6">
-        <h4 className="font-heading text-lg font-bold leading-snug text-[#1C1F1E] dark:text-[#FCFAEF] line-clamp-2 mb-2">
-          {item.title}
-        </h4>
-
-        <p className="text-sm leading-relaxed text-[#2F3332]/70 dark:text-[#E6E7E7]/60 line-clamp-3 mb-4 flex-1">
-          {item.description}
-        </p>
-
-        {/* CTA */}
-        {item.ctaText && item.ctaLink && (
-          <span
-            className={cn(
-              "inline-flex items-center gap-1.5 text-sm font-semibold",
-              "text-[#0097b2] dark:text-[#66C4DC]",
-              "transition-colors duration-200",
-              "group-hover:text-[#005A55] dark:group-hover:text-[#eeba2b]"
-            )}
-          >
-            {item.ctaText}
-            {isExternal ? (
-              <ExternalLink className="h-3.5 w-3.5" />
-            ) : (
-              <ArrowRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
-            )}
-          </span>
-        )}
-      </div>
-    </article>
-  );
-
-  if (!item.ctaLink) return cardContent;
-
-  if (isExternal) {
-    return (
-      <a
-        href={item.ctaLink}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="contents"
-      >
-        {cardContent}
-      </a>
-    );
-  }
-
-  return (
-    <Link href={item.ctaLink} className="contents">
-      {cardContent}
-    </Link>
-  );
-}
+/** Number of cards shown on the homepage. */
+const FEATURED_COUNT = 3;
 
 export default function UpdatesFeed() {
-  const slides = announcementCampaign.slides;
+  const featured = announcementCampaign.slides.slice(0, FEATURED_COUNT);
 
   return (
     <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E] text-[#1C1F1E] dark:text-[#FCFAEF] relative">
@@ -152,17 +38,31 @@ export default function UpdatesFeed() {
           </p>
         </FadeIn>
 
-        {/* Card grid */}
+        {/* Card grid — 3 featured */}
         <FadeInStagger
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
           staggerDelay={motionDurations.staggerContainer}
         >
-          {slides.map((item) => (
+          {featured.map((item) => (
             <FadeInStaggerItem key={item.id} direction="up">
               <AnnouncementCard item={item} />
             </FadeInStaggerItem>
           ))}
         </FadeInStagger>
+
+        {/* View All CTA */}
+        <FadeIn className="mt-12 text-center" duration={motionDurations.enter}>
+          <Button
+            asChild
+            variant="outline"
+            className="group border-[#0097b2]/30 text-[#0097b2] hover:bg-[#0097b2] hover:text-white dark:border-[#66C4DC]/30 dark:text-[#66C4DC] dark:hover:bg-[#66C4DC] dark:hover:text-[#1C1F1E] px-8 py-3 rounded-full font-semibold transition-all duration-300"
+          >
+            <Link href="/news" className="inline-flex items-center gap-2">
+              View All Updates
+              <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
+            </Link>
+          </Button>
+        </FadeIn>
       </div>
     </section>
   );
