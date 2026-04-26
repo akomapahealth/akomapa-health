@@ -89,6 +89,7 @@ const navigation = [
     ]
   },
   { name: "Our Science", href: "/research" },
+  { name: "News", href: "/news" },
   { name: "Get Involved", href: "/join" },
   { name: "Contact", href: "/contact" },
 ];
