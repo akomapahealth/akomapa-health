@@ -8,16 +8,11 @@ import { cn } from "@/lib/utils";
 import { MOTION_EASE, motionDurations } from "@/lib/motion/tokens";
 import { announcementCampaign } from "@/data/announcements";
 import Image from "@/components/common/Image";
+import { TAG_COLORS } from "@/data/announcement-colors";
 
 const STORAGE_KEY = "akomapa-announcements-dismissed";
 const DELAY_MS = 3000;
 const AUTO_ADVANCE_MS = 6000;
-
-const TAG_COLORS = {
-  lapis: "bg-white/90 text-[#0097b2] dark:bg-white/15 dark:text-[#66C4DC]",
-  amber: "bg-white/90 text-[#b8860b] dark:bg-white/15 dark:text-[#eeba2b]",
-  skobeloff: "bg-white/90 text-[#005A55] dark:bg-white/15 dark:text-[#66C4DC]",
-} as const;
 
 export default function AnnouncementModal() {
   const [isOpen, setIsOpen] = useState(false);
