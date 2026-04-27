@@ -15,8 +15,8 @@ export const news: News[] = [
       "Local community leaders have expressed enthusiasm about the new healthcare facilities. \"For many years, our people had to travel more than 30 kilometers to reach the nearest health center,\" said Abena Osei, a community leader from the Tamale North district. \"This clinic will save lives, especially for pregnant women and children who need urgent care.\"",
       "The Foundation will continue monitoring the impact of these new clinics through a comprehensive data collection system, measuring improvements in key health indicators such as maternal mortality, childhood vaccination rates, and management of chronic conditions."
     ],
-    image: "/images/news/new-clinics.jpg",
-    date: "2023-08-15",
+    image: "/highlights/Akomapa-46.jpg",
+    date: "2026-04-10",
     category: "Program Update",
     featured: true,
     tags: ["Community Clinics", "Ghana", "Healthcare Access", "Rural Health"]
@@ -34,8 +34,8 @@ export const news: News[] = [
       "The Foundation works closely with ministries of education and health to integrate the curriculum into school programs, ensuring sustainability beyond the initial implementation phase. To date, over 2,500 teachers have been trained to deliver the health education modules effectively.",
       "Going forward, the Foundation plans to expand the program to reach an additional 150,000 students over the next three years, with a particular focus on schools in remote and underserved areas."
     ],
-    image: "/images/news/health-education.jpg",
-    date: "2023-07-20",
+    image: "/highlights/Akomapa-68.jpg",
+    date: "2026-03-25",
     category: "Education",
     featured: true,
     tags: ["Health Education", "Schools", "East Africa", "Children's Health"]
@@ -54,8 +54,8 @@ export const news: News[] = [
       "\"This grant not only supports important research on malaria prevention but also strengthens our commitment to developing the next generation of African health researchers,\" noted Professor James Wiredu, Dean of the University of Ghana Medical School. \"The partnership model ensures that expertise and capacity are built where they're most needed.\"",
       "Initial findings from the study are expected to be published in 2025, with potential implications for malaria control strategies across the continent."
     ],
-    image: "/images/news/malaria-research.jpg",
-    date: "2023-06-12",
+    image: "/highlights/Akomapa-38.jpg",
+    date: "2026-03-08",
     category: "Research",
     featured: true,
     tags: ["Malaria", "Research", "Grants", "Disease Prevention"]
@@ -74,8 +74,8 @@ export const news: News[] = [
       "\"Before joining this program, our local clinic had only one nurse serving over 3,000 people,\" shared Fatima Diallo, a graduate from northern Nigeria. \"Now I'm returning with the skills to provide better care for pregnant women and newborns in my community.\"",
       "The Foundation works with local health authorities and healthcare facilities to ensure graduates are strategically placed where their skills can have the maximum impact. Follow-up assessments of previous cohorts show that facilities staffed by program graduates typically see improvements in quality of care metrics within the first year."
     ],
-    image: "/images/news/medical-graduates.jpg",
-    date: "2023-05-30",
+    image: "/highlights/Akomapa-28.jpg",
+    date: "2026-02-20",
     category: "Training",
     tags: ["Healthcare Workers", "Training", "Capacity Building", "Rural Healthcare"]
   },
@@ -93,8 +93,8 @@ export const news: News[] = [
       "\"We've learned that sustainable healthcare improvements require strong public-private partnerships,\" explained Dr. Kwame Mensah, Executive Director of Akomapa Health Foundation. \"This agreement allows us to scale the impact of our community clinics model by embedding it within the broader health system.\"",
       "The partnership will initially focus on four regions with the highest healthcare access gaps before expanding to other areas in subsequent phases."
     ],
-    image: "/images/news/ministry-partnership.jpg",
-    date: "2023-04-18",
+    image: "/highlights/Akomapa-5.jpg",
+    date: "2026-02-12",
     category: "Partnership",
     tags: ["Government Partnership", "Health Systems", "Ghana", "Sustainability"]
   },
@@ -112,8 +112,8 @@ export const news: News[] = [
       "Looking ahead, the Foundation plans to increase its focus on mental health services, expand nutrition interventions targeting the first 1,000 days of life, and strengthen emergency preparedness capabilities across its network of healthcare facilities.",
       "\"While we celebrate the progress documented in this report, we remain mindful of how much work remains to be done,\" noted Dr. Kwame Mensah, Executive Director. \"Every preventable death or disability reminds us of the urgency of our mission.\""
     ],
-    image: "/images/news/impact-report.jpg",
-    date: "2023-03-22",
+    image: "/highlights/ug.jpg",
+    date: "2026-02-05",
     category: "Impact",
     tags: ["Impact Report", "Health Outcomes", "Maternal Health", "Vaccinations"]
   }

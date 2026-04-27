@@ -24,7 +24,7 @@ test.describe("News Detail Pages", () => {
     await expect(page.getByText("Program Update").first()).toBeVisible();
 
     // Date visible (format may vary by locale)
-    await expect(page.getByText(/August.*2023/)).toBeVisible();
+    await expect(page.getByText(/April.*2026/)).toBeVisible();
 
     // Article content rendered (check first paragraph)
     await expect(
