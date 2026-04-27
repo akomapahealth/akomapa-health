@@ -173,24 +173,22 @@ test.describe("News Detail Pages", () => {
     await expect(playIndicator).toBeVisible();
   });
 
-  test("announcement modal shows increased size", async ({ page }) => {
-    // Don't dismiss modal for this test
-    await page.addInitScript(() => {
-      localStorage.removeItem("akomapa-announcements-dismissed");
-    });
+});
 
-    await page.goto("/", { waitUntil: "domcontentloaded" });
+test("announcement modal shows increased size and closes properly", async ({
+  page,
+}) => {
+  await page.goto("/", { waitUntil: "domcontentloaded" });
 
-    // Wait for modal to appear (3s delay + animation)
-    const modal = page.getByRole("dialog", { name: /announcements/i });
-    await expect(modal).toBeVisible({ timeout: 15000 });
+  // Wait for modal to appear (3s delay + animation)
+  const modal = page.locator('[role="dialog"][aria-label="Announcements"]');
+  await expect(modal).toBeVisible({ timeout: 15000 });
 
-    // Verify modal has content
-    await expect(modal.locator("h2").first()).toBeVisible();
-    await expect(modal.locator("p").first()).toBeVisible();
+  // Verify modal has content
+  await expect(modal.locator("h2").first()).toBeVisible();
+  await expect(modal.locator("p").first()).toBeVisible();
 
-    // Close button should work
-    await page.getByLabel("Close announcements").click();
-    await expect(modal).not.toBeVisible({ timeout: 5000 });
-  });
+  // Close button should work
+  await modal.locator('button[aria-label="Close announcements"]').click();
+  await expect(modal).not.toBeVisible({ timeout: 5000 });
 });
