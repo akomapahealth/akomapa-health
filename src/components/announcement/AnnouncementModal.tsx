@@ -316,7 +316,7 @@ export default function AnnouncementModal() {
                         </a>
                       ) : (
                         <Link
-                          href={currentSlide.ctaLink}
+                          href={`/news/${currentSlide.id}`}
                           onClick={close}
                           className="group inline-flex items-center gap-2 px-5 py-2.5 bg-[#0097b2] text-[#FCFAEF] rounded-full hover:bg-[#005A55] transition-all duration-200 font-medium text-sm shadow-lg hover:shadow-xl hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-[#0097b2] focus:ring-offset-2"
                         >
@@ -325,6 +325,14 @@ export default function AnnouncementModal() {
                         </Link>
                       )
                     )}
+
+                    <Link
+                      href="/news"
+                      onClick={close}
+                      className="inline-flex items-center gap-1.5 text-sm font-medium text-[#0097b2] dark:text-[#66C4DC] hover:text-[#005A55] dark:hover:text-[#eeba2b] transition-colors focus:outline-none focus:ring-2 focus:ring-[#0097b2] focus:ring-offset-2 rounded px-2 py-1"
+                    >
+                      View All Updates
+                    </Link>
 
                     <button
                       onClick={close}
