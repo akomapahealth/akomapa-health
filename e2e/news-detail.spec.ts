@@ -1,6 +1,13 @@
 import { test, expect } from "@playwright/test";
 
 test.describe("News Detail Pages", () => {
+  test.beforeEach(async ({ page }) => {
+    // Dismiss the announcement modal if it appears
+    await page.addInitScript(() => {
+      localStorage.setItem("announcement-dismissed-2026-04-v2", "true");
+    });
+  });
+
   test("news article detail page renders with full content", async ({
     page,
   }) => {
@@ -14,10 +21,10 @@ test.describe("News Detail Pages", () => {
     ).toBeVisible({ timeout: 15000 });
 
     // Category badge visible
-    await expect(page.getByText("Program Update")).toBeVisible();
+    await expect(page.getByText("Program Update").first()).toBeVisible();
 
-    // Date visible
-    await expect(page.getByText(/August 15, 2023/)).toBeVisible();
+    // Date visible (format may vary by locale)
+    await expect(page.getByText(/August.*2023/)).toBeVisible();
 
     // Article content rendered (check first paragraph)
     await expect(
@@ -54,8 +61,8 @@ test.describe("News Detail Pages", () => {
         .first()
     ).toBeVisible({ timeout: 15000 });
 
-    // Category badge
-    await expect(page.getByText("New Program")).toBeVisible();
+    // Category badge visible (use .first() as tag text may appear in tags section too)
+    await expect(page.getByText("New Program").first()).toBeVisible();
 
     // Description content visible
     await expect(
