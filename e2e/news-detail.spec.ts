@@ -4,7 +4,7 @@ test.describe("News Detail Pages", () => {
   test.beforeEach(async ({ page }) => {
     // Dismiss the announcement modal if it appears
     await page.addInitScript(() => {
-      localStorage.setItem("announcement-dismissed-2026-04-v2", "true");
+      localStorage.setItem("akomapa-announcements-dismissed", "2026-04-v2");
     });
   });
 
