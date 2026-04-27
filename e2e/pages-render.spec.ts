@@ -19,6 +19,8 @@ const pages = [
   { path: '/partner', title: 'Partner' },
   { path: '/roadmap', title: 'Roadmap' },
   { path: '/resources', title: 'Resources' },
+  { path: '/news', title: 'News' },
+  { path: '/news/new-community-clinics-ghana', title: 'New Community Clinics' },
 ];
 
 test.describe('Page Rendering Tests', () => {

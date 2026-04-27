@@ -9,14 +9,16 @@ import {
   FadeInStaggerItem,
 } from "@/components/animations";
 import { Button } from "@/components/ui/button";
-import { announcementCampaign } from "@/data/announcements";
 import { AnnouncementCard } from "@/components/common/AnnouncementCard";
+import { getAllNewsItems, newsItemToAnnouncement } from "@/data/unified-news";
 
 /** Number of cards shown on the homepage. */
 const FEATURED_COUNT = 3;
 
 export default function UpdatesFeed() {
-  const featured = announcementCampaign.slides.slice(0, FEATURED_COUNT);
+  const featured = getAllNewsItems()
+    .slice(0, FEATURED_COUNT)
+    .map(newsItemToAnnouncement);
 
   return (
     <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E] text-[#1C1F1E] dark:text-[#FCFAEF] relative">
