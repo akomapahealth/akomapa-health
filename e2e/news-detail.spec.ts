@@ -154,4 +154,43 @@ test.describe("News Detail Pages", () => {
     const href = await detailLink.getAttribute("href");
     expect(href).toMatch(/^\/news\/.+/);
   });
+
+  test("video announcement card shows play indicator", async ({ page }) => {
+    await page.goto("/news", { waitUntil: "domcontentloaded" });
+
+    // Startup Yale card has a video — find its card
+    const videoCard = page
+      .locator("article")
+      .filter({ hasText: /Startup Yale Finalist/i })
+      .first();
+
+    await expect(videoCard).toBeVisible({ timeout: 15000 });
+
+    // Play indicator should be visible within the card
+    const playIndicator = videoCard.locator(
+      ".pointer-events-none .rounded-full"
+    );
+    await expect(playIndicator).toBeVisible();
+  });
+
+  test("announcement modal shows increased size", async ({ page }) => {
+    // Don't dismiss modal for this test
+    await page.addInitScript(() => {
+      localStorage.removeItem("akomapa-announcements-dismissed");
+    });
+
+    await page.goto("/", { waitUntil: "domcontentloaded" });
+
+    // Wait for modal to appear (3s delay + animation)
+    const modal = page.getByRole("dialog", { name: /announcements/i });
+    await expect(modal).toBeVisible({ timeout: 15000 });
+
+    // Verify modal has content
+    await expect(modal.locator("h2").first()).toBeVisible();
+    await expect(modal.locator("p").first()).toBeVisible();
+
+    // Close button should work
+    await page.getByLabel("Close announcements").click();
+    await expect(modal).not.toBeVisible({ timeout: 5000 });
+  });
 });
