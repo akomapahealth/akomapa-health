@@ -23,6 +23,8 @@ export const announcementCampaign: AnnouncementCampaign = {
       description:
         "We have been selected as a finalist at Startup Yale, pitching our vision for scalable, student-powered healthcare delivery across West Africa.",
       image: "/images/yale-innovation.png",
+      videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+      thumbnail: "/images/yale-innovation.png",
       ctaText: "Watch the Pitch",
       ctaLink: "https://ventures.yale.edu/yale-innovation-summit-yale-ventures",
       isExternal: true,
