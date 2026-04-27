@@ -77,3 +77,20 @@ export interface Program {
     version: string;
     slides: Announcement[];
   }
+
+  export interface NewsItem {
+    id: string;
+    title: string;
+    excerpt: string;
+    content: string[];
+    image: string;
+    date: string | null;
+    category: string;
+    categoryColor: "lapis" | "amber" | "skobeloff";
+    tags: string[];
+    featured: boolean;
+    ctaText: string | null;
+    ctaLink: string | null;
+    isExternalCta: boolean;
+    source: "announcement" | "news";
+  }
