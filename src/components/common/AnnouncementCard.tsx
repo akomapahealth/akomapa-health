@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, ExternalLink } from "lucide-react";
+import { ArrowRight, ExternalLink, Play } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Image from "@/components/common/Image";
 import { TAG_COLORS } from "@/data/announcement-colors";
@@ -36,6 +36,15 @@ export function AnnouncementCard({ item }: { item: Announcement }) {
 
           {/* Gradient overlay for tag readability */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-transparent to-transparent" />
+
+          {/* Video play indicator */}
+          {item.videoUrl && (
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <span className="flex items-center justify-center w-12 h-12 rounded-full bg-white/90 shadow-lg group-hover:scale-110 transition-transform duration-300">
+                <Play className="w-5 h-5 text-[#0097b2] ml-0.5" fill="currentColor" />
+              </span>
+            </div>
+          )}
 
           {/* Tag badge on image */}
           {item.tag && (

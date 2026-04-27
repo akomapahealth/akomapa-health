@@ -3,12 +3,13 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
+import { X, ChevronLeft, ChevronRight, ArrowRight, Play } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { MOTION_EASE, motionDurations } from "@/lib/motion/tokens";
 import { announcementCampaign } from "@/data/announcements";
 import Image from "@/components/common/Image";
 import { TAG_COLORS } from "@/data/announcement-colors";
+import { parseVideoUrl } from "@/lib/video-utils";
 
 const STORAGE_KEY = "akomapa-announcements-dismissed";
 const DELAY_MS = 3000;
@@ -22,6 +23,7 @@ export default function AnnouncementModal() {
   const [hasManualNav, setHasManualNav] = useState(false);
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
+  const [videoPlaying, setVideoPlaying] = useState(false);
 
   const modalRef = useRef<HTMLDivElement>(null);
   const previousFocusRef = useRef<HTMLElement | null>(null);
@@ -121,6 +123,7 @@ export default function AnnouncementModal() {
       setHasManualNav(true);
       setDirection(dir);
       setCurrentIndex(newIndex);
+      setVideoPlaying(false);
     },
     []
   );
@@ -245,24 +248,47 @@ export default function AnnouncementModal() {
                 aria-live="polite"
                 aria-atomic="true"
               >
-                {/* Image Section */}
-                {currentSlide.image && (
+                {/* Media Section (Image or Video) */}
+                {(currentSlide.image || currentSlide.videoUrl) && (
                   <div className="relative w-full aspect-[16/9] sm:aspect-[2/1] overflow-hidden">
-                    <Image
-                      src={currentSlide.image}
-                      alt=""
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 640px) 100vw, 680px"
-                    />
-                    {/* Gradient overlay for depth */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/10" />
+                    {currentSlide.videoUrl && videoPlaying ? (
+                      <iframe
+                        src={parseVideoUrl(currentSlide.videoUrl)?.embedUrl}
+                        className="absolute inset-0 w-full h-full"
+                        allow="autoplay; encrypted-media; picture-in-picture"
+                        allowFullScreen
+                        title={currentSlide.title}
+                      />
+                    ) : (
+                      <>
+                        <Image
+                          src={currentSlide.thumbnail || currentSlide.image || ""}
+                          alt=""
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 640px) 100vw, 680px"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/10" />
+
+                        {currentSlide.videoUrl && (
+                          <button
+                            onClick={() => { setVideoPlaying(true); setIsPaused(true); }}
+                            className="absolute inset-0 z-10 flex items-center justify-center group/play"
+                            aria-label="Play video"
+                          >
+                            <span className="flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-white/90 shadow-xl group-hover/play:scale-110 transition-transform duration-200">
+                              <Play className="w-7 h-7 sm:w-8 sm:h-8 text-[#0097b2] ml-1" fill="currentColor" />
+                            </span>
+                          </button>
+                        )}
+                      </>
+                    )}
 
                     {/* Tag badge overlaid on image */}
-                    {currentSlide.tag && (
+                    {currentSlide.tag && !videoPlaying && (
                       <span
                         className={cn(
-                          "absolute top-3 left-3 inline-block rounded-full px-3 py-1 text-xs font-bold tracking-wide backdrop-blur-md shadow-sm",
+                          "absolute top-3 left-3 z-10 inline-block rounded-full px-3 py-1 text-xs font-bold tracking-wide backdrop-blur-md shadow-sm",
                           TAG_COLORS[currentSlide.tagColor ?? "lapis"]
                         )}
                       >
@@ -271,7 +297,7 @@ export default function AnnouncementModal() {
                     )}
 
                     {/* Slide counter on image */}
-                    {showNavigation && (
+                    {showNavigation && !videoPlaying && (
                       <span className="absolute bottom-3 right-3 text-xs font-medium text-white/80 bg-black/30 backdrop-blur-sm rounded-full px-2.5 py-0.5">
                         {currentIndex + 1} / {slides.length}
                       </span>
