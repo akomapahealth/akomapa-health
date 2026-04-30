@@ -68,6 +68,8 @@ export interface Program {
     tag?: string;
     tagColor?: "lapis" | "amber" | "skobeloff";
     image?: string;
+    videoUrl?: string;
+    thumbnail?: string;
     ctaText?: string;
     ctaLink?: string;
     isExternal?: boolean;
@@ -84,6 +86,8 @@ export interface Program {
     excerpt: string;
     content: string[];
     image: string;
+    videoUrl: string | null;
+    thumbnail: string | null;
     date: string | null;
     category: string;
     categoryColor: "lapis" | "amber" | "skobeloff";

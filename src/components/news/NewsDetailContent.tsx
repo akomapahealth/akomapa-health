@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import {
@@ -7,6 +8,7 @@ import {
   ArrowRight,
   Calendar,
   ExternalLink,
+  Play,
   Tag,
 } from "lucide-react";
 import Image from "@/components/common/Image";
@@ -22,6 +24,7 @@ import {
 import { TAG_COLORS } from "@/data/announcement-colors";
 import { newsItemToAnnouncement } from "@/data/unified-news";
 import { cn } from "@/lib/utils";
+import { parseVideoUrl } from "@/lib/video-utils";
 import type { NewsItem } from "@/lib/types";
 
 function formatDate(dateStr: string): string {
@@ -38,6 +41,7 @@ interface Props {
 }
 
 export function NewsDetailContent({ item, relatedItems }: Props) {
+  const [videoPlaying, setVideoPlaying] = useState(false);
   const isRichContent = item.content.length > 1;
 
   return (
@@ -129,8 +133,8 @@ export function NewsDetailContent({ item, relatedItems }: Props) {
           </div>
         </section>
 
-        {/* Hero Image — overlaps hero by pulling up */}
-        {item.image && (
+        {/* Hero Media — overlaps hero by pulling up */}
+        {(item.image || item.videoUrl) && (
           <section className="relative z-10 -mt-8 sm:-mt-12 md:-mt-16 mb-12 md:mb-16">
             <div className="container mx-auto px-4 sm:px-6">
               <motion.div
@@ -140,15 +144,38 @@ export function NewsDetailContent({ item, relatedItems }: Props) {
                 className="max-w-4xl mx-auto"
               >
                 <div className="relative aspect-[16/9] rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl ring-1 ring-black/5 dark:ring-white/5">
-                  <Image
-                    src={item.image}
-                    alt={item.title}
-                    fill
-                    priority
-                    sizes="(min-width: 1024px) 56rem, 100vw"
-                    className="object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
+                  {item.videoUrl && videoPlaying ? (
+                    <iframe
+                      src={parseVideoUrl(item.videoUrl)?.embedUrl}
+                      className="absolute inset-0 w-full h-full"
+                      allow="autoplay; encrypted-media; picture-in-picture"
+                      allowFullScreen
+                      title={item.title}
+                    />
+                  ) : (
+                    <>
+                      <Image
+                        src={item.thumbnail || item.image}
+                        alt={item.title}
+                        fill
+                        priority
+                        sizes="(min-width: 1024px) 56rem, 100vw"
+                        className="object-cover"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
+                      {item.videoUrl && (
+                        <button
+                          onClick={() => setVideoPlaying(true)}
+                          className="absolute inset-0 flex items-center justify-center group/play"
+                          aria-label="Play video"
+                        >
+                          <span className="flex items-center justify-center w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-white/90 shadow-xl group-hover/play:scale-110 transition-transform duration-200">
+                            <Play className="w-9 h-9 sm:w-10 sm:h-10 text-[#0097b2] ml-1" fill="currentColor" />
+                          </span>
+                        </button>
+                      )}
+                    </>
+                  )}
                 </div>
               </motion.div>
             </div>

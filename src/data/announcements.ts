@@ -10,9 +10,9 @@ export const announcementCampaign: AnnouncementCampaign = {
       title: "Yale Global Health Yogesh Khanal Award",
       description:
         "Akomapa Health has been honored with the Yogesh Khanal Award for outstanding contributions to global health equity and NCD prevention in underserved communities.",
-      image: "/highlights/Akomapa-5.jpg",
+      image: "/images/akomapa-yale.JPG",
       ctaText: "Read More",
-      ctaLink: "https://medicine.yale.edu/intmed/global/",
+      ctaLink: "https://medicine.yale.edu/news-article/global-health-and-equity-distinction-pathway-news-update-for-january-6-2025/",
       isExternal: true,
     },
     {
@@ -21,8 +21,10 @@ export const announcementCampaign: AnnouncementCampaign = {
       tagColor: "amber",
       title: "Startup Yale Finalist",
       description:
-        "We have been selected as a finalist at Startup Yale, pitching our vision for scalable, student-powered healthcare delivery across West Africa.",
-      image: "/images/yale-innovation.png",
+        "We were selected as a finalist at Startup Yale, pitching our vision for scalable, student-powered healthcare delivery across West Africa.",
+      image: "/images/akomapa-pitch-1.JPG",
+      videoUrl: "https://www.youtube.com/watch?v=zg8LbyzqYt0",
+      thumbnail: "/images/akomapa-pitch-1.JPG",
       ctaText: "Watch the Pitch",
       ctaLink: "https://ventures.yale.edu/yale-innovation-summit-yale-ventures",
       isExternal: true,
@@ -46,7 +48,7 @@ export const announcementCampaign: AnnouncementCampaign = {
       title: "Introducing Nkwapa — Our EMR Platform",
       description:
         "Our offline-first electronic medical records system is now in public beta. Purpose-built to power Akomapa clinics in resource-limited settings.",
-      image: "/highlights/Akomapa-28.jpg",
+      image: "/images/nkwapa.png",
       ctaText: "View Demo",
       ctaLink: "https://staging.nkwapa.app",
       isExternal: true,
@@ -58,7 +60,7 @@ export const announcementCampaign: AnnouncementCampaign = {
       title: "Mastercard Foundation Momentum Stage",
       description:
         "Akomapa has been recognized by the Mastercard Foundation at the Momentum Stage for our innovative approach to scaling healthcare access across Ghana.",
-      image: "/highlights/Akomapa-46.jpg",
+      image: "/images/partners/mastercard-foundation.png",
       ctaText: "Read More",
       ctaLink: "/join",
       isExternal: false,
@@ -94,7 +96,7 @@ export const announcementCampaign: AnnouncementCampaign = {
       title: "Yale African Innovation Symposium",
       description:
         "Akomapa is partnering with Yale for the African Innovation Symposium, bringing together health innovators from across the continent to share solutions.",
-      image: "/highlights/Akomapa-38.jpg",
+      image: "/images/yale-innovation.png",
       ctaText: "Learn More",
       ctaLink: "https://ventures.yale.edu/yale-innovation-summit-yale-ventures",
       isExternal: true,

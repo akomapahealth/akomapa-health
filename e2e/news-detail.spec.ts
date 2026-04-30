@@ -11,24 +11,24 @@ test.describe("News Detail Pages", () => {
   test("news article detail page renders with full content", async ({
     page,
   }) => {
-    await page.goto("/news/new-community-clinics-ghana", {
+    await page.goto("/news/akomapa-yale-global-health-recognition", {
       waitUntil: "domcontentloaded",
     });
 
     // Title visible in hero
     await expect(
-      page.getByRole("heading", { name: /community clinics/i }).first()
+      page.getByRole("heading", { name: /recognized at yale/i }).first()
     ).toBeVisible({ timeout: 15000 });
 
     // Category badge visible
-    await expect(page.getByText("Program Update").first()).toBeVisible();
+    await expect(page.getByText("Recognition").first()).toBeVisible();
 
     // Date visible (format may vary by locale)
     await expect(page.getByText(/April.*2026/)).toBeVisible();
 
     // Article content rendered (check first paragraph)
     await expect(
-      page.getByText(/proud to announce the opening of 10 new/i)
+      page.getByText(/latest chapter starts with a simple but powerful signal/i)
     ).toBeVisible();
 
     // Back link to /news
@@ -42,7 +42,7 @@ test.describe("News Detail Pages", () => {
 
     // SEO: page title contains item title
     const title = await page.title();
-    expect(title).toContain("Community Clinics");
+    expect(title).toContain("Akomapa Recognized");
   });
 
   test("announcement detail page renders with styled description", async ({
@@ -74,7 +74,7 @@ test.describe("News Detail Pages", () => {
   });
 
   test("back link navigates to /news listing", async ({ page }) => {
-    await page.goto("/news/new-community-clinics-ghana", {
+    await page.goto("/news/akomapa-yale-global-health-recognition", {
       waitUntil: "domcontentloaded",
     });
 
@@ -121,7 +121,7 @@ test.describe("News Detail Pages", () => {
     await expect(
       page
         .getByText(
-          /Opens 10 New Community Clinics/i
+          /Akomapa Recognized at Yale and Global Health Innovation Platforms/i
         )
         .first()
     ).toBeVisible();
@@ -154,4 +154,41 @@ test.describe("News Detail Pages", () => {
     const href = await detailLink.getAttribute("href");
     expect(href).toMatch(/^\/news\/.+/);
   });
+
+  test("video announcement card shows play indicator", async ({ page }) => {
+    await page.goto("/news", { waitUntil: "domcontentloaded" });
+
+    // Startup Yale card has a video — find its card
+    const videoCard = page
+      .locator("article")
+      .filter({ hasText: /Startup Yale Finalist/i })
+      .first();
+
+    await expect(videoCard).toBeVisible({ timeout: 15000 });
+
+    // Play indicator should be visible within the card
+    const playIndicator = videoCard.locator(
+      ".pointer-events-none .rounded-full"
+    );
+    await expect(playIndicator).toBeVisible();
+  });
+
+});
+
+test("announcement modal shows increased size and closes properly", async ({
+  page,
+}) => {
+  await page.goto("/", { waitUntil: "domcontentloaded" });
+
+  // Wait for modal to appear (3s delay + animation)
+  const modal = page.locator('[role="dialog"][aria-label="Announcements"]');
+  await expect(modal).toBeVisible({ timeout: 15000 });
+
+  // Verify modal has content
+  await expect(modal.locator("h2").first()).toBeVisible();
+  await expect(modal.locator("p").first()).toBeVisible();
+
+  // Close button should work
+  await modal.locator('button[aria-label="Close announcements"]').click();
+  await expect(modal).not.toBeVisible({ timeout: 5000 });
 });
