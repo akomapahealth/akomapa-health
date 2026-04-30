@@ -11,24 +11,24 @@ test.describe("News Detail Pages", () => {
   test("news article detail page renders with full content", async ({
     page,
   }) => {
-    await page.goto("/news/new-community-clinics-ghana", {
+    await page.goto("/news/akomapa-yale-global-health-recognition", {
       waitUntil: "domcontentloaded",
     });
 
     // Title visible in hero
     await expect(
-      page.getByRole("heading", { name: /community clinics/i }).first()
+      page.getByRole("heading", { name: /recognized at yale/i }).first()
     ).toBeVisible({ timeout: 15000 });
 
     // Category badge visible
-    await expect(page.getByText("Program Update").first()).toBeVisible();
+    await expect(page.getByText("Recognition").first()).toBeVisible();
 
     // Date visible (format may vary by locale)
     await expect(page.getByText(/April.*2026/)).toBeVisible();
 
     // Article content rendered (check first paragraph)
     await expect(
-      page.getByText(/proud to announce the opening of 10 new/i)
+      page.getByText(/latest chapter starts with a simple but powerful signal/i)
     ).toBeVisible();
 
     // Back link to /news
@@ -42,7 +42,7 @@ test.describe("News Detail Pages", () => {
 
     // SEO: page title contains item title
     const title = await page.title();
-    expect(title).toContain("Community Clinics");
+    expect(title).toContain("Akomapa Recognized");
   });
 
   test("announcement detail page renders with styled description", async ({
@@ -74,7 +74,7 @@ test.describe("News Detail Pages", () => {
   });
 
   test("back link navigates to /news listing", async ({ page }) => {
-    await page.goto("/news/new-community-clinics-ghana", {
+    await page.goto("/news/akomapa-yale-global-health-recognition", {
       waitUntil: "domcontentloaded",
     });
 
@@ -121,7 +121,7 @@ test.describe("News Detail Pages", () => {
     await expect(
       page
         .getByText(
-          /Opens 10 New Community Clinics/i
+          /Akomapa Recognized at Yale and Global Health Innovation Platforms/i
         )
         .first()
     ).toBeVisible();

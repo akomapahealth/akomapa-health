@@ -3,118 +3,125 @@ import { News } from "@/lib/types";
 export const news: News[] = [
   {
     id: "1",
-    title: "Akomapa Health Foundation Opens 10 New Community Clinics in Rural Ghana",
-    slug: "new-community-clinics-ghana",
-    excerpt: "Expanding healthcare access to over 50,000 people in underserved communities across northern Ghana.",
+    title: "Akomapa Recognized at Yale and Global Health Innovation Platforms",
+    slug: "akomapa-yale-global-health-recognition",
+    excerpt:
+      "Akomapa is celebrating a strong season of recognition, with updates from Yale and major innovation platforms focused on the future of health.",
     content: [
-      "Akomapa Health Foundation is proud to announce the opening of 10 new community clinics across rural northern Ghana, significantly expanding healthcare access to over 50,000 people in previously underserved areas.",
-      "The new facilities, strategically located in regions with limited healthcare infrastructure, will provide essential primary care services, maternal and child health support, and chronic disease management programs.",
-      "\"These clinics represent a critical step in our mission to ensure that quality healthcare is accessible to everyone, regardless of their location or economic status,\" said Dr. Kwame Mensah, Executive Director of Akomapa Health Foundation.",
-      "Each clinic is staffed by trained healthcare professionals from the local communities and equipped with essential medical supplies and diagnostic tools. The clinics will operate in partnership with local health authorities to ensure sustainability and integration with the broader healthcare system.",
-      "The expansion project, funded through a combination of international grants and private donations, was completed ahead of schedule and under budget, allowing for additional investments in community health education programs to complement the clinical services.",
-      "Local community leaders have expressed enthusiasm about the new healthcare facilities. \"For many years, our people had to travel more than 30 kilometers to reach the nearest health center,\" said Abena Osei, a community leader from the Tamale North district. \"This clinic will save lives, especially for pregnant women and children who need urgent care.\"",
-      "The Foundation will continue monitoring the impact of these new clinics through a comprehensive data collection system, measuring improvements in key health indicators such as maternal mortality, childhood vaccination rates, and management of chronic conditions."
+      "Akomapa's latest chapter starts with a simple but powerful signal: the work is being seen.",
+      "In recent updates, Akomapa shared that it received the Yale Global Health Yogesh Khanal Award, was named a finalist in Startup Yale's Future of Health Innovation context, and was recognized on the Momentum Stage supported by the Mastercard Foundation.",
+      "Together, these recognitions place Akomapa in conversations that bring together public health leaders, researchers, founders, and funders focused on practical solutions.",
+      "For a community-rooted organization, this kind of visibility matters because it can open doors to stronger partnerships and better pathways for scaling what already works.",
+      "The story here is not about a pivot; it is about momentum. Akomapa's mission remains centered on prevention, health equity, and student-powered service.",
+      "The team describes this moment as fuel to keep building carefully: expand access, document lessons, and stay accountable to the communities at the center of the work.",
+      "In other words, recognition is the headline, but implementation is still the priority."
     ],
-    image: "/highlights/Akomapa-46.jpg",
-    date: "2026-04-10",
-    category: "Program Update",
+    image: "/images/akomapa-yale.JPG",
+    date: "2026-04-30",
+    category: "Recognition",
     featured: true,
-    tags: ["Community Clinics", "Ghana", "Healthcare Access", "Rural Health"]
+    tags: [
+      "Yale",
+      "Startup Yale",
+      "Mastercard Foundation",
+      "Global Health Recognition",
+    ],
   },
   {
     id: "2",
-    title: "Health Education Initiative Reaches 100,000 Students Across East Africa",
-    slug: "health-education-milestone",
-    excerpt: "Our school-based health education program has now reached 100,000 students, teaching essential health knowledge and practices.",
+    title:
+      "Akomapa Academy Introduces the Global Health Ethical Leadership Training Program",
+    slug: "akomapa-academy-ethical-leadership-program",
+    excerpt:
+      "Akomapa Academy has launched a new ethical leadership program designed to help emerging health leaders grow with purpose and practical skill.",
     content: [
-      "Akomapa Health Foundation's school-based health education initiative has reached a significant milestone, having now educated over 100,000 students across Kenya, Tanzania, and Uganda on essential health topics and practices.",
-      "The program, launched in 2018, provides age-appropriate health education covering nutrition, hygiene, disease prevention, reproductive health, and mental wellbeing. It uses interactive teaching methods, practical demonstrations, and peer education to ensure that knowledge translates into lifelong healthy habits.",
-      "\"Health education is fundamentally about empowerment,\" explained Sarah Ochieng, Director of Educational Programs. \"When young people understand how their bodies work and how to protect their health, they're equipped to make better decisions throughout their lives.\"",
-      "An evaluation of the program conducted earlier this year showed promising results, with participating schools reporting a 40% reduction in preventable illnesses among students and a 35% increase in handwashing practices. Teachers also noted improved attendance rates as fewer students missed school due to preventable illnesses.",
-      "The Foundation works closely with ministries of education and health to integrate the curriculum into school programs, ensuring sustainability beyond the initial implementation phase. To date, over 2,500 teachers have been trained to deliver the health education modules effectively.",
-      "Going forward, the Foundation plans to expand the program to reach an additional 150,000 students over the next three years, with a particular focus on schools in remote and underserved areas."
+      "Behind every stronger health system are people prepared to lead with both skill and integrity, and that is the idea behind Akomapa's newest launch.",
+      "Akomapa has officially introduced the Global Health Ethical Leadership Training Program on Akomapa Academy.",
+      "The program combines leadership, governance, equity, and community engagement with a clinical lens so participants can connect values to everyday decisions.",
+      "That focus is especially important in cross-cultural and resource-limited settings, where context, trust, and ethical judgment shape outcomes as much as technical knowledge.",
+      "This launch builds naturally on Akomapa's clinic-based work: students and early-career professionals can now grow through service and structured leadership training at the same time.",
+      "Akomapa frames the program as a long-term investment in people who can guide teams, collaborate across disciplines, and center community voice in health decisions.",
+      "It is an expansion of mission in practice, not just in messaging."
     ],
     image: "/highlights/Akomapa-68.jpg",
-    date: "2026-03-25",
-    category: "Education",
-    featured: true,
-    tags: ["Health Education", "Schools", "East Africa", "Children's Health"]
+    date: "2026-04-29",
+    category: "Program Launch",
+    tags: [
+      "Akomapa Academy",
+      "Ethical Leadership",
+      "Global Health Training",
+      "Student Leadership",
+    ],
   },
   {
     id: "3",
-    title: "Research Partnership Secures $2.5M Grant for Malaria Prevention Study",
-    slug: "malaria-research-grant",
-    excerpt: "A collaborative research project will investigate innovative approaches to malaria prevention in endemic regions.",
+    title: "Nkwapa Enters Public Beta as Akomapa's Offline-First EMR Platform",
+    slug: "nkwapa-emr-public-beta",
+    excerpt:
+      "Nkwapa is now in public beta, giving Akomapa clinics an offline-first EMR option built for real conditions on the ground.",
     content: [
-      "Akomapa Health Foundation, in partnership with the University of Ghana Medical School and the London School of Hygiene & Tropical Medicine, has secured a $2.5 million grant to conduct a large-scale study on innovative approaches to malaria prevention in endemic regions.",
-      "The three-year research project will evaluate the effectiveness of an integrated intervention package combining improved housing designs, targeted environmental management, and community education in reducing malaria transmission in selected communities across Ghana and Tanzania.",
-      "\"Malaria continues to be one of the leading causes of illness and death in many parts of Africa,\" said Dr. Aisha Nkrumah, Principal Investigator for the study. \"While existing interventions like insecticide-treated nets and indoor residual spraying have helped reduce the burden, we need complementary approaches to make further progress toward elimination.\"",
-      "The study will involve over 5,000 households across 40 communities and will measure outcomes including parasite prevalence, anemia rates in children under five, and entomological indicators of mosquito density and behavior.",
-      "Beyond the immediate research objectives, the project aims to build local research capacity by involving graduate students and early-career researchers from African institutions in all aspects of the study design, implementation, analysis, and publication.",
-      "\"This grant not only supports important research on malaria prevention but also strengthens our commitment to developing the next generation of African health researchers,\" noted Professor James Wiredu, Dean of the University of Ghana Medical School. \"The partnership model ensures that expertise and capacity are built where they're most needed.\"",
-      "Initial findings from the study are expected to be published in 2025, with potential implications for malaria control strategies across the continent."
+      "When connectivity is inconsistent, documentation gaps can quickly become care gaps, and Akomapa is responding to that reality with Nkwapa.",
+      "Akomapa has announced the public beta launch of Nkwapa, its offline-first electronic medical records platform.",
+      "The core promise is practical: clinic teams should be able to record visits, track care, and continue workflows without relying on constant internet access.",
+      "Designing for offline use first reflects the environments many community clinics operate in and helps reduce disruptions in day-to-day service delivery.",
+      "The public beta also signals an iterative approach, where implementation feedback can directly shape how the platform improves over time.",
+      "Akomapa positions Nkwapa as enabling infrastructure that supports frontline teams and strengthens continuity, while keeping patient-centered care at the core.",
+      "As the beta evolves, the focus remains clear: technology that adapts to context, not the other way around."
     ],
-    image: "/highlights/Akomapa-38.jpg",
-    date: "2026-03-08",
-    category: "Research",
-    featured: true,
-    tags: ["Malaria", "Research", "Grants", "Disease Prevention"]
+    image: "/images/nkwapa.png",
+    date: "2026-04-28",
+    category: "Product Launch",
+    tags: ["Nkwapa", "EMR", "Digital Health", "Offline First"],
   },
   {
     id: "4",
-    title: "Medical Training Program Graduates 150 New Healthcare Professionals",
-    slug: "medical-training-graduates",
-    excerpt: "The latest cohort of graduates from our medical training program will strengthen healthcare capacity in underserved areas.",
+    title: "Akomapa and University of Ghana Launch Campus-Connected Clinic",
+    slug: "akomapa-university-of-ghana-clinic-launch",
+    excerpt:
+      "The new Akomapa-University of Ghana clinic is now open, bringing screening, preventive care, and health education closer to students and campus communities.",
     content: [
-      "Akomapa Health Foundation celebrated the graduation of 150 healthcare professionals from its comprehensive medical training program this month, representing a significant boost to healthcare capacity in underserved regions across West Africa.",
-      "The graduating class includes 45 nurses, 60 community health workers, 25 midwives, and 20 healthcare facility managers, all of whom have completed specialized training designed to address the specific health challenges prevalent in their communities.",
-      "\"This moment marks not just the completion of their training, but the beginning of their journey to transform healthcare in their communities,\" said Dr. Emmanuel Kwarteng, Director of Professional Development Programs, during the graduation ceremony held in Accra.",
-      "The 18-month program combines classroom instruction, practical clinical experiences, leadership development, and mentorship. Graduates receive ongoing professional support through a peer network and regular continuing education opportunities.",
-      "Notably, 85% of the graduates will return to work in rural and underserved communities, many of which face critical shortages of trained healthcare personnel.",
-      "\"Before joining this program, our local clinic had only one nurse serving over 3,000 people,\" shared Fatima Diallo, a graduate from northern Nigeria. \"Now I'm returning with the skills to provide better care for pregnant women and newborns in my community.\"",
-      "The Foundation works with local health authorities and healthcare facilities to ensure graduates are strategically placed where their skills can have the maximum impact. Follow-up assessments of previous cohorts show that facilities staffed by program graduates typically see improvements in quality of care metrics within the first year."
+      "For many students and campus community members, timely access to screening and prevention can make all the difference, and Akomapa's newest clinic is built around that need.",
+      "Akomapa has launched the Akomapa-University of Ghana Clinic as a new point of care in its network.",
+      "According to the update, the clinic focuses on non-communicable disease screening, preventive care, and health education for the Legon campus community.",
+      "The launch creates a strong service-learning setting where care delivery and student development can happen in the same environment.",
+      "That model aligns with Akomapa's broader strategy: place access points in trusted institutions where people can engage regularly, not only during emergencies.",
+      "It also reinforces prevention as a daily practice by making screening and education part of routine community life.",
+      "As shared in the update, this clinic is one step in a larger effort to expand practical, local pathways to early intervention."
     ],
-    image: "/highlights/Akomapa-28.jpg",
-    date: "2026-02-20",
-    category: "Training",
-    tags: ["Healthcare Workers", "Training", "Capacity Building", "Rural Healthcare"]
+    image: "/highlights/ug.jpg",
+    date: "2026-04-27",
+    category: "Clinical Milestone",
+    tags: [
+      "University of Ghana",
+      "Campus Clinic",
+      "NCD Screening",
+      "Preventive Care",
+    ],
   },
   {
     id: "5",
-    title: "New Partnership with Ministry of Health to Strengthen Rural Healthcare Systems",
-    slug: "ministry-partnership",
-    excerpt: "A five-year partnership agreement will focus on integrating community clinics with national healthcare infrastructure.",
+    title:
+      "University of Cape Coast Partnership Expands Access to Four Additional Communities",
+    slug: "ucc-expansion-four-additional-communities",
+    excerpt:
+      "Akomapa and the University of Cape Coast have expanded services to four additional surrounding communities, a meaningful step forward for local access.",
     content: [
-      "Akomapa Health Foundation has signed a five-year partnership agreement with Ghana's Ministry of Health aimed at strengthening rural healthcare systems through better integration of community clinics with the national healthcare infrastructure.",
-      "The collaboration, formalized in a signing ceremony in Accra last week, will focus on standardizing protocols, improving referral pathways, and ensuring sustainable financing for primary healthcare facilities in underserved areas.",
-      "\"This partnership represents a shared commitment to ensuring that every citizen, regardless of where they live, has access to quality healthcare services,\" said Hon. Margaret Akoto, Minister of Health, during the signing ceremony. \"By combining the government's resources and policy framework with Akomapa Health Foundation's expertise in community-based healthcare delivery, we can create more resilient health systems.\"",
-      "Under the agreement, the Foundation will provide technical assistance for the upgrade of 50 existing rural health centers, train over 500 healthcare workers in standardized primary care protocols, and help implement a digital health information system to improve data collection and service coordination.",
-      "The Ministry will work to integrate these facilities more effectively into the national health insurance scheme, establish clear career pathways for community health workers, and align regulations to support innovative service delivery models.",
-      "\"We've learned that sustainable healthcare improvements require strong public-private partnerships,\" explained Dr. Kwame Mensah, Executive Director of Akomapa Health Foundation. \"This agreement allows us to scale the impact of our community clinics model by embedding it within the broader health system.\"",
-      "The partnership will initially focus on four regions with the highest healthcare access gaps before expanding to other areas in subsequent phases."
+      "One of the clearest indicators of impact is simple: more communities can now be reached consistently.",
+      "Akomapa has announced that its University of Cape Coast partnership now extends to four additional surrounding communities.",
+      "The expansion includes regular health screenings and health education activities delivered through the same partnership structure already in place.",
+      "That matters because it moves services beyond campus boundaries and closer to where families live, study, and work.",
+      "By adding four more communities, Akomapa is scaling in a way that remains local, relationship-based, and operationally grounded.",
+      "The update also gives practical context to current program messaging around community reach and sustained preventive care access.",
+      "It is another example of step-by-step growth: expand carefully, stay connected to local partners, and build access that lasts."
     ],
-    image: "/highlights/Akomapa-5.jpg",
-    date: "2026-02-12",
-    category: "Partnership",
-    tags: ["Government Partnership", "Health Systems", "Ghana", "Sustainability"]
+    image: "/highlights/ucc.jpg",
+    date: "2026-04-26",
+    category: "Community Expansion",
+    tags: [
+      "University of Cape Coast",
+      "Community Access",
+      "Health Screening",
+      "Health Education",
+    ],
   },
-  {
-    id: "6",
-    title: "Annual Impact Report Shows Significant Health Improvements in Served Communities",
-    slug: "annual-impact-report",
-    excerpt: "Our 2022 Impact Report documents substantial improvements in key health metrics across communities served by our programs.",
-    content: [
-      "Akomapa Health Foundation has released its 2022 Impact Report, documenting significant improvements in key health indicators across communities served by its various programs.",
-      "The comprehensive report, based on data collected from over 200 project sites across seven countries, shows a 35% reduction in maternal mortality, a 40% increase in childhood vaccination rates, and a 25% improvement in hypertension control among adults in communities where the Foundation operates.",
-      "\"These results demonstrate that targeted interventions, when designed in partnership with communities and delivered through strengthened local health systems, can achieve meaningful health improvements even in resource-constrained settings,\" said Dr. Lisa Ofosu, Director of Monitoring and Evaluation.",
-      "Particularly notable achievements highlighted in the report include a 60% reduction in malaria-related hospitalizations in communities implementing the integrated vector control program, a 45% increase in skilled birth attendance in areas served by Foundation-supported maternal health initiatives, and a doubling of early detection rates for chronic conditions through expanded screening programs.",
-      "The report also acknowledges ongoing challenges, including difficulties in reaching the most remote populations, securing sustainable financing for community health worker programs, and addressing social determinants of health that fall outside the traditional healthcare system.",
-      "Looking ahead, the Foundation plans to increase its focus on mental health services, expand nutrition interventions targeting the first 1,000 days of life, and strengthen emergency preparedness capabilities across its network of healthcare facilities.",
-      "\"While we celebrate the progress documented in this report, we remain mindful of how much work remains to be done,\" noted Dr. Kwame Mensah, Executive Director. \"Every preventable death or disability reminds us of the urgency of our mission.\""
-    ],
-    image: "/highlights/ug.jpg",
-    date: "2026-02-05",
-    category: "Impact",
-    tags: ["Impact Report", "Health Outcomes", "Maternal Health", "Vaccinations"]
-  }
 ];
