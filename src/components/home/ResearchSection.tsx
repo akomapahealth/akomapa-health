@@ -47,7 +47,7 @@ const partners = [
   },
   {
     name: "Yale African Innovation Symposium",
-    logo: "/images/partners/yale-innovation.png",
+    logo: "/images/partners/yale-african-innovation.webp",
     width: 280,  
     height: 140  
   }
