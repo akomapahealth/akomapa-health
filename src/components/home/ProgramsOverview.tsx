@@ -103,7 +103,7 @@ const pillars: Pillar[] = [
     slug: "global-health-leadership",
     category: "Leadership Development",
     established: "2025",
-    peopleServed: "2 Communities",
+    peopleServed: "6 Communities",
     locations: ["Cape Coast", "Accra"],
     keyPoints: [
       "Collaboration with traditional leaders and community members",
@@ -113,7 +113,7 @@ const pillars: Pillar[] = [
       "Sustainable community-based healthcare model"
     ],
     impacts: [
-      "Established trust with 2 communities",
+      "Established trust with 6 communities",
       "Improved cultural competency in healthcare delivery",
       "Enhanced community engagement in health initiatives",
       "Strengthened partnerships with local health authorities",

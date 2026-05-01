@@ -68,6 +68,8 @@ export interface Program {
     tag?: string;
     tagColor?: "lapis" | "amber" | "skobeloff";
     image?: string;
+    videoUrl?: string;
+    thumbnail?: string;
     ctaText?: string;
     ctaLink?: string;
     isExternal?: boolean;
@@ -76,4 +78,23 @@ export interface Program {
   export interface AnnouncementCampaign {
     version: string;
     slides: Announcement[];
+  }
+
+  export interface NewsItem {
+    id: string;
+    title: string;
+    excerpt: string;
+    content: string[];
+    image: string;
+    videoUrl: string | null;
+    thumbnail: string | null;
+    date: string | null;
+    category: string;
+    categoryColor: "lapis" | "amber" | "skobeloff";
+    tags: string[];
+    featured: boolean;
+    ctaText: string | null;
+    ctaLink: string | null;
+    isExternalCta: boolean;
+    source: "announcement" | "news";
   }

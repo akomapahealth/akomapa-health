@@ -38,6 +38,18 @@ const partners = [
     logo: "/images/partners/ghana-health-service-logo.png",
     width: 280,  
     height: 140  
+  },
+  {
+    name: "Mastercard Foundation",
+    logo: "/images/partners/mastercard-foundation.png",
+    width: 280,  
+    height: 140  
+  },
+  {
+    name: "Yale African Innovation Symposium",
+    logo: "/images/partners/yale-african-innovation.webp",
+    width: 280,  
+    height: 140  
   }
 ];
 

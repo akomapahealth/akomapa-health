@@ -3,21 +3,17 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
+import { X, ChevronLeft, ChevronRight, ArrowRight, Play } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { MOTION_EASE, motionDurations } from "@/lib/motion/tokens";
 import { announcementCampaign } from "@/data/announcements";
 import Image from "@/components/common/Image";
+import { TAG_COLORS } from "@/data/announcement-colors";
+import { parseVideoUrl } from "@/lib/video-utils";
 
 const STORAGE_KEY = "akomapa-announcements-dismissed";
 const DELAY_MS = 3000;
 const AUTO_ADVANCE_MS = 6000;
-
-const TAG_COLORS = {
-  lapis: "bg-white/90 text-[#0097b2] dark:bg-white/15 dark:text-[#66C4DC]",
-  amber: "bg-white/90 text-[#b8860b] dark:bg-white/15 dark:text-[#eeba2b]",
-  skobeloff: "bg-white/90 text-[#005A55] dark:bg-white/15 dark:text-[#66C4DC]",
-} as const;
 
 export default function AnnouncementModal() {
   const [isOpen, setIsOpen] = useState(false);
@@ -27,6 +23,7 @@ export default function AnnouncementModal() {
   const [hasManualNav, setHasManualNav] = useState(false);
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
+  const [videoPlaying, setVideoPlaying] = useState(false);
 
   const modalRef = useRef<HTMLDivElement>(null);
   const previousFocusRef = useRef<HTMLElement | null>(null);
@@ -126,6 +123,7 @@ export default function AnnouncementModal() {
       setHasManualNav(true);
       setDirection(dir);
       setCurrentIndex(newIndex);
+      setVideoPlaying(false);
     },
     []
   );
@@ -195,7 +193,7 @@ export default function AnnouncementModal() {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             transition={{ duration: motionDurations.enter, ease: [...MOTION_EASE] }}
-            className="relative w-full sm:max-w-[560px] max-h-[92vh] sm:max-h-[85vh] overflow-hidden rounded-t-2xl sm:rounded-2xl bg-white dark:bg-[#2F3332] shadow-2xl outline-none"
+            className="relative w-full sm:max-w-[680px] max-h-[90vh] sm:max-h-[88vh] overflow-hidden rounded-t-2xl sm:rounded-2xl bg-white dark:bg-[#2F3332] shadow-2xl outline-none"
             onClick={(e) => e.stopPropagation()}
             onMouseEnter={() => setIsPaused(true)}
             onMouseLeave={() => setIsPaused(false)}
@@ -223,17 +221,17 @@ export default function AnnouncementModal() {
               <>
                 <button
                   onClick={goToPrevious}
-                  className="absolute left-2 top-[88px] sm:top-[100px] z-20 p-1 rounded-full bg-black/30 backdrop-blur-sm hover:bg-black/50 text-white/80 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-white/80"
+                  className="absolute left-2 top-[28vw] sm:top-[170px] -translate-y-1/2 z-20 p-1.5 rounded-full bg-black/30 backdrop-blur-sm hover:bg-black/50 text-white/80 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-white/80"
                   aria-label="Previous announcement"
                 >
-                  <ChevronLeft className="w-5 h-5" />
+                  <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
                 </button>
                 <button
                   onClick={goToNext}
-                  className="absolute right-2 top-[88px] sm:top-[100px] z-20 p-1 rounded-full bg-black/30 backdrop-blur-sm hover:bg-black/50 text-white/80 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-white/80"
+                  className="absolute right-2 top-[28vw] sm:top-[170px] -translate-y-1/2 z-20 p-1.5 rounded-full bg-black/30 backdrop-blur-sm hover:bg-black/50 text-white/80 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-white/80"
                   aria-label="Next announcement"
                 >
-                  <ChevronRight className="w-5 h-5" />
+                  <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
                 </button>
               </>
             )}
@@ -250,24 +248,47 @@ export default function AnnouncementModal() {
                 aria-live="polite"
                 aria-atomic="true"
               >
-                {/* Image Section */}
-                {currentSlide.image && (
-                  <div className="relative w-full aspect-[16/9] sm:aspect-[16/8] overflow-hidden">
-                    <Image
-                      src={currentSlide.image}
-                      alt=""
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 640px) 100vw, 560px"
-                    />
-                    {/* Gradient overlay for depth */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/10" />
+                {/* Media Section (Image or Video) */}
+                {(currentSlide.image || currentSlide.videoUrl) && (
+                  <div className="relative w-full aspect-[16/9] sm:aspect-[2/1] overflow-hidden">
+                    {currentSlide.videoUrl && videoPlaying ? (
+                      <iframe
+                        src={parseVideoUrl(currentSlide.videoUrl)?.embedUrl}
+                        className="absolute inset-0 w-full h-full"
+                        allow="autoplay; encrypted-media; picture-in-picture"
+                        allowFullScreen
+                        title={currentSlide.title}
+                      />
+                    ) : (
+                      <>
+                        <Image
+                          src={currentSlide.thumbnail || currentSlide.image || ""}
+                          alt=""
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 640px) 100vw, 680px"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/10" />
+
+                        {currentSlide.videoUrl && (
+                          <button
+                            onClick={() => { setVideoPlaying(true); setIsPaused(true); }}
+                            className="absolute inset-0 z-10 flex items-center justify-center group/play"
+                            aria-label="Play video"
+                          >
+                            <span className="flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-white/90 shadow-xl group-hover/play:scale-110 transition-transform duration-200">
+                              <Play className="w-7 h-7 sm:w-8 sm:h-8 text-[#0097b2] ml-1" fill="currentColor" />
+                            </span>
+                          </button>
+                        )}
+                      </>
+                    )}
 
                     {/* Tag badge overlaid on image */}
-                    {currentSlide.tag && (
+                    {currentSlide.tag && !videoPlaying && (
                       <span
                         className={cn(
-                          "absolute top-3 left-3 inline-block rounded-full px-3 py-1 text-xs font-bold tracking-wide backdrop-blur-md shadow-sm",
+                          "absolute top-3 left-3 z-10 inline-block rounded-full px-3 py-1 text-xs font-bold tracking-wide backdrop-blur-md shadow-sm",
                           TAG_COLORS[currentSlide.tagColor ?? "lapis"]
                         )}
                       >
@@ -276,7 +297,7 @@ export default function AnnouncementModal() {
                     )}
 
                     {/* Slide counter on image */}
-                    {showNavigation && (
+                    {showNavigation && !videoPlaying && (
                       <span className="absolute bottom-3 right-3 text-xs font-medium text-white/80 bg-black/30 backdrop-blur-sm rounded-full px-2.5 py-0.5">
                         {currentIndex + 1} / {slides.length}
                       </span>
@@ -285,7 +306,7 @@ export default function AnnouncementModal() {
                 )}
 
                 {/* Text Content */}
-                <div className="p-5 sm:p-6">
+                <div className="p-5 sm:p-8">
                   {/* Tag badge — only if no image */}
                   {currentSlide.tag && !currentSlide.image && (
                     <span
@@ -298,11 +319,11 @@ export default function AnnouncementModal() {
                     </span>
                   )}
 
-                  <h2 className="font-heading text-lg sm:text-xl font-bold text-[#1C1F1E] dark:text-[#FCFAEF] mb-1.5">
+                  <h2 className="font-heading text-xl sm:text-2xl font-bold text-[#1C1F1E] dark:text-[#FCFAEF] mb-2 sm:mb-3">
                     {currentSlide.title}
                   </h2>
 
-                  <p className="text-sm text-[#2F3332]/80 dark:text-[#E6E7E7]/80 leading-relaxed mb-4">
+                  <p className="text-sm sm:text-base text-[#2F3332]/80 dark:text-[#E6E7E7]/80 leading-relaxed mb-5 sm:mb-6">
                     {currentSlide.description}
                   </p>
 
@@ -314,22 +335,30 @@ export default function AnnouncementModal() {
                           href={currentSlide.ctaLink}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="group inline-flex items-center gap-2 px-5 py-2.5 bg-[#0097b2] text-[#FCFAEF] rounded-full hover:bg-[#005A55] transition-all duration-200 font-medium text-sm shadow-lg hover:shadow-xl hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-[#0097b2] focus:ring-offset-2"
+                          className="group inline-flex items-center gap-2 px-6 py-3 bg-[#0097b2] text-[#FCFAEF] rounded-full hover:bg-[#005A55] transition-all duration-200 font-medium text-sm sm:text-base shadow-lg hover:shadow-xl hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-[#0097b2] focus:ring-offset-2"
                         >
                           {currentSlide.ctaText}
                           <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                         </a>
                       ) : (
                         <Link
-                          href={currentSlide.ctaLink}
+                          href={`/news/${currentSlide.id}`}
                           onClick={close}
-                          className="group inline-flex items-center gap-2 px-5 py-2.5 bg-[#0097b2] text-[#FCFAEF] rounded-full hover:bg-[#005A55] transition-all duration-200 font-medium text-sm shadow-lg hover:shadow-xl hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-[#0097b2] focus:ring-offset-2"
+                          className="group inline-flex items-center gap-2 px-6 py-3 bg-[#0097b2] text-[#FCFAEF] rounded-full hover:bg-[#005A55] transition-all duration-200 font-medium text-sm sm:text-base shadow-lg hover:shadow-xl hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-[#0097b2] focus:ring-offset-2"
                         >
                           {currentSlide.ctaText}
                           <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                         </Link>
                       )
                     )}
+
+                    <Link
+                      href="/news"
+                      onClick={close}
+                      className="inline-flex items-center gap-1.5 text-sm font-medium text-[#0097b2] dark:text-[#66C4DC] hover:text-[#005A55] dark:hover:text-[#eeba2b] transition-colors focus:outline-none focus:ring-2 focus:ring-[#0097b2] focus:ring-offset-2 rounded px-2 py-1"
+                    >
+                      View All Updates
+                    </Link>
 
                     <button
                       onClick={close}
@@ -344,9 +373,9 @@ export default function AnnouncementModal() {
 
             {/* Dot Indicators — fixed at bottom */}
             {showNavigation && (
-              <div className="pb-4 pt-0 flex justify-center">
+              <div className="pb-5 pt-1 flex justify-center">
                 <div
-                  className="flex items-center gap-1.5"
+                  className="flex items-center gap-2"
                   role="tablist"
                   aria-label="Announcement slides"
                 >
@@ -358,10 +387,10 @@ export default function AnnouncementModal() {
                       aria-selected={index === currentIndex}
                       aria-label={`Go to announcement ${index + 1}: ${slide.title}`}
                       className={cn(
-                        "h-1.5 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#0097b2] focus:ring-offset-2",
+                        "h-2 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#0097b2] focus:ring-offset-2",
                         index === currentIndex
-                          ? "bg-[#0097b2] dark:bg-[#66C4DC] w-5"
-                          : "bg-[#2F3332]/15 dark:bg-[#FCFAEF]/15 hover:bg-[#2F3332]/30 dark:hover:bg-[#FCFAEF]/30 w-1.5"
+                          ? "bg-[#0097b2] dark:bg-[#66C4DC] w-6"
+                          : "bg-[#2F3332]/15 dark:bg-[#FCFAEF]/15 hover:bg-[#2F3332]/30 dark:hover:bg-[#FCFAEF]/30 w-2"
                       )}
                     />
                   ))}

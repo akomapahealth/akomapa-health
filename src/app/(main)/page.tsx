@@ -10,6 +10,7 @@ import LocationSection from "@/components/home/LocationSection";
 import ResearchSection from "@/components/home/ResearchSection";
 import ImpactMetrics from "@/components/home/ImpactMetrics";
 import Gallery from "@/components/home/Gallery";
+import UpdatesFeed from "@/components/home/UpdatesFeed";
 
 
 
@@ -29,6 +30,7 @@ export default function Home() {
       <HealthCrisisSection />
       <LocationSection />
       <ResearchSection />
+      <UpdatesFeed />
       <ImpactMetrics />
       <Testimonials />
       <Gallery />
