@@ -8,6 +8,7 @@ export const announcementCampaign: AnnouncementCampaign = {
       tag: "Award",
       tagColor: "amber",
       title: "Yale Global Health Yogesh Khanal Award",
+      titleHighlights: ["Global Health", "Yogesh Khanal"],
       description:
         "Akomapa Health has been honored with the Yogesh Khanal Award for outstanding contributions to global health equity and NCD prevention in underserved communities.",
       image: "/images/akomapa-yale.JPG",
@@ -20,6 +21,7 @@ export const announcementCampaign: AnnouncementCampaign = {
       tag: "Recognition",
       tagColor: "amber",
       title: "Startup Yale Finalist",
+      titleHighlights: ["Startup Yale", "Finalist"],
       description:
         "We were selected as a finalist at Startup Yale, pitching our vision for scalable, student-powered healthcare delivery across West Africa.",
       image: "/images/akomapa-pitch-1.JPG",
@@ -34,6 +36,7 @@ export const announcementCampaign: AnnouncementCampaign = {
       tag: "New Program",
       tagColor: "lapis",
       title: "Akomapa Ethical Leadership Program",
+      titleHighlights: ["Ethical Leadership"],
       description:
         "Launching our flagship program to develop the next generation of ethical health leaders — combining clinical training with governance, equity, and community engagement.",
       image: "/highlights/Akomapa-68.jpg",
@@ -46,6 +49,7 @@ export const announcementCampaign: AnnouncementCampaign = {
       tag: "New",
       tagColor: "skobeloff",
       title: "Introducing Nkwapa — Our EMR Platform",
+      titleHighlights: ["Nkwapa", "EMR Platform"],
       description:
         "Our offline-first electronic medical records system is now in public beta. Purpose-built to power Akomapa clinics in resource-limited settings.",
       image: "/images/nkwapa.png",
@@ -58,6 +62,7 @@ export const announcementCampaign: AnnouncementCampaign = {
       tag: "Recognition",
       tagColor: "amber",
       title: "Mastercard Foundation Momentum Stage",
+      titleHighlights: ["Mastercard Foundation", "Momentum Stage"],
       description:
         "Akomapa has been recognized by the Mastercard Foundation at the Momentum Stage for our innovative approach to scaling healthcare access across Ghana.",
       image: "/images/partners/mastercard-foundation.png",
@@ -70,6 +75,7 @@ export const announcementCampaign: AnnouncementCampaign = {
       tag: "Milestone",
       tagColor: "lapis",
       title: "Akomapa UG Clinic Launch",
+      titleHighlights: ["UG", "Clinic Launch"],
       description:
         "Our University of Ghana clinic is now open, bringing NCD screening, education, and preventive care directly to the Legon campus community.",
       image: "/highlights/ug.jpg",
@@ -82,6 +88,7 @@ export const announcementCampaign: AnnouncementCampaign = {
       tag: "Growth",
       tagColor: "skobeloff",
       title: "UCC Expansion to 4 Communities",
+      titleHighlights: ["UCC", "4 Communities"],
       description:
         "Our University of Cape Coast partnership has expanded to serve four surrounding communities with regular health screenings and education programs.",
       image: "/highlights/ucc.jpg",
@@ -94,6 +101,7 @@ export const announcementCampaign: AnnouncementCampaign = {
       tag: "Partnership",
       tagColor: "lapis",
       title: "Yale African Innovation Symposium",
+      titleHighlights: ["African Innovation", "Symposium"],
       description:
         "Akomapa is partnering with Yale for the African Innovation Symposium, bringing together health innovators from across the continent to share solutions.",
       image: "/images/yale-innovation.png",
