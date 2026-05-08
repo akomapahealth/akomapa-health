@@ -14,10 +14,10 @@ import {
   FadeInStaggerItem,
 } from "@/components/animations";
 import { AnnouncementCard } from "@/components/common/AnnouncementCard";
-import { getAllNewsItems, newsItemToAnnouncement } from "@/data/unified-news";
+import { getNewsOnlyItems, newsItemToAnnouncement } from "@/data/unified-news";
 import { cn } from "@/lib/utils";
 
-const allItems = getAllNewsItems();
+const allItems = getNewsOnlyItems();
 
 const categories = [
   "All",
@@ -54,7 +54,7 @@ export default function NewsPage() {
               >
                 <Megaphone className="w-4 h-4 text-[#eeba2b]" />
                 <span className="text-sm font-medium text-[#eeba2b]">
-                  Updates & Announcements
+                  Latest news
                 </span>
               </motion.div>
 
@@ -133,10 +133,11 @@ export default function NewsPage() {
                       </div>
                       <div>
                         <p className="text-sm font-semibold text-[#1C1F1E] dark:text-[#FCFAEF]">
-                          {allItems.length} Updates
+                          {allItems.length}{" "}
+                          {allItems.length === 1 ? "story" : "stories"}
                         </p>
                         <p className="text-xs text-[#2F3332]/70 dark:text-[#E6E7E7]/70">
-                          Latest news & announcements
+                          Field notes, wins, and program news
                         </p>
                       </div>
                     </div>
@@ -147,7 +148,7 @@ export default function NewsPage() {
           </div>
         </section>
 
-        {/* Full Announcement Grid */}
+        {/* News grid */}
         <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
           <div className="container mx-auto px-4 sm:px-6">
             <FadeIn
@@ -155,14 +156,14 @@ export default function NewsPage() {
               duration={motionDurations.enter}
             >
               <h2 className="text-[#F5C94D] font-bold text-base sm:text-lg mb-2">
-                ALL UPDATES
+                ALL NEWS
               </h2>
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-[#1C1F1E] dark:text-[#FCFAEF]">
                 Everything You Need to Know
               </h2>
               <p className="text-base sm:text-lg text-[#2F3332]/70 dark:text-[#E6E7E7]/60 leading-relaxed max-w-2xl mx-auto">
-                Browse all our announcements, awards, and milestones in one
-                place.
+                Browse stories covering awards, partnerships, launches, and
+                milestones from our teams in the field.
               </p>
             </FadeIn>
 
@@ -200,7 +201,7 @@ export default function NewsPage() {
 
             {filtered.length === 0 && (
               <p className="text-center text-[#2F3332]/50 dark:text-[#E6E7E7]/40 mt-12">
-                No updates in this category yet.
+                No stories in this category yet.
               </p>
             )}
           </div>

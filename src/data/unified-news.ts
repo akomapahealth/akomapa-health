@@ -45,6 +45,17 @@ function normalizeNews(n: News): NewsItem {
 }
 
 let _cached: NewsItem[] | null = null;
+let _cachedNewsOnly: NewsItem[] | null = null;
+
+/** Articles from `news.ts` only — use for `/news` listing and detail routes. */
+export function getNewsOnlyItems(): NewsItem[] {
+  if (_cachedNewsOnly) return _cachedNewsOnly;
+
+  _cachedNewsOnly = [...news.map(normalizeNews)].sort(
+    (a, b) => new Date(b.date!).getTime() - new Date(a.date!).getTime()
+  );
+  return _cachedNewsOnly;
+}
 
 export function getAllNewsItems(): NewsItem[] {
   if (_cached) return _cached;
@@ -63,7 +74,7 @@ export function getAllNewsItems(): NewsItem[] {
 }
 
 export function getNewsItemById(id: string): NewsItem | undefined {
-  return getAllNewsItems().find((item) => item.id === id);
+  return getNewsOnlyItems().find((item) => item.id === id);
 }
 
 export function newsItemToAnnouncement(item: NewsItem): Announcement {

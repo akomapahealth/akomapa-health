@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getAllNewsItems, getNewsItemById } from "@/data/unified-news";
+import { getNewsOnlyItems, getNewsItemById } from "@/data/unified-news";
 import { NewsDetailContent } from "@/components/news/NewsDetailContent";
 
 interface Props {
@@ -8,7 +8,7 @@ interface Props {
 }
 
 export async function generateStaticParams() {
-  return getAllNewsItems()
+  return getNewsOnlyItems()
     .filter((item) => !item.isExternalCta)
     .map((item) => ({ id: item.id }));
 }
@@ -36,7 +36,7 @@ export default async function NewsDetailPage({ params }: Props) {
   const item = getNewsItemById(id);
   if (!item) notFound();
 
-  const relatedItems = getAllNewsItems()
+  const relatedItems = getNewsOnlyItems()
     .filter((i) => i.id !== id)
     .slice(0, 3);
 
