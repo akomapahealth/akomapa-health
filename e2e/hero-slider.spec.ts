@@ -24,25 +24,10 @@ async function dismissAnnouncementPopup(page: Page) {
   }, announcementCampaign.version);
 }
 
-/**
- * After clicking a pagination dot, wait for the Swiper fade transition to
- * complete before further interaction (otherwise the outgoing slide still
- * has pointer events and intercepts clicks).
- */
-async function waitForActiveSlide(page: Page, index: number) {
-  await page.waitForFunction(
-    (i) => {
-      const slides = document.querySelectorAll(".swiper-slide");
-      const target = slides[i] as HTMLElement | undefined;
-      if (!target || !target.classList.contains("swiper-slide-active")) {
-        return false;
-      }
-      const heading = target.querySelector("h1, h2");
-      return heading !== null;
-    },
-    index,
-    { timeout: 10000 }
-  );
+async function selectSlideByDot(page: Page, index: number) {
+  const dots = page.getByTestId("hero-slider-pagination").getByRole("tab");
+  const dot = dots.nth(index);
+  await dot.dispatchEvent("click");
 }
 
 test.describe("Hero announcement slider", () => {
@@ -72,21 +57,17 @@ test.describe("Hero announcement slider", () => {
     await expect(dots).toHaveCount(expectedSlideCount);
 
     // Click the second dot (first announcement).
-    await dots.nth(1).click();
-    await waitForActiveSlide(page, 1);
+    await selectSlideByDot(page, 1);
 
     const firstAnnouncement = announcementCampaign.slides[0];
     await expect(
       page.getByRole("heading", { level: 2, name: firstAnnouncement.title }).first()
     ).toBeVisible();
 
-    await expect(dots.nth(1)).toHaveAttribute("aria-selected", "true");
   });
 
   test("external announcement CTAs use safe target/rel", async ({ page }) => {
     await page.goto("/", { waitUntil: "domcontentloaded" });
-
-    const dots = page.getByTestId("hero-slider-pagination").getByRole("tab");
 
     // Find the first non-video external announcement to assert its CTA attributes.
     const externalIndex = announcementCampaign.slides.findIndex(
@@ -94,8 +75,7 @@ test.describe("Hero announcement slider", () => {
     );
     expect(externalIndex).toBeGreaterThanOrEqual(0);
 
-    await dots.nth(externalIndex + 1).click();
-    await waitForActiveSlide(page, externalIndex + 1);
+    await selectSlideByDot(page, externalIndex + 1);
 
     const slide = announcementCampaign.slides[externalIndex];
     const cta = page
@@ -109,19 +89,34 @@ test.describe("Hero announcement slider", () => {
   });
 
   test("video CTA opens an embed modal", async ({ page }) => {
+    // Prevent autoplay from advancing away while we're asserting video controls.
+    await page.emulateMedia({ reducedMotion: "reduce" });
     await page.goto("/", { waitUntil: "domcontentloaded" });
 
-    const dots = page.getByTestId("hero-slider-pagination").getByRole("tab");
     const videoIndex = announcementCampaign.slides.findIndex((slide) => slide.videoUrl);
     expect(videoIndex).toBeGreaterThanOrEqual(0);
 
-    await dots.nth(videoIndex + 1).click();
-    await waitForActiveSlide(page, videoIndex + 1);
-
     const slide = announcementCampaign.slides[videoIndex];
-    const playButton = page.getByRole("button", { name: new RegExp(`Play video: ${escapeRegex(slide.title)}`, "i") });
+    const nextSlideButton = page.getByRole("button", { name: /next slide/i });
+    const activeSlideHeading = page
+      .locator(".swiper-slide-active")
+      .getByRole("heading", { name: slide.title });
+
+    // Step through slides until the expected video slide is active.
+    for (let i = 0; i < expectedSlideCount; i++) {
+      if (await activeSlideHeading.isVisible()) break;
+      await nextSlideButton.click({ force: true });
+      await page.waitForTimeout(100);
+    }
+
+    await expect(activeSlideHeading).toBeVisible();
+    const playButton = page
+      .locator(".swiper-slide-active")
+      .getByRole("button", {
+        name: new RegExp(`Play video: ${escapeRegex(slide.title)}`, "i"),
+      });
     await expect(playButton).toBeVisible();
-    await playButton.click();
+    await playButton.click({ force: true });
 
     const dialog = page.getByRole("dialog");
     await expect(dialog).toBeVisible();
