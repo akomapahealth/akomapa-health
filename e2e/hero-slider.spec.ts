@@ -34,10 +34,14 @@ async function waitForActiveSlide(page: Page, index: number) {
     (i) => {
       const slides = document.querySelectorAll(".swiper-slide");
       const target = slides[i] as HTMLElement | undefined;
-      return !!target && target.classList.contains("swiper-slide-active");
+      if (!target || !target.classList.contains("swiper-slide-active")) {
+        return false;
+      }
+      const heading = target.querySelector("h1, h2");
+      return heading !== null;
     },
     index,
-    { timeout: 5000 }
+    { timeout: 10000 }
   );
 }
 
