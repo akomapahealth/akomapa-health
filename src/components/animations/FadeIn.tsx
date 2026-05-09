@@ -13,6 +13,9 @@ import {
 
 type FadeInDirection = FadeDirection;
 
+/** Matches Framer Motion whileInView viewport — tall sections need `"some"` so any visibility triggers. */
+type ViewportAmount = number | "some" | "all";
+
 type FadeInProps = {
   children: ReactNode;
   className?: string;
@@ -20,7 +23,7 @@ type FadeInProps = {
   delay?: number;
   duration?: number;
   once?: boolean;
-  amount?: number;
+  amount?: ViewportAmount;
   as?: ElementType;
 };
 
@@ -59,7 +62,7 @@ type FadeInStaggerProps = {
   className?: string;
   staggerDelay?: number;
   once?: boolean;
-  amount?: number;
+  amount?: ViewportAmount;
 };
 
 export function FadeInStagger({
