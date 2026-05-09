@@ -97,26 +97,26 @@ const executiveTeam: SpotlightMember[] = [
   },
   {
     name: "Esi Bon Berkoh",
-    role: "Co-Founder & Vice President",
-    org: "University of Cape Coast",
+    role: "Vice President",
+    org: "Resident Physician, University of Cape Coast",
     image: "/images/team/esi-bon-berkoh.jpg",
     email: "esibberkoh@gmail.com",
     linkedin: "https://linkedin.com/in/esiberkoh",
     bio: "Esi Berkoh is a final-year medical student at the University of Cape Coast School of Medical Sciences. She holds a BSc in Biology from Mount Holyoke College and an MSc in Infection, Immunity & Human Disease from the University of Leeds. As Vice President and co-founder of Akomapa Health, she coordinates clinic operations, supports leadership, and organizes outreach programs to serve underserved communities while gaining hands-on experience and leadership training."
   },
-  {
-    name: "Bismark Amoh",
-    role: "Co-Founder & Research Lead",
-    org: "David Geffen School of Medicine at UCLA",
-    image: "/images/team/placeholder.jpg",
-    email: "abismac@gmail.com",
-    linkedin: "https://linkedin.com/in/bismarkamoh",
-    bio: "Bismark Amoh leads Akomapa's research initiatives, bringing rigorous scientific methodology to evaluate and improve our healthcare programs. His work ensures that every intervention is evidence-based and continuously refined for maximum impact on community health outcomes."
-  },
+  // {
+  //   name: "Bismark Amoh",
+  //   role: "Co-Founder & Research Lead",
+  //   org: "David Geffen School of Medicine at UCLA",
+  //   image: "/images/team/placeholder.jpg",
+  //   email: "abismac@gmail.com",
+  //   linkedin: "https://linkedin.com/in/bismarkamoh",
+  //   bio: "Bismark Amoh leads Akomapa's research initiatives, bringing rigorous scientific methodology to evaluate and improve our healthcare programs. His work ensures that every intervention is evidence-based and continuously refined for maximum impact on community health outcomes."
+  // },
   {
     name: "Afriyie Badu, MD",
-    role: "Co-Founder & CFO",
-    org: "University of Ghana",
+    role: "Chief Operations Officer",
+    org: "Primary Care Physician, University of Ghana",
     image: "/images/team/afriyie-badu.jpg",
     email: "nanabadu59@gmail.com",
     linkedin: "https://linkedin.com/in/afriyie-badu",
@@ -124,8 +124,8 @@ const executiveTeam: SpotlightMember[] = [
   },
   {
     name: "Prince Agyei Tuffour",
-    role: "CTO",
-    org: "Akomapa Health Foundation",
+    role: "Chief Technology Officer",
+    org: "Software Engineer, dynaConnections Corporation",
     image: "/images/team/prince-tuffour.jpg",
     email: "prince.agyei.tuffour@gmail.com",
     linkedin: "https://linkedin.com/in/prince-agyei-tuffour",
@@ -133,26 +133,26 @@ const executiveTeam: SpotlightMember[] = [
   },
   {
     name: "Adwoa Danso-Dodoo",
-    role: "Associate Finance Lead",
-    org: "Yale University",
+    role: "Chief Finance Officer",
+    org: "Business Analyst, McKinsey",
     image: "/images/team/adwoa-danso-dodoo.jpg",
-    email: "akomapahealth@gmail.com",
+    email: "adansododoo@gmail.com",
     linkedin: "https://www.linkedin.com/in/adwoadanso-dodoo/",
     bio: "Adwoa Danso-Dodoo brings financial acumen and operational excellence to Akomapa's finance team. Her meticulous approach to budgeting and resource allocation ensures transparency and accountability in all our financial operations.Adwoa Danso-Dodoo is a Business Analyst at McKinsey & Company and a graduate of Yale College and the Yale School of Management, where she studied Chemical Engineering and Technology Management, respectively. She serves as Associate Finance Lead at Akomapa Health Foundation, helping to manage the organization’s budget. In addition, she is helping develop the Akomapa Summer Immersion Program. Adwoa joined the team because she is passionate about Akomapa’s mission to bring care to more communities and to encourage students to lead with empathy and purpose."
   },
-  {
-    name: "David Ofosu",
-    role: "Chapter Co-Director, Akomapa UCC",
-    org: "University of Cape Coast",
-    image: "/ucc-team/david_kojo_ofosu.JPG",
-    email: "ofosud.kojo@gmail.com",
-    linkedin: "https://linkedin.com/in/david-kojo-ofosu-9a592a300",
-    bio: "David Kojo Ofosu is a final year medical student at the University of Cape Coast School (UCC) of Medical Sciences. He currently serves as the Co-Director of the UCC Chapter Akomapa. In his role,  he oversees all aspects of the clinic’s operations, ensuring alignment with its mission and goals, he together with his team develop strategic plans to guide the clinic’s growth and impact. He coordinate and chair leadership team meetings, ensuring all roles collaborate effectively. He acts as the primary point of contact for external partners, and funding organizations.he address operational challenges and ensure compliance with relevant guidelines and regulations He also represent the clinic in public forums, presentations, and community events."
-  },
+  // {
+  //   name: "David Ofosu",
+  //   role: "Chapter Co-Director, Akomapa UCC",
+  //   org: "University of Cape Coast",
+  //   image: "/ucc-team/david_kojo_ofosu.JPG",
+  //   email: "ofosud.kojo@gmail.com",
+  //   linkedin: "https://linkedin.com/in/david-kojo-ofosu-9a592a300",
+  //   bio: "David Kojo Ofosu is a final year medical student at the University of Cape Coast School (UCC) of Medical Sciences. He currently serves as the Co-Director of the UCC Chapter Akomapa. In his role,  he oversees all aspects of the clinic’s operations, ensuring alignment with its mission and goals, he together with his team develop strategic plans to guide the clinic’s growth and impact. He coordinate and chair leadership team meetings, ensuring all roles collaborate effectively. He acts as the primary point of contact for external partners, and funding organizations.he address operational challenges and ensure compliance with relevant guidelines and regulations He also represent the clinic in public forums, presentations, and community events."
+  // },
   {
     name: "Hafiz Shaban",
-    role: "Chapter Co-Director, Akomapa UCC",
-    org: "University of Cape Coast",
+    role: "Co-Director, Akomapa UCC",
+    org: "Nursing Student, University of Cape Coast",
     image: "/ucc-team/hafiz_shaban.JPG",
     email: "hafiz.shaban@stu.ucc.edu.gh",
     linkedin: "https://linkedin.com/in/akomapahealth",
@@ -161,16 +161,16 @@ const executiveTeam: SpotlightMember[] = [
   {
     name: "Sedem Dankwa",
     role: "Global Partnerships Lead",
-    org: "Yale University",
+    org: "Doctor-in-Training,Yale University",
     image: "/images/team/placeholder.jpg",
-    email: "akomapahealth@gmail.com",
+    email: "sedem.dankwa@yale.edu",
     linkedin: "https://www.linkedin.com/in/sedem-dankwa-b651401b7/",
     bio: "Sedem Dankwa builds strategic partnerships that amplify Akomapa's impact globally. Her work connects our mission with organizations, institutions, and individuals who share our commitment to equitable healthcare access."
   },
   {
     name: "Nana Ama Ocran",
-    role: "Leadership Training Program Lead",
-    org: "Yale University",
+    role: "Education Programming Lead",
+    org: "B.A., History of Medicine &Public Health (YC '26)Yale University",
     image: "/images/team/nana-ama-ocran.PNG",
     email: "naamaocran@gmail.com",
     linkedin: "https://www.linkedin.com/in/nana-ama-nhyira-ocran-16957626b/",
@@ -194,33 +194,33 @@ const executiveTeam: SpotlightMember[] = [
     linkedin: "https://www.linkedin.com/in/gabrielle-nartey-a2456128b/",
     bio: "Gabrielle Nartey is a sophomore at Yale University studying Neuroscience on the pre-medical track. She currently serves as Lead Social Media Manager for Akomapa, where she oversees marketing across all social media platforms and works to expand the clinic’s reach and visibility on an international scale. Gabrielle joined the clinic to help bridge the gap between healthcare and access—ensuring that individuals who need care most are aware of and empowered to seek Akomapa’s services."
   },
-  {
-    name: "Christabel Amma Buckman",
-    role: "Development & Communications Lead",
-    org: "David Geffen School of Medicine at UCLA",
-    image: "/images/team/placeholder.jpg",
-    email: "amma.buckman@akomapa.org",
-    linkedin: "https://linkedin.com/in/amma-buckman",
-    bio: "Amma Buckman leads development and communications efforts, crafting compelling narratives that showcase Akomapa's impact. Her strategic approach helps secure resources and partnerships that fuel our growth and expansion."
-  },
+  // {
+  //   name: "Christabel Amma Buckman",
+  //   role: "Development & Communications Lead",
+  //   org: "David Geffen School of Medicine at UCLA",
+  //   image: "/images/team/placeholder.jpg",
+  //   email: "amma.buckman@akomapa.org",
+  //   linkedin: "https://linkedin.com/in/amma-buckman",
+  //   bio: "Amma Buckman leads development and communications efforts, crafting compelling narratives that showcase Akomapa's impact. Her strategic approach helps secure resources and partnerships that fuel our growth and expansion."
+  // },
   {
     name: "Dr. Patrick Ampofo",
     role: "UG Expansion Lead",
-    org: "University of Ghana Medical School",
+    org: "Yale School of Public Health",
     image: "/images/team/patrick-ampofo.jpg",
-    email: "patrick.ampofo@akomapa.org",
+    email: "#",
     linkedin: "https://linkedin.com/in/patrick-ampofo",
     bio: "Dr. Patrick Ampofo, an alumnus of UGMS and a first-year MPH student at Yale School of Public Health, currently serves as the UG expansion lead. He has a passion for bridging the gap in healthcare access disparities through evidence-based approaches and community-based interventions. In his current role, Dr. Ampofo is focused on helping establish the UG chapter of Akomapa by actively engaging key personnel and mobilizing medical students."
   },
-  {
-    name: "Mighty Doffoe",
-    role: "Associate Head of IT",
-    org: "Akomapa Health Foundation",
-    image: "/images/team/mighty-doffoe.jpg",
-    email: "mighty.doffoe@akomapa.org",
-    linkedin: "https://linkedin.com/in/mighty-doffoe",
-    bio: "Mighty Doffoe is a final year Computer Science student at Bridgewater College. He currrently serves as the Associate Head of IT for Akomapa. Mighty Doffoe supports Akomapa's IT operations, maintaining systems and developing tools that streamline our workflows. His contributions ensure that technology enhances rather than hinders our mission delivery."
-  },
+  // {
+  //   name: "Mighty Doffoe",
+  //   role: "Associate Head of IT",
+  //   org: "Akomapa Health Foundation",
+  //   image: "/images/team/mighty-doffoe.jpg",
+  //   email: "mighty.doffoe@akomapa.org",
+  //   linkedin: "https://linkedin.com/in/mighty-doffoe",
+  //   bio: "Mighty Doffoe is a final year Computer Science student at Bridgewater College. He currrently serves as the Associate Head of IT for Akomapa. Mighty Doffoe supports Akomapa's IT operations, maintaining systems and developing tools that streamline our workflows. His contributions ensure that technology enhances rather than hinders our mission delivery."
+  // },
   {
     name: "Kelvin Fiifi Ocran",
     role: "Branding and Public Relations Lead",
@@ -255,10 +255,10 @@ const advisoryBoard: SpotlightMember[] = [
     image: "/images/team/prof-martin-ekor.jpg"
   },
   {
-    name: "Prof. Samuel Kyei",
-    role: "Professor of Optometry",
-    org: "University of Cape Coast",
-    image: "/images/team/prof-samuel-kyei.png"
+    name: "Emily Sheldon",
+    role: "Co-Founder",
+    org: "African Health Innovation Center",
+    image: "/images/team/emily-sheldon.png"
   },
   {
     name: "Dr. Jeremy Schwartz",
@@ -276,7 +276,19 @@ const advisoryBoard: SpotlightMember[] = [
     name: "Dr. Elijah Paintsil",
     role: "Chief & Chair of Pediatrics",
     org: "Boston Medical Center",
-    image: "/images/team/placeholder.jpg"
+    image: "/images/team/elijah-paintsil.avif"
+  },
+  {
+    name: "Prof. Alfred Yawson",
+    role: "Provost, University of Ghana College of Health Sciences",
+    org: "University of Ghana",
+    image: "/images/team/prof-alfred-yawson.png"
+  },
+  {
+    name: "Freda Yawson",
+    role: "Founder",
+    org: "Innovate Ghana and Innovate Labs",
+    image: "/images/team/freda-yawson.jpg"
   }
 ];
 
