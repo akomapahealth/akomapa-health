@@ -312,8 +312,8 @@ export const teamMembers: TeamMember[] = [
     bio: "Dr. Derek Anamaale Tuoyire serves on our Advisory Board, bringing his expertise in community medicine from the University of Cape Coast to guide our community health initiatives.",
     image: "/images/team/derek-anamaale-tuoyire.jpg",
     socialLinks: {
-      linkedin: "https://linkedin.com/in/derek-anamaale-tuoyire",
-      email: "derek.tuoyire@akomapa.org"
+      linkedin: "https://ca.linkedin.com/in/derek-anamaale-tuoyire-phd-mph-72823887",
+      email: "#"
     }
   },
   {
@@ -323,19 +323,19 @@ export const teamMembers: TeamMember[] = [
     bio: "Prof. Martins Ekor serves on our Advisory Board, providing strategic guidance from his position as Provost of the College of Health and Allied Sciences at the University of Cape Coast.",
     image: "/images/team/martins-ekor.jpg",
     socialLinks: {
-      linkedin: "https://linkedin.com/in/martins-ekor",
-      email: "martins.ekor@akomapa.org"
+      linkedin: "#",
+      email: "#"
     }
   },
   {
     id: "30",
-    name: "Prof. Samuel Kyei",
-    title: "Professor of Optometry, University of Cape Coast",
-    bio: "Prof. Samuel Kyei serves on our Advisory Board, bringing his expertise in optometry and vision care to support our eye health programs and initiatives.",
-    image: "/images/team/samuel-kyei.jpg",
+    name: "Emily Sheldon",
+    title: "Co-Founder, African Health Innovation Center",
+    bio: "Emily Sheldon serves on our Advisory Board, bringing her expertise in public health and healthcare leadership to support our healthcare programs and initiatives.",
+    image: "/images/team/emily-sheldon.png",
     socialLinks: {
-      linkedin: "https://linkedin.com/in/samuel-kyei",
-      email: "samuel.kyei@akomapa.org"
+      linkedin: "https://gh.linkedin.com/in/emilyksheldon",
+      email: "emily.sheldon@akomapa.org"
     }
   },
   {
@@ -345,8 +345,8 @@ export const teamMembers: TeamMember[] = [
     bio: "Dr. Jeremy Schwartz serves on our Advisory Board, providing expertise in chronic care access and healthcare delivery from his position at Yale University.",
     image: "/images/team/jeremy-schwartz.jpg",
     socialLinks: {
-      linkedin: "https://linkedin.com/in/jeremy-schwartz",
-      email: "jeremy.schwartz@akomapa.org"
+      linkedin: "https://www.linkedin.com/in/jeremy-schwartz-ba7ab056",
+      email: "#"
     }
   },
   {
@@ -356,8 +356,8 @@ export const teamMembers: TeamMember[] = [
     bio: "Dr. Adrian Mayo serves on our Advisory Board, bringing clinical expertise and research insights from his position at the David Geffen School of Medicine at UCLA.",
     image: "/images/team/adrian-mayo.jpg",
     socialLinks: {
-      linkedin: "https://linkedin.com/in/adrian-mayo",
-      email: "adrian.mayo@akomapa.org"
+      linkedin: "https://www.linkedin.com/in/adrian-mayo-936790193",
+      email: "#"
     }
   },
   {
@@ -367,8 +367,30 @@ export const teamMembers: TeamMember[] = [
     bio: "Dr. Elijah Paintsil serves on our Advisory Board, providing pediatric expertise and healthcare leadership from his position as Chief and Chair of Pediatrics at Boston Medical Center.",
     image: "/images/team/elijah-paintsil.jpg",
     socialLinks: {
-      linkedin: "https://linkedin.com/in/elijah-paintsil",
-      email: "elijah.paintsil@akomapa.org"
+      linkedin: "https://www.linkedin.com/posts/boston-medical-center_on-with-elijah-paintsil-md-activity-7115446772906237952-ECfN",
+      email: "#"
+    }
+  },
+  {
+    id: "34",
+    name: "Prof. Alfred Yawson",
+    title: "Provost, University of Ghana College of Health Sciences",
+    bio: "Prof. Alfred Yamoah serves on our Advisory Board, providing public health expertise and healthcare leadership from his position as Provost of the University of Ghana College of Health Sciences.",
+    image: "/images/team/prof-alfred-yawson.png",
+    socialLinks: {
+      linkedin: "https://chs.ug.edu.gh/profile-professor-alfred-edwin-yawson-professor-alfred-edwin-yawson-mbchb-dlshtm-msc-lse-london",
+      email: "#"
+    }
+  },
+  {
+    id: "35",
+    name: "Freda Yawson",
+    title: "Founder, Innovate Ghana and Innovate Labs",
+    bio: "Freda Yawson serves on our Advisory Board, providing public health expertise and healthcare leadership from her position as Founder of Innovate Ghana and Innovate Labs.",
+    image: "/images/team/freda-yawson.jpg",
+    socialLinks: {
+      linkedin: "https://www.linkedin.com/in/freda-yawson-aminu-3601868",
+      email: "#"
     }
   },
 ];
