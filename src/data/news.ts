@@ -16,7 +16,7 @@ export const news: News[] = [
       "The team describes this moment as fuel to keep building carefully: expand access, document lessons, and stay accountable to the communities at the center of the work.",
       "In other words, recognition is the headline, but implementation is still the priority."
     ],
-    image: "/images/akomapa-yale.JPG",
+    image: "/images/akomapa-pitch-1.JPG",
     date: "2026-04-30",
     category: "Recognition",
     featured: true,

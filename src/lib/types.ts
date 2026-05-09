@@ -69,6 +69,7 @@ export interface Program {
     tagColor?: "lapis" | "amber" | "skobeloff";
     image?: string;
     videoUrl?: string;
+    /** Optional poster override; otherwise YouTube/Vimeo preview or `image` is used. */
     thumbnail?: string;
     ctaText?: string;
     ctaLink?: string;

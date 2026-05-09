@@ -9,7 +9,7 @@ import { MOTION_EASE, motionDurations } from "@/lib/motion/tokens";
 import { announcementCampaign } from "@/data/announcements";
 import Image from "@/components/common/Image";
 import { TAG_COLORS } from "@/data/announcement-colors";
-import { parseVideoUrl } from "@/lib/video-utils";
+import { getAnnouncementPosterSrc, parseVideoUrl } from "@/lib/video-utils";
 
 const STORAGE_KEY = "akomapa-announcements-dismissed";
 const DELAY_MS = 3000;
@@ -262,7 +262,10 @@ export default function AnnouncementModal() {
                     ) : (
                       <>
                         <Image
-                          src={currentSlide.thumbnail || currentSlide.image || ""}
+                          src={
+                            getAnnouncementPosterSrc(currentSlide) ||
+                            ""
+                          }
                           alt=""
                           fill
                           className="object-cover"
