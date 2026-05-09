@@ -51,6 +51,9 @@ async function assertHeadingsFit(page: Page) {
     elements
       .filter((element) => {
         const htmlElement = element as HTMLElement;
+        // Swiper loop mode clones slides for buffering; clones sit off-screen and
+        // still match heading selectors (see hero-slider.spec.ts — avoid duplicates).
+        if (htmlElement.closest(".swiper-slide-duplicate")) return false;
         const style = window.getComputedStyle(htmlElement);
         const rect = htmlElement.getBoundingClientRect();
         return style.display !== "none" && style.visibility !== "hidden" && rect.width > 0 && rect.height > 0;
