@@ -6,9 +6,11 @@ import { cn } from "@/lib/utils";
 import Image from "@/components/common/Image";
 import { TAG_COLORS } from "@/data/announcement-colors";
 import type { Announcement } from "@/lib/types";
+import { getAnnouncementPosterSrc } from "@/lib/video-utils";
 
 export function AnnouncementCard({ item }: { item: Announcement }) {
   const isExternal = item.isExternal && item.ctaLink;
+  const posterSrc = getAnnouncementPosterSrc(item);
 
   const cardContent = (
     <article
@@ -24,10 +26,10 @@ export function AnnouncementCard({ item }: { item: Announcement }) {
       )}
     >
       {/* Image */}
-      {item.image && (
+      {posterSrc && (
         <div className="relative aspect-[16/10] overflow-hidden">
           <Image
-            src={item.image}
+            src={posterSrc}
             alt={item.title}
             fill
             sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
@@ -63,7 +65,7 @@ export function AnnouncementCard({ item }: { item: Announcement }) {
       )}
 
       {/* Tag badge without image */}
-      {!item.image && item.tag && (
+      {!posterSrc && item.tag && (
         <div className="px-5 pt-5 sm:px-6 sm:pt-6">
           <span
             className={cn(

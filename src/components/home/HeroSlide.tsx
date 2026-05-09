@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { TAG_COLORS } from "@/data/announcement-colors";
 import type { Announcement } from "@/lib/types";
+import { getAnnouncementPosterSrc } from "@/lib/video-utils";
 
 export type BrandSlideContent = {
   variant: "brand";
@@ -274,7 +275,7 @@ function AnnouncementSlide({
     thumbnail,
     videoUrl,
   } = announcement;
-  const bgSrc = thumbnail || image;
+  const bgSrc = getAnnouncementPosterSrc({ thumbnail, videoUrl, image });
   const strongScrim = STRONG_SCRIM_IDS.has(id);
   const accentColor = tagColor ?? "lapis";
 
