@@ -19,18 +19,18 @@ type Metric = {
 const currentMetrics: Metric[] = [
   {
     id: 1,
-    value: 1000,
+    value: 2000,
     label: "Patients Served",
     suffix: "+"
   },
   {
     id: 2,
-    value: 3,
+    value: 4,
     label: "Network Clinics"
   },
   {
     id: 3,
-    value: 100,
+    value: 200,
     label: "Student Leaders Trained",
     suffix: "+"
   },
@@ -41,8 +41,9 @@ const currentMetrics: Metric[] = [
   },
   {
     id: 5,
-    value: 2,
-    label: "Institutional Partners"
+    value: 10,
+    label: "Institutional Partners",
+    suffix: "+"
   }
 ];
 

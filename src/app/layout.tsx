@@ -5,6 +5,10 @@ import { cn } from "@/lib/utils";
 import { ThemeProvider } from '@/components/theme/ThemeProvider';
 import { MotionConfigProvider } from '@/components/motion/MotionConfigProvider';
 import AnnouncementModal from '@/components/announcement/AnnouncementModal';
+import { GoogleAnalytics } from '@next/third-parties/google';
+import GlobalClickTracker from '@/components/analytics/GlobalClickTracker';
+
+const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 
 const chillax = localFont({
   src: [
@@ -84,9 +88,11 @@ export default function RootLayout({
           <MotionConfigProvider>
             {children}
             <AnnouncementModal />
+            <GlobalClickTracker />
           </MotionConfigProvider>
         </ThemeProvider>
       </body>
+      {GA_MEASUREMENT_ID && <GoogleAnalytics gaId={GA_MEASUREMENT_ID} />}
     </html>
   );
 }

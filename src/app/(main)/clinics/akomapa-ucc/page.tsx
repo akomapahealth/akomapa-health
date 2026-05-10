@@ -229,10 +229,12 @@ const uccGalleryItems: GalleryItem[] = [
 const coDirectors = [
   {
     name: "David Ofosu",
+    role: "Co-Director, Medical Student",
     image: "/ucc-team/david_kojo_ofosu.JPG"
   },
   {
     name: "Hafiz Shaban",
+    role: "Co-Director, Nursing Student",
     image: "/ucc-team/hafiz_shaban.JPG"
   }
 ];
@@ -461,7 +463,7 @@ export default function UCCClinicPage() {
                 >
                   <Image
                     src={director.image}
-                    alt={director.name}
+                    alt={`Headshot of ${director.name}, ${director.role}`}
                     fill
                     className="object-cover object-top"
                     sizes="(min-width: 1024px) 25vw, (min-width: 640px) 45vw, 50vw"
@@ -559,7 +561,7 @@ export default function UCCClinicPage() {
                 <div className="relative h-80 sm:h-96">
                   <Image
                     src={leader.image}
-                    alt={leader.name}
+                    alt={`Headshot of ${leader.name}, ${leader.role}`}
                     fill
                     className="object-cover object-top"
                     sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
@@ -615,7 +617,7 @@ export default function UCCClinicPage() {
                 <div className="relative h-28 w-28 rounded-full overflow-hidden border-2 border-white/40 shadow-lg mb-4">
                   <Image
                     src={mentor.image}
-                    alt={mentor.name}
+                    alt={`Headshot of ${mentor.name}, ${mentor.title}`}
                     fill
                     className="object-cover object-center"
                     sizes="112px"

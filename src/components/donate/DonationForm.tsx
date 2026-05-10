@@ -12,6 +12,7 @@ import AmountSelector from "@/components/donate/AmountSelector";
 import FrequencyToggle from "@/components/donate/FrequencyToggle";
 import { DonationFrequency, paymentMethods, PaymentMethod } from "@/data/donation";
 import { cn } from "@/lib/utils";
+import { trackEvent } from "@/lib/analytics";
 
 const stripePromise = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
   ? loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY)
@@ -103,7 +104,14 @@ export default function DonationForm() {
                     <Elements stripe={stripePromise}>
                       <StripePayment
                         amount={amount}
-                        onSuccess={() => setStatus({ type: "success", message: "Thank you. Your donation was successful." })}
+                        onSuccess={() => {
+                          trackEvent({
+                            name: "donation_cta_click",
+                            location: "donation_form_stripe_success",
+                            amount,
+                          });
+                          setStatus({ type: "success", message: "Thank you. Your donation was successful." });
+                        }}
                         onError={(error) => setStatus({ type: "error", message: error })}
                         frequency={paymentFrequency}
                         donorName={donorName}
@@ -131,7 +139,18 @@ export default function DonationForm() {
 
               {method === "paypal" && (
                 <Button asChild className="w-full">
-                  <a href="https://paypal.me/akomapahealth" target="_blank" rel="noreferrer">
+                  <a
+                    href="https://paypal.me/akomapahealth"
+                    target="_blank"
+                    rel="noreferrer"
+                    onClick={() =>
+                      trackEvent({
+                        name: "donation_cta_click",
+                        location: "donation_form_paypal",
+                        amount,
+                      })
+                    }
+                  >
                     Continue to PayPal Giving
                   </a>
                 </Button>

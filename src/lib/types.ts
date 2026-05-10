@@ -69,10 +69,17 @@ export interface Program {
     tagColor?: "lapis" | "amber" | "skobeloff";
     image?: string;
     videoUrl?: string;
+    /** Optional poster override; otherwise YouTube/Vimeo preview or `image` is used. */
     thumbnail?: string;
     ctaText?: string;
     ctaLink?: string;
     isExternal?: boolean;
+    /**
+     * Optional substrings of `title` to highlight with brand accent colors
+     * (alternating cyan/amber). Substrings are matched literally, in order.
+     * Leave undefined or empty to render the title in plain white.
+     */
+    titleHighlights?: string[];
   }
 
   export interface AnnouncementCampaign {

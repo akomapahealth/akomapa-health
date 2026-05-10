@@ -440,7 +440,7 @@ export default function AkomapaNetworkPage() {
                     <div className="relative h-full w-full">
                       <Image
                         src={clinic.logo}
-                        alt={clinic.name}
+                        alt={`${clinic.name} logo`}
                         fill
                         sizes="(min-width: 1024px) 28vw, 90vw"
                         className="object-contain"

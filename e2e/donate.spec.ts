@@ -1,6 +1,12 @@
 import { expect, test } from "@playwright/test";
 
 test.describe("Donate page flow", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.addInitScript(() => {
+      localStorage.setItem("akomapa-announcements-dismissed", "2026-04-v2");
+    });
+  });
+
   test("renders redesigned sections", async ({ page }) => {
     await page.goto("/donate");
 
@@ -17,7 +23,7 @@ test.describe("Donate page flow", () => {
     await expect(monthlyButton).toHaveAttribute("aria-pressed", "true");
 
     await page.getByRole("button", { name: /\$250/i }).click();
-    await page.getByText("Credit / Debit Card").click();
+    await page.getByRole("button", { name: "Credit / Debit Card" }).click();
     await expect(page.getByText("Please choose an amount and add your name and email to continue.")).toBeVisible();
   });
 

@@ -416,7 +416,7 @@ export default function FoodsPage() {
                   <div className="relative h-10 sm:h-12 md:h-14 lg:h-16 w-28 sm:w-36 md:w-44 lg:w-48">
                     <Image
                       src={partner.logo}
-                      alt={partner.name}
+                      alt={`${partner.name} logo`}
                       fill
                       sizes="(min-width: 1024px) 12rem, 40vw"
                       className="object-contain transition-transform duration-300 ease-out group-hover:scale-105"

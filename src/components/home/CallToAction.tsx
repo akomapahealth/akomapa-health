@@ -4,6 +4,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Building2, GraduationCap, Users, HeartHandshake, ArrowRight, HandCoins } from "lucide-react";
+import { trackEvent } from "@/lib/analytics";
 
 const joinWays = [
   {
@@ -83,7 +84,13 @@ export default function CallToAction() {
                   </Link>
                 </Button>
                 <Button className="bg-[#eeba2b] text-[#1C1F1E] hover:bg-[#F5C94D] hover:text-[#1C1F1E] px-6 py-6 h-auto text-lg font-semibold">
-                  <Link href="/donate" className="flex items-center">
+                  <Link
+                    href="/donate"
+                    onClick={() =>
+                      trackEvent({ name: "donation_cta_click", location: "home_call_to_action_donate" })
+                    }
+                    className="flex items-center"
+                  >
                     <HandCoins size={20} className="mr-2" />
                     Donate
                   </Link>
@@ -126,7 +133,17 @@ export default function CallToAction() {
                       className="mt-6 w-fit px-0 text-[#0097b2] hover:text-[#0F4C5C] hover:bg-transparent font-semibold inline-flex items-center gap-2"
                       asChild
                     >
-                      <Link href={way.href}>
+                      <Link
+                        href={way.href}
+                        onClick={() => {
+                          if (way.href === "/donate") {
+                            trackEvent({
+                              name: "donation_cta_click",
+                              location: "home_call_to_action_card",
+                            });
+                          }
+                        }}
+                      >
                         {way.ctaLabel}
                         <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                       </Link>

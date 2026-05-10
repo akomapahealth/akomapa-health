@@ -24,7 +24,7 @@ import {
 import { TAG_COLORS } from "@/data/announcement-colors";
 import { newsItemToAnnouncement } from "@/data/unified-news";
 import { cn } from "@/lib/utils";
-import { parseVideoUrl } from "@/lib/video-utils";
+import { getAnnouncementPosterSrc, parseVideoUrl } from "@/lib/video-utils";
 import type { NewsItem } from "@/lib/types";
 
 function formatDate(dateStr: string): string {
@@ -43,6 +43,7 @@ interface Props {
 export function NewsDetailContent({ item, relatedItems }: Props) {
   const [videoPlaying, setVideoPlaying] = useState(false);
   const isRichContent = item.content.length > 1;
+  const detailPoster = getAnnouncementPosterSrc(item);
 
   return (
     <>
@@ -134,7 +135,7 @@ export function NewsDetailContent({ item, relatedItems }: Props) {
         </section>
 
         {/* Hero Media — overlaps hero by pulling up */}
-        {(item.image || item.videoUrl) && (
+        {(detailPoster || item.videoUrl) && (
           <section className="relative z-10 -mt-8 sm:-mt-12 md:-mt-16 mb-12 md:mb-16">
             <div className="container mx-auto px-4 sm:px-6">
               <motion.div
@@ -154,14 +155,18 @@ export function NewsDetailContent({ item, relatedItems }: Props) {
                     />
                   ) : (
                     <>
-                      <Image
-                        src={item.thumbnail || item.image}
-                        alt={item.title}
-                        fill
-                        priority
-                        sizes="(min-width: 1024px) 56rem, 100vw"
-                        className="object-cover"
-                      />
+                      {detailPoster ? (
+                        <Image
+                          src={detailPoster}
+                          alt={item.title}
+                          fill
+                          priority
+                          sizes="(min-width: 1024px) 56rem, 100vw"
+                          className="object-cover"
+                        />
+                      ) : (
+                        <div className="absolute inset-0 bg-[#2F3332]" aria-hidden />
+                      )}
                       <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
                       {item.videoUrl && (
                         <button

@@ -587,7 +587,7 @@ export default function UGClinicPage() {
                 <div className="relative h-10 w-28 sm:h-12 sm:w-36 md:h-16 md:w-44 lg:h-20 lg:w-52">
                   <Image
                     src={partner.logo}
-                    alt={partner.name}
+                    alt={`${partner.name} logo`}
                     fill
                     sizes="(min-width: 1024px) 16rem, 40vw"
                     className="object-contain transition-transform duration-300 ease-out filter grayscale group-hover:scale-105 group-hover:grayscale-0"
@@ -630,7 +630,7 @@ export default function UGClinicPage() {
                 <div className="relative h-80 sm:h-96">
                   <Image
                     src={member.image}
-                    alt={member.name}
+                    alt={`Headshot of ${member.name}, ${member.role}`}
                     fill
                     className="object-cover object-top"
                     sizes="(min-width: 1024px) 30vw, (min-width: 768px) 45vw, 100vw"

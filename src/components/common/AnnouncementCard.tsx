@@ -6,9 +6,18 @@ import { cn } from "@/lib/utils";
 import Image from "@/components/common/Image";
 import { TAG_COLORS } from "@/data/announcement-colors";
 import type { Announcement } from "@/lib/types";
+import { getAnnouncementPosterSrc } from "@/lib/video-utils";
+import { trackEvent } from "@/lib/analytics";
 
-export function AnnouncementCard({ item }: { item: Announcement }) {
+type AnnouncementCardProps = {
+  item: Announcement;
+  /** Source surface for analytics — defaults to "feed". */
+  source?: "feed" | "featured" | "detail";
+};
+
+export function AnnouncementCard({ item, source = "feed" }: AnnouncementCardProps) {
   const isExternal = item.isExternal && item.ctaLink;
+  const posterSrc = getAnnouncementPosterSrc(item);
 
   const cardContent = (
     <article
@@ -24,10 +33,10 @@ export function AnnouncementCard({ item }: { item: Announcement }) {
       )}
     >
       {/* Image */}
-      {item.image && (
+      {posterSrc && (
         <div className="relative aspect-[16/10] overflow-hidden">
           <Image
-            src={item.image}
+            src={posterSrc}
             alt={item.title}
             fill
             sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
@@ -63,7 +72,7 @@ export function AnnouncementCard({ item }: { item: Announcement }) {
       )}
 
       {/* Tag badge without image */}
-      {!item.image && item.tag && (
+      {!posterSrc && item.tag && (
         <div className="px-5 pt-5 sm:px-6 sm:pt-6">
           <span
             className={cn(
@@ -111,12 +120,16 @@ export function AnnouncementCard({ item }: { item: Announcement }) {
 
   if (!item.ctaLink) return cardContent;
 
+  const handleClick = () =>
+    trackEvent({ name: "news_click", news_id: item.id, source });
+
   if (isExternal) {
     return (
       <a
         href={item.ctaLink}
         target="_blank"
         rel="noopener noreferrer"
+        onClick={handleClick}
         className="contents"
       >
         {cardContent}
@@ -125,7 +138,7 @@ export function AnnouncementCard({ item }: { item: Announcement }) {
   }
 
   return (
-    <Link href={item.ctaLink} className="contents">
+    <Link href={item.ctaLink} onClick={handleClick} className="contents">
       {cardContent}
     </Link>
   );

@@ -40,8 +40,8 @@ const partners = [
     height: 140  
   },
   {
-    name: "Mastercard Foundation",
-    logo: "/images/partners/mastercard-foundation.png",
+    name: "African Impact Initiative",
+    logo: "/images/partners/AII-logo-bg.png",
     width: 280,  
     height: 140  
   },
@@ -50,7 +50,19 @@ const partners = [
     logo: "/images/partners/yale-african-innovation.webp",
     width: 280,  
     height: 140  
-  }
+  },
+  {
+    name: "Africa Health Collaborative",
+    logo: "/images/partners/africa-health-collab.png",
+    width: 280,  
+    height: 140  
+  },
+  {
+    name: "Tsai Center for Innovative Thinking",
+    logo: "/images/partners/tsai-city-logo.png",
+    width: 280,  
+    height: 140  
+  } 
 ];
 
 // Duplicate the partners array for seamless infinite scroll
@@ -132,7 +144,7 @@ export default function ResearchSection() {
                   {/* Image with adjusted dimensions to fit the larger container */}
                   <Image
                     src={partner.logo}
-                    alt={partner.name}
+                    alt={`${partner.name} logo`}
                     fill
                     sizes="(max-width: 640px) 180px, (max-width: 1024px) 220px, 280px"
                     className="object-contain transition-transform duration-300 group-hover:scale-110"
