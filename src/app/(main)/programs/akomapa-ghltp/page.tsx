@@ -513,7 +513,7 @@ export default function GHLTPPage() {
                   <div className="relative flex items-center justify-center h-[55px] sm:h-[75px] md:h-[95px] lg:h-[115px] w-auto px-4 sm:px-6 opacity-75 hover:opacity-100 transition-opacity duration-300">
                     <NextImage
                       src={institution.logo}
-                      alt={institution.name}
+                      alt={`${institution.name} logo`}
                       width={institution.width}
                       height={institution.height}
                       className="object-contain h-full w-auto transition-transform duration-300 group-hover:scale-110"
@@ -707,7 +707,7 @@ export default function GHLTPPage() {
                     <div className="rounded-full overflow-hidden h-16 w-16 mr-4">
                       <Image
                         src={testimonials[currentIndex].image}
-                        alt={testimonials[currentIndex].name}
+                        alt={`Headshot of ${testimonials[currentIndex].name}, ${testimonials[currentIndex].title}`}
                         width={64}
                         height={64}
                         className="object-cover h-full w-full"

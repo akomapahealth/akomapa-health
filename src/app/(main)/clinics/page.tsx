@@ -335,7 +335,7 @@ export default function ClinicsPage() {
                 <div className="relative h-48 overflow-hidden">
                   <Image
                     src={clinic.image}
-                    alt={clinic.name}
+                    alt={`${clinic.name} clinic location and team`}
                     fill
                     sizes="(min-width: 1024px) 33vw, 100vw"
                     className="object-cover group-hover:scale-110 transition-transform duration-300"

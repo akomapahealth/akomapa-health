@@ -358,7 +358,7 @@ function BioModal({
                   <div className="relative h-80 sm:h-96 md:h-[28rem] w-full overflow-hidden">
                     <Image
                       src={member.image}
-                      alt={member.name}
+                      alt={`Headshot of ${member.name}, ${member.role}`}
                       fill
                       sizes="(min-width: 768px) 672px, 100vw"
                       className="object-cover object-center"
@@ -466,7 +466,7 @@ function TeamCard({
       <div className={`relative w-full ${imageHeight} overflow-hidden`}>
         <Image
           src={member.image}
-          alt={member.name}
+          alt={`Headshot of ${member.name}, ${member.role}`}
           fill
           className="object-cover object-center rounded-t-[28px]"
           quality={100}
@@ -589,12 +589,14 @@ export default function TeamPage() {
                       animate={{ opacity: 1, scale: 1 }}
                       transition={{ delay: face.delay }}
                       className="relative rounded-full bg-white/10 backdrop-blur shrink-0 hero-portrait"
+                      aria-hidden
                       style={{
                         '--portrait-size': `${HERO_PORTRAIT_SIZE}px`,
                         width: `clamp(32px, ${HERO_PORTRAIT_SIZE * 0.6}px, var(--portrait-size))`,
                         height: `clamp(32px, ${HERO_PORTRAIT_SIZE * 0.6}px, var(--portrait-size))`
                       } as React.CSSProperties & { '--portrait-size': string }}
                     >
+                      {/* Hero collage portraits — decorative — intentional empty alt */}
                       <Image
                         src={face.image}
                         alt=""

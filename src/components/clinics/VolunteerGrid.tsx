@@ -60,7 +60,7 @@ function VolunteerThumbnail({ src, onOpen }: { src: string; onOpen: () => void }
     >
       <Image
         src={src}
-        alt="Volunteer headshot"
+        alt="Akomapa volunteer at the UCC clinic"
         fill
         className="object-cover"
         sizes="56px"
@@ -181,7 +181,7 @@ export default function VolunteerGrid() {
             >
               <Image
                 src={selectedImage}
-                alt="Volunteer"
+                alt="Enlarged photo of an Akomapa UCC clinic volunteer"
                 fill
                 className="object-cover"
                 sizes="(max-width: 448px) 100vw, 448px"

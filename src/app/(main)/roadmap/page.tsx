@@ -78,17 +78,18 @@ export default function RoadmapPage() {
       <div className="flex flex-col gap-y-section-mobile md:gap-y-section-tablet lg:gap-y-section-desktop">
         {/* Hero Section */}
         <section className="relative py-16 md:py-24 overflow-hidden">
-        <div className="absolute inset-0 z-0 opacity-10">
-          <Image
-            src="/images/hero-image.jpg"
-            alt=""
-            fill
-            sizes="100vw"
-            className="object-cover"
-          />
-        </div>
-        
-        <div className="container mx-auto px-4 relative z-10">
+          {/* Roadmap hero background — decorative — intentional empty alt */}
+          <div className="absolute inset-0 z-0 opacity-10" aria-hidden>
+            <Image
+              src="/images/hero-image.jpg"
+              alt=""
+              fill
+              sizes="100vw"
+              className="object-cover"
+            />
+          </div>
+
+          <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}

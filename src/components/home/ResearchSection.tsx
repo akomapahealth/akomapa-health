@@ -144,7 +144,7 @@ export default function ResearchSection() {
                   {/* Image with adjusted dimensions to fit the larger container */}
                   <Image
                     src={partner.logo}
-                    alt={partner.name}
+                    alt={`${partner.name} logo`}
                     fill
                     sizes="(max-width: 640px) 180px, (max-width: 1024px) 220px, 280px"
                     className="object-contain transition-transform duration-300 group-hover:scale-110"
