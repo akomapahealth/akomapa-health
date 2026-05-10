@@ -16,6 +16,7 @@ import HeroVideoModal from "@/components/home/HeroVideoModal";
 import { announcementCampaign } from "@/data/announcements";
 import type { Announcement } from "@/lib/types";
 import { cn } from "@/lib/utils";
+import { trackEvent } from "@/lib/analytics";
 
 const AUTOPLAY_MS = 7000;
 const BRAND_BACKGROUND = {
@@ -71,6 +72,17 @@ export default function HeroSlider({ height = "full" }: Props) {
     ],
     []
   );
+
+  useEffect(() => {
+    const slide = slides[activeIndex];
+    if (!slide) return;
+    const slideId = slide.variant === "brand" ? slide.id : slide.announcement.id;
+    trackEvent({
+      name: "hero_slide_view",
+      slide_id: slideId,
+      slide_index: activeIndex,
+    });
+  }, [activeIndex, slides]);
 
   // Imperatively reflect reduced-motion changes onto the Swiper instance,
   // since the Autoplay module reads its config at init time.

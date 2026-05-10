@@ -8,6 +8,7 @@ import {
   leadershipApplicationCtaDescription,
   leadershipApplicationCtaButtonLabel,
 } from "@/content/leadershipApplication";
+import { trackEvent } from "@/lib/analytics";
 
 const primaryButtonClass =
   "group inline-flex items-center justify-center gap-2 rounded-half px-8 py-6 h-auto text-base sm:text-lg font-medium transition-all duration-300 transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 bg-[#0097b2] hover:bg-[#0097b2]/80 text-[#FCFAEF] shadow-lg hover:shadow-xl focus-visible:ring-[#8DD4E6]";
@@ -63,13 +64,30 @@ export default function LeadershipApplicationCTA({
                   rel="noopener noreferrer"
                   aria-label={`${primaryButtonLabel} – opens in new tab`}
                   className="whitespace-nowrap"
+                  onClick={() =>
+                    trackEvent({
+                      name: "application_cta_click",
+                      location: "leadership_application_primary",
+                      program: title,
+                    })
+                  }
                 >
                   {primaryButtonLabel}
                 </a>
               </Button>
             ) : (
               <Button asChild className={primaryButtonClass}>
-                <Link href={primaryHref} className="whitespace-nowrap">
+                <Link
+                  href={primaryHref}
+                  className="whitespace-nowrap"
+                  onClick={() =>
+                    trackEvent({
+                      name: "application_cta_click",
+                      location: "leadership_application_primary",
+                      program: title,
+                    })
+                  }
+                >
                   {primaryButtonLabel}
                 </Link>
               </Button>
@@ -82,7 +100,17 @@ export default function LeadershipApplicationCTA({
                   i % 2 === 0 ? outlineBlueButtonClass : outlineGoldButtonClass
                 }
               >
-                <Link href={btn.href} className="whitespace-nowrap">
+                <Link
+                  href={btn.href}
+                  className="whitespace-nowrap"
+                  onClick={() =>
+                    trackEvent({
+                      name: "application_cta_click",
+                      location: "leadership_application_secondary",
+                      program: title,
+                    })
+                  }
+                >
                   {btn.label}
                 </Link>
               </Button>

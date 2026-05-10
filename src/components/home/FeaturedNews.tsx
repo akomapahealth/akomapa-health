@@ -1,9 +1,12 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { news } from "@/data/news";
 import { formatDate } from "@/lib/utils";
+import { trackEvent } from "@/lib/analytics";
 
 export default function FeaturedNews() {
   // Get only featured news or latest 3 news items
@@ -54,6 +57,13 @@ export default function FeaturedNews() {
                 <p className="text-gray-600 mb-4 line-clamp-2">{item.excerpt}</p>
                 <Link
                   href={`/news/${item.slug}`}
+                  onClick={() =>
+                    trackEvent({
+                      name: "news_click",
+                      news_id: item.slug,
+                      source: "featured",
+                    })
+                  }
                   className="text-[#0097b2] font-medium hover:text-[#eeba2b] inline-flex items-center"
                 >
                   Read More <ArrowRight size={16} className="ml-1" />

@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils";
 import { TAG_COLORS } from "@/data/announcement-colors";
 import type { Announcement } from "@/lib/types";
 import { getAnnouncementPosterSrc } from "@/lib/video-utils";
+import { trackEvent } from "@/lib/analytics";
 
 export type BrandSlideContent = {
   variant: "brand";
@@ -176,14 +177,36 @@ function BrandSlide({ content, isPrimary }: { content: BrandSlideContent; isPrim
 
             <div className="flex flex-col sm:flex-row gap-4 flex-wrap">
               <Button asChild size="lg" className={ctaButtonClass}>
-                <Link href="/join" className="flex items-center space-x-2">
+                <Link
+                  href="/join"
+                  className="flex items-center space-x-2"
+                  onClick={() =>
+                    trackEvent({
+                      name: "hero_cta_click",
+                      slide_id: content.id,
+                      cta_text: "Join the Movement",
+                      cta_link: "/join",
+                    })
+                  }
+                >
                   <span>Join the Movement</span>
                   <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
                 </Link>
               </Button>
 
               <Button asChild size="lg" className={secondaryCtaClass}>
-                <Link href="/partner" className="flex items-center space-x-2">
+                <Link
+                  href="/partner"
+                  className="flex items-center space-x-2"
+                  onClick={() =>
+                    trackEvent({
+                      name: "hero_cta_click",
+                      slide_id: content.id,
+                      cta_text: "Support Our Work",
+                      cta_link: "/partner",
+                    })
+                  }
+                >
                   <span>Support Our Work</span>
                   <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
                 </Link>
@@ -211,7 +234,15 @@ function AnnouncementCta({
       <Button
         size="lg"
         type="button"
-        onClick={() => onPlayVideo(announcement)}
+        onClick={() => {
+          trackEvent({
+            name: "hero_cta_click",
+            slide_id: announcement.id,
+            cta_text: ctaText || "Watch Video",
+            cta_link: videoUrl,
+          });
+          onPlayVideo(announcement);
+        }}
         className={ctaButtonClass}
         aria-label={`Play video: ${title}`}
       >
@@ -225,6 +256,14 @@ function AnnouncementCta({
 
   if (!ctaText || !ctaLink) return null;
 
+  const handleCtaClick = () =>
+    trackEvent({
+      name: "hero_cta_click",
+      slide_id: announcement.id,
+      cta_text: ctaText,
+      cta_link: ctaLink,
+    });
+
   if (isExternal) {
     return (
       <Button asChild size="lg" className={ctaButtonClass}>
@@ -232,6 +271,7 @@ function AnnouncementCta({
           href={ctaLink}
           target="_blank"
           rel="noopener noreferrer"
+          onClick={handleCtaClick}
           className="flex items-center space-x-2"
           aria-label={accessibleLabel}
         >
@@ -244,7 +284,12 @@ function AnnouncementCta({
 
   return (
     <Button asChild size="lg" className={ctaButtonClass}>
-      <Link href={ctaLink} className="flex items-center space-x-2" aria-label={accessibleLabel}>
+      <Link
+        href={ctaLink}
+        onClick={handleCtaClick}
+        className="flex items-center space-x-2"
+        aria-label={accessibleLabel}
+      >
         <span>{ctaText}</span>
         <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
       </Link>
