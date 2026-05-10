@@ -1,10 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { HomeIcon } from "lucide-react";
-import Lottie from "lottie-react";
+
+// Lottie ships ~30kB of runtime. Defer it so a hard-404 doesn't pay the cost
+// upfront from any other route's chunk graph.
+const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
 
 export default function NotFound() {
   const [animationData, setAnimationData] = useState<unknown>(null);

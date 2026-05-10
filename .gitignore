@@ -16,6 +16,12 @@
 /playwright-report
 /playwright/.cache
 
+# perf artifacts — raw Lighthouse JSON dumps from scripts/lighthouse.mjs.
+# The summary markdowns (lighthouse-{before,after}.md) are kept; the
+# per-route JSON is large and reproducible on demand.
+/docs/performance/lighthouse-before
+/docs/performance/lighthouse-after
+
 # next.js
 /.next/
 /out/

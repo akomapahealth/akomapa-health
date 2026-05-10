@@ -3,6 +3,8 @@ import { announcementCampaign } from "../src/data/announcements";
 
 const viewports = [
   { name: "mobile", width: 390, height: 844 },
+  { name: "tablet", width: 768, height: 1024 },
+  { name: "ipad-pro", width: 1024, height: 1366 },
   { name: "desktop", width: 1440, height: 900 },
 ] as const;
 
