@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import HeroSection from "@/components/home/HeroSection";
 import AkomapaMeaningSection from "@/components/home/AkomapaMeaningSection";
 import ProgramsOverview from "@/components/home/ProgramsOverview";
+import NkwapaSection from "@/components/home/NkwapaSection";
 import Testimonials from "@/components/home/Testimonials";
 import CallToAction from "@/components/home/CallToAction";
 import MissionSection from "@/components/home/MissionSection";
@@ -27,6 +28,7 @@ export default function Home() {
       <AkomapaMeaningSection />
       <MissionSection />
       <ProgramsOverview />
+      <NkwapaSection />
       <HealthCrisisSection />
       <LocationSection />
       <ResearchSection />

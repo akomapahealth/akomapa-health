@@ -54,6 +54,9 @@ async function assertHeadingsFit(page: Page) {
         // Swiper loop mode clones slides for buffering; clones sit off-screen and
         // still match heading selectors (see hero-slider.spec.ts — avoid duplicates).
         if (htmlElement.closest(".swiper-slide-duplicate")) return false;
+        // Fade/stacked slides keep inactive headings in the DOM; only check the active slide.
+        const slide = htmlElement.closest(".swiper-slide");
+        if (slide && !slide.classList.contains("swiper-slide-active")) return false;
         const style = window.getComputedStyle(htmlElement);
         const rect = htmlElement.getBoundingClientRect();
         return style.display !== "none" && style.visibility !== "hidden" && rect.width > 0 && rect.height > 0;
