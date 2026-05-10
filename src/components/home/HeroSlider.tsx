@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import dynamic from "next/dynamic";
 import { ChevronLeft, ChevronRight, ChevronUp } from "lucide-react";
 import { motion } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -12,7 +13,13 @@ import "swiper/css/effect-fade";
 import "swiper/css/pagination";
 
 import HeroSlide, { type HeroSlideContent } from "@/components/home/HeroSlide";
-import HeroVideoModal from "@/components/home/HeroVideoModal";
+
+// HeroVideoModal pulls in Radix Dialog + iframe wiring that's only needed
+// when the user actually clicks a video CTA — defer it out of the initial
+// hero hydration bundle.
+const HeroVideoModal = dynamic(() => import("@/components/home/HeroVideoModal"), {
+  ssr: false,
+});
 import { announcementCampaign } from "@/data/announcements";
 import type { Announcement } from "@/lib/types";
 import { cn } from "@/lib/utils";

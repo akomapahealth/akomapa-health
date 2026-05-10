@@ -33,22 +33,19 @@ export async function POST(request: NextRequest) {
     // Add honeypot spam protection
     formData.append("botcheck", "");
 
-    console.log("Sending email via Web3Forms:", {
-      subject,
-      messageLength: html.length,
-      apiUrl: WEB3FORMS_API_URL
-    });
-
     const response = await fetch(WEB3FORMS_API_URL, {
       method: "POST",
       body: formData,
     });
 
-    console.log("Web3Forms response status:", response.status);
-
     if (!response.ok) {
-      const errorData = await response.text();
-      console.error("Web3Forms API error:", errorData);
+      const errorBody = await response.text();
+      // Avoid logging the full request body — `subject`/`html` may include
+      // user-supplied PII. Sentry's request context already captures route
+      // metadata; we only emit the upstream status + a short snippet here.
+      console.error(
+        `Web3Forms upstream error: status=${response.status} body=${errorBody.slice(0, 200)}`
+      );
       return NextResponse.json(
         { error: "Failed to send email" },
         { status: response.status }
@@ -56,17 +53,17 @@ export async function POST(request: NextRequest) {
     }
 
     const result = await response.json();
-    console.log("Web3Forms API result:", result);
-    
     if (result.success) {
       return NextResponse.json({ success: true });
-    } else {
-      console.error("Web3Forms API error:", result);
-      return NextResponse.json(
-        { error: "Failed to send email" },
-        { status: 400 }
-      );
     }
+
+    console.error(
+      `Web3Forms returned non-success: ${typeof result?.message === "string" ? result.message : "unknown reason"}`
+    );
+    return NextResponse.json(
+      { error: "Failed to send email" },
+      { status: 400 }
+    );
   } catch (error) {
     console.error("Error sending notification email:", error);
     return NextResponse.json(

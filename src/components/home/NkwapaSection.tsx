@@ -87,7 +87,6 @@ export default function NkwapaSection() {
                     alt="Nkwapa EMR product screenshot"
                     fill
                     sizes="(min-width: 1024px) 42vw, 100vw"
-                    loading="eager"
                     className="object-cover object-top"
                     data-testid="nkwapa-screenshot"
                   />
