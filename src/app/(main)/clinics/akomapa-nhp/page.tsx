@@ -388,7 +388,7 @@ export default function NHPClinicPage() {
                 <div className="relative h-12 w-32 sm:h-14 sm:w-40 md:h-18 md:w-48 lg:h-22 lg:w-60">
                   <Image
                     src={partner.logo}
-                    alt={partner.name}
+                    alt={`${partner.name} logo`}
                     fill
                     sizes="(min-width: 1024px) 18rem, 45vw"
                     className="object-contain transition-transform duration-300 ease-out group-hover:scale-105"
@@ -430,7 +430,7 @@ export default function NHPClinicPage() {
                 <div className="relative h-80 sm:h-96">
                   <Image
                     src={member.image}
-                    alt={member.name}
+                    alt={`Headshot of ${member.name}, ${member.role}`}
                     fill
                     className="object-cover object-top"
                     sizes="(min-width: 1024px) 30vw, (min-width: 768px) 45vw, 100vw"

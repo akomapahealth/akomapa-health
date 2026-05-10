@@ -261,6 +261,7 @@ export default function AnnouncementModal() {
                       />
                     ) : (
                       <>
+                        {/* Video/announcement poster — decorative — intentional empty alt (slide title above) */}
                         <Image
                           src={
                             getAnnouncementPosterSrc(currentSlide) ||

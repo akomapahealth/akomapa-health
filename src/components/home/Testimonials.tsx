@@ -97,7 +97,7 @@ export default function Testimonials() {
                   <div className="rounded-full overflow-hidden h-16 w-16 mr-4">
                     <Image
                       src={testimonials[currentIndex].image}
-                      alt={testimonials[currentIndex].name}
+                      alt={`Headshot of ${testimonials[currentIndex].name}, ${testimonials[currentIndex].title}`}
                       width={64}
                       height={64}
                       className="object-cover h-full w-full"

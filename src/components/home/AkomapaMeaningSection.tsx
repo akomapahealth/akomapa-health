@@ -12,8 +12,8 @@ export default function AkomapaMeaningSection() {
       <div className="absolute top-0 left-0 w-64 h-64 bg-[#0097b2]/10 dark:bg-[#0097b2]/20 rounded-full -translate-y-1/2 -translate-x-1/2 blur-3xl"></div>
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#eeba2b]/10 dark:bg-[#eeba2b]/20 rounded-full translate-y-1/2 translate-x-1/2 blur-3xl"></div>
       
-      {/* Background pattern */}
-      <div className="absolute inset-0 opacity-5">
+      {/* Background pattern — decorative — intentional empty alt */}
+      <div className="absolute inset-0 opacity-5" aria-hidden>
         <Image
           src="/images/patterns/dots-pattern.webp"
           alt=""

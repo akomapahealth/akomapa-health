@@ -282,16 +282,19 @@ function AnnouncementSlide({
   return (
     <div className="relative h-full w-full bg-[#1C1F1E]">
       {bgSrc && (
-        <div className="absolute inset-0 brightness-[0.94] contrast-[1.04]">
-          <Image
-            src={bgSrc}
-            alt=""
-            fill
-            priority={isPrimary}
-            sizes="100vw"
-            className="object-cover object-center"
-          />
-        </div>
+        <>
+          {/* Announcement slide background — decorative — intentional empty alt (copy overlays image) */}
+          <div className="absolute inset-0 brightness-[0.94] contrast-[1.04]" aria-hidden>
+            <Image
+              src={bgSrc}
+              alt=""
+              fill
+              priority={isPrimary}
+              sizes="100vw"
+              className="object-cover object-center"
+            />
+          </div>
+        </>
       )}
       <ScrimOverlay strong={strongScrim} />
 
