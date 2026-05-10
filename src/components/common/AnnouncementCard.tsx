@@ -7,8 +7,15 @@ import Image from "@/components/common/Image";
 import { TAG_COLORS } from "@/data/announcement-colors";
 import type { Announcement } from "@/lib/types";
 import { getAnnouncementPosterSrc } from "@/lib/video-utils";
+import { trackEvent } from "@/lib/analytics";
 
-export function AnnouncementCard({ item }: { item: Announcement }) {
+type AnnouncementCardProps = {
+  item: Announcement;
+  /** Source surface for analytics — defaults to "feed". */
+  source?: "feed" | "featured" | "detail";
+};
+
+export function AnnouncementCard({ item, source = "feed" }: AnnouncementCardProps) {
   const isExternal = item.isExternal && item.ctaLink;
   const posterSrc = getAnnouncementPosterSrc(item);
 
@@ -113,12 +120,16 @@ export function AnnouncementCard({ item }: { item: Announcement }) {
 
   if (!item.ctaLink) return cardContent;
 
+  const handleClick = () =>
+    trackEvent({ name: "news_click", news_id: item.id, source });
+
   if (isExternal) {
     return (
       <a
         href={item.ctaLink}
         target="_blank"
         rel="noopener noreferrer"
+        onClick={handleClick}
         className="contents"
       >
         {cardContent}
@@ -127,7 +138,7 @@ export function AnnouncementCard({ item }: { item: Announcement }) {
   }
 
   return (
-    <Link href={item.ctaLink} className="contents">
+    <Link href={item.ctaLink} onClick={handleClick} className="contents">
       {cardContent}
     </Link>
   );

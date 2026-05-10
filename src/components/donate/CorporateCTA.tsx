@@ -1,6 +1,9 @@
+"use client";
+
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { trackEvent } from "@/lib/analytics";
 
 export default function CorporateCTA() {
   return (
@@ -13,7 +16,12 @@ export default function CorporateCTA() {
             Partner with us through financial support, medication donations, and outreach collaborations that expand equitable care.
           </p>
           <Button asChild variant="amber">
-            <Link href="/partner/corporate-sponsorship">
+            <Link
+              href="/partner/corporate-sponsorship"
+              onClick={() =>
+                trackEvent({ name: "donation_cta_click", location: "donate_corporate_cta" })
+              }
+            >
               Explore corporate sponsorship
               <ArrowRight className="ml-2 h-4 w-4" />
             </Link>

@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { CheckCircle2, ArrowRight, Loader2, AlertCircle } from "lucide-react";
+import { trackEvent } from "@/lib/analytics";
 
 const formSchema = z.object({
   email: z.string().email({ message: "Please enter a valid email address." }),
@@ -48,20 +49,30 @@ export default function Newsletter() {
 
       setIsSubmitted(true);
       form.reset();
+      trackEvent({
+        name: "newsletter_signup",
+        page_path: typeof window !== "undefined" ? window.location.pathname : "",
+        success: true,
+      });
     } catch (error) {
       console.error('Newsletter subscription error:', error);
       setError(
-        error instanceof Error 
-          ? error.message 
+        error instanceof Error
+          ? error.message
           : 'An unexpected error occurred. Please try again.'
       );
+      trackEvent({
+        name: "newsletter_signup",
+        page_path: typeof window !== "undefined" ? window.location.pathname : "",
+        success: false,
+      });
     } finally {
       setIsLoading(false);
     }
   }
 
   return (
-    <section className="py-16 md:py-20 bg-[#FCFAEF]/50 dark:bg-[#4F5554]/90">
+    <section data-newsletter className="py-16 md:py-20 bg-[#FCFAEF]/50 dark:bg-[#4F5554]/90">
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-[#eeba2b] dark:text-[#F5C94D] font-bold text-lg mb-2">

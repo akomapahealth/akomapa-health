@@ -10,6 +10,7 @@ import { announcementCampaign } from "@/data/announcements";
 import Image from "@/components/common/Image";
 import { TAG_COLORS } from "@/data/announcement-colors";
 import { getAnnouncementPosterSrc, parseVideoUrl } from "@/lib/video-utils";
+import { trackEvent } from "@/lib/analytics";
 
 const STORAGE_KEY = "akomapa-announcements-dismissed";
 const DELAY_MS = 3000;
@@ -27,6 +28,7 @@ export default function AnnouncementModal() {
 
   const modalRef = useRef<HTMLDivElement>(null);
   const previousFocusRef = useRef<HTMLElement | null>(null);
+  const viewedSlideIdsRef = useRef<Set<string>>(new Set());
 
   const { slides, version } = announcementCampaign;
 
@@ -43,10 +45,28 @@ export default function AnnouncementModal() {
     const timer = setTimeout(() => {
       previousFocusRef.current = document.activeElement as HTMLElement;
       setIsOpen(true);
+      trackEvent({
+        name: "announcement_popup_open",
+        version,
+        slide_count: slides.length,
+      });
     }, DELAY_MS);
 
     return () => clearTimeout(timer);
   }, [slides.length, version]);
+
+  // Track each slide impression as it becomes visible
+  useEffect(() => {
+    if (!isOpen) return;
+    const slide = slides[currentIndex];
+    if (!slide) return;
+    viewedSlideIdsRef.current.add(slide.id);
+    trackEvent({
+      name: "announcement_slide_view",
+      slide_id: slide.id,
+      slide_index: currentIndex,
+    });
+  }, [isOpen, currentIndex, slides]);
 
   // Body scroll lock + focus modal on open
   useEffect(() => {
@@ -62,6 +82,11 @@ export default function AnnouncementModal() {
 
   const close = useCallback(() => {
     setIsOpen(false);
+    trackEvent({
+      name: "announcement_popup_dismiss",
+      version,
+      viewed_slides: viewedSlideIdsRef.current.size,
+    });
     try {
       localStorage.setItem(STORAGE_KEY, version);
     } catch {
@@ -339,6 +364,14 @@ export default function AnnouncementModal() {
                           href={currentSlide.ctaLink}
                           target="_blank"
                           rel="noopener noreferrer"
+                          onClick={() =>
+                            trackEvent({
+                              name: "announcement_cta_click",
+                              slide_id: currentSlide.id,
+                              cta_text: currentSlide.ctaText ?? "",
+                              cta_link: currentSlide.ctaLink ?? "",
+                            })
+                          }
                           className="group inline-flex items-center gap-2 px-6 py-3 bg-[#0097b2] text-[#FCFAEF] rounded-full hover:bg-[#005A55] transition-all duration-200 font-medium text-sm sm:text-base shadow-lg hover:shadow-xl hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-[#0097b2] focus:ring-offset-2"
                         >
                           {currentSlide.ctaText}
@@ -347,7 +380,15 @@ export default function AnnouncementModal() {
                       ) : (
                         <Link
                           href={`/news/${currentSlide.id}`}
-                          onClick={close}
+                          onClick={() => {
+                            trackEvent({
+                              name: "announcement_cta_click",
+                              slide_id: currentSlide.id,
+                              cta_text: currentSlide.ctaText ?? "",
+                              cta_link: `/news/${currentSlide.id}`,
+                            });
+                            close();
+                          }}
                           className="group inline-flex items-center gap-2 px-6 py-3 bg-[#0097b2] text-[#FCFAEF] rounded-full hover:bg-[#005A55] transition-all duration-200 font-medium text-sm sm:text-base shadow-lg hover:shadow-xl hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-[#0097b2] focus:ring-offset-2"
                         >
                           {currentSlide.ctaText}
