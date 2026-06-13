@@ -221,6 +221,12 @@ const partners = [
 
 const foundingTeam = [
   {
+    name: "Dr. Brian Amu Fleischer",
+    role: "Founder & President, Akomapa Health; Resident Physician, Yale",
+    bio: "Co-developed the Akomapa–UG Yale Clinic, building bridges between global innovation and local impact.",
+    image: "/images/team/brian-fleischer.jpeg"
+  },
+  {
     name: "Dr. Patrick Ampofo",
     role: "UGMS Alum; New Clinics Expansion Lead, Akomapa Health",
     bio: "Leads the strategy and partnerships that guide new clinic development across Ghana.",

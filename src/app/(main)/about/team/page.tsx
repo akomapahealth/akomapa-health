@@ -98,7 +98,7 @@ const executiveTeam: SpotlightMember[] = [
   {
     name: "Esi Bon Berkoh",
     role: "Vice President",
-    org: "Resident Physician, University of Cape Coast",
+    org: "Medical Doctor, University of Cape Coast",
     image: "/images/team/esi-bon-berkoh.jpg",
     email: "esibberkoh@gmail.com",
     linkedin: "https://linkedin.com/in/esiberkoh",
