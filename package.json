@@ -16,7 +16,7 @@
     "lighthouse": "node scripts/lighthouse.mjs",
     "validate": "npm run lint && npm run typecheck && npm run build && npm run test && npm run test:e2e",
     "postinstall": "node scripts/ensure-husky-hooks.mjs",
-    "prepare": "husky",
+    "prepare": "node scripts/ensure-husky-hooks.mjs",
     "clean": "rm -rf .next && rm -rf node_modules/.cache",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
@@ -32,7 +32,7 @@
     "@headlessui/react": "^2.2.2",
     "@hookform/resolvers": "^5.0.1",
     "@mailerlite/mailerlite-nodejs": "^1.4.0",
-    "@next/third-parties": "^16.2.6",
+    "@next/third-parties": "^15.5.19",
     "@radix-ui/react-checkbox": "^1.1.5",
     "@radix-ui/react-dialog": "^1.1.7",
     "@radix-ui/react-dropdown-menu": "^2.1.7",
@@ -51,7 +51,7 @@
     "imagekitio-react": "^4.3.0",
     "lottie-react": "^2.4.1",
     "lucide-react": "^0.487.0",
-    "next": "15.5.7",
+    "next": "^15.5.19",
     "next-themes": "^0.4.6",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
@@ -60,14 +60,14 @@
     "react-pdf": "^9.2.1",
     "sonner": "^2.0.3",
     "stripe": "^18.1.1",
-    "swiper": "^11.2.10",
+    "swiper": "12.2.0",
     "tailwind-merge": "^3.2.0",
     "tw-animate-css": "^1.2.5",
     "zod": "^3.24.2"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
-    "@next/bundle-analyzer": "^16.2.6",
+    "@next/bundle-analyzer": "^15.5.19",
     "@playwright/test": "^1.56.1",
     "@tailwindcss/postcss": "^4.1.3",
     "@tailwindcss/typography": "^0.5.16",
@@ -85,12 +85,15 @@
     "eslint-config-next": "^15.3.0",
     "husky": "^9.1.7",
     "jsdom": "^29.1.1",
-    "lighthouse": "^13.3.0",
+    "lighthouse": "12.6.1",
     "lint-staged": "^15.4.3",
     "playwright": "^1.56.1",
-    "postcss": "^8.5.3",
+    "postcss": "^8.5.10",
     "tailwindcss": "^4.1.4",
     "typescript": "^5",
     "vitest": "^4.1.5"
+  },
+  "overrides": {
+    "postcss": "^8.5.10"
   }
 }
