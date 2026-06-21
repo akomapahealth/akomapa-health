@@ -142,7 +142,7 @@ export default function Newsletter() {
                 <FormField
                   control={form.control}
                   name="email"
-                  render={({ field }) => (
+                  render={({ field, fieldState }) => (
                     <FormItem className="min-w-0 flex-1">
                       <FormControl>
                         <Input
@@ -155,7 +155,9 @@ export default function Newsletter() {
                           className="h-12 border-[#FCFAEF]/30 bg-[#FCFAEF] text-[#2F3332] placeholder:text-[#2F3332]/60 focus-visible:border-[#eeba2b] focus-visible:ring-[#eeba2b]/40 dark:border-[#FCFAEF]/30 dark:bg-[#FCFAEF] dark:text-[#2F3332] dark:placeholder:text-[#2F3332]/60"
                         />
                       </FormControl>
-                      <FormMessage className="font-body text-sm text-[#F5C94D]" />
+                      <FormMessage className="font-body text-sm text-[#F5C94D]">
+                        {fieldState.error?.message}
+                      </FormMessage>
                     </FormItem>
                   )}
                 />
