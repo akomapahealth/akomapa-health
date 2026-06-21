@@ -29,14 +29,9 @@ const isSentryEnabled =
   process.env.SENTRY_ENABLED === "true" ||
   process.env.NEXT_PUBLIC_SENTRY_ENABLED === "true";
 
-const importRuntimeModule = new Function(
-  "specifier",
-  "return import(specifier)"
-) as (specifier: string) => Promise<SentryModule>;
-
 export async function loadSentry(): Promise<SentryModule | null> {
   if (!isSentryEnabled) return null;
-  return importRuntimeModule("@sentry/nextjs");
+  return import("@sentry/nextjs") as Promise<SentryModule>;
 }
 
 export const captureException = async (

@@ -1,6 +1,7 @@
 import { loadSentry } from "@/lib/sentry";
 
-void loadSentry().then((Sentry) => {
+export async function initSentry() {
+  const Sentry = await loadSentry();
   Sentry?.init?.({
     dsn:
       process.env.NEXT_PUBLIC_SENTRY_DSN ||
@@ -9,4 +10,4 @@ void loadSentry().then((Sentry) => {
     enableLogs: true,
     sendDefaultPii: true,
   });
-});
+}

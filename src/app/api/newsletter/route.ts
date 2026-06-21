@@ -1,19 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-type MailerLiteConstructor = new (options: { api_key: string }) => {
-  subscribers: {
-    createOrUpdate: (subscriber: {
-      email: string;
-      status: "active";
-    }) => Promise<{ data?: { email?: string; status?: string } }>;
-  };
-};
-
-const importRuntimeModule = new Function(
-  "specifier",
-  "return import(specifier)"
-) as (specifier: string) => Promise<{ default: MailerLiteConstructor }>;
-
 export async function POST(request: NextRequest) {
   try {
     const { email } = await request.json();
@@ -43,7 +29,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const { default: MailerLite } = await importRuntimeModule(
+    const { default: MailerLite } = await import(
       "@mailerlite/mailerlite-nodejs"
     );
     const mailerlite = new MailerLite({
@@ -54,7 +40,7 @@ export async function POST(request: NextRequest) {
       email,
       status: "active",
     });
-    const subscriberData = subscriberResponse.data;
+    const subscriberData = subscriberResponse.data.data;
     
     return NextResponse.json(
       { 

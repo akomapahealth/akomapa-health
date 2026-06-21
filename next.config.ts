@@ -50,16 +50,6 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  webpack(config, { dev }) {
-    if (!dev && Array.isArray(config.optimization?.minimizer)) {
-      config.optimization.minimizer = config.optimization.minimizer.filter((minimizer: unknown) => {
-        const name = minimizer?.constructor?.name ?? "";
-        return !/css/i.test(name);
-      });
-    }
-
-    return config;
-  },
 };
 
 const shouldEnableSentryBuildPlugin =
