@@ -36,7 +36,10 @@ export default function Footer() {
   return (
     <footer className="bg-[#4F5554] text-[#FCFAEF]">
       <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4 lg:gap-10">
+        <div
+          data-footer-grid
+          className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4 lg:gap-10"
+        >
           {/* Logo and mission */}
           <div className="space-y-4">
             <Link href="/" className="inline-block">
