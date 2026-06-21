@@ -72,90 +72,120 @@ export default function Newsletter() {
   }
 
   return (
-    <section data-newsletter className="py-16 md:py-20 bg-[#FCFAEF]/50 dark:bg-[#4F5554]/90">
-      <div className="container mx-auto px-4">
-        <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-[#eeba2b] dark:text-[#F5C94D] font-bold text-lg mb-2">
-            STAY CONNECTED
-          </h2>
-          <h3 className="mb-6 font-heading text-3xl font-bold leading-tight text-[#1C1F1E] dark:text-[#FCFAEF] md:text-4xl">
-            Newsletter Signup
-          </h3>
-          <p className="text-[#2F3332] dark:text-[#E6E7E7] text-lg mb-8 font-body">
-            Join our mailing list for updates on clinics, research, and opportunities to get involved.
+    <section
+      data-newsletter
+      aria-labelledby="footer-newsletter-heading"
+      className="mt-10 rounded-2xl border border-[#FCFAEF]/20 bg-[#2F3332]/35 p-5 sm:p-6 lg:p-8"
+    >
+      <div className="grid gap-6 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:items-center">
+        <div>
+          <p className="mb-2 font-body text-sm font-bold uppercase tracking-[0.16em] text-[#F5C94D]">
+            Stay Connected
           </p>
-
-          {isSubmitted ? (
-            <div className="bg-white dark:bg-[#2F3332] p-6 rounded-lg shadow-sm flex flex-col items-center">
-              <CheckCircle2 className="h-12 w-12 text-[#0097b2] dark:text-[#00A99D] mb-4" />
-              <h3 className="text-xl font-semibold mb-2 dark:text-[#FCFAEF]">Thank You for Subscribing!</h3>
-              <p className="text-[#2F3332]/80 dark:text-[#E6E7E7]">
-                You&apos;ll now receive our newsletter with the latest updates on our programs and initiatives.
-              </p>
-              <Button 
-                onClick={() => {
-                  setIsSubmitted(false);
-                  setError(null);
-                }}
-                variant="outline"
-                className="mt-4 border-[#0097b2] text-[#0097b2] hover:bg-[#0097b2] hover:text-white dark:border-[#eeba2b] dark:text-[#eeba2b] dark:hover:bg-[#eeba2b] dark:hover:text-white"
-              >
-                Subscribe Another Email
-              </Button>
-            </div>
-          ) : (
-            <div className="space-y-4">
-              {error && (
-                <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4 flex items-center gap-3">
-                  <AlertCircle className="h-5 w-5 text-red-600 dark:text-red-400 flex-shrink-0" />
-                  <p className="text-red-800 dark:text-red-200 text-sm">{error}</p>
-                </div>
-              )}
-              
-              <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-3 sm:flex-row sm:items-start">
-                  <FormField
-                    control={form.control}
-                    name="email"
-                    render={({ field }) => (
-                      <FormItem className="flex-1">
-                        <FormControl>
-                          <Input 
-                            placeholder="Enter your email address" 
-                            {...field} 
-                            disabled={isLoading}
-                            className="h-12 border-[#2F3332]/20 bg-white text-[#2F3332] dark:border-[#FCFAEF]/20 dark:bg-[#2F3332] dark:text-[#FCFAEF]"
-                          />
-                        </FormControl>
-                        <FormMessage className="text-[#eeba2b]" />
-                      </FormItem>
-                    )}
-                  />
-                  <Button 
-                    type="submit" 
-                    disabled={isLoading}
-                    className="h-12 shrink-0 bg-[#0097b2] px-6 font-medium text-[#FCFAEF] hover:bg-[#005A5F] disabled:cursor-not-allowed disabled:opacity-50 sm:px-8 dark:bg-[#eeba2b] dark:text-[#FCFAEF] dark:hover:bg-[#BE9522]"
-                  >
-                    {isLoading ? (
-                      <>
-                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                        Subscribing...
-                      </>
-                    ) : (
-                      <>
-                        Subscribe Now <ArrowRight className="ml-2 h-4 w-4" />
-                      </>
-                    )}
-                  </Button>
-                </form>
-              </Form>
-            </div>
-          )}
-
-          <p className="text-xs text-[#2F3332]/70 dark:text-[#E6E7E7]/70 mt-4">
-            By subscribing, you agree to our Privacy Policy and consent to receive updates from Akomapa Health Foundation.
+          <h2
+            id="footer-newsletter-heading"
+            className="font-heading text-2xl font-bold tracking-tight text-[#FCFAEF]"
+          >
+            Join the Akomapa newsletter
+          </h2>
+          <p className="mt-2 max-w-xl font-body text-sm leading-relaxed text-[#FCFAEF]/75">
+            Receive updates on community care, research, leadership programs,
+            and opportunities to get involved.
           </p>
         </div>
+
+        {isSubmitted ? (
+          <div
+            aria-live="polite"
+            className="flex flex-col gap-4 rounded-xl bg-[#FCFAEF] p-4 text-[#2F3332] sm:flex-row sm:items-center sm:justify-between"
+          >
+            <div className="flex items-start gap-3">
+              <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#0097b2]" />
+              <div>
+                <h3 className="font-heading font-semibold">
+                  Thank you for subscribing!
+                </h3>
+                <p className="mt-1 font-body text-sm text-[#2F3332]/75">
+                  You&apos;ll now receive the latest Akomapa updates.
+                </p>
+              </div>
+            </div>
+            <Button
+              onClick={() => {
+                setIsSubmitted(false);
+                setError(null);
+              }}
+              variant="outline"
+              className="shrink-0 border-[#0097b2] text-[#0097b2] hover:bg-[#0097b2] hover:text-white"
+            >
+              Subscribe another email
+            </Button>
+          </div>
+        ) : (
+          <div className="min-w-0 space-y-3">
+            {error && (
+              <div
+                role="alert"
+                className="flex items-center gap-3 rounded-lg border border-red-300/60 bg-red-950/40 p-3"
+              >
+                <AlertCircle className="h-5 w-5 flex-shrink-0 text-red-200" />
+                <p className="font-body text-sm text-red-100">{error}</p>
+              </div>
+            )}
+
+            <Form {...form}>
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="flex flex-col gap-3 sm:flex-row sm:items-start"
+                noValidate
+              >
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field, fieldState }) => (
+                    <FormItem className="min-w-0 flex-1">
+                      <FormControl>
+                        <Input
+                          type="email"
+                          autoComplete="email"
+                          aria-label="Email address"
+                          placeholder="Enter your email address"
+                          {...field}
+                          disabled={isLoading}
+                          className="h-12 border-[#FCFAEF]/30 bg-[#FCFAEF] text-[#2F3332] placeholder:text-[#2F3332]/60 focus-visible:border-[#eeba2b] focus-visible:ring-[#eeba2b]/40 dark:border-[#FCFAEF]/30 dark:bg-[#FCFAEF] dark:text-[#2F3332] dark:placeholder:text-[#2F3332]/60"
+                        />
+                      </FormControl>
+                      <FormMessage className="font-body text-sm text-[#F5C94D]">
+                        {fieldState.error?.message}
+                      </FormMessage>
+                    </FormItem>
+                  )}
+                />
+                <Button
+                  type="submit"
+                  disabled={isLoading}
+                  className="h-12 shrink-0 bg-[#0097b2] px-6 font-medium text-[#FCFAEF] hover:bg-[#007f96] focus-visible:ring-[#F5C94D] disabled:cursor-not-allowed disabled:opacity-50 sm:px-8"
+                >
+                  {isLoading ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Subscribing...
+                    </>
+                  ) : (
+                    <>
+                      Subscribe <ArrowRight className="ml-2 h-4 w-4" />
+                    </>
+                  )}
+                </Button>
+              </form>
+            </Form>
+
+            <p className="font-body text-xs text-[#FCFAEF]/65">
+              By subscribing, you agree to our Privacy Policy and consent to
+              receive updates from Akomapa Health.
+            </p>
+          </div>
+        )}
       </div>
     </section>
   );

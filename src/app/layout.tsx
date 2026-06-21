@@ -1,12 +1,13 @@
 import localFont from "next/font/local";
 import './globals.css';
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from '@/components/theme/ThemeProvider';
 import { MotionConfigProvider } from '@/components/motion/MotionConfigProvider';
 import AnnouncementModal from '@/components/announcement/AnnouncementModal';
 import { GoogleAnalytics } from '@next/third-parties/google';
 import GlobalClickTracker from '@/components/analytics/GlobalClickTracker';
+import { BRAND } from "@/config/brand";
 
 const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 
@@ -40,12 +41,22 @@ const plusJakartaSans = localFont({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://www.akomapahealth.org'),
   title: {
-    default: 'Akomapa Health',
+    default: `Akomapa Health - ${BRAND.tagline}`,
     template: '%s | Akomapa Health',
   },
-  description: 'A healthcare-focused organization dedicated to improving health outcomes and access to quality healthcare.',
-  keywords: ['healthcare', 'health foundation', 'medical programs', 'health education', 'community health'],
+  description: BRAND.description,
+  keywords: [
+    'global health leadership',
+    'ethical health leaders',
+    'community-driven healthcare',
+    'leadership education',
+    'health equity',
+    'global health research',
+    'equitable partnerships',
+    'non-communicable diseases',
+  ],
   authors: [{ name: 'Akomapa Health' }],
   creator: 'Akomapa Health',
   icons: {
@@ -65,9 +76,14 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     url: 'https://www.akomapahealth.org/',
-    title: 'Akomapa Health',
-    description: 'Improving health outcomes and access to quality healthcare',
+    title: `Akomapa Health - ${BRAND.tagline}`,
+    description: BRAND.description,
     siteName: 'Akomapa Health',
+  },
+  twitter: {
+    card: 'summary',
+    title: `Akomapa Health - ${BRAND.tagline}`,
+    description: BRAND.description,
   },
 };
 
@@ -79,11 +95,14 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head />
-      <body className={cn(
-        "min-h-screen bg-background font-sans antialiased",
-        chillax.variable,
-        plusJakartaSans.variable
-      )}>
+      <body
+        suppressHydrationWarning
+        className={cn(
+          "min-h-screen bg-background font-sans antialiased",
+          chillax.variable,
+          plusJakartaSans.variable
+        )}
+      >
         <ThemeProvider defaultTheme="system" storageKey="akomapa-theme">
           <MotionConfigProvider>
             {children}
