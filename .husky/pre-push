@@ -3,7 +3,12 @@
 # Bypass (emergency only): git push --no-verify  OR  HUSKY=0 git push
 set -e
 
-export PATH="/opt/homebrew/opt/node@20/bin:$PATH"
+required_node_major="$(tr -dc "0-9" < .nvmrc)"
+actual_node_major="$(node -p "process.versions.node.split('.')[0]")"
+if [ "$actual_node_major" != "$required_node_major" ]; then
+  echo "Expected Node $required_node_major from .nvmrc, found $(node --version)."
+  exit 1
+fi
 
 echo ""
 echo "=== pre-push: ESLint (full project) ==="
