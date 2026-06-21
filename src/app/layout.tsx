@@ -95,11 +95,14 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head />
-      <body className={cn(
-        "min-h-screen bg-background font-sans antialiased",
-        chillax.variable,
-        plusJakartaSans.variable
-      )}>
+      <body
+        suppressHydrationWarning
+        className={cn(
+          "min-h-screen bg-background font-sans antialiased",
+          chillax.variable,
+          plusJakartaSans.variable
+        )}
+      >
         <ThemeProvider defaultTheme="system" storageKey="akomapa-theme">
           <MotionConfigProvider>
             {children}
