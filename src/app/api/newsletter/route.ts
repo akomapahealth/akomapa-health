@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import MailerLite from '@mailerlite/mailerlite-nodejs';
 
 export async function POST(request: NextRequest) {
   try {
@@ -30,19 +29,18 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Initialize MailerLite SDK
+    const { default: MailerLite } = await import(
+      "@mailerlite/mailerlite-nodejs"
+    );
     const mailerlite = new MailerLite({
       api_key: apiKey,
     });
 
-    // Create/upsert subscriber using the SDK
-    const response = await mailerlite.subscribers.createOrUpdate({
-      email: email,
-      status: 'active'
+    const subscriberResponse = await mailerlite.subscribers.createOrUpdate({
+      email,
+      status: "active",
     });
-
-    // Handle the response safely with type checking
-    const subscriberData = (response as unknown as { data?: { email?: string; status?: string } })?.data;
+    const subscriberData = subscriberResponse.data.data;
     
     return NextResponse.json(
       { 
