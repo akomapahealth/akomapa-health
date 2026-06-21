@@ -5,6 +5,8 @@ import Image from "next/image";
 import { Mail } from "lucide-react";
 import { useTheme } from "@/components/theme/ThemeProvider";
 import { useEffect, useState } from "react";
+import Newsletter from "@/components/shared/NewsLetter";
+import { BRAND } from "@/config/brand";
 
 const footerLinkClass =
   "text-floralwhite/80 transition-colors hover:text-[#F5C94D] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F5C94D] focus-visible:ring-offset-2 focus-visible:ring-offset-[#4F5554]";
@@ -48,11 +50,10 @@ export default function Footer() {
               />
             </Link>
             <p className="mt-4 font-body text-floralwhite/80">
-              Improving health outcomes and access to quality healthcare through community-centered solutions.
+              {BRAND.footerMission}
             </p>
             <p className="font-body text-sm text-floralwhite/70">
-              Registered in the United States and Ghana<br />
-              501(c)(3) tax-exempt nonprofit organization in the U.S.
+              {BRAND.legalNotice}
             </p>
             <div className="flex space-x-4 pt-2">
               <a href="https://www.facebook.com/people/Akomapa-health/100070235658941/" target="_blank" rel="noreferrer" className={footerSocialLinkClass} aria-label="Facebook">
@@ -83,65 +84,55 @@ export default function Footer() {
             <h3 className="mb-4 font-heading text-lg font-bold tracking-tight">Quick Links</h3>
             <ul className="space-y-2.5 font-body text-sm leading-relaxed md:text-base">
               <li>
-                <Link href="/about" className={footerLinkClass}>
-                  About Us
+                <Link href="/philosophy" className={footerLinkClass}>
+                  Our Philosophy
                 </Link>
               </li>
               <li>
-                <Link href="/programs" className={footerLinkClass}>
-                  Our Programs
-                </Link>
-              </li>
-              {/* <li>
-                <Link href="/resources" className={footerLinkClass}>
-                  Resources
-                </Link>
-              </li> */}
-              {/* <li>
-                <Link href="/news" className={footerLinkClass}>
-                  News & Updates
-                </Link>
-              </li> */}
-              <li>
-                <Link href="/contact" className={footerLinkClass}>
-                  Contact Us
+                <Link href="/academy" className={footerLinkClass}>
+                  Academy
                 </Link>
               </li>
               <li>
-                <Link href="/donate" className={footerLinkClass}>
-                  Partner with Us
+                <Link href="/ncd-impact" className={footerLinkClass}>
+                  NCD Impact
+                </Link>
+              </li>
+              <li>
+                <Link href="/partnerships" className={footerLinkClass}>
+                  Partnerships
+                </Link>
+              </li>
+              <li>
+                <Link href="/impact" className={footerLinkClass}>
+                  Impact
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Programs */}
+          {/* Initiatives */}
           <div>
-            <h3 className="mb-4 font-heading text-lg font-bold tracking-tight">Our Core Programs</h3>
+            <h3 className="mb-4 font-heading text-lg font-bold tracking-tight">Our Initiatives</h3>
             <ul className="space-y-2.5 font-body text-sm leading-relaxed md:text-base">
               <li>
-                <Link href="/programs/akomapa-network" className={footerLinkClass}>
-                  The Akomapa Network
+                <Link href="/community-hubs" className={footerLinkClass}>
+                  Community Health Hubs
                 </Link>
               </li>
               <li>
-                <Link href="/programs/akomapa-ghltp" className={footerLinkClass}>
-                  Akomapa GHLTP
+                <Link href="/academy" className={footerLinkClass}>
+                  Academy
                 </Link>
               </li>
               <li>
-                <Link href="/programs/akomapa-ghip" className={footerLinkClass}>
-                  Akomapa GHIP
+                <Link href="/research" className={footerLinkClass}>
+                  Research &amp; Innovation
                 </Link>
               </li>
               <li>
-                <Link href="/programs/akomapa-young-advocates" className={footerLinkClass}>
-                  Akomapa Young Advocates
-                </Link>
-              </li>
-              <li>
-                <Link href="/programs/akomapa-foods" className={footerLinkClass}>
-                  Akomapa Foods
+                <Link href="/get-involved" className={footerLinkClass}>
+                  Get Involved
                 </Link>
               </li>
             </ul>
@@ -178,6 +169,8 @@ export default function Footer() {
             </div>
           </div>
         </div>
+
+        <Newsletter />
 
         <div className="mt-10 flex flex-col items-center justify-between border-t border-floralwhite/20 pt-6 md:flex-row">
           <p className="font-body text-sm text-floralwhite/70">
