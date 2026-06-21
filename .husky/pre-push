@@ -3,6 +3,8 @@
 # Bypass (emergency only): git push --no-verify  OR  HUSKY=0 git push
 set -e
 
+export PATH="/opt/homebrew/opt/node@20/bin:$PATH"
+
 echo ""
 echo "=== pre-push: ESLint (full project) ==="
 npm run lint

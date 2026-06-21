@@ -3,6 +3,8 @@
 # Bypass (emergency only): HUSKY=0 git commit ...
 set -e
 
+export PATH="/opt/homebrew/opt/node@20/bin:$PATH"
+
 echo ""
 echo "=== pre-commit: lint-staged (ESLint) ==="
 npx lint-staged
