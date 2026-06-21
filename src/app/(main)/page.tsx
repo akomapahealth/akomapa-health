@@ -1,5 +1,6 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import dynamic from "next/dynamic";
+import { BRAND } from "@/config/brand";
 import HeroSection from "@/components/home/HeroSection";
 import AkomapaMeaningSection from "@/components/home/AkomapaMeaningSection";
 import ProgramsOverview from "@/components/home/ProgramsOverview";
@@ -19,8 +20,10 @@ const UpdatesFeed = dynamic(() => import("@/components/home/UpdatesFeed"));
 const CallToAction = dynamic(() => import("@/components/home/CallToAction"));
 
 export const metadata: Metadata = {
-  title: "Akomapa Health - Improving Healthcare Access and Outcomes",
-  description: "Akomapa Health is dedicated to improving healthcare access and outcomes in underserved communities through sustainable initiatives and partnerships.",
+  title: {
+    absolute: `Akomapa Health - ${BRAND.tagline}`,
+  },
+  description: BRAND.heroSubheadline,
 };
 
 export default function Home() {
