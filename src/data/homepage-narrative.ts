@@ -73,7 +73,7 @@ export const silentEpidemicContent = {
       suffix: " million",
       label: "people died from an NCD before age 70 in 2021",
     },
-  ] satisfies readonly NcdNarrativeMetric[],
+  ] as readonly NcdNarrativeMetric[],
   source: {
     label: "World Health Organization, September 25, 2025",
     href: "https://www.who.int/news-room/fact-sheets/detail/noncommunicable-diseases",
