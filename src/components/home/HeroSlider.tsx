@@ -13,6 +13,7 @@ import "swiper/css/effect-fade";
 import "swiper/css/pagination";
 
 import HeroSlide, { type HeroSlideContent } from "@/components/home/HeroSlide";
+import HeroMetrics from "@/components/home/HeroMetrics";
 
 // HeroVideoModal pulls in Radix Dialog + iframe wiring that's only needed
 // when the user actually clicks a video CTA — defer it out of the initial
@@ -208,6 +209,12 @@ export default function HeroSlider({ height = "full" }: Props) {
         })}
       </Swiper>
 
+      <div className="absolute inset-x-0 bottom-0 z-10 px-4 pb-16 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-[var(--container-max,80rem)]">
+          <HeroMetrics />
+        </div>
+      </div>
+
       {slides.length > 1 && (
         <>
           <button
@@ -228,7 +235,7 @@ export default function HeroSlider({ height = "full" }: Props) {
           </button>
 
           <div
-            className="absolute bottom-8 left-1/2 z-20 flex -translate-x-1/2 items-center gap-3"
+            className="absolute bottom-4 left-1/2 z-20 flex -translate-x-1/2 items-center gap-3"
             role="tablist"
             aria-label="Hero slides"
             data-testid="hero-slider-pagination"
