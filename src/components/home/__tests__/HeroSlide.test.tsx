@@ -41,13 +41,13 @@ describe("HeroSlide — brand variant", () => {
   it("renders the headline and the two primary CTAs", () => {
     render(<HeroSlide content={brandSlide} isActive isPrimary />);
     expect(
-      screen.getByRole("heading", { level: 1, name: /global partnership/i })
+      screen.getByRole("heading", { level: 1, name: /ethical.*global health.*leaders/i })
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("link", { name: /join the movement/i })
-    ).toHaveAttribute("href", "/get-involved");
+      screen.getByRole("link", { name: /explore the academy/i })
+    ).toHaveAttribute("href", "/academy");
     expect(
-      screen.getByRole("link", { name: /support our work/i })
+      screen.getByRole("link", { name: /partner with us/i })
     ).toHaveAttribute("href", "/partnerships");
   });
 });
