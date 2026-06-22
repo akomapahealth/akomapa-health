@@ -34,14 +34,14 @@ describe("trackEvent", () => {
       name: "hero_cta_click",
       slide_id: "brand-intro",
       cta_text: "Join the Movement",
-      cta_link: "/join",
+      cta_link: "/get-involved",
     });
 
     expect(gtag).toHaveBeenCalledTimes(1);
     expect(gtag).toHaveBeenCalledWith("event", "hero_cta_click", {
       slide_id: "brand-intro",
       cta_text: "Join the Movement",
-      cta_link: "/join",
+      cta_link: "/get-involved",
     });
   });
 

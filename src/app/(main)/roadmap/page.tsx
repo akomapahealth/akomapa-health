@@ -303,7 +303,7 @@ export default function RoadmapPage() {
                 size="lg"
                 className="bg-[#FCFAEF] text-[#0097b2] hover:bg-[#FCFAEF]/90 font-semibold"
               >
-                <Link href="/partner">
+                <Link href="/partnerships">
                   <span className="flex items-center">
                     Partner With Us <ArrowRight size={20} className="ml-2" />
                   </span>
@@ -313,7 +313,7 @@ export default function RoadmapPage() {
                 size="lg"
                 className="bg-[#eeba2b] text-[#FCFAEF] hover:bg-[#F5C94D] font-semibold"
               >
-                <Link href="/partner">
+                <Link href="/partnerships">
                   <span className="flex items-center">
                     Donate <Heart size={20} className="ml-2" />
                   </span>

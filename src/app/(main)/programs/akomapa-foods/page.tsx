@@ -161,10 +161,10 @@ export default function FoodsPage() {
                 className="mt-8 flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4"
               >
                 <Button asChild className={primaryCtaClass}>
-                  <Link href="/partners">Partner with Us</Link>
+                  <Link href="/partnerships">Partner with Us</Link>
                 </Button>
                 <Button asChild className={secondaryCtaClass}>
-                  <Link href="/join">Support the Launch</Link>
+                  <Link href="/get-involved">Support the Launch</Link>
                 </Button>
                 <Button asChild className={secondaryCtaClass}>
                   <Link href="/donate">Donate</Link>
@@ -469,10 +469,10 @@ export default function FoodsPage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
               <Button asChild className={primaryCtaClass}>
-                <Link href="/partners">Partner with Us</Link>
+                <Link href="/partnerships">Partner with Us</Link>
               </Button>
               <Button asChild className={outlineCtaClass}>
-                <Link href="/join">Support the Launch</Link>
+                <Link href="/get-involved">Support the Launch</Link>
               </Button>
               <Button asChild className={secondaryCtaClass}>
                 <Link href="/donate">Donate</Link>

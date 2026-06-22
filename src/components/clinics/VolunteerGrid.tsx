@@ -143,7 +143,7 @@ export default function VolunteerGrid() {
           className="text-center"
         >
           <Link
-            href="/join"
+            href="/get-involved"
             className="inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-base font-medium bg-[#0097b2] hover:bg-[#0097b2]/80 text-[#FCFAEF] shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#8DD4E6]"
           >
             Join Our Team

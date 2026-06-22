@@ -100,7 +100,7 @@ const partnerClinics = [
     name: "Akomapa UCC Clinic",
     location: "University of Cape Coast, Ghana",
     description: "Our first clinic and proof of concept—serving over 1,000 patients while training 75+ students.",
-    href: "/clinics/akomapa-ucc",
+    href: "/community-hubs/ucc",
     logo: "/images/partners/akomapa-logo.png",
     accentColor: "#0097b2"
   },
@@ -192,10 +192,10 @@ export default function AkomapaNetworkPage() {
             className="mt-8 flex flex-wrap gap-4"
             >
               <Button asChild className={primaryCtaClass}>
-                <Link href="/join">Join the Network</Link>
+                <Link href="/get-involved">Join the Network</Link>
               </Button>
               <Button asChild className={secondaryCtaClass}>
-                <Link href="/partner">Partner with Us</Link>
+                <Link href="/partnerships">Partner with Us</Link>
               </Button>
             </motion.div>
           </div>
@@ -549,7 +549,7 @@ export default function AkomapaNetworkPage() {
                 asChild
                 className="bg-[#0097b2] hover:bg-[#0097b2]/80 text-[#FCFAEF] font-semibold px-8 py-6 h-auto"
               >
-                <Link href="/partner" className="flex items-center whitespace-nowrap">
+                <Link href="/partnerships" className="flex items-center whitespace-nowrap">
                   Join the Network
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
@@ -559,7 +559,7 @@ export default function AkomapaNetworkPage() {
                 variant="outline"
                 className="border-2 border-[#0097b2] text-[#0097b2] hover:bg-[#0097b2] hover:text-[#FCFAEF] font-semibold px-8 py-6 h-auto"
               >
-                <Link href="/partner" className="flex items-center whitespace-nowrap">
+                <Link href="/partnerships" className="flex items-center whitespace-nowrap">
                   Propose a Partnership
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>

@@ -567,7 +567,7 @@ export default function TeamPage() {
                   <Link href="/contact">Meet with Us</Link>
                 </Button>
                 <Button asChild className={secondaryCtaClass}>
-                  <Link href="/join">Join the Movement</Link>
+                  <Link href="/get-involved">Join the Movement</Link>
                 </Button>
               </div>
             </FadeIn>
@@ -679,10 +679,10 @@ export default function TeamPage() {
           <FadeIn direction="up" delay={0.2}>
             <div className="flex flex-wrap gap-3 sm:gap-4 justify-center">
               <Button asChild className={primaryCtaClass}>
-                <Link href="/partner">Partner with Akomapa</Link>
+                <Link href="/partnerships">Partner with Akomapa</Link>
               </Button>
               <Button asChild className={secondaryCtaClass}>
-                <Link href="/join">Apply to Serve</Link>
+                <Link href="/get-involved">Apply to Serve</Link>
               </Button>
             </div>
           </FadeIn>
