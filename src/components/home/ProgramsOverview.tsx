@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, KeyboardEvent } from "react";
+import { useState } from "react";
+import type { KeyboardEvent } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "@/components/common/Image";
@@ -8,9 +9,9 @@ import { ArrowRight, Stethoscope, Network, GraduationCap, Globe2 } from "lucide-
 import type { LucideIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ProgramModal from "@/components/shared/ProgramModal";
-import { Program } from "@/lib/types";
+import type { Program } from "@/lib/types";
 
-type Pillar = {
+type HomepagePillar = {
   id: number;
   title: string;
   shortDescription: string;
@@ -28,7 +29,7 @@ type Pillar = {
   ctaLabel: string;
 };
 
-const pillars: Pillar[] = [
+const pillars: HomepagePillar[] = [
   {
     id: 1,
     title: "Akomapa Clinics",
@@ -159,7 +160,7 @@ export default function ProgramsOverview() {
   const [selectedProgram, setSelectedProgram] = useState<Program | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const openProgramModal = (pillar: Pillar) => {
+  const openProgramModal = (pillar: HomepagePillar) => {
     const program: Program = {
       id: pillar.id.toString(),
       title: pillar.title,
@@ -184,7 +185,7 @@ export default function ProgramsOverview() {
     setSelectedProgram(null);
   };
 
-  const handleCardKeyDown = (event: KeyboardEvent<HTMLDivElement>, pillar: Pillar) => {
+  const handleCardKeyDown = (event: KeyboardEvent<HTMLDivElement>, pillar: HomepagePillar) => {
     if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();
       openProgramModal(pillar);
