@@ -12,86 +12,31 @@ import { useTheme } from "@/components/theme/ThemeProvider";
 
 // Navigation structure
 const navigation = [
-  { name: "Home", href: "/" },
-  { 
-    name: "About", 
+  {
+    name: "About",
     href: "/about",
     children: [
-      { 
-        name: "Our Mission", 
-        href: "/#mission", 
-        onClick: (e: React.MouseEvent) => {
-          e.preventDefault();
-          const currentPath = window.location.pathname;
-          if (currentPath !== '/') {
-            window.location.href = '/#mission';
-          } else {
-            const missionSection = document.getElementById('mission');
-            if (missionSection) {
-              missionSection.scrollIntoView({ behavior: 'smooth' });
-            }
-          }
-        }
-      },
+      { name: "Our Story", href: "/about" },
       { name: "Our Team", href: "/about/team" },
-      // { 
-      //   name: "Our Science", 
-      //   href: "/research", 
-      //   onClick: (e: React.MouseEvent) => {
-      //     e.preventDefault();
-      //     const currentPath = window.location.pathname;
-      //     if (currentPath !== '/') {
-      //       window.location.href = '/research';
-      //     } else {
-      //       const researchSection = document.getElementById('research');
-      //       if (researchSection) {
-      //         researchSection.scrollIntoView({ behavior: 'smooth' });
-      //       }
-      //     }
-      //   }
-      // },
-      { 
-        name: "Our Partners", 
-        href: "/#research", 
-        onClick: (e: React.MouseEvent) => {
-          e.preventDefault();
-          const currentPath = window.location.pathname;
-          if (currentPath !== '/') {
-            window.location.href = '/#research';
-          } else {
-            const researchSection = document.getElementById('research');
-            if (researchSection) {
-              researchSection.scrollIntoView({ behavior: 'smooth' });
-            }
-          }
-        }
-      },
-    ]
+      { name: "Our Philosophy", href: "/philosophy" },
+    ],
   },
-  { 
-    name: "Our Clinics", 
-    href: "/clinics",
+  { name: "Academy", href: "/academy" },
+  {
+    name: "Community Health Hubs",
+    href: "/community-hubs",
     children: [
-      { name: "Akomapa UCC", href: "/clinics/akomapa-ucc" },
-      { name: "Akomapa UG", href: "/clinics/akomapa-ug" },
-      { name: "Akomapa - NHP, Yale", href: "/clinics/akomapa-nhp" },
-    ]
+      { name: "All Hubs", href: "/community-hubs" },
+      { name: "Akomapa UCC Hub", href: "/community-hubs/ucc" },
+      { name: "Akomapa UG Hub", href: "/community-hubs/ug" },
+      { name: "Akomapa NHP Yale Hub", href: "/community-hubs/nhp" },
+    ],
   },
-  { 
-    name: "Our Programs", 
-    href: "/programs",
-    children: [
-      { name: "The Akomapa Network", href: "/programs/akomapa-network" },
-      { name: "Akomapa GHLTP", href: "/programs/akomapa-ghltp" },
-      { name: "Akomapa GHIP", href: "/programs/akomapa-ghip" },
-      { name: "Akomapa Young Advocates", href: "/programs/akomapa-young-advocates" },
-      { name: "Akomapa Foods", href: "/programs/akomapa-foods" },
-    ]
-  },
-  { name: "Our Science", href: "/research" },
-  { name: "News", href: "/news" },
-  { name: "Get Involved", href: "/join" },
-  { name: "Contact", href: "/contact" },
+  { name: "NCD Impact", href: "/ncd-impact" },
+  { name: "Research & Innovation", href: "/research" },
+  { name: "Impact", href: "/impact" },
+  { name: "Partnerships", href: "/partnerships" },
+  { name: "Get Involved", href: "/get-involved" },
 ];
 
 function HeaderContent() {
@@ -149,7 +94,7 @@ function HeaderContent() {
           {/* Desktop Navigation and Actions - Right Aligned */}
           <div className="hidden xl:flex items-center gap-6 ml-auto 2xl:gap-8">
             {/* Desktop Navigation */}
-            <nav className="flex items-center gap-5 2xl:gap-6">
+            <nav className="flex items-center gap-3 2xl:gap-5">
               {navigation.map((item) => (
                 <div key={item.name} className="relative group">
                   <Link 
@@ -174,7 +119,6 @@ function HeaderContent() {
                           <Link
                             key={child.name}
                             href={child.href}
-                            onClick={child.onClick}
                             className={`block px-4 py-2 text-sm font-body ${
                               pathname === child.href 
                                 ? 'bg-[#0097b2]/10 dark:bg-[#0097b2]/20 text-[#0097b2] dark:text-[#FCFAEF]' 
@@ -192,12 +136,12 @@ function HeaderContent() {
               ))}
             </nav>
 
-            {/* Partner button and Theme Toggle */}
+            {/* Donate button and Theme Toggle */}
             <div className="flex items-center gap-3">
               <Button 
                 className="bg-[#0097b2] px-5 text-[#FCFAEF] hover:bg-[#0097b2]/80 hover:text-[#FCFAEF] font-subheading font-medium"
               >
-                <Link href="/partner">Partner With Us</Link>
+                <Link href="/donate">Donate</Link>
               </Button>
               <ThemeToggle />
             </div>
