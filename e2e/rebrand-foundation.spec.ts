@@ -143,7 +143,7 @@ test.describe("Akomapa rebrand foundation", () => {
       });
     });
 
-    await page.goto("/", { waitUntil: "domcontentloaded" });
+    await page.goto("/", { waitUntil: "networkidle" });
 
     const newsletter = page.locator("[data-newsletter]");
     await newsletter.scrollIntoViewIfNeeded();
@@ -154,6 +154,9 @@ test.describe("Akomapa rebrand foundation", () => {
       name: "Subscribe",
       exact: true,
     });
+
+    // Ensure the form is hydrated before interacting
+    await expect(subscribeButton).toBeEnabled();
 
     await emailInput.fill("not-an-email");
     await subscribeButton.click();

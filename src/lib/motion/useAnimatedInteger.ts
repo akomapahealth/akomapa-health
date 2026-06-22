@@ -53,7 +53,7 @@ type MetricLike = { value: number };
  * Parallel count-up for multiple metrics (single rAF loop).
  */
 export function useAnimatedMetricValues<T extends MetricLike>(
-  metrics: T[],
+  metrics: readonly T[],
   isInView: boolean,
   durationMs = 2000
 ): number[] {
