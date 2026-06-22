@@ -10,6 +10,7 @@ import { TAG_COLORS } from "@/data/announcement-colors";
 import type { Announcement } from "@/lib/types";
 import { getAnnouncementPosterSrc } from "@/lib/video-utils";
 import { trackEvent } from "@/lib/analytics";
+import { BRAND } from "@/config/brand";
 
 export type BrandSlideContent = {
   variant: "brand";
@@ -162,52 +163,49 @@ function BrandSlide({ content, isPrimary }: { content: BrandSlideContent; isPrim
             className="text-left"
           >
             <h1 className="font-heading hero-heading-shadow mb-6 text-4xl tracking-tight text-balance text-[#FCFAEF] md:text-5xl lg:text-6xl xl:text-7xl leading-[1.02] md:leading-[1.04]">
-              Can a{" "}
-              <span className="text-[#8DD4E6] dark:text-[#B0E8F5]">global partnership</span> of{" "}
-              <span className="text-[#eeba2b]">students</span> lead the fight against{" "}
-              <span className="text-[#8DD4E6] dark:text-[#B0E8F5]">non-communicable diseases</span>?
+              Building the Next Generation of{" "}
+              <span className="text-[#eeba2b]">Ethical</span>{" "}
+              <span className="text-[#8DD4E6] dark:text-[#B0E8F5]">Global Health</span>{" "}
+              <span className="text-[#eeba2b]">Leaders</span>
             </h1>
 
             <p className="font-body hero-body-shadow mb-8 max-w-2xl text-xl font-medium leading-relaxed text-[#FCFAEF] md:text-2xl">
-              Student-powered.{" "}
-              <span className="text-[#8DD4E6] dark:text-[#B0E8F5]">Expert-supervised</span>. Community-rooted.
-              <br />
-              Akomapa is redefining preventative primary care.
+              {BRAND.heroSubheadline}
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 flex-wrap">
               <Button asChild size="lg" className={ctaButtonClass}>
                 <Link
-                  href="/get-involved"
+                  href={BRAND.heroPrimaryCTA.href}
                   className="flex items-center space-x-2"
                   onClick={() =>
                     trackEvent({
                       name: "hero_cta_click",
                       slide_id: content.id,
-                      cta_text: "Join the Movement",
-                      cta_link: "/get-involved",
+                      cta_text: BRAND.heroPrimaryCTA.label,
+                      cta_link: BRAND.heroPrimaryCTA.href,
                     })
                   }
                 >
-                  <span>Join the Movement</span>
+                  <span>{BRAND.heroPrimaryCTA.label}</span>
                   <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
                 </Link>
               </Button>
 
               <Button asChild size="lg" className={secondaryCtaClass}>
                 <Link
-                  href="/partnerships"
+                  href={BRAND.heroSecondaryCTA.href}
                   className="flex items-center space-x-2"
                   onClick={() =>
                     trackEvent({
                       name: "hero_cta_click",
                       slide_id: content.id,
-                      cta_text: "Support Our Work",
-                      cta_link: "/partnerships",
+                      cta_text: BRAND.heroSecondaryCTA.label,
+                      cta_link: BRAND.heroSecondaryCTA.href,
                     })
                   }
                 >
-                  <span>Support Our Work</span>
+                  <span>{BRAND.heroSecondaryCTA.label}</span>
                   <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
                 </Link>
               </Button>
