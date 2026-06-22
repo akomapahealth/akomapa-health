@@ -4,9 +4,9 @@ import { motion } from "framer-motion";
 import Image from "@/components/common/Image";
 import {
   ArrowUpRight,
-  ClipboardList,
   HeartPulse,
-  Microscope,
+  LineChart,
+  Stethoscope,
   WifiOff,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -16,28 +16,28 @@ const SCREENSHOT_SRC = "/images/nkwapa.png";
 
 const features = [
   {
-    icon: WifiOff,
-    title: "Offline-first by design",
-    description:
-      "Document visits and continue workflows when connectivity is unreliable.",
-  },
-  {
-    icon: ClipboardList,
-    title: "Streamlined clinic workflow",
-    description:
-      "Supports day-to-day operations so teams can focus on patients, not paperwork.",
-  },
-  {
     icon: HeartPulse,
-    title: "Continuous patient management",
+    title: "Continuity for every patient",
     description:
-      "Keeps records organised for follow-up, referrals, and longitudinal care.",
+      "Connects screening, visit history, referrals, and follow-up so care does not end when an outreach day does.",
   },
   {
-    icon: Microscope,
-    title: "Community care + research continuity",
+    icon: Stethoscope,
+    title: "Training with clinical oversight",
     description:
-      "Infrastructure that strengthens frontline care and feeds evidence-led improvement.",
+      "Gives student teams structured workflows while helping supervisors review care and reinforce responsible practice.",
+  },
+  {
+    icon: WifiOff,
+    title: "Built for low connectivity",
+    description:
+      "Keeps essential patient-management workflows moving in settings where internet access is limited or unreliable.",
+  },
+  {
+    icon: LineChart,
+    title: "Evidence for improvement",
+    description:
+      "Consistent data capture supports quality improvement, community learning, and stronger health-system decisions.",
   },
 ] as const;
 
@@ -77,14 +77,14 @@ export default function NkwapaSection() {
                     <span className="h-2.5 w-2.5 rounded-full bg-[#28C840]/90" />
                   </div>
                   <div className="min-w-0 flex-1 rounded-md bg-[#E6E7E7]/60 px-3 py-1 text-center text-xs font-medium text-[#2F3332]/70 dark:bg-[#2F3332] dark:text-[#E6E7E7]/80">
-                    staging.nkwapa.app
+                    Nkwapa · Patient Management System
                   </div>
                 </div>
 
                 <div className="relative h-[420px] md:h-[520px] lg:h-[600px]">
                   <Image
                     src={SCREENSHOT_SRC}
-                    alt="Nkwapa EMR product screenshot"
+                    alt="Nkwapa patient management system dashboard"
                     fill
                     sizes="(min-width: 1024px) 42vw, 100vw"
                     className="object-cover object-top"
@@ -105,28 +105,28 @@ export default function NkwapaSection() {
             viewport={{ once: true }}
           >
             <div className="flex max-w-3xl flex-col gap-6 md:gap-8">
-              <p className="text-lg font-bold uppercase tracking-wide text-[#F5C94D]">
-                Introducing NKWAPA
+              <p className="text-lg font-bold uppercase tracking-wide text-[#0097b2] dark:text-[#F5C94D]">
+                Responsible Health Innovation
               </p>
 
-              <div className="inline-flex w-fit items-center rounded-full bg-skobeloff/10 px-3 py-1 text-sm font-semibold text-skobeloff dark:bg-[#66C4DC]/15 dark:text-[#66C4DC]">
-                New · Public beta
+              <div className="inline-flex w-fit items-center rounded-full bg-[#0097b2]/10 px-3 py-1 text-sm font-semibold text-[#0097b2] dark:bg-[#66C4DC]/15 dark:text-[#66C4DC]">
+                Akomapa-built · Public beta
               </div>
 
               <h2
                 id={headingId}
                 className="font-heading text-3xl font-bold leading-tight text-[#1C1F1E] dark:text-[#FCFAEF] md:text-4xl lg:text-[2.5rem]"
               >
-                An offline-first EMR built for community clinics.
+                Nkwapa connects care, learning, and evidence.
               </h2>
 
               <p className="text-lg leading-relaxed text-[#2F3332]/85 dark:text-[#E6E7E7]/85">
-                Nkwapa is Akomapa&apos;s electronic medical records platform —
-                purpose-built infrastructure for student-powered clinics in
-                resource-limited settings. When connectivity drops, care
-                shouldn&apos;t: teams capture visits, manage patients, and keep
-                workflows moving while staying anchored in community health and
-                continuity of care.
+                Nkwapa is Akomapa&apos;s offline-first patient management
+                system, built to help community health hubs deliver safer, more
+                continuous care while strengthening student training. It
+                supports screening, visit documentation, referrals, follow-up,
+                clinical supervision, and responsible use of program data—even
+                when connectivity is limited.
               </p>
 
               <ul
@@ -140,7 +140,7 @@ export default function NkwapaSection() {
                     className="rounded-2xl border border-[#0097b2]/12 bg-white/80 p-4 shadow-sm backdrop-blur-sm dark:border-[#2F3332] dark:bg-[#2F3332]/40"
                   >
                     <div className="flex gap-3">
-                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-skobeloff/10 text-skobeloff dark:bg-[#66C4DC]/15 dark:text-[#66C4DC]">
+                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#0097b2]/10 text-[#0097b2] dark:bg-[#66C4DC]/15 dark:text-[#66C4DC]">
                         <Icon className="h-5 w-5" aria-hidden="true" />
                       </div>
                       <div className="min-w-0 space-y-1">
@@ -167,9 +167,9 @@ export default function NkwapaSection() {
                     target="_blank"
                     rel="noopener noreferrer"
                     data-testid="nkwapa-cta"
-                    aria-label="View Nkwapa demo (opens in a new tab)"
+                    aria-label="Explore Nkwapa demo (opens in a new tab)"
                   >
-                    View Demo
+                    Explore Nkwapa
                     <ArrowUpRight className="h-5 w-5 shrink-0" aria-hidden="true" />
                   </a>
                 </Button>

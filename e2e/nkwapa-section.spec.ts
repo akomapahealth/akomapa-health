@@ -18,13 +18,13 @@ async function dismissAnnouncementPopup(page: Page) {
   }, announcementCampaign.version);
 }
 
-test.describe("Nkwapa homepage placement", () => {
+test.describe("Nkwapa homepage section", () => {
   test.beforeEach(async ({ page }) => {
     await dismissAnnouncementPopup(page);
   });
 
   for (const viewport of viewports) {
-    test(`${viewport.name}: dedicated section is replaced while the announcement remains`, async ({
+    test(`${viewport.name}: patient management section supports the impact narrative`, async ({
       page,
     }) => {
       await page.setViewportSize({
@@ -33,13 +33,30 @@ test.describe("Nkwapa homepage placement", () => {
       });
       await page.goto("/", { waitUntil: "domcontentloaded" });
 
-      await expect(page.getByTestId("nkwapa-section")).toHaveCount(0);
+      const section = page.getByTestId("nkwapa-section");
+      await section.scrollIntoViewIfNeeded();
+      await expect(section).toBeVisible();
       await expect(
-        page.getByRole("tab", {
-          name: "Go to slide 5: Introducing Nkwapa — Our EMR Platform",
+        section.getByRole("heading", {
+          level: 2,
+          name: "Nkwapa connects care, learning, and evidence.",
           exact: true,
         }),
       ).toBeVisible();
+      await expect(section.getByTestId("nkwapa-feature")).toHaveCount(4);
+
+      const image = section.getByTestId("nkwapa-screenshot");
+      await expect(image).toBeVisible();
+      await expect(image).toHaveAttribute(
+        "alt",
+        "Nkwapa patient management system dashboard",
+      );
+
+      const cta = section.getByTestId("nkwapa-cta");
+      await expect(cta).toBeVisible();
+      await expect(cta).toHaveAttribute("href", "https://staging.nkwapa.app");
+      await expect(cta).toHaveAttribute("target", "_blank");
+      await expect(cta).toHaveAttribute("rel", /noopener/);
     });
   }
 });

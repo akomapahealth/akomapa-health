@@ -9,6 +9,7 @@ import SilentEpidemicSection from "@/components/home/SilentEpidemicSection";
 import ImpactMetrics from "@/components/home/ImpactMetrics";
 import AcademyPreviewSection from "@/components/home/AcademyPreviewSection";
 import CommunityHubsPreviewSection from "@/components/home/CommunityHubsPreviewSection";
+import NkwapaSection from "@/components/home/NkwapaSection";
 import ResearchSection from "@/components/home/ResearchSection";
 
 // Below-the-fold sections — split into their own chunks so the initial
@@ -37,6 +38,7 @@ export default function Home() {
       <ImpactMetrics />
       <AcademyPreviewSection />
       <CommunityHubsPreviewSection />
+      <NkwapaSection />
       <ResearchSection />
       <UpdatesFeed />
       <Testimonials />

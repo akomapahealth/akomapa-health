@@ -79,6 +79,7 @@ test.describe("Akomapa rebrand foundation", () => {
       "Measured in people, partnerships, and momentum",
       "Training Ethical Leaders for a Changing World",
       "Community Health Hubs",
+      "Nkwapa connects care, learning, and evidence.",
       "Designed with Evidence. Driven by Collaboration.",
     ];
 
@@ -99,7 +100,6 @@ test.describe("Akomapa rebrand foundation", () => {
     await expect(
       page.getByText('In Akan, Akomapa means "a good heart."'),
     ).toHaveCount(0);
-    await expect(page.getByTestId("nkwapa-section")).toHaveCount(0);
     await expect(
       page.getByRole("heading", {
         name: /responding to a global health crisis/i,
