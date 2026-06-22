@@ -1,17 +1,6 @@
 import { academyOverview } from "@/data/academy";
 import { communityHubs } from "@/data/community-hubs";
 
-export type HomepageNarrativeImage = {
-  src: string;
-  alt: string;
-  position?: string;
-};
-
-export type HomepageNarrativeCta = {
-  label: string;
-  href: string;
-};
-
 export type NcdNarrativeMetric = {
   id: string;
   value: number;

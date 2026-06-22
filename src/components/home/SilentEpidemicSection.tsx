@@ -16,7 +16,7 @@ export default function SilentEpidemicSection() {
   return (
     <section
       aria-labelledby={headingId}
-      className="relative isolate overflow-hidden bg-gradient-to-br from-onyx-900 via-[#123C42] to-[#075E6E] py-16 text-floralwhite md:py-24"
+      className="relative isolate overflow-hidden bg-gradient-to-br from-[#121514] via-[#123C42] to-[#075E6E] py-16 text-[#FCFAEF] md:py-24"
     >
       <div
         aria-hidden="true"
@@ -39,23 +39,23 @@ export default function SilentEpidemicSection() {
               />
               <div
                 aria-hidden="true"
-                className="absolute inset-0 bg-gradient-to-t from-onyx-900/65 via-transparent to-transparent"
+                className="absolute inset-0 bg-gradient-to-t from-[#121514]/65 via-transparent to-transparent"
               />
             </div>
           </FadeIn>
 
           <div className="lg:col-span-7">
             <FadeIn direction="left">
-              <p className="mb-4 font-subheading text-sm font-bold uppercase tracking-[0.18em] text-amber-300">
+              <p className="mb-4 font-subheading text-sm font-bold uppercase tracking-[0.18em] text-[#F5C94D]">
                 Why We Began
               </p>
               <h2
                 id={headingId}
-                className="font-heading text-4xl font-bold leading-tight text-floralwhite md:text-5xl lg:text-6xl"
+                className="font-heading text-4xl font-bold leading-tight text-[#FCFAEF] md:text-5xl lg:text-6xl"
               >
                 {silentEpidemicContent.heading}
               </h2>
-              <p className="mt-6 text-lg leading-relaxed text-floralwhite/85 md:text-xl">
+              <p className="mt-6 text-lg leading-relaxed text-[#FCFAEF]/85 md:text-xl">
                 {silentEpidemicContent.body}
               </p>
             </FadeIn>
@@ -73,7 +73,7 @@ export default function SilentEpidemicSection() {
                     >
                       <dd
                         aria-label={accessibleValue}
-                        className="font-heading text-3xl font-bold text-amber-300 lg:text-4xl"
+                        className="font-heading text-3xl font-bold text-[#F5C94D] lg:text-4xl"
                       >
                         <AnimatedMetric
                           value={metric.value}
@@ -81,7 +81,7 @@ export default function SilentEpidemicSection() {
                           suffix={metric.suffix}
                         />
                       </dd>
-                      <dt className="mt-2 text-sm leading-snug text-floralwhite/80">
+                      <dt className="mt-2 text-sm leading-snug text-[#FCFAEF]/80">
                         {metric.label}
                       </dt>
                     </dl>
@@ -95,7 +95,7 @@ export default function SilentEpidemicSection() {
                 href={silentEpidemicContent.source.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-sm text-floralwhite/75 underline decoration-floralwhite/35 underline-offset-4 hover:text-amber-300"
+                className="inline-flex items-center gap-2 text-sm text-[#FCFAEF]/75 underline decoration-[#FCFAEF]/35 underline-offset-4 hover:text-[#F5C94D]"
               >
                 {silentEpidemicContent.source.label}
                 <ExternalLink className="h-4 w-4" aria-hidden="true" />
@@ -107,8 +107,7 @@ export default function SilentEpidemicSection() {
               <Button
                 asChild
                 size="lg"
-                variant="amber"
-                className="h-auto rounded-half px-8 py-4 text-base shadow-lg md:text-lg"
+                className="h-auto rounded-half bg-[#eeba2b] px-8 py-4 text-base text-[#1C1F1E] shadow-lg hover:bg-[#FCFAEF] hover:text-[#1C1F1E] md:text-lg"
               >
                 <Link href={silentEpidemicContent.cta.href}>
                   {silentEpidemicContent.cta.label}
