@@ -13,7 +13,6 @@ type NavigationItem = {
   name: string;
   href: string;
   children?: NavigationItem[];
-  onClick?: (e: React.MouseEvent) => void;
 };
 
 type MobileNavProps = {
@@ -114,12 +113,7 @@ function MobileNavContent({ isOpen, onClose, navigation }: MobileNavProps) {
                           <Link
                             key={child.name}
                             href={child.href}
-                            onClick={(e) => {
-                              if (child.onClick) {
-                                child.onClick(e);
-                              }
-                              onClose();
-                            }}
+                            onClick={onClose}
                             className={`block rounded-md px-3 py-2 font-body text-sm leading-snug ${
                               pathname === child.href 
                                 ? 'bg-[#0097b2]/10 dark:bg-[#0097b2]/20 text-[#0097b2] dark:text-[#FCFAEF]' 
@@ -138,7 +132,7 @@ function MobileNavContent({ isOpen, onClose, navigation }: MobileNavProps) {
                   <Button 
                     className="min-h-12 w-full bg-[#0097b2] text-[#FCFAEF] hover:bg-[#0097b2]/80 hover:text-[#FCFAEF] font-subheading font-medium"
                   >
-                    <Link href="/partner" onClick={onClose}>Partner With Us</Link>
+                    <Link href="/donate" onClick={onClose}>Donate</Link>
                   </Button>
                 </div>
               </div>
