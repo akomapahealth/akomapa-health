@@ -24,10 +24,10 @@ export const BRAND = {
 
   // Hero metrics
   heroMetrics: [
-    { value: "2,000+", label: "Community Members Screened" },
-    { value: "300+", label: "Student Leaders Trained" },
-    { value: "4", label: "University Partnerships" },
-    { value: "2,000+", label: "Community Members Reached" },
+    { value: 2000, suffix: "+", label: "Community Members Screened" },
+    { value: 300, suffix: "+", label: "Student Leaders Trained" },
+    { value: 4, suffix: "", label: "University Partnerships" },
+    { value: 2000, suffix: "+", label: "Community Members Reached" },
   ],
 
   // Organization description
