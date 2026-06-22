@@ -45,7 +45,7 @@ export default function SilentEpidemicSection() {
           </FadeIn>
 
           <div className="lg:col-span-7">
-            <FadeIn direction="left">
+            <FadeIn>
               <p className="mb-4 font-subheading text-sm font-bold uppercase tracking-[0.18em] text-[#F5C94D]">
                 Why We Began
               </p>

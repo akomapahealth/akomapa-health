@@ -24,7 +24,7 @@ export default function GoodIntentionsSection() {
 
       <div className="container relative z-10 mx-auto px-4">
         <div className="grid items-center gap-10 md:grid-cols-2 md:gap-14 lg:gap-20">
-          <FadeIn direction="right" className="order-2 md:order-1">
+          <FadeIn className="order-2 md:order-1">
             <div className="max-w-2xl">
               <p className="mb-4 font-subheading text-sm font-bold uppercase tracking-[0.18em] text-[#0097b2] dark:text-[#66C4DC]">
                 A Different Future

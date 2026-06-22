@@ -66,6 +66,52 @@ test.describe("Akomapa rebrand foundation", () => {
     );
   });
 
+  test("composes the homepage in the repositioned narrative order", async ({
+    page,
+  }) => {
+    await page.goto("/", { waitUntil: "domcontentloaded" });
+
+    const narrativeHeadings = [
+      "Good Intentions Are Not Enough",
+      "Students Have Always Changed Healthcare",
+      "Students. Communities. Partnerships. One Vision for Health.",
+      "The Silent Epidemic",
+      "Measured in people, partnerships, and momentum",
+      "Training Ethical Leaders for a Changing World",
+      "Community Health Hubs",
+      "Designed with Evidence. Driven by Collaboration.",
+    ];
+
+    const headingOrder = await page.locator("main").evaluate(
+      (main, expectedHeadings) => {
+        const headings = Array.from(
+          main.querySelectorAll("h1, h2, h3, h4"),
+        ).map((heading) => heading.textContent?.trim());
+
+        return expectedHeadings.map((heading) => headings.indexOf(heading));
+      },
+      narrativeHeadings,
+    );
+
+    expect(headingOrder.every((index) => index >= 0)).toBe(true);
+    expect(headingOrder).toEqual([...headingOrder].sort((a, b) => a - b));
+
+    await expect(
+      page.getByText('In Akan, Akomapa means "a good heart."'),
+    ).toHaveCount(0);
+    await expect(page.getByTestId("nkwapa-section")).toHaveCount(0);
+    await expect(
+      page.getByRole("heading", {
+        name: /responding to a global health crisis/i,
+      }),
+    ).toHaveCount(0);
+    await expect(
+      page.getByRole("heading", {
+        name: /local impact with national potential/i,
+      }),
+    ).toHaveCount(0);
+  });
+
   test("renders the new footer mission and navigation", async ({ page }) => {
     await page.goto("/", { waitUntil: "domcontentloaded" });
 
