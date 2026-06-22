@@ -21,6 +21,42 @@ const nextConfig: NextConfig = {
         destination: "/terms",
         permanent: true,
       },
+      // Rebrand route renames
+      {
+        source: "/clinics",
+        destination: "/community-hubs",
+        permanent: true,
+      },
+      {
+        source: "/clinics/akomapa-ucc",
+        destination: "/community-hubs/ucc",
+        permanent: true,
+      },
+      {
+        source: "/clinics/akomapa-ug",
+        destination: "/community-hubs/ug",
+        permanent: true,
+      },
+      {
+        source: "/clinics/akomapa-nhp",
+        destination: "/community-hubs/nhp",
+        permanent: true,
+      },
+      {
+        source: "/join",
+        destination: "/get-involved",
+        permanent: true,
+      },
+      {
+        source: "/partner",
+        destination: "/partnerships",
+        permanent: true,
+      },
+      {
+        source: "/partner/corporate-sponsorship",
+        destination: "/partnerships/corporate-sponsorship",
+        permanent: true,
+      },
     ];
   },
   experimental: {
