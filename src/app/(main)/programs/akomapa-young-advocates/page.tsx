@@ -230,10 +230,10 @@ export default function YoungAdvocatesPage() {
               className="mt-8 flex flex-wrap gap-4"
             >
               <Button asChild className={primaryCtaClass}>
-                <Link href="/partner">Partner with Us</Link>
+                <Link href="/partnerships">Partner with Us</Link>
               </Button>
               <Button asChild className={secondaryCtaClass}>
-                <Link href="/join">Volunteer as a University Student</Link>
+                <Link href="/get-involved">Volunteer as a University Student</Link>
               </Button>
             </motion.div>
           </div>
@@ -675,13 +675,13 @@ export default function YoungAdvocatesPage() {
             </p>
             <div className="flex flex-col sm:flex-row sm:flex-wrap gap-4 justify-center">
               <Button asChild className={primaryCtaClass}>
-                <Link href="/partner" className="flex items-center">
+                <Link href="/partnerships" className="flex items-center">
                   Partner with Us
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
               <Button asChild className={secondaryCtaClass}>
-                <Link href="/join" className="flex items-center">
+                <Link href="/get-involved" className="flex items-center">
                   Volunteer as a Student
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>

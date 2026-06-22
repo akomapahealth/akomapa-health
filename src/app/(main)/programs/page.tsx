@@ -34,7 +34,7 @@ const programs: Program[] = [
       "Community-rooted model transforms trusted spaces into care hubs accessible to families",
       "Free services focus on NCD screening, counseling, and referrals with cultural sensitivity"
     ],
-    href: "/clinics",
+    href: "/community-hubs",
     icon: Building,
     color: "#0097b2",
     bgGradient: "from-[#0097b2]/10 to-[#0097b2]/5",
@@ -448,7 +448,7 @@ export default function ProgramsPage() {
                   size="lg"
                   className="group bg-[#FCFAEF] text-[#0097b2] hover:bg-[#F5C94D] hover:text-[#1C1F1E] px-6 sm:px-8 py-6 h-auto text-base sm:text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
                 >
-                  <Link href="/partner" className="flex items-center whitespace-nowrap">
+                  <Link href="/partnerships" className="flex items-center whitespace-nowrap">
                     Partner with Us
                     <ArrowRight className="h-5 w-5 ml-2 group-hover:translate-x-1 transition-transform" />
                   </Link>

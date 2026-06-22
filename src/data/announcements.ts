@@ -80,7 +80,7 @@ export const announcementCampaign: AnnouncementCampaign = {
         "Our University of Ghana clinic is now open, bringing NCD screening, education, and preventive care directly to the Legon campus community.",
       image: "/highlights/ug.jpg",
       ctaText: "Visit Clinic",
-      ctaLink: "/clinics/akomapa-ug",
+      ctaLink: "/community-hubs/ug",
       isExternal: false,
     },
     {
@@ -93,7 +93,7 @@ export const announcementCampaign: AnnouncementCampaign = {
         "Our University of Cape Coast partnership has expanded to serve four surrounding communities with regular health screenings and education programs.",
       image: "/highlights/ucc.jpg",
       ctaText: "See Communities",
-      ctaLink: "/clinics",
+      ctaLink: "/community-hubs",
       isExternal: false,
     },
     {

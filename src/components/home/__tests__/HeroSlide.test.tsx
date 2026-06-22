@@ -45,10 +45,10 @@ describe("HeroSlide — brand variant", () => {
     ).toBeInTheDocument();
     expect(
       screen.getByRole("link", { name: /join the movement/i })
-    ).toHaveAttribute("href", "/join");
+    ).toHaveAttribute("href", "/get-involved");
     expect(
       screen.getByRole("link", { name: /support our work/i })
-    ).toHaveAttribute("href", "/partner");
+    ).toHaveAttribute("href", "/partnerships");
   });
 });
 

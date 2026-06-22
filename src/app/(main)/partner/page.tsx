@@ -1072,7 +1072,7 @@ export default function PartnerPage() {
                   asChild
                   className="group bg-[#FCFAEF] text-[#0097b2] hover:bg-[#F5C94D] hover:text-[#1C1F1E] mt-6 sm:mt-8"
                 >
-                  <a href="/partner/corporate-sponsorship" className="flex items-center">
+                  <a href="/partnerships/corporate-sponsorship" className="flex items-center">
                     Learn More About Corporate Sponsorship
                     <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                   </a>

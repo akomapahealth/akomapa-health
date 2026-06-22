@@ -178,14 +178,14 @@ function BrandSlide({ content, isPrimary }: { content: BrandSlideContent; isPrim
             <div className="flex flex-col sm:flex-row gap-4 flex-wrap">
               <Button asChild size="lg" className={ctaButtonClass}>
                 <Link
-                  href="/join"
+                  href="/get-involved"
                   className="flex items-center space-x-2"
                   onClick={() =>
                     trackEvent({
                       name: "hero_cta_click",
                       slide_id: content.id,
                       cta_text: "Join the Movement",
-                      cta_link: "/join",
+                      cta_link: "/get-involved",
                     })
                   }
                 >
@@ -196,14 +196,14 @@ function BrandSlide({ content, isPrimary }: { content: BrandSlideContent; isPrim
 
               <Button asChild size="lg" className={secondaryCtaClass}>
                 <Link
-                  href="/partner"
+                  href="/partnerships"
                   className="flex items-center space-x-2"
                   onClick={() =>
                     trackEvent({
                       name: "hero_cta_click",
                       slide_id: content.id,
                       cta_text: "Support Our Work",
-                      cta_link: "/partner",
+                      cta_link: "/partnerships",
                     })
                   }
                 >

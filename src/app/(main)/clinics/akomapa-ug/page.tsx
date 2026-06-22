@@ -332,7 +332,7 @@ export default function UGClinicPage() {
             className="pt-2"
           >
             <Link 
-              href="/clinics" 
+              href="/community-hubs" 
               className="inline-flex items-center text-[#FCFAEF]/80 hover:text-[#FCFAEF] transition-colors text-sm font-medium"
             >
               <ArrowLeft className="mr-2 h-4 w-4" />
@@ -385,7 +385,7 @@ export default function UGClinicPage() {
                 <Link href="/donate" className="whitespace-nowrap">Donate</Link>
               </Button>
               <Button asChild className={secondaryCtaClass}>
-                <Link href="/partners" className="whitespace-nowrap">Partner with Us</Link>
+                <Link href="/partnerships" className="whitespace-nowrap">Partner with Us</Link>
               </Button>
             </motion.div>
           </div>
@@ -762,7 +762,7 @@ export default function UGClinicPage() {
         primaryHref={LEADERSHIP_APP_FORM_URL}
         openInNewTab
         secondaryButtons={[
-          { label: "Partner with Us", href: "/partners" },
+          { label: "Partner with Us", href: "/partnerships" },
           { label: "Donate", href: "/donate" },
         ]}
       />

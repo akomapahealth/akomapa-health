@@ -202,7 +202,7 @@ export default function GHIPPage() {
               className="mt-8 flex flex-wrap gap-4"
             >
               <Button asChild className={primaryCtaClass}>
-                <Link href="/join">Apply Now</Link>
+                <Link href="/get-involved">Apply Now</Link>
               </Button>
               <Button asChild className={secondaryCtaClass}>
                 <Link href="/#">Request Program Brochure</Link>
@@ -605,7 +605,7 @@ export default function GHIPPage() {
                 asChild
                 className={primaryCtaClass}
               >
-                <Link href="/join" className="flex items-center">
+                <Link href="/get-involved" className="flex items-center">
                   Apply Now
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
@@ -617,7 +617,7 @@ export default function GHIPPage() {
                 </Link>
               </Button>
               <Button asChild className={secondaryCtaClass}>
-                <Link href="/partner" className="flex items-center">
+                <Link href="/partnerships" className="flex items-center">
                   Partner as a Faculty Mentor
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>

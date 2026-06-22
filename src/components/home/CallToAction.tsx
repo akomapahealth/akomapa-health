@@ -12,7 +12,7 @@ const joinWays = [
     description:
       "Co-design student-powered clinics and leadership pathways with universities, hospitals, and NGOs committed to reimagining preventative care.",
     icon: Building2,
-    href: "/partner",
+    href: "/partnerships",
     ctaLabel: "Explore Partnerships"
   },
   {
@@ -20,7 +20,7 @@ const joinWays = [
     description:
       "Provide scholarships, clinical supervision, or operating support so students can deliver consistent, community-rooted primary care.",
     icon: GraduationCap,
-    href: "/sponsor",
+    href: "/donate",
     ctaLabel: "Fund a Program"
   },
   {
@@ -28,7 +28,7 @@ const joinWays = [
     description:
       "Mentor students, support clinic operations, or lend technical skills that strengthen emerging health leaders across Ghana.",
     icon: Users,
-    href: "/join",
+    href: "/get-involved",
     ctaLabel: "Apply to Volunteer"
   },
   {
@@ -78,7 +78,7 @@ export default function CallToAction() {
                 className="flex flex-col md:flex-row items-center gap-4 md:gap-6"
               >
                 <Button className="bg-[#FCFAEF] text-[#0097b2] hover:bg-[#F5C94D] hover:text-[#1C1F1E] px-6 py-6 h-auto text-lg font-semibold">
-                  <Link href="/join" className="flex items-center">
+                  <Link href="/get-involved" className="flex items-center">
                     <Users size={20} className="mr-2" />
                     Volunteer
                   </Link>
@@ -99,7 +99,7 @@ export default function CallToAction() {
                   variant="outline"
                   className="border-[#FCFAEF] text-[#FCFAEF] hover:text-[#1C1F1E] hover:bg-[#FCFAEF] px-6 py-6 h-auto text-lg font-semibold"
                 >
-                  <Link href="/partner" className="flex items-center">
+                  <Link href="/partnerships" className="flex items-center">
                     <Building2 size={20} className="mr-2" />
                     Partner With Us
                   </Link>

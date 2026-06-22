@@ -491,7 +491,7 @@ export default function CorporateSponsorshipPage() {
                     <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 ml-2 group-hover:translate-x-1 transition-transform" />
                   </Button>
                 </a>
-                <a href="/partner">
+                <a href="/partnerships">
                   <Button 
                     variant="outline" 
                     size="lg" 

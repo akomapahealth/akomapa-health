@@ -17,7 +17,7 @@ export default function CorporateCTA() {
           </p>
           <Button asChild variant="amber">
             <Link
-              href="/partner/corporate-sponsorship"
+              href="/partnerships/corporate-sponsorship"
               onClick={() =>
                 trackEvent({ name: "donation_cta_click", location: "donate_corporate_cta" })
               }

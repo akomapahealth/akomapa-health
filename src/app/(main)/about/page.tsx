@@ -308,7 +308,7 @@ export default function AboutPage() {
               viewport={{ once: true }}
             >
               <Link 
-                href="/partner" 
+                href="/partnerships" 
                 className="group relative rounded-2xl bg-[#FCFAEF]/10 backdrop-blur-md border border-[#FCFAEF]/15 p-6 sm:p-8 hover:bg-[#FCFAEF]/15 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 h-full flex flex-col"
               >
                 <div className="flex items-center gap-2 mb-4">
