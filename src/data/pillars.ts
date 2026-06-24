@@ -6,7 +6,11 @@ export const pillars: Pillar[] = [
     title: "Combat the NCD Epidemic",
     description:
       "Improving access to prevention, screening, education, and care for non-communicable diseases in underserved communities.",
-    icon: "HeartPulse",
+    image: {
+      src: "/highlights/Akomapa-62.jpg",
+      alt: "Akomapa health screening volunteers working with community members",
+      position: "center",
+    },
     color: "#0097b2",
     features: [
       "Community Screening",
@@ -21,7 +25,11 @@ export const pillars: Pillar[] = [
     title: "Develop Future Leaders",
     description:
       "Equipping students with ethical leadership skills and mentorship to become the next generation of global health leaders.",
-    icon: "GraduationCap",
+    image: {
+      src: "/highlights/Akomapa-20.jpg",
+      alt: "Akomapa student leaders learning together during a community health program",
+      position: "center",
+    },
     color: "#eeba2b",
     features: [
       "Ethical Leadership Academy",
@@ -36,7 +44,11 @@ export const pillars: Pillar[] = [
     title: "Strengthen Communities",
     description:
       "Building long-term, equitable partnerships with communities to improve health outcomes and advance health equity.",
-    icon: "Users",
+    image: {
+      src: "/highlights/ucc.jpg",
+      alt: "Akomapa community health hub partners gathered at the University of Cape Coast",
+      position: "center",
+    },
     color: "#0F4C5C",
     features: [
       "Community Partnerships",
@@ -51,7 +63,11 @@ export const pillars: Pillar[] = [
     title: "Advance Innovation",
     description:
       "Developing scalable solutions that strengthen health systems through research, technology, and quality improvement.",
-    icon: "Lightbulb",
+    image: {
+      src: "/highlights/Akomapa-28.jpg",
+      alt: "Akomapa students reviewing research and health systems work together",
+      position: "center",
+    },
     color: "#66C4DC",
     features: [
       "Nkwapa EMR",

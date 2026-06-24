@@ -3,107 +3,62 @@
 import Link from "next/link";
 import type { CSSProperties } from "react";
 import {
-  ArrowRight,
-  GraduationCap,
-  HeartPulse,
-  Lightbulb,
-  Users,
-  type LucideIcon,
-} from "lucide-react";
-import {
   FadeIn,
   FadeInStagger,
   FadeInStaggerItem,
 } from "@/components/animations";
+import Image from "@/components/common/Image";
 import {
-  IconBadge,
   PublicSection,
   PublicSectionHeader,
-  SurfaceCard,
 } from "@/components/shared/PublicPagePrimitives";
 import { pillars } from "@/data/pillars";
-import type { Pillar, PillarIconName } from "@/lib/types";
-
-const pillarIcons: Record<PillarIconName, LucideIcon> = {
-  HeartPulse,
-  GraduationCap,
-  Users,
-  Lightbulb,
-};
+import type { Pillar } from "@/lib/types";
 
 function PillarCard({ pillar }: { pillar: Pillar }) {
-  const Icon = pillarIcons[pillar.icon];
   const cardStyle = {
-    borderTopColor: pillar.color,
+    "--pillar-accent": pillar.color,
     "--homepage-hover-border-color": pillar.color,
   } as CSSProperties;
 
   return (
     <article className="h-full">
-      <SurfaceCard
-        interactive
-        accentColor={pillar.color}
+      <Link
+        href={pillar.link}
+        aria-label={`Learn more about ${pillar.title}`}
         data-testid="program-pillar-card"
         data-pillar-id={pillar.id}
         data-accent-color={pillar.color}
-        className="group flex h-full flex-col overflow-hidden border-t-4 p-0"
+        className="homepage-hover-card group flex h-full flex-col overflow-hidden rounded-lg border border-[#D8D6C8] bg-white shadow-[0_18px_44px_rgba(28,31,30,0.08)] outline-none transition-colors focus-visible:ring-2 focus-visible:ring-[#0097b2] focus-visible:ring-offset-2 focus-visible:ring-offset-[#FCFAEF] dark:border-[#2F3332] dark:bg-[#1C1F1E] dark:shadow-[0_18px_44px_rgba(0,0,0,0.22)] dark:focus-visible:ring-[#66C4DC] dark:focus-visible:ring-offset-[#121514]"
         style={cardStyle}
       >
-        <Link
-          href={pillar.link}
-          aria-label={`Learn more about ${pillar.title}`}
-          className="flex h-full flex-col rounded-xl p-6 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0097b2] focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-[#66C4DC] dark:focus-visible:ring-offset-[#121514]"
-        >
-          <div className="flex items-start gap-4">
-            <IconBadge
-              className="h-12 w-12"
-              style={
-                {
-                  backgroundColor: `${pillar.color}1A`,
-                  color: pillar.color,
-                } as CSSProperties
-              }
-            >
-              <Icon className="h-6 w-6" aria-hidden="true" />
-            </IconBadge>
-            <h3 className="text-xl font-bold leading-tight text-[#1C1F1E] dark:text-[#FCFAEF]">
-              {pillar.title}
-            </h3>
-          </div>
+        <div className="relative aspect-[4/3] overflow-hidden bg-[#1C1F1E]">
+          <Image
+            src={pillar.image.src}
+            alt={pillar.image.alt}
+            fill
+            sizes="(min-width: 1280px) 25vw, (min-width: 768px) 50vw, 100vw"
+            className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.035] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+            style={{ objectPosition: pillar.image.position }}
+          />
+          <div
+            aria-hidden="true"
+            className="absolute inset-x-0 bottom-0 h-px bg-[var(--pillar-accent)]"
+          />
+        </div>
 
-          <p className="mt-5 flex-1 text-base leading-relaxed text-[#2F3332]/85 dark:text-[#E6E7E7]/85">
+        <div className="flex flex-1 flex-col p-6">
+          <h3 className="font-heading text-2xl font-bold leading-tight text-[#1C1F1E] dark:text-[#FCFAEF]">
+            {pillar.title}
+          </h3>
+          <p className="mt-4 flex-1 text-base leading-relaxed text-[#2F3332]/82 dark:text-[#E6E7E7]/78">
             {pillar.description}
           </p>
-
-          <div className="mt-6 flex flex-wrap gap-2" aria-label={`${pillar.title} features`}>
-            {pillar.features.map((feature) => (
-              <span
-                key={feature}
-                className="rounded-full border px-3 py-1 text-xs font-bold leading-5 text-[#1C1F1E] dark:text-[#FCFAEF]"
-                style={
-                  {
-                    borderColor: `${pillar.color}66`,
-                    backgroundColor: `${pillar.color}1A`,
-                  } as CSSProperties
-                }
-              >
-                {feature}
-              </span>
-            ))}
-          </div>
-
-          <span
-            className="mt-8 inline-flex items-center text-sm font-bold transition-colors group-hover:text-[#eeba2b] dark:group-hover:text-[#F5C94D]"
-            style={{ color: pillar.color }}
-          >
+          <span className="mt-8 w-fit border-b border-[var(--pillar-accent)] pb-1 text-sm font-bold text-[#1C1F1E] transition-colors group-hover:text-[var(--pillar-accent)] dark:text-[#FCFAEF]">
             Learn More
-            <ArrowRight
-              className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1 motion-reduce:transition-none motion-reduce:group-hover:translate-x-0"
-              aria-hidden="true"
-            />
           </span>
-        </Link>
-      </SurfaceCard>
+        </div>
+      </Link>
     </article>
   );
 }

@@ -19,7 +19,6 @@ describe("ProgramsOverview", () => {
 
       expect(card).toBeDefined();
       expect(card).toHaveAttribute("data-accent-color", pillar.color);
-      expect(card).toHaveStyle({ borderTopColor: pillar.color });
 
       expect(
         within(card as HTMLElement).getByRole("heading", {
@@ -28,15 +27,19 @@ describe("ProgramsOverview", () => {
         }),
       ).toBeVisible();
       expect(within(card as HTMLElement).getByText(pillar.description)).toBeVisible();
+      expect(card).toHaveAccessibleName(`Learn more about ${pillar.title}`);
+      expect(card).toHaveAttribute("href", pillar.link);
       expect(
-        within(card as HTMLElement).getByRole("link", {
-          name: `Learn more about ${pillar.title}`,
+        within(card as HTMLElement).getByRole("img", {
+          name: pillar.image.alt,
         }),
-      ).toHaveAttribute("href", pillar.link);
+      ).toHaveAttribute("src", pillar.image.src);
 
       for (const feature of pillar.features) {
-        expect(within(card as HTMLElement).getByText(feature)).toBeVisible();
+        expect(within(card as HTMLElement).queryByText(feature)).not.toBeInTheDocument();
       }
+
+      expect((card as HTMLElement).querySelector("svg")).toBeNull();
     }
   });
 });

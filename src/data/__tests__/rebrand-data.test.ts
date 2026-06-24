@@ -40,10 +40,11 @@ describe("rebrand content data", () => {
     for (const pillar of pillars) {
       expect(pillar.title).toBeTruthy();
       expect(pillar.description.length).toBeGreaterThan(40);
+      expect(pillar.image.src).toMatch(/^\/[a-z0-9-/.]+$/i);
+      expect(pillar.image.alt.length).toBeGreaterThan(20);
       expect(pillar.features).toHaveLength(4);
       expect(pillar.link).toMatch(/^\/[a-z0-9-/]+$/);
       expect(pillar.color).toMatch(/^#[0-9a-f]{6}$/i);
-      expect(pillar.icon in LucideIcons).toBe(true);
     }
   });
 

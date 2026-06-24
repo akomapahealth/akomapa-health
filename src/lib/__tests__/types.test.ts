@@ -32,7 +32,10 @@ describe("rebrand data model contracts", () => {
       id: "academy",
       title: "Akomapa Academy",
       description: "Developing ethical global health leaders.",
-      icon: "GraduationCap",
+      image: {
+        src: "/highlights/Akomapa-20.jpg",
+        alt: "Akomapa student leaders learning together",
+      },
       color: "cyan",
       features: ["Leadership curriculum", "Faculty mentorship"],
       link: "/academy",

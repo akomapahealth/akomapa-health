@@ -68,17 +68,17 @@ export interface Testimonial {
   image: string;
 }
 
-export type PillarIconName =
-  | "HeartPulse"
-  | "GraduationCap"
-  | "Users"
-  | "Lightbulb";
+export interface PillarImage {
+  src: string;
+  alt: string;
+  position?: string;
+}
 
 export interface Pillar {
   id: string;
   title: string;
   description: string;
-  icon: PillarIconName;
+  image: PillarImage;
   color: string;
   features: string[];
   link: string;
