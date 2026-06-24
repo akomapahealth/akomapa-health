@@ -130,6 +130,9 @@ describe("rebrand content data", () => {
     expect(studentsChangedContent.heading).toBe(
       "Students Have Always Changed Healthcare",
     );
+    expect(studentsChangedContent.cta.href).toBe("/philosophy");
+    expect(studentsChangedContent.image.src).toMatch(/^\/[a-z0-9-/.]+$/i);
+    expect(studentsChangedContent.image.alt.length).toBeGreaterThan(20);
     expect(academyPreviewContent.heading).toBe(academyOverview.title);
     expect(academyPreviewContent.body).toBe(academyOverview.description);
 

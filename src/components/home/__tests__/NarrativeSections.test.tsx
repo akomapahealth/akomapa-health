@@ -36,7 +36,7 @@ describe("homepage narrative sections", () => {
     ).toBeInTheDocument();
   });
 
-  it("renders the Students Changed statement as a labelled section", () => {
+  it("renders the Students Changed statement with image and philosophy CTA", () => {
     render(<StudentsChangedSection />);
 
     const section = screen.getByRole("region", {
@@ -50,6 +50,16 @@ describe("homepage narrative sections", () => {
       }),
     ).toBeInTheDocument();
     expect(within(section).getByText(studentsChangedContent.body)).toBeVisible();
+    expect(
+      within(section).getByRole("link", {
+        name: studentsChangedContent.cta.label,
+      }),
+    ).toHaveAttribute("href", studentsChangedContent.cta.href);
+    expect(
+      within(section).getByRole("img", {
+        name: studentsChangedContent.image.alt,
+      }),
+    ).toBeInTheDocument();
   });
 
   it("renders the Silent Epidemic narrative, verified metrics, and impact CTA", () => {
