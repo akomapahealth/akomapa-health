@@ -257,6 +257,8 @@ export default function PartnerPage() {
                   {/* Tab Buttons */}
                   <div className="relative flex gap-2">
                     <button
+                      type="button"
+                      aria-pressed={activeSection === "partner"}
                       onClick={() => setActiveSection("partner")}
                       className={`flex-1 relative z-10 py-4 sm:py-5 px-4 sm:px-6 rounded-2xl text-center font-semibold text-sm sm:text-base md:text-lg transition-all duration-300 cursor-pointer flex items-center justify-center gap-2 ${
                         activeSection === "partner"
@@ -276,6 +278,8 @@ export default function PartnerPage() {
                       </motion.span>
                     </button>
                     <button
+                      type="button"
+                      aria-pressed={activeSection === "one-time"}
                       onClick={() => setActiveSection("one-time")}
                       className={`flex-1 relative z-10 py-4 sm:py-5 px-4 sm:px-6 rounded-2xl text-center font-semibold text-sm sm:text-base md:text-lg transition-all duration-300 cursor-pointer ${
                         activeSection === "one-time"
@@ -457,7 +461,9 @@ export default function PartnerPage() {
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 mb-8">
                     {partnerAmounts.map((amount) => (
                       <button
+                        type="button"
                         key={amount.value}
+                        aria-pressed={selectedPartnerAmount === amount.value}
                         onClick={() => setSelectedPartnerAmount(amount.value)}
                         className={`p-3 md:p-4 rounded-xl border-2 transition-all duration-300 hover:shadow-lg ${
                           selectedPartnerAmount === amount.value
@@ -744,7 +750,9 @@ export default function PartnerPage() {
                   <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 md:gap-4 mb-8">
                     {oneTimeAmounts.map((amount) => (
                       <button
+                        type="button"
                         key={amount.value}
+                        aria-pressed={selectedOneTimeAmount === amount.value}
                         onClick={() => setSelectedOneTimeAmount(amount.value)}
                         className={`p-3 md:p-4 rounded-xl border-2 transition-all duration-300 hover:shadow-lg ${
                           selectedOneTimeAmount === amount.value
