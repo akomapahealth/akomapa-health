@@ -1,5 +1,4 @@
-import { ArrowRight, ExternalLink } from "lucide-react";
-import Link from "next/link";
+import { ExternalLink } from "lucide-react";
 import {
   FadeIn,
   FadeInStagger,
@@ -7,26 +6,22 @@ import {
 } from "@/components/animations";
 import Image from "@/components/common/Image";
 import { AnimatedMetric } from "@/components/motion/AnimatedMetric";
-import { Button } from "@/components/ui/button";
+import {
+  MediaFrame,
+  PublicCta,
+  PublicSection,
+  SectionEyebrow,
+} from "@/components/shared/PublicPagePrimitives";
 import { silentEpidemicContent } from "@/data/homepage-narrative";
 
 export default function SilentEpidemicSection() {
   const headingId = "silent-epidemic-heading";
 
   return (
-    <section
-      aria-labelledby={headingId}
-      className="relative isolate overflow-hidden bg-gradient-to-br from-[#121514] via-[#123C42] to-[#075E6E] py-16 text-[#FCFAEF] md:py-24"
-    >
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_85%_15%,rgba(238,186,43,0.2),transparent_28%),radial-gradient(circle_at_10%_90%,rgba(0,151,178,0.32),transparent_34%)]"
-      />
-
-      <div className="container mx-auto px-4">
+    <PublicSection aria-labelledby={headingId} tone="teal">
         <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-16">
           <FadeIn direction="right" className="lg:col-span-5">
-            <div className="relative mx-auto aspect-[4/5] w-full max-w-xl overflow-hidden rounded-[2rem] border border-white/15 shadow-2xl">
+            <MediaFrame className="mx-auto w-full max-w-xl" aspect="portrait">
               <Image
                 src={silentEpidemicContent.image.src}
                 alt={silentEpidemicContent.image.alt}
@@ -41,14 +36,12 @@ export default function SilentEpidemicSection() {
                 aria-hidden="true"
                 className="absolute inset-0 bg-gradient-to-t from-[#121514]/65 via-transparent to-transparent"
               />
-            </div>
+            </MediaFrame>
           </FadeIn>
 
           <div className="lg:col-span-7">
             <FadeIn>
-              <p className="mb-4 font-subheading text-sm font-bold uppercase tracking-[0.18em] text-[#F5C94D]">
-                Why We Began
-              </p>
+              <SectionEyebrow tone="gold">Why We Began</SectionEyebrow>
               <h2
                 id={headingId}
                 className="font-heading text-4xl font-bold leading-tight text-[#FCFAEF] md:text-5xl lg:text-6xl"
@@ -69,7 +62,7 @@ export default function SilentEpidemicSection() {
                     <dl
                       data-testid="ncd-metric"
                       data-metric-id={metric.id}
-                      className="h-full rounded-2xl border border-white/15 bg-white/10 p-5 backdrop-blur-sm"
+                    className="h-full rounded-xl border border-white/15 bg-white/10 p-5 backdrop-blur-sm"
                     >
                       <dd
                         aria-label={accessibleValue}
@@ -104,20 +97,12 @@ export default function SilentEpidemicSection() {
             </FadeIn>
 
             <FadeIn delay={0.2} className="mt-8">
-              <Button
-                asChild
-                size="lg"
-                className="h-auto rounded-half bg-[#eeba2b] px-8 py-4 text-base text-[#1C1F1E] shadow-lg hover:bg-[#FCFAEF] hover:text-[#1C1F1E] md:text-lg"
-              >
-                <Link href={silentEpidemicContent.cta.href}>
-                  {silentEpidemicContent.cta.label}
-                  <ArrowRight className="ml-2 h-5 w-5" aria-hidden="true" />
-                </Link>
-              </Button>
+              <PublicCta href={silentEpidemicContent.cta.href} variant="gold">
+                {silentEpidemicContent.cta.label}
+              </PublicCta>
             </FadeIn>
           </div>
         </div>
-      </div>
-    </section>
+    </PublicSection>
   );
 }

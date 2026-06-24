@@ -2,8 +2,12 @@
 
 import { useState, useEffect, useCallback } from "react";
 import Image from "@/components/common/Image";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { X, ChevronLeft, ChevronRight, ChevronUp, ChevronDown } from "lucide-react";
+import {
+  PublicSection,
+  PublicSectionHeader,
+} from "@/components/shared/PublicPagePrimitives";
 
 // Define type for gallery items
 export type GalleryItem = {
@@ -185,6 +189,7 @@ export default function Gallery({ items }: GalleryProps = {}) {
   const [selectedImage, setSelectedImage] = useState<GalleryItem | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isExpanded, setIsExpanded] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
   
   // Filter gallery items based on selected category
   const filteredItems =
@@ -232,13 +237,14 @@ export default function Gallery({ items }: GalleryProps = {}) {
 
   // Prevent scrolling when lightbox is open
   useEffect(() => {
+    const previousOverflow = document.body.style.overflow;
+
     if (selectedImage) {
       document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
     }
+
     return () => {
-      document.body.style.overflow = "auto";
+      document.body.style.overflow = previousOverflow;
     };
   }, [selectedImage]);
 
@@ -263,19 +269,14 @@ export default function Gallery({ items }: GalleryProps = {}) {
   }, [filteredItems, currentIndex, selectedImage]);
 
   return (
-    <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E] overflow-x-hidden">
-      <div className="container mx-auto px-4">
-        <div className="text-center max-w-3xl mx-auto mb-12">
-          <h2 className="text-[#eeba2b] dark:text-[#F5C94D] font-bold text-lg mb-2">
-            OUR WORK IN ACTION
-          </h2>
-          <h3 className="text-3xl md:text-4xl font-bold mb-6 text-[#1C1F1E] dark:text-[#FCFAEF]">
-            Gallery
-          </h3>
-          <p className="text-[#2F3332] dark:text-[#E6E7E7] text-lg">
-            Highlight our students, community events, faculty supervisors, and pilot clinics in action offering a human view of our mission at work.
-          </p>
-        </div>
+    <PublicSection tone="cream" withTexture className="overflow-x-hidden">
+      <PublicSectionHeader
+        eyebrow="Our Work in Action"
+        eyebrowTone="gold"
+        title="Gallery"
+        description="Highlight our students, community events, faculty supervisors, and pilot clinics in action offering a human view of our mission at work."
+        className="mb-12"
+      />
 
         {/* Category filters */}
         <div className="flex flex-wrap justify-center gap-2 mb-8">
@@ -287,7 +288,7 @@ export default function Gallery({ items }: GalleryProps = {}) {
               className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
                 selectedCategory === category.id
                   ? "bg-[#0097b2] text-white"
-                  : "bg-gray-100 dark:bg-gray-800 text-[#2F3332] dark:text-[#E6E7E7] hover:bg-gray-200 dark:hover:bg-gray-700"
+                  : "bg-[#E6E7E7]/50 text-[#2F3332] hover:bg-[#E6E7E7] dark:bg-[#2F3332] dark:text-[#E6E7E7] dark:hover:bg-[#37413F]"
               }`}
             >
               {category.label}
@@ -305,16 +306,16 @@ export default function Gallery({ items }: GalleryProps = {}) {
               <motion.div
                 key={item.id}
                 layout
-                initial={{ opacity: 0 }}
+                initial={shouldReduceMotion ? false : { opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                transition={{ duration: 0.3 }}
+                transition={{ duration: shouldReduceMotion ? 0.01 : 0.3 }}
                 role="button"
                 tabIndex={0}
                 aria-label={`View ${item.alt}`}
                 className={`${
                   item.featured ? "sm:col-span-2 sm:row-span-2" : ""
-                } overflow-hidden rounded-lg shadow-md cursor-pointer hover:shadow-xl transition-shadow duration-300 bg-white dark:bg-[#2F3332] focus:outline-none focus:ring-2 focus:ring-[#0097b2] focus:ring-offset-2`}
+                } cursor-pointer overflow-hidden rounded-xl border border-[#E6E7E7] bg-white shadow-md transition-shadow duration-300 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-[#0097b2] focus:ring-offset-2 dark:border-[#2F3332] dark:bg-[#2F3332] dark:focus:ring-[#66C4DC] dark:focus:ring-offset-[#121514]`}
                 onClick={() => openLightbox(item, index)}
                 onKeyDown={(e) => {
                   if (e.key === "Enter" || e.key === " ") {
@@ -338,7 +339,7 @@ export default function Gallery({ items }: GalleryProps = {}) {
                       ? "(max-width: 640px) 100vw, (max-width: 1024px) 66vw, 50vw"
                       : "(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
                     }
-                    className="object-cover hover:scale-105 transition-transform duration-300"
+                    className="object-cover transition-transform duration-300 hover:scale-[1.03] motion-reduce:transform-none motion-reduce:transition-none"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end p-3">
                     <p className="text-white text-sm">{item.alt}</p>
@@ -354,9 +355,9 @@ export default function Gallery({ items }: GalleryProps = {}) {
           <div className="text-center mt-8">
             <motion.button
               onClick={() => setIsExpanded(!isExpanded)}
-              className="inline-flex items-center gap-2 px-6 py-3 bg-[#0097b2] text-white rounded-full font-medium hover:bg-[#005A55] transition-colors duration-200 shadow-lg hover:shadow-xl"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              className="inline-flex items-center gap-2 rounded-lg bg-[#0097b2] px-6 py-3 font-medium text-white shadow-lg transition-colors duration-200 hover:bg-[#005A55] hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-[#66C4DC] focus:ring-offset-2 dark:focus:ring-offset-[#121514]"
+              whileHover={shouldReduceMotion ? undefined : { scale: 1.03 }}
+              whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}
             >
               {isExpanded ? (
                 <>
@@ -377,9 +378,10 @@ export default function Gallery({ items }: GalleryProps = {}) {
         <AnimatePresence>
           {selectedImage && (
             <motion.div
-              initial={{ opacity: 0 }}
+              initial={shouldReduceMotion ? false : { opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
+              transition={{ duration: shouldReduceMotion ? 0.01 : 0.2 }}
               role="dialog"
               aria-modal="true"
               aria-label="Image lightbox"
@@ -434,7 +436,6 @@ export default function Gallery({ items }: GalleryProps = {}) {
             </motion.div>
           )}
         </AnimatePresence>
-      </div>
-    </section>
+    </PublicSection>
   );
 }

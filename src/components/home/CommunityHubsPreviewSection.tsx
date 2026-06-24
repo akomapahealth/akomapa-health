@@ -16,6 +16,10 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { communityHubsPreviewContent } from "@/data/homepage-narrative";
+import {
+  PublicSection,
+  PublicSectionHeader,
+} from "@/components/shared/PublicPagePrimitives";
 
 const statusLabels = {
   active: "Active",
@@ -27,29 +31,18 @@ export default function CommunityHubsPreviewSection() {
   const headingId = "community-hubs-preview-heading";
 
   return (
-    <section
+    <PublicSection
       aria-labelledby={headingId}
-      className="relative overflow-hidden bg-[#FCFAEF] py-16 text-[#1C1F1E] dark:bg-[#121514] dark:text-[#FCFAEF] md:py-24"
+      tone="cream"
     >
-      <div
-        aria-hidden="true"
-        className="absolute -right-24 top-12 h-72 w-72 rounded-full bg-[#0097b2]/10 blur-3xl dark:bg-[#0097b2]/15"
-      />
-
-      <div className="container relative z-10 mx-auto px-4">
-        <FadeIn className="mx-auto max-w-3xl text-center">
-          <p className="mb-4 font-subheading text-sm font-bold uppercase tracking-[0.18em] text-[#0097b2] dark:text-[#66C4DC]">
-            Care, Learning, and Partnership
-          </p>
-          <h2
-            id={headingId}
-            className="font-heading text-4xl font-bold leading-tight text-[#1C1F1E] dark:text-[#FCFAEF] md:text-5xl lg:text-6xl"
-          >
-            {communityHubsPreviewContent.heading}
-          </h2>
-          <p className="mt-5 text-lg leading-relaxed text-[#2F3332] dark:text-[#E6E7E7] md:text-xl">
-            {communityHubsPreviewContent.subheading}
-          </p>
+        <FadeIn>
+          <PublicSectionHeader
+            eyebrow="Care, Learning, and Partnership"
+            title={communityHubsPreviewContent.heading}
+            titleId={headingId}
+            description={communityHubsPreviewContent.subheading}
+            className="mb-12"
+          />
         </FadeIn>
 
         <FadeInStagger className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -60,7 +53,7 @@ export default function CommunityHubsPreviewSection() {
                   data-testid="community-hub-card"
                   data-hub-id={hub.id}
                   data-accent-color={hub.color}
-                  className="homepage-hover-card h-full gap-0 overflow-hidden border-x border-b border-t-4 border-white/10 bg-[#1C1F1E] py-0 text-[#FCFAEF] shadow-lg"
+                  className="homepage-hover-card h-full gap-0 overflow-hidden rounded-xl border-x border-b border-t-4 border-[#E6E7E7] bg-white py-0 text-[#1C1F1E] shadow-sm dark:border-[#2F3332] dark:bg-[#1C1F1E] dark:text-[#FCFAEF] dark:shadow-lg"
                   style={
                     {
                       borderTopColor: hub.color,
@@ -87,7 +80,7 @@ export default function CommunityHubsPreviewSection() {
 
                   <CardHeader className="px-6 pb-4 pt-6">
                     <CardTitle>
-                      <h3 className="text-2xl leading-tight text-[#FCFAEF]">
+                      <h3 className="text-2xl leading-tight text-[#1C1F1E] dark:text-[#FCFAEF]">
                         {hub.name}
                       </h3>
                     </CardTitle>
@@ -103,7 +96,7 @@ export default function CommunityHubsPreviewSection() {
                   </CardHeader>
 
                   <CardContent className="flex flex-1 flex-col px-6 pb-6">
-                    <CardDescription className="flex-1 text-base leading-relaxed text-[#E6E7E7]">
+                    <CardDescription className="flex-1 text-base leading-relaxed text-[#2F3332]/80 dark:text-[#E6E7E7]">
                       {hub.description}
                     </CardDescription>
                     <Button
@@ -128,7 +121,6 @@ export default function CommunityHubsPreviewSection() {
             </FadeInStaggerItem>
           ))}
         </FadeInStagger>
-      </div>
-    </section>
+    </PublicSection>
   );
 }

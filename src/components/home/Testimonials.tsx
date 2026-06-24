@@ -1,9 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import Image from "@/components/common/Image";
 import { ChevronLeft, ChevronRight, Quote } from "lucide-react";
+import { PublicSectionHeader } from "@/components/shared/PublicPagePrimitives";
 
 const testimonials = [
   {
@@ -32,9 +33,10 @@ const testimonials = [
 export default function Testimonials() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
-    if (isHovered) {
+    if (isHovered || shouldReduceMotion) {
       return;
     }
 
@@ -43,7 +45,7 @@ export default function Testimonials() {
     }, 30000);
 
     return () => clearInterval(timer);
-  }, [isHovered]);
+  }, [isHovered, shouldReduceMotion]);
   
   const handlePrevious = () => {
     setCurrentIndex((prev) => (prev === 0 ? testimonials.length - 1 : prev - 1));
@@ -54,19 +56,17 @@ export default function Testimonials() {
   };
   
   return (
-    <section className="overflow-x-hidden bg-gradient-to-r from-[#0097b2] to-[#0F4C5C] py-16 text-[#FCFAEF] md:py-24 dark:bg-[#1C1F1E]">
+    <section className="overflow-x-hidden bg-gradient-to-r from-[#0097b2] to-[#0F4C5C] py-16 text-[#FCFAEF] md:py-24 dark:from-[#121514] dark:to-[#0F4C5C]">
       <div className="container mx-auto px-4">
-        <div className="text-center max-w-3xl mx-auto mb-12">
-          <h2 className="text-[#F5C94D] font-bold text-lg mb-2">
-            VOICES FROM THE FIELD
-          </h2>
-          <h3 className="text-3xl md:text-4xl font-bold mb-6 text-[#FCFAEF]">
-            Stories of Hope, Leadership, and Impact
-          </h3>
-          <p className="text-[#FCFAEF]/80 text-lg">
-            Hear firsthand how our programs are making a difference in the lives of individuals and communities.
-          </p>
-        </div>
+        <PublicSectionHeader
+          eyebrow="Voices from the Field"
+          eyebrowTone="gold"
+          title="Stories of Hope, Leadership, and Impact"
+          description="Hear firsthand how our programs are making a difference in the lives of individuals and communities."
+          className="mb-12"
+          titleClassName="text-[#FCFAEF] dark:text-[#FCFAEF]"
+          descriptionClassName="text-[#FCFAEF]/85"
+        />
         
         <div
           className="relative max-w-4xl mx-auto"
@@ -76,11 +76,11 @@ export default function Testimonials() {
           <AnimatePresence mode="wait">
             <motion.div
               key={currentIndex}
-              initial={{ opacity: 0, x: 20 }}
+              initial={shouldReduceMotion ? false : { opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -20 }}
-              transition={{ duration: 0.3 }}
-              className="bg-white/90 dark:bg-[#2F3332] rounded-2xl shadow-xl p-8 md:p-12 h-[500px] md:h-[460px] flex flex-col"
+              exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, x: -20 }}
+              transition={{ duration: shouldReduceMotion ? 0.01 : 0.3 }}
+              className="flex min-h-[440px] flex-col rounded-xl border border-white/15 bg-[#FCFAEF]/95 p-8 shadow-xl md:min-h-[420px] md:p-12 dark:bg-[#2F3332]"
             >
               <div className="absolute top-8 left-8 text-[#0097b2] dark:text-[#66C4DC] opacity-20">
                 <Quote size={64} />
@@ -112,7 +112,7 @@ export default function Testimonials() {
             </motion.div>
           </AnimatePresence>
           
-          <div className="flex justify-center mt-8 gap-2">
+          <div className="mt-8 flex justify-center gap-2">
             {testimonials.map((_, index) => (
               <button
                 key={index}
@@ -127,18 +127,18 @@ export default function Testimonials() {
           
           <button
             onClick={handlePrevious}
-            className="absolute top-1/2 -left-4 md:-left-8 transform -translate-y-1/2 bg-white/90 dark:bg-[#2F3332] rounded-full p-2 shadow-md hover:bg-white dark:hover:bg-gray-700 transition"
+            className="absolute left-0 top-1/2 flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-[#E6E7E7] bg-[#FCFAEF] text-[#0097b2] shadow-md transition hover:bg-white focus:outline-none focus:ring-2 focus:ring-[#66C4DC] dark:border-[#2F3332] dark:bg-[#2F3332] dark:text-[#66C4DC] md:-left-3"
             aria-label="Previous testimonial"
           >
-            <ChevronLeft className="h-6 w-6 text-[#0097b2]" />
+            <ChevronLeft className="h-6 w-6" />
           </button>
           
           <button
             onClick={handleNext}
-            className="absolute top-1/2 -right-4 md:-right-8 transform -translate-y-1/2 bg-white/90 dark:bg-[#2F3332] rounded-full p-2 shadow-md hover:bg-white dark:hover:bg-gray-700 transition"
+            className="absolute right-0 top-1/2 flex h-10 w-10 -translate-y-1/2 translate-x-1/2 items-center justify-center rounded-full border border-[#E6E7E7] bg-[#FCFAEF] text-[#0097b2] shadow-md transition hover:bg-white focus:outline-none focus:ring-2 focus:ring-[#66C4DC] dark:border-[#2F3332] dark:bg-[#2F3332] dark:text-[#66C4DC] md:-right-3"
             aria-label="Next testimonial"
           >
-            <ChevronRight className="h-6 w-6 text-[#0097b2]" />
+            <ChevronRight className="h-6 w-6" />
           </button>
         </div>
       </div>

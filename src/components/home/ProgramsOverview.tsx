@@ -7,9 +7,15 @@ import Link from "next/link";
 import Image from "@/components/common/Image";
 import { ArrowRight, Stethoscope, Network, GraduationCap, Globe2 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import ProgramModal from "@/components/shared/ProgramModal";
 import type { Program } from "@/lib/types";
+import {
+  IconBadge,
+  PublicCta,
+  PublicSection,
+  PublicSectionHeader,
+  SurfaceCard,
+} from "@/components/shared/PublicPagePrimitives";
 
 type HomepagePillar = {
   id: number;
@@ -193,75 +199,72 @@ export default function ProgramsOverview() {
   };
 
   return (
-    <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#4F5554]">
-      <div className="container mx-auto px-4">
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-[#eeba2b] dark:text-[#F5C94D] font-bold text-lg mb-2">
-            OUR PROGRAMS
-          </h2>
-          <h3 className="text-3xl md:text-4xl font-bold mb-6 text-[#1C1F1E] dark:text-[#FCFAEF]">
-            Students. Communities. Partnerships. One Vision for Health.
-          </h3>
-          <p className="text-lg text-[#2F3332] dark:text-[#E6E7E7]">
-            From community-rooted clinics to global leadership development, our programs connect students,
-            partners, and communities to deliver sustainable, preventative care and train the next generation
-            of health leaders.
-          </p>
-        </div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {pillars.map((pillar, index) => (
-            <motion.div
-              key={pillar.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              viewport={{ once: true }}
-              className="homepage-hover-card group flex cursor-pointer flex-col overflow-hidden rounded-xl border border-[#E6E7E7] bg-[#FCFAEF] shadow-sm [--homepage-hover-border-color:rgba(0,151,178,0.18)] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0097b2] dark:border-[#2F3332] dark:bg-[#4F5554] dark:[--homepage-hover-border-color:rgba(102,196,220,0.22)]"
-              onClick={() => openProgramModal(pillar)}
-              onKeyDown={(event) => handleCardKeyDown(event, pillar)}
-              role="button"
-              tabIndex={0}
+    <PublicSection tone="cream" withTexture>
+      <PublicSectionHeader
+        eyebrow="Our Programs"
+        eyebrowTone="gold"
+        title="Students. Communities. Partnerships. One Vision for Health."
+        description="From community-rooted clinics to global leadership development, our programs connect students, partners, and communities to deliver sustainable, preventative care and train the next generation of health leaders."
+        className="mb-16"
+        titleClassName="md:text-4xl lg:text-5xl"
+      />
+      <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+        {pillars.map((pillar, index) => (
+          <motion.div
+            key={pillar.id}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
+            viewport={{ once: true }}
+            onClick={() => openProgramModal(pillar)}
+            onKeyDown={(event) => handleCardKeyDown(event, pillar)}
+            role="button"
+            tabIndex={0}
+            className="h-full rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0097b2] focus:ring-offset-2 focus:ring-offset-[#FCFAEF] dark:focus:ring-[#66C4DC] dark:focus:ring-offset-[#121514]"
+          >
+            <SurfaceCard
+              interactive
+              className="group flex h-full cursor-pointer flex-col overflow-hidden p-0"
             >
-              <div className="relative h-48">
+              <div className="relative h-48 overflow-hidden">
                 <Image
                   src={pillar.image}
                   alt={pillar.title}
                   fill
                   sizes="(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 100vw"
-                  className="object-cover transition-transform duration-200 ease-[ease] group-hover:scale-[1.02] motion-reduce:transform-none motion-reduce:transition-none"
+                  className="object-cover transition-transform duration-200 ease-out group-hover:scale-[1.02] motion-reduce:transform-none motion-reduce:transition-none"
                 />
               </div>
-              <div className="p-6 flex flex-col flex-1">
-                <div className="flex items-center mb-4">
-                  <div className="h-11 w-11 rounded-full bg-[#0097b2]/10 flex items-center justify-center mr-3">
-                    <pillar.icon className="h-6 w-6 text-[#0097b2] dark:text-[#66C4DC]" aria-hidden="true" />
-                  </div>
-                  <h3 className="text-xl font-bold text-[#1C1F1E] dark:text-[#FCFAEF]">{pillar.title}</h3>
+              <div className="flex flex-1 flex-col p-6">
+                <div className="mb-4 flex items-center">
+                  <IconBadge className="mr-3">
+                    <pillar.icon className="h-6 w-6" aria-hidden="true" />
+                  </IconBadge>
+                  <h3 className="text-xl font-bold text-[#1C1F1E] dark:text-[#FCFAEF]">
+                    {pillar.title}
+                  </h3>
                 </div>
-                <p className="text-[#2F3332] dark:text-[#E6E7E7] mb-6 flex-grow">
+                <p className="mb-6 flex-grow text-[#2F3332] dark:text-[#E6E7E7]">
                   {pillar.shortDescription}
                 </p>
                 <Link
                   href={pillar.href}
                   onClick={(event) => event.stopPropagation()}
-                  className="mt-auto inline-flex items-center text-[#0097b2] dark:text-[#66C4DC] font-semibold hover:text-[#eeba2b] dark:hover:text-[#F5C94D] transition-colors"
+                  className="mt-auto inline-flex items-center font-semibold text-[#0097b2] transition-colors hover:text-[#eeba2b] dark:text-[#66C4DC] dark:hover:text-[#F5C94D]"
                 >
                   {pillar.ctaLabel}
                   <ArrowRight size={16} className="ml-2" aria-hidden="true" />
                 </Link>
               </div>
-            </motion.div>
-          ))}
-        </div>
-        
-        <div className="text-center mt-12">
-          <Button className="bg-[#0097b2] hover:bg-[#eeba2b] text-[#FCFAEF] transition-colors">
-            <Link href="/programs" className="flex items-center">
-              Explore All Programs <ArrowRight size={16} className="ml-2" />
-            </Link>
-          </Button>
-        </div>
+            </SurfaceCard>
+          </motion.div>
+        ))}
+      </div>
+
+      <div className="mt-12 text-center">
+        <PublicCta href="/programs" variant="teal">
+          Explore All Programs
+        </PublicCta>
       </div>
 
       {/* Program Modal */}
@@ -270,6 +273,6 @@ export default function ProgramsOverview() {
         isOpen={isModalOpen}
         onClose={handleCloseModal}
       />
-    </section>
+    </PublicSection>
   );
 }

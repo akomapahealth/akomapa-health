@@ -7,6 +7,10 @@ import { useAnimatedMetricValues } from "@/lib/motion/useAnimatedInteger";
 import { BentoMetricsGroup, type BentoMetricItem } from "@/components/ui/feature-section-with-bento-grid";
 import { Target } from "lucide-react";
 import { motionDurations } from "@/lib/motion/tokens";
+import {
+  PublicSection,
+  PublicSectionHeader,
+} from "@/components/shared/PublicPagePrimitives";
 
 type Metric = {
   id: number;
@@ -107,21 +111,15 @@ export default function ImpactMetrics() {
     }));
 
   return (
-    <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E] text-[#1C1F1E] dark:text-[#FCFAEF] relative">
-      <div className="container mx-auto px-4">
-        <FadeIn
-          className="text-center max-w-3xl mx-auto mb-16"
-          duration={motionDurations.enter}
-        >
-          <h2 className="text-[#F5C94D] font-bold text-lg mb-2">
-            OUR IMPACT
-          </h2>
-          <h3 className="mb-6 font-heading text-3xl font-bold leading-tight text-[#1C1F1E] dark:text-[#FCFAEF] md:text-4xl">
-            Measured in people, partnerships, and momentum
-          </h3>
-          <p className="text-lg text-[#2F3332]/80 dark:text-[#E6E7E7]/80">
-            Since our launch in October 2025, we&apos;re building a student-powered, community-rooted health movement.
-          </p>
+    <PublicSection tone="cream" withTexture>
+        <FadeIn duration={motionDurations.enter}>
+          <PublicSectionHeader
+            eyebrow="Our Impact"
+            eyebrowTone="gold"
+            title="Measured in people, partnerships, and momentum"
+            description="Since our launch in October 2025, we're building a student-powered, community-rooted health movement."
+            className="mb-16"
+          />
         </FadeIn>
 
         <div ref={currentRef} className="space-y-8">
@@ -145,7 +143,7 @@ export default function ImpactMetrics() {
           amount={0.6}
           duration={motionDurations.enter}
         >
-          <div className="rounded-[28px] border border-[#0097b2]/15 bg-gradient-to-r from-[#0097b2]/[0.06] via-white/80 to-[#F5C94D]/[0.08] px-6 py-8 text-center shadow-sm backdrop-blur md:px-8 md:py-10 dark:border-[#2F3332] dark:from-[#2F3332] dark:via-[#1C1F1E] dark:to-[#2F3332]">
+          <div className="rounded-xl border border-[#0097b2]/15 bg-gradient-to-r from-[#0097b2]/[0.06] via-white/80 to-[#F5C94D]/[0.08] px-6 py-8 text-center shadow-sm backdrop-blur md:px-8 md:py-10 dark:border-[#2F3332] dark:from-[#2F3332] dark:via-[#1C1F1E] dark:to-[#2F3332]">
             <div className="inline-flex items-center justify-center rounded-full bg-[#0097b2]/10 px-4 py-2 text-sm font-medium text-[#0097b2] dark:bg-[#66C4DC]/10 dark:text-[#66C4DC]">
               <Target className="mr-2 h-4 w-4" aria-hidden="true" />
               Our Next Two Years
@@ -170,7 +168,6 @@ export default function ImpactMetrics() {
             />
           </FadeIn>
         </div>
-      </div>
-    </section>
+    </PublicSection>
   );
 }

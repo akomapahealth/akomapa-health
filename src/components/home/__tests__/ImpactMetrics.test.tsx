@@ -8,7 +8,7 @@ describe("ImpactMetrics", () => {
     expect(screen.getByText(/our impact/i)).toBeInTheDocument();
     expect(
       screen.getByRole("heading", {
-        level: 3,
+        level: 2,
         name: /people, partnerships, and momentum/i,
       })
     ).toBeInTheDocument();
