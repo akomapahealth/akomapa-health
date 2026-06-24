@@ -1,7 +1,6 @@
 import { FadeIn } from "@/components/animations";
 import Image from "@/components/common/Image";
 import {
-  MediaFrame,
   PublicCta,
   PublicSection,
   SectionEyebrow,
@@ -20,7 +19,7 @@ export default function StudentsChangedSection() {
 
       <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-16">
         <FadeIn direction="right" className="lg:col-span-5">
-          <MediaFrame className="mx-auto w-full max-w-xl" aspect="portrait">
+          <div className="relative mx-auto aspect-[4/5] w-full max-w-xl overflow-hidden rounded-lg">
             <Image
               src={studentsChangedContent.image.src}
               alt={studentsChangedContent.image.alt}
@@ -35,7 +34,7 @@ export default function StudentsChangedSection() {
               aria-hidden="true"
               className="absolute inset-0 bg-gradient-to-t from-[#121514]/58 via-transparent to-transparent"
             />
-          </MediaFrame>
+          </div>
         </FadeIn>
 
         <FadeIn className="lg:col-span-7">
