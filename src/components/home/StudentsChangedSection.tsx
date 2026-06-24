@@ -12,11 +12,6 @@ export default function StudentsChangedSection() {
 
   return (
     <PublicSection aria-labelledby={headingId} tone="teal" spacing="spacious">
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(135deg,rgba(252,250,239,0.08),transparent_42%,rgba(245,201,77,0.14))]"
-      />
-
       <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-16">
         <FadeIn direction="right" className="lg:col-span-5">
           <div className="relative mx-auto aspect-[4/5] w-full max-w-xl overflow-hidden rounded-lg">
