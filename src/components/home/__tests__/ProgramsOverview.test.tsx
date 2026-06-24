@@ -27,8 +27,9 @@ describe("ProgramsOverview", () => {
         }),
       ).toBeVisible();
       expect(within(card as HTMLElement).getByText(pillar.description)).toBeVisible();
-      expect(card).toHaveAccessibleName(`Learn more about ${pillar.title}`);
+      expect(card).toHaveAccessibleName(`${pillar.ctaLabel}: ${pillar.title}`);
       expect(card).toHaveAttribute("href", pillar.link);
+      expect(within(card as HTMLElement).getByText(pillar.ctaLabel)).toBeVisible();
       expect(
         within(card as HTMLElement).getByRole("img", {
           name: pillar.image.alt,

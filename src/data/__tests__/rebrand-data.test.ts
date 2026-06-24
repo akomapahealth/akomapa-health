@@ -44,6 +44,7 @@ describe("rebrand content data", () => {
       expect(pillar.image.alt.length).toBeGreaterThan(20);
       expect(pillar.features).toHaveLength(4);
       expect(pillar.link).toMatch(/^\/[a-z0-9-/]+$/);
+      expect(pillar.ctaLabel.length).toBeGreaterThan(10);
       expect(pillar.color).toMatch(/^#[0-9a-f]{6}$/i);
     }
   });

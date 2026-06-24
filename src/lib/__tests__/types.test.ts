@@ -39,6 +39,7 @@ describe("rebrand data model contracts", () => {
       color: "cyan",
       features: ["Leadership curriculum", "Faculty mentorship"],
       link: "/academy",
+      ctaLabel: "Step into the Academy",
     };
 
     const academyModule: AcademyModule = {

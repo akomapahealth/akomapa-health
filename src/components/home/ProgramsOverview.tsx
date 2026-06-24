@@ -25,7 +25,7 @@ function PillarCard({ pillar }: { pillar: Pillar }) {
     <article className="h-full">
       <Link
         href={pillar.link}
-        aria-label={`Learn more about ${pillar.title}`}
+        aria-label={`${pillar.ctaLabel}: ${pillar.title}`}
         data-testid="program-pillar-card"
         data-pillar-id={pillar.id}
         data-accent-color={pillar.color}
@@ -55,7 +55,7 @@ function PillarCard({ pillar }: { pillar: Pillar }) {
             {pillar.description}
           </p>
           <span className="mt-8 w-fit border-b border-[var(--pillar-accent)] pb-1 text-sm font-bold text-[#1C1F1E] transition-colors group-hover:text-[var(--pillar-accent)] dark:text-[#FCFAEF]">
-            Learn More
+            {pillar.ctaLabel}
           </span>
         </div>
       </Link>

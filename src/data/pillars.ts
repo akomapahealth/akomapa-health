@@ -19,6 +19,7 @@ export const pillars: Pillar[] = [
       "Longitudinal Care",
     ],
     link: "/ncd-impact",
+    ctaLabel: "See the NCD response",
   },
   {
     id: "develop-leaders",
@@ -38,6 +39,7 @@ export const pillars: Pillar[] = [
       "Leadership Curriculum",
     ],
     link: "/academy",
+    ctaLabel: "Step into the Academy",
   },
   {
     id: "strengthen-communities",
@@ -57,6 +59,7 @@ export const pillars: Pillar[] = [
       "Sustainable Impact",
     ],
     link: "/community-hubs",
+    ctaLabel: "Visit the community hubs",
   },
   {
     id: "advance-innovation",
@@ -76,5 +79,6 @@ export const pillars: Pillar[] = [
       "Quality Improvement",
     ],
     link: "/research",
+    ctaLabel: "Explore what we're building",
   },
 ];

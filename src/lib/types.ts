@@ -82,6 +82,7 @@ export interface Pillar {
   color: string;
   features: string[];
   link: string;
+  ctaLabel: string;
 }
 
 export interface AcademyModule {
