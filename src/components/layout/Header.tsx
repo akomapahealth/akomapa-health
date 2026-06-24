@@ -2,13 +2,12 @@
 
 import { useState, useEffect, Suspense } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Menu, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import MobileNav from "./MobileNav";
 import { ThemeToggle } from "@/components/theme/ThemeToggle";
-import { useTheme } from "@/components/theme/ThemeProvider";
+import BrandLogo from "@/components/shared/BrandLogo";
 
 // Navigation structure
 const navigation = [
@@ -43,22 +42,6 @@ function HeaderContent() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname();
-  const { theme } = useTheme();
-  const [isDark, setIsDark] = useState(false);
-
-  useEffect(() => {
-    const checkTheme = () => {
-      if (theme === "system") {
-        setIsDark(window.matchMedia("(prefers-color-scheme: dark)").matches);
-      } else {
-        setIsDark(theme === "dark");
-      }
-    };
-    checkTheme();
-    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-    mediaQuery.addEventListener("change", checkTheme);
-    return () => mediaQuery.removeEventListener("change", checkTheme);
-  }, [theme]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -80,16 +63,7 @@ function HeaderContent() {
       <div className="container mx-auto px-4">
         <div className="flex items-center gap-4">
           {/* Logo */}
-          <Link href="/" className="flex items-center flex-shrink-0">
-            <Image
-              src={isDark ? "/images/akomapa-logo-dark.png" : "/images/akomapa-logo.png"}
-              alt="Akomapa Health Foundation Logo"
-              width={250}
-              height={70}
-              className="h-12 w-auto object-contain"
-              style={{ objectFit: 'contain', objectPosition: 'center' }}
-            />
-          </Link>
+          <BrandLogo className="flex-shrink-0" priority />
 
           {/* Desktop Navigation and Actions - Right Aligned */}
           <div className="hidden xl:flex items-center gap-6 ml-auto 2xl:gap-8">
