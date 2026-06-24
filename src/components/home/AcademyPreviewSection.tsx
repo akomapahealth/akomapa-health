@@ -25,7 +25,7 @@ export default function AcademyPreviewSection() {
       tone="teal"
     >
       <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-16">
-        <FadeIn direction="right" className="lg:col-span-7">
+        <FadeIn direction="up" className="lg:col-span-7">
           <SectionEyebrow tone="gold">Akomapa Academy</SectionEyebrow>
           <h2
             id={headingId}
@@ -63,7 +63,7 @@ export default function AcademyPreviewSection() {
           </PublicCta>
         </FadeIn>
 
-        <FadeIn direction="left" className="lg:col-span-5">
+        <FadeIn direction="up" delay={0.08} className="lg:col-span-5">
           <MediaFrame aspect="portrait" className="mx-auto w-full max-w-xl bg-[#FCFAEF]/10">
             <Image
               src={academyPreviewContent.image.src}
