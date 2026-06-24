@@ -1,40 +1,20 @@
-"use client";
-
 import Link from "next/link";
-import Image from "next/image";
 import { Mail } from "lucide-react";
-import { useTheme } from "@/components/theme/ThemeProvider";
-import { useEffect, useState } from "react";
 import Newsletter from "@/components/shared/NewsLetter";
 import { BRAND } from "@/config/brand";
+import BrandLogo from "@/components/shared/BrandLogo";
 
 const footerLinkClass =
-  "text-floralwhite/80 transition-colors hover:text-[#F5C94D] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F5C94D] focus-visible:ring-offset-2 focus-visible:ring-offset-[#4F5554]";
+  "text-[#2F3332]/80 transition-colors hover:text-[#0097b2] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0097b2] focus-visible:ring-offset-2 focus-visible:ring-offset-[#FCFAEF] dark:text-floralwhite/80 dark:hover:text-[#F5C94D] dark:focus-visible:ring-[#F5C94D] dark:focus-visible:ring-offset-[#4F5554]";
 
 const footerSocialLinkClass =
-  "text-floralwhite transition-colors hover:text-[#F5C94D] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F5C94D] focus-visible:ring-offset-2 focus-visible:ring-offset-[#4F5554]";
+  "text-[#2F3332] transition-colors hover:text-[#0097b2] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0097b2] focus-visible:ring-offset-2 focus-visible:ring-offset-[#FCFAEF] dark:text-floralwhite dark:hover:text-[#F5C94D] dark:focus-visible:ring-[#F5C94D] dark:focus-visible:ring-offset-[#4F5554]";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
-  const { theme } = useTheme();
-  const [isDark, setIsDark] = useState(false);
-
-  useEffect(() => {
-    const checkTheme = () => {
-      if (theme === "system") {
-        setIsDark(window.matchMedia("(prefers-color-scheme: dark)").matches);
-      } else {
-        setIsDark(theme === "dark");
-      }
-    };
-    checkTheme();
-    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-    mediaQuery.addEventListener("change", checkTheme);
-    return () => mediaQuery.removeEventListener("change", checkTheme);
-  }, [theme]);
   
   return (
-    <footer className="bg-[#4F5554] text-[#FCFAEF]">
+    <footer className="bg-[#FCFAEF] text-[#1C1F1E] dark:bg-[#4F5554] dark:text-[#FCFAEF]">
       <div className="container mx-auto px-4 py-12">
         <div
           data-footer-grid
@@ -42,20 +22,11 @@ export default function Footer() {
         >
           {/* Logo and mission */}
           <div className="space-y-4">
-            <Link href="/" className="inline-block">
-              <Image
-                src={isDark ? "/images/akomapa-logo-dark.png" : "/images/akomapa-logo.png"}
-                alt="Akomapa Health Foundation Logo"
-                width={220}
-                height={60}
-                className="h-12 w-auto object-contain"
-                style={{ objectFit: 'contain', objectPosition: 'center' }}
-              />
-            </Link>
-            <p className="mt-4 font-body text-floralwhite/80">
+            <BrandLogo width={220} height={60} />
+            <p className="mt-4 font-body text-[#2F3332]/80 dark:text-floralwhite/80">
               {BRAND.footerMission}
             </p>
-            <p className="font-body text-sm text-floralwhite/70">
+            <p className="font-body text-sm text-[#2F3332]/70 dark:text-floralwhite/70">
               {BRAND.legalNotice}
             </p>
             <div className="flex space-x-4 pt-2">
@@ -144,9 +115,9 @@ export default function Footer() {
           {/* Contact Information */}
           <div>
             <h3 className="mb-4 font-heading text-lg font-bold tracking-tight">Contact Us</h3>
-            <div className="space-y-6 font-body text-floralwhite/80">
+            <div className="space-y-6 font-body text-[#2F3332]/80 dark:text-floralwhite/80">
               <div>
-                <h4 className="mb-1 font-semibold text-floralwhite">USA Office</h4>
+                <h4 className="mb-1 font-semibold text-[#1C1F1E] dark:text-floralwhite">USA Office</h4>
                 <p className="text-sm leading-relaxed">
                   University Towers, Apt 5N<br />
                   100 York Street, New Haven, CT 06511<br />
@@ -154,7 +125,7 @@ export default function Footer() {
                 </p>
               </div>
               <div>
-                <h4 className="mb-1 font-semibold text-floralwhite">Ghana Office</h4>
+                <h4 className="mb-1 font-semibold text-[#1C1F1E] dark:text-floralwhite">Ghana Office</h4>
                 <p className="text-sm leading-relaxed">
                   43 Yam Street, Tema Community 23, Adjei Kojo, Accra<br />
                   +233 (0)50 296 6072
@@ -175,8 +146,8 @@ export default function Footer() {
 
         <Newsletter />
 
-        <div className="mt-10 flex flex-col items-center justify-between border-t border-floralwhite/20 pt-6 md:flex-row">
-          <p className="font-body text-sm text-floralwhite/70">
+        <div className="mt-10 flex flex-col items-center justify-between border-t border-[#2F3332]/15 pt-6 dark:border-floralwhite/20 md:flex-row">
+          <p className="font-body text-sm text-[#2F3332]/70 dark:text-floralwhite/70">
             &copy; {currentYear} Akomapa Health. All rights reserved.
           </p>
           <div className="flex space-x-6 mt-4 md:mt-0">

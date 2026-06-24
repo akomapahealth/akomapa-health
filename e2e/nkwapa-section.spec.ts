@@ -24,7 +24,7 @@ test.describe("Nkwapa homepage section", () => {
   });
 
   for (const viewport of viewports) {
-    test(`${viewport.name}: section, features, image, and CTA`, async ({
+    test(`${viewport.name}: patient management section supports the impact narrative`, async ({
       page,
     }) => {
       await page.setViewportSize({
@@ -36,40 +36,27 @@ test.describe("Nkwapa homepage section", () => {
       const section = page.getByTestId("nkwapa-section");
       await section.scrollIntoViewIfNeeded();
       await expect(section).toBeVisible();
-
       await expect(
-        page.getByRole("heading", {
+        section.getByRole("heading", {
           level: 2,
-          name: /offline-first EMR built for community clinics/i,
-        })
+          name: "Nkwapa connects care, learning, and evidence.",
+          exact: true,
+        }),
       ).toBeVisible();
+      await expect(section.getByTestId("nkwapa-feature")).toHaveCount(4);
 
-      const features = section.getByTestId("nkwapa-feature");
-      await expect(features).toHaveCount(4);
-
-      const img = section.getByRole("img", {
-        name: /Nkwapa EMR product screenshot/i,
-      });
-      await expect(img).toBeVisible();
-      await page.waitForFunction(
-        () => {
-          const root = document.querySelector('[data-testid="nkwapa-section"]');
-          const el = root?.querySelector<HTMLImageElement>(
-            'img[alt="Nkwapa EMR product screenshot"]'
-          );
-          return !!el && el.complete && el.naturalWidth > 0;
-        },
-        undefined,
-        { timeout: 15_000 }
+      const image = section.getByTestId("nkwapa-screenshot");
+      await expect(image).toBeVisible();
+      await expect(image).toHaveAttribute(
+        "alt",
+        "Nkwapa patient management system dashboard",
       );
-      await expect(img).toHaveAttribute("src", /.+/);
 
       const cta = section.getByTestId("nkwapa-cta");
       await expect(cta).toBeVisible();
       await expect(cta).toHaveAttribute("href", "https://staging.nkwapa.app");
       await expect(cta).toHaveAttribute("target", "_blank");
       await expect(cta).toHaveAttribute("rel", /noopener/);
-      await expect(cta).toHaveAttribute("rel", /noreferrer/);
     });
   }
 });

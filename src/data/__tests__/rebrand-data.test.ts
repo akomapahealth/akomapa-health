@@ -10,6 +10,13 @@ import {
 } from "@/data/academy";
 import { communityHubs, hubMissions } from "@/data/community-hubs";
 import {
+  academyPreviewContent,
+  communityHubsPreviewContent,
+  goodIntentionsContent,
+  silentEpidemicContent,
+  studentsChangedContent,
+} from "@/data/homepage-narrative";
+import {
   healthImpact,
   impactCategories,
   leadershipImpact,
@@ -113,6 +120,34 @@ describe("rebrand content data", () => {
       expect(location.coordinates.lat).toBeLessThanOrEqual(90);
       expect(location.coordinates.lng).toBeGreaterThanOrEqual(-180);
       expect(location.coordinates.lng).toBeLessThanOrEqual(180);
+    }
+  });
+
+  it("defines complete homepage narrative content and verified sources", () => {
+    expect(goodIntentionsContent.cta.href).toBe("/philosophy");
+    expect(studentsChangedContent.heading).toBe(
+      "Students Have Always Changed Healthcare",
+    );
+    expect(academyPreviewContent.heading).toBe(academyOverview.title);
+    expect(academyPreviewContent.body).toBe(academyOverview.description);
+
+    expect(silentEpidemicContent.metrics).toHaveLength(3);
+    expectUniqueIds(silentEpidemicContent.metrics);
+    expect(silentEpidemicContent.metrics.map(({ value }) => value)).toEqual([
+      43, 73, 18,
+    ]);
+    expect(new URL(silentEpidemicContent.source.href).protocol).toBe("https:");
+
+    expect(communityHubsPreviewContent.hubs).toHaveLength(3);
+    expect(communityHubsPreviewContent.hubs.map(({ href }) => href)).toEqual([
+      "/community-hubs/ucc",
+      "/community-hubs/ug",
+      "/community-hubs/nhp",
+    ]);
+
+    for (const hub of communityHubsPreviewContent.hubs) {
+      expect(communityHubs.some(({ id }) => id === hub.id)).toBe(true);
+      expect(hub.href).toMatch(/^\/community-hubs\/(ucc|ug|nhp)$/);
     }
   });
 

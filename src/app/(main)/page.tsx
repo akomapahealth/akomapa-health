@@ -2,14 +2,15 @@ import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 import { BRAND } from "@/config/brand";
 import HeroSection from "@/components/home/HeroSection";
-import AkomapaMeaningSection from "@/components/home/AkomapaMeaningSection";
+import GoodIntentionsSection from "@/components/home/GoodIntentionsSection";
+import StudentsChangedSection from "@/components/home/StudentsChangedSection";
 import ProgramsOverview from "@/components/home/ProgramsOverview";
-import NkwapaSection from "@/components/home/NkwapaSection";
-import MissionSection from "@/components/home/MissionSection";
-import HealthCrisisSection from "@/components/home/HealthCrisisSection";
-import LocationSection from "@/components/home/LocationSection";
-import ResearchSection from "@/components/home/ResearchSection";
+import SilentEpidemicSection from "@/components/home/SilentEpidemicSection";
 import ImpactMetrics from "@/components/home/ImpactMetrics";
+import AcademyPreviewSection from "@/components/home/AcademyPreviewSection";
+import CommunityHubsPreviewSection from "@/components/home/CommunityHubsPreviewSection";
+import NkwapaSection from "@/components/home/NkwapaSection";
+import ResearchSection from "@/components/home/ResearchSection";
 
 // Below-the-fold sections — split into their own chunks so the initial
 // homepage payload doesn't ship Swiper carousels, image galleries, or
@@ -30,15 +31,16 @@ export default function Home() {
   return (
     <div className="flex flex-col gap-y-section-mobile md:gap-y-section-tablet lg:gap-y-section-desktop">
       <HeroSection />
-      <AkomapaMeaningSection />
-      <MissionSection />
+      <GoodIntentionsSection />
+      <StudentsChangedSection />
       <ProgramsOverview />
+      <SilentEpidemicSection />
+      <ImpactMetrics />
+      <AcademyPreviewSection />
+      <CommunityHubsPreviewSection />
       <NkwapaSection />
-      <HealthCrisisSection />
-      <LocationSection />
       <ResearchSection />
       <UpdatesFeed />
-      <ImpactMetrics />
       <Testimonials />
       <Gallery />
       <CallToAction />

@@ -75,7 +75,7 @@ export default function Newsletter() {
     <section
       data-newsletter
       aria-labelledby="footer-newsletter-heading"
-      className="mt-10 rounded-2xl border border-[#FCFAEF]/20 bg-[#2F3332]/35 p-5 sm:p-6 lg:p-8"
+      className="mt-10 rounded-xl border border-[#2F3332]/15 bg-white/65 p-5 shadow-sm sm:p-6 lg:p-8 dark:border-[#FCFAEF]/20 dark:bg-[#2F3332]/35"
     >
       <div className="grid gap-6 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:items-center">
         <div>
@@ -84,11 +84,11 @@ export default function Newsletter() {
           </p>
           <h2
             id="footer-newsletter-heading"
-            className="font-heading text-2xl font-bold tracking-tight text-[#FCFAEF]"
+            className="font-heading text-2xl font-bold tracking-tight text-[#1C1F1E] dark:text-[#FCFAEF]"
           >
             Join the Akomapa newsletter
           </h2>
-          <p className="mt-2 max-w-xl font-body text-sm leading-relaxed text-[#FCFAEF]/75">
+          <p className="mt-2 max-w-xl font-body text-sm leading-relaxed text-[#2F3332]/75 dark:text-[#FCFAEF]/75">
             Receive updates on community care, research, leadership programs,
             and opportunities to get involved.
           </p>
@@ -126,10 +126,10 @@ export default function Newsletter() {
             {error && (
               <div
                 role="alert"
-                className="flex items-center gap-3 rounded-lg border border-red-300/60 bg-red-950/40 p-3"
+                className="flex items-center gap-3 rounded-lg border border-red-300/60 bg-red-50 p-3 dark:bg-red-950/40"
               >
-                <AlertCircle className="h-5 w-5 flex-shrink-0 text-red-200" />
-                <p className="font-body text-sm text-red-100">{error}</p>
+                <AlertCircle className="h-5 w-5 flex-shrink-0 text-red-700 dark:text-red-200" />
+                <p className="font-body text-sm text-red-700 dark:text-red-100">{error}</p>
               </div>
             )}
 
@@ -180,7 +180,7 @@ export default function Newsletter() {
               </form>
             </Form>
 
-            <p className="font-body text-xs text-[#FCFAEF]/65">
+            <p className="font-body text-xs text-[#2F3332]/65 dark:text-[#FCFAEF]/65">
               By subscribing, you agree to our Privacy Policy and consent to
               receive updates from Akomapa Health.
             </p>

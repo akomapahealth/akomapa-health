@@ -1,6 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
 import { File, Download, ExternalLink } from "lucide-react";
+import Image from "@/components/common/Image";
 import { Button } from "@/components/ui/button";
 import { Resource } from "@/lib/types";
 
