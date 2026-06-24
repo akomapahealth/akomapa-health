@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import Image from "next/image";
 import { ArrowRight, Target, Heart, Globe, TrendingUp, CheckCircle, ChevronRight } from "lucide-react";
 import Link from "next/link";
+import Image from "@/components/common/Image";
 import Breadcrumb from "@/components/layout/Breadcrumb";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -81,7 +81,7 @@ export default function RoadmapPage() {
           {/* Roadmap hero background — decorative — intentional empty alt */}
           <div className="absolute inset-0 z-0 opacity-10" aria-hidden>
             <Image
-              src="/images/hero-image.jpg"
+              src="/highlights/Akomapa-28.jpg"
               alt=""
               fill
               sizes="100vw"

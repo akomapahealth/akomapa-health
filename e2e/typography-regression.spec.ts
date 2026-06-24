@@ -4,14 +4,38 @@ const viewports = [
   { name: "mobile", width: 390, height: 844 },
   { name: "tablet", width: 768, height: 1024 },
   { name: "desktop", width: 1440, height: 900 },
+  { name: "wide", width: 1728, height: 1050 },
 ] as const;
+
+const themes = ["light", "dark"] as const;
 
 const pages = [
   { path: "/", headingSelector: "main h1" },
-  { path: "/about", headingSelector: "main h1" },
+  { path: "/academy", headingSelector: "main h1" },
+  { path: "/community-hubs", headingSelector: "main h1, main h2" },
+  { path: "/ncd-impact", headingSelector: "main h1" },
+  { path: "/impact", headingSelector: "main h1" },
+  { path: "/research", headingSelector: "main h1" },
+  { path: "/partnerships", headingSelector: "main h1" },
+  { path: "/get-involved", headingSelector: "main h1" },
+  { path: "/donate", headingSelector: "main h1" },
+  { path: "/resources", headingSelector: "main h1" },
+  { path: "/news", headingSelector: "main h1, main h2" },
+  { path: "/blog", headingSelector: "main h1, main h2" },
   { path: "/programs", headingSelector: "main h1" },
+  { path: "/clinics", headingSelector: "main h1, main h2" },
   { path: "/contact", headingSelector: "main h1" },
+  { path: "/privacy", headingSelector: "main h1" },
+  { path: "/terms", headingSelector: "main h1" },
 ] as const;
+
+async function setTheme(page: Page, theme: (typeof themes)[number]) {
+  await page.addInitScript((storedTheme) => {
+    localStorage.setItem("akomapa-theme", storedTheme);
+    document.documentElement.classList.remove("light", "dark");
+    document.documentElement.classList.add(storedTheme);
+  }, theme);
+}
 
 async function waitForTypography(page: Page) {
   await page.evaluate(async () => {
@@ -203,8 +227,10 @@ async function assertDesktopNavSpacing(page: Page) {
 
 test.describe("Typography regression", () => {
   for (const viewport of viewports) {
-    for (const pageConfig of pages) {
-      test(`${viewport.name} typography remains stable on ${pageConfig.path}`, async ({ page }) => {
+    for (const theme of themes) {
+      for (const pageConfig of pages) {
+      test(`${viewport.name} ${theme} typography remains stable on ${pageConfig.path}`, async ({ page }) => {
+        await setTheme(page, theme);
         await page.setViewportSize({ width: viewport.width, height: viewport.height });
         await page.goto(pageConfig.path, { waitUntil: "domcontentloaded" });
         await waitForTypography(page);
@@ -222,5 +248,6 @@ test.describe("Typography regression", () => {
         }
       });
     }
+  }
   }
 });
