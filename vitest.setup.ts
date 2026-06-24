@@ -150,7 +150,12 @@ vi.mock("framer-motion", async () => {
     wrapAsMotion(tagOrComponent)) as unknown as Record<
     string,
     React.FC<Record<string, unknown>>
-  >;
+  > & {
+    create: (tagOrComponent: string | React.ElementType) => React.FC<Record<string, unknown>>;
+  };
+
+  motionFn.create = (tagOrComponent: string | React.ElementType) =>
+    wrapAsMotion(tagOrComponent);
 
   const motion = new Proxy(motionFn, {
     get: (target, prop: string, receiver) => {

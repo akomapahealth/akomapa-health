@@ -39,7 +39,7 @@ export function FadeIn({
 }: FadeInProps) {
   const variants: Variants = fadeUpVariants({ direction, duration, delay });
 
-  const MotionComponent = motion(as);
+  const MotionComponent = motion.create(as);
 
   return (
     <MotionComponent
