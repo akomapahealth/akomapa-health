@@ -68,14 +68,21 @@ export interface Testimonial {
   image: string;
 }
 
+export interface PillarImage {
+  src: string;
+  alt: string;
+  position?: string;
+}
+
 export interface Pillar {
   id: string;
   title: string;
   description: string;
-  icon: string;
+  image: PillarImage;
   color: string;
   features: string[];
   link: string;
+  ctaLabel: string;
 }
 
 export interface AcademyModule {

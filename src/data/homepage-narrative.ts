@@ -28,6 +28,15 @@ export const studentsChangedContent = {
   heading: "Students Have Always Changed Healthcare",
   body:
     "Throughout history, students have challenged assumptions, advanced research, strengthened communities, and helped shape the future of medicine and public health. At Akomapa, we believe students are not simply the leaders of tomorrow — they are partners in creating change today.",
+  cta: {
+    label: "See how students lead",
+    href: "/philosophy",
+  },
+  image: {
+    src: "/highlights/Akomapa-40.jpg",
+    alt: "Akomapa students learning together during a leadership development session",
+    position: "center",
+  },
 } as const;
 
 export const silentEpidemicContent = {

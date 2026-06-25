@@ -200,16 +200,15 @@ export function MediaFrame({
 export function IconBadge({
   children,
   className,
-}: {
-  children: ReactNode;
-  className?: string;
-}) {
+  ...props
+}: ComponentPropsWithoutRef<"span">) {
   return (
     <span
       className={cn(
         "inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-[#0097b2]/10 text-[#0097b2] dark:bg-[#66C4DC]/15 dark:text-[#66C4DC]",
         className,
       )}
+      {...props}
     >
       {children}
     </span>

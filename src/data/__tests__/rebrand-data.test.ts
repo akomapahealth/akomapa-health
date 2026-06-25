@@ -40,10 +40,12 @@ describe("rebrand content data", () => {
     for (const pillar of pillars) {
       expect(pillar.title).toBeTruthy();
       expect(pillar.description.length).toBeGreaterThan(40);
+      expect(pillar.image.src).toMatch(/^\/[a-z0-9-/.]+$/i);
+      expect(pillar.image.alt.length).toBeGreaterThan(20);
       expect(pillar.features).toHaveLength(4);
       expect(pillar.link).toMatch(/^\/[a-z0-9-/]+$/);
+      expect(pillar.ctaLabel.length).toBeGreaterThan(10);
       expect(pillar.color).toMatch(/^#[0-9a-f]{6}$/i);
-      expect(pillar.icon in LucideIcons).toBe(true);
     }
   });
 
@@ -128,6 +130,9 @@ describe("rebrand content data", () => {
     expect(studentsChangedContent.heading).toBe(
       "Students Have Always Changed Healthcare",
     );
+    expect(studentsChangedContent.cta.href).toBe("/philosophy");
+    expect(studentsChangedContent.image.src).toMatch(/^\/[a-z0-9-/.]+$/i);
+    expect(studentsChangedContent.image.alt.length).toBeGreaterThan(20);
     expect(academyPreviewContent.heading).toBe(academyOverview.title);
     expect(academyPreviewContent.body).toBe(academyOverview.description);
 

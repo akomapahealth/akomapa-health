@@ -74,7 +74,7 @@ test.describe("Akomapa rebrand foundation", () => {
     const narrativeHeadings = [
       "Good Intentions Are Not Enough",
       "Students Have Always Changed Healthcare",
-      "Students. Communities. Partnerships. One Vision for Health.",
+      "What We Do",
       "The Silent Epidemic",
       "Measured in people, partnerships, and momentum",
       "Training Ethical Leaders for a Changing World",
