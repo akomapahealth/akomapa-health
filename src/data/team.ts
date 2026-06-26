@@ -338,7 +338,7 @@ export const teamMembers: TeamMember[] = [
     name: "Dr. Derek Anamaale Tuoyire",
     title: "Head of Community Medicine - University of Cape Coast",
     bio: "Dr. Derek Anamaale Tuoyire serves on our Advisory Board, bringing his expertise in community medicine from the University of Cape Coast to guide our community health initiatives.",
-    image: "/images/team/derek-anamaale-tuoyire.jpg",
+    image: "/images/team/dr-tuoyire.jpeg",
     socialLinks: {
       linkedin: "https://ca.linkedin.com/in/derek-anamaale-tuoyire-phd-mph-72823887",
       email: "#"
@@ -374,7 +374,7 @@ export const teamMembers: TeamMember[] = [
     name: "Dr. Jeremy Schwartz",
     title: "Head of Chronic Care Access Lab - Yale University",
     bio: "Dr. Jeremy Schwartz serves on our Advisory Board, providing expertise in chronic care access and healthcare delivery from his position at Yale University.",
-    image: "/images/team/jeremy-schwartz.jpg",
+    image: "/images/team/jeremy-schwartz.jpeg",
     socialLinks: {
       linkedin: "https://www.linkedin.com/in/jeremy-schwartz-ba7ab056",
       email: "#"
@@ -386,7 +386,7 @@ export const teamMembers: TeamMember[] = [
     name: "Dr. Adrian Mayo",
     title: "Assistant Clinical Professor - David Geffen School of Medicine, UCLA",
     bio: "Dr. Adrian Mayo serves on our Advisory Board, bringing clinical expertise and research insights from his position at the David Geffen School of Medicine at UCLA.",
-    image: "/images/team/adrian-mayo.jpg",
+    image: "/images/team/placeholder.jpg",
     socialLinks: {
       linkedin: "https://www.linkedin.com/in/adrian-mayo-936790193",
       email: "#"
