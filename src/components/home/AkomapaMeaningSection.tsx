@@ -14,7 +14,7 @@ export default function AkomapaMeaningSection() {
   const headingId = "akomapa-meaning-heading";
 
   return (
-    <PublicSection aria-labelledby={headingId} tone="white">
+    <PublicSection aria-labelledby={headingId} tone="teal">
       <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-16">
         <FadeIn direction="right" className="lg:col-span-5">
           <MediaFrame className="mx-auto w-full max-w-xl" aspect="portrait">
@@ -50,14 +50,14 @@ export default function AkomapaMeaningSection() {
 
         <FadeIn className="lg:col-span-7">
           <div className="max-w-3xl">
-            <SectionEyebrow>Akomapa Means Good Heart</SectionEyebrow>
+            <SectionEyebrow tone="gold">Akomapa Means Good Heart</SectionEyebrow>
             <h2
               id={headingId}
-              className="mt-4 font-heading text-4xl font-bold leading-tight text-[#1C1F1E] dark:text-[#FCFAEF] md:text-5xl lg:text-6xl"
+              className="mt-4 font-heading text-4xl font-bold leading-tight text-[#FCFAEF] md:text-5xl lg:text-6xl"
             >
               In Akan, Akomapa means &quot;a good heart.&quot;
             </h2>
-            <div className="mt-6 space-y-5 text-lg leading-relaxed text-[#2F3332]/84 dark:text-[#E6E7E7]/84 md:text-xl">
+            <div className="mt-6 space-y-5 text-lg leading-relaxed text-[#FCFAEF]/88 md:text-xl">
               <p>
                 It is more than a name. It is the belief that health leadership
                 begins with empathy, dignity, and a willingness to stay close to
@@ -71,10 +71,10 @@ export default function AkomapaMeaningSection() {
                 hard.
               </p>
             </div>
-            <p className="mt-7 font-heading text-2xl font-semibold leading-snug text-[#0097b2] dark:text-[#66C4DC]">
+            <p className="mt-7 font-heading text-2xl font-semibold leading-snug text-[#F5C94D]">
               Welcome to a family with a good heart.
             </p>
-            <PublicCta href="/about" variant="teal" className="mt-8">
+            <PublicCta href="/about" variant="light" className="mt-8">
               Our Story
             </PublicCta>
           </div>
