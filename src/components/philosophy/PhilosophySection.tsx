@@ -32,16 +32,17 @@ export default function PhilosophySection({
       id={section.id}
       aria-labelledby={headingId}
       tone={getTone(index)}
-      spacing="spacious"
+      spacing="normal"
       withTexture={index % 3 === 0}
       className={cn("scroll-mt-28 border-t border-[#0097b2]/10", className)}
-      containerClassName="max-w-7xl xl:pr-72"
+      containerClassName="max-w-7xl"
     >
-      <div className="grid items-center gap-10 md:grid-cols-2 md:gap-12 lg:gap-20">
+      <div className="mx-auto grid max-w-6xl items-center justify-items-center gap-10 md:grid-cols-2 md:gap-12 lg:gap-16">
         <FadeIn
           direction={isImageFirstOnDesktop ? "right" : "left"}
+          amount="some"
           className={cn(
-            "order-1",
+            "order-1 w-full",
             isImageFirstOnDesktop ? "md:order-1" : "md:order-2",
           )}
         >
@@ -67,12 +68,13 @@ export default function PhilosophySection({
 
         <FadeIn
           delay={0.08}
+          amount="some"
           className={cn(
-            "order-2",
+            "order-2 w-full",
             isImageFirstOnDesktop ? "md:order-2" : "md:order-1",
           )}
         >
-          <article className="mx-auto max-w-2xl">
+          <article className="mx-auto max-w-xl">
             <SectionEyebrow>Principle {section.order}</SectionEyebrow>
             <h2
               id={headingId}
