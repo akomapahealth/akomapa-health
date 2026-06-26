@@ -190,7 +190,17 @@ describe("rebrand content data", () => {
       expect(paragraphs.length).toBeGreaterThanOrEqual(2);
       expect(paragraphs.length).toBeLessThanOrEqual(3);
       expect(paragraphs.every((paragraph) => paragraph.length > 80)).toBe(true);
+      expect(section.image).toMatch(/^\/[a-z0-9-/.]+$/i);
+      expect(section.imageAlt?.length).toBeGreaterThan(30);
     }
+
+    const silentEpidemic = philosophySections.find(
+      ({ id }) => id === "silent-epidemic",
+    );
+    expect(silentEpidemic?.content).toContain("43 million");
+    expect(silentEpidemic?.content).toContain("73%");
+    expect(silentEpidemic?.content).toContain("18 million");
+    expect(silentEpidemic?.content).toContain("82%");
 
     expect(timeline).toHaveLength(6);
     expectUniqueIds(timeline);
