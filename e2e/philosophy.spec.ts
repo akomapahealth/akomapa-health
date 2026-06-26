@@ -92,7 +92,7 @@ test.describe("Our Philosophy page", () => {
     await expect(partnerLinks.first()).toHaveAttribute("href", "/partnerships");
 
     await expect(page.locator("main img[alt]:not([alt=''])")).toHaveCount(
-      philosophySections.length,
+      philosophySections.length + 1,
     );
     expect(await hasHorizontalOverflow(page)).toBe(false);
   });

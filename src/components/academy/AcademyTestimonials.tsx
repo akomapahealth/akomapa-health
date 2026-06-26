@@ -41,7 +41,7 @@ export default function AcademyTestimonials() {
   const testimonial = academyTestimonials[currentIndex];
 
   return (
-    <section className="bg-[#F4F1E8] py-16 dark:bg-[#1C1F1E] md:py-24">
+    <section className="overflow-x-hidden bg-[#F4F1E8] py-16 dark:bg-[#1C1F1E] md:py-24">
       <div className="container mx-auto px-4 sm:px-6">
         <FadeIn direction="up" className="mx-auto mb-10 max-w-3xl space-y-3 text-center sm:space-y-4">
           <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#0097b2] dark:text-[#66C4DC] sm:text-sm">
@@ -123,7 +123,7 @@ export default function AcademyTestimonials() {
 
           <button
             onClick={handlePrevious}
-            className="absolute left-0 top-1/2 flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-[#E6E7E7] bg-white text-[#0097b2] shadow-md transition hover:bg-[#FCFAEF] focus:outline-none focus:ring-2 focus:ring-[#0097b2] dark:border-[#2E3433] dark:bg-[#2F3332] dark:text-[#66C4DC] md:-left-3"
+            className="absolute -left-1 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-[#E6E7E7] bg-white text-[#0097b2] shadow-md transition hover:bg-[#FCFAEF] focus:outline-none focus:ring-2 focus:ring-[#0097b2] dark:border-[#2E3433] dark:bg-[#2F3332] dark:text-[#66C4DC] md:-left-5"
             aria-label="Previous testimonial"
           >
             <ChevronLeft className="h-6 w-6" />
@@ -131,7 +131,7 @@ export default function AcademyTestimonials() {
 
           <button
             onClick={handleNext}
-            className="absolute right-0 top-1/2 flex h-10 w-10 translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-[#E6E7E7] bg-white text-[#0097b2] shadow-md transition hover:bg-[#FCFAEF] focus:outline-none focus:ring-2 focus:ring-[#0097b2] dark:border-[#2E3433] dark:bg-[#2F3332] dark:text-[#66C4DC] md:-right-3"
+            className="absolute -right-1 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-[#E6E7E7] bg-white text-[#0097b2] shadow-md transition hover:bg-[#FCFAEF] focus:outline-none focus:ring-2 focus:ring-[#0097b2] dark:border-[#2E3433] dark:bg-[#2F3332] dark:text-[#66C4DC] md:-right-5"
             aria-label="Next testimonial"
           >
             <ChevronRight className="h-6 w-6" />

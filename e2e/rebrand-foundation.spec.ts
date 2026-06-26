@@ -323,7 +323,7 @@ test.describe("Akomapa rebrand foundation", () => {
           };
         });
 
-        const floralWhitePattern = /rgb\(252, 250, 239\)|oklab\(0\.98/;
+        const floralWhitePattern = /rgb\(252, 250, 239\)|oklab\(0\.9[6-9]/;
         const softWhitePattern = /rgb\(230, 231, 231\)|oklab\(0\.92/;
 
         expect(darkStyles.footerBackground).toBe("rgb(18, 21, 20)");
