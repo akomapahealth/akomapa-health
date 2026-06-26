@@ -13,36 +13,36 @@ import {
 
 const joinWays = [
   {
-    title: "Partner With Us",
+    title: "Partner With Communities",
     description:
-      "Co-design student-powered clinics and leadership pathways with universities, hospitals, and NGOs committed to reimagining preventative care.",
+      "Co-design community health hubs and ethical leadership pathways with universities, hospitals, and mission-aligned organizations.",
     icon: Building2,
     href: "/partnerships",
     ctaLabel: "Explore Partnerships"
   },
   {
-    title: "Sponsor Training & Clinics",
+    title: "Fund Clinics and Training",
     description:
-      "Provide scholarships, clinical supervision, or operating support so students can deliver consistent, community-rooted primary care.",
+      "Support screenings, health education, clinical supervision, and scholarships that help students serve communities well.",
     icon: GraduationCap,
     href: "/donate",
-    ctaLabel: "Fund a Program"
+    ctaLabel: "Fund the Work"
   },
   {
-    title: "Volunteer Your Expertise",
+    title: "Mentor Emerging Leaders",
     description:
-      "Mentor students, support clinic operations, or lend technical skills that strengthen emerging health leaders across Ghana.",
+      "Share clinical, research, operational, or technical expertise with students learning to lead through service.",
     icon: Users,
     href: "/get-involved",
-    ctaLabel: "Apply to Volunteer"
+    ctaLabel: "Get Involved"
   },
   {
-    title: "Donate to Grow Impact",
+    title: "Grow Sustainable Impact",
     description:
-      "Invest in new clinics, mobile outreach, and research that help Akomapa scale compassionate, preventative care.",
+      "Invest in the systems, partnerships, and evidence needed to expand community-driven care beyond a single site.",
     icon: HeartHandshake,
     href: "/donate",
-    ctaLabel: "Give to Akomapa"
+    ctaLabel: "Donate"
   }
 ];
 
@@ -53,7 +53,7 @@ export default function CallToAction() {
         <PublicSectionHeader
           eyebrow="Get Involved"
           eyebrowTone="gold"
-          title="You Can Help Build the Future of Primary Care in Africa."
+          title="Build ethical health leaders with us."
           className="mb-12"
           titleClassName="text-[#FCFAEF] dark:text-[#FCFAEF]"
         />
@@ -68,7 +68,7 @@ export default function CallToAction() {
           >
             <div className="flex flex-col items-center lg:items-start justify-center gap-8 px-2 sm:px-0">
               <p className="text-lg sm:text-xl text-[#FCFAEF]/85 leading-relaxed max-w-2xl text-center lg:text-left">
-                Join a movement led by students and rooted in community. Partner, sponsor, volunteer, or donate—every pathway fuels preventative primary care across Africa and beyond.
+                Akomapa grows when communities, students, clinicians, donors, and institutions move together. Your support helps expand community health hubs, leadership training, research, and equitable partnerships.
               </p>
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -80,7 +80,7 @@ export default function CallToAction() {
                 <PublicCta asChild variant="light" icon={false}>
                   <Link href="/get-involved" className="flex items-center">
                     <Users size={20} className="mr-2" />
-                    Volunteer
+                    Get Involved
                   </Link>
                 </PublicCta>
                 <PublicCta asChild variant="gold" icon={false}>
@@ -93,12 +93,6 @@ export default function CallToAction() {
                   >
                     <HandCoins size={20} className="mr-2" />
                     Donate
-                  </Link>
-                </PublicCta>
-                <PublicCta asChild variant="outline-light" className="border-[#FCFAEF]/75 text-[#FCFAEF] hover:bg-[#FCFAEF] hover:text-[#1C1F1E]" icon={false}>
-                  <Link href="/partnerships" className="flex items-center">
-                    <Building2 size={20} className="mr-2" />
-                    Partner With Us
                   </Link>
                 </PublicCta>
               </motion.div>

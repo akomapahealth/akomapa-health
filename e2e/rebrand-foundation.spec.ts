@@ -2,7 +2,10 @@ import { expect, test, type Page } from "@playwright/test";
 import { announcementCampaign } from "../src/data/announcements";
 import { BRAND } from "../src/config/brand";
 
-const homepageTitle = `Akomapa Health - ${BRAND.tagline}`;
+const homepageTitle =
+  "Akomapa Health | Ethical Global Health Leaders and Community-Driven Care";
+const homepageDescription =
+  "Akomapa develops ethical global health leaders through community health hubs, leadership training, research, and equitable partnerships.";
 
 const quickLinks = [
   { label: "Our Philosophy", href: "/philosophy" },
@@ -29,18 +32,21 @@ const destinationRoutes = [
   { path: "/get-involved", heading: "Get Involved" },
 ] as const;
 
-async function preparePage(page: Page, theme: "light" | "dark" = "light") {
+async function preparePage(page: Page, theme?: "light" | "dark") {
   await page.addInitScript(
     ({ announcementVersion, storedTheme }) => {
       localStorage.setItem(
         "akomapa-announcements-dismissed",
         announcementVersion,
       );
-      localStorage.setItem("akomapa-theme", storedTheme);
+
+      if (storedTheme) {
+        localStorage.setItem("akomapa-theme", storedTheme);
+      }
     },
     {
       announcementVersion: announcementCampaign.version,
-      storedTheme: theme,
+      storedTheme: theme ?? null,
     },
   );
 }
@@ -62,7 +68,7 @@ test.describe("Akomapa rebrand foundation", () => {
     await expect(page).toHaveTitle(homepageTitle);
     await expect(page.locator('meta[name="description"]')).toHaveAttribute(
       "content",
-      BRAND.heroSubheadline,
+      homepageDescription,
     );
   });
 
@@ -72,14 +78,15 @@ test.describe("Akomapa rebrand foundation", () => {
     await page.goto("/", { waitUntil: "domcontentloaded" });
 
     const narrativeHeadings = [
+      "Early numbers from a growing health leadership movement.",
+      'In Akan, Akomapa means "a good heart."',
       "Good Intentions Are Not Enough",
-      "Students Have Always Changed Healthcare",
       "What We Do",
       "The Silent Epidemic",
-      "Measured in people, partnerships, and momentum",
+      "Community health impact, leadership development, and momentum",
       "Training Ethical Leaders for a Changing World",
       "Community Health Hubs",
-      "Nkwapa connects care, learning, and evidence.",
+      "Students Have Always Changed Healthcare",
       "Designed with Evidence. Driven by Collaboration.",
     ];
 
@@ -98,7 +105,14 @@ test.describe("Akomapa rebrand foundation", () => {
     expect(headingOrder).toEqual([...headingOrder].sort((a, b) => a - b));
 
     await expect(
-      page.getByText('In Akan, Akomapa means "a good heart."'),
+      page.getByRole("heading", {
+        name: "Nkwapa connects care, learning, and evidence.",
+        exact: true,
+      }),
+    ).toHaveCount(0);
+    await expect(page.getByRole("heading", { name: "Gallery" })).toHaveCount(0);
+    await expect(
+      page.getByRole("heading", { name: /latest updates/i }),
     ).toHaveCount(0);
     await expect(
       page.getByRole("heading", {
@@ -276,6 +290,52 @@ test.describe("Akomapa rebrand foundation", () => {
       await expect(
         footer.getByRole("link", { name: "Our Philosophy" }),
       ).toBeVisible();
+
+      if (theme === "dark") {
+        const darkStyles = await footer.evaluate((footerElement) => {
+          const mission = footerElement.querySelector("p");
+          const legalNotice = footerElement.querySelectorAll("p")[1];
+          const quickLink = footerElement.querySelector("a[href='/philosophy']");
+          const newsletterHeading = footerElement.querySelector(
+            "#footer-newsletter-heading",
+          );
+          const emailInput = footerElement.querySelector("input[type='email']");
+          const submitButton = footerElement.querySelector("button[type='submit']");
+
+          return {
+            footerBackground: getComputedStyle(footerElement).backgroundColor,
+            missionColor: mission ? getComputedStyle(mission).color : "",
+            legalNoticeColor: legalNotice
+              ? getComputedStyle(legalNotice).color
+              : "",
+            quickLinkColor: quickLink ? getComputedStyle(quickLink).color : "",
+            newsletterHeadingColor: newsletterHeading
+              ? getComputedStyle(newsletterHeading).color
+              : "",
+            emailInputColor: emailInput ? getComputedStyle(emailInput).color : "",
+            emailInputBackground: emailInput
+              ? getComputedStyle(emailInput).backgroundColor
+              : "",
+            submitColor: submitButton ? getComputedStyle(submitButton).color : "",
+            submitBackground: submitButton
+              ? getComputedStyle(submitButton).backgroundColor
+              : "",
+          };
+        });
+
+        const floralWhitePattern = /rgb\(252, 250, 239\)|oklab\(0\.98/;
+        const softWhitePattern = /rgb\(230, 231, 231\)|oklab\(0\.92/;
+
+        expect(darkStyles.footerBackground).toBe("rgb(18, 21, 20)");
+        expect(darkStyles.missionColor).toMatch(floralWhitePattern);
+        expect(darkStyles.legalNoticeColor).toMatch(softWhitePattern);
+        expect(darkStyles.quickLinkColor).toMatch(floralWhitePattern);
+        expect(darkStyles.newsletterHeadingColor).toMatch(floralWhitePattern);
+        expect(darkStyles.emailInputColor).toBe("rgb(47, 51, 50)");
+        expect(darkStyles.emailInputBackground).toMatch(floralWhitePattern);
+        expect(darkStyles.submitColor).toBe("rgb(18, 21, 20)");
+        expect(darkStyles.submitBackground).toBe("rgb(245, 201, 77)");
+      }
       expect(await hasHorizontalOverflow(page)).toBe(false);
     });
   }
