@@ -4,10 +4,6 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { CheckCircle2, ChevronDown, Clock, Users } from "lucide-react";
 import { FadeIn } from "@/components/animations";
-import {
-  PublicSection,
-  PublicSectionHeader,
-} from "@/components/shared/PublicPagePrimitives";
 import { academyCurriculum, academyFaculty } from "@/data/academy";
 import type { AcademyModule } from "@/lib/types";
 
@@ -36,7 +32,7 @@ function ModuleAccordion({ modules }: { modules: AcademyModule[] }) {
         return (
           <div
             key={module.id}
-            className="overflow-hidden rounded-2xl border border-neutral-200/50 bg-white text-[#0F4C5C] shadow-md shadow-black/10 transition-all duration-200 hover:-translate-y-0.5 dark:border-[#2F3332] dark:bg-[#2F3332] dark:text-[#FCFAEF] dark:shadow-black/30"
+            className="overflow-hidden rounded-2xl border border-white/20 bg-[#0B2F3A]/60 text-[#FCFAEF] shadow-lg shadow-black/30 backdrop-blur-sm transition-all duration-200 hover:-translate-y-0.5"
           >
             <button
               type="button"
@@ -55,12 +51,12 @@ function ModuleAccordion({ modules }: { modules: AcademyModule[] }) {
                 >
                   Module {module.order}
                 </span>
-                <h3 className="text-base font-semibold leading-tight text-[#0F4C5C] dark:text-[#FCFAEF] sm:text-lg md:text-xl">
+                <h3 className="text-base font-semibold leading-tight text-[#FCFAEF] sm:text-lg md:text-xl">
                   {module.title}
                 </h3>
               </div>
               <ChevronDown
-                className={`mt-1 h-4 w-4 flex-shrink-0 text-[#0F4C5C] transition-transform duration-200 dark:text-[#FCFAEF] sm:mt-0 sm:h-5 sm:w-5 ${
+                className={`mt-1 h-4 w-4 flex-shrink-0 text-[#FCFAEF] transition-transform duration-200 sm:mt-0 sm:h-5 sm:w-5 ${
                   isOpen ? "rotate-180" : ""
                 }`}
               />
@@ -77,36 +73,36 @@ function ModuleAccordion({ modules }: { modules: AcademyModule[] }) {
                   style={{ overflow: "hidden" }}
                 >
                   <div className="space-y-4 px-4 pb-4 sm:px-6 sm:pb-6">
-                    <p className="text-sm leading-relaxed text-[#2F3332] dark:text-[#E6E7E7] sm:text-base">
+                    <p className="text-sm leading-relaxed text-[#FCFAEF]/85 sm:text-base">
                       {module.description}
                     </p>
 
                     <div>
-                      <h4 className="font-subheading text-xs font-bold uppercase tracking-widest text-[#0097b2] dark:text-[#66C4DC]">
+                      <h4 className="text-xs font-bold uppercase tracking-widest text-[#F5C94D]">
                         Learning Objectives
                       </h4>
                       <ul className="mt-2 space-y-1.5">
                         {module.learningObjectives.map((objective) => (
                           <li
                             key={objective}
-                            className="flex items-start gap-2 text-sm text-[#2F3332]/85 dark:text-[#E6E7E7]/85"
+                            className="flex items-start gap-2 text-sm text-[#FCFAEF]/85"
                           >
-                            <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[#0097b2] dark:text-[#66C4DC]" />
+                            <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[#F5C94D]" />
                             <span>{objective}</span>
                           </li>
                         ))}
                       </ul>
                     </div>
 
-                    <div className="flex flex-wrap items-center gap-3 text-xs text-[#2F3332]/70 dark:text-[#E6E7E7]/70">
+                    <div className="flex flex-wrap items-center gap-3 text-xs text-[#FCFAEF]/70">
                       {module.duration ? (
-                        <span className="inline-flex items-center gap-1.5 rounded-full bg-[#0097b2]/10 px-3 py-1 font-semibold text-[#0097b2] dark:bg-[#66C4DC]/15 dark:text-[#66C4DC]">
+                        <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 font-semibold text-[#FCFAEF]">
                           <Clock className="h-3 w-3" />
                           {module.duration}
                         </span>
                       ) : null}
                       <span className="inline-flex items-center gap-1.5">
-                        <Users className="h-3 w-3 text-[#0097b2] dark:text-[#66C4DC]" />
+                        <Users className="h-3 w-3 text-[#F5C94D]" />
                         {resolveFacultyNames(module.facultyContributors)}
                       </span>
                     </div>
@@ -123,25 +119,36 @@ function ModuleAccordion({ modules }: { modules: AcademyModule[] }) {
 
 export default function CurriculumSection() {
   return (
-    <PublicSection
+    <section
       id="curriculum"
-      tone="white"
-      spacing="spacious"
-      className="scroll-mt-20"
+      className="relative scroll-mt-20 overflow-hidden bg-gradient-to-r from-[#0097b2] to-[#0F4C5C] py-16 text-[#FCFAEF] md:py-24"
     >
-      <FadeIn>
-        <PublicSectionHeader
-          eyebrow="Curriculum"
-          title="8 Modules. One Transformative Journey."
-          description={`A ${academyCurriculum.totalDuration} program covering ethical leadership, community partnership, research, innovation, and an applied capstone project.`}
-          alignment="center"
-          className="mb-12 md:mb-16"
-        />
-      </FadeIn>
-
-      <div className="mx-auto max-w-3xl">
-        <ModuleAccordion modules={academyCurriculum.modules} />
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="absolute -top-24 -left-24 h-64 w-64 rounded-full bg-[#FCFAEF]/10 blur-3xl" />
+        <div className="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-[#F5C94D]/10 blur-3xl" />
       </div>
-    </PublicSection>
+
+      <div className="container relative z-10 mx-auto px-4 sm:px-6">
+        <FadeIn>
+          <div className="mx-auto mb-12 max-w-3xl space-y-4 text-center">
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#F5C94D]">
+              Curriculum
+            </p>
+            <h2 className="text-3xl font-bold md:text-4xl">
+              8 Modules. One Transformative Journey.
+            </h2>
+            <p className="text-base leading-relaxed text-[#FCFAEF]/85 sm:text-lg">
+              A {academyCurriculum.totalDuration} program covering ethical
+              leadership, community partnership, research, innovation, and an
+              applied capstone project.
+            </p>
+          </div>
+        </FadeIn>
+
+        <div className="mx-auto max-w-3xl">
+          <ModuleAccordion modules={academyCurriculum.modules} />
+        </div>
+      </div>
+    </section>
   );
 }
