@@ -37,6 +37,11 @@ test.describe("final homepage composition", () => {
 
       await expect(
         page.getByRole("heading", {
+          name: /early numbers from a growing health leadership movement/i,
+        }),
+      ).toBeVisible();
+      await expect(
+        page.getByRole("heading", {
           name: 'In Akan, Akomapa means "a good heart."',
         }),
       ).toBeVisible();

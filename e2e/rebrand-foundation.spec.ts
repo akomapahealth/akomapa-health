@@ -32,18 +32,21 @@ const destinationRoutes = [
   { path: "/get-involved", heading: "Get Involved" },
 ] as const;
 
-async function preparePage(page: Page, theme: "light" | "dark" = "light") {
+async function preparePage(page: Page, theme?: "light" | "dark") {
   await page.addInitScript(
     ({ announcementVersion, storedTheme }) => {
       localStorage.setItem(
         "akomapa-announcements-dismissed",
         announcementVersion,
       );
-      localStorage.setItem("akomapa-theme", storedTheme);
+
+      if (storedTheme) {
+        localStorage.setItem("akomapa-theme", storedTheme);
+      }
     },
     {
       announcementVersion: announcementCampaign.version,
-      storedTheme: theme,
+      storedTheme: theme ?? null,
     },
   );
 }
@@ -75,6 +78,7 @@ test.describe("Akomapa rebrand foundation", () => {
     await page.goto("/", { waitUntil: "domcontentloaded" });
 
     const narrativeHeadings = [
+      "Early numbers from a growing health leadership movement.",
       'In Akan, Akomapa means "a good heart."',
       "Good Intentions Are Not Enough",
       "What We Do",
@@ -286,6 +290,52 @@ test.describe("Akomapa rebrand foundation", () => {
       await expect(
         footer.getByRole("link", { name: "Our Philosophy" }),
       ).toBeVisible();
+
+      if (theme === "dark") {
+        const darkStyles = await footer.evaluate((footerElement) => {
+          const mission = footerElement.querySelector("p");
+          const legalNotice = footerElement.querySelectorAll("p")[1];
+          const quickLink = footerElement.querySelector("a[href='/philosophy']");
+          const newsletterHeading = footerElement.querySelector(
+            "#footer-newsletter-heading",
+          );
+          const emailInput = footerElement.querySelector("input[type='email']");
+          const submitButton = footerElement.querySelector("button[type='submit']");
+
+          return {
+            footerBackground: getComputedStyle(footerElement).backgroundColor,
+            missionColor: mission ? getComputedStyle(mission).color : "",
+            legalNoticeColor: legalNotice
+              ? getComputedStyle(legalNotice).color
+              : "",
+            quickLinkColor: quickLink ? getComputedStyle(quickLink).color : "",
+            newsletterHeadingColor: newsletterHeading
+              ? getComputedStyle(newsletterHeading).color
+              : "",
+            emailInputColor: emailInput ? getComputedStyle(emailInput).color : "",
+            emailInputBackground: emailInput
+              ? getComputedStyle(emailInput).backgroundColor
+              : "",
+            submitColor: submitButton ? getComputedStyle(submitButton).color : "",
+            submitBackground: submitButton
+              ? getComputedStyle(submitButton).backgroundColor
+              : "",
+          };
+        });
+
+        const floralWhitePattern = /rgb\(252, 250, 239\)|oklab\(0\.98/;
+        const softWhitePattern = /rgb\(230, 231, 231\)|oklab\(0\.92/;
+
+        expect(darkStyles.footerBackground).toBe("rgb(18, 21, 20)");
+        expect(darkStyles.missionColor).toMatch(floralWhitePattern);
+        expect(darkStyles.legalNoticeColor).toMatch(softWhitePattern);
+        expect(darkStyles.quickLinkColor).toMatch(floralWhitePattern);
+        expect(darkStyles.newsletterHeadingColor).toMatch(floralWhitePattern);
+        expect(darkStyles.emailInputColor).toBe("rgb(47, 51, 50)");
+        expect(darkStyles.emailInputBackground).toMatch(floralWhitePattern);
+        expect(darkStyles.submitColor).toBe("rgb(18, 21, 20)");
+        expect(darkStyles.submitBackground).toBe("rgb(245, 201, 77)");
+      }
       expect(await hasHorizontalOverflow(page)).toBe(false);
     });
   }

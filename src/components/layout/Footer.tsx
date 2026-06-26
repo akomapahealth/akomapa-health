@@ -5,16 +5,16 @@ import { BRAND } from "@/config/brand";
 import BrandLogo from "@/components/shared/BrandLogo";
 
 const footerLinkClass =
-  "text-[#2F3332]/80 transition-colors hover:text-[#0097b2] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0097b2] focus-visible:ring-offset-2 focus-visible:ring-offset-[#FCFAEF] dark:text-floralwhite/80 dark:hover:text-[#F5C94D] dark:focus-visible:ring-[#F5C94D] dark:focus-visible:ring-offset-[#4F5554]";
+  "text-[#2F3332]/80 transition-colors hover:text-[#0097b2] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0097b2] focus-visible:ring-offset-2 focus-visible:ring-offset-[#FCFAEF] dark:text-[#FCFAEF] dark:hover:text-[#F5C94D] dark:focus-visible:ring-[#F5C94D] dark:focus-visible:ring-offset-[#121514]";
 
 const footerSocialLinkClass =
-  "text-[#2F3332] transition-colors hover:text-[#0097b2] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0097b2] focus-visible:ring-offset-2 focus-visible:ring-offset-[#FCFAEF] dark:text-floralwhite dark:hover:text-[#F5C94D] dark:focus-visible:ring-[#F5C94D] dark:focus-visible:ring-offset-[#4F5554]";
+  "text-[#2F3332] transition-colors hover:text-[#0097b2] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0097b2] focus-visible:ring-offset-2 focus-visible:ring-offset-[#FCFAEF] dark:text-[#FCFAEF] dark:hover:text-[#F5C94D] dark:focus-visible:ring-[#F5C94D] dark:focus-visible:ring-offset-[#121514]";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
   
   return (
-    <footer className="bg-[#FCFAEF] text-[#1C1F1E] dark:bg-[#4F5554] dark:text-[#FCFAEF]">
+    <footer className="bg-[#FCFAEF] text-[#1C1F1E] dark:bg-[#121514] dark:text-[#FCFAEF]">
       <div className="container mx-auto px-4 py-12">
         <div
           data-footer-grid
@@ -23,10 +23,10 @@ export default function Footer() {
           {/* Logo and mission */}
           <div className="space-y-4">
             <BrandLogo width={220} height={60} />
-            <p className="mt-4 font-body text-[#2F3332]/80 dark:text-floralwhite/80">
+            <p className="mt-4 font-body text-[#2F3332]/80 dark:text-[#FCFAEF]">
               {BRAND.footerMission}
             </p>
-            <p className="font-body text-sm text-[#2F3332]/70 dark:text-floralwhite/70">
+            <p className="font-body text-sm text-[#2F3332]/70 dark:text-[#E6E7E7]">
               {BRAND.legalNotice}
             </p>
             <div className="flex space-x-4 pt-2">
@@ -115,9 +115,9 @@ export default function Footer() {
           {/* Contact Information */}
           <div>
             <h3 className="mb-4 font-heading text-lg font-bold tracking-tight">Contact Us</h3>
-            <div className="space-y-6 font-body text-[#2F3332]/80 dark:text-floralwhite/80">
+            <div className="space-y-6 font-body text-[#2F3332]/80 dark:text-[#FCFAEF]">
               <div>
-                <h4 className="mb-1 font-semibold text-[#1C1F1E] dark:text-floralwhite">USA Office</h4>
+                <h4 className="mb-1 font-semibold text-[#1C1F1E] dark:text-[#FCFAEF]">USA Office</h4>
                 <p className="text-sm leading-relaxed">
                   University Towers, Apt 5N<br />
                   100 York Street, New Haven, CT 06511<br />
@@ -125,7 +125,7 @@ export default function Footer() {
                 </p>
               </div>
               <div>
-                <h4 className="mb-1 font-semibold text-[#1C1F1E] dark:text-floralwhite">Ghana Office</h4>
+                <h4 className="mb-1 font-semibold text-[#1C1F1E] dark:text-[#FCFAEF]">Ghana Office</h4>
                 <p className="text-sm leading-relaxed">
                   43 Yam Street, Tema Community 23, Adjei Kojo, Accra<br />
                   +233 (0)50 296 6072
@@ -146,8 +146,8 @@ export default function Footer() {
 
         <Newsletter />
 
-        <div className="mt-10 flex flex-col items-center justify-between border-t border-[#2F3332]/15 pt-6 dark:border-floralwhite/20 md:flex-row">
-          <p className="font-body text-sm text-[#2F3332]/70 dark:text-floralwhite/70">
+        <div className="mt-10 flex flex-col items-center justify-between border-t border-[#2F3332]/15 pt-6 dark:border-[#FCFAEF]/20 md:flex-row">
+          <p className="font-body text-sm text-[#2F3332]/70 dark:text-[#E6E7E7]">
             &copy; {currentYear} Akomapa Health. All rights reserved.
           </p>
           <div className="flex space-x-6 mt-4 md:mt-0">

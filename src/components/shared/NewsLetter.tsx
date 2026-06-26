@@ -75,7 +75,7 @@ export default function Newsletter() {
     <section
       data-newsletter
       aria-labelledby="footer-newsletter-heading"
-      className="mt-10 rounded-xl border border-[#2F3332]/15 bg-white/65 p-5 shadow-sm sm:p-6 lg:p-8 dark:border-[#FCFAEF]/20 dark:bg-[#2F3332]/35"
+      className="mt-10 rounded-xl border border-[#2F3332]/15 bg-white/65 p-5 shadow-sm sm:p-6 lg:p-8 dark:border-[#FCFAEF]/18 dark:bg-[#FCFAEF]/[0.06]"
     >
       <div className="grid gap-6 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:items-center">
         <div>
@@ -88,7 +88,7 @@ export default function Newsletter() {
           >
             Join the Akomapa newsletter
           </h2>
-          <p className="mt-2 max-w-xl font-body text-sm leading-relaxed text-[#2F3332]/75 dark:text-[#FCFAEF]/75">
+          <p className="mt-2 max-w-xl font-body text-sm leading-relaxed text-[#2F3332]/75 dark:text-[#E6E7E7]">
             Receive updates on community care, research, leadership programs,
             and opportunities to get involved.
           </p>
@@ -97,7 +97,7 @@ export default function Newsletter() {
         {isSubmitted ? (
           <div
             aria-live="polite"
-            className="flex flex-col gap-4 rounded-xl bg-[#FCFAEF] p-4 text-[#2F3332] sm:flex-row sm:items-center sm:justify-between"
+            className="flex flex-col gap-4 rounded-xl bg-[#FCFAEF] p-4 text-[#2F3332] sm:flex-row sm:items-center sm:justify-between dark:bg-[#1C1F1E] dark:text-[#FCFAEF]"
           >
             <div className="flex items-start gap-3">
               <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#0097b2]" />
@@ -105,7 +105,7 @@ export default function Newsletter() {
                 <h3 className="font-heading font-semibold">
                   Thank you for subscribing!
                 </h3>
-                <p className="mt-1 font-body text-sm text-[#2F3332]/75">
+                <p className="mt-1 font-body text-sm text-[#2F3332]/75 dark:text-[#E6E7E7]">
                   You&apos;ll now receive the latest Akomapa updates.
                 </p>
               </div>
@@ -164,7 +164,7 @@ export default function Newsletter() {
                 <Button
                   type="submit"
                   disabled={isLoading}
-                  className="h-12 shrink-0 bg-[#0097b2] px-6 font-medium text-[#FCFAEF] hover:bg-[#007f96] focus-visible:ring-[#F5C94D] disabled:cursor-not-allowed disabled:opacity-50 sm:px-8"
+                  className="h-12 shrink-0 bg-[#0097b2] px-6 font-medium text-[#FCFAEF] hover:bg-[#007f96] focus-visible:ring-[#F5C94D] disabled:cursor-not-allowed disabled:opacity-50 sm:px-8 dark:bg-[#F5C94D] dark:text-[#121514] dark:hover:bg-[#FCFAEF]"
                 >
                   {isLoading ? (
                     <>
