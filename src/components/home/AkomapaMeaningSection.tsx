@@ -1,117 +1,85 @@
-"use client";
-
-import Link from "next/link";
-import { motion } from "framer-motion";
+import { Heart } from "lucide-react";
+import { FadeIn } from "@/components/animations";
 import Image from "@/components/common/Image";
-import { Button } from "@/components/ui/button";
+import {
+  IconBadge,
+  MediaFrame,
+  PublicCta,
+  PublicSection,
+  SectionEyebrow,
+  SurfaceCard,
+} from "@/components/shared/PublicPagePrimitives";
 
 export default function AkomapaMeaningSection() {
-  return (
-    <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E] relative overflow-hidden">
-      {/* Decorative elements */}
-      <div className="absolute top-0 left-0 w-64 h-64 bg-[#0097b2]/10 dark:bg-[#0097b2]/20 rounded-full -translate-y-1/2 -translate-x-1/2 blur-3xl"></div>
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#eeba2b]/10 dark:bg-[#eeba2b]/20 rounded-full translate-y-1/2 translate-x-1/2 blur-3xl"></div>
-      
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 lg:gap-16 items-start lg:items-center">
-          {/* Visual Element */}
-          <motion.div 
-            className="lg:col-span-5"
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.7, delay: 0.2 }}
-            viewport={{ once: true }}
-          >
-            <div className="relative">
-              {/* Main image container - taller height */}
-              <div className="relative h-[600px] md:h-[700px] lg:h-[750px] rounded-2xl overflow-hidden shadow-2xl">
-                <Image
-                  src="/highlights/Akomapa-48.jpg"
-                  alt="Healthcare professionals showing compassion and care"
-                  fill
-                  sizes="(min-width: 1024px) 42vw, 100vw"
-                  className="object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0097b2]/40 via-transparent to-transparent"></div>
-              </div>
-              
-              {/* Floating card with heart icon */}
-              <motion.div
-                initial={{ opacity: 0, y: 30, scale: 0.9 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                transition={{ duration: 0.8, delay: 0.5 }}
-                viewport={{ once: true }}
-                className="absolute -bottom-6 -left-6 bg-[#FCFAEF] dark:bg-[#1C1F1E] p-6 rounded-xl shadow-xl border border-[#E6E7E7] dark:border-[#2F3332] max-w-xs"
-              >
-                <div className="flex items-center space-x-3 mb-3">
-                  <div className="w-10 h-10 bg-[#0097b2] dark:bg-[#66C4DC] rounded-full flex items-center justify-center">
-                    <svg className="w-5 h-5 text-[#FCFAEF]" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
-                    </svg>
-                  </div>
-                  <span className="text-lg font-bold text-[#0097b2] dark:text-[#66C4DC]">Nya Akomapa</span>
-                </div>
-                <p className="text-sm text-[#2F3332] dark:text-[#E6E7E7] text-center">
-                  &quot;Have a good heart&quot;
-                </p>
-              </motion.div>
-              
-              {/* Decorative elements */}
-              <div className="absolute -top-4 -left-4 w-20 h-20 bg-[#eeba2b]/20 dark:bg-[#F5C94D]/20 rounded-full flex items-center justify-center">
-                <div className="w-8 h-8 bg-[#eeba2b] dark:bg-[#F5C94D] rounded-full"></div>
-              </div>
-              
-              <div className="absolute top-1/2 -left-8 w-16 h-16 bg-[#0097b2]/20 dark:bg-[#66C4DC]/20 rounded-full flex items-center justify-center">
-                <div className="w-6 h-6 bg-[#0097b2] dark:bg-[#66C4DC] rounded-full"></div>
-              </div>
-            </div>
-          </motion.div>
-          
-          {/* Text Content */}
-          <motion.div 
-            className="lg:col-span-7 flex items-center"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.3 }}
-            viewport={{ once: true }}
-          >
-            <div className="w-full max-w-3xl h-full flex flex-col justify-center">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.4 }}
-                viewport={{ once: true }}
-                className="space-y-8 md:space-y-10 lg:space-y-12 text-lg md:text-xl text-[#2F3332] dark:text-[#E6E7E7] leading-relaxed"
-              >
-                <p className="text-2xl md:text-3xl font-medium text-[#0097b2] dark:text-[#66C4DC]">
-                  In Akan, Akomapa means &quot;a good heart.&quot;
-                </p>
-                
-                <p className="text-lg md:text-xl">
-                  It&apos;s more than just a name — it&apos;s our guiding belief.
-                </p>
-                
-                <p className="text-lg md:text-xl leading-relaxed">
-                  At Akomapa, we care for the physical heart — screening for hypertension, managing diabetes, offering nutrition and mental wellness support — but we also care for the moral heart of healthcare. The part that listens. The part that sees dignity in every patient. The part that refuses to walk away from people just because they are poor. To have akomapa is to lead with empathy, to live in health, and to believe that everyone deserves to be well — in body, mind, and spirit. Whether you&apos;re a patient, a volunteer, or a partner — welcome to the Akomapa family.
-                </p>
-                
-                <p className="text-xl md:text-2xl font-semibold text-[#eeba2b] dark:text-[#F5C94D]">
-                  Welcome to a family with a good heart.
-                </p>
+  const headingId = "akomapa-meaning-heading";
 
+  return (
+    <PublicSection aria-labelledby={headingId} tone="white">
+      <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-16">
+        <FadeIn direction="right" className="lg:col-span-5">
+          <MediaFrame className="mx-auto w-full max-w-xl" aspect="portrait">
+            <Image
+              src="/highlights/Akomapa-48.jpg"
+              alt="Healthcare professionals showing compassion and care"
+              fill
+              sizes="(min-width: 1280px) 500px, (min-width: 1024px) 42vw, 100vw"
+              className="object-cover"
+              style={{ objectPosition: "center" }}
+            />
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 bg-gradient-to-t from-[#121514]/55 via-transparent to-transparent"
+            />
+            <SurfaceCard className="absolute bottom-5 left-5 max-w-[calc(100%-2.5rem)] bg-[#FCFAEF]/95 p-5 text-[#1C1F1E] dark:bg-[#1C1F1E]/95 dark:text-[#FCFAEF] sm:max-w-xs">
+              <div className="flex items-center gap-3">
+                <IconBadge className="bg-[#0097b2] text-[#FCFAEF] dark:bg-[#66C4DC] dark:text-[#1C1F1E]">
+                  <Heart className="h-5 w-5" aria-hidden="true" />
+                </IconBadge>
                 <div>
-                  <Button
-                    asChild
-                  className="inline-flex items-center justify-center bg-[#0097b2] text-[#FCFAEF] hover:bg-[#0097b2]/85 px-10 py-7 rounded-half text-lg md:text-xl font-semibold shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 hover:scale-[1.02]"
-                  >
-                    <Link href="/about">Our Story</Link>
-                  </Button>
+                  <p className="font-heading text-lg font-bold text-[#0097b2] dark:text-[#66C4DC]">
+                    Nya Akomapa
+                  </p>
+                  <p className="text-sm text-[#2F3332]/78 dark:text-[#E6E7E7]/78">
+                    &quot;Have a good heart&quot;
+                  </p>
                 </div>
-              </motion.div>
+              </div>
+            </SurfaceCard>
+          </MediaFrame>
+        </FadeIn>
+
+        <FadeIn className="lg:col-span-7">
+          <div className="max-w-3xl">
+            <SectionEyebrow>Akomapa Means Good Heart</SectionEyebrow>
+            <h2
+              id={headingId}
+              className="mt-4 font-heading text-4xl font-bold leading-tight text-[#1C1F1E] dark:text-[#FCFAEF] md:text-5xl lg:text-6xl"
+            >
+              In Akan, Akomapa means &quot;a good heart.&quot;
+            </h2>
+            <div className="mt-6 space-y-5 text-lg leading-relaxed text-[#2F3332]/84 dark:text-[#E6E7E7]/84 md:text-xl">
+              <p>
+                It is more than a name. It is the belief that health leadership
+                begins with empathy, dignity, and a willingness to stay close to
+                the people most often left out of care.
+              </p>
+              <p>
+                Akomapa cares for the physical heart through screening,
+                prevention, nutrition, and wellness support. We also care for
+                the moral heart of healthcare: the part that listens, learns,
+                and refuses to walk away from communities because the work is
+                hard.
+              </p>
             </div>
-          </motion.div>
-        </div>
+            <p className="mt-7 font-heading text-2xl font-semibold leading-snug text-[#0097b2] dark:text-[#66C4DC]">
+              Welcome to a family with a good heart.
+            </p>
+            <PublicCta href="/about" variant="teal" className="mt-8">
+              Our Story
+            </PublicCta>
+          </div>
+        </FadeIn>
       </div>
-    </section>
+    </PublicSection>
   );
-} 
+}
