@@ -9,6 +9,7 @@ const pages = [
   { path: '/', title: 'Akomapa' },
   { path: '/about', title: 'About' },
   { path: '/about/team', title: 'Team' },
+  { path: '/philosophy', title: 'Our Philosophy' },
   { path: '/academy', title: 'Academy' },
   { path: '/programs', title: 'Programs' },
   { path: '/programs/akomapa-young-advocates', title: 'Young Advocates' },

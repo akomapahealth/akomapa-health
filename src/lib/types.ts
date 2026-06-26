@@ -196,6 +196,8 @@ export interface PhilosophySection {
   content: string;
   order: number;
   image?: string;
+  imageAlt?: string;
+  imagePosition?: string;
   quote?: {
     text: string;
     author: string;

@@ -171,6 +171,9 @@ describe("rebrand data model contracts", () => {
       title: "A Good Heart",
       content: "Health leadership begins with service.",
       order: 1,
+      image: "/highlights/Akomapa-20.jpg",
+      imageAlt: "Akomapa students learning alongside community partners.",
+      imagePosition: "center",
     };
 
     const timelineEvent: TimelineEvent = {
@@ -243,7 +246,7 @@ describe("rebrand data model contracts", () => {
     expectTypeOf<OptionalKeys<ResearchItem>>().toEqualTypeOf<"link">();
     expectTypeOf<OptionalKeys<Partner>>().toEqualTypeOf<"website">();
     expectTypeOf<OptionalKeys<PhilosophySection>>().toEqualTypeOf<
-      "image" | "quote"
+      "image" | "imageAlt" | "imagePosition" | "quote"
     >();
     expectTypeOf<OptionalKeys<TimelineEvent>>().toEqualTypeOf<"icon">();
     expectTypeOf<OptionalKeys<ImpactMetric>>().toEqualTypeOf<
