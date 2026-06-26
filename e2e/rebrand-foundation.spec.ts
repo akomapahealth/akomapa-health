@@ -2,7 +2,10 @@ import { expect, test, type Page } from "@playwright/test";
 import { announcementCampaign } from "../src/data/announcements";
 import { BRAND } from "../src/config/brand";
 
-const homepageTitle = `Akomapa Health - ${BRAND.tagline}`;
+const homepageTitle =
+  "Akomapa Health | Ethical Global Health Leaders and Community-Driven Care";
+const homepageDescription =
+  "Akomapa develops ethical global health leaders through community health hubs, leadership training, research, and equitable partnerships.";
 
 const quickLinks = [
   { label: "Our Philosophy", href: "/philosophy" },
@@ -62,7 +65,7 @@ test.describe("Akomapa rebrand foundation", () => {
     await expect(page).toHaveTitle(homepageTitle);
     await expect(page.locator('meta[name="description"]')).toHaveAttribute(
       "content",
-      BRAND.heroSubheadline,
+      homepageDescription,
     );
   });
 
@@ -72,14 +75,14 @@ test.describe("Akomapa rebrand foundation", () => {
     await page.goto("/", { waitUntil: "domcontentloaded" });
 
     const narrativeHeadings = [
+      'In Akan, Akomapa means "a good heart."',
       "Good Intentions Are Not Enough",
-      "Students Have Always Changed Healthcare",
       "What We Do",
       "The Silent Epidemic",
-      "Measured in people, partnerships, and momentum",
+      "Community health impact, leadership development, and momentum",
       "Training Ethical Leaders for a Changing World",
       "Community Health Hubs",
-      "Nkwapa connects care, learning, and evidence.",
+      "Students Have Always Changed Healthcare",
       "Designed with Evidence. Driven by Collaboration.",
     ];
 
@@ -98,7 +101,14 @@ test.describe("Akomapa rebrand foundation", () => {
     expect(headingOrder).toEqual([...headingOrder].sort((a, b) => a - b));
 
     await expect(
-      page.getByText('In Akan, Akomapa means "a good heart."'),
+      page.getByRole("heading", {
+        name: "Nkwapa connects care, learning, and evidence.",
+        exact: true,
+      }),
+    ).toHaveCount(0);
+    await expect(page.getByRole("heading", { name: "Gallery" })).toHaveCount(0);
+    await expect(
+      page.getByRole("heading", { name: /latest updates/i }),
     ).toHaveCount(0);
     await expect(
       page.getByRole("heading", {
