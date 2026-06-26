@@ -36,7 +36,18 @@ function BreadcrumbContent() {
         .join(' ');
     };
 
+    const segmentLabels: Record<string, string> = {
+      philosophy: "Our Philosophy",
+      "ncd-impact": "NCD Impact",
+      "community-hubs": "Community Health Hubs",
+      "get-involved": "Get Involved",
+    };
+
     const label = (() => {
+      if (segmentLabels[segment]) {
+        return segmentLabels[segment];
+      }
+
       if (
         index > 0 &&
         (parentSegment === "clinics" || parentSegment === "programs")
