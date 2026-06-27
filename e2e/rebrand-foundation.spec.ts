@@ -28,7 +28,7 @@ const destinationRoutes = [
   { path: "/ncd-impact", heading: "NCD Impact" },
   { path: "/partnerships", heading: "Equitable Partnerships" },
   { path: "/impact", heading: "Our Impact" },
-  { path: "/community-hubs", heading: "Community Health Hubs" },
+  { path: "/community-hubs", heading: "Student-Powered Community Health Hubs" },
   { path: "/get-involved", heading: "Get Involved" },
 ] as const;
 

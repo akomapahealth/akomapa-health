@@ -16,6 +16,7 @@ export const teamMembers: TeamMember[] = [
   },
   {
     id: "2",
+    slug: "esi-berkoh",
     roleCategory: "executive",
     name: "Esi Bon Berkoh",
     title: "Co-founder and Vice President",
@@ -334,6 +335,7 @@ export const teamMembers: TeamMember[] = [
   // Advisory Board Members
   {
     id: "28",
+    slug: "derek-tuoyire",
     roleCategory: "advisor",
     name: "Dr. Derek Anamaale Tuoyire",
     title: "Head of Community Medicine - University of Cape Coast",
@@ -346,6 +348,7 @@ export const teamMembers: TeamMember[] = [
   },
   {
     id: "29",
+    slug: "martins-ekor",
     roleCategory: "advisor",
     name: "Prof. Martins Ekor",
     title: "Provost, College of Health and Allied Sciences, University of Cape Coast",
@@ -370,6 +373,7 @@ export const teamMembers: TeamMember[] = [
   },
   {
     id: "31",
+    slug: "jeremy-schwartz",
     roleCategory: "advisor",
     name: "Dr. Jeremy Schwartz",
     title: "Head of Chronic Care Access Lab - Yale University",
@@ -406,6 +410,7 @@ export const teamMembers: TeamMember[] = [
   },
   {
     id: "34",
+    slug: "alfred-yawson",
     roleCategory: "advisor",
     name: "Prof. Alfred Yawson",
     title: "Provost, University of Ghana College of Health Sciences",
@@ -428,4 +433,33 @@ export const teamMembers: TeamMember[] = [
       email: "#"
     }
   },
+  {
+    id: "36",
+    slug: "patrick-ampofo",
+    roleCategory: "advisor",
+    name: "Dr. Patrick Ampofo",
+    title: "UG Expansion Lead, Akomapa Health",
+    bio: "Dr. Patrick Ampofo leads the strategy and partnerships guiding Akomapa's University of Ghana hub development, bridging evidence-based approaches with community-based interventions.",
+    image: "/images/team/patrick-ampofo.jpg",
+    socialLinks: {
+      linkedin: "https://linkedin.com/in/patrick-ampofo",
+      email: "#"
+    }
+  },
+  {
+    id: "37",
+    slug: "stacy-uchendu",
+    roleCategory: "community-leader",
+    name: "Stacy Uchendu",
+    title: "Co-Director, Neighborhood Health Project",
+    bio: "Stacy Uchendu co-directs the Neighborhood Health Project, facilitating community partnerships and sustainable care delivery at the Akomapa–NHP Yale hub.",
+    image: "/images/team/placeholder.jpg",
+    socialLinks: {
+      email: "#"
+    }
+  },
 ];
+
+export function getTeamMemberBySlug(slug: string): TeamMember | undefined {
+  return teamMembers.find((member) => member.slug === slug);
+}

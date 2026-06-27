@@ -1,5 +1,5 @@
 import { academyOverview } from "@/data/academy";
-import { communityHubs } from "@/data/community-hubs";
+import { communityHubs, getHubHref } from "@/data/community-hubs";
 
 export type NcdNarrativeMetric = {
   id: string;
@@ -92,21 +92,8 @@ export const academyPreviewContent = {
   },
 } as const;
 
-const communityHubRoutes = {
-  "ucc-hub": "/community-hubs/ucc",
-  "ug-hub": "/community-hubs/ug",
-  "nhp-yale-hub": "/community-hubs/nhp",
-} as const;
-
 function getCommunityHubRoute(hubId: string) {
-  const href =
-    communityHubRoutes[hubId as keyof typeof communityHubRoutes];
-
-  if (!href) {
-    throw new Error(`Missing homepage route for community hub "${hubId}".`);
-  }
-
-  return href;
+  return getHubHref(hubId);
 }
 
 export const communityHubsPreviewContent = {

@@ -295,6 +295,6 @@ export const ncdFutureVisionContent = {
     })) satisfies FutureTarget[],
   ctas: [
     { label: "Join the Fight Against NCDs", href: "/get-involved", variant: "amber" as const },
-    { label: "Learn About Our Hubs", href: "/clinics", variant: "teal" as const },
+    { label: "Learn About Our Hubs", href: "/community-hubs", variant: "teal" as const },
   ],
 } as const;
