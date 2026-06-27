@@ -9,12 +9,6 @@ type PhilosophySectionProps = {
   className?: string;
 };
 
-function getSectionBg(index: number) {
-  return index % 2 === 0
-    ? "bg-[#FCFAEF] dark:bg-[#1C1F1E]"
-    : "bg-[#F4F1E8] dark:bg-[#1C1F1E]";
-}
-
 export default function PhilosophySection({
   section,
   index,
@@ -24,17 +18,56 @@ export default function PhilosophySection({
   const paragraphs = section.content.split("\n\n");
   const headingId = `${section.id}-heading`;
 
+  // Alternate: even index = cream, odd index = teal gradient
+  const isTealGradient = index % 2 === 1;
+
+  const sectionBg = isTealGradient
+    ? "relative bg-gradient-to-r from-[#0097b2] to-[#0F4C5C] text-[#FCFAEF]"
+    : "bg-[#FCFAEF] dark:bg-[#1C1F1E]";
+
+  const eyebrowClass = isTealGradient
+    ? "text-xs font-semibold uppercase tracking-[0.3em] text-[#F5C94D] sm:text-sm"
+    : "text-xs font-semibold uppercase tracking-[0.3em] text-[#0097b2] dark:text-[#66C4DC] sm:text-sm";
+
+  const headingClass = isTealGradient
+    ? "mt-4 text-2xl font-bold leading-tight text-[#FCFAEF] sm:text-3xl md:text-4xl"
+    : "mt-4 text-2xl font-bold leading-tight text-[#1C1F1E] dark:text-[#FCFAEF] sm:text-3xl md:text-4xl";
+
+  const bodyClass = isTealGradient
+    ? "mt-6 space-y-5 text-base leading-relaxed text-[#FCFAEF]/85 sm:text-lg"
+    : "mt-6 space-y-5 text-base leading-relaxed text-[#2F3332]/82 dark:text-[#E6E7E7]/82 sm:text-lg";
+
+  const quoteTextClass = isTealGradient
+    ? "relative text-xl font-semibold leading-snug text-[#FCFAEF] sm:text-2xl"
+    : "relative text-xl font-semibold leading-snug text-[#1C1F1E] dark:text-[#FCFAEF] sm:text-2xl";
+
+  const quoteAuthorClass = isTealGradient
+    ? "mt-4 text-sm font-semibold uppercase tracking-[0.16em] text-[#F5C94D]"
+    : "mt-4 text-sm font-semibold uppercase tracking-[0.16em] text-[#0097b2] dark:text-[#66C4DC]";
+
+  const quoteRoleClass = isTealGradient
+    ? "block pt-1 normal-case tracking-normal text-[#FCFAEF]/62"
+    : "block pt-1 normal-case tracking-normal text-[#2F3332]/62 dark:text-[#FCFAEF]/62";
+
   return (
     <section
       id={section.id}
       aria-labelledby={headingId}
       className={cn(
-        "relative isolate scroll-mt-28 overflow-hidden border-t border-[#0097b2]/10 py-16 dark:border-[#FCFAEF]/10 md:py-24",
-        getSectionBg(index),
+        "isolate scroll-mt-28 overflow-hidden py-16 md:py-24",
+        sectionBg,
         className,
       )}
     >
-      <div className="container mx-auto max-w-7xl px-4">
+      {/* Decorative blurs for teal gradient sections */}
+      {isTealGradient && (
+        <div className="pointer-events-none absolute inset-0 overflow-hidden">
+          <div className="absolute -top-24 right-0 h-64 w-64 rounded-full bg-[#FCFAEF]/10 blur-3xl" />
+          <div className="absolute bottom-0 -left-24 h-80 w-80 rounded-full bg-[#F5C94D]/10 blur-3xl" />
+        </div>
+      )}
+
+      <div className={cn("container mx-auto max-w-7xl px-4", isTealGradient && "relative z-10")}>
         <div className="mx-auto grid max-w-6xl items-center justify-items-center gap-10 md:grid-cols-2 md:gap-12 lg:gap-16">
           <FadeIn
             direction={isImageFirstOnDesktop ? "right" : "left"}
@@ -76,16 +109,13 @@ export default function PhilosophySection({
             )}
           >
             <article className="mx-auto max-w-xl">
-              <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#0097b2] dark:text-[#66C4DC] sm:text-sm">
+              <p className={eyebrowClass}>
                 Principle {section.order}
               </p>
-              <h2
-                id={headingId}
-                className="mt-4 text-2xl font-bold leading-tight text-[#1C1F1E] dark:text-[#FCFAEF] sm:text-3xl md:text-4xl"
-              >
+              <h2 id={headingId} className={headingClass}>
                 {section.title}
               </h2>
-              <div className="mt-6 space-y-5 text-base leading-relaxed text-[#2F3332]/82 dark:text-[#E6E7E7]/82 sm:text-lg">
+              <div className={bodyClass}>
                 {paragraphs.map((paragraph) => (
                   <p key={paragraph}>{paragraph}</p>
                 ))}
@@ -93,7 +123,7 @@ export default function PhilosophySection({
 
               {section.quote ? (
                 <blockquote className="mt-8 border-l-4 border-[#eeba2b] pl-5">
-                  <p className="relative text-xl font-semibold leading-snug text-[#1C1F1E] dark:text-[#FCFAEF] sm:text-2xl">
+                  <p className={quoteTextClass}>
                     <span
                       aria-hidden="true"
                       className="absolute -left-4 -top-5 text-6xl leading-none text-[#eeba2b]/45"
@@ -102,9 +132,9 @@ export default function PhilosophySection({
                     </span>
                     {section.quote.text}
                   </p>
-                  <footer className="mt-4 text-sm font-semibold uppercase tracking-[0.16em] text-[#0097b2] dark:text-[#66C4DC]">
+                  <footer className={quoteAuthorClass}>
                     {section.quote.author}
-                    <span className="block pt-1 normal-case tracking-normal text-[#2F3332]/62 dark:text-[#FCFAEF]/62">
+                    <span className={quoteRoleClass}>
                       {section.quote.role}
                     </span>
                   </footer>
