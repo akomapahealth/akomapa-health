@@ -30,26 +30,24 @@ function ComparisonCard({
   return (
     <div
       ref={ref}
-      className="rounded-2xl border border-[#E6E7E7]/80 bg-white p-5 shadow-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-xl dark:border-[#2E3433] dark:bg-[#1C1F1E]/95 sm:p-6"
+      className="rounded-2xl border border-white/20 bg-[#0B2F3A]/60 p-5 shadow-lg shadow-black/30 backdrop-blur-sm transition-all duration-200 hover:-translate-y-0.5 sm:p-6"
     >
-      <h3 className="text-sm font-semibold text-[#1C1F1E] dark:text-[#FCFAEF] sm:text-base">
+      <h3 className="text-sm font-semibold text-[#FCFAEF] sm:text-base">
         {label}
       </h3>
 
       {/* Ghana bar */}
       <div className="mt-4">
         <div className="mb-1.5 flex items-baseline justify-between text-xs sm:text-sm">
-          <span className="font-medium text-[#0097b2] dark:text-[#66C4DC]">
-            Ghana
-          </span>
-          <span className="tabular-nums text-[#2F3332]/60 dark:text-[#E6E7E7]/60">
+          <span className="font-medium text-[#66C4DC]">Ghana</span>
+          <span className="tabular-nums text-[#FCFAEF]/60">
             {ghana}
             {unit}
           </span>
         </div>
-        <div className="h-3 w-full overflow-hidden rounded-full bg-[#0097b2]/10 dark:bg-[#0097b2]/20">
+        <div className="h-3 w-full overflow-hidden rounded-full bg-white/10">
           <motion.div
-            className="h-3 rounded-full bg-[#0097b2]"
+            className="h-3 rounded-full bg-[#66C4DC]"
             initial={{ width: 0 }}
             animate={inView ? { width: `${ghanaWidth}%` } : { width: 0 }}
             transition={{
@@ -64,15 +62,15 @@ function ComparisonCard({
       {/* Global bar */}
       <div className="mt-3">
         <div className="mb-1.5 flex items-baseline justify-between text-xs sm:text-sm">
-          <span className="font-medium text-[#eeba2b]">Global</span>
-          <span className="tabular-nums text-[#2F3332]/60 dark:text-[#E6E7E7]/60">
+          <span className="font-medium text-[#F5C94D]">Global</span>
+          <span className="tabular-nums text-[#FCFAEF]/60">
             {global}
             {unit}
           </span>
         </div>
-        <div className="h-3 w-full overflow-hidden rounded-full bg-[#eeba2b]/10 dark:bg-[#eeba2b]/20">
+        <div className="h-3 w-full overflow-hidden rounded-full bg-white/10">
           <motion.div
-            className="h-3 rounded-full bg-[#eeba2b]"
+            className="h-3 rounded-full bg-[#F5C94D]"
             initial={{ width: 0 }}
             animate={inView ? { width: `${globalWidth}%` } : { width: 0 }}
             transition={{
@@ -90,25 +88,31 @@ function ComparisonCard({
 export default function NCDDataViz() {
   return (
     <section
-      className="bg-[#FCFAEF] py-16 dark:bg-[#1C1F1E] md:py-24"
+      className="relative overflow-hidden bg-gradient-to-r from-[#0097b2] to-[#0F4C5C] py-16 text-[#FCFAEF] md:py-24"
       aria-labelledby="ncd-data-heading"
     >
-      <div className="container mx-auto px-4 sm:px-6">
+      {/* Decorative blurs */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="absolute -top-24 -left-24 h-64 w-64 rounded-full bg-[#FCFAEF]/10 blur-3xl" />
+        <div className="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-[#F5C94D]/10 blur-3xl" />
+      </div>
+
+      <div className="container relative z-10 mx-auto px-4 sm:px-6">
         {/* Section header */}
         <FadeIn
           direction="up"
           className="mx-auto mb-12 max-w-3xl space-y-4 text-center"
         >
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#0097b2] dark:text-[#66C4DC] sm:text-sm">
+          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#F5C94D] sm:text-sm">
             {ncdDataVizContent.eyebrow}
           </p>
           <h2
             id="ncd-data-heading"
-            className="text-2xl font-bold text-[#1C1F1E] dark:text-[#FCFAEF] sm:text-3xl md:text-4xl"
+            className="text-2xl font-bold sm:text-3xl md:text-4xl"
           >
             {ncdDataVizContent.heading}
           </h2>
-          <p className="text-base leading-relaxed text-[#2F3332]/80 dark:text-[#E6E7E7]/80 sm:text-lg">
+          <p className="text-base leading-relaxed text-[#FCFAEF]/85 sm:text-lg">
             {ncdDataVizContent.description}
           </p>
         </FadeIn>
@@ -135,23 +139,23 @@ export default function NCDDataViz() {
         {/* Legend + Source */}
         <FadeIn direction="up" delay={0.3}>
           <div className="mx-auto mt-8 flex max-w-5xl flex-col items-center gap-3 sm:flex-row sm:justify-between">
-            <div className="flex items-center gap-4 text-xs text-[#2F3332]/60 dark:text-[#E6E7E7]/60">
+            <div className="flex items-center gap-4 text-xs text-[#FCFAEF]/60">
               <span className="flex items-center gap-1.5">
-                <span className="inline-block h-2.5 w-2.5 rounded-full bg-[#0097b2]" />
+                <span className="inline-block h-2.5 w-2.5 rounded-full bg-[#66C4DC]" />
                 Ghana
               </span>
               <span className="flex items-center gap-1.5">
-                <span className="inline-block h-2.5 w-2.5 rounded-full bg-[#eeba2b]" />
+                <span className="inline-block h-2.5 w-2.5 rounded-full bg-[#F5C94D]" />
                 Global
               </span>
             </div>
-            <p className="text-xs text-[#2F3332]/40 dark:text-[#E6E7E7]/40">
+            <p className="text-xs text-[#FCFAEF]/40">
               Source:{" "}
               <a
                 href={ncdDataVizContent.source.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="underline underline-offset-2 transition-colors hover:text-[#0097b2] dark:hover:text-[#66C4DC]"
+                className="underline underline-offset-2 transition-colors hover:text-[#F5C94D]/60"
               >
                 {ncdDataVizContent.source.label}
               </a>
