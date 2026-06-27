@@ -18,8 +18,8 @@ interface PartnerCategorySectionProps {
 }
 
 const sectionBgs = [
-  "bg-[#FCFAEF] dark:bg-[#121514]",
   "bg-[#F4F1E8] dark:bg-[#1C1F1E]",
+  "bg-[#FCFAEF] dark:bg-[#121514]",
 ] as const;
 
 function PartnerCard({ partner }: { partner: Partner }) {

@@ -19,7 +19,7 @@ const iconMap: Record<string, LucideIcon> = {
 export default function PartnershipPhilosophy() {
   return (
     <section
-      className="bg-[#F4F1E8] py-16 dark:bg-[#1C1F1E] md:py-24"
+      className="bg-[#FCFAEF] py-16 dark:bg-[#1C1F1E] md:py-24"
       aria-labelledby="partnership-philosophy-heading"
     >
       <div className="container mx-auto px-4 sm:px-6">
