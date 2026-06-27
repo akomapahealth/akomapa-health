@@ -23,6 +23,7 @@ const initiativeLinks = [
 ] as const;
 
 const destinationRoutes = [
+  { path: "/about", heading: "A Student-Powered Movement for Ethical Global Health Leadership" },
   { path: "/philosophy", heading: "Our Philosophy" },
   { path: "/academy", heading: "Akomapa Academy" },
   { path: "/ncd-impact", heading: "NCD Impact" },
