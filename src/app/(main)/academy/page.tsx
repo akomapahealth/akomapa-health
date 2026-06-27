@@ -1,6 +1,12 @@
 import type { Metadata } from "next";
-import RebrandPageShell from "@/components/shared/RebrandPageShell";
-import { BRAND } from "@/config/brand";
+import Breadcrumb from "@/components/layout/Breadcrumb";
+import AcademyHero from "@/components/academy/AcademyHero";
+import WhyEthicalLeadership from "@/components/academy/WhyEthicalLeadership";
+import CurriculumSection from "@/components/academy/CurriculumSection";
+import FacultyGrid from "@/components/academy/FacultyGrid";
+import CertificationSection from "@/components/academy/CertificationSection";
+import AcademyTestimonials from "@/components/academy/AcademyTestimonials";
+import ApplySection from "@/components/academy/ApplySection";
 
 export const metadata: Metadata = {
   title: "Akomapa Academy",
@@ -8,31 +14,19 @@ export const metadata: Metadata = {
     "Explore Akomapa Academy's approach to ethical global health leadership education, mentorship, and applied community learning.",
 };
 
-const highlights = [
-  {
-    title: "Leadership Education",
-    description:
-      "A practical curriculum develops the ethical judgment, systems thinking, and collaborative skills required in global health.",
-  },
-  {
-    title: "Mentorship",
-    description:
-      "Students and emerging professionals learn alongside experienced practitioners, researchers, and community leaders.",
-  },
-  {
-    title: "Applied Learning",
-    description:
-      "Education connects directly to community-centered service, research, innovation, and measurable health priorities.",
-  },
-] as const;
-
 export default function AcademyPage() {
   return (
-    <RebrandPageShell
-      eyebrow="Leadership Development"
-      title="Akomapa Academy"
-      description={BRAND.heroSubheadline}
-      highlights={highlights}
-    />
+    <div data-rebrand-page className="bg-background text-foreground">
+      <div className="container mx-auto">
+        <Breadcrumb />
+      </div>
+      <AcademyHero />
+      <WhyEthicalLeadership />
+      <CurriculumSection />
+      <FacultyGrid />
+      <CertificationSection />
+      <AcademyTestimonials />
+      <ApplySection />
+    </div>
   );
 }
