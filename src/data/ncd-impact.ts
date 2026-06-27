@@ -11,8 +11,8 @@ export { silentEpidemicContent, healthImpact, leadershipImpact };
 
 export const ncdHeroContent = {
   eyebrow: "Community Health",
-  heading: "The Silent Epidemic",
-  subtitle: "The NCD Crisis",
+  heading: "NCD Impact",
+  subtitle: "The Silent Epidemic",
   description:
     "Non-communicable diseases are the leading cause of death worldwide, yet millions remain undiagnosed, untreated, or disconnected from care.",
   keyStat: {
