@@ -4,6 +4,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ChevronRight, Home } from "lucide-react";
 import { Suspense } from "react";
+import { hubBreadcrumbLabels } from "@/data/community-hubs";
+import type { HubRouteSlug } from "@/lib/types";
 
 function BreadcrumbContent() {
   const pathname = usePathname();
@@ -46,6 +48,14 @@ function BreadcrumbContent() {
     const label = (() => {
       if (segmentLabels[segment]) {
         return segmentLabels[segment];
+      }
+
+      if (
+        parentSegment === "community-hubs" &&
+        index === 1 &&
+        segment in hubBreadcrumbLabels
+      ) {
+        return hubBreadcrumbLabels[segment as HubRouteSlug];
       }
 
       if (

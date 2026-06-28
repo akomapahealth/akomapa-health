@@ -122,6 +122,7 @@ describe("rebrand data model contracts", () => {
     const hub: CommunityHub = {
       id: "hub-ucc",
       slug: "ucc",
+      routeSlug: "ucc",
       name: "Akomapa UCC Community Hub",
       location: "Cape Coast",
       country: "Ghana",
@@ -285,8 +286,8 @@ describe("rebrand data model contracts", () => {
     expect(roleCounts).toEqual({
       executive: 15,
       faculty: 0,
-      advisor: 8,
-      "community-leader": 12,
+      advisor: 9,
+      "community-leader": 13,
       "government-leader": 0,
       "partner-institution": 0,
     });

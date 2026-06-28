@@ -8,7 +8,13 @@ import {
   academyOverview,
   academyTestimonials,
 } from "@/data/academy";
-import { communityHubs, hubMissions } from "@/data/community-hubs";
+import {
+  communityHubs,
+  getHubHref,
+  hubActivities,
+  hubMissions,
+  whyHubsMatter,
+} from "@/data/community-hubs";
 import {
   academyPreviewContent,
   communityHubsPreviewContent,
@@ -87,6 +93,8 @@ describe("rebrand content data", () => {
 
   it("keeps hub missions, statuses, metrics, and map locations consistent", () => {
     expect(communityHubs).toHaveLength(3);
+    expect(hubActivities).toHaveLength(8);
+    expect(whyHubsMatter).toHaveLength(5);
     expect(hubMissions.map(({ title }) => title)).toEqual([
       "Improve Community Health",
       "Develop Future Leaders",
@@ -102,6 +110,8 @@ describe("rebrand content data", () => {
 
     for (const hub of communityHubs) {
       expect(hub.missions).toHaveLength(5);
+      expect(hub.routeSlug).toMatch(/^(ucc|ug|nhp)$/);
+      expect(getHubHref(hub)).toBe(`/community-hubs/${hub.routeSlug}`);
       expect(Object.values(hub.metrics).every((value) => value >= 0)).toBe(true);
       expect(Array.isArray(hub.communityStories)).toBe(true);
       expect(Array.isArray(hub.studentStories)).toBe(true);

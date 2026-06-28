@@ -42,6 +42,7 @@ export interface News {
 
 export interface TeamMember {
   id: string;
+  slug?: string;
   name: string;
   title: string;
   bio: string;
@@ -117,9 +118,12 @@ export interface FacultyMember {
   };
 }
 
+export type HubRouteSlug = "ucc" | "ug" | "nhp";
+
 export interface CommunityHub {
   id: string;
   slug: string;
+  routeSlug: HubRouteSlug;
   name: string;
   location: string;
   country: string;
