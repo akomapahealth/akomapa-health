@@ -1,37 +1,58 @@
 import type { Metadata } from "next";
-import RebrandPageShell from "@/components/shared/RebrandPageShell";
+import Breadcrumb from "@/components/layout/Breadcrumb";
+import PartnershipsHero from "@/components/partnerships/PartnershipsHero";
+import PartnershipPhilosophy from "@/components/partnerships/PartnershipPhilosophy";
+import PartnerCategorySection from "@/components/partnerships/PartnerCategorySection";
+import PartnerLogosGrid from "@/components/partnerships/PartnerLogosGrid";
+import BecomePartnerCTA from "@/components/partnerships/BecomePartnerCTA";
+import { partners, categoryOrder } from "@/data/partnerships";
 
 export const metadata: Metadata = {
   title: "Partnerships",
   description:
-    "Partner with Akomapa to advance community-driven care, ethical health leadership, research, and sustainable global health solutions.",
+    "Explore Akomapa's equitable partnerships with universities, communities, government agencies, and global collaborators advancing health equity.",
+  openGraph: {
+    title: "Partnerships | Akomapa",
+    description:
+      "Creating equitable collaborations across institutions, disciplines, and countries to advance global health equity.",
+    type: "website",
+  },
+  keywords: [
+    "partnerships",
+    "global health",
+    "university partnerships",
+    "community health",
+    "health equity",
+    "Ghana health",
+    "Yale",
+    "University of Cape Coast",
+    "University of Ghana",
+    "UCLA",
+    "Akomapa",
+  ],
 };
-
-const highlights = [
-  {
-    title: "Community Partners",
-    description:
-      "We build with local leaders and organizations so every initiative reflects community priorities and strengthens local capacity.",
-  },
-  {
-    title: "Academic Partners",
-    description:
-      "Universities collaborate on leadership development, research, mentorship, and responsible experiential learning.",
-  },
-  {
-    title: "Strategic Supporters",
-    description:
-      "Funders and mission-aligned organizations help scale sustainable programs while preserving local ownership and accountability.",
-  },
-] as const;
 
 export default function PartnershipsPage() {
   return (
-    <RebrandPageShell
-      eyebrow="Work With Us"
-      title="Equitable Partnerships"
-      description="Akomapa brings communities, universities, health professionals, researchers, and supporters together around shared goals and mutual accountability."
-      highlights={highlights}
-    />
+    <div data-rebrand-page className="bg-background text-foreground">
+      <div className="container mx-auto">
+        <Breadcrumb />
+      </div>
+
+      <PartnershipsHero />
+      <PartnershipPhilosophy />
+
+      {categoryOrder.map((category, index) => (
+        <PartnerCategorySection
+          key={category}
+          category={category}
+          partners={partners.filter((p) => p.category === category)}
+          index={index}
+        />
+      ))}
+
+      <PartnerLogosGrid />
+      <BecomePartnerCTA />
+    </div>
   );
 }

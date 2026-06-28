@@ -190,6 +190,12 @@ export interface Partner {
   country: string;
 }
 
+export interface PartnerLogo {
+  name: string;
+  logo: string;
+  url?: string;
+}
+
 export interface PhilosophySection {
   id: string;
   title: string;

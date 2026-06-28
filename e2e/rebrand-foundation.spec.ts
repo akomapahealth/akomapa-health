@@ -26,7 +26,7 @@ const destinationRoutes = [
   { path: "/philosophy", heading: "Our Philosophy" },
   { path: "/academy", heading: "Akomapa Academy" },
   { path: "/ncd-impact", heading: "NCD Impact" },
-  { path: "/partnerships", heading: "Equitable Partnerships" },
+  { path: "/partnerships", heading: "Our Partnerships" },
   { path: "/impact", heading: "Our Impact" },
   { path: "/community-hubs", heading: "Community Health Hubs" },
   { path: "/get-involved", heading: "Get Involved" },
