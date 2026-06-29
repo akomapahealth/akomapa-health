@@ -79,16 +79,13 @@ test.describe("Akomapa rebrand foundation", () => {
     await page.goto("/", { waitUntil: "domcontentloaded" });
 
     const narrativeHeadings = [
-      "Early numbers from a growing health leadership movement.",
-      'In Akan, Akomapa means "a good heart."',
-      "Good Intentions Are Not Enough",
-      "What We Do",
-      "The Silent Epidemic",
-      "Community health impact, leadership development, and momentum",
-      "Training Ethical Leaders for a Changing World",
-      "Community Health Hubs",
-      "Students Have Always Changed Healthcare",
-      "Designed with Evidence. Driven by Collaboration.",
+      "One model. Two challenges. Lasting impact.",
+      "Research before implementation.",
+      "Five components, one connected system.",
+      'Akomapa means "A Good Heart."',
+      "Building healthier communities. Preparing stronger health leaders.",
+      "Every community deserves high-quality chronic disease care.",
+      "Who we work with.",
     ];
 
     const headingOrder = await page.locator("main").evaluate(

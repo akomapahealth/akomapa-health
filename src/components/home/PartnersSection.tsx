@@ -38,7 +38,10 @@ export default function PartnersSection() {
         </div>
       </FadeIn>
 
-      <ul className="mx-auto mt-12 grid max-w-5xl grid-cols-2 gap-px overflow-hidden rounded-xl border border-[#E6E7E7] bg-[#E6E7E7] dark:border-[#2F3332] dark:bg-[#2F3332] sm:grid-cols-3 lg:grid-cols-5">
+      <ul
+        data-testid="partner-logos"
+        className="mx-auto mt-12 grid max-w-5xl grid-cols-2 gap-px overflow-hidden rounded-xl border border-[#E6E7E7] bg-[#E6E7E7] dark:border-[#2F3332] dark:bg-[#2F3332] sm:grid-cols-3 lg:grid-cols-5"
+      >
         {partners.map((partner) => (
           <li
             key={partner.name}

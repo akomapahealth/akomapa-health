@@ -16,64 +16,40 @@ async function openHomeWithTheme(
     window.localStorage.setItem('akomapa-theme', storedTheme);
   }, theme);
   await page.goto('/', { waitUntil: 'domcontentloaded' });
-  await expect(page.getByTestId('partner-logo-carousel')).toBeVisible();
 }
 
-test.describe('Research partner carousel', () => {
+async function hasHorizontalOverflow(page: Page) {
+  return page.evaluate(
+    () => document.documentElement.scrollWidth - window.innerWidth > 1
+  );
+}
+
+test.describe('Homepage partner logos', () => {
   for (const theme of themes) {
     for (const viewport of viewports) {
-      test(`${theme} ${viewport.name} carousel fades logos at the viewport edges`, async ({ page }) => {
+      test(`${theme} ${viewport.name} renders the partner logo grid without overflow`, async ({
+        page,
+      }) => {
         await openHomeWithTheme(page, theme, viewport);
 
-        const carousel = page.getByTestId('partner-logo-carousel');
-        const styles = await carousel.evaluate((element) => {
-          const htmlElement = element as HTMLElement;
-          const style = window.getComputedStyle(htmlElement);
-          const beforeStyle = window.getComputedStyle(htmlElement, '::before');
-          const afterStyle = window.getComputedStyle(htmlElement, '::after');
-          const track = htmlElement.firstElementChild as HTMLElement | null;
-          const extendedStyle = style as CSSStyleDeclaration & {
-            webkitMaskImage?: string;
-            webkitMaskRepeat?: string;
-            webkitMaskSize?: string;
-          };
+        await expect(
+          page.getByRole('heading', { name: /who we work with/i })
+        ).toBeVisible();
 
-          return {
-            beforeBackgroundImage: beforeStyle.backgroundImage,
-            afterBackgroundImage: afterStyle.backgroundImage,
-            leftRgb: style.getPropertyValue('--partner-carousel-left-rgb').trim(),
-            rightRgb: style.getPropertyValue('--partner-carousel-right-rgb').trim(),
-            maskImage: style.maskImage,
-            maskRepeat: style.maskRepeat,
-            maskSize: style.maskSize,
-            overflowX: style.overflowX,
-            supportsMask: CSS.supports('mask-image', 'linear-gradient(black, black)'),
-            supportsWebkitMask: CSS.supports('-webkit-mask-image', 'linear-gradient(black, black)'),
-            trackWidth: track?.scrollWidth ?? 0,
-            viewportWidth: htmlElement.clientWidth,
-            webkitMaskImage: extendedStyle.webkitMaskImage ?? '',
-            webkitMaskRepeat: extendedStyle.webkitMaskRepeat ?? '',
-            webkitMaskSize: extendedStyle.webkitMaskSize ?? '',
-          };
-        });
+        const grid = page.getByTestId('partner-logos');
+        await grid.scrollIntoViewIfNeeded();
+        await expect(grid).toBeVisible();
 
-        expect(styles.leftRgb).toBe('0 151 178');
-        expect(styles.rightRgb).toBe('15 76 92');
-        expect(styles.overflowX).toBe('hidden');
-        expect(styles.trackWidth).toBeGreaterThan(styles.viewportWidth);
+        const logos = grid.locator('img');
+        expect(await logos.count()).toBeGreaterThanOrEqual(6);
+        await expect(logos.first()).toBeVisible();
 
-        if (styles.supportsMask || styles.supportsWebkitMask) {
-          const activeMaskImage = styles.maskImage !== 'none' ? styles.maskImage : styles.webkitMaskImage;
-          expect(styles.maskImage !== 'none' || styles.webkitMaskImage !== 'none').toBe(true);
-          expect(styles.maskRepeat !== 'repeat' || styles.webkitMaskRepeat !== 'repeat').toBe(true);
-          expect(styles.maskSize !== 'auto' || styles.webkitMaskSize !== 'auto').toBe(true);
-          expect(activeMaskImage).toContain('255, 255, 255');
-          expect(styles.beforeBackgroundImage).toBe('none');
-          expect(styles.afterBackgroundImage).toBe('none');
-        } else {
-          expect(styles.beforeBackgroundImage).not.toBe('none');
-          expect(styles.afterBackgroundImage).not.toBe('none');
-        }
+        // The flat grid replaces the old scrolling carousel — no overflow.
+        const gridOverflowsX = await grid.evaluate(
+          (el) => (el as HTMLElement).scrollWidth - (el as HTMLElement).clientWidth > 1
+        );
+        expect(gridOverflowsX).toBe(false);
+        expect(await hasHorizontalOverflow(page)).toBe(false);
       });
     }
   }
