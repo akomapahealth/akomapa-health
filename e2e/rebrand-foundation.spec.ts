@@ -279,6 +279,15 @@ test.describe("Akomapa rebrand foundation", () => {
       await preparePage(page, theme);
       await page.goto("/", { waitUntil: "domcontentloaded" });
 
+      // Disable CSS transitions so colour sampling is deterministic. The global
+      // dark-mode theme transition otherwise interpolates background/text
+      // colours (serialised as oklab() mid-flight), making getComputedStyle
+      // flaky depending on when it runs relative to the transition.
+      await page.addStyleTag({
+        content:
+          "*,*::before,*::after{transition:none !important;animation:none !important;}",
+      });
+
       await expect(page.locator("html")).toHaveClass(new RegExp(theme));
 
       const footer = page.locator("footer");

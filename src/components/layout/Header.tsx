@@ -32,7 +32,6 @@ const navigation = [
       { name: "Akomapa NHP Yale Hub", href: "/community-hubs/nhp" },
     ],
   },
-  { name: "NCD Impact", href: "/ncd-impact" },
   { name: "Research & Innovation", href: "/research" },
   { name: "Impact", href: "/impact" },
   { name: "Partnerships", href: "/partnerships" },
@@ -67,7 +66,7 @@ function HeaderContent() {
           <BrandLogo className="flex-shrink-0" priority />
 
           {/* Desktop Navigation and Actions - Right Aligned */}
-          <div className="hidden min-[1360px]:flex items-center gap-4 ml-auto 2xl:gap-8">
+          <div className="hidden xl:flex items-center gap-4 ml-auto 2xl:gap-8">
             {/* Desktop Navigation */}
             <nav className="flex items-center gap-x-2.5 2xl:gap-5">
               {navigation.map((item) => (
@@ -123,7 +122,7 @@ function HeaderContent() {
           </div>
 
           {/* Mobile menu button - Right Aligned */}
-          <div className="min-[1360px]:hidden flex items-center ml-auto space-x-2">
+          <div className="xl:hidden flex items-center ml-auto space-x-2">
             <ThemeToggle />
             <button
               onClick={() => setIsMobileMenuOpen(true)}
@@ -153,7 +152,7 @@ export default function Header() {
         <div className="container mx-auto px-4">
           <div className="flex items-center">
             <div className="animate-pulse bg-gray-200 dark:bg-gray-700 h-12 w-48 rounded"></div>
-            <div className="hidden min-[1360px]:flex items-center ml-auto space-x-4">
+            <div className="hidden xl:flex items-center ml-auto space-x-4">
               <div className="animate-pulse bg-gray-200 dark:bg-gray-700 h-10 w-32 rounded"></div>
             </div>
           </div>
