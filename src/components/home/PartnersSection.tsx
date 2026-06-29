@@ -84,16 +84,18 @@ export default function PartnersSection() {
         >
           {marquee.map((partner, index) => (
             <li key={`${partner.name}-${index}`} className="shrink-0">
-              {/* Logos sit directly on the band in their natural colours — no
-                  tiles — so every mark reads cleanly without white boxes. */}
-              <div className="relative h-16 w-40 opacity-80 transition-opacity duration-300 hover:opacity-100">
-                <NextImage
-                  src={partner.logo}
-                  alt={`${partner.name} logo`}
-                  fill
-                  sizes="160px"
-                  className="object-contain object-center"
-                />
+              {/* Light mode: logos sit directly on the band in natural colours.
+                  Dark mode: a white tile keeps them legible on the dark band. */}
+              <div className="flex h-24 w-56 items-center justify-center rounded-xl transition-colors dark:bg-white dark:p-4 dark:shadow-sm">
+                <div className="relative h-full w-full opacity-80 transition-opacity duration-300 hover:opacity-100">
+                  <NextImage
+                    src={partner.logo}
+                    alt={`${partner.name} logo`}
+                    fill
+                    sizes="224px"
+                    className="object-contain object-center"
+                  />
+                </div>
               </div>
             </li>
           ))}
