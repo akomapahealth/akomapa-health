@@ -1,26 +1,31 @@
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 import HeroSection from "@/components/home/HeroSection";
-import ImpactSnapshot from "@/components/home/ImpactSnapshot";
-import AkomapaMeaningSection from "@/components/home/AkomapaMeaningSection";
-import GoodIntentionsSection from "@/components/home/GoodIntentionsSection";
-import ProgramsOverview from "@/components/home/ProgramsOverview";
-import SilentEpidemicSection from "@/components/home/SilentEpidemicSection";
-import ImpactMetrics from "@/components/home/ImpactMetrics";
-import AcademyPreviewSection from "@/components/home/AcademyPreviewSection";
-import CommunityHubsPreviewSection from "@/components/home/CommunityHubsPreviewSection";
+import ChallengeSection from "@/components/home/ChallengeSection";
+import WhyAkomapaSection from "@/components/home/WhyAkomapaSection";
+import BuiltOnEvidenceSection from "@/components/home/BuiltOnEvidenceSection";
 
-// Below-the-fold sections — split into their own chunks so the initial
-// homepage payload does not ship carousel and animation-heavy sections until
-// the user scrolls toward them.
-const StudentsChangedSection = dynamic(
-  () => import("@/components/home/StudentsChangedSection"),
+// Below-the-fold bands — split into their own chunks so the initial homepage
+// payload stays light until the user scrolls toward them.
+const OurModelSection = dynamic(
+  () => import("@/components/home/OurModelSection"),
 );
-const ResearchSection = dynamic(
-  () => import("@/components/home/ResearchSection"),
+const AkomapaMeaningSection = dynamic(
+  () => import("@/components/home/AkomapaMeaningSection"),
 );
-const Testimonials = dynamic(() => import("@/components/home/Testimonials"));
-const CallToAction = dynamic(() => import("@/components/home/CallToAction"));
+const TransformationalImpactSection = dynamic(
+  () => import("@/components/home/TransformationalImpactSection"),
+);
+const VisionSection = dynamic(() => import("@/components/home/VisionSection"));
+const StoriesOfImpactSection = dynamic(
+  () => import("@/components/home/StoriesOfImpactSection"),
+);
+const PartnersSection = dynamic(
+  () => import("@/components/home/PartnersSection"),
+);
+const JoinTheMovementSection = dynamic(
+  () => import("@/components/home/JoinTheMovementSection"),
+);
 
 export const metadata: Metadata = {
   title: {
@@ -33,20 +38,18 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <div className="flex flex-col gap-y-section-mobile md:gap-y-section-tablet lg:gap-y-section-desktop">
+    <div className="flex flex-col">
       <HeroSection />
-      <ImpactSnapshot />
+      <ChallengeSection />
+      <WhyAkomapaSection />
+      <BuiltOnEvidenceSection />
+      <OurModelSection />
       <AkomapaMeaningSection />
-      <GoodIntentionsSection />
-      <ProgramsOverview />
-      <SilentEpidemicSection />
-      <ImpactMetrics />
-      <AcademyPreviewSection />
-      <CommunityHubsPreviewSection />
-      <StudentsChangedSection />
-      <ResearchSection />
-      <Testimonials />
-      <CallToAction />
+      <TransformationalImpactSection />
+      <VisionSection />
+      <StoriesOfImpactSection />
+      <PartnersSection />
+      <JoinTheMovementSection />
     </div>
   );
 }
