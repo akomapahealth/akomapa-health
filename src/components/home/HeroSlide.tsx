@@ -149,10 +149,10 @@ function BrandSlide({ content, isPrimary }: { content: BrandSlideContent; isPrim
             className="text-left"
           >
             <h1 className="font-heading hero-heading-shadow mb-6 text-4xl font-semibold tracking-tight text-balance text-[#FCFAEF] md:text-5xl lg:text-6xl leading-[1.04]">
-              Building the Next Generation of{" "}
-              <span className="text-[#eeba2b]">Ethical</span>{" "}
-              <span className="text-[#8DD4E6] dark:text-[#B0E8F5]">Global Health</span>{" "}
-              <span className="text-[#eeba2b]">Leaders</span>
+              Improving{" "}
+              <span className="text-[#eeba2b]">Non-Communicable Disease</span>{" "}
+              care and prevention in{" "}
+              <span className="text-[#8DD4E6] dark:text-[#B0E8F5]">underserved communities</span>
             </h1>
 
             <p className="font-body hero-body-shadow mb-8 max-w-2xl text-xl font-medium leading-relaxed text-[#FCFAEF] md:text-2xl">

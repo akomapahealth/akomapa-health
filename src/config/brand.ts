@@ -14,21 +14,13 @@ export const BRAND = {
 
   // Hero content
   heroHeadline:
-    "Building the Next Generation of Ethical Global Health Leaders",
+    "Improving Non-Communicable Disease care and prevention in underserved communities",
   heroSubheadline:
-    "Akomapa develops ethical, community-centered leaders through healthcare service, leadership training, research, and equitable global partnerships.",
+    "Akomapa partners with communities, universities, and health systems to deliver high-quality longitudinal primary care while preparing the next generation of ethical health leaders",
 
   // Hero CTA buttons
-  heroPrimaryCTA: { label: "Explore the Academy", href: "/academy" },
+  heroPrimaryCTA: { label: "Explore Our Academy", href: "/academy" },
   heroSecondaryCTA: { label: "Partner With Us", href: "/partnerships" },
-
-  // Hero metrics
-  heroMetrics: [
-    { value: 2000, suffix: "+", label: "Community Members Screened" },
-    { value: 300, suffix: "+", label: "Student Leaders Trained" },
-    { value: 4, suffix: "", label: "University Partnerships" },
-    { value: 2000, suffix: "+", label: "Community Members Reached" },
-  ],
 
   // Organization description
   description:

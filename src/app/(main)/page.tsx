@@ -44,8 +44,8 @@ export default function Home() {
       <WhyAkomapaSection />
       <BuiltOnEvidenceSection />
       <OurModelSection />
-      <AkomapaMeaningSection />
       <TransformationalImpactSection />
+      <AkomapaMeaningSection />
       <VisionSection />
       <StoriesOfImpactSection />
       <PartnersSection />

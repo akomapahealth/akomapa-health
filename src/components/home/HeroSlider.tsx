@@ -25,7 +25,7 @@ import type { Announcement } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { trackEvent } from "@/lib/analytics";
 
-const AUTOPLAY_MS = 7000;
+const AUTOPLAY_MS = 15000;
 const BRAND_BACKGROUND = {
   src: "/highlights/Akomapa-28.jpg",
   alt: "Akomapa healthcare professionals working in a community clinic",
