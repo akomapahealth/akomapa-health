@@ -79,16 +79,13 @@ test.describe("Akomapa rebrand foundation", () => {
     await page.goto("/", { waitUntil: "domcontentloaded" });
 
     const narrativeHeadings = [
-      "Early numbers from a growing health leadership movement.",
-      'In Akan, Akomapa means "a good heart."',
-      "Good Intentions Are Not Enough",
-      "What We Do",
-      "The Silent Epidemic",
-      "Community health impact, leadership development, and momentum",
-      "Training Ethical Leaders for a Changing World",
-      "Community Health Hubs",
-      "Students Have Always Changed Healthcare",
-      "Designed with Evidence. Driven by Collaboration.",
+      "One model. Two challenges. Lasting impact.",
+      "Research before implementation.",
+      "Five components, one connected system.",
+      'Akomapa means "A Good Heart."',
+      "Building healthier communities. Preparing stronger health leaders.",
+      "Every community deserves high-quality chronic disease care.",
+      "Designed with evidence. Driven by collaboration.",
     ];
 
     const headingOrder = await page.locator("main").evaluate(
@@ -281,6 +278,15 @@ test.describe("Akomapa rebrand foundation", () => {
     test(`footer remains readable in ${theme} mode`, async ({ page }) => {
       await preparePage(page, theme);
       await page.goto("/", { waitUntil: "domcontentloaded" });
+
+      // Disable CSS transitions so colour sampling is deterministic. The global
+      // dark-mode theme transition otherwise interpolates background/text
+      // colours (serialised as oklab() mid-flight), making getComputedStyle
+      // flaky depending on when it runs relative to the transition.
+      await page.addStyleTag({
+        content:
+          "*,*::before,*::after{transition:none !important;animation:none !important;}",
+      });
 
       await expect(page.locator("html")).toHaveClass(new RegExp(theme));
 

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRight, Play } from "lucide-react";
+import { InlineArrow, InlinePlay } from "@/components/home/_home-ui";
 import Image from "@/components/common/Image";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -113,29 +113,15 @@ function renderHighlightedTitle(
 }
 
 function ScrimOverlay({ strong = false }: { strong?: boolean }) {
+  // Flat, uniform scrim (no gradients) so overlaid copy stays readable.
   return (
-    <>
-      {/* Bottom-up vignette for global contrast */}
-      <div
-        className={cn(
-          "pointer-events-none absolute inset-0",
-          strong
-            ? "bg-gradient-to-t from-black/75 via-black/35 to-black/20"
-            : "bg-gradient-to-t from-black/55 via-black/20 to-black/10"
-        )}
-        aria-hidden
-      />
-      {/* Left-weighted scrim for readable text column */}
-      <div
-        className={cn(
-          "pointer-events-none absolute inset-0",
-          strong
-            ? "bg-[linear-gradient(105deg,rgba(0,0,0,0.70)_0%,rgba(0,0,0,0.45)_38%,rgba(0,0,0,0.15)_70%,transparent_100%)]"
-            : "bg-[linear-gradient(105deg,rgba(0,0,0,0.60)_0%,rgba(0,0,0,0.30)_42%,rgba(0,0,0,0.08)_72%,transparent_100%)]"
-        )}
-        aria-hidden
-      />
-    </>
+    <div
+      className={cn(
+        "pointer-events-none absolute inset-0",
+        strong ? "bg-[#0B0F0E]/72" : "bg-[#0B0F0E]/55",
+      )}
+      aria-hidden
+    />
   );
 }
 
@@ -162,7 +148,7 @@ function BrandSlide({ content, isPrimary }: { content: BrandSlideContent; isPrim
             transition={{ duration: 0.7, delay: 0.15 }}
             className="text-left"
           >
-            <h1 className="font-heading hero-heading-shadow mb-6 text-4xl tracking-tight text-balance text-[#FCFAEF] md:text-5xl lg:text-6xl xl:text-7xl leading-[1.02] md:leading-[1.04]">
+            <h1 className="font-heading hero-heading-shadow mb-6 text-4xl font-semibold tracking-tight text-balance text-[#FCFAEF] md:text-5xl lg:text-6xl leading-[1.04]">
               Building the Next Generation of{" "}
               <span className="text-[#eeba2b]">Ethical</span>{" "}
               <span className="text-[#8DD4E6] dark:text-[#B0E8F5]">Global Health</span>{" "}
@@ -188,7 +174,7 @@ function BrandSlide({ content, isPrimary }: { content: BrandSlideContent; isPrim
                   }
                 >
                   <span>{BRAND.heroPrimaryCTA.label}</span>
-                  <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
+                  <InlineArrow className="h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
                 </Link>
               </Button>
 
@@ -206,7 +192,7 @@ function BrandSlide({ content, isPrimary }: { content: BrandSlideContent; isPrim
                   }
                 >
                   <span>{BRAND.heroSecondaryCTA.label}</span>
-                  <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
+                  <InlineArrow className="h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
                 </Link>
               </Button>
             </div>
@@ -245,7 +231,7 @@ function AnnouncementCta({
         aria-label={`Play video: ${title}`}
       >
         <span className="flex items-center space-x-2">
-          <Play className="h-5 w-5" fill="currentColor" />
+          <InlinePlay className="h-5 w-5" />
           <span>{ctaText || "Watch Video"}</span>
         </span>
       </Button>
@@ -274,7 +260,7 @@ function AnnouncementCta({
           aria-label={accessibleLabel}
         >
           <span>{ctaText}</span>
-          <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
+          <InlineArrow className="h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
         </a>
       </Button>
     );
@@ -289,7 +275,7 @@ function AnnouncementCta({
         aria-label={accessibleLabel}
       >
         <span>{ctaText}</span>
-        <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
+        <InlineArrow className="h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
       </Link>
     </Button>
   );
@@ -376,7 +362,7 @@ function AnnouncementSlide({
                 </span>
               )}
 
-              <h2 className="font-heading hero-heading-shadow mb-4 text-3xl tracking-tight text-balance text-[#FCFAEF] md:text-5xl lg:text-[3.5rem] leading-[1.05]">
+              <h2 className="font-heading hero-heading-shadow mb-4 text-3xl font-semibold tracking-tight text-balance text-[#FCFAEF] md:text-4xl lg:text-5xl leading-[1.06]">
                 {renderHighlightedTitle(title, titleHighlights, HIGHLIGHT_PALETTE[accentColor])}
               </h2>
 
@@ -403,7 +389,7 @@ function AnnouncementSlide({
                       aria-label={`Learn more: ${title}`}
                     >
                       <span>Learn More</span>
-                      <ArrowRight className="h-5 w-5" />
+                      <InlineArrow className="h-5 w-5" />
                     </a>
                   ) : (
                     <Link
@@ -412,7 +398,7 @@ function AnnouncementSlide({
                       aria-label={`Learn more: ${title}`}
                     >
                       <span>Learn More</span>
-                      <ArrowRight className="h-5 w-5" />
+                      <InlineArrow className="h-5 w-5" />
                     </Link>
                   )}
                 </Button>
