@@ -33,22 +33,33 @@ test.describe('Homepage partner logos', () => {
         await openHomeWithTheme(page, theme, viewport);
 
         await expect(
-          page.getByRole('heading', { name: /who we work with/i })
+          page.getByRole('heading', { name: /designed with evidence/i })
         ).toBeVisible();
 
-        const grid = page.getByTestId('partner-logos');
-        await grid.scrollIntoViewIfNeeded();
-        await expect(grid).toBeVisible();
+        const carousel = page.getByTestId('partner-logos');
+        await carousel.scrollIntoViewIfNeeded();
+        await expect(carousel).toBeVisible();
 
-        const logos = grid.locator('img');
-        expect(await logos.count()).toBeGreaterThanOrEqual(6);
+        const logos = carousel.locator('img');
+        expect(await logos.count()).toBeGreaterThanOrEqual(12);
         await expect(logos.first()).toBeVisible();
 
-        // The flat grid replaces the old scrolling carousel — no overflow.
-        const gridOverflowsX = await grid.evaluate(
-          (el) => (el as HTMLElement).scrollWidth - (el as HTMLElement).clientWidth > 1
+        // The marquee track is wider than the (overflow-hidden) viewport...
+        const { trackWidth, viewportWidth, overflowX } = await carousel.evaluate(
+          (el) => {
+            const element = el as HTMLElement;
+            const track = element.firstElementChild as HTMLElement | null;
+            return {
+              trackWidth: track?.scrollWidth ?? 0,
+              viewportWidth: element.clientWidth,
+              overflowX: getComputedStyle(element).overflowX,
+            };
+          }
         );
-        expect(gridOverflowsX).toBe(false);
+        expect(overflowX).toBe('hidden');
+        expect(trackWidth).toBeGreaterThan(viewportWidth);
+
+        // ...but it must not cause horizontal overflow on the page.
         expect(await hasHorizontalOverflow(page)).toBe(false);
       });
     }

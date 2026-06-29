@@ -85,7 +85,7 @@ test.describe("Akomapa rebrand foundation", () => {
       'Akomapa means "A Good Heart."',
       "Building healthier communities. Preparing stronger health leaders.",
       "Every community deserves high-quality chronic disease care.",
-      "Who we work with.",
+      "Designed with evidence. Driven by collaboration.",
     ];
 
     const headingOrder = await page.locator("main").evaluate(

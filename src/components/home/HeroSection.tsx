@@ -4,6 +4,6 @@ interface HeroSectionProps {
   height?: "full" | "large" | "medium";
 }
 
-export default function HeroSection({ height = "large" }: HeroSectionProps) {
+export default function HeroSection({ height = "full" }: HeroSectionProps) {
   return <HeroSlider height={height} />;
 }

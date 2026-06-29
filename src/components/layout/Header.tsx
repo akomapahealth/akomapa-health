@@ -11,6 +11,7 @@ import BrandLogo from "@/components/shared/BrandLogo";
 
 // Navigation structure
 const navigation = [
+  { name: "Home", href: "/" },
   {
     name: "About",
     href: "/about",
@@ -58,7 +59,7 @@ function HeaderContent() {
 
   return (
     <header className={`sticky top-0 z-50 w-full transition-all duration-300 ${
-      isScrolled ? 'bg-[#FCFAEF] shadow-md py-2 dark:bg-[#4F5554]' : 'bg-[#FCFAEF]/80 backdrop-blur-md py-4 dark:bg-[#4F5554]/90'
+      isScrolled ? 'bg-[#FCFAEF] shadow-md py-2 dark:bg-[#121514]' : 'bg-[#FCFAEF]/80 backdrop-blur-md py-4 dark:bg-[#121514]/90'
     }`}>
       <div className="container mx-auto px-4">
         <div className="flex items-center gap-4">
@@ -66,14 +67,14 @@ function HeaderContent() {
           <BrandLogo className="flex-shrink-0" priority />
 
           {/* Desktop Navigation and Actions - Right Aligned */}
-          <div className="hidden xl:flex items-center gap-6 ml-auto 2xl:gap-8">
+          <div className="hidden xl:flex items-center gap-4 ml-auto 2xl:gap-8">
             {/* Desktop Navigation */}
-            <nav className="flex items-center gap-3 2xl:gap-5">
+            <nav className="flex items-center gap-x-2.5 2xl:gap-5">
               {navigation.map((item) => (
                 <div key={item.name} className="relative group">
                   <Link 
                     href={item.href}
-                    className={`flex items-center gap-1.5 whitespace-nowrap text-sm font-subheading font-medium leading-none transition-colors hover:text-[#eeba2b] dark:hover:text-[#eeba2b] ${
+                    className={`flex items-center gap-1 whitespace-nowrap text-[13px] 2xl:text-sm font-subheading font-medium leading-none transition-colors hover:text-[#eeba2b] dark:hover:text-[#eeba2b] ${
                       pathname === item.href || pathname.startsWith(`${item.href}/`) 
                         ? 'text-[#0097b2]' 
                         : 'text-[#2F3332] dark:text-[#FCFAEF]'
@@ -111,9 +112,9 @@ function HeaderContent() {
             </nav>
 
             {/* Donate button and Theme Toggle */}
-            <div className="flex items-center gap-3">
-              <Button 
-                className="bg-[#0097b2] px-5 text-[#FCFAEF] hover:bg-[#0097b2]/80 hover:text-[#FCFAEF] font-subheading font-medium"
+            <div className="flex items-center gap-2.5">
+              <Button
+                className="bg-[#0097b2] px-4 text-[#FCFAEF] hover:bg-[#0097b2]/80 hover:text-[#FCFAEF] font-subheading font-medium"
               >
                 <Link href="/donate">Donate</Link>
               </Button>
@@ -148,7 +149,7 @@ function HeaderContent() {
 export default function Header() {
   return (
     <Suspense fallback={
-      <header className="sticky top-0 z-50 w-full bg-[#FCFAEF] dark:bg-[#4F5554] py-4">
+      <header className="sticky top-0 z-50 w-full bg-[#FCFAEF] dark:bg-[#121514] py-4">
         <div className="container mx-auto px-4">
           <div className="flex items-center">
             <div className="animate-pulse bg-gray-200 dark:bg-gray-700 h-12 w-48 rounded"></div>
