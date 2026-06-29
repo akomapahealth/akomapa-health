@@ -3,12 +3,7 @@
 import { useEffect, type CSSProperties } from "react";
 import NextImage from "next/image";
 import { motion, useAnimation, useReducedMotion } from "framer-motion";
-import {
-  HomeArrowLink,
-  HomeBand,
-  HomeEyebrow,
-  HomeHeading,
-} from "@/components/home/_home-ui";
+import { HomeButton, HomeEyebrow, HomeHeading } from "@/components/home/_home-ui";
 
 const partners = [
   { name: "University of Cape Coast", logo: "/images/partners/ucc.png" },
@@ -26,11 +21,11 @@ const partners = [
 // Duplicated for a seamless looping marquee.
 const marquee = [...partners, ...partners];
 
-// Fallback edge-fade colors (used only when CSS masks are unsupported) match
-// the cream band so the carousel blends into the section.
+// Fallback edge-fade colours (used only when CSS masks are unsupported) match
+// the dark-teal band so the carousel blends into the section.
 const carouselFadeVars = {
-  "--partner-carousel-left-rgb": "252 250 239",
-  "--partner-carousel-right-rgb": "252 250 239",
+  "--partner-carousel-left-rgb": "15 76 92",
+  "--partner-carousel-right-rgb": "15 76 92",
 } as CSSProperties;
 
 export default function PartnersSection() {
@@ -53,53 +48,63 @@ export default function PartnersSection() {
   }, [controls, shouldReduceMotion]);
 
   return (
-    <HomeBand tone="cream" aria-labelledby={headingId}>
-      <div className="mx-auto max-w-2xl text-center">
-        <HomeEyebrow className="inline-block">
-          Our Partners &amp; Collaborators
-        </HomeEyebrow>
-        <HomeHeading id={headingId} className="mt-4">
-          Designed with evidence. Driven by collaboration.
-        </HomeHeading>
-        <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-[#2F3332]/80 dark:text-[#E6E7E7]/80 md:text-lg">
-          We build with communities, universities, ministries of health, and
-          partners committed to accessible noncommunicable disease care.
+    <section
+      aria-labelledby={headingId}
+      className="relative overflow-hidden bg-[#0F4C5C] text-[#FCFAEF]"
+    >
+      <div className="container mx-auto px-4 py-16 md:py-20 lg:py-24">
+        <div className="mx-auto max-w-2xl text-center">
+          <HomeEyebrow tone="gold" className="inline-block">
+            Our Research &amp; Academic Partners
+          </HomeEyebrow>
+          <HomeHeading id={headingId} className="mt-4 text-[#FCFAEF]">
+            Designed with evidence. Driven by collaboration.
+          </HomeHeading>
+          <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-[#FCFAEF]/80 md:text-lg">
+            We work with leading universities, ministries of health, and
+            student-run clinics worldwide to generate the evidence that powers
+            Akomapa&rsquo;s model.
+          </p>
+        </div>
+
+        <p className="mt-12 text-center font-subheading text-xs font-bold uppercase tracking-[0.2em] text-[#F5C94D]">
+          In collaboration with
         </p>
-      </div>
 
-      <div
-        data-testid="partner-logos"
-        className="partner-carousel-fade mt-12 w-full"
-        style={carouselFadeVars}
-      >
-        <motion.ul
-          className="flex w-max items-center gap-5"
-          animate={controls}
-          aria-label="Partner and collaborator logos"
+        <div
+          data-testid="partner-logos"
+          className="partner-carousel-fade mt-8 w-full"
+          style={carouselFadeVars}
         >
-          {marquee.map((partner, index) => (
-            <li key={`${partner.name}-${index}`} className="shrink-0">
-              <div className="flex h-24 w-44 items-center justify-center rounded-xl border border-[#E6E7E7] bg-white p-5 dark:border-[#2F3332]">
-                <div className="relative h-full w-full opacity-90 transition-opacity duration-300 hover:opacity-100">
-                  <NextImage
-                    src={partner.logo}
-                    alt={`${partner.name} logo`}
-                    fill
-                    sizes="176px"
-                    className="object-contain object-center"
-                  />
+          <motion.ul
+            className="flex w-max items-center gap-5"
+            animate={controls}
+            aria-label="Partner and collaborator logos"
+          >
+            {marquee.map((partner, index) => (
+              <li key={`${partner.name}-${index}`} className="shrink-0">
+                <div className="flex h-24 w-44 items-center justify-center rounded-xl bg-white p-5 shadow-sm">
+                  <div className="relative h-full w-full">
+                    <NextImage
+                      src={partner.logo}
+                      alt={`${partner.name} logo`}
+                      fill
+                      sizes="176px"
+                      className="object-contain object-center"
+                    />
+                  </div>
                 </div>
-              </div>
-            </li>
-          ))}
-        </motion.ul>
-      </div>
+              </li>
+            ))}
+          </motion.ul>
+        </div>
 
-      <div className="mt-10 text-center">
-        <HomeArrowLink href="/partnerships" className="justify-center">
-          See all partners
-        </HomeArrowLink>
+        <div className="mt-12 text-center">
+          <HomeButton href="/research" variant="light">
+            Explore our science
+          </HomeButton>
+        </div>
       </div>
-    </HomeBand>
+    </section>
   );
 }
