@@ -14,9 +14,9 @@ export const BRAND = {
 
   // Hero content
   heroHeadline:
-    "Improving Non-Communicable Disease care and prevention in underserved communities",
+    "Advancing Noncommunicable Disease Prevention & Care",
   heroSubheadline:
-    "Akomapa partners with communities, universities, and health systems to deliver high-quality longitudinal primary care while preparing the next generation of ethical health leaders",
+    "Akomapa partners with underserved communities, universities, and health systems to deliver high-quality longitudinal primary care while preparing the next generation of ethical health leaders",
 
   // Hero CTA buttons
   heroPrimaryCTA: { label: "Explore Our Academy", href: "/academy" },

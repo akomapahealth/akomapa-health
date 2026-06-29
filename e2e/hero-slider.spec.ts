@@ -1,5 +1,6 @@
 import { test, expect, Page } from "@playwright/test";
 import { announcementCampaign } from "../src/data/announcements";
+import { BRAND } from "../src/config/brand";
 
 /**
  * Hero slider E2E coverage:
@@ -43,7 +44,7 @@ test.describe("Hero announcement slider", () => {
 
     // Brand headline visible (first slide). Use role + name to avoid duplicates from Swiper clones.
     await expect(
-      hero.getByRole("heading", { level: 1, name: /.*non-communicable disease.*care and prevention in.*underserved communities/i }).first()
+      hero.getByRole("heading", { level: 1, name: BRAND.heroHeadline }).first()
     ).toBeVisible();
 
     const dots = page.getByTestId("hero-slider-pagination").getByRole("tab");
