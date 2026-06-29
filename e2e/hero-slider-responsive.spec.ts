@@ -39,7 +39,7 @@ test.describe("Hero slider — responsive smoke", () => {
 
       await expect(
         hero
-          .getByRole("heading", { level: 1, name: /ethical.*global health.*leaders/i })
+          .getByRole("heading", { level: 1, name: /.*non-communicable disease.*care and prevention in.*underserved communities/i })
           .first()
       ).toBeVisible();
 

@@ -3,9 +3,9 @@ import { announcementCampaign } from "../src/data/announcements";
 import { BRAND } from "../src/config/brand";
 
 const homepageTitle =
-  "Akomapa Health | Ethical Global Health Leaders and Community-Driven Care";
+  "Akomapa Health | Improving Non-Communicable Disease care and prevention in underserved communities";
 const homepageDescription =
-  "Akomapa develops ethical global health leaders through community health hubs, leadership training, research, and equitable partnerships.";
+  "Akomapa partners with communities, universities, and health systems to deliver high-quality longitudinal primary care while preparing the next generation of ethical health leaders";
 
 const quickLinks = [
   { label: "Our Philosophy", href: "/philosophy" },
@@ -83,7 +83,7 @@ test.describe("Akomapa rebrand foundation", () => {
       "Research before implementation.",
       "Five components, one connected system.",
       'Akomapa means "A Good Heart."',
-      "Building healthier communities. Preparing stronger health leaders.",
+      "Improving Non-Communicable Disease care and prevention in underserved communities.",
       "Every community deserves high-quality chronic disease care.",
       "Designed with evidence. Driven by collaboration.",
     ];
