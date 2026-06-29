@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
+import { BRAND } from "@/config/brand";
 import HeroSection from "@/components/home/HeroSection";
 import ChallengeSection from "@/components/home/ChallengeSection";
 import WhyAkomapaSection from "@/components/home/WhyAkomapaSection";
@@ -29,11 +30,9 @@ const JoinTheMovementSection = dynamic(
 
 export const metadata: Metadata = {
   title: {
-    absolute:
-      "Akomapa Health | Ethical Global Health Leaders and Community-Driven Care",
+    absolute: `Akomapa Health | ${BRAND.heroHeadline}`,
   },
-  description:
-    "Akomapa develops ethical global health leaders through community health hubs, leadership training, research, and equitable partnerships.",
+  description: BRAND.heroSubheadline,
 };
 
 export default function Home() {

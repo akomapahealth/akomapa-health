@@ -2,10 +2,8 @@ import { expect, test, type Page } from "@playwright/test";
 import { announcementCampaign } from "../src/data/announcements";
 import { BRAND } from "../src/config/brand";
 
-const homepageTitle =
-  "Akomapa Health | Improving Non-Communicable Disease care and prevention in underserved communities";
-const homepageDescription =
-  "Akomapa partners with communities, universities, and health systems to deliver high-quality longitudinal primary care while preparing the next generation of ethical health leaders";
+const homepageTitle = `Akomapa Health | ${BRAND.heroHeadline}`;
+const homepageDescription = BRAND.heroSubheadline;
 
 const quickLinks = [
   { label: "Our Philosophy", href: "/philosophy" },
@@ -79,11 +77,11 @@ test.describe("Akomapa rebrand foundation", () => {
     await page.goto("/", { waitUntil: "domcontentloaded" });
 
     const narrativeHeadings = [
+      BRAND.heroHeadline,
       "One model. Two challenges. Lasting impact.",
       "Research before implementation.",
       "Five components, one connected system.",
       'Akomapa means "A Good Heart."',
-      "Improving Non-Communicable Disease care and prevention in underserved communities.",
       "Every community deserves high-quality chronic disease care.",
       "Designed with evidence. Driven by collaboration.",
     ];
