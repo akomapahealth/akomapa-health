@@ -18,9 +18,7 @@ const partners = [
   { name: "Ghana Health Service", logo: "/images/partners/ghana-health-service-logo.png" },
   { name: "African Impact Initiative", logo: "/images/partners/AII-logo.png" },
   { name: "Yale African Innovation Symposium", logo: "/images/partners/yale-african-innovation.webp" },
-  { name: "Africa Health Collaborative", logo: "/images/partners/africa-health-collab.png" },
   { name: "Tsai Center for Innovative Thinking", logo: "/images/partners/tsai-city-logo.png" },
-  { name: "Mastercard Foundation", logo: "/images/partners/mastercard-foundation.png" },
 ];
 
 // Duplicated for a seamless looping marquee.

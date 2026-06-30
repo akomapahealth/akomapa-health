@@ -147,7 +147,7 @@ describe("rebrand data model contracts", () => {
     expectTypeOf(hub.innovations).toEqualTypeOf<InnovationItem[] | undefined>();
     expectTypeOf(hub.metrics).toEqualTypeOf<HubMetrics>();
     expectTypeOf<CommunityHub["status"]>().toEqualTypeOf<
-      "active" | "in-development" | "planned"
+      "active" | "in-development" | "planned" | "future"
     >();
     expectTypeOf<ResearchItem["status"]>().toEqualTypeOf<
       "ongoing" | "completed" | "published"

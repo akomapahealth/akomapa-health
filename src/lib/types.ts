@@ -130,7 +130,7 @@ export interface CommunityHub {
   description: string;
   image: string;
   color: string;
-  status: "active" | "in-development" | "planned";
+  status: "active" | "in-development" | "planned" | "future";
   missions: HubMission[];
   communityStories?: Story[];
   studentStories?: Story[];

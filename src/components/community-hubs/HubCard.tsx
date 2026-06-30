@@ -19,6 +19,7 @@ const statusLabels = {
   active: "Active",
   "in-development": "In development",
   planned: "Planned",
+  future: "Future",
 } as const;
 
 type HubCardProps = {

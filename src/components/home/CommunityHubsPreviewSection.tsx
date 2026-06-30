@@ -25,6 +25,7 @@ const statusLabels = {
   active: "Active",
   "in-development": "In development",
   planned: "Planned",
+  future: "Future",
 } as const;
 
 export default function CommunityHubsPreviewSection() {
@@ -74,7 +75,7 @@ export default function CommunityHubsPreviewSection() {
                       className="absolute inset-0 bg-gradient-to-t from-[#121514]/55 via-transparent to-transparent"
                     />
                     <span className="absolute right-4 top-4 rounded-full bg-[#FCFAEF]/95 px-3 py-1 text-xs font-bold text-[#1C1F1E] shadow-sm">
-                      {statusLabels[hub.status]}
+                      {statusLabels[hub.status as keyof typeof statusLabels]}
                     </span>
                   </div>
 

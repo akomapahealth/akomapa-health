@@ -256,7 +256,7 @@ export const communityHubs: CommunityHub[] = [
       "A transnational adaptation of the Akomapa model that works with the Neighborhood Health Project to bring free blood-pressure and glucose screening, education, and referral support into trusted barbershops and salons.",
     image: "/highlights/yale-uni.jpg",
     color: "#0F4C5C",
-    status: "active",
+    status: "future",
     missions: hubMissions,
     metrics: {
       patientsServed: 0,
