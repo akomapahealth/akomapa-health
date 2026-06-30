@@ -10,7 +10,7 @@ export const announcementCampaign: AnnouncementCampaign = {
       title: "Yale Global Health Yogesh Khanal Award",
       titleHighlights: ["Global Health", "Yogesh Khanal"],
       description:
-        "Akomapa Health received the Yogesh Khanal Award in recognition of our work and to support the development of our Ethical Leadership Program, Akomapa Academy.",
+        "Akomapa Health received the Yogesh Khanal Award to support the development of our Ethical Leadership Program, Akomapa Academy.",
       image: "/images/akomapa-yale.JPG",
       ctaText: "Read More",
       ctaLink: "https://medicine.yale.edu/news-article/global-health-and-equity-distinction-pathway-news-update-for-january-6-2025/",
