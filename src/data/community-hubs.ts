@@ -201,8 +201,8 @@ export const communityHubs: CommunityHub[] = [
     status: "active",
     missions: hubMissions,
     metrics: {
-      patientsServed: 1000,
-      studentsTrained: 75,
+      patientsServed: 3000,
+      studentsTrained: 250,
       communitiesReached: 2,
       partnersEngaged: 3,
     },
@@ -231,7 +231,7 @@ export const communityHubs: CommunityHub[] = [
     missions: hubMissions,
     metrics: {
       patientsServed: 0,
-      studentsTrained: 0,
+      studentsTrained: 50,
       communitiesReached: 0,
       partnersEngaged: 4,
     },
