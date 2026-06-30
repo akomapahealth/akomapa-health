@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRight, Play } from "lucide-react";
+import { InlineArrow, InlinePlay } from "@/components/home/_home-ui";
 import Image from "@/components/common/Image";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -10,6 +10,7 @@ import { TAG_COLORS } from "@/data/announcement-colors";
 import type { Announcement } from "@/lib/types";
 import { getAnnouncementPosterSrc } from "@/lib/video-utils";
 import { trackEvent } from "@/lib/analytics";
+import { BRAND } from "@/config/brand";
 
 export type BrandSlideContent = {
   variant: "brand";
@@ -112,29 +113,15 @@ function renderHighlightedTitle(
 }
 
 function ScrimOverlay({ strong = false }: { strong?: boolean }) {
+  // Flat, uniform scrim (no gradients) so overlaid copy stays readable.
   return (
-    <>
-      {/* Bottom-up vignette for global contrast */}
-      <div
-        className={cn(
-          "pointer-events-none absolute inset-0",
-          strong
-            ? "bg-gradient-to-t from-black/75 via-black/35 to-black/20"
-            : "bg-gradient-to-t from-black/55 via-black/20 to-black/10"
-        )}
-        aria-hidden
-      />
-      {/* Left-weighted scrim for readable text column */}
-      <div
-        className={cn(
-          "pointer-events-none absolute inset-0",
-          strong
-            ? "bg-[linear-gradient(105deg,rgba(0,0,0,0.70)_0%,rgba(0,0,0,0.45)_38%,rgba(0,0,0,0.15)_70%,transparent_100%)]"
-            : "bg-[linear-gradient(105deg,rgba(0,0,0,0.60)_0%,rgba(0,0,0,0.30)_42%,rgba(0,0,0,0.08)_72%,transparent_100%)]"
-        )}
-        aria-hidden
-      />
-    </>
+    <div
+      className={cn(
+        "pointer-events-none absolute inset-0",
+        strong ? "bg-[#0B0F0E]/72" : "bg-[#0B0F0E]/55",
+      )}
+      aria-hidden
+    />
   );
 }
 
@@ -161,54 +148,50 @@ function BrandSlide({ content, isPrimary }: { content: BrandSlideContent; isPrim
             transition={{ duration: 0.7, delay: 0.15 }}
             className="text-left"
           >
-            <h1 className="font-heading hero-heading-shadow mb-6 text-4xl tracking-tight text-balance text-[#FCFAEF] md:text-5xl lg:text-6xl xl:text-7xl leading-[1.02] md:leading-[1.04]">
-              Can a{" "}
-              <span className="text-[#8DD4E6] dark:text-[#B0E8F5]">global partnership</span> of{" "}
-              <span className="text-[#eeba2b]">students</span> lead the fight against{" "}
-              <span className="text-[#8DD4E6] dark:text-[#B0E8F5]">non-communicable diseases</span>?
+            <h1 className="font-heading hero-heading-shadow mb-6 text-4xl font-semibold tracking-tight text-balance text-[#FCFAEF] md:text-5xl lg:text-6xl leading-[1.04]">
+              Advancing{" "}
+              <span className="text-[#eeba2b]">Noncommunicable Disease</span>{" "}
+              <span className="text-[#8DD4E6] dark:text-[#B0E8F5]">Prevention & Care</span>
             </h1>
 
-            <p className="font-body hero-body-shadow mb-8 max-w-2xl text-xl font-medium leading-relaxed text-[#FCFAEF] md:text-2xl">
-              Student-powered.{" "}
-              <span className="text-[#8DD4E6] dark:text-[#B0E8F5]">Expert-supervised</span>. Community-rooted.
-              <br />
-              Akomapa is redefining preventative primary care.
+            <p className="font-body hero-body-shadow mb-8 max-w-2xl text-lg font-medium leading-relaxed text-[#FCFAEF] md:text-xl">
+              {BRAND.heroSubheadline}
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 flex-wrap">
               <Button asChild size="lg" className={ctaButtonClass}>
                 <Link
-                  href="/join"
+                  href={BRAND.heroPrimaryCTA.href}
                   className="flex items-center space-x-2"
                   onClick={() =>
                     trackEvent({
                       name: "hero_cta_click",
                       slide_id: content.id,
-                      cta_text: "Join the Movement",
-                      cta_link: "/join",
+                      cta_text: BRAND.heroPrimaryCTA.label,
+                      cta_link: BRAND.heroPrimaryCTA.href,
                     })
                   }
                 >
-                  <span>Join the Movement</span>
-                  <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
+                  <span>{BRAND.heroPrimaryCTA.label}</span>
+                  <InlineArrow className="h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
                 </Link>
               </Button>
 
               <Button asChild size="lg" className={secondaryCtaClass}>
                 <Link
-                  href="/partner"
+                  href={BRAND.heroSecondaryCTA.href}
                   className="flex items-center space-x-2"
                   onClick={() =>
                     trackEvent({
                       name: "hero_cta_click",
                       slide_id: content.id,
-                      cta_text: "Support Our Work",
-                      cta_link: "/partner",
+                      cta_text: BRAND.heroSecondaryCTA.label,
+                      cta_link: BRAND.heroSecondaryCTA.href,
                     })
                   }
                 >
-                  <span>Support Our Work</span>
-                  <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
+                  <span>{BRAND.heroSecondaryCTA.label}</span>
+                  <InlineArrow className="h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
                 </Link>
               </Button>
             </div>
@@ -247,7 +230,7 @@ function AnnouncementCta({
         aria-label={`Play video: ${title}`}
       >
         <span className="flex items-center space-x-2">
-          <Play className="h-5 w-5" fill="currentColor" />
+          <InlinePlay className="h-5 w-5" />
           <span>{ctaText || "Watch Video"}</span>
         </span>
       </Button>
@@ -276,7 +259,7 @@ function AnnouncementCta({
           aria-label={accessibleLabel}
         >
           <span>{ctaText}</span>
-          <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
+          <InlineArrow className="h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
         </a>
       </Button>
     );
@@ -291,7 +274,7 @@ function AnnouncementCta({
         aria-label={accessibleLabel}
       >
         <span>{ctaText}</span>
-        <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
+        <InlineArrow className="h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
       </Link>
     </Button>
   );
@@ -378,7 +361,7 @@ function AnnouncementSlide({
                 </span>
               )}
 
-              <h2 className="font-heading hero-heading-shadow mb-4 text-3xl tracking-tight text-balance text-[#FCFAEF] md:text-5xl lg:text-[3.5rem] leading-[1.05]">
+              <h2 className="font-heading hero-heading-shadow mb-4 text-3xl font-semibold tracking-tight text-balance text-[#FCFAEF] md:text-4xl lg:text-5xl leading-[1.06]">
                 {renderHighlightedTitle(title, titleHighlights, HIGHLIGHT_PALETTE[accentColor])}
               </h2>
 
@@ -405,7 +388,7 @@ function AnnouncementSlide({
                       aria-label={`Learn more: ${title}`}
                     >
                       <span>Learn More</span>
-                      <ArrowRight className="h-5 w-5" />
+                      <InlineArrow className="h-5 w-5" />
                     </a>
                   ) : (
                     <Link
@@ -414,7 +397,7 @@ function AnnouncementSlide({
                       aria-label={`Learn more: ${title}`}
                     >
                       <span>Learn More</span>
-                      <ArrowRight className="h-5 w-5" />
+                      <InlineArrow className="h-5 w-5" />
                     </Link>
                   )}
                 </Button>

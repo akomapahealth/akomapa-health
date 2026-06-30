@@ -267,7 +267,7 @@ export default function UCCClinicPage() {
             className="pt-2"
           >
             <Link 
-              href="/clinics" 
+              href="/community-hubs" 
               className="inline-flex items-center text-[#FCFAEF]/80 hover:text-[#FCFAEF] transition-colors text-sm font-medium"
             >
               <ArrowLeft className="mr-2 h-4 w-4" />
@@ -308,7 +308,7 @@ export default function UCCClinicPage() {
             className="mt-8 flex flex-wrap gap-4"
           >
             <Button asChild className={primaryCtaClass}>
-              <Link href="/join">Volunteer with Us</Link>
+              <Link href="/get-involved">Volunteer with Us</Link>
             </Button>
             <Button asChild className={secondaryCtaClass}>
               <Link href="/donate">Donate</Link>
@@ -773,13 +773,13 @@ export default function UCCClinicPage() {
                 asChild
                 className={primaryCtaClass}
               >
-                <Link href="/join">Volunteer with Us</Link>
+                <Link href="/get-involved">Volunteer with Us</Link>
               </Button>
               <Button asChild className={secondaryCtaClass}>
                 <Link href="/donate">Donate</Link>
               </Button>
               <Button asChild className={secondaryCtaClass}>
-                <Link href="/partners">Partner with Us</Link>
+                <Link href="/partnerships">Partner with Us</Link>
               </Button>
             </div>
           </motion.div>

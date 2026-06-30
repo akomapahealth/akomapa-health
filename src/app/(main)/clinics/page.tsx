@@ -95,7 +95,7 @@ const clinicSites = [
     location: "University of Cape Coast",
     country: "Ghana",
     description: "Our first clinic and proof of concept — serving the communities of Abeadze Dominase and Abura in partnership with the University of Cape Coast and the Ghana Health Service.",
-    href: "/clinics/akomapa-ucc",
+    href: "/community-hubs/ucc",
     image: "/highlights/ucc.jpg",
     accentColor: "#0097b2"
   },
@@ -104,7 +104,7 @@ const clinicSites = [
     location: "University of Ghana",
     country: "Ghana",
     description: "Our second site in development — expanding community-based NCD care to the Greater Accra Region in collaboration with the College of Health Sciences, NHIS, and Ghana Health Service.",
-    href: "/clinics/akomapa-ug",
+    href: "/community-hubs/ug",
     image: "/highlights/ug.jpg",
     accentColor: "#eeba2b"
   },
@@ -113,7 +113,7 @@ const clinicSites = [
     location: "New Haven, USA",
     country: "United States",
     description: "A transnational adaptation of the Akomapa model, in partnership with the Neighborhood Health Project in New Haven, bringing free screening and counseling to barbershops and salons.",
-    href: "/clinics/akomapa-nhp",
+    href: "/community-hubs/nhp",
     image: "/highlights/yale-uni.jpg",
     accentColor: "#0F4C5C"
   }

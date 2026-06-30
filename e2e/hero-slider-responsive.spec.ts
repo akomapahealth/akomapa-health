@@ -1,5 +1,6 @@
 import { expect, test, type Page } from "@playwright/test";
 import { announcementCampaign } from "../src/data/announcements";
+import { BRAND } from "../src/config/brand";
 
 const viewports = [
   { name: "mobile-375", width: 375, height: 812 },
@@ -39,7 +40,7 @@ test.describe("Hero slider — responsive smoke", () => {
 
       await expect(
         hero
-          .getByRole("heading", { level: 1, name: /global partnership/i })
+          .getByRole("heading", { level: 1, name: BRAND.heroHeadline })
           .first()
       ).toBeVisible();
 

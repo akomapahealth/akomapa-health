@@ -9,18 +9,26 @@ const pages = [
   { path: '/', title: 'Akomapa' },
   { path: '/about', title: 'About' },
   { path: '/about/team', title: 'Team' },
+  { path: '/philosophy', title: 'Our Philosophy' },
+  { path: '/academy', title: 'Academy' },
   { path: '/programs', title: 'Programs' },
   { path: '/programs/akomapa-young-advocates', title: 'Young Advocates' },
-  { path: '/clinics', title: 'Clinics' },
+  { path: '/clinics', title: 'Clinics', finalPath: '/community-hubs' },
+  { path: '/community-hubs', title: 'Community Health Hubs' },
+  { path: '/ncd-impact', title: 'NCD Impact' },
+  { path: '/impact', title: 'Impact' },
   { path: '/research', title: 'Research' },
   { path: '/contact', title: 'Contact' },
   { path: '/donate', title: 'Donate' },
-  { path: '/join', title: 'Join' },
-  { path: '/partner', title: 'Partner' },
+  { path: '/get-involved', title: 'Get Involved' },
+  { path: '/partnerships', title: 'Partnerships' },
   { path: '/roadmap', title: 'Roadmap' },
   { path: '/resources', title: 'Resources' },
   { path: '/news', title: 'News' },
   { path: '/news/akomapa-yale-global-health-recognition', title: 'Akomapa Recognized' },
+  { path: '/blog', title: 'Blog' },
+  { path: '/privacy', title: 'Privacy' },
+  { path: '/terms', title: 'Terms' },
 ];
 
 test.describe('Page Rendering Tests', () => {
@@ -38,7 +46,8 @@ test.describe('Page Rendering Tests', () => {
       await testPage.goto(page.path, { waitUntil: 'domcontentloaded' });
       
       // Check page loads without errors
-      await expect(testPage).toHaveURL(new RegExp(page.path.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
+      const expectedPath = page.finalPath ?? page.path;
+      await expect(testPage).toHaveURL(new RegExp(expectedPath.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
       
       // Check page has a title (more flexible than exact match)
       const title = await testPage.title();

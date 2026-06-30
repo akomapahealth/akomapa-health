@@ -1,19 +1,17 @@
 "use client";
 
-import { Fragment, Suspense, useEffect, useState } from "react";
+import { Fragment, Suspense } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Dialog, DialogPanel, Transition, TransitionChild } from "@headlessui/react";
 import { X } from "lucide-react";
-import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { useTheme } from "@/components/theme/ThemeProvider";
+import BrandLogo from "@/components/shared/BrandLogo";
 
 type NavigationItem = {
   name: string;
   href: string;
   children?: NavigationItem[];
-  onClick?: (e: React.MouseEvent) => void;
 };
 
 type MobileNavProps = {
@@ -24,22 +22,6 @@ type MobileNavProps = {
 
 function MobileNavContent({ isOpen, onClose, navigation }: MobileNavProps) {
   const pathname = usePathname();
-  const { theme } = useTheme();
-  const [isDark, setIsDark] = useState(false);
-
-  useEffect(() => {
-    const checkTheme = () => {
-      if (theme === "system") {
-        setIsDark(window.matchMedia("(prefers-color-scheme: dark)").matches);
-      } else {
-        setIsDark(theme === "dark");
-      }
-    };
-    checkTheme();
-    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-    mediaQuery.addEventListener("change", checkTheme);
-    return () => mediaQuery.removeEventListener("change", checkTheme);
-  }, [theme]);
   
   return (
     <Transition show={isOpen} as={Fragment}>
@@ -75,13 +57,7 @@ function MobileNavContent({ isOpen, onClose, navigation }: MobileNavProps) {
             >
               <div className="flex items-center justify-between px-4">
                 <Link href="/" onClick={onClose} className="flex items-center">
-                  <Image
-                    src={isDark ? "/images/akomapa-logo-dark.png" : "/images/akomapa-logo.png"}
-                    alt="Akomapa Health Foundation"
-                    width={150}
-                    height={30}
-                    className="h-8 w-auto object-contain"
-                  />
+                  <BrandLogo href="" width={150} height={42} imageClassName="h-8" />
                 </Link>
                 <button
                   type="button"
@@ -114,12 +90,7 @@ function MobileNavContent({ isOpen, onClose, navigation }: MobileNavProps) {
                           <Link
                             key={child.name}
                             href={child.href}
-                            onClick={(e) => {
-                              if (child.onClick) {
-                                child.onClick(e);
-                              }
-                              onClose();
-                            }}
+                            onClick={onClose}
                             className={`block rounded-md px-3 py-2 font-body text-sm leading-snug ${
                               pathname === child.href 
                                 ? 'bg-[#0097b2]/10 dark:bg-[#0097b2]/20 text-[#0097b2] dark:text-[#FCFAEF]' 
@@ -138,7 +109,7 @@ function MobileNavContent({ isOpen, onClose, navigation }: MobileNavProps) {
                   <Button 
                     className="min-h-12 w-full bg-[#0097b2] text-[#FCFAEF] hover:bg-[#0097b2]/80 hover:text-[#FCFAEF] font-subheading font-medium"
                   >
-                    <Link href="/partner" onClick={onClose}>Partner With Us</Link>
+                    <Link href="/donate" onClick={onClose}>Donate</Link>
                   </Button>
                 </div>
               </div>

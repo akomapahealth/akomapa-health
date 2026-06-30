@@ -256,7 +256,7 @@ export default function GHLTPPage() {
               className="mt-8 flex flex-wrap gap-4"
             >
               <Button asChild className={primaryCtaClass}>
-                <Link href="/join">Apply Now</Link>
+                <Link href="/get-involved">Apply Now</Link>
               </Button>
               <Button asChild className={secondaryCtaClass}>
                 <Link href="/#">Become a Mentor</Link>
@@ -797,7 +797,7 @@ export default function GHLTPPage() {
                   size="lg"
                   className="group bg-[#FCFAEF] text-[#0097b2] hover:bg-[#F5C94D] hover:text-[#1C1F1E] px-6 sm:px-8 py-6 h-auto text-base sm:text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
                 >
-                  <Link href="/join" className="flex items-center whitespace-nowrap">
+                  <Link href="/get-involved" className="flex items-center whitespace-nowrap">
                     Apply Now
                     <ArrowRight className="h-5 w-5 ml-2 group-hover:translate-x-1 transition-transform" />
                   </Link>
@@ -819,7 +819,7 @@ export default function GHLTPPage() {
                   variant="outline"
                   className="group border-2 border-[#F5C94D] text-[#F5C94D] bg-transparent hover:bg-[#F5C94D] hover:text-[#1C1F1E] px-6 sm:px-8 py-6 h-auto text-base sm:text-lg font-semibold transition-all duration-300 transform hover:scale-105"
                 >
-                  <Link href="/partner" className="flex items-center whitespace-nowrap">
+                  <Link href="/partnerships" className="flex items-center whitespace-nowrap">
                     Partner to Teach
                     <ArrowRight className="h-5 w-5 ml-2 group-hover:translate-x-1 transition-transform" />
                   </Link>

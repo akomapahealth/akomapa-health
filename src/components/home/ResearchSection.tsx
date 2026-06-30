@@ -1,11 +1,12 @@
 "use client";
 
-import { motion, useAnimation } from "framer-motion";
+import { motion, useAnimation, useReducedMotion } from "framer-motion";
 import { useEffect, type CSSProperties } from "react";
-import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import {
+  PublicCta,
+  PublicSectionHeader,
+} from "@/components/shared/PublicPagePrimitives";
 
 // Partner logos with increased dimensions
 const partners = [
@@ -76,9 +77,15 @@ const carouselFadeVars = {
 export default function ResearchSection() {
   // Controls for the logo animation
   const controls = useAnimation();
+  const shouldReduceMotion = useReducedMotion();
 
   // Start the animation when component mounts
   useEffect(() => {
+    if (shouldReduceMotion) {
+      controls.set({ x: "0%" });
+      return;
+    }
+
     controls.start({
       x: ["0%", "-50%"],
       transition: {
@@ -90,7 +97,7 @@ export default function ResearchSection() {
         },
       },
     });
-  }, [controls]);
+  }, [controls, shouldReduceMotion]);
 
   return (
     <section
@@ -98,18 +105,15 @@ export default function ResearchSection() {
       className="py-16 md:py-24 bg-gradient-to-r from-[#0097b2] to-[#0F4C5C] dark:bg-[#1C1F1E] relative overflow-hidden text-[#FCFAEF]"
     >
       <div className="container mx-auto px-4">
-        <div className="max-w-3xl mx-auto text-center mb-16">
-          <h2 className="text-[#F5C94D] font-bold text-lg mb-2">
-            OUR RESEARCH & ACADEMIC PARTNERS
-          </h2>
-          <h3 className="text-3xl md:text-4xl font-bold mb-6 text-[#FCFAEF]">
-            Designed with Evidence. Driven by Collaboration.
-          </h3>
-          <p className="text-[#FCFAEF]/85 text-lg">
-            In collaboration with leading universities, health systems, and student-run clinics worldwide,
-            we generate the research and real-world evidence that powers Akomapa&apos;s model.
-          </p>
-        </div>
+        <PublicSectionHeader
+          eyebrow="Our Research & Academic Partners"
+          eyebrowTone="gold"
+          title="Designed with Evidence. Driven by Collaboration."
+          description="In collaboration with leading universities, health systems, and student-run clinics worldwide, we generate the research and real-world evidence that powers Akomapa's model."
+          className="mb-16"
+          titleClassName="text-[#FCFAEF] dark:text-[#FCFAEF] md:text-4xl"
+          descriptionClassName="text-[#FCFAEF]/85"
+        />
 
         <div className="text-center mb-12">
           <p className="uppercase tracking-widest text-sm text-[#F5C94D]/80 mb-3">
@@ -156,11 +160,9 @@ export default function ResearchSection() {
         </div>
 
         <div className="text-center mt-12">
-          <Button className="bg-[#FCFAEF] text-[#0097b2] hover:bg-[#F5C94D] hover:text-[#FCFAEF] transition-colors cursor-pointer">
-            <Link href="/research" className="flex items-center">
-              Explore Our Science <ArrowRight size={16} className="ml-2" />
-            </Link>
-          </Button>
+          <PublicCta href="/research" variant="light">
+            Explore Our Science
+          </PublicCta>
         </div>
       </div>
     </section>

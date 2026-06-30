@@ -38,7 +38,7 @@ const heroRows: Array<{
     faces: [
       { image: "/ucc-team/getwell_ebiram_essuman.JPG", delay: 0.1 },
       { image: "/ucc-team/david_konadu_kombate.JPG", delay: 0.15 },
-      { image: "/images/team/nana-ama-ocran.PNG", delay: 0.2 }
+      { image: "/images/team/nana-ama-ocran.jpeg", delay: 0.2 }
     ]
   },
   {
@@ -171,7 +171,7 @@ const executiveTeam: SpotlightMember[] = [
     name: "Nana Ama Ocran",
     role: "Education Programming Lead",
     org: "B.A., History of Medicine &Public Health (YC '26)Yale University",
-    image: "/images/team/nana-ama-ocran.PNG",
+    image: "/images/team/nana-ama-ocran.jpeg",
     email: "naamaocran@gmail.com",
     linkedin: "https://www.linkedin.com/in/nana-ama-nhyira-ocran-16957626b/",
     bio: "Nana Ama Ocran is a senior at Yale University studying History of Science, Medicine & Public Health, and French. She currently serves as the Leadership Training Program Lead for Akomapa Health Foundation, US. In her role, she designs and organizes opportunities for bidirectional learning that emphasize equity, collaboration, and community-rooted approaches to care. She joined Akomapa to support youth-driven health systems and strengthen cross-continental pathways for learning and leadership."
@@ -567,7 +567,7 @@ export default function TeamPage() {
                   <Link href="/contact">Meet with Us</Link>
                 </Button>
                 <Button asChild className={secondaryCtaClass}>
-                  <Link href="/join">Join the Movement</Link>
+                  <Link href="/get-involved">Join the Movement</Link>
                 </Button>
               </div>
             </FadeIn>
@@ -679,10 +679,10 @@ export default function TeamPage() {
           <FadeIn direction="up" delay={0.2}>
             <div className="flex flex-wrap gap-3 sm:gap-4 justify-center">
               <Button asChild className={primaryCtaClass}>
-                <Link href="/partner">Partner with Akomapa</Link>
+                <Link href="/partnerships">Partner with Akomapa</Link>
               </Button>
               <Button asChild className={secondaryCtaClass}>
-                <Link href="/join">Apply to Serve</Link>
+                <Link href="/get-involved">Apply to Serve</Link>
               </Button>
             </div>
           </FadeIn>

@@ -2,118 +2,46 @@
 
 import { useState, useEffect, Suspense } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Menu, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import MobileNav from "./MobileNav";
 import { ThemeToggle } from "@/components/theme/ThemeToggle";
-import { useTheme } from "@/components/theme/ThemeProvider";
+import BrandLogo from "@/components/shared/BrandLogo";
 
 // Navigation structure
 const navigation = [
   { name: "Home", href: "/" },
-  { 
-    name: "About", 
+  {
+    name: "About",
     href: "/about",
     children: [
-      { 
-        name: "Our Mission", 
-        href: "/#mission", 
-        onClick: (e: React.MouseEvent) => {
-          e.preventDefault();
-          const currentPath = window.location.pathname;
-          if (currentPath !== '/') {
-            window.location.href = '/#mission';
-          } else {
-            const missionSection = document.getElementById('mission');
-            if (missionSection) {
-              missionSection.scrollIntoView({ behavior: 'smooth' });
-            }
-          }
-        }
-      },
+      { name: "Our Story", href: "/about" },
       { name: "Our Team", href: "/about/team" },
-      // { 
-      //   name: "Our Science", 
-      //   href: "/research", 
-      //   onClick: (e: React.MouseEvent) => {
-      //     e.preventDefault();
-      //     const currentPath = window.location.pathname;
-      //     if (currentPath !== '/') {
-      //       window.location.href = '/research';
-      //     } else {
-      //       const researchSection = document.getElementById('research');
-      //       if (researchSection) {
-      //         researchSection.scrollIntoView({ behavior: 'smooth' });
-      //       }
-      //     }
-      //   }
-      // },
-      { 
-        name: "Our Partners", 
-        href: "/#research", 
-        onClick: (e: React.MouseEvent) => {
-          e.preventDefault();
-          const currentPath = window.location.pathname;
-          if (currentPath !== '/') {
-            window.location.href = '/#research';
-          } else {
-            const researchSection = document.getElementById('research');
-            if (researchSection) {
-              researchSection.scrollIntoView({ behavior: 'smooth' });
-            }
-          }
-        }
-      },
-    ]
+      { name: "Our Philosophy", href: "/philosophy" },
+    ],
   },
-  { 
-    name: "Our Clinics", 
-    href: "/clinics",
+  { name: "Academy", href: "/academy" },
+  {
+    name: "Community Health Hubs",
+    href: "/community-hubs",
     children: [
-      { name: "Akomapa UCC", href: "/clinics/akomapa-ucc" },
-      { name: "Akomapa UG", href: "/clinics/akomapa-ug" },
-      { name: "Akomapa - NHP, Yale", href: "/clinics/akomapa-nhp" },
-    ]
+      { name: "All Hubs", href: "/community-hubs" },
+      { name: "Akomapa UCC Hub", href: "/community-hubs/ucc" },
+      { name: "Akomapa UG Hub", href: "/community-hubs/ug" },
+      { name: "Akomapa NHP Yale Hub", href: "/community-hubs/nhp" },
+    ],
   },
-  { 
-    name: "Our Programs", 
-    href: "/programs",
-    children: [
-      { name: "The Akomapa Network", href: "/programs/akomapa-network" },
-      { name: "Akomapa GHLTP", href: "/programs/akomapa-ghltp" },
-      { name: "Akomapa GHIP", href: "/programs/akomapa-ghip" },
-      { name: "Akomapa Young Advocates", href: "/programs/akomapa-young-advocates" },
-      { name: "Akomapa Foods", href: "/programs/akomapa-foods" },
-    ]
-  },
-  { name: "Our Science", href: "/research" },
-  { name: "News", href: "/news" },
-  { name: "Get Involved", href: "/join" },
-  { name: "Contact", href: "/contact" },
+  { name: "Research & Innovation", href: "/research" },
+  { name: "Impact", href: "/impact" },
+  { name: "Partnerships", href: "/partnerships" },
+  { name: "Get Involved", href: "/get-involved" },
 ];
 
 function HeaderContent() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname();
-  const { theme } = useTheme();
-  const [isDark, setIsDark] = useState(false);
-
-  useEffect(() => {
-    const checkTheme = () => {
-      if (theme === "system") {
-        setIsDark(window.matchMedia("(prefers-color-scheme: dark)").matches);
-      } else {
-        setIsDark(theme === "dark");
-      }
-    };
-    checkTheme();
-    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-    mediaQuery.addEventListener("change", checkTheme);
-    return () => mediaQuery.removeEventListener("change", checkTheme);
-  }, [theme]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -130,31 +58,22 @@ function HeaderContent() {
 
   return (
     <header className={`sticky top-0 z-50 w-full transition-all duration-300 ${
-      isScrolled ? 'bg-[#FCFAEF] shadow-md py-2 dark:bg-[#4F5554]' : 'bg-[#FCFAEF]/80 backdrop-blur-md py-4 dark:bg-[#4F5554]/90'
+      isScrolled ? 'bg-[#FCFAEF] shadow-md py-2 dark:bg-[#121514]' : 'bg-[#FCFAEF]/80 backdrop-blur-md py-4 dark:bg-[#121514]/90'
     }`}>
       <div className="container mx-auto px-4">
         <div className="flex items-center gap-4">
           {/* Logo */}
-          <Link href="/" className="flex items-center flex-shrink-0">
-            <Image
-              src={isDark ? "/images/akomapa-logo-dark.png" : "/images/akomapa-logo.png"}
-              alt="Akomapa Health Foundation Logo"
-              width={250}
-              height={70}
-              className="h-12 w-auto object-contain"
-              style={{ objectFit: 'contain', objectPosition: 'center' }}
-            />
-          </Link>
+          <BrandLogo className="flex-shrink-0" priority />
 
           {/* Desktop Navigation and Actions - Right Aligned */}
-          <div className="hidden xl:flex items-center gap-6 ml-auto 2xl:gap-8">
+          <div className="hidden xl:flex items-center gap-4 ml-auto 2xl:gap-8">
             {/* Desktop Navigation */}
-            <nav className="flex items-center gap-5 2xl:gap-6">
+            <nav className="flex items-center gap-x-2.5 2xl:gap-5">
               {navigation.map((item) => (
                 <div key={item.name} className="relative group">
                   <Link 
                     href={item.href}
-                    className={`flex items-center gap-1.5 whitespace-nowrap text-sm font-subheading font-medium leading-none transition-colors hover:text-[#eeba2b] dark:hover:text-[#eeba2b] ${
+                    className={`flex items-center gap-1 whitespace-nowrap text-[13px] 2xl:text-sm font-subheading font-medium leading-none transition-colors hover:text-[#eeba2b] dark:hover:text-[#eeba2b] ${
                       pathname === item.href || pathname.startsWith(`${item.href}/`) 
                         ? 'text-[#0097b2]' 
                         : 'text-[#2F3332] dark:text-[#FCFAEF]'
@@ -174,7 +93,6 @@ function HeaderContent() {
                           <Link
                             key={child.name}
                             href={child.href}
-                            onClick={child.onClick}
                             className={`block px-4 py-2 text-sm font-body ${
                               pathname === child.href 
                                 ? 'bg-[#0097b2]/10 dark:bg-[#0097b2]/20 text-[#0097b2] dark:text-[#FCFAEF]' 
@@ -192,12 +110,12 @@ function HeaderContent() {
               ))}
             </nav>
 
-            {/* Partner button and Theme Toggle */}
-            <div className="flex items-center gap-3">
-              <Button 
-                className="bg-[#0097b2] px-5 text-[#FCFAEF] hover:bg-[#0097b2]/80 hover:text-[#FCFAEF] font-subheading font-medium"
+            {/* Donate button and Theme Toggle */}
+            <div className="flex items-center gap-2.5">
+              <Button
+                className="bg-[#0097b2] px-4 text-[#FCFAEF] hover:bg-[#0097b2]/80 hover:text-[#FCFAEF] font-subheading font-medium"
               >
-                <Link href="/partner">Partner With Us</Link>
+                <Link href="/donate">Donate</Link>
               </Button>
               <ThemeToggle />
             </div>
@@ -230,7 +148,7 @@ function HeaderContent() {
 export default function Header() {
   return (
     <Suspense fallback={
-      <header className="sticky top-0 z-50 w-full bg-[#FCFAEF] dark:bg-[#4F5554] py-4">
+      <header className="sticky top-0 z-50 w-full bg-[#FCFAEF] dark:bg-[#121514] py-4">
         <div className="container mx-auto px-4">
           <div className="flex items-center">
             <div className="animate-pulse bg-gray-200 dark:bg-gray-700 h-12 w-48 rounded"></div>

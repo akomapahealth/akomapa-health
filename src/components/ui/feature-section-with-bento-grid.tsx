@@ -105,7 +105,7 @@ function FeatureSectionWithBentoGrid({
     return (
       <article
         className={cn(
-          "homepage-hover-panel relative h-full overflow-hidden rounded-[30px] border border-[#FCFAEF]/10 bg-[#0F4C5C]/55 p-4 shadow-[0_24px_70px_rgba(15,76,92,0.18)] backdrop-blur-sm sm:p-5 md:p-6",
+          "homepage-hover-panel relative h-full overflow-hidden rounded-xl border border-[#FCFAEF]/10 bg-[#0F4C5C]/55 p-4 shadow-[0_24px_70px_rgba(15,76,92,0.18)] backdrop-blur-sm sm:p-5 md:p-6",
           className
         )}
         style={hoverBorderStyle("rgba(252, 250, 239, 0.18)")}
@@ -120,7 +120,7 @@ function FeatureSectionWithBentoGrid({
 
         <div className="relative z-10 flex h-full flex-col gap-3 md:gap-4">
           <div className="grid gap-3 xl:grid-cols-[minmax(0,1.15fr)_minmax(260px,0.85fr)] md:gap-4">
-            <div className="relative overflow-hidden rounded-[26px] border border-[#FCFAEF]/10 bg-[#FCFAEF]/[0.06] p-5 md:p-6 xl:min-h-[280px]">
+            <div className="relative overflow-hidden rounded-xl border border-[#FCFAEF]/10 bg-[#FCFAEF]/[0.06] p-5 md:p-6 xl:min-h-[280px]">
               <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent" />
               <div className="flex items-start justify-between gap-4">
                 <Badge
@@ -133,7 +133,7 @@ function FeatureSectionWithBentoGrid({
                   {badge}
                 </Badge>
                 {icon ? (
-                  <div className={cn("flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-2xl border", styles.iconWrap)}>
+                  <div className={cn("flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl border", styles.iconWrap)}>
                     {icon}
                   </div>
                 ) : null}
@@ -158,7 +158,7 @@ function FeatureSectionWithBentoGrid({
             </div>
 
             <div className="grid gap-3 md:gap-4">
-              <div className="relative flex h-full flex-col justify-between overflow-hidden rounded-[24px] border border-[#FCFAEF]/10 bg-[#FCFAEF]/[0.07] p-5 md:p-6 xl:min-h-[280px]">
+              <div className="relative flex h-full flex-col justify-between overflow-hidden rounded-xl border border-[#FCFAEF]/10 bg-[#FCFAEF]/[0.07] p-5 md:p-6 xl:min-h-[280px]">
                 <div
                   className="absolute left-0 top-0 h-1 w-20 rounded-full"
                   style={{ backgroundColor: styles.border }}
@@ -186,8 +186,7 @@ function FeatureSectionWithBentoGrid({
               <li
                 key={item.title}
                 className={cn(
-                  "homepage-hover-card relative isolate overflow-hidden rounded-[24px] border border-[#FCFAEF]/10 bg-[#FCFAEF]/[0.05] p-4 md:p-5",
-                  "before:absolute before:right-0 before:top-0 before:h-20 before:w-20 before:rounded-full before:blur-2xl before:content-['']",
+                  "homepage-hover-card relative isolate overflow-hidden rounded-xl border border-[#FCFAEF]/10 bg-[#FCFAEF]/[0.05] p-4 md:p-5",
                   styles.itemGlow,
                   spanClasses[item.span ?? "default"]
                 )}
@@ -200,7 +199,7 @@ function FeatureSectionWithBentoGrid({
                 <div className="relative z-10 flex h-full flex-col">
                   <div className="flex items-start justify-between gap-3">
                     {item.icon ? (
-                      <div className={cn("flex h-10 w-10 items-center justify-center rounded-2xl border", styles.iconWrap)}>
+                      <div className={cn("flex h-10 w-10 items-center justify-center rounded-xl border", styles.iconWrap)}>
                         {item.icon}
                       </div>
                     ) : (
@@ -231,7 +230,7 @@ function FeatureSectionWithBentoGrid({
   return (
     <article
       className={cn(
-        "relative overflow-hidden rounded-[30px] border border-[#FCFAEF]/10 bg-[#0F4C5C]/50 shadow-[0_24px_70px_rgba(15,76,92,0.18)] backdrop-blur-sm",
+        "relative overflow-hidden rounded-xl border border-[#FCFAEF]/10 bg-[#0F4C5C]/50 shadow-[0_24px_70px_rgba(15,76,92,0.18)] backdrop-blur-sm",
         compact ? "p-5 md:p-6" : "p-6 md:p-8",
         className
       )}
@@ -266,13 +265,13 @@ function FeatureSectionWithBentoGrid({
             </div>
           </div>
 
-          <div className={cn("flex flex-shrink-0 items-center justify-center rounded-2xl border", compact ? "h-12 w-12" : "h-14 w-14", styles.iconWrap)}>
+          <div className={cn("flex flex-shrink-0 items-center justify-center rounded-xl border", compact ? "h-12 w-12" : "h-14 w-14", styles.iconWrap)}>
             {icon}
           </div>
         </div>
 
         <div className={cn("grid items-start", compact ? "gap-3 md:grid-cols-[minmax(0,0.88fr)_minmax(0,1.12fr)] md:gap-4" : "gap-4 md:grid-cols-[minmax(0,1.05fr)_minmax(0,1.35fr)] md:gap-5")}>
-          <div className={cn("rounded-[26px] border border-[#FCFAEF]/10 bg-[#FCFAEF]/[0.05]", compact ? "p-4 md:p-5" : "p-5 md:p-6")}>
+          <div className={cn("rounded-xl border border-[#FCFAEF]/10 bg-[#FCFAEF]/[0.05]", compact ? "p-4 md:p-5" : "p-5 md:p-6")}>
             <div>
               <p className={cn("text-[11px] font-semibold uppercase tracking-[0.24em]", styles.eyebrow)}>
                 {highlightLabel}
@@ -299,8 +298,7 @@ function FeatureSectionWithBentoGrid({
               <li
                 key={item.title}
                 className={cn(
-                  "homepage-hover-card relative isolate overflow-hidden rounded-[24px] border border-[#FCFAEF]/10 bg-[#FCFAEF]/[0.05] p-5 md:p-6",
-                  "before:absolute before:right-0 before:top-0 before:h-24 before:w-24 before:rounded-full before:blur-2xl before:content-['']",
+                  "homepage-hover-card relative isolate overflow-hidden rounded-xl border border-[#FCFAEF]/10 bg-[#FCFAEF]/[0.05] p-5 md:p-6",
                   compact && "p-4 md:p-5",
                   styles.itemGlow,
                   spanClasses[item.span ?? "default"],
@@ -314,7 +312,7 @@ function FeatureSectionWithBentoGrid({
                 />
                 <div className="relative z-10 flex h-full flex-col">
                   <div className="flex items-start justify-between gap-4">
-                    <div className={cn("flex items-center justify-center rounded-2xl border", compact ? "h-10 w-10" : "h-11 w-11", styles.iconWrap)}>
+                    <div className={cn("flex items-center justify-center rounded-xl border", compact ? "h-10 w-10" : "h-11 w-11", styles.iconWrap)}>
                       {item.icon}
                     </div>
                     {item.eyebrow ? (
@@ -372,17 +370,16 @@ function BentoMetricsGroup({
   return (
     <article
       className={cn(
-        "relative overflow-hidden rounded-[30px] border border-[#E6E7E7] bg-white/80 p-5 shadow-[0_24px_60px_rgba(28,31,30,0.08)] backdrop-blur-sm md:p-8 lg:p-10 dark:border-[#2F3332] dark:bg-[#1C1F1E]/80",
+        "relative overflow-hidden rounded-xl border border-[#E6E7E7] bg-white/80 p-5 shadow-[0_24px_60px_rgba(28,31,30,0.08)] backdrop-blur-sm md:p-8 lg:p-10 dark:border-[#2F3332] dark:bg-[#1C1F1E]/80",
         className
       )}
     >
       <div className="pointer-events-none absolute inset-x-0 top-0 h-44 bg-gradient-to-br from-white/60 via-transparent to-transparent dark:from-white/5" />
-      <div className="pointer-events-none absolute bottom-0 right-0 h-40 w-40 rounded-full bg-[#F5C94D]/10 blur-3xl dark:bg-[#66C4DC]/10" />
 
       <div className="relative z-10">
         <div className="grid gap-4 2xl:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] xl:gap-5">
           <div
-            className="homepage-hover-card rounded-[28px] border border-[#E6E7E7] bg-[#FCFAEF]/75 p-6 md:p-8 dark:border-[#2F3332] dark:bg-[#2F3332]/70"
+            className="homepage-hover-card rounded-xl border border-[#E6E7E7] bg-[#FCFAEF]/75 p-6 md:p-8 dark:border-[#2F3332] dark:bg-[#2F3332]/70"
             style={hoverBorderStyle(styles.hoverBorder)}
           >
             <Badge
@@ -404,10 +401,9 @@ function BentoMetricsGroup({
 
           <div className="grid gap-4 lg:grid-cols-2 2xl:grid-cols-1">
             <div
-              className="homepage-hover-card relative overflow-hidden rounded-[28px] border border-[#E6E7E7] bg-white/90 p-6 dark:border-[#2F3332] dark:bg-[#1C1F1E]/75"
+              className="homepage-hover-card relative overflow-hidden rounded-xl border border-[#E6E7E7] bg-white/90 p-6 dark:border-[#2F3332] dark:bg-[#1C1F1E]/75"
               style={hoverBorderStyle(styles.hoverBorder)}
             >
-              <div className="absolute right-0 top-0 h-28 w-28 rounded-full bg-black/5 blur-3xl dark:bg-white/5" />
               <div className="relative z-10 flex items-start justify-between gap-4">
                 <div>
                   <p className={cn("text-[11px] font-semibold uppercase tracking-[0.24em]", styles.eyebrow)}>
@@ -421,7 +417,7 @@ function BentoMetricsGroup({
                   </p>
                 </div>
                 {leadIcon ? (
-                  <div className={cn("flex h-12 w-12 items-center justify-center rounded-2xl border", styles.iconWrap)}>
+                  <div className={cn("flex h-12 w-12 items-center justify-center rounded-xl border", styles.iconWrap)}>
                     {leadIcon}
                   </div>
                 ) : (
@@ -434,7 +430,7 @@ function BentoMetricsGroup({
 
             {supportingCopy ? (
               <div
-                className="homepage-hover-card rounded-[28px] border border-[#E6E7E7] bg-[#FCFAEF]/65 p-6 dark:border-[#2F3332] dark:bg-[#2F3332]/65"
+                className="homepage-hover-card rounded-xl border border-[#E6E7E7] bg-[#FCFAEF]/65 p-6 dark:border-[#2F3332] dark:bg-[#2F3332]/65"
                 style={hoverBorderStyle(styles.hoverBorder)}
               >
                 <p className={cn("text-[11px] font-semibold uppercase tracking-[0.24em]", styles.eyebrow)}>
@@ -453,7 +449,7 @@ function BentoMetricsGroup({
             <li
               key={`${item.value}-${item.label}`}
               className={cn(
-                "homepage-hover-card relative overflow-hidden rounded-[24px] border border-[#E6E7E7] bg-white/85 p-4 dark:border-[#2F3332] dark:bg-[#2F3332]/70 md:p-5",
+                "homepage-hover-card relative overflow-hidden rounded-xl border border-[#E6E7E7] bg-white/85 p-4 dark:border-[#2F3332] dark:bg-[#2F3332]/70 md:p-5",
                 metricSpanClasses[item.span ?? "default"]
               )}
               style={hoverBorderStyle(styles.hoverBorder)}
@@ -462,11 +458,10 @@ function BentoMetricsGroup({
                 className="absolute left-0 top-0 h-1 w-20 rounded-full"
                 style={{ backgroundColor: styles.border }}
               />
-              <div className="absolute right-0 top-0 h-24 w-24 rounded-full bg-black/5 blur-3xl dark:bg-white/5" />
               <div className="relative z-10 flex h-full flex-col">
                 <div className="flex items-start justify-between gap-4">
                   {item.icon ? (
-                    <div className={cn("flex h-10 w-10 items-center justify-center rounded-2xl border", styles.iconWrap)}>
+                    <div className={cn("flex h-10 w-10 items-center justify-center rounded-xl border", styles.iconWrap)}>
                       {item.icon}
                     </div>
                   ) : (

@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { render, screen } from "@testing-library/react";
 import ImpactMetrics from "@/components/home/ImpactMetrics";
+import { healthImpact, leadershipImpact } from "@/data/impact";
 
 describe("ImpactMetrics", () => {
   it("renders the section heading and description", () => {
@@ -8,29 +9,27 @@ describe("ImpactMetrics", () => {
     expect(screen.getByText(/our impact/i)).toBeInTheDocument();
     expect(
       screen.getByRole("heading", {
-        level: 3,
-        name: /people, partnerships, and momentum/i,
-      })
+        level: 2,
+        name: /community health impact, leadership development, and momentum/i,
+      }),
     ).toBeInTheDocument();
   });
 
-  it("renders both the current and 2028 metric groups with their badges", () => {
+  it("renders both data-driven impact categories with their badges", () => {
     render(<ImpactMetrics />);
-    expect(screen.getByText(/^today$/i)).toBeInTheDocument();
+    expect(screen.getByText(healthImpact.title)).toBeInTheDocument();
+    expect(screen.getByText(leadershipImpact.title)).toBeInTheDocument();
     expect(screen.getAllByText(/by 2028/i).length).toBeGreaterThan(0);
   });
 
-  it("renders all five current-state metric labels", () => {
+  it("renders the canonical health and leadership metric labels", () => {
     render(<ImpactMetrics />);
-    const expectedLabels = [
-      "Patients Served",
-      "Network Clinics",
-      "Student Leaders Trained",
-      "Countries Connected",
-      "Institutional Partners",
-    ];
-    for (const label of expectedLabels) {
-      expect(screen.getAllByText(label).length).toBeGreaterThan(0);
+
+    for (const metric of [
+      ...healthImpact.metrics,
+      ...leadershipImpact.metrics,
+    ]) {
+      expect(screen.getAllByText(metric.label).length).toBeGreaterThan(0);
     }
   });
 });

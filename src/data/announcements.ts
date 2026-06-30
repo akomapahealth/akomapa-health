@@ -10,7 +10,7 @@ export const announcementCampaign: AnnouncementCampaign = {
       title: "Yale Global Health Yogesh Khanal Award",
       titleHighlights: ["Global Health", "Yogesh Khanal"],
       description:
-        "Akomapa Health has been honored with the Yogesh Khanal Award for outstanding contributions to global health equity and NCD prevention in underserved communities.",
+        "Akomapa Health received the Yogesh Khanal Award to support the development of our Ethical Leadership Program, Akomapa Academy.",
       image: "/images/akomapa-yale.JPG",
       ctaText: "Read More",
       ctaLink: "https://medicine.yale.edu/news-article/global-health-and-equity-distinction-pathway-news-update-for-january-6-2025/",
@@ -80,7 +80,7 @@ export const announcementCampaign: AnnouncementCampaign = {
         "Our University of Ghana clinic is now open, bringing NCD screening, education, and preventive care directly to the Legon campus community.",
       image: "/highlights/ug.jpg",
       ctaText: "Visit Clinic",
-      ctaLink: "/clinics/akomapa-ug",
+      ctaLink: "/community-hubs/ug",
       isExternal: false,
     },
     {
@@ -93,7 +93,7 @@ export const announcementCampaign: AnnouncementCampaign = {
         "Our University of Cape Coast partnership has expanded to serve four surrounding communities with regular health screenings and education programs.",
       image: "/highlights/ucc.jpg",
       ctaText: "See Communities",
-      ctaLink: "/clinics",
+      ctaLink: "/community-hubs",
       isExternal: false,
     },
     {

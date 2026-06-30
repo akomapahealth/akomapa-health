@@ -89,7 +89,7 @@ export default function NewsPage() {
                   asChild
                   className="group bg-[#eeba2b] hover:bg-[#eeba2b]/90 text-[#1C1F1E] font-medium px-6"
                 >
-                  <Link href="/join" className="flex items-center">
+                  <Link href="/get-involved" className="flex items-center">
                     Get Involved
                     <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                   </Link>
@@ -236,7 +236,7 @@ export default function NewsPage() {
                     asChild
                     className="group bg-[#eeba2b] hover:bg-[#eeba2b]/90 text-[#1C1F1E] font-medium px-8"
                   >
-                    <Link href="/join" className="flex items-center">
+                    <Link href="/get-involved" className="flex items-center">
                       Join Our Movement
                       <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                     </Link>

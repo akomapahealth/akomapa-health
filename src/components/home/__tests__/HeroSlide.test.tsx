@@ -3,6 +3,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import HeroSlide, { type HeroSlideContent } from "@/components/home/HeroSlide";
 import type { Announcement } from "@/lib/types";
+import { BRAND } from "@/config/brand";
 
 const brandSlide: HeroSlideContent = {
   variant: "brand",
@@ -41,14 +42,14 @@ describe("HeroSlide — brand variant", () => {
   it("renders the headline and the two primary CTAs", () => {
     render(<HeroSlide content={brandSlide} isActive isPrimary />);
     expect(
-      screen.getByRole("heading", { level: 1, name: /global partnership/i })
+      screen.getByRole("heading", { level: 1, name: BRAND.heroHeadline })
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("link", { name: /join the movement/i })
-    ).toHaveAttribute("href", "/join");
+      screen.getByRole("link", { name: new RegExp(BRAND.heroPrimaryCTA.label, "i") })
+    ).toHaveAttribute("href", "/academy");
     expect(
-      screen.getByRole("link", { name: /support our work/i })
-    ).toHaveAttribute("href", "/partner");
+      screen.getByRole("link", { name: new RegExp(BRAND.heroSecondaryCTA.label, "i") })
+    ).toHaveAttribute("href", "/partnerships");
   });
 });
 

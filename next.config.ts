@@ -1,12 +1,14 @@
 import type { NextConfig } from "next";
-import { withSentryConfig } from "@sentry/nextjs";
-import bundleAnalyzer from "@next/bundle-analyzer";
 
-const withBundleAnalyzer = bundleAnalyzer({
-  enabled: process.env.ANALYZE === "true",
-});
+type BundleAnalyzerFactory = (options?: {
+  enabled?: boolean;
+  openAnalyzer?: boolean;
+  analyzerMode?: "json" | "static";
+  logLevel?: "info" | "warn" | "error" | "silent";
+}) => (config?: NextConfig) => NextConfig;
 
 const nextConfig: NextConfig = {
+  outputFileTracingRoot: process.cwd(),
   async redirects() {
     return [
       {
@@ -19,11 +21,50 @@ const nextConfig: NextConfig = {
         destination: "/terms",
         permanent: true,
       },
+      // Rebrand route renames
+      {
+        source: "/clinics",
+        destination: "/community-hubs",
+        permanent: true,
+      },
+      {
+        source: "/clinics/akomapa-ucc",
+        destination: "/community-hubs/ucc",
+        permanent: true,
+      },
+      {
+        source: "/clinics/akomapa-ug",
+        destination: "/community-hubs/ug",
+        permanent: true,
+      },
+      {
+        source: "/clinics/akomapa-nhp",
+        destination: "/community-hubs/nhp",
+        permanent: true,
+      },
+      {
+        source: "/join",
+        destination: "/get-involved",
+        permanent: true,
+      },
+      {
+        source: "/partner",
+        destination: "/partnerships",
+        permanent: true,
+      },
+      {
+        source: "/partner/corporate-sponsorship",
+        destination: "/partnerships/corporate-sponsorship",
+        permanent: true,
+      },
     ];
   },
   experimental: {
     // Disable the segment explorer devtool due to a dev-runtime manifest bug.
     devtoolSegmentExplorer: false,
+    // The worker process can hang indefinitely on this project during production
+    // compilation; keep builds in-process until the dependency graph is lighter.
+    webpackBuildWorker: false,
   },
   images: {
     qualities: [75, 85, 100],
@@ -47,39 +88,37 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default withSentryConfig(withBundleAnalyzer(nextConfig), {
-  // For all available options, see:
-  // https://www.npmjs.com/package/@sentry/webpack-plugin#options
+const shouldEnableSentryBuildPlugin =
+  process.env.SENTRY_BUILD_PLUGIN === "true" ||
+  Boolean(process.env.CI && process.env.SENTRY_AUTH_TOKEN);
 
-  org: "akomapa-health-foundation",
+export default async function config() {
+  let analyzedConfig = nextConfig;
 
-  project: "javascript-nextjs",
+  if (process.env.ANALYZE === "true") {
+    const { default: createBundleAnalyzer } = (await import("@next/bundle-analyzer")) as {
+      default: BundleAnalyzerFactory;
+    };
+    analyzedConfig = createBundleAnalyzer({ enabled: true })(nextConfig);
+  }
 
-  // Only print logs for uploading source maps in CI
-  silent: !process.env.CI,
+  if (!shouldEnableSentryBuildPlugin) {
+    return analyzedConfig;
+  }
 
-  // For all available options, see:
-  // https://docs.sentry.io/platforms/javascript/guides/nextjs/manual-setup/
+  const { withSentryConfig } = await import("@sentry/nextjs");
 
-  // Upload a larger set of source maps for prettier stack traces (increases build time)
-  widenClientFileUpload: true,
-
-  // Route browser requests to Sentry through a Next.js rewrite to circumvent ad-blockers.
-  // Only enabled in production — in dev the proxy hop can fail with ETIMEDOUT on
-  // some networks, dropping every event before it reaches Sentry.
-  tunnelRoute: process.env.NODE_ENV === "production" ? "/monitoring" : undefined,
-
-  webpack: {
-    // Enables automatic instrumentation of Vercel Cron Monitors. (Does not yet work with App Router route handlers.)
-    // See the following for more information:
-    // https://docs.sentry.io/product/crons/
-    // https://vercel.com/docs/cron-jobs
-    automaticVercelMonitors: true,
-
-    // Tree-shaking options for reducing bundle size
-    treeshake: {
-      // Automatically tree-shake Sentry logger statements to reduce bundle size
-      removeDebugLogging: true,
+  return withSentryConfig(analyzedConfig, {
+    org: "akomapa-health-foundation",
+    project: "javascript-nextjs",
+    silent: !process.env.CI,
+    widenClientFileUpload: true,
+    tunnelRoute: process.env.NODE_ENV === "production" ? "/monitoring" : undefined,
+    webpack: {
+      automaticVercelMonitors: true,
+      treeshake: {
+        removeDebugLogging: true,
+      },
     },
-  },
-});
+  });
+}

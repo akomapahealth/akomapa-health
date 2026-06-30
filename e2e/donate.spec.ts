@@ -10,10 +10,10 @@ test.describe("Donate page flow", () => {
   test("renders redesigned sections", async ({ page }) => {
     await page.goto("/donate");
 
-    await expect(page.getByRole("heading", { name: "Give health. Build hope." })).toBeVisible();
-    await expect(page.getByRole("heading", { name: "What your donation enables" })).toBeVisible();
-    await expect(page.getByRole("heading", { name: "Choose your donation" })).toBeVisible();
-    await expect(page.getByRole("heading", { name: "Where funds go" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Every act of generosity saves a life." })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "The Akomapa Partners Program" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Choose Your Monthly Partnership Amount" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Corporate Sponsorship Opportunities" })).toBeVisible();
   });
 
   test("defaults to monthly and supports amount selection", async ({ page }) => {
@@ -22,19 +22,22 @@ test.describe("Donate page flow", () => {
     const monthlyButton = page.getByRole("button", { name: /monthly/i }).first();
     await expect(monthlyButton).toHaveAttribute("aria-pressed", "true");
 
-    await page.getByRole("button", { name: /\$250/i }).click();
-    await page.getByRole("button", { name: "Credit / Debit Card" }).click();
-    await expect(page.getByText("Please choose an amount and add your name and email to continue.")).toBeVisible();
+    await page.getByRole("button", { name: /\$100/i }).click();
+    await expect(page.getByRole("button", { name: /\$100/i })).toHaveAttribute("aria-pressed", "true");
+    await page.getByRole("radio", { name: /Credit\/Debit Card/i }).click();
+    await page.getByRole("button", { name: "Become a Partner" }).click();
+    await expect(page.getByText("Please provide your details")).toBeVisible();
   });
 
   test("supports mobile flow and payment method switch", async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto("/donate");
 
-    await page.getByRole("button", { name: "MTN Mobile Money" }).click();
+    await page.getByRole("radio", { name: /Mobile Money/i }).click();
+    await page.getByRole("button", { name: "Pay with Mobile Money" }).click();
     await expect(page.getByText("+233 54 111 1111")).toBeVisible();
 
-    await page.getByRole("button", { name: "PayPal Giving" }).click();
-    await expect(page.getByRole("link", { name: "Continue to PayPal Giving" })).toBeVisible();
+    await page.getByRole("radio", { name: /Credit\/Debit Card/i }).click();
+    await expect(page.getByRole("button", { name: "Become a Partner" })).toBeVisible();
   });
 });

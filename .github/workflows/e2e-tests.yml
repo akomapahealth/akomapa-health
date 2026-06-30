@@ -2,9 +2,9 @@ name: Lint, typecheck, build, and E2E
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [ main, develop, dev ]
   pull_request:
-    branches: [ main, develop ]
+    branches: [ main, develop, dev ]
   workflow_dispatch:
 
 # Permissions needed for commenting on PRs
@@ -25,7 +25,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
           cache: 'npm'
 
       - name: Install dependencies
@@ -214,4 +214,3 @@ jobs:
                 body: body
               });
             }
-

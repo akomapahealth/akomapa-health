@@ -165,7 +165,7 @@ export default function NHPClinicPage() {
             className="pt-2"
           >
             <Link 
-              href="/clinics" 
+              href="/community-hubs" 
               className="inline-flex items-center text-[#FCFAEF]/80 hover:text-[#FCFAEF] transition-colors text-sm font-medium"
             >
               <ArrowLeft className="mr-2 h-4 w-4" />
@@ -204,13 +204,13 @@ export default function NHPClinicPage() {
               className="mt-6 sm:mt-8 flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4"
             >
               <Button asChild className={primaryCtaClass}>
-                <Link href="/join" className="whitespace-nowrap">Volunteer with Us</Link>
+                <Link href="/get-involved" className="whitespace-nowrap">Volunteer with Us</Link>
               </Button>
               <Button asChild className={secondaryCtaClass}>
                 <Link href="/donate" className="whitespace-nowrap">Donate</Link>
               </Button>
               <Button asChild className={secondaryCtaClass}>
-                <Link href="/partners" className="whitespace-nowrap">Partner with Us</Link>
+                <Link href="/partnerships" className="whitespace-nowrap">Partner with Us</Link>
               </Button>
             </motion.div>
           </div>
@@ -487,7 +487,7 @@ export default function NHPClinicPage() {
                   <span>Rotating barbershop and salon locations across New Haven, Connecticut</span>
                 </div>
                 <div className="pt-2">
-                  <Link href="/clinics#upcoming" className="inline-flex items-center gap-2 rounded-xl bg-[#0097b2] px-4 py-2 text-white shadow-md transition-colors hover:bg-[#0F4C5C] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0097b2] dark:focus:ring-offset-[#2F3332]">
+                  <Link href="/community-hubs#upcoming" className="inline-flex items-center gap-2 rounded-xl bg-[#0097b2] px-4 py-2 text-white shadow-md transition-colors hover:bg-[#0F4C5C] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0097b2] dark:focus:ring-offset-[#2F3332]">
                     <Calendar className="h-4 w-4" />
                     <span>View Upcoming Clinic Dates</span>
                     <ArrowRight className="h-4 w-4" />
@@ -620,10 +620,10 @@ export default function NHPClinicPage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
               <Button asChild className={primaryCtaClass}>
-                <Link href="/join" className="whitespace-nowrap">Volunteer with Us</Link>
+                <Link href="/get-involved" className="whitespace-nowrap">Volunteer with Us</Link>
               </Button>
               <Button asChild className={outlineBlueCtaClass}>
-                <Link href="/partners" className="whitespace-nowrap">Partner with Us</Link>
+                <Link href="/partnerships" className="whitespace-nowrap">Partner with Us</Link>
               </Button>
               <Button asChild className={outlineGoldCtaClass}>
                 <Link href="/donate" className="whitespace-nowrap">Donate</Link>

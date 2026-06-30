@@ -16,25 +16,44 @@ const viewports = [
   { name: "tablet-768", width: 768, height: 1024 },
   { name: "ipad-pro-1024", width: 1024, height: 1366 },
   { name: "desktop-1440", width: 1440, height: 900 },
+  { name: "wide-1728", width: 1728, height: 1050 },
 ] as const;
+
+const themes = ["light", "dark"] as const;
 
 const routes: ReadonlyArray<{ path: string; name: string }> = [
   { path: "/", name: "home" },
+  { path: "/academy", name: "academy" },
+  { path: "/community-hubs", name: "hubs" },
+  { path: "/ncd-impact", name: "ncd-impact" },
+  { path: "/impact", name: "impact" },
+  { path: "/research", name: "research" },
+  { path: "/partnerships", name: "partnerships" },
+  { path: "/get-involved", name: "get-involved" },
+  { path: "/donate", name: "donate" },
+  { path: "/contact", name: "contact" },
+  { path: "/resources", name: "resources" },
   { path: "/news", name: "news" },
+  { path: "/blog", name: "blog" },
   { path: "/about/team", name: "team" },
   { path: "/programs", name: "programs" },
   { path: "/clinics", name: "clinics" },
-  { path: "/research", name: "research" },
+  { path: "/philosophy", name: "philosophy" },
+  { path: "/privacy", name: "privacy" },
+  { path: "/terms", name: "terms" },
 ];
 
-async function dismissAnnouncementPopup(page: Page) {
-  await page.addInitScript((version: string) => {
+async function preparePage(page: Page, theme: (typeof themes)[number]) {
+  await page.addInitScript(({ version, storedTheme }) => {
     try {
       localStorage.setItem("akomapa-announcements-dismissed", version);
+      localStorage.setItem("akomapa-theme", storedTheme);
+      document.documentElement.classList.remove("light", "dark");
+      document.documentElement.classList.add(storedTheme);
     } catch {
       /* noop */
     }
-  }, announcementCampaign.version);
+  }, { version: announcementCampaign.version, storedTheme: theme });
 }
 
 async function hasHorizontalOverflow(page: Page): Promise<boolean> {
@@ -45,19 +64,24 @@ async function hasHorizontalOverflow(page: Page): Promise<boolean> {
 }
 
 test.describe("Responsive pages — header, footer, no horizontal overflow", () => {
-  test.beforeEach(async ({ page }) => {
-    await dismissAnnouncementPopup(page);
-  });
-
   for (const viewport of viewports) {
-    for (const route of routes) {
-      test(`${viewport.name} · ${route.name} (${route.path})`, async ({
-        page,
-      }) => {
+    for (const theme of themes) {
+      for (const route of routes) {
+        test(`${viewport.name} · ${theme} · ${route.name} (${route.path})`, async ({
+          page,
+        }) => {
+        await preparePage(page, theme);
+
         const responses: number[] = [];
+        const consoleErrors: string[] = [];
         page.on("response", (response) => {
           if (new URL(response.url()).pathname === route.path) {
             responses.push(response.status());
+          }
+        });
+        page.on("console", (message) => {
+          if (message.type() === "error") {
+            consoleErrors.push(message.text());
           }
         });
 
@@ -74,11 +98,22 @@ test.describe("Responsive pages — header, footer, no horizontal overflow", () 
         await expect(page.locator("header").first()).toBeVisible();
         await expect(page.locator("footer").first()).toBeVisible();
 
+        await expect(page.locator("main h1, main h2").first()).toBeVisible();
+
         // No horizontal scrollbar — common cause of broken responsive layouts.
         // Allow Swiper/animated sections to settle before measuring.
         await page.waitForTimeout(500);
         expect(await hasHorizontalOverflow(page)).toBe(false);
+
+        const criticalErrors = consoleErrors.filter(
+          (error) =>
+            !error.includes("Failed to load resource") &&
+            !error.includes("net::ERR_") &&
+            !error.includes("404"),
+        );
+        expect(criticalErrors).toEqual([]);
       });
     }
+  }
   }
 });

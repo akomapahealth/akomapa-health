@@ -2,8 +2,8 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import dynamic from "next/dynamic";
-import { ChevronLeft, ChevronRight, ChevronUp } from "lucide-react";
 import { motion } from "framer-motion";
+import { InlineChevron } from "@/components/home/_home-ui";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { A11y, Autoplay, EffectFade, Keyboard, Navigation, Pagination } from "swiper/modules";
 import type { Swiper as SwiperClass } from "swiper/types";
@@ -25,7 +25,7 @@ import type { Announcement } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { trackEvent } from "@/lib/analytics";
 
-const AUTOPLAY_MS = 7000;
+const AUTOPLAY_MS = 15000;
 const BRAND_BACKGROUND = {
   src: "/highlights/Akomapa-28.jpg",
   alt: "Akomapa healthcare professionals working in a community clinic",
@@ -216,7 +216,7 @@ export default function HeroSlider({ height = "full" }: Props) {
             className="absolute left-3 top-1/2 z-20 hidden -translate-y-1/2 rounded-full bg-black/30 p-3 text-white/85 backdrop-blur-sm transition-colors hover:bg-black/50 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0097b2] focus-visible:ring-offset-2 focus-visible:ring-offset-black/30 md:inline-flex md:left-6"
             aria-label="Previous slide"
           >
-            <ChevronLeft className="h-6 w-6" />
+            <InlineChevron className="h-6 w-6" />
           </button>
           <button
             type="button"
@@ -224,7 +224,7 @@ export default function HeroSlider({ height = "full" }: Props) {
             className="absolute right-3 top-1/2 z-20 hidden -translate-y-1/2 rounded-full bg-black/30 p-3 text-white/85 backdrop-blur-sm transition-colors hover:bg-black/50 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0097b2] focus-visible:ring-offset-2 focus-visible:ring-offset-black/30 md:inline-flex md:right-6"
             aria-label="Next slide"
           >
-            <ChevronRight className="h-6 w-6" />
+            <InlineChevron className="h-6 w-6 rotate-180" />
           </button>
 
           <div
@@ -298,7 +298,7 @@ export default function HeroSlider({ height = "full" }: Props) {
               animate={{ y: [0, 4, 0] }}
               transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
             >
-              <ChevronUp className="h-5 w-5 rotate-180 text-[#FCFAEF]" />
+              <InlineChevron className="h-5 w-5 -rotate-90 text-[#FCFAEF]" />
             </motion.div>
           </button>
         </div>
