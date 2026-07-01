@@ -268,6 +268,10 @@ export interface BlogPost {
   content: string;
   author: string;
   authorRole: string;
+  /** Institution or community the author is affiliated with (shown in bylines). */
+  authorInstitution?: string;
+  /** Short author biography rendered in the article's author section. */
+  authorBio?: string;
   authorImage?: string;
   category:
     | "student-essay"

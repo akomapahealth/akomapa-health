@@ -254,7 +254,7 @@ describe("rebrand data model contracts", () => {
       "futureValue" | "futureYear" | "icon"
     >();
     expectTypeOf<OptionalKeys<BlogPost>>().toEqualTypeOf<
-      "authorImage" | "image" | "videoUrl"
+      "authorInstitution" | "authorBio" | "authorImage" | "image" | "videoUrl"
     >();
   });
 
