@@ -38,7 +38,7 @@ export function BlogFeaturedPost({ post }: BlogFeaturedPostProps) {
       >
         {/* Media */}
         {posterSrc && (
-          <div className="relative aspect-[16/10] overflow-hidden lg:aspect-auto lg:min-h-[360px]">
+          <div className="relative aspect-[16/10] min-w-0 overflow-hidden lg:aspect-auto lg:min-h-[360px]">
             <Image
               src={posterSrc}
               alt={post.title}
@@ -65,7 +65,7 @@ export function BlogFeaturedPost({ post }: BlogFeaturedPostProps) {
         )}
 
         {/* Content */}
-        <div className="flex flex-col justify-center p-6 sm:p-8 lg:p-10">
+        <div className="flex min-w-0 flex-col justify-center p-6 sm:p-8 lg:p-10">
           <div className="mb-4 flex flex-wrap items-center gap-3">
             <span
               className={cn(
@@ -97,7 +97,7 @@ export function BlogFeaturedPost({ post }: BlogFeaturedPostProps) {
             {post.excerpt}
           </p>
 
-          <div className="flex items-center gap-3">
+          <div className="flex min-w-0 items-center gap-3">
             <AuthorAvatar name={post.author} image={post.authorImage} />
             <div className="min-w-0">
               <p className="truncate text-sm font-semibold text-[#1C1F1E] dark:text-[#FCFAEF]">
