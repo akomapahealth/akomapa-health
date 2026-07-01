@@ -19,6 +19,7 @@ const navigation = [
       { name: "Our Story", href: "/about" },
       { name: "Our Team", href: "/about/team" },
       { name: "Our Philosophy", href: "/philosophy" },
+      { name: "Thought Leadership", href: "/blog" },
     ],
   },
   { name: "Academy", href: "/academy" },
