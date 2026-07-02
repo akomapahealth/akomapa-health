@@ -23,6 +23,7 @@ import {
   studentsChangedContent,
 } from "@/data/homepage-narrative";
 import {
+  futureVision,
   healthImpact,
   impactCategories,
   leadershipImpact,
@@ -232,7 +233,7 @@ describe("rebrand content data", () => {
     ]);
 
     for (const category of impactCategories) {
-      expect(category.metrics).toHaveLength(4);
+      expect(category.metrics).toHaveLength(5);
       expectUniqueIds(category.metrics);
 
       for (const metric of category.metrics) {
@@ -241,6 +242,17 @@ describe("rebrand content data", () => {
         expect(metric.futureYear).toBe(2028);
         expect(metric.icon && metric.icon in LucideIcons).toBe(true);
       }
+    }
+  });
+
+  it("defines the By 2028 future vision targets", () => {
+    expect(futureVision).toHaveLength(5);
+    expectUniqueIds(futureVision);
+
+    for (const target of futureVision) {
+      expect(target.label).toBeTruthy();
+      expect(target.value).toBeTruthy();
+      expect(target.icon && target.icon in LucideIcons).toBe(true);
     }
   });
 });
