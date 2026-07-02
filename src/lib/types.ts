@@ -250,6 +250,16 @@ export interface MapLocation {
   description: string;
 }
 
+export interface FutureVisionTarget {
+  id: string;
+  label: string;
+  /** Display value for the 2028 target, e.g. "150,000+". */
+  value: string;
+  /** Optional present-day baseline for a current → target comparison. */
+  currentValue?: string;
+  icon?: string;
+}
+
 export interface BlogPost {
   id: string;
   slug: string;

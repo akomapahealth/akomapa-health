@@ -1,38 +1,50 @@
 import type { Metadata } from "next";
-import RebrandPageShell from "@/components/shared/RebrandPageShell";
-import { BRAND } from "@/config/brand";
+import Breadcrumb from "@/components/layout/Breadcrumb";
+import ImpactHero from "@/components/impact/ImpactHero";
+import HealthImpactSection from "@/components/impact/HealthImpactSection";
+import LeadershipImpactSection from "@/components/impact/LeadershipImpactSection";
+import ImpactMap from "@/components/impact/ImpactMap";
+import GrowthTimeline from "@/components/impact/GrowthTimeline";
+import FutureVisionSection from "@/components/impact/FutureVisionSection";
+import ImpactCTA from "@/components/impact/ImpactCTA";
 
 export const metadata: Metadata = {
   title: "Our Impact",
   description:
-    "Explore Akomapa's growing impact across community health, ethical leadership development, research, and equitable partnerships.",
+    "Explore Akomapa's measurable impact — communities screened, referrals completed, student leaders trained, and the growing network of community health hubs working toward our 2028 goals.",
+  openGraph: {
+    title: "Our Impact | Akomapa",
+    description:
+      "Measured in communities strengthened, leaders developed, and systems transformed. See Akomapa's health and leadership impact and where we are headed by 2028.",
+    type: "website",
+  },
+  keywords: [
+    "impact",
+    "global health",
+    "community health",
+    "NCD screening",
+    "student leaders",
+    "health equity",
+    "Ghana health",
+    "community health hubs",
+    "Akomapa",
+  ],
 };
-
-const highlights = [
-  {
-    title: "Health Access",
-    description:
-      "Community-centered initiatives expand access to prevention, screening, health education, and pathways to care.",
-  },
-  {
-    title: "Leaders Developed",
-    description:
-      "Students and emerging professionals gain practical experience grounded in ethics, reflection, and accountable service.",
-  },
-  {
-    title: "Knowledge Shared",
-    description:
-      "Research and innovation turn community learning into evidence that can strengthen programs, partnerships, and health systems.",
-  },
-] as const;
 
 export default function ImpactPage() {
   return (
-    <RebrandPageShell
-      eyebrow="Measuring Progress"
-      title="Our Impact"
-      description={BRAND.vision}
-      highlights={highlights}
-    />
+    <div data-rebrand-page className="bg-background text-foreground">
+      <div className="container mx-auto">
+        <Breadcrumb />
+      </div>
+
+      <ImpactHero />
+      <HealthImpactSection />
+      <LeadershipImpactSection />
+      <ImpactMap />
+      <GrowthTimeline />
+      <FutureVisionSection />
+      <ImpactCTA />
+    </div>
   );
 }
