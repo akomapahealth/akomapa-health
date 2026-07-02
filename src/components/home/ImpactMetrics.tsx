@@ -9,6 +9,10 @@ import {
   type BentoMetricItem,
 } from "@/components/ui/feature-section-with-bento-grid";
 import { healthImpact, leadershipImpact } from "@/data/impact";
+import {
+  parseMetricDisplayValue,
+  type ParsedMetricValue,
+} from "@/lib/impact/parseMetricValue";
 import { useAnimatedMetricValues } from "@/lib/motion/useAnimatedInteger";
 import { motionDurations } from "@/lib/motion/tokens";
 import {
@@ -17,39 +21,10 @@ import {
 } from "@/components/shared/PublicPagePrimitives";
 import type { ImpactCategory, ImpactMetric } from "@/lib/types";
 
-type MetricDisplayValue = {
-  value: number;
-  prefix: string;
-  suffix: string;
-};
-
-type HomepageImpactMetric = MetricDisplayValue & {
+type HomepageImpactMetric = ParsedMetricValue & {
   id: string;
   label: string;
 };
-
-function parseMetricDisplayValue(displayValue: string): MetricDisplayValue {
-  const trimmedValue = displayValue.trim();
-  const numericMatch = trimmedValue.match(/\d[\d,]*/);
-
-  if (!numericMatch || numericMatch.index === undefined) {
-    return {
-      value: 0,
-      prefix: "",
-      suffix: trimmedValue,
-    };
-  }
-
-  const numericText = numericMatch[0];
-  const numericStart = numericMatch.index;
-  const numericEnd = numericStart + numericText.length;
-
-  return {
-    value: Number(numericText.replaceAll(",", "")),
-    prefix: trimmedValue.slice(0, numericStart),
-    suffix: trimmedValue.slice(numericEnd),
-  };
-}
 
 function toHomepageMetric(metric: ImpactMetric): HomepageImpactMetric {
   return {
