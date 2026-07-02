@@ -1,46 +1,67 @@
 import type { Metadata } from "next";
-import RebrandPageShell from "@/components/shared/RebrandPageShell";
+import { notFound } from "next/navigation";
+import { BlogPost } from "@/components/blog";
+import {
+  blogPosts,
+  getBlogPostBySlug,
+  getRelatedPosts,
+} from "@/data/blog";
+import { getAnnouncementPosterSrc } from "@/lib/video-utils";
 
-export const metadata: Metadata = {
-  title: "Blog Post - Akomapa Health",
-  description:
-    "Read this article from the Akomapa thought leadership blog on ethical global health and community-driven care.",
-};
-
-const highlights = [
-  {
-    title: "Ethical Leadership",
-    description:
-      "Developing leaders who approach global health with humility, accountability, and respect for community expertise.",
-  },
-  {
-    title: "Community Partnership",
-    description:
-      "Building equitable relationships where communities guide the priorities, methods, and measures of success.",
-  },
-  {
-    title: "Sustainable Impact",
-    description:
-      "Creating lasting change through long-term commitment, local ownership, and evidence-based practice.",
-  },
-] as const;
-
-export default async function BlogPostPage({
-  params,
-}: {
+interface BlogPostPageProps {
   params: Promise<{ slug: string }>;
-}) {
+}
+
+export function generateStaticParams() {
+  return blogPosts.map((post) => ({ slug: post.slug }));
+}
+
+export async function generateMetadata({
+  params,
+}: BlogPostPageProps): Promise<Metadata> {
   const { slug } = await params;
+  const post = getBlogPostBySlug(slug);
+
+  if (!post) {
+    return { title: "Article Not Found" };
+  }
+
+  const image = getAnnouncementPosterSrc({
+    image: post.image,
+    videoUrl: post.videoUrl,
+  });
+
+  return {
+    title: post.title,
+    description: post.excerpt,
+    openGraph: {
+      title: post.title,
+      description: post.excerpt,
+      type: "article",
+      publishedTime: post.date,
+      authors: [post.author],
+      ...(image ? { images: [{ url: image }] } : {}),
+    },
+  };
+}
+
+export default async function BlogPostPage({ params }: BlogPostPageProps) {
+  const { slug } = await params;
+  const post = getBlogPostBySlug(slug);
+
+  if (!post) {
+    notFound();
+  }
+
+  const related = getRelatedPosts(post.slug, post.category);
+  const hasMoreByAuthor =
+    blogPosts.filter((p) => p.author === post.author).length > 1;
 
   return (
-    <RebrandPageShell
-      eyebrow="Blog"
-      title={slug
-        .split("-")
-        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(" ")}
-      description="This article is coming soon. Check back for the full post."
-      highlights={highlights}
+    <BlogPost
+      post={post}
+      related={related}
+      hasMoreByAuthor={hasMoreByAuthor}
     />
   );
 }
