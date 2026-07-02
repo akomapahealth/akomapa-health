@@ -28,15 +28,16 @@ export function ThemeProvider({
   storageKey = "akomapa-theme",
   ...props
 }: ThemeProviderProps) {
-  const [theme, setTheme] = useState<Theme>(defaultTheme)
-  
-  // Initialize theme from localStorage once mounted
-  useEffect(() => {
-    const storedTheme = localStorage.getItem(storageKey) as Theme
-    if (storedTheme) {
-      setTheme(storedTheme)
+  // Initialize from localStorage synchronously on the client so the first
+  // client render already reflects the stored preference. This avoids a
+  // default("system") -> stored("dark") flip that would otherwise animate the
+  // global color transitions through intermediate values on load.
+  const [theme, setTheme] = useState<Theme>(() => {
+    if (typeof window === "undefined") {
+      return defaultTheme
     }
-  }, [storageKey])
+    return (localStorage.getItem(storageKey) as Theme | null) ?? defaultTheme
+  })
 
   useEffect(() => {
     const root = window.document.documentElement
