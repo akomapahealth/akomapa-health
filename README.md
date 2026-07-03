@@ -180,7 +180,7 @@ For questions about Akomapa Health Foundation:
 - **Email**: akomapahealth@gmail.com
 - **Website**: [akomapahealth.org](https://akomapahealth.org)
 - **Partnership Inquiries**: [Partner With Us](/partner)
-- **Volunteer Opportunities**: [Join Our Team](/join)
+- **Get Involved**: [Explore Engagement Pathways](/get-involved)
 
 ## 🙏 Acknowledgments
 
