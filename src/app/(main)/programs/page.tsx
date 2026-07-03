@@ -27,7 +27,7 @@ const programs: Program[] = [
   {
     id: 1,
     title: "Akomapa Clinics",
-    description: "We establish interprofessional, expert-supervised clinics built in partnership with local health authorities, traditional leaders, and community members. These student-run clinics deliver free, community-based care focused on the early detection and management of non-communicable diseases (NCDs), serving as both real-world classrooms for students and lifelines for underserved communities.",
+    description: "We establish interprofessional, expert-supervised clinics built in partnership with local health authorities, traditional leaders, and community members. These student-powered community health hubs deliver free, community-based care focused on the early detection and management of non-communicable diseases (NCDs), serving as both real-world classrooms for students and lifelines for underserved communities.",
     details: [
       "Interprofessional student teams coordinate care across medical, nursing, pharmacy, nutrition, and public health disciplines",
       "Expert supervision ensures every patient encounter meets the highest clinical and ethical standards",
@@ -50,9 +50,9 @@ const programs: Program[] = [
   {
     id: 2,
     title: "The Akomapa Network",
-    description: "Our global community of practice connects Akomapa chapters with partner student-run clinics around the world—like SHAWCO, South Side SRFC, and Yale's Neighborhood Health Project—to share best practices, mentorship, and collaborative research. Together, we're turning local innovations into global impact.",
+    description: "Our global community of practice connects Akomapa chapters with partner student-powered clinics around the world—like SHAWCO, South Side SRFC, and Yale's Neighborhood Health Project—to share best practices, mentorship, and collaborative research. Together, we're turning local innovations into global impact.",
     details: [
-      "Connects student-run clinics across continents to share innovations and learnings",
+      "Connects student-powered clinics across continents to share innovations and learnings",
       "Facilitates mentorship exchanges between experienced and emerging clinic leaders",
       "Enables collaborative research that strengthens evidence for student-powered care",
       "Builds a global movement of health professionals committed to equity and access"
@@ -142,7 +142,7 @@ const programs: Program[] = [
   {
     id: 6,
     title: "Akomapa Foods & Stores",
-    description: "The Akomapa Foods & Stores Initiative is the sustainability arm of the Akomapa Health model—connecting food security, economic empowerment, and healthcare access into one self-sustaining ecosystem. We believe that health doesn't start in hospitals; it starts in homes, kitchens, and markets. By linking agriculture and nutrition to our student-run clinics, Akomapa creates a cycle where communities not only receive care but also co-own the means to sustain it.",
+    description: "The Akomapa Foods & Stores Initiative is the sustainability arm of the Akomapa Health model—connecting food security, economic empowerment, and healthcare access into one self-sustaining ecosystem. We believe that health doesn't start in hospitals; it starts in homes, kitchens, and markets. By linking agriculture and nutrition to our student-powered community health hubs, Akomapa creates a cycle where communities not only receive care but also co-own the means to sustain it.",
     details: [
       "Community farms and food stores that make healthy, affordable food accessible to families",
       "Revenue from food sales directly supports clinic operations, creating a self-sustaining model",
@@ -176,7 +176,7 @@ const impactMetrics = [
     value: 15,
     suffix: "+",
     label: "Partner Clinics",
-    description: "Student-run clinics connected through the Akomapa Network worldwide",
+    description: "Student-powered clinics connected through the Akomapa Network worldwide",
     color: "#eeba2b"
   },
   {
@@ -222,7 +222,7 @@ export default function ProgramsPage() {
               transition={{ delay: 0.15, duration: 0.8, ease: "easeOut" }}
               className="text-base sm:text-lg md:text-2xl text-[#FCFAEF]/80 font-light max-w-3xl"
             >
-              At Akomapa, we&apos;re reimagining how the next generation of health professionals learn, lead, and serve. Through our integrated programs, we build student-run clinics, leadership pathways, and global partnerships that make care more accessible—while preparing students to transform the health systems of tomorrow.
+              At Akomapa, we&apos;re reimagining how the next generation of health professionals learn, lead, and serve. Through our integrated programs, we build student-powered community health hubs, leadership pathways, and global partnerships that make care more accessible—while preparing students to transform the health systems of tomorrow.
             </motion.p>
           </div>
 

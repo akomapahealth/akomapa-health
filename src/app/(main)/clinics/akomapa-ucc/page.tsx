@@ -297,7 +297,7 @@ export default function UCCClinicPage() {
               transition={{ delay: 0.2, duration: 0.8, ease: "easeOut" }}
               className="text-base sm:text-lg md:text-2xl text-[#FCFAEF]/85 font-light max-w-3xl"
             >
-              The Akomapa Student-Run Clinic at the University of Cape Coast is the first in a
+              The Akomapa Student-Powered Clinic at the University of Cape Coast is the first in a
               growing global network of student-powered, expert-supervised primary care clinics
               delivering free, community-based screening and education for chronic diseases.
             </motion.p>

@@ -58,7 +58,7 @@ const learningComponents = [
 
 const whatToExpect = [
   {
-    title: "Student-Run Clinics",
+    title: "Student-Powered Community Health Hubs",
     description: "Join Akomapa clinics delivering free screenings, counseling, and health education alongside local student teams.",
     accentColor: "#0097b2"
   },

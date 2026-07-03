@@ -425,7 +425,7 @@ export default function UGClinicPage() {
               </h2>
               <div className="space-y-5 text-lg text-[#2F3332] dark:text-[#E6E7E7] leading-relaxed">
                 <p>
-                  The Akomapa Student-Run Clinic at the University of Ghana brings our community-based
+                  The Akomapa Student-Powered Clinic at the University of Ghana brings our community-based
                   preventative care model to the Greater Accra Region, expanding access for patients and
                   creating transformative learning for students.
                 </p>

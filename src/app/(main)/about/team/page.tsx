@@ -548,7 +548,7 @@ export default function TeamPage() {
             </h1>
             <p className="text-base sm:text-lg lg:text-sm xl:text-base 2xl:text-lg text-[#FCFAEF]/80 mb-6 sm:mb-8">
               From Cape Coast to Yale and UCLA, Akomapa leaders blend academic rigor, community roots,
-              and relentless hope to build a student-run model of care that is ethical, joyful, and
+              and relentless hope to build a student-powered model of care that is ethical, joyful, and
               unstoppable.
             </p>
             <FadeInStagger className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 lg:gap-3 xl:gap-4 mb-6 sm:mb-8" staggerDelay={0.1}>
