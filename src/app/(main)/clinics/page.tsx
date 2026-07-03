@@ -63,8 +63,8 @@ const impactMetrics = [
   {
     value: 1000,
     suffix: "+",
-    label: "Patients Served",
-    description: "Neighbors receiving chronic disease screening, counseling, and follow-up through our free community clinics.",
+    label: "Community Members Reached",
+    description: "Community members receiving chronic disease screening, counseling, and follow-up through our free community health hubs.",
     color: "#0097b2"
   },
   {

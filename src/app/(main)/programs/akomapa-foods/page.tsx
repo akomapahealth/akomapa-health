@@ -227,7 +227,7 @@ export default function FoodsPage() {
                   Health starts in kitchens, markets, and farms. When communities grow and sell nutritious food, they also strengthen the very clinics that care for them.
                 </p>
                 <p>
-                  By linking agriculture and nutrition to student-run clinics, Akomapa ensures communities receive care and co-own the means to sustain it for generations.
+                  By linking agriculture and nutrition to student-powered community health hubs, Akomapa ensures communities receive care and co-own the means to sustain it for generations.
                 </p>
               </div>
             </motion.div>

@@ -87,7 +87,7 @@ const learningBenefits = [
   {
     id: "benefit-2",
     title: "Case-Based Learning",
-    description: "Case-based learning from active student-run clinics",
+    description: "Case-based learning from active student-powered community health hubs",
     color: "#eeba2b"
   },
   {

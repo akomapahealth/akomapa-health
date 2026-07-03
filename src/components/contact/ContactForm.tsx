@@ -29,7 +29,7 @@ function ContactFormContent() {
     const type = searchParams.get('type');
     if (type) {
       const partnershipTypes = {
-        'outreach': 'Host Outreach Programs',
+        'outreach': 'Host Community Engagement Programs',
         'partnership': 'Strategic Partnerships',
         'donation': 'Monetary Sponsorship'
       };
@@ -194,7 +194,7 @@ function ContactFormContent() {
             </SelectTrigger>
             <SelectContent className="bg-[#FCFAEF] dark:bg-[#1C1F1E] text-[#1C1F1E] dark:text-[#FCFAEF]">
               <SelectItem value="Monetary Sponsorship" className="cursor-pointer">Monetary Sponsorship</SelectItem>
-              <SelectItem value="Host Outreach Programs" className="cursor-pointer">Host Outreach Programs</SelectItem>
+              <SelectItem value="Host Community Engagement Programs" className="cursor-pointer">Host Community Engagement Programs</SelectItem>
               <SelectItem value="Strategic Partnerships" className="cursor-pointer">Strategic Partnerships</SelectItem>
               <SelectItem value="General Inquiry" className="cursor-pointer">General Inquiry</SelectItem>
             </SelectContent>

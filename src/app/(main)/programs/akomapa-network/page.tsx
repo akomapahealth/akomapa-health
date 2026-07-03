@@ -107,7 +107,7 @@ const partnerClinics = [
   {
     name: "Neighborhood Health Project",
     location: "New Haven, USA",
-    description: "A longstanding student-run organization advancing community health equity in Connecticut.",
+    description: "A longstanding student-powered organization advancing community health equity in Connecticut.",
     href: "https://nhp.sites.yale.edu/",
     logo: "/images/partners/nhp-logo.png",
     accentColor: "#eeba2b",
@@ -183,7 +183,7 @@ export default function AkomapaNetworkPage() {
               transition={{ delay: 0.2, duration: 0.8, ease: "easeOut" }}
               className="text-base sm:text-lg md:text-2xl text-[#FCFAEF]/85 font-light max-w-3xl"
             >
-              A global community of student-run clinics, universities, and mentors working together to reimagine how healthcare is delivered and taught.
+              A global community of student-powered clinics, universities, and mentors working together to reimagine how healthcare is delivered and taught.
             </motion.p>
             <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -236,7 +236,7 @@ export default function AkomapaNetworkPage() {
               </h2>
               <div className="space-y-5 text-lg text-[#2F3332] dark:text-[#E6E7E7] leading-relaxed">
                 <p>
-                  The Akomapa Network is a global community of student-run clinics, universities, and mentors working together to reimagine how healthcare is delivered and taught.
+                  The Akomapa Network is a global community of student-powered clinics, universities, and mentors working together to reimagine how healthcare is delivered and taught.
                 </p>
                 <p>
                   We connect student-powered, expert-supervised clinics from across Africa and the United States — uniting them through shared learning, leadership training, and collaborative innovation.
@@ -287,7 +287,7 @@ export default function AkomapaNetworkPage() {
                 Our Vision
               </h2>
               <p className="text-lg md:text-xl text-[#FCFAEF]/90 leading-relaxed">
-                To build a global learning ecosystem where student-run clinics don&apos;t work in isolation but as part of a connected movement — sharing data, stories, and strategies that strengthen both care delivery and education.
+                To build a global learning ecosystem where student-powered clinics don&apos;t work in isolation but as part of a connected movement — sharing data, stories, and strategies that strengthen both care delivery and education.
               </p>
               <p className="text-base md:text-lg text-[#FCFAEF]/85 leading-relaxed">
                 We envision a world where a student team in Ghana can learn from one in Chicago, where a New Haven community project can inspire a rural screening model, and where young leaders everywhere are equipped to bridge the gap between knowledge and action.
@@ -521,7 +521,7 @@ export default function AkomapaNetworkPage() {
                 Every clinic becomes both a site of care and a site of learning, where students grow as clinicians, leaders, and changemakers while improving the health of their communities.
               </p>
               <p className="font-semibold text-[#FCFAEF]">
-                By linking student-run clinics into one connected system, we&apos;re making community care smarter, stronger, and sustainable — driven by evidence, compassion, and shared purpose.
+                By linking student-powered clinics into one connected system, we&apos;re making community care smarter, stronger, and sustainable — driven by evidence, compassion, and shared purpose.
               </p>
             </motion.div>
           </div>

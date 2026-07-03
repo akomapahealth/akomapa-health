@@ -19,7 +19,7 @@ const highlights = [
       "Support the Akomapa Academy and leadership development programs that prepare the next generation of ethical health professionals.",
   },
   {
-    title: "Community Outreach",
+    title: "Community Engagement",
     description:
       "Enable health education, NCD screening campaigns, and community engagement initiatives across our partner sites.",
   },

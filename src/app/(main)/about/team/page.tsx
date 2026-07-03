@@ -102,7 +102,7 @@ const executiveTeam: SpotlightMember[] = [
     image: "/images/team/esi-bon-berkoh.jpg",
     email: "esibberkoh@gmail.com",
     linkedin: "https://linkedin.com/in/esiberkoh",
-    bio: "Esi Berkoh is a final-year medical student at the University of Cape Coast School of Medical Sciences. She holds a BSc in Biology from Mount Holyoke College and an MSc in Infection, Immunity & Human Disease from the University of Leeds. As Vice President and co-founder of Akomapa Health, she coordinates clinic operations, supports leadership, and organizes outreach programs to serve underserved communities while gaining hands-on experience and leadership training."
+    bio: "Esi Berkoh is a final-year medical student at the University of Cape Coast School of Medical Sciences. She holds a BSc in Biology from Mount Holyoke College and an MSc in Infection, Immunity & Human Disease from the University of Leeds. As Vice President and co-founder of Akomapa Health, she coordinates clinic operations, supports leadership, and organizes community engagement programs to serve underserved communities while gaining hands-on experience and leadership training."
   },
   // {
   //   name: "Bismark Amoh",
@@ -548,7 +548,7 @@ export default function TeamPage() {
             </h1>
             <p className="text-base sm:text-lg lg:text-sm xl:text-base 2xl:text-lg text-[#FCFAEF]/80 mb-6 sm:mb-8">
               From Cape Coast to Yale and UCLA, Akomapa leaders blend academic rigor, community roots,
-              and relentless hope to build a student-run model of care that is ethical, joyful, and
+              and relentless hope to build a student-powered model of care that is ethical, joyful, and
               unstoppable.
             </p>
             <FadeInStagger className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 lg:gap-3 xl:gap-4 mb-6 sm:mb-8" staggerDelay={0.1}>

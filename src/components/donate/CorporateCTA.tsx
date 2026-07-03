@@ -13,7 +13,7 @@ export default function CorporateCTA() {
           <p className="mb-2 font-semibold text-[#F5C94D]">CORPORATE PARTNERSHIPS</p>
           <h2 className="mb-3 text-3xl font-bold">Scale your impact with Akomapa</h2>
           <p className="mb-6 text-[#FCFAEF]/85">
-            Partner with us through financial support, medication donations, and outreach collaborations that expand equitable care.
+            Partner with us through financial support, medication donations, and community engagement collaborations that expand equitable care.
           </p>
           <Button asChild variant="amber">
             <Link
