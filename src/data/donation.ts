@@ -36,18 +36,18 @@ export const impactHighlights = [
     icon: "training",
   },
   {
-    title: "Research and Outreach",
+    title: "Research and Community Engagement",
     description:
-      "Every contribution strengthens research-backed outreach programs that scale preventive care.",
+      "Every contribution strengthens research-backed community engagement programs that scale preventive care.",
     icon: "research",
   },
 ];
 
 export const transparencyAllocations: TransparencyAllocation[] = [
   {
-    label: "Clinics",
+    label: "Community Health Hubs",
     percentage: 60,
-    description: "Patient screenings, medications, and clinic-day operations",
+    description: "Community screenings, medications, and hub operations",
     colorClass: "text-lapis dark:text-[#66C4DC]",
     barClass: "bg-lapis",
   },
