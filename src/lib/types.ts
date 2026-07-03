@@ -331,3 +331,43 @@ export interface NewsItem {
   isExternalCta: boolean;
   source: "announcement" | "news";
 }
+
+/**
+ * A single engagement route on the Get Involved page. `icon` is a Lucide icon
+ * name resolved through an `iconMap` in the rendering component. `accent` is a
+ * brand hex used for the card's top border and icon badge tint.
+ */
+export interface Pathway {
+  id: string;
+  icon: string;
+  title: string;
+  description: string;
+  /** The audience served, e.g. "Health professional students". */
+  audience: string;
+  ctaLabel: string;
+  ctaHref: string;
+  /** When true the CTA opens in a new tab (external form/site). */
+  external?: boolean;
+  accent: string;
+  /** Primary audiences receive extra visual emphasis in the grid. */
+  featured?: boolean;
+}
+
+/** An active or rolling opportunity surfaced in the Current Opportunities section. */
+export interface GetInvolvedOpportunity {
+  id: string;
+  title: string;
+  description: string;
+  /** Short status label, e.g. "Rolling admissions" or "Open". */
+  status: string;
+  ctaLabel: string;
+  ctaHref: string;
+  external?: boolean;
+}
+
+/** A single expandable question/answer on the Get Involved page. */
+export interface GetInvolvedFaq {
+  id: string;
+  question: string;
+  answer: string;
+}
