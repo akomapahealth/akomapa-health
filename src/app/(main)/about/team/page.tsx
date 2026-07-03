@@ -627,8 +627,9 @@ export default function TeamPage() {
               The builders behind the Akomapa model
             </h2>
             <p className="text-base sm:text-lg text-[#2F3332]/80 dark:text-[#E6E7E7]/80">
-              Each leader blends academic excellence, community credibility, and operational discipline to
-              ensure every clinic day reflects empathy, rigor, and trust.
+              Each leader blends academic excellence, community credibility, and operational discipline—
+              mentoring the next generation of ethical global health professionals while ensuring every
+              clinic day reflects empathy, rigor, and trust.
             </p>
           </FadeIn>
 
@@ -653,8 +654,9 @@ export default function TeamPage() {
               Global experts guiding our ethics, science, and scale
             </h2>
             <p className="text-base sm:text-lg text-white/80">
-              Our advisors ensure Akomapa remains clinically sound, academically rigorous, and deeply
-              community-rooted as we expand across regions.
+              Learning from global leaders sits at the heart of our model. Faculty and advisors from
+              partner institutions worldwide keep Akomapa clinically sound, academically rigorous, and
+              deeply community-rooted as we expand across regions.
             </p>
           </FadeIn>
 
@@ -672,8 +674,8 @@ export default function TeamPage() {
             Join the hearts behind the mission
           </h2>
           <p className="text-base sm:text-lg text-[#2F3332]/80 dark:text-[#E6E7E7]/80 max-w-3xl mx-auto">
-            We are always looking for collaborators, mentors, and students who believe in ethical,
-            student-powered healthcare. Your skills, story, or sponsorship could open the next door for
+            We are always looking for faculty, mentors, collaborators, and students who believe in ethical,
+            student-powered healthcare. Your expertise, story, or sponsorship could open the next door for
             patients we serve.
           </p>
           <FadeIn direction="up" delay={0.2}>

@@ -8,7 +8,7 @@ export const teamMembers: TeamMember[] = [
     name: "Brian Fleischer, MD",
     title: "Founder and President",
     bio: "Brian Fleischer is the Founder and President of Akomapa Health Foundation. He holds an MD from Yale University and has extensive experience in global health initiatives across Africa.",
-    image: "/images/team/brian-fleischer.jpg",
+    image: "/images/team/brian-fleischer.jpeg",
     socialLinks: {
       linkedin: "https://linkedin.com/in/brian-fleischer",
       email: "brian.fleischer@akomapa.org"
@@ -45,7 +45,7 @@ export const teamMembers: TeamMember[] = [
     name: "Bismark Amoh",
     title: "Co-founder and Head of Research",
     bio: "Bismark Amoh is Co-founder and Head of Research at Akomapa Health Foundation. He brings his expertise from DGSOM UCLA to lead our research initiatives and evidence-based programs.",
-    image: "/images/team/bismark-amoh.jpg",
+    image: "/images/team/placeholder.jpg",
     socialLinks: {
       linkedin: "https://linkedin.com/in/bismark-amoh",
       email: "bismark.amoh@akomapa.org"
@@ -57,7 +57,7 @@ export const teamMembers: TeamMember[] = [
     name: "Dzifianu Ai Edoh-Torgah",
     title: "Head of Branding and Public Relations",
     bio: "Dzifianu Ai Edoh-Torgah leads our branding and public relations efforts, ensuring Akomapa Health Foundation maintains a strong presence and positive reputation in the global health community.",
-    image: "/images/team/dzifianu-edoh-torgah.jpg",
+    image: "/images/team/placeholder.jpg",
     socialLinks: {
       linkedin: "https://linkedin.com/in/dzifianu-edoh-torgah",
       email: "dzifianu.edoh-torgah@akomapa.org"
@@ -69,7 +69,7 @@ export const teamMembers: TeamMember[] = [
     name: "Prince Agyei Tuffour",
     title: "Head of IT Services",
     bio: "Prince Agyei Tuffour oversees our technology infrastructure and digital solutions, ensuring our IT systems support our mission effectively and securely.",
-    image: "/images/team/prince-agyei-tuffour.jpg",
+    image: "/images/team/prince-tuffour.jpg",
     socialLinks: {
       linkedin: "https://linkedin.com/in/prince-agyei-tuffour",
       email: "prince.tuffour@akomapa.org"
@@ -93,7 +93,7 @@ export const teamMembers: TeamMember[] = [
     name: "Samuel Kumi",
     title: "Head of Legal Services",
     bio: "Samuel Kumi leads our legal services, ensuring compliance with international regulations and providing legal guidance for our global health initiatives.",
-    image: "/images/team/samuel-kumi.jpg",
+    image: "/images/team/samuel-kumi.JPG",
     socialLinks: {
       linkedin: "https://linkedin.com/in/samuel-kumi",
       email: "samuel.kumi@akomapa.org"
@@ -105,7 +105,7 @@ export const teamMembers: TeamMember[] = [
     name: "Sedem Dankwa",
     title: "Team Lead, Akomapa Health Foundation U.S",
     bio: "Sedem Dankwa serves as Team Lead for Akomapa Health Foundation U.S, coordinating our operations and partnerships in the United States.",
-    image: "/images/team/sedem-dankwa.jpg",
+    image: "/images/team/placeholder.jpg",
     socialLinks: {
       linkedin: "https://linkedin.com/in/sedem-dankwa",
       email: "sedem.dankwa@akomapa.org"
@@ -119,7 +119,7 @@ export const teamMembers: TeamMember[] = [
     name: "Sedem Dankwa",
     title: "Team Lead/ Head of International Partnerships",
     bio: "Sedem Dankwa from Yale University serves as Team Lead and Head of International Partnerships, driving our global collaborations and strategic partnerships.",
-    image: "/images/team/sedem-dankwa-usa.jpg",
+    image: "/images/team/placeholder.jpg",
     socialLinks: {
       linkedin: "https://linkedin.com/in/sedem-dankwa-usa",
       email: "sedem.dankwa@akomapa.org"
@@ -131,7 +131,7 @@ export const teamMembers: TeamMember[] = [
     name: "Brian Fleischer",
     title: "Team Lead",
     bio: "Brian Fleischer serves as Team Lead for our USA operations, bringing his leadership and expertise to drive our mission forward in the United States.",
-    image: "/images/team/brian-fleischer-usa.jpg",
+    image: "/images/team/brian-fleischer.jpeg",
     socialLinks: {
       linkedin: "https://linkedin.com/in/brian-fleischer-usa",
       email: "brian.fleischer@akomapa.org"
@@ -155,7 +155,7 @@ export const teamMembers: TeamMember[] = [
     name: "Nana Ama Ocran",
     title: "Head of the Akomapa Global Health Leadership Training program",
     bio: "Nana Ama Ocran from Yale University leads our Global Health Leadership Training program, developing the next generation of healthcare leaders.",
-    image: "/images/team/nana-ama-ocran.jpg",
+    image: "/images/team/nana-ama-ocran.jpeg",
     socialLinks: {
       linkedin: "https://linkedin.com/in/nana-ama-ocran",
       email: "nana.ocran@akomapa.org"
@@ -167,7 +167,7 @@ export const teamMembers: TeamMember[] = [
     name: "Amma Buckman",
     title: "Team Member",
     bio: "Amma Buckman from David Geffen School of Medicine at UCLA contributes her expertise to our USA team, supporting our mission to improve global health outcomes.",
-    image: "/images/team/amma-buckman.jpg",
+    image: "/images/team/placeholder.jpg",
     socialLinks: {
       linkedin: "https://linkedin.com/in/amma-buckman",
       email: "amma.buckman@akomapa.org"
@@ -179,7 +179,7 @@ export const teamMembers: TeamMember[] = [
     name: "Bismark Amoh",
     title: "Team Member",
     bio: "Bismark Amoh from David Geffen School of Medicine at UCLA brings his research expertise to our USA operations, supporting evidence-based healthcare initiatives.",
-    image: "/images/team/bismark-amoh-usa.jpg",
+    image: "/images/team/placeholder.jpg",
     socialLinks: {
       linkedin: "https://linkedin.com/in/bismark-amoh-usa",
       email: "bismark.amoh@akomapa.org"
@@ -402,7 +402,7 @@ export const teamMembers: TeamMember[] = [
     name: "Dr. Elijah Paintsil",
     title: "Chief and Chair of Pediatrics, Boston Medical Center",
     bio: "Dr. Elijah Paintsil serves on our Advisory Board, providing pediatric expertise and healthcare leadership from his position as Chief and Chair of Pediatrics at Boston Medical Center.",
-    image: "/images/team/elijah-paintsil.jpg",
+    image: "/images/team/placeholder.jpg",
     socialLinks: {
       linkedin: "https://www.linkedin.com/posts/boston-medical-center_on-with-elijah-paintsil-md-activity-7115446772906237952-ECfN",
       email: "#"
