@@ -6,7 +6,7 @@ import { PublicSection, PublicSectionHeader, SurfaceCard } from "@/components/sh
 import type { CommunityHub } from "@/lib/types";
 
 const metricConfig = [
-  { key: "patientsServed" as const, label: "Community members served" },
+  { key: "communityMembersServed" as const, label: "Community members served" },
   { key: "studentsTrained" as const, label: "Students trained" },
   { key: "communitiesReached" as const, label: "Communities reached" },
   { key: "partnersEngaged" as const, label: "Partners engaged" },

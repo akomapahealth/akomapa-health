@@ -83,7 +83,7 @@ export default function HubCard({ hub }: HubCardProps) {
             <div>
               <dt className="text-[#2F3332]/60 dark:text-[#E6E7E7]/60">Served</dt>
               <dd className="font-semibold text-[#1C1F1E] dark:text-[#FCFAEF]">
-                {hub.metrics.patientsServed.toLocaleString()}
+                {hub.metrics.communityMembersServed.toLocaleString()}
               </dd>
             </div>
             <div>

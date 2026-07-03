@@ -178,7 +178,7 @@ export interface InnovationItem {
 }
 
 export interface HubMetrics {
-  patientsServed: number;
+  communityMembersServed: number;
   studentsTrained: number;
   communitiesReached: number;
   partnersEngaged: number;

@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/button";
 const impactHighlights = [
   {
     value: "1,000+",
-    label: "Patients Served",
+    label: "Community Members Reached",
     description:
       "Neighbors receiving free screening, counseling, and follow-up through our community-based clinics.",
     accentColor: "#0097b2"

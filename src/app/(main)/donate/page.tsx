@@ -334,7 +334,7 @@ export default function PartnerPage() {
                       className="bg-gradient-to-br from-[#eeba2b]/20 to-[#eeba2b]/10 dark:from-[#eeba2b]/30 dark:to-[#eeba2b]/20 rounded-xl p-4 sm:p-6 text-center border border-[#eeba2b]/30"
                     >
                       <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#eeba2b] dark:text-[#F5C94D] mb-2">50+</div>
-                      <div className="text-xs sm:text-sm text-[#2F3332] dark:text-[#E6E7E7] font-medium">Patients Served Monthly</div>
+                      <div className="text-xs sm:text-sm text-[#2F3332] dark:text-[#E6E7E7] font-medium">Community Members Reached Monthly</div>
                     </motion.div>
                     <motion.div
                       initial={{ opacity: 0, scale: 0.9 }}
