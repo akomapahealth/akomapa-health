@@ -18,8 +18,8 @@ export const metadata: Metadata = {
   },
   keywords: [
     "get involved",
-    "volunteer",
     "student leadership",
+    "engagement pathways",
     "faculty mentorship",
     "global health research",
     "partnerships",
