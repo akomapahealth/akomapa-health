@@ -7,6 +7,7 @@ import { Dialog, DialogPanel, Transition, TransitionChild } from "@headlessui/re
 import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import BrandLogo from "@/components/shared/BrandLogo";
+import AnnouncementTrigger from "@/components/announcement/AnnouncementTrigger";
 
 type NavigationItem = {
   name: string;
@@ -106,6 +107,10 @@ function MobileNavContent({ isOpen, onClose, navigation }: MobileNavProps) {
                 ))}
                 
                 <div className="mt-4 space-y-3 border-t border-[#E6E7E7] pt-4 dark:border-[#757A79]">
+                  <AnnouncementTrigger
+                    showLabel
+                    className="min-h-12 w-full justify-start rounded-md px-3 py-2.5 font-subheading text-[15px] font-medium leading-none text-[#252828] hover:text-[#eeba2b] dark:text-[#FCFAEF]"
+                  />
                   <Button 
                     className="min-h-12 w-full bg-[#0097b2] text-[#FCFAEF] hover:bg-[#0097b2]/80 hover:text-[#FCFAEF] font-subheading font-medium"
                   >

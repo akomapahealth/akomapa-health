@@ -155,7 +155,7 @@ test.describe("Announcement modal", () => {
     await expect(modal).not.toBeVisible({ timeout: 5000 });
 
     await page
-      .getByRole("button", { name: /View new announcements|View announcements/i })
+      .getByRole("button", { name: /New announcements|Announcements/i })
       .click();
     await expect(modal).toBeVisible({ timeout: 5000 });
 

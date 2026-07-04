@@ -126,7 +126,6 @@ function HeaderContent() {
 
           {/* Mobile menu button - Right Aligned */}
           <div className="xl:hidden flex items-center ml-auto space-x-2">
-            <AnnouncementTrigger />
             <ThemeToggle />
             <button
               onClick={() => setIsMobileMenuOpen(true)}
