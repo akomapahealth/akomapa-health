@@ -26,6 +26,7 @@ export default function AnnouncementTrigger({
   return (
     <button
       type="button"
+      data-testid="announcement-trigger"
       onClick={openAnnouncements}
       className={cn(
         "relative inline-flex items-center justify-center rounded-md p-2",

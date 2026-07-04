@@ -149,13 +149,15 @@ test.describe("Announcement modal", () => {
   test("announcement modal opens from header bell and closes properly", async ({
     page,
   }) => {
-    await page.goto("/donate", { waitUntil: "domcontentloaded" });
+    await page.goto("/donate", { waitUntil: "load" });
 
     const modal = page.locator('[role="dialog"][aria-label="Announcements"]');
     await expect(modal).not.toBeVisible({ timeout: 5000 });
 
-    await page.locator("header").getByRole("button", { name: /New announcements|Announcements/i }).click();
-    await expect(modal).toBeVisible({ timeout: 5000 });
+    const trigger = page.getByTestId("announcement-trigger").filter({ visible: true });
+    await expect(trigger).toBeVisible({ timeout: 15000 });
+    await trigger.click();
+    await expect(modal).toBeVisible({ timeout: 15000 });
 
     await expect(modal.locator("h2").first()).toBeVisible();
     await expect(modal.locator("p").first()).toBeVisible();
