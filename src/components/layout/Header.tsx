@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import MobileNav from "./MobileNav";
 import { ThemeToggle } from "@/components/theme/ThemeToggle";
 import BrandLogo from "@/components/shared/BrandLogo";
+import AnnouncementTrigger from "@/components/announcement/AnnouncementTrigger";
 
 // Navigation structure
 const navigation = [
@@ -113,6 +114,7 @@ function HeaderContent() {
 
             {/* Donate button and Theme Toggle */}
             <div className="flex items-center gap-2.5">
+              <AnnouncementTrigger />
               <Button
                 className="bg-[#0097b2] px-4 text-[#FCFAEF] hover:bg-[#0097b2]/80 hover:text-[#FCFAEF] font-subheading font-medium"
               >
@@ -124,6 +126,7 @@ function HeaderContent() {
 
           {/* Mobile menu button - Right Aligned */}
           <div className="xl:hidden flex items-center ml-auto space-x-2">
+            <AnnouncementTrigger />
             <ThemeToggle />
             <button
               onClick={() => setIsMobileMenuOpen(true)}
