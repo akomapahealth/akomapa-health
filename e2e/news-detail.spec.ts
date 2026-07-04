@@ -154,9 +154,7 @@ test.describe("Announcement modal", () => {
     const modal = page.locator('[role="dialog"][aria-label="Announcements"]');
     await expect(modal).not.toBeVisible({ timeout: 5000 });
 
-    await page
-      .getByRole("button", { name: /New announcements|Announcements/i })
-      .click();
+    await page.locator("header").getByRole("button", { name: /New announcements|Announcements/i }).click();
     await expect(modal).toBeVisible({ timeout: 5000 });
 
     await expect(modal.locator("h2").first()).toBeVisible();
