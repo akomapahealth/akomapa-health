@@ -138,20 +138,31 @@ test.describe("News Detail Pages", () => {
 
 });
 
-test("announcement modal shows increased size and closes properly", async ({
-  page,
-}) => {
-  await page.goto("/", { waitUntil: "domcontentloaded" });
+test.describe("Announcement modal", () => {
+  test("homepage does not auto-open the announcement modal", async ({ page }) => {
+    await page.goto("/", { waitUntil: "domcontentloaded" });
 
-  // Wait for modal to appear (3s delay + animation)
-  const modal = page.locator('[role="dialog"][aria-label="Announcements"]');
-  await expect(modal).toBeVisible({ timeout: 15000 });
+    const modal = page.locator('[role="dialog"][aria-label="Announcements"]');
+    await expect(modal).not.toBeVisible({ timeout: 5000 });
+  });
 
-  // Verify modal has content
-  await expect(modal.locator("h2").first()).toBeVisible();
-  await expect(modal.locator("p").first()).toBeVisible();
+  test("announcement modal opens from header bell and closes properly", async ({
+    page,
+  }) => {
+    await page.goto("/donate", { waitUntil: "domcontentloaded" });
 
-  // Close button should work
-  await modal.locator('button[aria-label="Close announcements"]').click();
-  await expect(modal).not.toBeVisible({ timeout: 5000 });
+    const modal = page.locator('[role="dialog"][aria-label="Announcements"]');
+    await expect(modal).not.toBeVisible({ timeout: 5000 });
+
+    await page
+      .getByRole("button", { name: /View new announcements|View announcements/i })
+      .click();
+    await expect(modal).toBeVisible({ timeout: 5000 });
+
+    await expect(modal.locator("h2").first()).toBeVisible();
+    await expect(modal.locator("p").first()).toBeVisible();
+
+    await modal.locator('button[aria-label="Close announcements"]').click();
+    await expect(modal).not.toBeVisible({ timeout: 5000 });
+  });
 });
