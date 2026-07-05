@@ -65,19 +65,27 @@ export default function NotFound() {
               Back to Homepage
             </PublicCta>
           </div>
-        ) : null}
-        <h2 className="text-3xl font-bold text-gray-800 mt-8 mb-4">Page Not Found</h2>
-        <p className="text-gray-600 mb-8 max-w-md mx-auto">
-          We couldn&apos;t find the page you&apos;re looking for. The page might have been moved, deleted, 
-          or maybe the URL was mistyped.
-        </p>
-        <Button asChild className="bg-[#0097b2] hover:bg-[#0097b2]/80 text-[#FCFAEF]">
-          <Link href="/" className="flex items-center">
-            <HomeIcon className="h-4 w-4 mr-2" />
-            Back to Homepage
-          </Link>
-        </Button>
-      </div>
+
+          <nav className="mt-10" aria-label="Helpful links">
+            <p className="text-sm font-medium text-foreground">
+              Try one of these instead
+            </p>
+            <ul className="mt-4 flex flex-wrap justify-center gap-x-6 gap-y-3">
+              {recoveryLinks.map(({ href, label }) => (
+                <li key={href}>
+                  <Link
+                    href={href}
+                    className="text-sm font-medium text-[#0097b2] underline-offset-4 transition-colors hover:text-[#eeba2b] hover:underline dark:text-[#66C4DC] dark:hover:text-[#F5C94D]"
+                  >
+                    {label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </div>
+      </main>
+      <Footer />
     </div>
   );
 }
