@@ -57,6 +57,11 @@ const nextConfig: NextConfig = {
         destination: "/partnerships/corporate-sponsorship",
         permanent: true,
       },
+      {
+        source: "/faculty",
+        destination: "/about/team",
+        permanent: true,
+      },
     ];
   },
   experimental: {
