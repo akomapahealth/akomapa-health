@@ -8,7 +8,6 @@ import { Button } from "@/components/ui/button";
 import MobileNav from "./MobileNav";
 import { ThemeToggle } from "@/components/theme/ThemeToggle";
 import BrandLogo from "@/components/shared/BrandLogo";
-import AnnouncementTrigger from "@/components/announcement/AnnouncementTrigger";
 
 // Navigation structure
 const navigation = [
@@ -59,19 +58,13 @@ function HeaderContent() {
   }, []);
 
   return (
-    <header className={`sticky top-0 z-50 w-full max-w-[100vw] overflow-x-clip transition-all duration-300 ${
-      isScrolled ? 'bg-[#FCFAEF] shadow-md py-2 dark:bg-[#121514]' : 'bg-[#FCFAEF]/80 backdrop-blur-md py-3 xl:py-4 dark:bg-[#121514]/90'
+    <header className={`sticky top-0 z-50 w-full transition-all duration-300 ${
+      isScrolled ? 'bg-[#FCFAEF] shadow-md py-2 dark:bg-[#121514]' : 'bg-[#FCFAEF]/80 backdrop-blur-md py-4 dark:bg-[#121514]/90'
     }`}>
-      <div className="container mx-auto px-3 sm:px-4">
-        <div className="flex min-w-0 items-center gap-2 sm:gap-4">
-          {/* Logo — slightly smaller on mobile to leave room for header actions */}
-          <BrandLogo
-            className="min-w-0 shrink"
-            priority
-            width={200}
-            height={56}
-            imageClassName="h-9 w-auto max-w-[8.75rem] sm:h-10 sm:max-w-[10rem] xl:h-12 xl:max-w-none"
-          />
+      <div className="container mx-auto px-4">
+        <div className="flex items-center gap-4">
+          {/* Logo */}
+          <BrandLogo className="flex-shrink-0" priority />
 
           {/* Desktop Navigation and Actions - Right Aligned */}
           <div className="hidden xl:flex items-center gap-4 ml-auto 2xl:gap-8">
@@ -120,7 +113,6 @@ function HeaderContent() {
 
             {/* Donate button and Theme Toggle */}
             <div className="flex items-center gap-2.5">
-              <AnnouncementTrigger />
               <Button
                 className="bg-[#0097b2] px-4 text-[#FCFAEF] hover:bg-[#0097b2]/80 hover:text-[#FCFAEF] font-subheading font-medium"
               >
@@ -130,16 +122,15 @@ function HeaderContent() {
             </div>
           </div>
 
-          {/* Mobile header actions */}
-          <div className="xl:hidden ml-auto flex shrink-0 items-center gap-0.5 sm:gap-1">
-            <AnnouncementTrigger compact />
+          {/* Mobile menu button - Right Aligned */}
+          <div className="xl:hidden flex items-center ml-auto space-x-2">
             <ThemeToggle />
             <button
               onClick={() => setIsMobileMenuOpen(true)}
-              className="inline-flex items-center justify-center rounded-md p-1.5 text-[#2F3332] dark:text-[#FCFAEF] hover:text-[#eeba2b] hover:bg-[#eeba2b]/10 dark:hover:bg-[#eeba2b]/20 focus:outline-none focus:ring-2 focus:ring-[#0097b2] focus:ring-offset-2"
+              className="inline-flex items-center justify-center p-2 rounded-md text-[#2F3332] dark:text-[#FCFAEF] hover:text-[#eeba2b] hover:bg-[#eeba2b]/10 dark:hover:bg-[#eeba2b]/20 focus:outline-none"
             >
               <span className="sr-only">Open main menu</span>
-              <Menu className="h-5 w-5" aria-hidden="true" />
+              <Menu className="h-6 w-6" aria-hidden="true" />
             </button>
           </div>
         </div>
