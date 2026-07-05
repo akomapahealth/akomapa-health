@@ -5,30 +5,9 @@ import PathwaysGrid from "@/components/get-involved/PathwaysGrid";
 import CurrentOpportunities from "@/components/get-involved/CurrentOpportunities";
 import GetInvolvedFAQ from "@/components/get-involved/GetInvolvedFAQ";
 import GetInvolvedCTA from "@/components/get-involved/GetInvolvedCTA";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Get Involved",
-  description:
-    "Join Akomapa as a student leader, Academy scholar, faculty mentor, researcher, partner, or supporter advancing ethical and equitable global health leadership.",
-  openGraph: {
-    title: "Get Involved | Akomapa",
-    description:
-      "Six distinct pathways to help build a new model for ethical global health leadership — for students, clinicians, researchers, partners, and supporters.",
-    type: "website",
-  },
-  keywords: [
-    "get involved",
-    "student leadership",
-    "engagement pathways",
-    "faculty mentorship",
-    "global health research",
-    "partnerships",
-    "donate",
-    "ethical leadership",
-    "community health",
-    "Akomapa",
-  ],
-};
+export const metadata: Metadata = buildPageMetadata("/get-involved");
 
 export default function GetInvolvedPage() {
   return (

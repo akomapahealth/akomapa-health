@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
-import { BRAND } from "@/config/brand";
 import HeroSection from "@/components/home/HeroSection";
 import ChallengeSection from "@/components/home/ChallengeSection";
 import WhyAkomapaSection from "@/components/home/WhyAkomapaSection";
 import BuiltOnEvidenceSection from "@/components/home/BuiltOnEvidenceSection";
+import { buildPageMetadata } from "@/lib/seo";
 
 // Below-the-fold bands — split into their own chunks so the initial homepage
 // payload stays light until the user scrolls toward them.
@@ -28,12 +28,7 @@ const JoinTheMovementSection = dynamic(
   () => import("@/components/home/JoinTheMovementSection"),
 );
 
-export const metadata: Metadata = {
-  title: {
-    absolute: `Akomapa Health | ${BRAND.heroHeadline}`,
-  },
-  description: BRAND.heroSubheadline,
-};
+export const metadata: Metadata = buildPageMetadata("/");
 
 export default function Home() {
   return (
