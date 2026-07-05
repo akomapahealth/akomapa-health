@@ -1,8 +1,15 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { PublicCta } from "@/components/shared/PublicPagePrimitives";
-import { FileQuestion } from "lucide-react";
+
+// Lottie ships ~30kB of runtime. Defer it so a hard-404 doesn't pay the cost
+// upfront from any other route's chunk graph.
+const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
 
 const recoveryLinks = [
   { href: "/get-involved", label: "Get Involved" },
@@ -12,17 +19,35 @@ const recoveryLinks = [
 ] as const;
 
 export default function NotFound() {
+  const [animationData, setAnimationData] = useState<unknown>(null);
+
+  useEffect(() => {
+    fetch("/Error 404.json")
+      .then((res) => res.json())
+      .then((data) => setAnimationData(data))
+      .catch((err) => console.error("Failed to load animation:", err));
+  }, []);
+
   return (
     <div className="flex min-h-screen flex-col bg-background text-foreground">
       <Header />
       <main className="flex flex-1 items-center justify-center px-4 py-16 sm:py-24">
         <div className="mx-auto max-w-lg text-center">
-          <div
-            className="mx-auto mb-8 flex h-24 w-24 items-center justify-center rounded-full bg-[#0097b2]/10 text-[#0097b2] dark:bg-[#66C4DC]/15 dark:text-[#66C4DC]"
-            aria-hidden="true"
-          >
-            <FileQuestion className="h-12 w-12" />
-          </div>
+          {animationData !== null ? (
+            <div className="mx-auto mb-8 max-w-md">
+              <Lottie
+                animationData={animationData as object}
+                loop
+                className="h-auto w-full"
+                aria-hidden="true"
+              />
+            </div>
+          ) : (
+            <div
+              className="mx-auto mb-8 max-w-md aspect-[4/3] animate-pulse rounded-2xl bg-muted/40"
+              aria-hidden="true"
+            />
+          )}
 
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
             404
