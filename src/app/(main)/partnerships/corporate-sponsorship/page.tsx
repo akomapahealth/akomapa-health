@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
 import RebrandPageShell from "@/components/shared/RebrandPageShell";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Corporate Sponsorship",
-  description:
-    "Partner with Akomapa through corporate sponsorship to fund community health hubs, leadership training, and sustainable health programs.",
-};
+export const metadata: Metadata = buildPageMetadata(
+  "/partnerships/corporate-sponsorship",
+);
 
 const highlights = [
   {

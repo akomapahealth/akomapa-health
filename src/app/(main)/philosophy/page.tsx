@@ -5,12 +5,9 @@ import PhilosophyHero from "@/components/philosophy/PhilosophyHero";
 import PhilosophySection from "@/components/philosophy/PhilosophySection";
 import PhilosophyVision from "@/components/philosophy/PhilosophyVision";
 import { philosophySections } from "@/data/philosophy";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Our Philosophy",
-  description:
-    "Explore Akomapa's philosophy of ethical global health leadership, community partnership, reciprocal learning, and sustainable impact.",
-};
+export const metadata: Metadata = buildPageMetadata("/philosophy");
 
 export default function PhilosophyPage() {
   return (

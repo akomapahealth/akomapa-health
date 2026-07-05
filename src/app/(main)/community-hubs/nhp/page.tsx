@@ -2,13 +2,11 @@ import type { Metadata } from "next";
 import Breadcrumb from "@/components/layout/Breadcrumb";
 import CommunityHubDetailPage from "@/components/community-hubs/CommunityHubDetailPage";
 import { getHubByRouteSlug } from "@/data/community-hubs";
+import { buildPageMetadata } from "@/lib/seo";
 
 const hub = getHubByRouteSlug("nhp");
 
-export const metadata: Metadata = {
-  title: hub.name,
-  description: hub.description,
-};
+export const metadata: Metadata = buildPageMetadata("/community-hubs/nhp");
 
 export default function NHPHubPage() {
   return (
