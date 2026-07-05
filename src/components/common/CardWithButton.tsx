@@ -38,7 +38,7 @@ export default function CardWithButton({
         <p className="text-onyx-600 dark:text-floralwhite/90 mb-4 font-body">
           {description}
         </p>
-        <Button className="bg-lapis text-floralwhite hover:bg-amber hover:text-floralwhite w-full">
+        <Button asChild className="bg-lapis text-floralwhite hover:bg-amber hover:text-floralwhite w-full">
           <Link href={linkHref}>{linkText}</Link>
         </Button>
       </div>

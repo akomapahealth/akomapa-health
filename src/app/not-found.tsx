@@ -37,7 +37,7 @@ export default function NotFound() {
           We couldn&apos;t find the page you&apos;re looking for. The page might have been moved, deleted, 
           or maybe the URL was mistyped.
         </p>
-        <Button className="bg-[#0097b2] hover:bg-[#0097b2]/80 text-[#FCFAEF]">
+        <Button asChild className="bg-[#0097b2] hover:bg-[#0097b2]/80 text-[#FCFAEF]">
           <Link href="/" className="flex items-center">
             <HomeIcon className="h-4 w-4 mr-2" />
             Back to Homepage

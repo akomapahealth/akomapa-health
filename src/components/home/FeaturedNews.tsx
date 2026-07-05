@@ -24,7 +24,7 @@ export default function FeaturedNews() {
               Stay updated with our recent activities and achievements
             </p>
           </div>
-          <Button variant="outline" className="mt-4 md:mt-0 bg-[#0097b2] hover:bg-[#eeba2b] text-[#FCFAEF]">
+          <Button asChild variant="outline" className="mt-4 md:mt-0 bg-[#0097b2] hover:bg-[#eeba2b] text-[#FCFAEF]">
             <Link href="/news" className="flex items-center">
               View All News <ArrowRight size={16} className="ml-2" />
             </Link>

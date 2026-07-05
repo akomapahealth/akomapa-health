@@ -106,7 +106,8 @@ function MobileNavContent({ isOpen, onClose, navigation }: MobileNavProps) {
                 ))}
                 
                 <div className="mt-4 space-y-3 border-t border-[#E6E7E7] pt-4 dark:border-[#757A79]">
-                  <Button 
+                  <Button
+                    asChild
                     className="min-h-12 w-full bg-[#0097b2] text-[#FCFAEF] hover:bg-[#0097b2]/80 hover:text-[#FCFAEF] font-subheading font-medium"
                   >
                     <Link href="/donate" onClick={onClose}>Donate</Link>

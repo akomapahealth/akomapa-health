@@ -133,7 +133,7 @@ export default function HealthCrisisSection() {
         </div>
 
         <div className="text-center mt-12 md:mt-14">
-          <Button className="h-14 rounded-full px-8 text-base font-semibold bg-[#FCFAEF] text-[#0097b2] hover:bg-[#F5C94D] hover:text-[#1C1F1E] transition-colors cursor-pointer md:h-16 md:px-10 md:text-lg">
+          <Button asChild className="h-14 rounded-full px-8 text-base font-semibold bg-[#FCFAEF] text-[#0097b2] hover:bg-[#F5C94D] hover:text-[#1C1F1E] transition-colors cursor-pointer md:h-16 md:px-10 md:text-lg">
             <Link href="/research" className="flex items-center">
               Explore Our Science <ArrowRight size={20} className="ml-2.5" />
             </Link>
