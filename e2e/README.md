@@ -15,15 +15,23 @@ The test suite (`pages-render.spec.ts`) performs basic smoke tests on all main p
 - `/` (Home)
 - `/about`
 - `/about/team`
+- `/philosophy`
+- `/academy`
 - `/programs`
-- `/clinics`
+- `/community-hubs` (legacy `/clinics` redirects here)
+- `/ncd-impact`
+- `/impact`
 - `/research`
 - `/contact`
 - `/donate`
-- `/join`
-- `/partner`
+- `/get-involved` (legacy `/join` redirects here)
+- `/partnerships` (legacy `/partner` redirects here)
 - `/roadmap`
 - `/resources`
+- `/news`
+- `/blog`
+- `/privacy`
+- `/terms`
 
 ## Running Tests
 
