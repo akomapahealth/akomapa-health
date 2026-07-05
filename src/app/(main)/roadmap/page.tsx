@@ -299,36 +299,33 @@ export default function RoadmapPage() {
               Whether you&apos;re a donor, global health ally, or community partner — we invite you to walk this road with us.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button 
+              <Button
+                asChild
                 size="lg"
                 className="bg-[#FCFAEF] text-[#0097b2] hover:bg-[#FCFAEF]/90 font-semibold"
               >
-                <Link href="/partnerships">
-                  <span className="flex items-center">
-                    Partner With Us <ArrowRight size={20} className="ml-2" />
-                  </span>
+                <Link href="/partnerships" className="flex items-center">
+                  Partner With Us <ArrowRight size={20} className="ml-2" />
                 </Link>
               </Button>
-              <Button 
+              <Button
+                asChild
                 size="lg"
                 className="bg-[#eeba2b] text-[#FCFAEF] hover:bg-[#F5C94D] font-semibold"
               >
-                <Link href="/partnerships">
-                  <span className="flex items-center">
-                    Donate <Heart size={20} className="ml-2" />
-                  </span>
+                <Link href="/partnerships" className="flex items-center">
+                  Donate <Heart size={20} className="ml-2" />
                 </Link>
               </Button>
-              <Button 
+              <Button
+                asChild
                 size="lg"
-                variant="outline" 
+                variant="outline"
                 className="border-[#FCFAEF] text-[#FCFAEF] bg-transparent hover:bg-[#FCFAEF] hover:text-[#0097b2] font-semibold"
               >
-                <Link href="mailto:akomapahealth@gmail.com">
-                  <span className="flex items-center">
-                    Contact Us <ChevronRight size={20} className="ml-2" />
-                  </span>
-                </Link>
+                <a href="mailto:akomapahealth@gmail.com" className="flex items-center">
+                  Contact Us <ChevronRight size={20} className="ml-2" />
+                </a>
               </Button>
             </div>
           </motion.div>

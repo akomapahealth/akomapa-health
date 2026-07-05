@@ -177,7 +177,7 @@ export default function LocationsSection() {
                 </div>
               </div>
             </div>
-            <Button className="bg-[#0097b2] hover:bg-[#eeba2b] text-[#FCFAEF] w-fit">
+            <Button asChild className="bg-[#0097b2] hover:bg-[#eeba2b] text-[#FCFAEF] w-fit">
               <Link href="/our-ucc-clinic" className="flex items-center">
                 Visit Our UCC Clinic <ArrowRight size={16} className="ml-2" />
               </Link>

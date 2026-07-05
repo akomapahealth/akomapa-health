@@ -114,6 +114,7 @@ function HeaderContent() {
             {/* Donate button and Theme Toggle */}
             <div className="flex items-center gap-2.5">
               <Button
+                asChild
                 className="bg-[#0097b2] px-4 text-[#FCFAEF] hover:bg-[#0097b2]/80 hover:text-[#FCFAEF] font-subheading font-medium"
               >
                 <Link href="/donate">Donate</Link>
