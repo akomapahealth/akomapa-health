@@ -6,6 +6,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import { CheckCircle2, Info } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import StripePayment from "@/components/payments/StripePayment";
 import AmountSelector from "@/components/donate/AmountSelector";
@@ -68,8 +69,29 @@ export default function DonationForm() {
 
               <div className="space-y-3">
                 <p className="text-sm font-medium text-[#2F3332] dark:text-[#E6E7E7]">Your details</p>
-                <Input placeholder="Full name" value={donorName} onChange={(event) => setDonorName(event.target.value)} />
-                <Input placeholder="Email address" type="email" value={donorEmail} onChange={(event) => setDonorEmail(event.target.value)} />
+                <div className="space-y-1">
+                  <Label htmlFor="donor-name" className="text-sm text-[#2F3332] dark:text-[#E6E7E7]">
+                    Full name
+                  </Label>
+                  <Input
+                    id="donor-name"
+                    placeholder="Full name"
+                    value={donorName}
+                    onChange={(event) => setDonorName(event.target.value)}
+                  />
+                </div>
+                <div className="space-y-1">
+                  <Label htmlFor="donor-email" className="text-sm text-[#2F3332] dark:text-[#E6E7E7]">
+                    Email address
+                  </Label>
+                  <Input
+                    id="donor-email"
+                    placeholder="Email address"
+                    type="email"
+                    value={donorEmail}
+                    onChange={(event) => setDonorEmail(event.target.value)}
+                  />
+                </div>
               </div>
             </div>
 

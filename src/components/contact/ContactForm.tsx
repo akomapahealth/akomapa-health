@@ -129,7 +129,7 @@ function ContactFormContent() {
       </div>
 
       {error && (
-        <div className="mb-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+        <div role="alert" className="mb-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
           <p className="text-red-600 dark:text-red-400 text-sm">{error}</p>
         </div>
       )}
@@ -189,7 +189,7 @@ function ContactFormContent() {
             Partnership Type
           </Label>
           <Select value={formData.partnershipType} onValueChange={handleSelectChange}>
-            <SelectTrigger className="mt-2 w-full border-[#0097b2] focus:border-[#eeba2b] dark:border-[#66C4DC] dark:focus:border-[#F5C94D] bg-[#FCFAEF] dark:bg-[#1C1F1E] hover:bg-white dark:hover:bg-[#1C1F1E] cursor-pointer">
+            <SelectTrigger id="partnershipType" className="mt-2 w-full border-[#0097b2] focus:border-[#eeba2b] dark:border-[#66C4DC] dark:focus:border-[#F5C94D] bg-[#FCFAEF] dark:bg-[#1C1F1E] hover:bg-white dark:hover:bg-[#1C1F1E] cursor-pointer">
               <SelectValue placeholder="Select partnership type" className="text-[#1C1F1E] dark:text-[#FCFAEF]" />
             </SelectTrigger>
             <SelectContent className="bg-[#FCFAEF] dark:bg-[#1C1F1E] text-[#1C1F1E] dark:text-[#FCFAEF]">
