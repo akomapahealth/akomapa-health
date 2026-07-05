@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { CheckCircle2, ArrowRight, Loader2, AlertCircle } from "lucide-react";
 import { trackEvent } from "@/lib/analytics";
 
@@ -144,18 +144,21 @@ export default function Newsletter() {
                   name="email"
                   render={({ field, fieldState }) => (
                     <FormItem className="min-w-0 flex-1">
+                      <FormLabel className="sr-only">Email address</FormLabel>
                       <FormControl>
                         <Input
                           type="email"
                           autoComplete="email"
-                          aria-label="Email address"
                           placeholder="Enter your email address"
                           {...field}
                           disabled={isLoading}
                           className="h-12 border-[#FCFAEF]/30 bg-[#FCFAEF] text-[#2F3332] placeholder:text-[#2F3332]/60 focus-visible:border-[#eeba2b] focus-visible:ring-[#eeba2b]/40 dark:border-[#FCFAEF]/30 dark:bg-[#FCFAEF] dark:text-[#2F3332] dark:placeholder:text-[#2F3332]/60"
                         />
                       </FormControl>
-                      <FormMessage className="font-body text-sm text-[#F5C94D]">
+                      <FormMessage
+                        role="alert"
+                        className="font-body text-sm text-[#F5C94D]"
+                      >
                         {fieldState.error?.message}
                       </FormMessage>
                     </FormItem>
