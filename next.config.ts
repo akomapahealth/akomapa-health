@@ -14,53 +14,53 @@ const nextConfig: NextConfig = {
       {
         source: "/privacy-policy",
         destination: "/privacy",
-        permanent: true,
+        statusCode: 301,
       },
       {
         source: "/terms-of-service",
         destination: "/terms",
-        permanent: true,
+        statusCode: 301,
       },
       // Rebrand route renames
       {
         source: "/clinics",
         destination: "/community-hubs",
-        permanent: true,
+        statusCode: 301,
       },
       {
         source: "/clinics/akomapa-ucc",
         destination: "/community-hubs/ucc",
-        permanent: true,
+        statusCode: 301,
       },
       {
         source: "/clinics/akomapa-ug",
         destination: "/community-hubs/ug",
-        permanent: true,
+        statusCode: 301,
       },
       {
         source: "/clinics/akomapa-nhp",
         destination: "/community-hubs/nhp",
-        permanent: true,
+        statusCode: 301,
       },
       {
         source: "/join",
         destination: "/get-involved",
-        permanent: true,
+        statusCode: 301,
       },
       {
         source: "/partner",
         destination: "/partnerships",
-        permanent: true,
+        statusCode: 301,
       },
       {
         source: "/partner/corporate-sponsorship",
         destination: "/partnerships/corporate-sponsorship",
-        permanent: true,
+        statusCode: 301,
       },
       {
         source: "/faculty",
         destination: "/about/team",
-        permanent: true,
+        statusCode: 301,
       },
     ];
   },

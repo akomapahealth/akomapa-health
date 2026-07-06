@@ -155,14 +155,30 @@ for (const routeSlug of hubRouteSlugs) {
   });
 }
 
-test.describe("Clinics redirects", () => {
-  test("redirects legacy clinic routes to community hubs", async ({ page }) => {
-    await preparePage(page);
+const legacyRedirects = [
+  { source: "/clinics", destination: "/community-hubs" },
+  { source: "/clinics/akomapa-ucc", destination: "/community-hubs/ucc" },
+  { source: "/clinics/akomapa-ug", destination: "/community-hubs/ug" },
+  { source: "/clinics/akomapa-nhp", destination: "/community-hubs/nhp" },
+  { source: "/join", destination: "/get-involved" },
+  { source: "/partner", destination: "/partnerships" },
+  {
+    source: "/partner/corporate-sponsorship",
+    destination: "/partnerships/corporate-sponsorship",
+  },
+] as const;
 
-    await page.goto("/clinics", { waitUntil: "domcontentloaded" });
-    await expect(page).toHaveURL(/\/community-hubs$/);
+test.describe("Legacy route redirects", () => {
+  for (const { source, destination } of legacyRedirects) {
+    test(`${source} redirects to ${destination} with 301`, async ({ page, request }) => {
+      const response = await request.get(source, { maxRedirects: 0 });
 
-    await page.goto("/clinics/akomapa-ucc", { waitUntil: "domcontentloaded" });
-    await expect(page).toHaveURL(/\/community-hubs\/ucc$/);
-  });
+      expect(response.status()).toBe(301);
+      expect(response.headers().location).toBe(destination);
+
+      await preparePage(page);
+      await page.goto(source, { waitUntil: "domcontentloaded" });
+      await expect(page).toHaveURL(new RegExp(`${destination}$`));
+    });
+  }
 });

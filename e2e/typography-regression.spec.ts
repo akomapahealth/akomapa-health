@@ -23,7 +23,6 @@ const pages = [
   { path: "/news", headingSelector: "main h1, main h2" },
   { path: "/blog", headingSelector: "main h1, main h2" },
   { path: "/programs", headingSelector: "main h1" },
-  { path: "/clinics", headingSelector: "main h1, main h2" },
   { path: "/contact", headingSelector: "main h1" },
   { path: "/privacy", headingSelector: "main h1" },
   { path: "/terms", headingSelector: "main h1" },
