@@ -8,13 +8,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: [
         "/sentry-example-page",
-        "/clinics",
-        "/clinics/",
-        "/join",
-        "/partner",
-        "/privacy-policy",
-        "/terms-of-service",
-        "/faculty",
       ],
     },
     sitemap: absoluteUrl("/sitemap.xml"),

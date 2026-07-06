@@ -261,48 +261,11 @@ export const canonicalSeoRoutes = [
 
 export const noindexRoutes = [
   {
-    path: "/clinics",
-    title: "Community Hubs Redirect",
-    description:
-      "Legacy Akomapa clinics route retained only for redirects to the current community health hubs experience and excluded from search indexing.",
-  },
-  {
-    path: "/clinics/akomapa-ucc",
-    title: "UCC Hub Redirect",
-    description:
-      "Legacy Akomapa UCC clinic route retained only for redirects to the current UCC Community Health Hub page and excluded from search.",
-  },
-  {
-    path: "/clinics/akomapa-ug",
-    title: "UG Hub Redirect",
-    description:
-      "Legacy Akomapa UG clinic route retained only for redirects to the current UG Community Health Hub page and excluded from search.",
-  },
-  {
-    path: "/clinics/akomapa-nhp",
-    title: "NHP Hub Redirect",
-    description:
-      "Legacy Akomapa NHP clinic route retained only for redirects to the current NHP Yale Community Health Hub page and excluded from search.",
-  },
-  {
     path: "/sentry-example-page",
     title: "Sentry Diagnostics",
     description:
       "A private diagnostics page for validating Akomapa Health Foundation error monitoring and frontend reporting behavior, excluded from search.",
   },
-] as const;
-
-export const redirectedRoutes = [
-  "/clinics",
-  "/clinics/akomapa-ucc",
-  "/clinics/akomapa-ug",
-  "/clinics/akomapa-nhp",
-  "/join",
-  "/partner",
-  "/partner/corporate-sponsorship",
-  "/privacy-policy",
-  "/terms-of-service",
-  "/faculty",
 ] as const;
 
 export const canonicalSeoRouteMap = new Map<string, SeoRoute>(

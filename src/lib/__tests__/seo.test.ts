@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import createNextConfig from "../../../next.config";
 import sitemap from "@/app/sitemap";
 import {
   SITE_URL,
@@ -6,7 +7,6 @@ import {
   buildPageMetadata,
   canonicalSeoRoutes,
   noindexRoutes,
-  redirectedRoutes,
 } from "@/lib/seo";
 
 function textLength(value: string) {
@@ -52,15 +52,17 @@ describe("SEO metadata contract", () => {
     }
   });
 
-  it("keeps sitemap canonical and excludes redirected routes", () => {
+  it("keeps sitemap canonical and excludes redirected routes", async () => {
     const urls = sitemap().map((entry) => entry.url);
+    const nextConfig = await createNextConfig();
+    const redirects = nextConfig.redirects ? await nextConfig.redirects() : [];
 
     for (const route of canonicalSeoRoutes) {
       expect(urls).toContain(absoluteUrl(route.path));
     }
 
-    for (const redirectedRoute of redirectedRoutes) {
-      expect(urls).not.toContain(absoluteUrl(redirectedRoute));
+    for (const redirect of redirects) {
+      expect(urls).not.toContain(absoluteUrl(redirect.source));
     }
 
     expect(urls).not.toContain(absoluteUrl("/sentry-example-page"));
