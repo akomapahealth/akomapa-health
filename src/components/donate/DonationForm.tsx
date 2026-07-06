@@ -1,23 +1,17 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { Elements } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
 import { CheckCircle2, Info } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import StripePayment from "@/components/payments/StripePayment";
+import StripeCheckout from "@/components/payments/StripeCheckout";
 import AmountSelector from "@/components/donate/AmountSelector";
 import FrequencyToggle from "@/components/donate/FrequencyToggle";
 import { DonationFrequency, paymentMethods, PaymentMethod } from "@/data/donation";
 import { cn } from "@/lib/utils";
 import { trackEvent } from "@/lib/analytics";
-
-const stripePromise = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
-  ? loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY)
-  : null;
 
 export default function DonationForm() {
   const [frequency, setFrequency] = useState<DonationFrequency>("monthly");
@@ -117,31 +111,23 @@ export default function DonationForm() {
 
               {method === "card" && (
                 <div className="rounded-xl border border-[#E6E7E7] p-4 dark:border-[#4F5554]">
-                  {!stripePromise && (
-                    <Alert variant="destructive">
-                      <AlertDescription>Stripe is not configured. Set `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`.</AlertDescription>
-                    </Alert>
-                  )}
-                  {stripePromise && canProcessCard && (
-                    <Elements stripe={stripePromise}>
-                      <StripePayment
-                        amount={amount}
-                        onSuccess={() => {
-                          trackEvent({
-                            name: "donation_cta_click",
-                            location: "donation_form_stripe_success",
-                            amount,
-                          });
-                          setStatus({ type: "success", message: "Thank you. Your donation was successful." });
-                        }}
-                        onError={(error) => setStatus({ type: "error", message: error })}
-                        frequency={paymentFrequency}
-                        donorName={donorName}
-                        donorEmail={donorEmail}
-                      />
-                    </Elements>
-                  )}
-                  {stripePromise && !canProcessCard && (
+                  {canProcessCard ? (
+                    <StripeCheckout
+                      amount={amount}
+                      onSuccess={() => {
+                        trackEvent({
+                          name: "donation_cta_click",
+                          location: "donation_form_stripe_success",
+                          amount,
+                        });
+                        setStatus({ type: "success", message: "Thank you. Your donation was successful." });
+                      }}
+                      onError={(error) => setStatus({ type: "error", message: error })}
+                      frequency={paymentFrequency}
+                      donorName={donorName}
+                      donorEmail={donorEmail}
+                    />
+                  ) : (
                     <Alert>
                       <Info className="h-4 w-4" />
                       <AlertDescription>Please choose an amount and add your name and email to continue.</AlertDescription>

@@ -8,17 +8,10 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { CreditCard, Smartphone, Info, ArrowRight, DollarSign, Calendar, Heart, Sparkles } from "lucide-react";
 import Image from "@/components/common/Image";
-import { Elements } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
-import StripePayment from "@/components/payments/StripePayment";
+import StripeCheckout from "@/components/payments/StripeCheckout";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { AlertCircle, CheckCircle2 } from "lucide-react";
 import Breadcrumb from "@/components/layout/Breadcrumb";
-
-// Initialize Stripe
-const stripePromise = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
-  ? loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY)
-  : null;
 
 // Payment method options
 const paymentMethods = [
@@ -590,16 +583,14 @@ export default function PartnerPage() {
 
                   {/* Payment Form */}
                   {selectedMethod === "card" && showDonorForm && donorName && donorEmail && (
-                    <Elements stripe={stripePromise}>
-                      <StripePayment
-                        amount={getDonationAmount()}
-                        onSuccess={handlePaymentSuccess}
-                        onError={handlePaymentError}
-                        frequency="monthly"
-                        donorName={donorName}
-                        donorEmail={donorEmail}
-                      />
-                    </Elements>
+                    <StripeCheckout
+                      amount={getDonationAmount()}
+                      onSuccess={handlePaymentSuccess}
+                      onError={handlePaymentError}
+                      frequency="monthly"
+                      donorName={donorName}
+                      donorEmail={donorEmail}
+                    />
                   )}
 
                   {/* Pay Button for Card Payments */}
@@ -921,16 +912,14 @@ export default function PartnerPage() {
 
                   {/* Payment Form */}
                   {selectedMethod === "card" && showDonorForm && donorName && donorEmail && (
-                    <Elements stripe={stripePromise}>
-                      <StripePayment
-                        amount={getDonationAmount()}
-                        onSuccess={handlePaymentSuccess}
-                        onError={handlePaymentError}
-                        frequency={selectedFrequency}
-                        donorName={donorName}
-                        donorEmail={donorEmail}
-                      />
-                    </Elements>
+                    <StripeCheckout
+                      amount={getDonationAmount()}
+                      onSuccess={handlePaymentSuccess}
+                      onError={handlePaymentError}
+                      frequency={selectedFrequency}
+                      donorName={donorName}
+                      donorEmail={donorEmail}
+                    />
                   )}
 
                   {/* Pay Button for Card Payments */}
