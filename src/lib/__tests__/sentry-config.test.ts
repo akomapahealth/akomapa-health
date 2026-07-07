@@ -140,6 +140,107 @@ describe("Sentry configuration", () => {
     });
   });
 
+  it("scrubs crafted Server Action request metadata before Sentry transport", () => {
+    const event = scrubSentryEvent({
+      user: {
+        id: "anonymous-session",
+        email: "attacker@example.test",
+        ip_address: "198.51.100.12",
+      },
+      request: {
+        method: "POST",
+        url: "https://akomapahealth.org/index",
+        headers: {
+          "Content-Type": "multipart/form-data",
+          "Next-Action": "app/actions#recon",
+          "X-Client-IP": "198.51.100.12",
+          "X-Cluster-Client-IP": "198.51.100.12",
+          "X-Vercel-Forwarded-For": "198.51.100.12",
+          "CF-Connecting-IP": "198.51.100.12",
+          "True-Client-IP": "198.51.100.12",
+        },
+        body: {
+          "$ACTION_ID_app/actions#recon": "forged-reference",
+          "0": "obfuscated payload",
+        },
+        data: {
+          "$ACTION_REF_0": "forged-reference",
+          payload: "read /proc/self/environ",
+        },
+        env: {
+          HTTP_CF_CONNECTING_IP: "198.51.100.12",
+          HTTP_TRUE_CLIENT_IP: "198.51.100.12",
+          HTTP_X_CLIENT_IP: "198.51.100.12",
+          HTTP_X_CLUSTER_CLIENT_IP: "198.51.100.12",
+          VERCEL_FORWARDED_FOR: "198.51.100.12",
+          REQUEST_METHOD: "POST",
+        },
+      },
+      extra: {
+        serverAction: "app/actions#recon",
+        "$ACTION_REF_1": "nested forged reference",
+        nested: {
+          actionId: "forged-action-id",
+          safeStatus: "decode-failed",
+        },
+      },
+      contexts: {
+        rscAction: {
+          nextAction: "app/actions#recon",
+        },
+        requestBody: {
+          command: "whoami",
+        },
+      },
+      breadcrumbs: [
+        {
+          category: "server-action",
+          data: {
+            "Next-Action": "app/actions#recon",
+            statusCode: 400,
+          },
+        },
+      ],
+    });
+
+    expect(event.user).toEqual({ id: "anonymous-session" });
+    expect(event.request?.headers).toEqual({
+      "Content-Type": "multipart/form-data",
+      "Next-Action": SENTRY_REDACTED_VALUE,
+      "X-Client-IP": SENTRY_REDACTED_VALUE,
+      "X-Cluster-Client-IP": SENTRY_REDACTED_VALUE,
+      "X-Vercel-Forwarded-For": SENTRY_REDACTED_VALUE,
+      "CF-Connecting-IP": SENTRY_REDACTED_VALUE,
+      "True-Client-IP": SENTRY_REDACTED_VALUE,
+    });
+    expect(event.request?.body).toBe(SENTRY_REDACTED_VALUE);
+    expect(event.request?.data).toBe(SENTRY_REDACTED_VALUE);
+    expect(event.request?.env).toEqual({
+      HTTP_CF_CONNECTING_IP: SENTRY_REDACTED_VALUE,
+      HTTP_TRUE_CLIENT_IP: SENTRY_REDACTED_VALUE,
+      HTTP_X_CLIENT_IP: SENTRY_REDACTED_VALUE,
+      HTTP_X_CLUSTER_CLIENT_IP: SENTRY_REDACTED_VALUE,
+      VERCEL_FORWARDED_FOR: SENTRY_REDACTED_VALUE,
+      REQUEST_METHOD: "POST",
+    });
+    expect(event.extra).toEqual({
+      serverAction: SENTRY_REDACTED_VALUE,
+      "$ACTION_REF_1": SENTRY_REDACTED_VALUE,
+      nested: {
+        actionId: SENTRY_REDACTED_VALUE,
+        safeStatus: "decode-failed",
+      },
+    });
+    expect(event.contexts).toEqual({
+      rscAction: SENTRY_REDACTED_VALUE,
+      requestBody: SENTRY_REDACTED_VALUE,
+    });
+    expect(event.breadcrumbs?.[0].data).toEqual({
+      "Next-Action": SENTRY_REDACTED_VALUE,
+      statusCode: 400,
+    });
+  });
+
   it("drops confirmed third-party and native-bridge noise narrowly", () => {
     const beforeSend = createBeforeSend({ NODE_ENV: "production" });
 
