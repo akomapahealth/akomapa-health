@@ -1,9 +1,7 @@
-import { loadSentry } from "@/lib/sentry";
-
-const isSentryEnabled = process.env.SENTRY_ENABLED === "true";
+import { isSentryEnabled, loadSentry } from "@/lib/sentry";
 
 export async function register() {
-  if (!isSentryEnabled) return;
+  if (!isSentryEnabled()) return;
 
   if (process.env.NEXT_RUNTIME === "nodejs") {
     const { initSentry } = await import("../sentry.server.config");

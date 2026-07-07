@@ -1,4 +1,12 @@
 import type { NextConfig } from "next";
+import {
+  getSentryPublicEnv,
+  resolveSentryEnvironment,
+  resolveSentryRelease,
+  SENTRY_APPLICATION_KEY,
+  shouldUploadSentrySourceMaps,
+  shouldWrapSentryBuild,
+} from "./src/lib/sentry-config";
 
 type BundleAnalyzerFactory = (options?: {
   enabled?: boolean;
@@ -7,7 +15,10 @@ type BundleAnalyzerFactory = (options?: {
   logLevel?: "info" | "warn" | "error" | "silent";
 }) => (config?: NextConfig) => NextConfig;
 
+const sentryPublicEnv = getSentryPublicEnv();
+
 const nextConfig: NextConfig = {
+  env: sentryPublicEnv,
   outputFileTracingRoot: process.cwd(),
   async redirects() {
     return [
@@ -93,9 +104,8 @@ const nextConfig: NextConfig = {
   },
 };
 
-const shouldEnableSentryBuildPlugin =
-  process.env.SENTRY_BUILD_PLUGIN === "true" ||
-  Boolean(process.env.CI && process.env.SENTRY_AUTH_TOKEN);
+const shouldEnableSentryBuildPlugin = shouldWrapSentryBuild();
+const shouldUploadSourceMaps = shouldUploadSentrySourceMaps();
 
 export default async function config() {
   let analyzedConfig = nextConfig;
@@ -117,6 +127,19 @@ export default async function config() {
     org: "akomapa-health-foundation",
     project: "javascript-nextjs",
     silent: !process.env.CI,
+    applicationKey: SENTRY_APPLICATION_KEY,
+    authToken: shouldUploadSourceMaps ? process.env.SENTRY_AUTH_TOKEN : undefined,
+    release: {
+      name: resolveSentryRelease(),
+      create: shouldUploadSourceMaps,
+      finalize: shouldUploadSourceMaps,
+      deploy: {
+        env: resolveSentryEnvironment(),
+      },
+    },
+    sourcemaps: {
+      disable: !shouldUploadSourceMaps,
+    },
     widenClientFileUpload: true,
     tunnelRoute: process.env.NODE_ENV === "production" ? "/monitoring" : undefined,
     webpack: {
