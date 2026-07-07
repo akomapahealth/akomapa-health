@@ -59,28 +59,53 @@ export type SentryEventHint = {
 
 const SENSITIVE_HEADER_NAMES = new Set([
   "authorization",
+  "cf-connecting-ip",
   "cookie",
+  "fastly-client-ip",
   "forwarded",
+  "next-action",
   "proxy-authorization",
   "set-cookie",
   "stripe-signature",
+  "true-client-ip",
   "webhook-signature",
   "x-airtable-api-key",
   "x-api-key",
+  "x-client-ip",
+  "x-cluster-client-ip",
+  "x-forwarded",
   "x-forwarded-for",
   "x-real-ip",
+  "x-vercel-forwarded-for",
 ]);
 
 const SENSITIVE_KEY_PATTERN =
   /(?:^|_|\b)(access[_-]?key|api[_-]?key|authorization|client[_-]?secret|cookie|csrf|donor[_-]?email|donor[_-]?name|email|form[_-]?data|html|ip|message|name|password|phone|secret|server[_-]?action|signature|stripe|token)(?:$|_|\b)/i;
 
+const ACTION_REFERENCE_KEY_PATTERN =
+  /^(?:\$ACTION_|next[-_]?action|rsc[-_]?action|server[-_]?reference|action[-_]?id$)/i;
+
 const BODY_KEY_PATTERN =
   /^(body|data|form|formData|payload|requestBody|serverAction|serverActionPayload)$/i;
 
 const IP_ENV_KEYS = new Set([
-  "REMOTE_ADDR",
+  "CF_CONNECTING_IP",
+  "HTTP_CF_CONNECTING_IP",
+  "HTTP_CLIENT_IP",
+  "HTTP_FASTLY_CLIENT_IP",
+  "HTTP_FORWARDED",
+  "HTTP_TRUE_CLIENT_IP",
+  "HTTP_X_CLIENT_IP",
+  "HTTP_X_CLUSTER_CLIENT_IP",
+  "HTTP_X_FORWARDED",
   "HTTP_X_FORWARDED_FOR",
   "HTTP_X_REAL_IP",
+  "REMOTE_ADDR",
+  "TRUE_CLIENT_IP",
+  "VERCEL_FORWARDED_FOR",
+  "X_CLIENT_IP",
+  "X_CLUSTER_CLIENT_IP",
+  "X_FORWARDED",
   "X_FORWARDED_FOR",
   "X_REAL_IP",
 ]);
@@ -381,7 +406,11 @@ function isPlainRecord(value: unknown): value is Record<string, unknown> {
 
 function isSensitiveKey(key: string): boolean {
   const normalizedKey = key.replace(/([a-z])([A-Z])/g, "$1_$2");
-  return SENSITIVE_KEY_PATTERN.test(normalizedKey);
+  return (
+    ACTION_REFERENCE_KEY_PATTERN.test(key) ||
+    ACTION_REFERENCE_KEY_PATTERN.test(normalizedKey) ||
+    SENSITIVE_KEY_PATTERN.test(normalizedKey)
+  );
 }
 
 function getEventMessage(event: SentryEvent): string {
