@@ -61,8 +61,10 @@ Session Replay is configured to protect page content by default:
 - user email, username, and IP address
 - cookies and request bodies
 - form bodies and Server Action payloads
+- `$ACTION_*`, `Next-Action`, and related Server Action references
 - authorization, cookie, forwarding, IP, proxy, webhook, Stripe, and API-key
   headers
+- common proxy/client IP headers and request environment fields
 - nested sensitive fields in extras, contexts, and breadcrumb data
 
 Donation, contact, volunteer application, and notification routes may receive
