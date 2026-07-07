@@ -1,4 +1,8 @@
-import type { ImpactCategory, MapLocation } from "@/lib/types";
+import type {
+  FutureVisionTarget,
+  ImpactCategory,
+  MapLocation,
+} from "@/lib/types";
 
 export const healthImpact: ImpactCategory = {
   id: "health-impact",
@@ -27,6 +31,14 @@ export const healthImpact: ImpactCategory = {
       futureValue: "10,000+",
       futureYear: 2028,
       icon: "Hospital",
+    },
+    {
+      id: "follow-ups-delivered",
+      label: "Follow-ups Delivered",
+      currentValue: "150+",
+      futureValue: "8,000+",
+      futureYear: 2028,
+      icon: "Repeat",
     },
     {
       id: "health-education-sessions",
@@ -75,12 +87,63 @@ export const leadershipImpact: ImpactCategory = {
       futureYear: 2028,
       icon: "Microscope",
     },
+    {
+      id: "countries-connected",
+      label: "Countries Connected",
+      currentValue: "2",
+      futureValue: "10+",
+      futureYear: 2028,
+      icon: "Globe",
+    },
   ],
 };
 
 export const impactCategories: ImpactCategory[] = [
   healthImpact,
   leadershipImpact,
+];
+
+/**
+ * Aspirational 2028 targets shown on the Impact page's "By 2028" vision
+ * section. Each target pairs a present-day baseline with the future goal to
+ * communicate Akomapa's growth trajectory.
+ */
+export const futureVision: FutureVisionTarget[] = [
+  {
+    id: "community-members-served",
+    label: "Community Members Served",
+    value: "150,000+",
+    currentValue: "2,000+",
+    icon: "HeartPulse",
+  },
+  {
+    id: "connected-hubs",
+    label: "Connected Hubs",
+    value: "30+",
+    currentValue: "3",
+    icon: "Network",
+  },
+  {
+    id: "student-leaders-trained",
+    label: "Student Leaders Trained",
+    value: "3,000+",
+    currentValue: "300+",
+    icon: "GraduationCap",
+  },
+  {
+    id: "countries-collaborating",
+    label: "Countries Collaborating",
+    value: "10+",
+    currentValue: "2",
+    icon: "Globe",
+  },
+  {
+    id: "institutional-partners",
+    label: "Institutional Partners",
+    value: "30+",
+    currentValue: "5+",
+    icon: "Handshake",
+  },
 ];
 
 export const mapLocations: MapLocation[] = [
@@ -107,5 +170,13 @@ export const mapLocations: MapLocation[] = [
     type: "active-hub",
     description:
       "An active New Haven hub using trusted barbershops and salons for community-based screening and health education.",
+  },
+  {
+    id: "ucla-partner",
+    name: "UCLA — Partner Institution",
+    coordinates: { lat: 34.0689, lng: -118.4452 },
+    type: "partner",
+    description:
+      "A university partner supporting research, mentorship, and the exchange of ethical global health leadership.",
   },
 ];

@@ -19,3 +19,15 @@ export function formatDate(dateString: string): string {
     day: 'numeric'
   }).format(date);
 }
+
+/**
+ * Estimates reading time from an HTML (or plain-text) string.
+ * Strips tags, counts words, and assumes ~200 words per minute.
+ * Returns a label like "4 min read" (always at least 1 minute).
+ */
+export function readingTime(content: string): string {
+  const text = content.replace(/<[^>]*>/g, ' ');
+  const words = text.split(/\s+/).filter(Boolean).length;
+  const minutes = Math.max(1, Math.round(words / 200));
+  return `${minutes} min read`;
+}

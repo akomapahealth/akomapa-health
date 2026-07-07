@@ -68,7 +68,7 @@ export default function LocationsSection() {
             Local Impact with National Potential
           </h3>
           <p className="text-lg text-[#2F3332] dark:text-[#E6E7E7]">
-            We&apos;re piloting our first student-run clinics in Abeadze Domenase and Abura in partnership 
+            We&apos;re piloting our first student-powered community health hubs in Abeadze Domenase and Abura in partnership 
             with the University of Cape Coast College of Health Sciences. These sites serve as 
             epicenters for innovation, care, and training.
           </p>
@@ -177,7 +177,7 @@ export default function LocationsSection() {
                 </div>
               </div>
             </div>
-            <Button className="bg-[#0097b2] hover:bg-[#eeba2b] text-[#FCFAEF] w-fit">
+            <Button asChild className="bg-[#0097b2] hover:bg-[#eeba2b] text-[#FCFAEF] w-fit">
               <Link href="/our-ucc-clinic" className="flex items-center">
                 Visit Our UCC Clinic <ArrowRight size={16} className="ml-2" />
               </Link>
@@ -213,7 +213,7 @@ export default function LocationsSection() {
         <div className="text-center mt-12">
           <p className="text-[#2F3332] dark:text-[#E6E7E7] mb-6 max-w-2xl mx-auto">
             With successful implementation in our pilot locations, we aim to expand our model across Ghana, 
-            creating a network of student-run clinics that serve communities and train the next generation of healthcare leaders.
+            creating a network of student-powered community health hubs that serve communities and train the next generation of healthcare leaders.
           </p>
           {/* <Button className="bg-[#eeba2b] hover:bg-[#0097b2] text-[#FCFAEF]">
             <Link href="/about/expansion" className="flex items-center">

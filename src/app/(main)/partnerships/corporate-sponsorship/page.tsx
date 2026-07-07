@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
 import RebrandPageShell from "@/components/shared/RebrandPageShell";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Corporate Sponsorship",
-  description:
-    "Partner with Akomapa through corporate sponsorship to fund community health hubs, leadership training, and sustainable health programs.",
-};
+export const metadata: Metadata = buildPageMetadata(
+  "/partnerships/corporate-sponsorship",
+);
 
 const highlights = [
   {
@@ -19,7 +18,7 @@ const highlights = [
       "Support the Akomapa Academy and leadership development programs that prepare the next generation of ethical health professionals.",
   },
   {
-    title: "Community Outreach",
+    title: "Community Engagement",
     description:
       "Enable health education, NCD screening campaigns, and community engagement initiatives across our partner sites.",
   },

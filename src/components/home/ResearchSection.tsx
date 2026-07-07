@@ -109,7 +109,7 @@ export default function ResearchSection() {
           eyebrow="Our Research & Academic Partners"
           eyebrowTone="gold"
           title="Designed with Evidence. Driven by Collaboration."
-          description="In collaboration with leading universities, health systems, and student-run clinics worldwide, we generate the research and real-world evidence that powers Akomapa's model."
+          description="In collaboration with leading universities, health systems, and student-powered clinics worldwide, we generate the research and real-world evidence that powers Akomapa's model."
           className="mb-16"
           titleClassName="text-[#FCFAEF] dark:text-[#FCFAEF] md:text-4xl"
           descriptionClassName="text-[#FCFAEF]/85"

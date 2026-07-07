@@ -178,7 +178,7 @@ export interface InnovationItem {
 }
 
 export interface HubMetrics {
-  patientsServed: number;
+  communityMembersServed: number;
   studentsTrained: number;
   communitiesReached: number;
   partnersEngaged: number;
@@ -250,6 +250,16 @@ export interface MapLocation {
   description: string;
 }
 
+export interface FutureVisionTarget {
+  id: string;
+  label: string;
+  /** Display value for the 2028 target, e.g. "150,000+". */
+  value: string;
+  /** Optional present-day baseline for a current → target comparison. */
+  currentValue?: string;
+  icon?: string;
+}
+
 export interface BlogPost {
   id: string;
   slug: string;
@@ -258,6 +268,10 @@ export interface BlogPost {
   content: string;
   author: string;
   authorRole: string;
+  /** Institution or community the author is affiliated with (shown in bylines). */
+  authorInstitution?: string;
+  /** Short author biography rendered in the article's author section. */
+  authorBio?: string;
   authorImage?: string;
   category:
     | "student-essay"
@@ -316,4 +330,44 @@ export interface NewsItem {
   ctaLink: string | null;
   isExternalCta: boolean;
   source: "announcement" | "news";
+}
+
+/**
+ * A single engagement route on the Get Involved page. `icon` is a Lucide icon
+ * name resolved through an `iconMap` in the rendering component. `accent` is a
+ * brand hex used for the card's top border and icon badge tint.
+ */
+export interface Pathway {
+  id: string;
+  icon: string;
+  title: string;
+  description: string;
+  /** The audience served, e.g. "Health professional students". */
+  audience: string;
+  ctaLabel: string;
+  ctaHref: string;
+  /** When true the CTA opens in a new tab (external form/site). */
+  external?: boolean;
+  accent: string;
+  /** Primary audiences receive extra visual emphasis in the grid. */
+  featured?: boolean;
+}
+
+/** An active or rolling opportunity surfaced in the Current Opportunities section. */
+export interface GetInvolvedOpportunity {
+  id: string;
+  title: string;
+  description: string;
+  /** Short status label, e.g. "Rolling admissions" or "Open". */
+  status: string;
+  ctaLabel: string;
+  ctaHref: string;
+  external?: boolean;
+}
+
+/** A single expandable question/answer on the Get Involved page. */
+export interface GetInvolvedFaq {
+  id: string;
+  question: string;
+  answer: string;
 }

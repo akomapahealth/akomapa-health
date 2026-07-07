@@ -23,6 +23,7 @@ import {
   studentsChangedContent,
 } from "@/data/homepage-narrative";
 import {
+  futureVision,
   healthImpact,
   impactCategories,
   leadershipImpact,
@@ -33,10 +34,17 @@ import { philosophySections } from "@/data/philosophy";
 import { pillars } from "@/data/pillars";
 import { teamMembers } from "@/data/team";
 import { timeline } from "@/data/timeline";
+import {
+  getInvolvedFaqs,
+  getInvolvedOpportunities,
+  getInvolvedPathways,
+} from "@/data/get-involved";
 
 function expectUniqueIds(items: ReadonlyArray<{ id: string | number }>) {
   expect(new Set(items.map(({ id }) => id)).size).toBe(items.length);
 }
+
+const HREF_PATTERN = /^(\/|https?:\/\/)/;
 
 describe("rebrand content data", () => {
   it("defines four valid organizational pillars", () => {
@@ -232,7 +240,7 @@ describe("rebrand content data", () => {
     ]);
 
     for (const category of impactCategories) {
-      expect(category.metrics).toHaveLength(4);
+      expect(category.metrics).toHaveLength(5);
       expectUniqueIds(category.metrics);
 
       for (const metric of category.metrics) {
@@ -241,6 +249,66 @@ describe("rebrand content data", () => {
         expect(metric.futureYear).toBe(2028);
         expect(metric.icon && metric.icon in LucideIcons).toBe(true);
       }
+    }
+  });
+
+  it("defines the By 2028 future vision targets", () => {
+    expect(futureVision).toHaveLength(5);
+    expectUniqueIds(futureVision);
+
+    for (const target of futureVision) {
+      expect(target.label).toBeTruthy();
+      expect(target.value).toBeTruthy();
+      expect(target.icon && target.icon in LucideIcons).toBe(true);
+    }
+  });
+});
+
+describe("get involved content", () => {
+  it("defines six distinct engagement pathways", () => {
+    expect(getInvolvedPathways).toHaveLength(6);
+    expectUniqueIds(getInvolvedPathways);
+
+    for (const pathway of getInvolvedPathways) {
+      expect(pathway.title).toBeTruthy();
+      expect(pathway.description.length).toBeGreaterThan(40);
+      expect(pathway.audience).toBeTruthy();
+      expect(pathway.ctaLabel).toBeTruthy();
+      expect(pathway.ctaHref).toMatch(HREF_PATTERN);
+      expect(pathway.icon in LucideIcons).toBe(true);
+      expect(pathway.accent).toMatch(/^#[0-9a-fA-F]{6}$/);
+      // External CTAs must point to an absolute URL.
+      if (pathway.external) {
+        expect(pathway.ctaHref).toMatch(/^https?:\/\//);
+      }
+    }
+  });
+
+  it("marks exactly the two primary pathways as featured", () => {
+    const featured = getInvolvedPathways.filter((pathway) => pathway.featured);
+    expect(featured.map(({ id }) => id)).toEqual(["student-leader", "academy"]);
+  });
+
+  it("lists current opportunities with valid calls to action", () => {
+    expect(getInvolvedOpportunities.length).toBeGreaterThan(0);
+    expectUniqueIds(getInvolvedOpportunities);
+
+    for (const opportunity of getInvolvedOpportunities) {
+      expect(opportunity.title).toBeTruthy();
+      expect(opportunity.description).toBeTruthy();
+      expect(opportunity.status).toBeTruthy();
+      expect(opportunity.ctaLabel).toBeTruthy();
+      expect(opportunity.ctaHref).toMatch(HREF_PATTERN);
+    }
+  });
+
+  it("provides answered FAQs", () => {
+    expect(getInvolvedFaqs.length).toBeGreaterThan(0);
+    expectUniqueIds(getInvolvedFaqs);
+
+    for (const faq of getInvolvedFaqs) {
+      expect(faq.question).toBeTruthy();
+      expect(faq.answer.length).toBeGreaterThan(20);
     }
   });
 });

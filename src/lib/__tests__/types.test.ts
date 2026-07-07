@@ -113,7 +113,7 @@ describe("rebrand data model contracts", () => {
     };
 
     const metrics: HubMetrics = {
-      patientsServed: 100,
+      communityMembersServed: 100,
       studentsTrained: 25,
       communitiesReached: 6,
       partnersEngaged: 4,
@@ -186,8 +186,8 @@ describe("rebrand data model contracts", () => {
     };
 
     const impactMetric: ImpactMetric = {
-      id: "patients-served",
-      label: "Patients served",
+      id: "community-members-reached",
+      label: "Community members reached",
       currentValue: "100+",
     };
 
@@ -254,7 +254,7 @@ describe("rebrand data model contracts", () => {
       "futureValue" | "futureYear" | "icon"
     >();
     expectTypeOf<OptionalKeys<BlogPost>>().toEqualTypeOf<
-      "authorImage" | "image" | "videoUrl"
+      "authorInstitution" | "authorBio" | "authorImage" | "image" | "videoUrl"
     >();
   });
 

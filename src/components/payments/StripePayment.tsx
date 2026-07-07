@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { AlertCircle } from "lucide-react";
 
@@ -121,8 +122,12 @@ export default function StripePayment({
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       <div className="space-y-4">
-        <div className="p-4 border rounded-lg bg-white dark:bg-[#2F3332]">
-          <CardElement
+        <div className="space-y-2">
+          <Label htmlFor="card-element" className="sr-only">
+            Card details
+          </Label>
+          <div id="card-element" className="p-4 border rounded-lg bg-white dark:bg-[#2F3332]">
+            <CardElement
             options={{
               style: {
                 base: {
@@ -137,6 +142,7 @@ export default function StripePayment({
               hidePostalCode: false,
             }}
           />
+          </div>
         </div>
 
         {error && (

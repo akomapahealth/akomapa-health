@@ -43,6 +43,7 @@ function BreadcrumbContent() {
       "ncd-impact": "NCD Impact",
       "community-hubs": "Community Health Hubs",
       "get-involved": "Get Involved",
+      blog: "Thought Leadership",
     };
 
     const label = (() => {

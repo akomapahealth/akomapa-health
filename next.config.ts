@@ -1,4 +1,12 @@
 import type { NextConfig } from "next";
+import {
+  getSentryPublicEnv,
+  resolveSentryEnvironment,
+  resolveSentryRelease,
+  SENTRY_APPLICATION_KEY,
+  shouldUploadSentrySourceMaps,
+  shouldWrapSentryBuild,
+} from "./src/lib/sentry-config";
 
 type BundleAnalyzerFactory = (options?: {
   enabled?: boolean;
@@ -7,55 +15,63 @@ type BundleAnalyzerFactory = (options?: {
   logLevel?: "info" | "warn" | "error" | "silent";
 }) => (config?: NextConfig) => NextConfig;
 
+const sentryPublicEnv = getSentryPublicEnv();
+
 const nextConfig: NextConfig = {
+  env: sentryPublicEnv,
   outputFileTracingRoot: process.cwd(),
   async redirects() {
     return [
       {
         source: "/privacy-policy",
         destination: "/privacy",
-        permanent: true,
+        statusCode: 301,
       },
       {
         source: "/terms-of-service",
         destination: "/terms",
-        permanent: true,
+        statusCode: 301,
       },
       // Rebrand route renames
       {
         source: "/clinics",
         destination: "/community-hubs",
-        permanent: true,
+        statusCode: 301,
       },
       {
         source: "/clinics/akomapa-ucc",
         destination: "/community-hubs/ucc",
-        permanent: true,
+        statusCode: 301,
       },
       {
         source: "/clinics/akomapa-ug",
         destination: "/community-hubs/ug",
-        permanent: true,
+        statusCode: 301,
       },
       {
         source: "/clinics/akomapa-nhp",
         destination: "/community-hubs/nhp",
-        permanent: true,
+        statusCode: 301,
       },
       {
         source: "/join",
         destination: "/get-involved",
-        permanent: true,
+        statusCode: 301,
       },
       {
         source: "/partner",
         destination: "/partnerships",
-        permanent: true,
+        statusCode: 301,
       },
       {
         source: "/partner/corporate-sponsorship",
         destination: "/partnerships/corporate-sponsorship",
-        permanent: true,
+        statusCode: 301,
+      },
+      {
+        source: "/faculty",
+        destination: "/about/team",
+        statusCode: 301,
       },
     ];
   },
@@ -88,9 +104,8 @@ const nextConfig: NextConfig = {
   },
 };
 
-const shouldEnableSentryBuildPlugin =
-  process.env.SENTRY_BUILD_PLUGIN === "true" ||
-  Boolean(process.env.CI && process.env.SENTRY_AUTH_TOKEN);
+const shouldEnableSentryBuildPlugin = shouldWrapSentryBuild();
+const shouldUploadSourceMaps = shouldUploadSentrySourceMaps();
 
 export default async function config() {
   let analyzedConfig = nextConfig;
@@ -112,6 +127,19 @@ export default async function config() {
     org: "akomapa-health-foundation",
     project: "javascript-nextjs",
     silent: !process.env.CI,
+    applicationKey: SENTRY_APPLICATION_KEY,
+    authToken: shouldUploadSourceMaps ? process.env.SENTRY_AUTH_TOKEN : undefined,
+    release: {
+      name: resolveSentryRelease(),
+      create: shouldUploadSourceMaps,
+      finalize: shouldUploadSourceMaps,
+      deploy: {
+        env: resolveSentryEnvironment(),
+      },
+    },
+    sourcemaps: {
+      disable: !shouldUploadSourceMaps,
+    },
     widenClientFileUpload: true,
     tunnelRoute: process.env.NODE_ENV === "production" ? "/monitoring" : undefined,
     webpack: {

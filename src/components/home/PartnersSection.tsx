@@ -61,7 +61,7 @@ export default function PartnersSection() {
         </HomeHeading>
         <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-[#2F3332]/80 dark:text-[#E6E7E7]/80 md:text-lg">
           We work with leading universities, ministries of health, and
-          student-run clinics worldwide to generate the evidence that powers
+          student-powered clinics worldwide to generate the evidence that powers
           Akomapa&rsquo;s model.
         </p>
       </div>

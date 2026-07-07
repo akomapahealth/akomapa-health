@@ -42,7 +42,7 @@ test.describe("Our Philosophy page", () => {
     await expect(page).toHaveTitle(/Our Philosophy/);
     await expect(page.locator('meta[name="description"]')).toHaveAttribute(
       "content",
-      /ethical global health leadership/i,
+      "Discover Akomapa's core principles: ethical leadership, community partnership, reciprocal learning, and sustainable impact.",
     );
     await expect(page.locator("[data-rebrand-page]")).toBeVisible();
 

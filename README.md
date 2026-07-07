@@ -172,6 +172,7 @@ npm run test:e2e:content
 - **Rate limiting** for form submissions
 - **Secure payment processing** with Stripe
 - **GDPR compliance** with data handling practices
+- **Sentry privacy controls** documented in [`docs/observability/sentry.md`](docs/observability/sentry.md)
 
 ## 📞 Contact
 
@@ -180,7 +181,7 @@ For questions about Akomapa Health Foundation:
 - **Email**: akomapahealth@gmail.com
 - **Website**: [akomapahealth.org](https://akomapahealth.org)
 - **Partnership Inquiries**: [Partner With Us](/partner)
-- **Volunteer Opportunities**: [Join Our Team](/join)
+- **Get Involved**: [Explore Engagement Pathways](/get-involved)
 
 ## 🙏 Acknowledgments
 

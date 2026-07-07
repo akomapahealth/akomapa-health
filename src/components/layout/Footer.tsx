@@ -105,6 +105,11 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/blog" className={footerLinkClass}>
+                  Thought Leadership
+                </Link>
+              </li>
+              <li>
                 <Link href="/get-involved" className={footerLinkClass}>
                   Get Involved
                 </Link>

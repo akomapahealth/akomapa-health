@@ -44,7 +44,7 @@ export default function ContentSection({
             <p className="text-lg text-onyx-600 dark:text-floralwhite/90 mb-6 font-body">
               {description}
             </p>
-            <Button className="bg-skobeloff text-floralwhite hover:bg-amber hover:text-floralwhite">
+            <Button asChild className="bg-skobeloff text-floralwhite hover:bg-amber hover:text-floralwhite">
               <Link href={linkHref}>{linkText}</Link>
             </Button>
           </div>
