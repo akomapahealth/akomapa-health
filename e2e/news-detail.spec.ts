@@ -85,11 +85,15 @@ test.describe("News Detail Pages", () => {
   });
 
   test("nonexistent news item returns 404", async ({ page }) => {
-    const response = await page.goto("/news/nonexistent-item-id", {
+    await page.goto("/news/nonexistent-item-id", {
       waitUntil: "domcontentloaded",
     });
 
-    expect(response?.status()).toBe(404);
+    // With (main)/loading.tsx, the document response may stream as 200 before
+    // notFound() resolves to the branded 404 UI.
+    await expect(
+      page.getByRole("heading", { name: /page not found/i })
+    ).toBeVisible({ timeout: 15000 });
   });
 
   test("/news page displays category filter pills", async ({ page }) => {
