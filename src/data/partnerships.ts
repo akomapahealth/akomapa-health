@@ -254,11 +254,6 @@ export const allPartnerLogos: PartnerLogo[] = [
     logo: "/images/partners/ucc-logo.webp",
     url: "https://ucc.edu.gh/",
   },
-  {
-    name: "UCLA",
-    logo: "/images/partners/ucla-logo.png",
-    url: "https://www.ucla.edu/",
-  },
 ];
 
 // ---------------------------------------------------------------------------
