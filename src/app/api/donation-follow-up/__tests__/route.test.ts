@@ -57,6 +57,29 @@ describe("POST /api/donation-follow-up", () => {
     });
   });
 
+  it("rejects oversized bodies even without a trusted content-length header", async () => {
+    const response = await POST(
+      createRequest({
+        ...validBody,
+        name: "A".repeat(9_000),
+      }),
+    );
+
+    expect(response.status).toBe(413);
+  });
+
+  it("silently accepts honeypot submissions without contacting the provider", async () => {
+    const fetchMock = vi.fn();
+    vi.stubGlobal("fetch", fetchMock);
+
+    const response = await POST(
+      createRequest({ ...validBody, company: "automated submission" }),
+    );
+
+    expect(response.status).toBe(200);
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
   it("fails closed when the configured notification URL is not allowlisted", async () => {
     process.env.WEB3FORMS_API_URL = "https://example.com/submit";
     const fetchMock = vi.fn();

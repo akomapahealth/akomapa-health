@@ -4,6 +4,7 @@ import { donationFollowUpSchema } from "@/lib/donation-follow-up";
 const MAX_BODY_BYTES = 8_192;
 const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1_000;
 const RATE_LIMIT_MAX_REQUESTS = 5;
+const RATE_LIMIT_MAX_ENTRIES = 1_000;
 const WEB3FORMS_HOST = "api.web3forms.com";
 
 type RateLimitEntry = {
@@ -40,6 +41,20 @@ function isRateLimited(clientKey: string) {
   const current = rateLimitEntries.get(clientKey);
 
   if (!current || current.resetAt <= now) {
+    for (const [key, entry] of rateLimitEntries) {
+      if (entry.resetAt <= now) {
+        rateLimitEntries.delete(key);
+      }
+    }
+
+    while (rateLimitEntries.size >= RATE_LIMIT_MAX_ENTRIES) {
+      const oldestKey = rateLimitEntries.keys().next().value;
+      if (typeof oldestKey !== "string") {
+        break;
+      }
+      rateLimitEntries.delete(oldestKey);
+    }
+
     rateLimitEntries.set(clientKey, {
       count: 1,
       resetAt: now + RATE_LIMIT_WINDOW_MS,
@@ -97,9 +112,20 @@ export async function POST(request: NextRequest) {
     );
   }
 
+  let rawBody: string;
+  try {
+    rawBody = await request.text();
+  } catch {
+    return jsonResponse({ error: "Invalid request body" }, 400);
+  }
+
+  if (new TextEncoder().encode(rawBody).byteLength > MAX_BODY_BYTES) {
+    return jsonResponse({ error: "Request body is too large" }, 413);
+  }
+
   let body: unknown;
   try {
-    body = await request.json();
+    body = JSON.parse(rawBody);
   } catch {
     return jsonResponse({ error: "Invalid request body" }, 400);
   }
