@@ -11,7 +11,7 @@ export default function JoinTheMovementSection() {
       aria-labelledby={headingId}
       className="relative overflow-hidden bg-[#121514] text-[#FCFAEF]"
     >
-      <div className="container mx-auto px-4 py-20 md:py-24">
+      <div className="site-container mx-auto px-4 py-20 md:py-24">
         <div className="mx-auto max-w-3xl text-center">
           <HomeEyebrow tone="gold" className="inline-block">
             Join the Movement

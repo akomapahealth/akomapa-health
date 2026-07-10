@@ -15,7 +15,7 @@ export default function CampaignProgress() {
 
   return (
     <section className="py-10">
-      <div className="container mx-auto px-4">
+      <div className="site-container mx-auto px-4">
         <div className="mx-auto max-w-4xl rounded-2xl border border-[#E6E7E7] bg-white p-6 dark:border-[#4F5554] dark:bg-[#2F3332]">
           <p className="mb-3 text-lg font-semibold text-[#1C1F1E] dark:text-[#FCFAEF]">
             {currency.format(donationCampaign.raised)} raised toward {currency.format(donationCampaign.goal)} goal

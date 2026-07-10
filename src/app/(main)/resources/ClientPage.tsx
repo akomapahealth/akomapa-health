@@ -46,12 +46,12 @@ function ResourcesContent() {
   
   return (
     <>
-      <div className="container mx-auto">
+      <div className="site-container mx-auto">
         <Breadcrumb />
       </div>
       <div className="flex flex-col gap-y-section-mobile md:gap-y-section-tablet lg:gap-y-section-desktop">
         <section className="bg-blue-50 py-16 md:py-24">
-          <div className="container mx-auto px-4">
+          <div className="site-container mx-auto px-4">
             <FadeIn>
               <PageHeader
                 title="Healthcare Resources"
@@ -62,7 +62,7 @@ function ResourcesContent() {
         </section>
         
         <section className="py-16">
-          <div className="container mx-auto px-4">
+          <div className="site-container mx-auto px-4">
             <div className="flex flex-col lg:flex-row gap-8">
               <FadeIn className="w-full lg:w-1/4" delay={0.05}>
                 <ResourceFilter 

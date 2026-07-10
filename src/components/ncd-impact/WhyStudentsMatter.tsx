@@ -22,7 +22,7 @@ export default function WhyStudentsMatter() {
         <div className="absolute bottom-0 right-0 h-64 w-64 rounded-full bg-[#F5C94D]/10 blur-3xl" />
       </div>
 
-      <div className="container relative z-10 mx-auto px-4 sm:px-6">
+      <div className="site-container relative z-10 mx-auto px-4 sm:px-6">
         <FadeIn
           direction="up"
           className="mx-auto mb-10 max-w-3xl space-y-3 text-center sm:space-y-4"

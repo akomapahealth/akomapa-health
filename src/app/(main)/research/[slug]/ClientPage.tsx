@@ -80,7 +80,7 @@ export default function ResearchPaperPage({ paper }: { paper: ResearchPaper }) {
 
   return (
     <>
-      <div className="container mx-auto">
+      <div className="site-container mx-auto">
         <Breadcrumb />
       </div>
 
@@ -89,7 +89,7 @@ export default function ResearchPaperPage({ paper }: { paper: ResearchPaper }) {
         <div className="absolute top-0 right-0 w-64 h-64 bg-[#FCFAEF]/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl" />
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#FCFAEF]/10 rounded-full translate-y-1/2 -translate-x-1/2 blur-3xl" />
         
-        <div className="container mx-auto px-4 sm:px-6 relative z-10">
+        <div className="site-container mx-auto px-4 sm:px-6 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -125,7 +125,7 @@ export default function ResearchPaperPage({ paper }: { paper: ResearchPaper }) {
 
       {/* PDF Viewer Section */}
       <section className="py-8 md:py-12 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
-        <div className="container mx-auto px-4 sm:px-6">
+        <div className="site-container mx-auto px-4 sm:px-6">
           <div className="max-w-7xl mx-auto">
             {/* PDF Controls */}
             <motion.div 

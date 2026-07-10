@@ -72,7 +72,7 @@ export default function RoadmapPage() {
 
   return (
     <>
-      <div className="container mx-auto">
+      <div className="site-container mx-auto">
         <Breadcrumb />
       </div>
       <div className="flex flex-col gap-y-section-mobile md:gap-y-section-tablet lg:gap-y-section-desktop">
@@ -89,7 +89,7 @@ export default function RoadmapPage() {
             />
           </div>
 
-          <div className="container mx-auto px-4 relative z-10">
+          <div className="site-container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -124,7 +124,7 @@ export default function RoadmapPage() {
 
         {/* Phase Navigation */}
         <section className="py-8 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
-        <div className="container mx-auto px-4">
+        <div className="site-container mx-auto px-4">
           <div className="flex flex-wrap justify-center gap-4">
             {phases.map((phase) => (
               <Button
@@ -147,7 +147,7 @@ export default function RoadmapPage() {
 
         {/* Active Phase Details */}
         <section className="py-16">
-        <div className="container mx-auto px-4">
+        <div className="site-container mx-auto px-4">
           {phases.map((phase) => (
             <motion.div
               key={phase.id}
@@ -228,7 +228,7 @@ export default function RoadmapPage() {
 
         {/* Progress Timeline */}
         <section className="py-16 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
-        <div className="container mx-auto px-4">
+        <div className="site-container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
@@ -285,7 +285,7 @@ export default function RoadmapPage() {
 
         {/* Call to Action */}
         <section className="py-16 bg-gradient-to-r from-[#0097b2] to-[#eeba2b]">
-        <div className="container mx-auto px-4 text-center">
+        <div className="site-container mx-auto px-4 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}

@@ -16,7 +16,7 @@ export default function FeaturedNews() {
   
   return (
     <section className="py-16 md:py-24 bg-white dark:bg-[#4F5554]">
-      <div className="container mx-auto px-4">
+      <div className="site-container mx-auto px-4">
         <div className="flex flex-col md:flex-row justify-between items-center mb-12">
           <div>
             <h2 className="text-3xl md:text-4xl font-bold mb-2 dark:text-[#FCFAEF]">Latest News</h2>

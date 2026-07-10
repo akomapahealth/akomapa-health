@@ -25,7 +25,7 @@ export default function HubDetailHero({ hub }: HubDetailHeroProps) {
       }}
       aria-labelledby="hub-detail-hero-heading"
     >
-      <div className="container relative z-10 mx-auto px-4 sm:px-6">
+      <div className="site-container relative z-10 mx-auto px-4 sm:px-6">
         <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-14">
           <FadeIn className="lg:col-span-7">
             <span className="inline-flex rounded-full bg-[#FCFAEF]/15 px-4 py-1 text-xs font-semibold uppercase tracking-wide text-[#FCFAEF]">

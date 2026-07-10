@@ -175,6 +175,45 @@ html.dark {
   color-scheme: dark;
 }
 
+@layer components {
+  .site-container {
+    width: 100%;
+    max-width: 90rem;
+    margin-inline: auto;
+    padding-inline: 1rem !important;
+  }
+
+  @media (min-width: 40rem) {
+    .site-container {
+      padding-inline: 1.5rem !important;
+    }
+  }
+
+  @media (min-width: 48rem) {
+    .site-container {
+      padding-inline: 2rem !important;
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .site-container {
+      padding-inline: 2.5rem !important;
+    }
+  }
+
+  @media (min-width: 80rem) {
+    .site-container {
+      padding-inline: 3rem !important;
+    }
+  }
+
+  @media (min-width: 96rem) {
+    .site-container {
+      padding-inline: 4rem !important;
+    }
+  }
+}
+
 .homepage-hover-card,
 .homepage-hover-panel {
   transition-property: transform, box-shadow, border-color;

@@ -61,7 +61,7 @@ function HeaderContent() {
     <header className={`sticky top-0 z-50 w-full transition-all duration-300 ${
       isScrolled ? 'bg-[#FCFAEF] shadow-md py-2 dark:bg-[#121514]' : 'bg-[#FCFAEF]/80 backdrop-blur-md py-4 dark:bg-[#121514]/90'
     }`}>
-      <div className="container mx-auto px-4">
+      <div className="site-container mx-auto px-4">
         <div className="flex items-center gap-4">
           {/* Logo */}
           <BrandLogo className="flex-shrink-0" priority />
@@ -151,7 +151,7 @@ export default function Header() {
   return (
     <Suspense fallback={
       <header className="sticky top-0 z-50 w-full bg-[#FCFAEF] dark:bg-[#121514] py-4">
-        <div className="container mx-auto px-4">
+        <div className="site-container mx-auto px-4">
           <div className="flex items-center">
             <div className="animate-pulse bg-gray-200 dark:bg-gray-700 h-12 w-48 rounded"></div>
             <div className="hidden xl:flex items-center ml-auto space-x-4">

@@ -3,7 +3,7 @@ import { transparencyAllocations } from "@/data/donation";
 export default function TransparencySection() {
   return (
     <section className="bg-[#FCFAEF] py-12 dark:bg-[#1C1F1E] md:py-16">
-      <div className="container mx-auto px-4">
+      <div className="site-container mx-auto px-4">
         <div className="mx-auto max-w-5xl rounded-2xl border border-[#E6E7E7] bg-white p-6 dark:border-[#4F5554] dark:bg-[#2F3332] md:p-8">
           <p className="mb-2 font-semibold uppercase tracking-wide text-amber">Transparency</p>
           <h2 className="mb-6 text-3xl font-bold text-[#1C1F1E] dark:text-[#FCFAEF]">Where funds go</h2>

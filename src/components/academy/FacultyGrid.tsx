@@ -73,7 +73,7 @@ function FacultyCard({ faculty }: { faculty: FacultyMember }) {
 export default function FacultyGrid() {
   return (
     <section className="overflow-x-hidden bg-[#FCFAEF] py-16 dark:bg-[#1C1F1E] md:py-24">
-      <div className="container mx-auto px-4 sm:px-6">
+      <div className="site-container mx-auto px-4 sm:px-6">
         <FadeIn direction="up" className="mx-auto mb-10 max-w-3xl space-y-3 text-center sm:space-y-4">
           <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#0097b2] dark:text-[#66C4DC] sm:text-sm">
             Faculty

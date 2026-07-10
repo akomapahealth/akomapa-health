@@ -50,7 +50,7 @@ export function PublicSection({
           className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(135deg,rgba(0,151,178,0.08),transparent_38%,rgba(238,186,43,0.08))] dark:bg-[linear-gradient(135deg,rgba(0,151,178,0.12),transparent_38%,rgba(238,186,43,0.08))]"
         />
       ) : null}
-      <div className={cn("container relative z-10 mx-auto px-4", containerClassName)}>
+      <div className={cn("site-container relative z-10 mx-auto px-4", containerClassName)}>
         {children}
       </div>
     </section>

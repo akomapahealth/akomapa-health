@@ -11,7 +11,7 @@ export const metadata: Metadata = buildPageMetadata("/community-hubs/ucc");
 export default function UCCHubPage() {
   return (
     <div data-rebrand-page className="bg-background text-foreground">
-      <div className="container mx-auto">
+      <div className="site-container mx-auto">
         <Breadcrumb />
       </div>
       <CommunityHubDetailPage hub={hub} />

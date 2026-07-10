@@ -67,7 +67,7 @@ export default function PhilosophySection({
         </div>
       )}
 
-      <div className={cn("container mx-auto max-w-7xl px-4", isTealGradient && "relative z-10")}>
+      <div className={cn("site-container mx-auto max-w-7xl px-4", isTealGradient && "relative z-10")}>
         <div className="mx-auto grid max-w-6xl items-center justify-items-center gap-10 md:grid-cols-2 md:gap-12 lg:gap-16">
           <FadeIn
             direction={isImageFirstOnDesktop ? "right" : "left"}

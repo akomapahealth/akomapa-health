@@ -34,7 +34,7 @@ export default function NewsPage() {
 
   return (
     <>
-      <div className="container mx-auto">
+      <div className="site-container mx-auto">
         <Breadcrumb />
       </div>
       <div className="flex flex-col gap-y-section-mobile md:gap-y-section-tablet lg:gap-y-section-desktop">
@@ -44,7 +44,7 @@ export default function NewsPage() {
           <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#eeba2b]/15 rounded-full translate-y-1/2 -translate-x-1/2 blur-3xl" />
           <div className="absolute top-1/2 right-1/4 w-32 h-32 bg-[#F5C94D]/20 rounded-full blur-2xl" />
 
-          <div className="container mx-auto px-4 sm:px-6 relative z-10 h-full flex flex-col lg:flex-row lg:items-center gap-10 sm:gap-12">
+          <div className="site-container mx-auto px-4 sm:px-6 relative z-10 h-full flex flex-col lg:flex-row lg:items-center gap-10 sm:gap-12">
             <div className="flex-1 max-w-3xl pt-4 sm:pt-8 lg:pt-0">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -150,7 +150,7 @@ export default function NewsPage() {
 
         {/* News grid */}
         <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
-          <div className="container mx-auto px-4 sm:px-6">
+          <div className="site-container mx-auto px-4 sm:px-6">
             <FadeIn
               className="text-center max-w-3xl mx-auto mb-10"
               duration={motionDurations.enter}
@@ -214,7 +214,7 @@ export default function NewsPage() {
             <div className="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-[#F5C94D]/10 blur-3xl" />
           </div>
 
-          <div className="relative container mx-auto px-4 sm:px-6">
+          <div className="relative site-container mx-auto px-4 sm:px-6">
             <div className="max-w-3xl mx-auto text-center">
               <motion.div
                 initial={{ opacity: 0, y: 24 }}

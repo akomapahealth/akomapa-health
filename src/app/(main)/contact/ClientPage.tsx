@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
 export default function ContactPage() {
   return (
     <>
-      <div className="container mx-auto">
+      <div className="site-container mx-auto">
         <Breadcrumb />
       </div>
       <div className="flex flex-col gap-y-section-mobile md:gap-y-section-tablet lg:gap-y-section-desktop">
@@ -17,7 +17,7 @@ export default function ContactPage() {
         <div className="absolute top-0 right-0 w-64 h-64 bg-[#FCFAEF]/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl" />
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#FCFAEF]/10 rounded-full translate-y-1/2 -translate-x-1/2 blur-3xl" />
         
-        <div className="container mx-auto px-4 sm:px-6 relative z-10">
+        <div className="site-container mx-auto px-4 sm:px-6 relative z-10">
           <div className="max-w-5xl pt-4 sm:pt-8">
             <motion.h1 
               initial={{ opacity: 0, y: 40 }}
@@ -41,7 +41,7 @@ export default function ContactPage() {
         
         {/* Contact Section */}
         <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
-        <div className="container mx-auto px-4 sm:px-6">
+        <div className="site-container mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12">
             {/* Contact Form */}
             <motion.div

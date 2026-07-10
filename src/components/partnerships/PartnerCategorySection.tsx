@@ -200,7 +200,7 @@ export default function PartnerCategorySection({
         </div>
       )}
 
-      <div className={`container mx-auto px-4 sm:px-6 ${isTealGradient ? "relative z-10" : ""}`}>
+      <div className={`site-container mx-auto px-4 sm:px-6 ${isTealGradient ? "relative z-10" : ""}`}>
         {/* Section header */}
         <FadeIn
           direction="up"

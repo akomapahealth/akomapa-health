@@ -100,7 +100,7 @@ export default function PartnerPage() {
 
   return (
     <>
-      <div className="container mx-auto">
+      <div className="site-container mx-auto">
         <Breadcrumb />
       </div>
       
@@ -109,7 +109,7 @@ export default function PartnerPage() {
         <div className="absolute top-0 right-0 w-64 h-64 bg-[#FCFAEF]/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl" />
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#FCFAEF]/10 rounded-full translate-y-1/2 -translate-x-1/2 blur-3xl" />
         
-        <div className="container mx-auto px-4 sm:px-6 relative z-10">
+        <div className="site-container mx-auto px-4 sm:px-6 relative z-10">
           <div className="max-w-5xl pt-4 sm:pt-8">
             <motion.h1 
               initial={{ opacity: 0, y: 40 }}
@@ -133,7 +133,7 @@ export default function PartnerPage() {
 
       {/* Partnership Options - Bento Style Tab Switcher */}
       <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
-        <div className="container mx-auto px-4 sm:px-6">
+        <div className="site-container mx-auto px-4 sm:px-6">
           <div className="max-w-7xl mx-auto">
             {/* Bento Style Tab Switcher */}
             <motion.div
@@ -565,7 +565,7 @@ export default function PartnerPage() {
           <div className="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-[#F5C94D]/10 blur-3xl" />
         </div>
 
-        <div className="relative container mx-auto px-4 sm:px-6">
+        <div className="relative site-container mx-auto px-4 sm:px-6">
           <div className="max-w-6xl mx-auto">
             <motion.div
               initial={{ opacity: 0, y: 40 }}

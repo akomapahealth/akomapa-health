@@ -524,7 +524,7 @@ export default function TeamPage() {
 
   return (
     <>
-      <div className="container mx-auto px-4 sm:px-6 lg:px-10 xl:px-12 2xl:px-6">
+      <div className="site-container mx-auto px-4 sm:px-6 lg:px-10 xl:px-12 2xl:px-6">
         <Breadcrumb />
       </div>
 
@@ -620,7 +620,7 @@ export default function TeamPage() {
       </section>
 
       <section className="py-12 sm:py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
-        <div className="container mx-auto px-4 sm:px-6">
+        <div className="site-container mx-auto px-4 sm:px-6">
           <FadeIn direction="up" className="max-w-3xl mb-8 sm:mb-12 text-center mx-auto space-y-3 sm:space-y-4">
             <p className="text-xs sm:text-sm font-semibold tracking-[0.3em] sm:tracking-[0.5em] text-[#0097b2]">Executive Team</p>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#0B2F3A] dark:text-[#FCFAEF]">
@@ -647,7 +647,7 @@ export default function TeamPage() {
       </section>
 
       <section className="py-12 sm:py-16 md:py-24 bg-gradient-to-r from-[#0097b2] via-[#0F4C5C] to-[#031C3A] text-white">
-        <div className="container mx-auto px-4 sm:px-6">
+        <div className="site-container mx-auto px-4 sm:px-6">
           <FadeIn direction="up" className="max-w-3xl mb-8 sm:mb-12 text-center mx-auto space-y-3 sm:space-y-4">
             <p className="text-xs sm:text-sm font-semibold tracking-[0.3em] sm:tracking-[0.5em] text-[#F5C94D]">Advisory Board</p>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold">
@@ -669,7 +669,7 @@ export default function TeamPage() {
       </section>
 
       <section className="py-12 sm:py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
-        <FadeIn direction="up" className="container mx-auto px-4 sm:px-6 text-center space-y-4 sm:space-y-6">
+        <FadeIn direction="up" className="site-container mx-auto px-4 sm:px-6 text-center space-y-4 sm:space-y-6">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#0B2F3A] dark:text-[#FCFAEF]">
             Join the hearts behind the mission
           </h2>
@@ -693,4 +693,3 @@ export default function TeamPage() {
     </>
   );
 }
-
