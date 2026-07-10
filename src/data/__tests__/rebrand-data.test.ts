@@ -210,8 +210,10 @@ describe("rebrand content data", () => {
 
   it("uses one canonical, valid set of partner logo assets", () => {
     const logoNames = allPartnerLogos.map(({ name }) => name);
+    const logoPaths = allPartnerLogos.map(({ logo }) => logo);
 
     expect(new Set(logoNames).size).toBe(allPartnerLogos.length);
+    expect(new Set(logoPaths).size).toBe(allPartnerLogos.length);
     expect(logoNames).not.toContain("Africa Health Collaborative");
     expect(logoNames).not.toContain("African Innovation Institute");
     expect(logoNames).toContain("African Impact Initiative");
@@ -223,6 +225,9 @@ describe("rebrand content data", () => {
       allPartnerLogos.find(({ name }) => name === "Yale School of Medicine")
         ?.logo,
     ).toBe("/images/partners/yale-sm-logo.png");
+    expect(partners.find(({ id }) => id === "yale-university")?.logo).toBe(
+      "/images/partners/yale-sm-logo.png",
+    );
     expect(
       allPartnerLogos.find(
         ({ name }) => name === "David Geffen School of Medicine at UCLA",

@@ -28,7 +28,7 @@ export const partners: Partner[] = [
   {
     id: "yale-university",
     name: "Yale University",
-    logo: "/images/partners/yale-uni-logo.png",
+    logo: "/images/partners/yale-sm-logo.png",
     description:
       "A university partner contributing student leadership, faculty expertise, research collaboration, and the New Haven community health hub model.",
     category: "university",
@@ -229,11 +229,6 @@ export const academicAndResearchPartnerLogos = [
 ] satisfies readonly PartnerLogo[];
 
 export const allPartnerLogos = [
-  {
-    name: "Yale University",
-    logo: "/images/partners/yale-uni-logo.png",
-    url: "https://www.yale.edu/",
-  },
   ...academicAndResearchPartnerLogos,
   {
     name: "African Health Innovation Centre",
