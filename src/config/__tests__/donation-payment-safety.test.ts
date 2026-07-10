@@ -1,5 +1,5 @@
 import { execFileSync } from "node:child_process";
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { extname, resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 
@@ -35,7 +35,8 @@ describe("donation payment content safety", () => {
       .split("\0")
       .filter(Boolean)
       .filter((file) => textExtensions.has(extname(file)))
-      .filter((file) => file !== "package-lock.json");
+      .filter((file) => file !== "package-lock.json")
+      .filter((file) => existsSync(resolve(process.cwd(), file)));
 
     const violations = trackedFiles.flatMap((file) => {
       const contents = readFileSync(resolve(process.cwd(), file), "utf8");

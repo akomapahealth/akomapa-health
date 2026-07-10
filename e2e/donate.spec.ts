@@ -21,9 +21,18 @@ async function verifySafePaymentPanel(panel: Locator) {
       "Bank transfer instructions are being verified and will be available soon.",
     ),
   ).toBeVisible();
-  await expect(panel.getByText("PayPal donations are coming soon.")).toBeVisible();
+  await expect(panel.getByText("PayPal", { exact: true })).toBeVisible();
+  await expect(panel.getByText("Coming soon").first()).toBeVisible();
   await expect(panel.getByRole("link")).toHaveCount(0);
   await expect(panel.getByRole("radio")).toHaveCount(1);
+  await expect(panel.getByTestId("payment-method-paypal")).toHaveAttribute(
+    "aria-disabled",
+    "true",
+  );
+  await expect(panel.getByTestId("payment-method-venmo")).toHaveCSS(
+    "cursor",
+    "not-allowed",
+  );
 
   await panel
     .getByRole("button", { name: "View Mobile Money instructions" })
@@ -37,6 +46,14 @@ async function verifySafePaymentPanel(panel: Locator) {
     panel.getByText(
       "Before completing your transfer, please confirm the account name appears as Akomapa Health Foundation.",
     ),
+  ).toBeVisible();
+  await expect(
+    panel.getByRole("heading", { name: "Let us thank you" }),
+  ).toBeVisible();
+  await expect(panel.getByLabel("Full name")).toBeVisible();
+  await expect(panel.getByLabel("Email address")).toBeVisible();
+  await expect(
+    panel.getByText(/does not verify or confirm that a transfer was completed/i),
   ).toBeVisible();
 }
 
