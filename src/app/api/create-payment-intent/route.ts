@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
+import { isDonationPaymentMethodAvailable } from "@/config/donation-payments";
 
 // Lazy initialization - only check and create Stripe instance when route is called
 function getStripe() {
@@ -13,6 +14,16 @@ function getStripe() {
 }
 
 export async function POST(request: NextRequest) {
+  if (!isDonationPaymentMethodAvailable("stripeCard")) {
+    return NextResponse.json(
+      {
+        error:
+          "Online card and bank-account donations are not currently available.",
+      },
+      { status: 503 },
+    );
+  }
+
   try {
     const stripe = getStripe();
     const { amount, frequency, donorName, donorEmail } = await request.json();

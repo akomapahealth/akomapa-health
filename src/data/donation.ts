@@ -73,12 +73,3 @@ export const donationCampaign = {
   goal: 100000,
   label: "raised toward annual community care goal",
 };
-
-export const paymentMethods = [
-  { id: "card", label: "Credit / Debit Card" },
-  { id: "momo", label: "MTN Mobile Money" },
-  { id: "paypal", label: "PayPal Giving" },
-  { id: "bank", label: "Bank Transfer" },
-] as const;
-
-export type PaymentMethod = (typeof paymentMethods)[number]["id"];

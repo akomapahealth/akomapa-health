@@ -5,29 +5,16 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { CreditCard, Smartphone, Info, ArrowRight, DollarSign, Calendar, Heart, Sparkles } from "lucide-react";
+import {
+  ArrowRight,
+  DollarSign,
+  Heart,
+  Smartphone,
+  Sparkles,
+} from "lucide-react";
 import Image from "@/components/common/Image";
-import StripeCheckout from "@/components/payments/StripeCheckout";
-import { Alert, AlertDescription } from "@/components/ui/alert";
-import { AlertCircle, CheckCircle2 } from "lucide-react";
 import Breadcrumb from "@/components/layout/Breadcrumb";
-
-// Payment method options
-const paymentMethods = [
-  {
-    id: "card",
-    name: "Credit/Debit Card",
-    icon: CreditCard,
-    description: "Pay securely with your credit or debit card",
-  },
-  {
-    id: "mobile",
-    name: "Mobile Money",
-    icon: Smartphone,
-    description: "Pay using any mobile money service in Ghana",
-  },
-];
+import DonationPaymentMethods from "@/components/donate/DonationPaymentMethods";
 
 // Partner donation amounts
 const partnerAmounts = [
@@ -91,103 +78,25 @@ const impactAreas = [
 ];
 
 export default function PartnerPage() {
-  const [selectedMethod, setSelectedMethod] = useState("card");
   const [selectedPartnerAmount, setSelectedPartnerAmount] = useState("20");
   const [selectedOneTimeAmount, setSelectedOneTimeAmount] = useState("25");
   const [customPartnerAmount, setCustomPartnerAmount] = useState("");
   const [customOneTimeAmount, setCustomOneTimeAmount] = useState("");
-  const [selectedFrequency, setSelectedFrequency] = useState("monthly");
-  const [showMobileMoneyInfo, setShowMobileMoneyInfo] = useState(false);
-  const [showDonorForm, setShowDonorForm] = useState(false);
-  const [donorName, setDonorName] = useState("");
-  const [donorEmail, setDonorEmail] = useState("");
   const [activeSection, setActiveSection] = useState<"partner" | "one-time">("partner");
-  const [paymentStatus, setPaymentStatus] = useState<{
-    type: "success" | "error" | null;
-    message: string;
-  }>({ type: null, message: "" });
 
-  const handlePaymentSuccess = async () => {
-    try {
-      await sendDonationNotification();
-    } catch (error) {
-      console.error("Failed to send notification email:", error);
-      setPaymentStatus({
-        type: "success",
-        message: "Thank you for your partnership! Your payment was successful. Note: Email confirmation may be delayed.",
-      });
-      return;
-    }
+  const selectedPartnerGivingLevel =
+    selectedPartnerAmount === "custom"
+      ? customPartnerAmount
+        ? `$${customPartnerAmount} monthly`
+        : "a custom monthly amount"
+      : `$${selectedPartnerAmount} monthly`;
 
-    setPaymentStatus({
-      type: "success",
-      message: "Thank you for your partnership! Your payment was successful.",
-    });
-    setShowDonorForm(false);
-  };
-
-  const handlePaymentError = (error: string) => {
-    setPaymentStatus({
-      type: "error",
-      message: error,
-    });
-  };
-
-  const sendDonationNotification = async () => {
-    const frequencyText = activeSection === "partner" ? "monthly" : selectedFrequency;
-    const amount = getDonationAmount();
-    
-    const emailData = {
-      to: "akomapahealth@gmail.com",
-      subject: `New ${activeSection === "partner" ? "Partner" : "Donation"} from ${donorName}`,
-      html: `
-        <h2>New ${activeSection === "partner" ? "Partner" : "Donation"} Received</h2>
-        <p><strong>Donor Name:</strong> ${donorName}</p>
-        <p><strong>Donor Email:</strong> ${donorEmail}</p>
-        <p><strong>Amount:</strong> $${amount.toFixed(2)}</p>
-        <p><strong>Frequency:</strong> ${frequencyText}</p>
-        <p><strong>Type:</strong> ${activeSection === "partner" ? "Partner Program" : "One-Time Gift"}</p>
-        <p><strong>Payment Method:</strong> ${selectedMethod === "card" ? "Credit/Debit Card" : "Mobile Money"}</p>
-        <p><strong>Date:</strong> ${new Date().toLocaleDateString()}</p>
-      `
-    };
-
-    const response = await fetch("/api/send-notification", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(emailData),
-    });
-
-    if (!response.ok) {
-      throw new Error("Failed to send notification email");
-    }
-  };
-
-  const getDonationAmount = () => {
-    if (activeSection === "partner") {
-      if (selectedPartnerAmount === "custom") {
-        const amount = parseFloat(customPartnerAmount) || 0;
-        return amount > 0 ? amount : 0;
-      }
-      return parseFloat(selectedPartnerAmount);
-    } else {
-      if (selectedOneTimeAmount === "custom") {
-        const amount = parseFloat(customOneTimeAmount) || 0;
-        return amount > 0 ? amount : 0;
-      }
-      return parseFloat(selectedOneTimeAmount);
-    }
-  };
-
-  const handlePayClick = () => {
-    if (selectedMethod === "card") {
-      setShowDonorForm(true);
-    } else {
-      setShowMobileMoneyInfo(!showMobileMoneyInfo);
-    }
-  };
+  const selectedOneTimeGivingLevel =
+    selectedOneTimeAmount === "custom"
+      ? customOneTimeAmount
+        ? `$${customOneTimeAmount} one time`
+        : "a custom one-time amount"
+      : `$${selectedOneTimeAmount} one time`;
 
   return (
     <>
@@ -495,151 +404,10 @@ export default function PartnerPage() {
                     </motion.div>
                   )}
 
-                  {/* Payment Method */}
-                  <div className="mb-8">
-                    <Label className="text-base sm:text-lg font-semibold text-[#1C1F1E] dark:text-[#FCFAEF] mb-4 block">
-                      Select Payment Method
-                    </Label>
-                    <RadioGroup
-                      value={selectedMethod}
-                      onValueChange={setSelectedMethod}
-                      className="space-y-3 sm:space-y-4"
-                    >
-                      {paymentMethods.map((method) => (
-                        <div
-                          key={method.id}
-                          className={`flex items-center space-x-3 sm:space-x-4 p-4 sm:p-5 rounded-xl border-2 cursor-pointer transition-all duration-300 ${
-                            selectedMethod === method.id
-                              ? "border-[#eeba2b] bg-[#eeba2b]/10 shadow-lg"
-                              : "border-[#E6E7E7] dark:border-[#4F5554] hover:border-[#eeba2b]/50 hover:shadow-md"
-                          }`}
-                          onClick={() => setSelectedMethod(method.id)}
-                        >
-                          <RadioGroupItem
-                            value={method.id}
-                            id={method.id}
-                            className="text-[#eeba2b]"
-                          />
-                          <Label
-                            htmlFor={method.id}
-                            className="flex-1 cursor-pointer"
-                          >
-                            <div>
-                              <div className="font-semibold text-base sm:text-lg text-[#1C1F1E] dark:text-[#FCFAEF] mb-1">
-                                {method.name}
-                              </div>
-                              <div className="text-sm sm:text-base text-[#2F3332]/80 dark:text-[#E6E7E7]/80">
-                                {method.description}
-                              </div>
-                            </div>
-                          </Label>
-                        </div>
-                      ))}
-                    </RadioGroup>
-                  </div>
-
-                  {/* Donor Details Form */}
-                  {showDonorForm && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className="mb-8 p-6 bg-[#FCFAEF] dark:bg-[#1C1F1E] rounded-lg"
-                    >
-                      <h3 className="text-lg font-medium text-[#1C1F1E] dark:text-[#FCFAEF] mb-4">
-                        Please provide your details
-                      </h3>
-                      <div className="space-y-4">
-                        <div>
-                          <Label htmlFor="donorName" className="text-[#2F3332] dark:text-[#E6E7E7]">
-                            Full Name *
-                          </Label>
-                          <Input
-                            id="donorName"
-                            type="text"
-                            value={donorName}
-                            onChange={(e) => setDonorName(e.target.value)}
-                            placeholder="Enter your full name"
-                            className="mt-1"
-                            required
-                          />
-                        </div>
-                        <div>
-                          <Label htmlFor="donorEmail" className="text-[#2F3332] dark:text-[#E6E7E7]">
-                            Email Address *
-                          </Label>
-                          <Input
-                            id="donorEmail"
-                            type="email"
-                            value={donorEmail}
-                            onChange={(e) => setDonorEmail(e.target.value)}
-                            placeholder="Enter your email address"
-                            className="mt-1"
-                            required
-                          />
-                        </div>
-                      </div>
-                    </motion.div>
-                  )}
-
-                  {/* Payment Form */}
-                  {selectedMethod === "card" && showDonorForm && donorName && donorEmail && (
-                    <StripeCheckout
-                      amount={getDonationAmount()}
-                      onSuccess={handlePaymentSuccess}
-                      onError={handlePaymentError}
-                      frequency="monthly"
-                      donorName={donorName}
-                      donorEmail={donorEmail}
-                    />
-                  )}
-
-                  {/* Pay Button for Card Payments */}
-                  {selectedMethod === "card" && !showDonorForm && (
-                    <Button
-                      type="button"
-                      onClick={handlePayClick}
-                      className="w-full h-12 bg-[#eeba2b] hover:bg-[#0097b2] text-[#FCFAEF] text-lg"
-                    >
-                      Become a Partner
-                    </Button>
-                  )}
-
-                  {/* Mobile Money */}
-                  {selectedMethod === "mobile" && (
-                    <div className="space-y-4">
-                      <Button
-                        type="button"
-                        className="w-full h-12 bg-[#eeba2b] hover:bg-[#0097b2] text-[#FCFAEF] text-lg"
-                        onClick={handlePayClick}
-                      >
-                        Pay with Mobile Money
-                      </Button>
-                      
-                      {showMobileMoneyInfo && (
-                        <Alert className="bg-[#FCFAEF] dark:bg-[#2F3332] border-[#eeba2b]">
-                          <Info className="h-4 w-4 text-[#eeba2b]" />
-                          <AlertDescription className="text-[#2F3332] dark:text-[#E6E7E7]">
-                            <div className="space-y-2">
-                              <h4 className="font-bold text-[#1C1F1E] dark:text-[#FCFAEF] mb-2">Send your monthly partnership to:</h4>
-                              <div className="space-y-1 text-sm">
-                                <p><strong>Name:</strong> Akomapa Health Foundation</p>
-                                <p><strong>Phone Number:</strong> +233 54 111 1111</p>
-                                <p><strong>Amount:</strong> ${getDonationAmount()} (monthly)</p>
-                                <p><strong>Reference:</strong> Your name + &quot;Partner&quot;</p>
-                              </div>
-                              <p className="mt-4 text-sm">
-                                After sending the payment, please email us at{" "}
-                                <a href="mailto:akomapahealth@gmail.com" className="text-[#eeba2b] hover:text-[#0097b2]">
-                                  akomapahealth@gmail.com
-                                </a>{" "}
-                                with your payment confirmation.
-                              </p>
-                            </div>
-                          </AlertDescription>
-                        </Alert>
-                      )}
-                    </div>
-                  )}
+                  <DonationPaymentMethods
+                    flow="partner"
+                    selectedGivingLevel={selectedPartnerGivingLevel}
+                  />
                 </motion.div>
               </motion.div>
             )}
@@ -667,10 +435,10 @@ export default function PartnerPage() {
                       <span className="h-2.5 w-2.5 rounded-full bg-[#C1C3C3]" />
                     </div>
                     <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-[#1C1F1E] dark:text-[#FCFAEF] mb-4 sm:mb-6">
-                      Make a One-Time or Monthly Gift
+                      Make a One-Time Gift
                     </h2>
                     <p className="text-base sm:text-lg text-[#2F3332]/80 dark:text-[#E6E7E7]/80 max-w-3xl mx-auto leading-relaxed">
-                      Want to give at your own pace? Use our secure donation form to give any amount, once or monthly. Every contribution, large or small, fuels medications, labs, and care at our clinic sites.
+                      Give at your own pace using verified MTN Mobile Money instructions. Every one-time contribution, large or small, fuels medications, labs, and care at our clinic sites.
                     </p>
                   </div>
 
@@ -683,9 +451,9 @@ export default function PartnerPage() {
                         description: "Give what feels right for you, whether it's $10 or $1,000"
                       },
                       { 
-                        title: "Set your own frequency",
-                        icon: Calendar,
-                        description: "One-time, monthly, or annual—you decide when and how often"
+                        title: "Manual Mobile Money transfer",
+                        icon: Smartphone,
+                        description: "Review the verified MTN recipient details before completing a one-time transfer"
                       },
                       { 
                         title: "100% supports care",
@@ -779,219 +547,16 @@ export default function PartnerPage() {
                     </motion.div>
                   )}
 
-                  {/* Donation Frequency */}
-                  <div className="mb-8">
-                    <Label className="text-lg font-medium text-[#1C1F1E] dark:text-[#FCFAEF] mb-4 block">
-                      Select Donation Frequency
-                    </Label>
-                    <RadioGroup
-                      value={selectedFrequency}
-                      onValueChange={setSelectedFrequency}
-                      className="space-y-4"
-                    >
-                      {[
-                        { value: "one-time", label: "One-Time Gift" },
-                        { value: "monthly", label: "Monthly Gift" },
-                        { value: "annually", label: "Annual Gift" },
-                      ].map((frequency) => (
-                        <div
-                          key={frequency.value}
-                          className={`flex items-center space-x-4 p-4 rounded-lg border-2 cursor-pointer transition-colors ${
-                            selectedFrequency === frequency.value
-                              ? "border-[#0097b2] bg-[#0097b2]/5"
-                              : "border-[#E6E7E7] dark:border-[#4F5554] hover:border-[#0097b2]/50"
-                          }`}
-                          onClick={() => setSelectedFrequency(frequency.value)}
-                        >
-                          <RadioGroupItem
-                            value={frequency.value}
-                            id={frequency.value}
-                            className="text-[#0097b2]"
-                          />
-                          <Label
-                            htmlFor={frequency.value}
-                            className="flex-1 cursor-pointer"
-                          >
-                            <div className="font-medium text-[#1C1F1E] dark:text-[#FCFAEF]">
-                              {frequency.label}
-                            </div>
-                          </Label>
-                        </div>
-                      ))}
-                    </RadioGroup>
-                  </div>
-
-                  {/* Payment Method */}
-                  <div className="mb-8">
-                    <Label className="text-lg font-medium text-[#1C1F1E] dark:text-[#FCFAEF] mb-4 block">
-                      Select Payment Method
-                    </Label>
-                    <RadioGroup
-                      value={selectedMethod}
-                      onValueChange={setSelectedMethod}
-                      className="space-y-4"
-                    >
-                      {paymentMethods.map((method) => (
-                        <div
-                          key={method.id}
-                          className={`flex items-center space-x-4 p-4 rounded-lg border-2 cursor-pointer transition-colors ${
-                            selectedMethod === method.id
-                              ? "border-[#0097b2] bg-[#0097b2]/5"
-                              : "border-[#E6E7E7] dark:border-[#4F5554] hover:border-[#0097b2]/50"
-                          }`}
-                          onClick={() => setSelectedMethod(method.id)}
-                        >
-                          <RadioGroupItem
-                            value={method.id}
-                            id={method.id}
-                            className="text-[#0097b2]"
-                          />
-                          <Label
-                            htmlFor={method.id}
-                            className="flex-1 cursor-pointer"
-                          >
-                            <div className="flex items-center">
-                              <method.icon className="h-6 w-6 mr-3 text-[#0097b2]" />
-                              <div>
-                                <div className="font-medium text-[#1C1F1E] dark:text-[#FCFAEF]">
-                                  {method.name}
-                                </div>
-                                <div className="text-sm text-[#2F3332] dark:text-[#E6E7E7]">
-                                  {method.description}
-                                </div>
-                              </div>
-                            </div>
-                          </Label>
-                        </div>
-                      ))}
-                    </RadioGroup>
-                  </div>
-
-                  {/* Donor Details Form */}
-                  {showDonorForm && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className="mb-8 p-6 bg-[#FCFAEF] dark:bg-[#1C1F1E] rounded-lg"
-                    >
-                      <h3 className="text-lg font-medium text-[#1C1F1E] dark:text-[#FCFAEF] mb-4">
-                        Please provide your details
-                      </h3>
-                      <div className="space-y-4">
-                        <div>
-                          <Label htmlFor="donorName" className="text-[#2F3332] dark:text-[#E6E7E7]">
-                            Full Name *
-                          </Label>
-                          <Input
-                            id="donorName"
-                            type="text"
-                            value={donorName}
-                            onChange={(e) => setDonorName(e.target.value)}
-                            placeholder="Enter your full name"
-                            className="mt-1"
-                            required
-                          />
-                        </div>
-                        <div>
-                          <Label htmlFor="donorEmail" className="text-[#2F3332] dark:text-[#E6E7E7]">
-                            Email Address *
-                          </Label>
-                          <Input
-                            id="donorEmail"
-                            type="email"
-                            value={donorEmail}
-                            onChange={(e) => setDonorEmail(e.target.value)}
-                            placeholder="Enter your email address"
-                            className="mt-1"
-                            required
-                          />
-                        </div>
-                      </div>
-                    </motion.div>
-                  )}
-
-                  {/* Payment Form */}
-                  {selectedMethod === "card" && showDonorForm && donorName && donorEmail && (
-                    <StripeCheckout
-                      amount={getDonationAmount()}
-                      onSuccess={handlePaymentSuccess}
-                      onError={handlePaymentError}
-                      frequency={selectedFrequency}
-                      donorName={donorName}
-                      donorEmail={donorEmail}
-                    />
-                  )}
-
-                  {/* Pay Button for Card Payments */}
-                  {selectedMethod === "card" && !showDonorForm && (
-                    <Button
-                      type="button"
-                      onClick={handlePayClick}
-                      className="w-full h-12 bg-[#0097b2] hover:bg-[#eeba2b] text-[#FCFAEF] text-lg"
-                    >
-                      Continue to Payment
-                    </Button>
-                  )}
-
-                  {/* Mobile Money */}
-                  {selectedMethod === "mobile" && (
-                    <div className="space-y-4">
-                      <Button
-                        type="button"
-                        className="w-full h-12 bg-[#0097b2] hover:bg-[#eeba2b] text-[#FCFAEF] text-lg"
-                        onClick={handlePayClick}
-                      >
-                        Pay with Mobile Money
-                      </Button>
-                      
-                      {showMobileMoneyInfo && (
-                        <Alert className="bg-[#FCFAEF] dark:bg-[#2F3332] border-[#0097b2]">
-                          <Info className="h-4 w-4 text-[#0097b2]" />
-                          <AlertDescription className="text-[#2F3332] dark:text-[#E6E7E7]">
-                            <div className="space-y-2">
-                              <h4 className="font-bold text-[#1C1F1E] dark:text-[#FCFAEF] mb-2">Send your donation to:</h4>
-                              <div className="space-y-1 text-sm">
-                                <p><strong>Name:</strong> Akomapa Health Foundation</p>
-                                <p><strong>Phone Number:</strong> +233 54 111 1111</p>
-                                <p><strong>Amount:</strong> ${getDonationAmount()}</p>
-                                <p><strong>Reference:</strong> Your name + &quot;Donation&quot;</p>
-                              </div>
-                              <p className="mt-4 text-sm">
-                                After sending the payment, please email us at{" "}
-                                <a href="mailto:akomapahealth@gmail.com" className="text-[#0097b2] hover:text-[#eeba2b]">
-                                  akomapahealth@gmail.com
-                                </a>{" "}
-                                with your payment confirmation.
-                              </p>
-                            </div>
-                          </AlertDescription>
-                        </Alert>
-                      )}
-                    </div>
-                  )}
+                  <DonationPaymentMethods
+                    flow="oneTime"
+                    selectedGivingLevel={selectedOneTimeGivingLevel}
+                  />
                 </motion.div>
               </motion.div>
             )}
           </div>
         </div>
       </section>
-
-      {/* Payment Status Alert */}
-      {paymentStatus.type && (
-        <div className="fixed top-4 right-4 z-50 max-w-md">
-          <Alert
-            variant={paymentStatus.type === "success" ? "default" : "destructive"}
-            className="shadow-lg"
-          >
-            {paymentStatus.type === "success" ? (
-              <CheckCircle2 className="h-4 w-4" />
-            ) : (
-              <AlertCircle className="h-4 w-4" />
-            )}
-            <AlertDescription>{paymentStatus.message}</AlertDescription>
-          </Alert>
-        </div>
-      )}
 
       {/* Corporate Sponsorship Section */}
       <section className="py-16 md:py-24 bg-gradient-to-r from-[#0097b2] via-[#0F4C5C] to-[#031C3A] text-[#FCFAEF] relative overflow-hidden">
