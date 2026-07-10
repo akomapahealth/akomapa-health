@@ -46,18 +46,19 @@ function PartnerCard({
 
   return (
     <div className={cardClass}>
-      {/* Logo */}
-      <div className="mb-4 flex h-20 items-center justify-center rounded-xl bg-white p-3 dark:bg-white">
-        <div className="relative h-14 w-full">
-          <NextImage
-            src={partner.logo}
-            alt={`${partner.name} logo`}
-            fill
-            sizes="200px"
-            className="object-contain"
-          />
+      {partner.logo ? (
+        <div className="mb-4 flex h-20 items-center justify-center rounded-xl bg-white p-3 dark:bg-white">
+          <div className="relative h-14 w-full">
+            <NextImage
+              src={partner.logo}
+              alt={`${partner.name} logo`}
+              fill
+              sizes="200px"
+              className="object-contain"
+            />
+          </div>
         </div>
-      </div>
+      ) : null}
 
       {/* Name */}
       <h3 className={nameClass}>{partner.name}</h3>
@@ -118,18 +119,19 @@ function SinglePartnerLayout({
     <FadeIn direction="up">
       <div className={cardClass}>
         <div className="flex flex-col gap-6 p-6 sm:flex-row sm:items-center sm:gap-10 sm:p-8">
-          {/* Logo */}
-          <div className="flex h-28 w-full shrink-0 items-center justify-center rounded-xl bg-white p-4 dark:bg-white sm:h-32 sm:w-48">
-            <div className="relative h-20 w-full sm:h-24">
-              <NextImage
-                src={partner.logo}
-                alt={`${partner.name} logo`}
-                fill
-                sizes="200px"
-                className="object-contain"
-              />
+          {partner.logo ? (
+            <div className="flex h-28 w-full shrink-0 items-center justify-center rounded-xl bg-white p-4 dark:bg-white sm:h-32 sm:w-48">
+              <div className="relative h-20 w-full sm:h-24">
+                <NextImage
+                  src={partner.logo}
+                  alt={`${partner.name} logo`}
+                  fill
+                  sizes="200px"
+                  className="object-contain"
+                />
+              </div>
             </div>
-          </div>
+          ) : null}
 
           {/* Content */}
           <div className="flex-1">

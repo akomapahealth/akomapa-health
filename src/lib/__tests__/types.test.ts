@@ -245,7 +245,7 @@ describe("rebrand data model contracts", () => {
   it("keeps optional properties optional", () => {
     expectTypeOf<OptionalKeys<Story>>().toEqualTypeOf<"image">();
     expectTypeOf<OptionalKeys<ResearchItem>>().toEqualTypeOf<"link">();
-    expectTypeOf<OptionalKeys<Partner>>().toEqualTypeOf<"website">();
+    expectTypeOf<OptionalKeys<Partner>>().toEqualTypeOf<"logo" | "website">();
     expectTypeOf<OptionalKeys<PhilosophySection>>().toEqualTypeOf<
       "image" | "imageAlt" | "imagePosition" | "quote"
     >();
