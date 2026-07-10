@@ -73,8 +73,14 @@ async function hasHorizontalOverflow(page: Page): Promise<boolean> {
 }
 
 async function getSiteContainerPadding(page: Page): Promise<number> {
-  return page.locator("header .site-container").evaluate((element) =>
-    Number.parseFloat(window.getComputedStyle(element).paddingInlineStart),
+  const container = page
+    .locator("main .site-container")
+    .filter({ visible: true })
+    .first();
+
+  await expect(container).toBeVisible();
+  return container.evaluate((element) =>
+      Number.parseFloat(window.getComputedStyle(element).paddingInlineStart),
   );
 }
 
