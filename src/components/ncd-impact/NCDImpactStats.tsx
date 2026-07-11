@@ -34,7 +34,7 @@ export default function NCDImpactStats() {
       className="bg-[#F4F1E8] py-16 dark:bg-[#1C1F1E] md:py-24"
       aria-labelledby="ncd-impact-stats-heading"
     >
-      <div className="container mx-auto px-4 sm:px-6">
+      <div className="site-container mx-auto px-4 sm:px-6">
         {/* Section header */}
         <FadeIn
           direction="up"

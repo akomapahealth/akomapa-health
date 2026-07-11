@@ -15,7 +15,7 @@ export default function HubsHero() {
         <div className="absolute bottom-0 -left-24 h-96 w-96 rounded-full bg-[#FCFAEF]/10 blur-3xl" />
       </div>
 
-      <div className="container relative z-10 mx-auto px-4 sm:px-6">
+      <div className="site-container relative z-10 mx-auto px-4 sm:px-6">
         <div className="flex flex-col gap-12 lg:flex-row lg:items-center lg:gap-16">
           <FadeIn className="max-w-3xl flex-1">
             <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#F5C94D] sm:text-sm">

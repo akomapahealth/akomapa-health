@@ -22,7 +22,7 @@ export default function PartnershipPhilosophy() {
       className="bg-[#FCFAEF] py-16 dark:bg-[#1C1F1E] md:py-24"
       aria-labelledby="partnership-philosophy-heading"
     >
-      <div className="container mx-auto px-4 sm:px-6">
+      <div className="site-container mx-auto px-4 sm:px-6">
         {/* Section header */}
         <FadeIn
           direction="up"

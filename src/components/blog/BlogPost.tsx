@@ -68,7 +68,7 @@ export function BlogPost({ post, related, hasMoreByAuthor }: BlogPostProps) {
       {/* Breadcrumb */}
       <nav
         aria-label="Breadcrumb"
-        className="container mx-auto px-4 py-4 sm:px-6"
+        className="site-container mx-auto px-4 py-4 sm:px-6"
       >
         <ol className="flex flex-wrap items-center text-sm text-[#2F3332]/70 dark:text-[#FCFAEF]/70">
           <li className="flex items-center">
@@ -106,7 +106,7 @@ export function BlogPost({ post, related, hasMoreByAuthor }: BlogPostProps) {
             <div className="absolute bottom-0 left-0 h-96 w-96 -translate-x-1/3 translate-y-1/2 rounded-full bg-[#eeba2b]/10 blur-3xl" />
           </div>
 
-          <div className="container relative z-10 mx-auto px-4 sm:px-6">
+          <div className="site-container relative z-10 mx-auto px-4 sm:px-6">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -187,7 +187,7 @@ export function BlogPost({ post, related, hasMoreByAuthor }: BlogPostProps) {
         {/* Hero media — overlaps header */}
         {posterSrc && (
           <div className="relative z-10 -mt-8 mb-4 sm:-mt-12 md:-mt-16">
-            <div className="container mx-auto px-4 sm:px-6">
+            <div className="site-container mx-auto px-4 sm:px-6">
               <motion.div
                 initial={{ opacity: 0, y: 30, scale: 0.98 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -239,7 +239,7 @@ export function BlogPost({ post, related, hasMoreByAuthor }: BlogPostProps) {
 
         {/* Body */}
         <section className="bg-[#FCFAEF] py-10 md:py-14 dark:bg-[#1C1F1E]">
-          <div className="container mx-auto px-4 sm:px-6">
+          <div className="site-container mx-auto px-4 sm:px-6">
             <FadeIn
               className="mx-auto max-w-3xl"
               duration={motionDurations.enter}

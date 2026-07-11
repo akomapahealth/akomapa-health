@@ -49,7 +49,7 @@ const joinWays = [
 export default function CallToAction() {
   return (
     <section className="py-16 md:py-24 bg-gradient-to-r from-[#0097b2] to-[#0F4C5C] text-[#FCFAEF] relative overflow-hidden">
-      <div className="relative container mx-auto px-4">
+      <div className="relative site-container mx-auto px-4">
         <PublicSectionHeader
           eyebrow="Get Involved"
           eyebrowTone="gold"

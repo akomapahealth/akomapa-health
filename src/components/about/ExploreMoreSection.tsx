@@ -17,7 +17,7 @@ export default function ExploreMoreSection() {
         <div className="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-[#F5C94D]/10 blur-3xl" />
       </div>
 
-      <div className="container relative mx-auto px-4 sm:px-6">
+      <div className="site-container relative mx-auto px-4 sm:px-6">
         <FadeIn className="mx-auto max-w-4xl text-center">
           <p className="text-sm font-bold uppercase tracking-[0.18em] text-[#F5C94D]">
             Explore More

@@ -22,7 +22,7 @@ export default function CertificationSection() {
         <div className="absolute bottom-0 right-0 h-64 w-64 rounded-full bg-[#F5C94D]/10 blur-3xl" />
       </div>
 
-      <div className="container relative z-10 mx-auto px-4 sm:px-6">
+      <div className="site-container relative z-10 mx-auto px-4 sm:px-6">
         <div className="mx-auto grid max-w-6xl items-center gap-10 lg:grid-cols-2 lg:gap-16">
           <FadeIn direction="up" delay={0.1}>
             <div className="relative h-[280px] w-full overflow-hidden rounded-3xl border border-white/10 shadow-2xl sm:h-[360px] md:h-[420px]">

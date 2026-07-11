@@ -187,7 +187,7 @@ export interface HubMetrics {
 export interface Partner {
   id: string;
   name: string;
-  logo: string;
+  logo?: string;
   description: string;
   category: "university" | "community" | "government" | "global";
   website?: string;

@@ -19,7 +19,7 @@ export function BlogRelatedPosts({ posts }: BlogRelatedPostsProps) {
 
   return (
     <section className="border-t border-black/[0.04] bg-white py-16 md:py-24 dark:border-white/[0.04] dark:bg-[#2F3332]/30">
-      <div className="container mx-auto px-4 sm:px-6">
+      <div className="site-container mx-auto px-4 sm:px-6">
         <FadeIn
           className="mx-auto mb-12 max-w-3xl text-center"
           duration={motionDurations.enter}

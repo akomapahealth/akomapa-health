@@ -105,7 +105,7 @@ const outlineCtaClass =
 export default function FoodsPage() {
   return (
     <>
-      <div className="container mx-auto">
+      <div className="site-container mx-auto">
         <Breadcrumb />
       </div>
 
@@ -113,7 +113,7 @@ export default function FoodsPage() {
         <div className="absolute top-0 right-0 w-64 h-64 bg-[#FCFAEF]/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl" />
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#FCFAEF]/10 rounded-full translate-y-1/2 -translate-x-1/2 blur-3xl" />
 
-        <div className="container mx-auto px-4 sm:px-6 relative z-10 flex flex-col gap-12 sm:gap-14">
+        <div className="site-container mx-auto px-4 sm:px-6 relative z-10 flex flex-col gap-12 sm:gap-14">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -191,7 +191,7 @@ export default function FoodsPage() {
       </section>
 
       <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
-        <div className="container mx-auto px-4">
+        <div className="site-container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <motion.div
               initial={{ opacity: 0, y: 24 }}
@@ -240,7 +240,7 @@ export default function FoodsPage() {
           <div className="absolute -top-20 left-10 h-56 w-56 rounded-full bg-[#FCFAEF]/10 blur-3xl" />
           <div className="absolute bottom-0 right-0 h-72 w-72 rounded-full bg-[#F5C94D]/10 blur-3xl" />
         </div>
-        <div className="relative container mx-auto px-4">
+        <div className="relative site-container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -259,7 +259,7 @@ export default function FoodsPage() {
       </section>
 
       <section className="py-16 md:py-24 bg-[#F4F1E8] dark:bg-[#1C1F1E]">
-        <div className="container mx-auto px-4">
+        <div className="site-container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -301,7 +301,7 @@ export default function FoodsPage() {
       </section>
 
       <section id="pilot" className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
-        <div className="container mx-auto px-4">
+        <div className="site-container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <motion.div
               initial={{ opacity: 0, y: 24 }}
@@ -349,7 +349,7 @@ export default function FoodsPage() {
       </section>
 
       <section className="py-16 md:py-24 bg-gradient-to-r from-[#0F4C5C] via-[#0097b2] to-[#0B2F3A] text-[#FCFAEF]">
-        <div className="container mx-auto px-4">
+        <div className="site-container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -391,7 +391,7 @@ export default function FoodsPage() {
       </section>
 
       <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
-        <div className="container mx-auto px-4">
+        <div className="site-container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -433,7 +433,7 @@ export default function FoodsPage() {
       </section>
 
       <section className="py-16 md:py-24 bg-gradient-to-r from-[#0F4C5C] to-[#0097b2] text-[#FCFAEF]">
-        <div className="container mx-auto px-4">
+        <div className="site-container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -453,7 +453,7 @@ export default function FoodsPage() {
       </section>
 
       <section className="py-16 md:py-24 bg-gradient-to-r from-[#0B2F3A] via-[#0F4C5C] to-[#0097b2] text-[#FCFAEF]">
-        <div className="container mx-auto px-4">
+        <div className="site-container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}

@@ -97,7 +97,7 @@ export default function NCDDataViz() {
         <div className="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-[#F5C94D]/10 blur-3xl" />
       </div>
 
-      <div className="container relative z-10 mx-auto px-4 sm:px-6">
+      <div className="site-container relative z-10 mx-auto px-4 sm:px-6">
         {/* Section header */}
         <FadeIn
           direction="up"

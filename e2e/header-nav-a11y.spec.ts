@@ -31,11 +31,13 @@ test.describe("desktop header dropdown keyboard accessibility", () => {
     await expect(aboutTrigger).toBeFocused();
     await page.keyboard.press("Enter");
 
+    const ourStoryLink = page.getByRole("menuitem", { name: "Our Story" });
     const ourTeamLink = page.getByRole("menuitem", { name: "Our Team" });
     await expect(ourTeamLink).toBeVisible();
 
+    await expect(ourStoryLink).toBeFocused();
     await page.keyboard.press("ArrowDown");
-    await page.keyboard.press("ArrowDown");
+    await expect(ourTeamLink).toBeFocused();
     await page.keyboard.press("Enter");
 
     await expect(page).toHaveURL(/\/about\/team$/);

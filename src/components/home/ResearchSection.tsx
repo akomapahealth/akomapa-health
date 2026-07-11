@@ -104,7 +104,7 @@ export default function ResearchSection() {
       id="research"
       className="py-16 md:py-24 bg-gradient-to-r from-[#0097b2] to-[#0F4C5C] dark:bg-[#1C1F1E] relative overflow-hidden text-[#FCFAEF]"
     >
-      <div className="container mx-auto px-4">
+      <div className="site-container mx-auto px-4">
         <PublicSectionHeader
           eyebrow="Our Research & Academic Partners"
           eyebrowTone="gold"
