@@ -41,6 +41,13 @@ export const CONTACT = {
       },
     },
   ] satisfies readonly ContactOffice[],
+  map: {
+    officeId: "ghana",
+    label: "Ghana Office map",
+    title: "Map showing Akomapa Health Foundation's Ghana Office",
+    embedUrl:
+      "https://www.google.com/maps?q=43%20Yam%20Street%2C%20Tema%20Community%2023%2C%20Adjei%20Kojo%2C%20Accra%2C%20Ghana&output=embed",
+  },
 } as const;
 
 export function getContactOffice(id: ContactOffice["id"]): ContactOffice {
