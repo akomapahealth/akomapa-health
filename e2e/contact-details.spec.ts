@@ -14,6 +14,36 @@ const canonical = {
 };
 
 test.describe("canonical contact details", () => {
+  test("shows actionable guidance when the contact API returns an internal error", async ({
+    page,
+  }) => {
+    await page.route("**/api/contact", async (route) => {
+      await route.fulfill({
+        status: 500,
+        contentType: "text/html",
+        body: "Internal Server Error",
+      });
+    });
+    await page.goto("/contact");
+
+    await page.getByLabel("Full Name *").fill("Ama Mensah");
+    await page.getByLabel("Email Address *").fill("ama@example.com");
+    await page.getByLabel("Subject *").fill("Volunteer inquiry");
+    await page
+      .getByLabel("Message *")
+      .fill("I would like to learn more about volunteering.");
+    await page.getByRole("button", { name: "Send Message" }).click();
+
+    const alert = page.getByTestId("contact-form-error");
+    await expect(alert).toContainText("We couldn't send your message");
+    await expect(alert).toContainText(
+      "Something went wrong on our side. Please try again in a few minutes.",
+    );
+    await expect(
+      alert.getByRole("link", { name: "akomapahealth@gmail.com" }),
+    ).toHaveAttribute("href", canonical.emailHref);
+  });
+
   test("shows matching contact details and the Ghana office map", async ({ page }) => {
     await page.goto("/contact");
 

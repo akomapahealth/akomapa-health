@@ -10,6 +10,10 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { CONTACT } from "@/config/contact";
+import {
+  CONTACT_NETWORK_ERROR_MESSAGE,
+  getContactErrorMessage,
+} from "@/lib/contact-errors";
 
 function ContactFormContent() {
   const searchParams = useSearchParams();
@@ -80,11 +84,17 @@ function ContactFormContent() {
           company: "",
         });
       } else {
-        const errorData = await response.json();
-        setError(errorData.message || "Failed to send message. Please try again.");
+        const errorData: unknown = await response.json().catch(() => null);
+        const responseMessage =
+          typeof errorData === "object" &&
+          errorData !== null &&
+          "message" in errorData
+            ? errorData.message
+            : undefined;
+        setError(getContactErrorMessage(response.status, responseMessage));
       }
     } catch {
-      setError("Network error. Please check your connection and try again.");
+      setError(CONTACT_NETWORK_ERROR_MESSAGE);
     } finally {
       setIsSubmitting(false);
     }
@@ -132,8 +142,25 @@ function ContactFormContent() {
       </div>
 
       {error && (
-        <div role="alert" className="mb-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
-          <p className="text-red-600 dark:text-red-400 text-sm">{error}</p>
+        <div
+          role="alert"
+          data-testid="contact-form-error"
+          className="mb-6 rounded-lg border border-red-200 bg-red-50 p-4 dark:border-red-800 dark:bg-red-900/20"
+        >
+          <p className="text-sm font-medium text-red-700 dark:text-red-300">
+            We couldn&apos;t send your message
+          </p>
+          <p className="mt-1 text-sm text-red-600 dark:text-red-400">{error}</p>
+          <p className="mt-2 text-sm text-red-600 dark:text-red-400">
+            If the problem continues, email us directly at{" "}
+            <a
+              href={CONTACT.email.href}
+              className="font-semibold underline underline-offset-2 hover:text-red-800 dark:hover:text-red-200"
+            >
+              {CONTACT.email.display}
+            </a>
+            .
+          </p>
         </div>
       )}
 
