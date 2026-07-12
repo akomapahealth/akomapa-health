@@ -77,6 +77,10 @@ test.describe("Akomapa rebrand foundation", () => {
   }) => {
     await page.goto("/", { waitUntil: "domcontentloaded" });
 
+    await expect(
+      page.getByRole("heading", { name: BRAND.heroHeadline, exact: true }),
+    ).toBeVisible();
+
     const narrativeHeadings = [
       BRAND.heroHeadline,
       "One model. Two challenges. Lasting impact.",
