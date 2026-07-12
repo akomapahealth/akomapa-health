@@ -3,6 +3,7 @@
 import Breadcrumb from "@/components/layout/Breadcrumb";
 import ContactForm from "@/components/contact/ContactForm";
 import LocationMap from "@/components/contact/LocationMap";
+import { CONTACT } from "@/config/contact";
 import { motion } from "framer-motion";
 
 export default function ContactPage() {
@@ -85,33 +86,24 @@ export default function ContactPage() {
               
               <div className="bg-white dark:bg-[#2F3332] rounded-2xl shadow-lg border border-[#E6E7E7]/20 dark:border-[#4F5554]/20 p-6 sm:p-8 mb-6 sm:mb-8">
                 <div className="space-y-6 sm:space-y-8">
-                  <div>
-                    <h3 className="font-semibold text-lg sm:text-xl mb-3 text-[#1C1F1E] dark:text-[#FCFAEF]">
-                      Ghana Office
-                    </h3>
-                    <p className="text-base sm:text-lg text-[#2F3332]/80 dark:text-[#E6E7E7]/80 leading-relaxed">
-                      43 Yam Street<br />
-                      Tema Community 23, Adjei Kojo<br />
-                      Accra, Ghana<br />
-                      <a href="tel:+233502966072" className="text-[#0097b2] dark:text-[#66C4DC] hover:text-[#eeba2b] dark:hover:text-[#F5C94D] transition-colors">
-                        +233 (0)50 296 6072
-                      </a>
-                    </p>
-                  </div>
-                  
-                  <div className="pt-6 border-t border-[#E6E7E7]/40 dark:border-[#4F5554]/40">
-                    <h3 className="font-semibold text-lg sm:text-xl mb-3 text-[#1C1F1E] dark:text-[#FCFAEF]">
-                      USA Office
-                    </h3>
-                    <p className="text-base sm:text-lg text-[#2F3332]/80 dark:text-[#E6E7E7]/80 leading-relaxed">
-                      University Towers, Apt 5N<br />
-                      100 York Street, New Haven, CT 06511<br />
-                      United States<br />
-                      <a href="tel:+12034106306" className="text-[#0097b2] dark:text-[#66C4DC] hover:text-[#eeba2b] dark:hover:text-[#F5C94D] transition-colors">
-                        +1 (203) 410-6306
-                      </a>
-                    </p>
-                  </div>
+                  {CONTACT.offices.map((office, index) => (
+                    <div
+                      key={office.id}
+                      className={index === 0 ? undefined : "pt-6 border-t border-[#E6E7E7]/40 dark:border-[#4F5554]/40"}
+                    >
+                      <h3 className="font-semibold text-lg sm:text-xl mb-3 text-[#1C1F1E] dark:text-[#FCFAEF]">
+                        {office.label}
+                      </h3>
+                      <address className="not-italic text-base sm:text-lg text-[#2F3332]/80 dark:text-[#E6E7E7]/80 leading-relaxed">
+                        {office.addressLines.map((line) => (
+                          <span key={line} className="block">{line}</span>
+                        ))}
+                        <a href={office.phone.href} className="text-[#0097b2] dark:text-[#66C4DC] hover:text-[#eeba2b] dark:hover:text-[#F5C94D] transition-colors">
+                          {office.phone.display}
+                        </a>
+                      </address>
+                    </div>
+                  ))}
                   
                   <div className="pt-6 border-t border-[#E6E7E7]/40 dark:border-[#4F5554]/40">
                     <h3 className="font-semibold text-lg sm:text-xl mb-3 text-[#1C1F1E] dark:text-[#FCFAEF]">
@@ -120,8 +112,8 @@ export default function ContactPage() {
                     <div className="space-y-2 text-base sm:text-lg text-[#2F3332]/80 dark:text-[#E6E7E7]/80">
                       <p>
                         <span className="font-medium text-[#1C1F1E] dark:text-[#FCFAEF]">Email: </span>
-                        <a href="mailto:akomapahealth@gmail.com" className="text-[#0097b2] dark:text-[#66C4DC] hover:text-[#eeba2b] dark:hover:text-[#F5C94D] transition-colors">
-                          akomapahealth@gmail.com
+                        <a href={CONTACT.email.href} className="text-[#0097b2] dark:text-[#66C4DC] hover:text-[#eeba2b] dark:hover:text-[#F5C94D] transition-colors">
+                          {CONTACT.email.display}
                         </a>
                       </p>
                     </div>
