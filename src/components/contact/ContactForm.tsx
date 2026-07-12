@@ -19,7 +19,8 @@ function ContactFormContent() {
     phone: "",
     subject: "",
     message: "",
-    partnershipType: ""
+    partnershipType: "",
+    company: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -75,7 +76,8 @@ function ContactFormContent() {
           phone: "",
           subject: "",
           message: "",
-          partnershipType: ""
+          partnershipType: "",
+          company: "",
         });
       } else {
         const errorData = await response.json();
@@ -232,6 +234,19 @@ function ContactFormContent() {
           rows={6}
           className="mt-2 border-[#0097b2] focus:border-[#eeba2b] dark:border-[#66C4DC] dark:focus:border-[#F5C94D] resize-none"
           placeholder="Tell us about your partnership interest or inquiry..."
+        />
+      </div>
+
+      <div className="hidden" aria-hidden="true">
+        <Label htmlFor="company">Company</Label>
+        <Input
+          id="company"
+          name="company"
+          type="text"
+          value={formData.company}
+          onChange={handleChange}
+          tabIndex={-1}
+          autoComplete="off"
         />
       </div>
 
