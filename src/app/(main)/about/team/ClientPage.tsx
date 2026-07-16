@@ -20,6 +20,10 @@ type SpotlightMember = {
   bio?: string;
 };
 
+function getValidContact(value?: string): string | undefined {
+  return value && value !== "#" ? value : undefined;
+}
+
 const HERO_PORTRAIT_SIZE = 80;
 
 const heroRows: Array<{
@@ -238,6 +242,38 @@ const executiveTeam: SpotlightMember[] = [
     email: "samuelkumik@gmail.com",
     linkedin: "https://www.linkedin.com/in/samuel-k-kumi-41627a161/", 
     bio: "Samuel Kwame Kumi, Esq. is a private legal practitioner and lecturer. Samuel has valuable experience in litigation and Alternative Dispute Resolution, notably acting as lawyer for medical professionals in medical matters. His interests span medical, IT, Intellectual Property and energy law, areas in which he has published. As Akomapa's Head of Legal, Samuel oversees corporate affairs, advises on risk, and ensures compliance. He sees Akomapa's strategic community-focused initiatives establishing it as a trailblazer in community health. "
+  },
+  {
+    name: "Jeanelle Forson",
+    role: "Immersion Program Lead",
+    org: "Akomapa Health Foundation",
+    image: "/images/team/jeanelle-forson.jpg",
+    email: "jeanelledonkoh@gmail.com",
+    linkedin: "https://www.linkedin.com/in/jeanelle-forson-rn-bn-b5680a162"
+  },
+  {
+    name: "Bernard Mensah",
+    role: "Research Lead",
+    org: "Akomapa Health Foundation",
+    image: "/images/team/bernard-mensah.jpg",
+    email: "#",
+    linkedin: "#"
+  },
+  {
+    name: "Divina Selase Afenyo",
+    role: "UG Hub Co-Lead",
+    org: "Akomapa Health Foundation",
+    image: "/images/team/divina-selase-afenyo.jpg",
+    email: "#",
+    linkedin: "#"
+  },
+  {
+    name: "Jade Kissi",
+    role: "Head of Internal Affairs",
+    org: "Akomapa Health Foundation",
+    image: "/images/team/jade-kissi.jpg",
+    email: "#",
+    linkedin: "#"
   }
 ];
 
@@ -318,6 +354,9 @@ function BioModal({
 }) {
   if (!member) return null;
 
+  const email = getValidContact(member.email);
+  const linkedin = getValidContact(member.linkedin);
+
   return (
     <Transition show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-50" onClose={onClose}>
@@ -387,31 +426,33 @@ function BioModal({
                     )}
 
                     {/* Social links */}
-                    {(member.email || member.linkedin) && (
+                    {(email || linkedin) && (
                       <div className="pt-4 border-t border-[#E6E7E7] dark:border-[#2E3433]">
                         <p className="text-sm font-medium text-[#2F3332] dark:text-[#E6E7E7] mb-3">
                           Connect:
                         </p>
                         <div className="flex flex-wrap items-center gap-3 sm:gap-4">
-                          {member.email && (
+                          {email && (
                             <Link
-                              href={`mailto:${member.email}`}
+                              href={`mailto:${email}`}
                               onClick={(e) => e.stopPropagation()}
+                              aria-label={`Email ${member.name}`}
                               className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-[#E6E7E7] dark:border-[#2E3433] text-[#0B2F3A] dark:text-[#FCFAEF] hover:bg-[#0097b2]/10 dark:hover:bg-[#0097b2]/20 transition-colors"
                             >
-                              <Mail className="h-4 w-4" />
+                              <Mail className="h-4 w-4" aria-hidden="true" />
                               <span className="text-sm font-medium">Email</span>
                             </Link>
                           )}
-                          {member.linkedin && (
+                          {linkedin && (
                             <Link
-                              href={member.linkedin}
+                              href={linkedin}
                               target="_blank"
                               rel="noreferrer"
                               onClick={(e) => e.stopPropagation()}
+                              aria-label={`View ${member.name} on LinkedIn`}
                               className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-[#E6E7E7] dark:border-[#2E3433] text-[#0B2F3A] dark:text-[#FCFAEF] hover:bg-[#0097b2]/10 dark:hover:bg-[#0097b2]/20 transition-colors"
                             >
-                              <Linkedin className="h-4 w-4" />
+                              <Linkedin className="h-4 w-4" aria-hidden="true" />
                               <span className="text-sm font-medium">LinkedIn</span>
                             </Link>
                           )}
@@ -441,6 +482,8 @@ function TeamCard({
   isClickable?: boolean;
 }) {
   const imageHeight = variant === "compact" ? "h-56 sm:h-64 md:h-72 lg:h-80" : "h-80 sm:h-96 md:h-[28rem] lg:h-[32rem]";
+  const email = getValidContact(member.email);
+  const linkedin = getValidContact(member.linkedin);
   
   const handleClick = (e: React.MouseEvent) => {
     if (isClickable && onClick) {
@@ -459,6 +502,7 @@ function TeamCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
       onClick={handleClick}
+      data-team-member={member.name}
       className={`group flex flex-col rounded-[28px] border border-[#E6E7E7]/80 dark:border-[#2E3433] bg-white/95 dark:bg-[#1C1F1E]/95 shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-1 overflow-hidden ${
         isClickable ? "cursor-pointer" : ""
       }`}
@@ -481,24 +525,26 @@ function TeamCard({
           {member.name}
         </h3>
         <p className="text-[#2F3332]/80 dark:text-[#E6E7E7]/80">{member.role}</p>
-        {(member.email || member.linkedin) && (
+        {(email || linkedin) && (
           <div className="flex items-center gap-3 pt-2" onClick={handleLinkClick}>
-            {member.email && (
+            {email && (
               <Link
-                href={`mailto:${member.email}`}
+                href={`mailto:${email}`}
+                aria-label={`Email ${member.name}`}
                 className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[#E6E7E7] dark:border-[#2E3433] text-[#0B2F3A] dark:text-[#FCFAEF] hover:bg-[#0097b2]/10 dark:hover:bg-[#0097b2]/20 transition-colors"
               >
-                <Mail className="h-4 w-4" />
+                <Mail className="h-4 w-4" aria-hidden="true" />
               </Link>
             )}
-            {member.linkedin && (
+            {linkedin && (
               <Link
-                href={member.linkedin}
+                href={linkedin}
                 target="_blank"
                 rel="noreferrer"
+                aria-label={`View ${member.name} on LinkedIn`}
                 className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[#E6E7E7] dark:border-[#2E3433] text-[#0B2F3A] dark:text-[#FCFAEF] hover:bg-[#0097b2]/10 dark:hover:bg-[#0097b2]/20 transition-colors"
               >
-                <Linkedin className="h-4 w-4" />
+                <Linkedin className="h-4 w-4" aria-hidden="true" />
               </Link>
             )}
           </div>
