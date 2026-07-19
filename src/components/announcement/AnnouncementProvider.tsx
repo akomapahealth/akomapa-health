@@ -19,6 +19,7 @@ const AUTO_OPEN_DELAY_MS = 3000;
 type AnnouncementContextValue = {
   openAnnouncements: () => void;
   hasUnseenAnnouncements: boolean;
+  isOpen: boolean;
 };
 
 const AnnouncementContext = createContext<AnnouncementContextValue | null>(null);
@@ -76,8 +77,8 @@ export function AnnouncementProvider({ children }: AnnouncementProviderProps) {
   }, []);
 
   const value = useMemo(
-    () => ({ openAnnouncements, hasUnseenAnnouncements }),
-    [openAnnouncements, hasUnseenAnnouncements]
+    () => ({ openAnnouncements, hasUnseenAnnouncements, isOpen }),
+    [openAnnouncements, hasUnseenAnnouncements, isOpen]
   );
 
   if (slides.length === 0) {

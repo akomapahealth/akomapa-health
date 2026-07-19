@@ -1,9 +1,12 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
+import { Play } from "lucide-react";
 import { InlineChevron } from "@/components/home/_home-ui";
 import HeroSlide from "@/components/home/HeroSlide";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { trackEvent } from "@/lib/analytics";
 
@@ -11,6 +14,16 @@ const BRAND_BACKGROUND = {
   src: "/highlights/Akomapa-28.jpg",
   alt: "Akomapa healthcare professionals working in a community clinic",
 };
+
+/**
+ * Set a YouTube/Vimeo URL to enable a "Watch video" control that opens
+ * HeroVideoModal. Leave null to keep the static image hero.
+ */
+const HERO_BACKGROUND_VIDEO_URL: string | null = null;
+
+const HeroVideoModal = dynamic(() => import("@/components/home/HeroVideoModal"), {
+  ssr: false,
+});
 
 type Props = {
   height?: "full" | "large" | "medium";
@@ -23,6 +36,9 @@ const heightClasses: Record<NonNullable<Props["height"]>, string> = {
 };
 
 export default function HeroSlider({ height = "full" }: Props) {
+  const [videoOpen, setVideoOpen] = useState(false);
+  const hasHeroVideo = Boolean(HERO_BACKGROUND_VIDEO_URL);
+
   useEffect(() => {
     trackEvent({
       name: "hero_slide_view",
@@ -48,6 +64,21 @@ export default function HeroSlider({ height = "full" }: Props) {
           isPrimary
         />
       </div>
+
+      {hasHeroVideo && (
+        <div className="absolute bottom-28 left-4 z-20 sm:left-6 md:bottom-24 md:left-8">
+          <Button
+            type="button"
+            size="lg"
+            onClick={() => setVideoOpen(true)}
+            className="bg-[#0097b2] text-[#FCFAEF] hover:bg-[#005A55]"
+            aria-label="Watch hero background video"
+          >
+            <Play className="mr-2 h-5 w-5" aria-hidden="true" />
+            Watch video
+          </Button>
+        </div>
+      )}
 
       <motion.div
         initial={{ opacity: 0 }}
@@ -93,6 +124,15 @@ export default function HeroSlider({ height = "full" }: Props) {
           </button>
         </div>
       </motion.div>
+
+      {hasHeroVideo && (
+        <HeroVideoModal
+          open={videoOpen}
+          videoUrl={HERO_BACKGROUND_VIDEO_URL}
+          title="Akomapa hero video"
+          onOpenChange={setVideoOpen}
+        />
+      )}
     </section>
   );
 }

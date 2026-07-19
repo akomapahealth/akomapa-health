@@ -182,6 +182,8 @@ test.describe("Announcement modal", () => {
 
     const trigger = page.getByTestId("announcement-trigger");
     await expect(trigger).toBeVisible({ timeout: 15000 });
+    // Dismissed campaign: tip should not show (no unread signal).
+    await expect(page.getByTestId("announcement-trigger-tip")).toHaveCount(0);
     await trigger.click();
     await expect(modal).toBeVisible({ timeout: 15000 });
 
@@ -190,5 +192,28 @@ test.describe("Announcement modal", () => {
 
     await modal.locator('button[aria-label="Close announcements"]').click();
     await expect(modal).not.toBeVisible({ timeout: 5000 });
+  });
+
+  test("chatbot tip shows for unread campaign and opens the modal", async ({
+    page,
+  }) => {
+    await page.addInitScript(() => {
+      localStorage.removeItem("akomapa-announcements-dismissed");
+      sessionStorage.removeItem("akomapa-announcement-tip-dismissed");
+    });
+    await page.goto("/donate", { waitUntil: "domcontentloaded" });
+
+    const modal = page.locator('[role="dialog"][aria-label="Announcements"]');
+    const tip = page.getByTestId("announcement-trigger-tip");
+
+    // Tip appears while unread and before the 3s auto-open covers it.
+    await expect(tip).toBeVisible({ timeout: 2500 });
+    await expect(
+      tip.getByRole("button", { name: /see latest updates/i }),
+    ).toBeVisible();
+
+    await tip.getByRole("button", { name: /see latest updates/i }).click();
+    await expect(modal).toBeVisible({ timeout: 15000 });
+    await expect(tip).toHaveCount(0);
   });
 });
