@@ -117,17 +117,20 @@ test.describe("research detail PDF lazy loading", () => {
       await page.goto(researchPath, { waitUntil: "domcontentloaded" });
       await page.getByTestId("deferred-pdf-viewer").scrollIntoViewIfNeeded();
 
-      // IntersectionObserver uses a -50% bottom rootMargin, so scroll-into-view
-      // alone can miss the threshold — click the explicit load control if needed.
+      const loaded = page.getByTestId("pdf-viewer-loaded");
       const loadButton = page.getByRole("button", { name: "Load PDF viewer" });
-      if (await loadButton.isVisible()) {
-        await loadButton.click();
-      }
+
+      // IntersectionObserver may auto-load after scroll, or we click the button.
+      // Race both so a mid-click detach from auto-load does not fail the test.
+      await Promise.race([
+        loaded.waitFor({ state: "visible", timeout: 15_000 }),
+        loadButton
+          .click({ timeout: 5_000 })
+          .catch(() => undefined)
+          .then(() => loaded.waitFor({ state: "visible", timeout: 15_000 })),
+      ]);
 
       // Shell mounts before the PDF request finishes — wait for real load.
-      await expect(page.getByTestId("pdf-viewer-loaded")).toBeVisible({
-        timeout: 15_000,
-      });
       await expect(page.getByText(/Page 1 of \d+/)).toBeVisible({
         timeout: 15_000,
       });

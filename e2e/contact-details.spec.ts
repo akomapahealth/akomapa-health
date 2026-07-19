@@ -73,7 +73,9 @@ test.describe("canonical contact details", () => {
       await page.setViewportSize({ width: viewport.width, height: viewport.height });
       await page.goto("/contact");
 
-      await expect(page.getByText("Ghana Office map", { exact: true })).toBeVisible();
+      await expect(
+        page.getByRole("figure", { name: "Ghana Office map" }).first(),
+      ).toBeVisible();
       const dimensions = await page.evaluate(() => ({
         clientWidth: document.documentElement.clientWidth,
         scrollWidth: document.documentElement.scrollWidth,
