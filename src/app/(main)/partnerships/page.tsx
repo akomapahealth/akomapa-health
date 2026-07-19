@@ -6,36 +6,14 @@ import PartnerCategorySection from "@/components/partnerships/PartnerCategorySec
 import PartnerLogosGrid from "@/components/partnerships/PartnerLogosGrid";
 import BecomePartnerCTA from "@/components/partnerships/BecomePartnerCTA";
 import { partners, categoryOrder } from "@/data/partnerships";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Partnerships",
-  description:
-    "Explore Akomapa's equitable partnerships with universities, communities, government agencies, and global collaborators advancing health equity.",
-  openGraph: {
-    title: "Partnerships | Akomapa",
-    description:
-      "Creating equitable collaborations across institutions, disciplines, and countries to advance global health equity.",
-    type: "website",
-  },
-  keywords: [
-    "partnerships",
-    "global health",
-    "university partnerships",
-    "community health",
-    "health equity",
-    "Ghana health",
-    "Yale",
-    "University of Cape Coast",
-    "University of Ghana",
-    "UCLA",
-    "Akomapa",
-  ],
-};
+export const metadata: Metadata = buildPageMetadata("/partnerships");
 
 export default function PartnershipsPage() {
   return (
     <div data-rebrand-page className="bg-background text-foreground">
-      <div className="container mx-auto">
+      <div className="site-container mx-auto">
         <Breadcrumb />
       </div>
 

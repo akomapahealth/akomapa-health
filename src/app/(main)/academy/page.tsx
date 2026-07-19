@@ -7,17 +7,14 @@ import FacultyGrid from "@/components/academy/FacultyGrid";
 import CertificationSection from "@/components/academy/CertificationSection";
 import AcademyTestimonials from "@/components/academy/AcademyTestimonials";
 import ApplySection from "@/components/academy/ApplySection";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Akomapa Academy",
-  description:
-    "Explore Akomapa Academy's approach to ethical global health leadership education, mentorship, and applied community learning.",
-};
+export const metadata: Metadata = buildPageMetadata("/academy");
 
 export default function AcademyPage() {
   return (
     <div data-rebrand-page className="bg-background text-foreground">
-      <div className="container mx-auto">
+      <div className="site-container mx-auto">
         <Breadcrumb />
       </div>
       <AcademyHero />

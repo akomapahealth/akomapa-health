@@ -5,17 +5,14 @@ import PhilosophyHero from "@/components/philosophy/PhilosophyHero";
 import PhilosophySection from "@/components/philosophy/PhilosophySection";
 import PhilosophyVision from "@/components/philosophy/PhilosophyVision";
 import { philosophySections } from "@/data/philosophy";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Our Philosophy",
-  description:
-    "Explore Akomapa's philosophy of ethical global health leadership, community partnership, reciprocal learning, and sustainable impact.",
-};
+export const metadata: Metadata = buildPageMetadata("/philosophy");
 
 export default function PhilosophyPage() {
   return (
     <div data-rebrand-page className="bg-background text-foreground">
-      <div className="container mx-auto">
+      <div className="site-container mx-auto">
         <Breadcrumb />
       </div>
 
@@ -25,7 +22,7 @@ export default function PhilosophyPage() {
         aria-label="On this page"
         className="border-b border-[#0097b2]/10 bg-[#FCFAEF] dark:border-[#FCFAEF]/10 dark:bg-[#121514]"
       >
-        <div className="container mx-auto max-w-7xl px-4 py-4">
+        <div className="site-container mx-auto max-w-7xl px-4 py-4">
           <ol className="flex gap-2 overflow-x-auto pb-1 md:flex-wrap md:justify-center md:overflow-visible md:pb-0">
             {philosophySections.map((section) => (
               <li key={section.id} className="shrink-0">

@@ -47,7 +47,7 @@ export function NewsDetailContent({ item, relatedItems }: Props) {
 
   return (
     <>
-      <div className="container mx-auto">
+      <div className="site-container mx-auto">
         <Breadcrumb />
       </div>
 
@@ -59,7 +59,7 @@ export function NewsDetailContent({ item, relatedItems }: Props) {
           <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#eeba2b]/10 rounded-full translate-y-1/2 -translate-x-1/3 blur-3xl" />
           <div className="absolute top-1/2 right-1/3 w-40 h-40 bg-[#F5C94D]/15 rounded-full blur-2xl" />
 
-          <div className="container mx-auto px-4 sm:px-6 relative z-10">
+          <div className="site-container mx-auto px-4 sm:px-6 relative z-10">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -137,7 +137,7 @@ export function NewsDetailContent({ item, relatedItems }: Props) {
         {/* Hero Media — overlaps hero by pulling up */}
         {(detailPoster || item.videoUrl) && (
           <section className="relative z-10 -mt-8 sm:-mt-12 md:-mt-16 mb-12 md:mb-16">
-            <div className="container mx-auto px-4 sm:px-6">
+            <div className="site-container mx-auto px-4 sm:px-6">
               <motion.div
                 initial={{ opacity: 0, y: 30, scale: 0.98 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -189,7 +189,7 @@ export function NewsDetailContent({ item, relatedItems }: Props) {
 
         {/* Content Body */}
         <section className="py-8 md:py-12 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
-          <div className="container mx-auto px-4 sm:px-6">
+          <div className="site-container mx-auto px-4 sm:px-6">
             <div className="max-w-3xl mx-auto">
               {isRichContent ? (
                 <FadeIn duration={motionDurations.enter}>
@@ -267,7 +267,7 @@ export function NewsDetailContent({ item, relatedItems }: Props) {
         {/* Related Items */}
         {relatedItems.length > 0 && (
           <section className="py-16 md:py-24 bg-white dark:bg-[#2F3332]/30 border-t border-black/[0.04] dark:border-white/[0.04]">
-            <div className="container mx-auto px-4 sm:px-6">
+            <div className="site-container mx-auto px-4 sm:px-6">
               <FadeIn
                 className="text-center max-w-3xl mx-auto mb-12"
                 duration={motionDurations.enter}

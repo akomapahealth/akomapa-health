@@ -16,7 +16,7 @@ export default function WhyNCDsMatter() {
       className="bg-[#F4F1E8] py-16 dark:bg-[#1C1F1E] md:py-24"
       aria-labelledby="why-ncds-heading"
     >
-      <div className="container mx-auto px-4 sm:px-6">
+      <div className="site-container mx-auto px-4 sm:px-6">
         {/* Section header */}
         <FadeIn direction="up" className="mx-auto mb-12 max-w-3xl space-y-4 text-center">
           <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#0097b2] dark:text-[#66C4DC] sm:text-sm">

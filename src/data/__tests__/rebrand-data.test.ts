@@ -29,7 +29,11 @@ import {
   leadershipImpact,
   mapLocations,
 } from "@/data/impact";
-import { partners } from "@/data/partnerships";
+import {
+  academicAndResearchPartnerLogos,
+  allPartnerLogos,
+  partners,
+} from "@/data/partnerships";
 import { philosophySections } from "@/data/philosophy";
 import { pillars } from "@/data/pillars";
 import { teamMembers } from "@/data/team";
@@ -181,18 +185,72 @@ describe("rebrand content data", () => {
     );
 
     for (const partner of partners) {
+      if (partner.logo) {
+        const logoPath = join(
+          process.cwd(),
+          "public",
+          partner.logo.replace(/^\//, ""),
+        );
+
+        expect(existsSync(logoPath), `${partner.name} logo should exist`).toBe(
+          true,
+        );
+      }
+      expect(partner.description.length).toBeGreaterThan(40);
+
+      if (partner.website) {
+        expect(new URL(partner.website).protocol).toBe("https:");
+      }
+    }
+
+    expect(
+      partners.find(({ id }) => id === "community-partners")?.logo,
+    ).toBeUndefined();
+  });
+
+  it("uses one canonical, valid set of partner logo assets", () => {
+    const logoNames = allPartnerLogos.map(({ name }) => name);
+    const logoPaths = allPartnerLogos.map(({ logo }) => logo);
+
+    expect(new Set(logoNames).size).toBe(allPartnerLogos.length);
+    expect(new Set(logoPaths).size).toBe(allPartnerLogos.length);
+    expect(logoNames).not.toContain("Africa Health Collaborative");
+    expect(logoNames).not.toContain("African Innovation Institute");
+    expect(logoNames).toContain("African Impact Initiative");
+    expect(allPartnerLogos).toEqual(
+      expect.arrayContaining([...academicAndResearchPartnerLogos]),
+    );
+
+    expect(
+      allPartnerLogos.find(({ name }) => name === "Yale School of Medicine")
+        ?.logo,
+    ).toBe("/images/partners/yale-sm-logo.png");
+    expect(partners.find(({ id }) => id === "yale-university")?.logo).toBe(
+      "/images/partners/yale-sm-logo.png",
+    );
+    expect(
+      allPartnerLogos.find(
+        ({ name }) => name === "David Geffen School of Medicine at UCLA",
+      )?.logo,
+    ).toBe("/images/partners/ucla.png");
+    expect(
+      allPartnerLogos.find(({ name }) => name === "African Impact Initiative")
+        ?.logo,
+    ).toBe("/images/partners/AII-logo.png");
+    expect(allPartnerLogos.find(({ name }) => name === "AFC")?.logo).toBe(
+      "/images/partners/afc.png",
+    );
+
+    for (const partner of allPartnerLogos) {
       const logoPath = join(
         process.cwd(),
         "public",
         partner.logo.replace(/^\//, ""),
       );
 
-      expect(existsSync(logoPath), `${partner.name} logo should exist`).toBe(true);
-      expect(partner.description.length).toBeGreaterThan(40);
-
-      if (partner.website) {
-        expect(new URL(partner.website).protocol).toBe("https:");
-      }
+      expect(existsSync(logoPath), `${partner.name} logo should exist`).toBe(
+        true,
+      );
     }
   });
 

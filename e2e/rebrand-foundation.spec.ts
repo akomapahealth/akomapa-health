@@ -2,8 +2,9 @@ import { expect, test, type Page } from "@playwright/test";
 import { announcementCampaign } from "../src/data/announcements";
 import { BRAND } from "../src/config/brand";
 
-const homepageTitle = `Akomapa Health | ${BRAND.heroHeadline}`;
-const homepageDescription = BRAND.heroSubheadline;
+const homepageTitle = "Building Ethical Global Health Leaders | Akomapa Health";
+const homepageDescription =
+  "Akomapa develops ethical, community-centered leaders through healthcare service, leadership training, research, and equitable partnerships.";
 
 const quickLinks = [
   { label: "Our Philosophy", href: "/philosophy" },
@@ -75,6 +76,10 @@ test.describe("Akomapa rebrand foundation", () => {
     page,
   }) => {
     await page.goto("/", { waitUntil: "domcontentloaded" });
+
+    await expect(
+      page.getByRole("heading", { name: BRAND.heroHeadline, exact: true }),
+    ).toBeVisible();
 
     const narrativeHeadings = [
       BRAND.heroHeadline,

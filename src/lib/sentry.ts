@@ -1,3 +1,5 @@
+import { isSentryClientEnabled, isSentryServerEnabled } from "@/lib/sentry-config";
+
 type SentryModule = {
   captureException: (error: unknown, context?: unknown) => string;
   captureMessage: (message: string) => string;
@@ -16,7 +18,17 @@ type SentryModule = {
   };
   replayIntegration?: (options: {
     maskAllText: boolean;
+    maskAllInputs?: boolean;
     blockAllMedia: boolean;
+  }) => unknown;
+  thirdPartyErrorFilterIntegration?: (options: {
+    filterKeys: string[];
+    behaviour:
+      | "drop-error-if-contains-third-party-frames"
+      | "drop-error-if-exclusively-contains-third-party-frames"
+      | "apply-tag-if-contains-third-party-frames"
+      | "apply-tag-if-exclusively-contains-third-party-frames";
+    ignoreSentryInternalFrames?: boolean;
   }) => unknown;
   init?: (options: Record<string, unknown>) => void;
   startSpan?: <T>(
@@ -25,12 +37,16 @@ type SentryModule = {
   ) => Promise<T>;
 };
 
-const isSentryEnabled =
-  process.env.SENTRY_ENABLED === "true" ||
-  process.env.NEXT_PUBLIC_SENTRY_ENABLED === "true";
+export function isSentryEnabled(): boolean {
+  if (typeof window === "undefined") {
+    return isSentryServerEnabled();
+  }
+
+  return isSentryClientEnabled();
+}
 
 export async function loadSentry(): Promise<SentryModule | null> {
-  if (!isSentryEnabled) return null;
+  if (!isSentryEnabled()) return null;
   return import("@sentry/nextjs") as Promise<SentryModule>;
 }
 

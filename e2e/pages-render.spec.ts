@@ -13,7 +13,6 @@ const pages = [
   { path: '/academy', title: 'Academy' },
   { path: '/programs', title: 'Programs' },
   { path: '/programs/akomapa-young-advocates', title: 'Young Advocates' },
-  { path: '/clinics', title: 'Clinics', finalPath: '/community-hubs' },
   { path: '/community-hubs', title: 'Community Health Hubs' },
   { path: '/ncd-impact', title: 'NCD Impact' },
   { path: '/impact', title: 'Impact' },
@@ -46,8 +45,7 @@ test.describe('Page Rendering Tests', () => {
       await testPage.goto(page.path, { waitUntil: 'domcontentloaded' });
       
       // Check page loads without errors
-      const expectedPath = page.finalPath ?? page.path;
-      await expect(testPage).toHaveURL(new RegExp(expectedPath.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
+      await expect(testPage).toHaveURL(new RegExp(page.path.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
       
       // Check page has a title (more flexible than exact match)
       const title = await testPage.title();

@@ -3,6 +3,7 @@ import { Mail } from "lucide-react";
 import Newsletter from "@/components/shared/NewsLetter";
 import { BRAND } from "@/config/brand";
 import BrandLogo from "@/components/shared/BrandLogo";
+import { CONTACT } from "@/config/contact";
 
 const footerLinkClass =
   "text-[#2F3332]/80 transition-colors hover:text-[#0097b2] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0097b2] focus-visible:ring-offset-2 focus-visible:ring-offset-[#FCFAEF] dark:text-[#FCFAEF] dark:hover:text-[#F5C94D] dark:focus-visible:ring-[#F5C94D] dark:focus-visible:ring-offset-[#121514]";
@@ -15,7 +16,7 @@ export default function Footer() {
   
   return (
     <footer className="bg-[#FCFAEF] text-[#1C1F1E] dark:bg-[#121514] dark:text-[#FCFAEF]">
-      <div className="container mx-auto px-4 py-12">
+      <div className="site-container mx-auto px-4 py-12">
         <div
           data-footer-grid
           className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4 lg:gap-10"
@@ -121,28 +122,26 @@ export default function Footer() {
           <div>
             <h3 className="mb-4 font-heading text-lg font-bold tracking-tight">Contact Us</h3>
             <div className="space-y-6 font-body text-[#2F3332]/80 dark:text-[#FCFAEF]">
-              <div>
-                <h4 className="mb-1 font-semibold text-[#1C1F1E] dark:text-[#FCFAEF]">USA Office</h4>
-                <p className="text-sm leading-relaxed">
-                  University Towers, Apt 5N<br />
-                  100 York Street, New Haven, CT 06511<br />
-                  +1 (203) 410-6306
-                </p>
-              </div>
-              <div>
-                <h4 className="mb-1 font-semibold text-[#1C1F1E] dark:text-[#FCFAEF]">Ghana Office</h4>
-                <p className="text-sm leading-relaxed">
-                  43 Yam Street, Tema Community 23, Adjei Kojo, Accra<br />
-                  +233 (0)50 296 6072
-                </p>
-              </div>
+              {CONTACT.offices.map((office) => (
+                <div key={office.id}>
+                  <h4 className="mb-1 font-semibold text-[#1C1F1E] dark:text-[#FCFAEF]">{office.label}</h4>
+                  <address className="not-italic text-sm leading-relaxed">
+                    {office.addressLines.map((line) => (
+                      <span key={line} className="block">{line}</span>
+                    ))}
+                    <a href={office.phone.href} className={footerLinkClass}>
+                      {office.phone.display}
+                    </a>
+                  </address>
+                </div>
+              ))}
               <div className="flex items-start">
                 <Mail className="mr-2 h-5 w-5 flex-shrink-0 text-[#F5C94D]" />
                 <a
-                  href="mailto:akomapahealth@gmail.com"
+                  href={CONTACT.email.href}
                   className={`min-w-0 break-all ${footerLinkClass}`}
                 >
-                  akomapahealth@gmail.com
+                  {CONTACT.email.display}
                 </a>
               </div>
             </div>

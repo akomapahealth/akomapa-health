@@ -5,17 +5,14 @@ import HubActivities from "@/components/community-hubs/HubActivities";
 import HubCardGrid from "@/components/community-hubs/HubCardGrid";
 import HubsHero from "@/components/community-hubs/HubsHero";
 import WhyHubsMatter from "@/components/community-hubs/WhyHubsMatter";
-import { communityHubsListing } from "@/data/community-hubs";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: communityHubsListing.metadata.title,
-  description: communityHubsListing.metadata.description,
-};
+export const metadata: Metadata = buildPageMetadata("/community-hubs");
 
 export default function CommunityHubsPage() {
   return (
     <div data-rebrand-page className="bg-background text-foreground">
-      <div className="container mx-auto">
+      <div className="site-container mx-auto">
         <Breadcrumb />
       </div>
       <HubsHero />

@@ -14,7 +14,7 @@ export default function PhilosophyVision() {
         <div className="absolute top-1/2 left-1/2 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#F5C94D]/8 blur-3xl" />
       </div>
 
-      <div className="container relative z-10 mx-auto max-w-5xl px-4 sm:px-6">
+      <div className="site-container relative z-10 mx-auto max-w-5xl px-4 sm:px-6">
         <FadeIn className="text-center">
           <p className="text-sm font-semibold uppercase tracking-[0.25em] text-[#F5C94D]">
             Our Vision For Global Health

@@ -55,11 +55,11 @@ Akomapa Health Foundation is a student-powered initiative focused on improving a
 
 ### 💰 **Donation & Partnership System**
 
-- **Secure payment processing** with Stripe integration
-- **Multiple donation options**: One-time, monthly, and annual gifts
-- **Payment methods**: Credit/debit cards and mobile money
-- **Donor information collection** with email notifications
-- **Partner program** with monthly giving community
+- **Verified MTN Mobile Money instructions** for manual donations
+- **Typed payment-method configuration** that keeps unverified methods unavailable
+- **One-time gifts** with clear recipient-verification guidance
+- **Partner program** with monthly giving context and explicit manual-transfer expectations
+- **Future processor support** without exposing card or recurring checkout before production verification
 - **Corporate sponsorship** opportunities
 - **Web3Forms integration** for donation notifications
 
@@ -172,6 +172,7 @@ npm run test:e2e:content
 - **Rate limiting** for form submissions
 - **Secure payment processing** with Stripe
 - **GDPR compliance** with data handling practices
+- **Sentry privacy controls** documented in [`docs/observability/sentry.md`](docs/observability/sentry.md)
 
 ## 📞 Contact
 

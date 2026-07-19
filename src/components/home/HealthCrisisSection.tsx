@@ -94,7 +94,7 @@ export default function HealthCrisisSection() {
       <div className="absolute right-0 top-0 w-64 h-64 rounded-full bg-[#0097b2]/20 blur-3xl"></div>
       <div className="absolute left-0 bottom-0 w-96 h-96 rounded-full bg-[#eeba2b]/20 blur-3xl"></div>
       
-      <div className="container mx-auto px-4 relative z-10">
+      <div className="site-container mx-auto px-4 relative z-10">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="text-[#F5C94D] font-bold text-lg mb-2">
             WHY IT MATTERS
@@ -133,7 +133,7 @@ export default function HealthCrisisSection() {
         </div>
 
         <div className="text-center mt-12 md:mt-14">
-          <Button className="h-14 rounded-full px-8 text-base font-semibold bg-[#FCFAEF] text-[#0097b2] hover:bg-[#F5C94D] hover:text-[#1C1F1E] transition-colors cursor-pointer md:h-16 md:px-10 md:text-lg">
+          <Button asChild className="h-14 rounded-full px-8 text-base font-semibold bg-[#FCFAEF] text-[#0097b2] hover:bg-[#F5C94D] hover:text-[#1C1F1E] transition-colors cursor-pointer md:h-16 md:px-10 md:text-lg">
             <Link href="/research" className="flex items-center">
               Explore Our Science <ArrowRight size={20} className="ml-2.5" />
             </Link>

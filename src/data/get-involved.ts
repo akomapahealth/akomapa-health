@@ -10,10 +10,10 @@ import { LEADERSHIP_APP_FORM_URL } from "@/config/links";
 // ---------------------------------------------------------------------------
 
 export const getInvolvedHero = {
-  eyebrow: "Join the Movement",
+  eyebrow: "Engagement Pathways",
   title: "Get Involved",
   subtitle:
-    "Join Akomapa and help build a new model for ethical global health leadership. There are many ways to contribute.",
+    "Choose a pathway that matches your goals — student leadership, Academy training, faculty mentorship, research, partnerships, or financial support.",
   image: {
     src: "/highlights/Akomapa-62.jpg",
     alt: "Akomapa student leaders and clinicians serving community members",

@@ -5,17 +5,14 @@ import MissionVisionSection from "@/components/about/MissionVisionSection";
 import OrganizationalTimeline from "@/components/about/OrganizationalTimeline";
 import WhatWeDoSection from "@/components/about/WhatWeDoSection";
 import ExploreMoreSection from "@/components/about/ExploreMoreSection";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "About Akomapa - Building Ethical Global Health Leaders",
-  description:
-    "Learn about Akomapa's mission to develop ethical global health leaders who partner with communities to address health inequities and the NCD epidemic.",
-};
+export const metadata: Metadata = buildPageMetadata("/about");
 
 export default function AboutPage() {
   return (
     <div data-rebrand-page className="bg-background text-foreground">
-      <div className="container mx-auto">
+      <div className="site-container mx-auto">
         <Breadcrumb />
       </div>
       <AboutHero />

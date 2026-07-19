@@ -6,8 +6,17 @@ import { ThemeProvider } from '@/components/theme/ThemeProvider';
 import { MotionConfigProvider } from '@/components/motion/MotionConfigProvider';
 import { AnnouncementProvider } from '@/components/announcement/AnnouncementProvider';
 import { GoogleAnalytics } from '@next/third-parties/google';
-import GlobalClickTracker from '@/components/analytics/GlobalClickTracker';
-import { BRAND } from "@/config/brand";
+import DeferredGlobalWidgets from '@/components/global/DeferredGlobalWidgets';
+import {
+  DEFAULT_DESCRIPTION,
+  DEFAULT_OG_IMAGE,
+  DEFAULT_TITLE,
+  SITE_NAME,
+  SITE_URL,
+  buildOrganizationJsonLd,
+  buildWebsiteJsonLd,
+  serializeJsonLd,
+} from "@/lib/seo";
 
 const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 
@@ -41,12 +50,12 @@ const plusJakartaSans = localFont({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://www.akomapahealth.org'),
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: `Akomapa Health - ${BRAND.tagline}`,
     template: '%s | Akomapa Health',
+    default: DEFAULT_TITLE,
   },
-  description: BRAND.description,
+  description: DEFAULT_DESCRIPTION,
   keywords: [
     'global health leadership',
     'ethical health leaders',
@@ -59,6 +68,9 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: 'Akomapa Health' }],
   creator: 'Akomapa Health',
+  alternates: {
+    canonical: SITE_URL,
+  },
   icons: {
     icon: [
       { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
@@ -75,15 +87,24 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://www.akomapahealth.org/',
-    title: `Akomapa Health - ${BRAND.tagline}`,
-    description: BRAND.description,
-    siteName: 'Akomapa Health',
+    url: SITE_URL,
+    title: DEFAULT_TITLE,
+    description: DEFAULT_DESCRIPTION,
+    siteName: SITE_NAME,
+    images: [
+      {
+        url: DEFAULT_OG_IMAGE,
+        width: 1200,
+        height: 630,
+        alt: DEFAULT_TITLE,
+      },
+    ],
   },
   twitter: {
-    card: 'summary',
-    title: `Akomapa Health - ${BRAND.tagline}`,
-    description: BRAND.description,
+    card: 'summary_large_image',
+    title: DEFAULT_TITLE,
+    description: DEFAULT_DESCRIPTION,
+    images: [DEFAULT_OG_IMAGE],
   },
 };
 
@@ -92,9 +113,18 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const siteJsonLd = [buildOrganizationJsonLd(), buildWebsiteJsonLd()];
+
   return (
     <html lang="en" suppressHydrationWarning>
-      <head />
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: serializeJsonLd(siteJsonLd),
+          }}
+        />
+      </head>
       <body
         suppressHydrationWarning
         className={cn(
@@ -107,7 +137,7 @@ export default function RootLayout({
           <MotionConfigProvider>
             <AnnouncementProvider>
               {children}
-              <GlobalClickTracker />
+              <DeferredGlobalWidgets />
             </AnnouncementProvider>
           </MotionConfigProvider>
         </ThemeProvider>

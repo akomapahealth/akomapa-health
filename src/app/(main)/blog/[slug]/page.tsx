@@ -7,6 +7,12 @@ import {
   getRelatedPosts,
 } from "@/data/blog";
 import { getAnnouncementPosterSrc } from "@/lib/video-utils";
+import {
+  buildArticleJsonLd,
+  buildArticleMetadata,
+  buildNotFoundMetadata,
+  serializeJsonLd,
+} from "@/lib/seo";
 
 interface BlogPostPageProps {
   params: Promise<{ slug: string }>;
@@ -23,7 +29,7 @@ export async function generateMetadata({
   const post = getBlogPostBySlug(slug);
 
   if (!post) {
-    return { title: "Article Not Found" };
+    return buildNotFoundMetadata("Article Not Found");
   }
 
   const image = getAnnouncementPosterSrc({
@@ -31,18 +37,14 @@ export async function generateMetadata({
     videoUrl: post.videoUrl,
   });
 
-  return {
+  return buildArticleMetadata({
     title: post.title,
     description: post.excerpt,
-    openGraph: {
-      title: post.title,
-      description: post.excerpt,
-      type: "article",
-      publishedTime: post.date,
-      authors: [post.author],
-      ...(image ? { images: [{ url: image }] } : {}),
-    },
-  };
+    path: `/blog/${post.slug}`,
+    image,
+    publishedTime: post.date,
+    authors: [post.author],
+  });
 }
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
@@ -56,12 +58,32 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const related = getRelatedPosts(post.slug, post.category);
   const hasMoreByAuthor =
     blogPosts.filter((p) => p.author === post.author).length > 1;
+  const image = getAnnouncementPosterSrc({
+    image: post.image,
+    videoUrl: post.videoUrl,
+  });
+  const jsonLd = buildArticleJsonLd({
+    title: post.title,
+    description: post.excerpt,
+    path: `/blog/${post.slug}`,
+    image,
+    publishedTime: post.date,
+    author: post.author,
+  });
 
   return (
-    <BlogPost
-      post={post}
-      related={related}
-      hasMoreByAuthor={hasMoreByAuthor}
-    />
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: serializeJsonLd(jsonLd),
+        }}
+      />
+      <BlogPost
+        post={post}
+        related={related}
+        hasMoreByAuthor={hasMoreByAuthor}
+      />
+    </>
   );
 }

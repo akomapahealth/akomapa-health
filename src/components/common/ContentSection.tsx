@@ -23,7 +23,7 @@ export default function ContentSection({
 }: ContentSectionProps) {
   return (
     <section className="py-16 bg-floralwhite dark:bg-onyx-600">
-      <div className="container mx-auto px-4">
+      <div className="site-container mx-auto px-4">
         <div className={`flex flex-col ${imageOnRight ? 'lg:flex-row' : 'lg:flex-row-reverse'} items-center gap-12`}>
           <div className="lg:w-1/2">
             <div className="relative w-full h-80 lg:h-96 rounded-lg overflow-hidden">
@@ -44,7 +44,7 @@ export default function ContentSection({
             <p className="text-lg text-onyx-600 dark:text-floralwhite/90 mb-6 font-body">
               {description}
             </p>
-            <Button className="bg-skobeloff text-floralwhite hover:bg-amber hover:text-floralwhite">
+            <Button asChild className="bg-skobeloff text-floralwhite hover:bg-amber hover:text-floralwhite">
               <Link href={linkHref}>{linkText}</Link>
             </Button>
           </div>

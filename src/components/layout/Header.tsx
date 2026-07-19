@@ -5,12 +5,21 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import MobileNav from "./MobileNav";
 import { ThemeToggle } from "@/components/theme/ThemeToggle";
 import BrandLogo from "@/components/shared/BrandLogo";
 
+type NavChild = { name: string; href: string };
+type NavItem = { name: string; href: string; children?: NavChild[] };
+
 // Navigation structure
-const navigation = [
+const navigation: NavItem[] = [
   { name: "Home", href: "/" },
   {
     name: "About",
@@ -39,6 +48,50 @@ const navigation = [
   { name: "Get Involved", href: "/get-involved" },
 ];
 
+const navLinkClass = (isActive: boolean) =>
+  `flex items-center gap-1 whitespace-nowrap text-[13px] 2xl:text-sm font-subheading font-medium leading-none transition-colors hover:text-[#eeba2b] dark:hover:text-[#eeba2b] ${
+    isActive ? "text-[#0097b2]" : "text-[#2F3332] dark:text-[#FCFAEF]"
+  }`;
+
+const dropdownPanelClass =
+  "w-56 rounded-md shadow-lg bg-[#FCFAEF] dark:bg-[#2F3332] ring-1 ring-[#C1C3C3] ring-opacity-5 dark:ring-[#FCFAEF] dark:ring-opacity-10";
+
+const dropdownItemClass = (isActive: boolean) =>
+  `block px-4 py-2 text-sm font-body cursor-pointer ${
+    isActive
+      ? "bg-[#0097b2]/10 dark:bg-[#0097b2]/20 text-[#0097b2] dark:text-[#FCFAEF]"
+      : "text-[#2F3332] dark:text-[#FCFAEF] hover:bg-[#eeba2b]/10 dark:hover:bg-[#eeba2b]/20 hover:text-[#eeba2b]"
+  }`;
+
+function NavDropdown({ item, pathname }: { item: NavItem; pathname: string }) {
+  const isActive =
+    pathname === item.href || pathname.startsWith(`${item.href}/`);
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <button
+          type="button"
+          className={navLinkClass(isActive)}
+          aria-haspopup="menu"
+        >
+          {item.name}
+          <ChevronDown className="h-4 w-4" aria-hidden="true" />
+        </button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="start" className={dropdownPanelClass}>
+        {item.children!.map((child) => (
+          <DropdownMenuItem key={child.name} asChild>
+            <Link href={child.href} className={dropdownItemClass(pathname === child.href)}>
+              {child.name}
+            </Link>
+          </DropdownMenuItem>
+        ))}
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+}
+
 function HeaderContent() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -53,67 +106,45 @@ function HeaderContent() {
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
-    <header className={`sticky top-0 z-50 w-full transition-all duration-300 ${
-      isScrolled ? 'bg-[#FCFAEF] shadow-md py-2 dark:bg-[#121514]' : 'bg-[#FCFAEF]/80 backdrop-blur-md py-4 dark:bg-[#121514]/90'
-    }`}>
-      <div className="container mx-auto px-4">
+    <header
+      className={`sticky top-0 z-50 w-full transition-all duration-300 ${
+        isScrolled
+          ? "bg-[#FCFAEF] shadow-md py-2 dark:bg-[#121514]"
+          : "bg-[#FCFAEF]/80 backdrop-blur-md py-4 dark:bg-[#121514]/90"
+      }`}
+    >
+      <div className="site-container mx-auto px-4">
         <div className="flex items-center gap-4">
-          {/* Logo */}
           <BrandLogo className="flex-shrink-0" priority />
 
-          {/* Desktop Navigation and Actions - Right Aligned */}
           <div className="hidden xl:flex items-center gap-4 ml-auto 2xl:gap-8">
-            {/* Desktop Navigation */}
-            <nav className="flex items-center gap-x-2.5 2xl:gap-5">
-              {navigation.map((item) => (
-                <div key={item.name} className="relative group">
-                  <Link 
+            <nav className="flex items-center gap-x-2.5 2xl:gap-5" aria-label="Main">
+              {navigation.map((item) =>
+                item.children ? (
+                  <NavDropdown key={item.name} item={item} pathname={pathname} />
+                ) : (
+                  <Link
+                    key={item.name}
                     href={item.href}
-                    className={`flex items-center gap-1 whitespace-nowrap text-[13px] 2xl:text-sm font-subheading font-medium leading-none transition-colors hover:text-[#eeba2b] dark:hover:text-[#eeba2b] ${
-                      pathname === item.href || pathname.startsWith(`${item.href}/`) 
-                        ? 'text-[#0097b2]' 
-                        : 'text-[#2F3332] dark:text-[#FCFAEF]'
-                    }`}
+                    className={navLinkClass(
+                      pathname === item.href ||
+                        (item.href !== "/" && pathname.startsWith(`${item.href}/`))
+                    )}
                   >
                     {item.name}
-                    {item.children && (
-                      <ChevronDown className="h-4 w-4 transition-transform group-hover:rotate-180" />
-                    )}
                   </Link>
-                  
-                  {/* Dropdown for items with children */}
-                  {item.children && (
-                    <div className="absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-[#FCFAEF] dark:bg-[#2F3332] ring-1 ring-[#C1C3C3] ring-opacity-5 dark:ring-[#FCFAEF] dark:ring-opacity-10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top-right">
-                      <div className="py-1" role="menu" aria-orientation="vertical">
-                        {item.children.map((child) => (
-                          <Link
-                            key={child.name}
-                            href={child.href}
-                            className={`block px-4 py-2 text-sm font-body ${
-                              pathname === child.href 
-                                ? 'bg-[#0097b2]/10 dark:bg-[#0097b2]/20 text-[#0097b2] dark:text-[#FCFAEF]' 
-                                : 'text-[#2F3332] dark:text-[#FCFAEF] hover:bg-[#eeba2b]/10 dark:hover:bg-[#eeba2b]/20 hover:text-[#eeba2b]'
-                            }`}
-                            role="menuitem"
-                          >
-                            {child.name}
-                          </Link>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                </div>
-              ))}
+                )
+              )}
             </nav>
 
-            {/* Donate button and Theme Toggle */}
             <div className="flex items-center gap-2.5">
               <Button
+                asChild
                 className="bg-[#0097b2] px-4 text-[#FCFAEF] hover:bg-[#0097b2]/80 hover:text-[#FCFAEF] font-subheading font-medium"
               >
                 <Link href="/donate">Donate</Link>
@@ -122,7 +153,6 @@ function HeaderContent() {
             </div>
           </div>
 
-          {/* Mobile menu button - Right Aligned */}
           <div className="xl:hidden flex items-center ml-auto space-x-2">
             <ThemeToggle />
             <button
@@ -136,8 +166,7 @@ function HeaderContent() {
         </div>
       </div>
 
-      {/* Mobile Navigation */}
-      <MobileNav 
+      <MobileNav
         isOpen={isMobileMenuOpen}
         onClose={() => setIsMobileMenuOpen(false)}
         navigation={navigation}
@@ -148,18 +177,20 @@ function HeaderContent() {
 
 export default function Header() {
   return (
-    <Suspense fallback={
-      <header className="sticky top-0 z-50 w-full bg-[#FCFAEF] dark:bg-[#121514] py-4">
-        <div className="container mx-auto px-4">
-          <div className="flex items-center">
-            <div className="animate-pulse bg-gray-200 dark:bg-gray-700 h-12 w-48 rounded"></div>
-            <div className="hidden xl:flex items-center ml-auto space-x-4">
-              <div className="animate-pulse bg-gray-200 dark:bg-gray-700 h-10 w-32 rounded"></div>
+    <Suspense
+      fallback={
+        <header className="sticky top-0 z-50 w-full bg-[#FCFAEF] dark:bg-[#121514] py-4">
+          <div className="site-container mx-auto px-4">
+            <div className="flex items-center">
+              <div className="animate-pulse bg-gray-200 dark:bg-gray-700 h-12 w-48 rounded"></div>
+              <div className="hidden xl:flex items-center ml-auto space-x-4">
+                <div className="animate-pulse bg-gray-200 dark:bg-gray-700 h-10 w-32 rounded"></div>
+              </div>
             </div>
           </div>
-        </div>
-      </header>
-    }>
+        </header>
+      }
+    >
       <HeaderContent />
     </Suspense>
   );
