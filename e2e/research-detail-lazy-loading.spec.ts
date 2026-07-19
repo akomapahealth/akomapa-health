@@ -117,11 +117,28 @@ test.describe("research detail PDF lazy loading", () => {
       await page.goto(researchPath, { waitUntil: "domcontentloaded" });
       await page.getByTestId("deferred-pdf-viewer").scrollIntoViewIfNeeded();
 
-      await expect(page.getByTestId("pdf-viewer-loaded")).toBeVisible();
+      // IntersectionObserver uses a -50% bottom rootMargin, so scroll-into-view
+      // alone can miss the threshold — click the explicit load control if needed.
+      const loadButton = page.getByRole("button", { name: "Load PDF viewer" });
+      if (await loadButton.isVisible()) {
+        await loadButton.click();
+      }
+
+      // Shell mounts before the PDF request finishes — wait for real load.
+      await expect(page.getByTestId("pdf-viewer-loaded")).toBeVisible({
+        timeout: 15_000,
+      });
+      await expect(page.getByText(/Page 1 of \d+/)).toBeVisible({
+        timeout: 15_000,
+      });
       await expectNoPageOverflow(page);
     }
 
-    expect(pdfRequests.some((url) => url.includes(pdfPath))).toBe(true);
-    expect(pdfRequests.some((url) => url.includes("pdf.worker"))).toBe(true);
+    await expect
+      .poll(() => pdfRequests.some((url) => url.includes(pdfPath)))
+      .toBe(true);
+    await expect
+      .poll(() => pdfRequests.some((url) => url.includes("pdf.worker")))
+      .toBe(true);
   });
 });
