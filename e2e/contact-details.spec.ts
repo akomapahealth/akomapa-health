@@ -1,4 +1,5 @@
 import { expect, test } from "@playwright/test";
+import { announcementCampaign } from "../src/data/announcements";
 
 const canonical = {
   ghanaPhone: {
@@ -14,6 +15,12 @@ const canonical = {
 };
 
 test.describe("canonical contact details", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.addInitScript((version: string) => {
+      localStorage.setItem("akomapa-announcements-dismissed", version);
+    }, announcementCampaign.version);
+  });
+
   test("shows actionable guidance when the contact API returns an internal error", async ({
     page,
   }) => {

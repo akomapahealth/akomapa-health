@@ -1,4 +1,5 @@
 import { expect, test, type Page } from "@playwright/test";
+import { announcementCampaign } from "../src/data/announcements";
 
 const viewports = [
   { name: "mobile", width: 390, height: 844 },
@@ -29,11 +30,18 @@ const pages = [
 ] as const;
 
 async function setTheme(page: Page, theme: (typeof themes)[number]) {
-  await page.addInitScript((storedTheme) => {
-    localStorage.setItem("akomapa-theme", storedTheme);
-    document.documentElement.classList.remove("light", "dark");
-    document.documentElement.classList.add(storedTheme);
-  }, theme);
+  await page.addInitScript(
+    ({ storedTheme, announcementVersion }) => {
+      localStorage.setItem("akomapa-announcements-dismissed", announcementVersion);
+      localStorage.setItem("akomapa-theme", storedTheme);
+      document.documentElement.classList.remove("light", "dark");
+      document.documentElement.classList.add(storedTheme);
+    },
+    {
+      storedTheme: theme,
+      announcementVersion: announcementCampaign.version,
+    },
+  );
 }
 
 async function waitForTypography(page: Page) {
