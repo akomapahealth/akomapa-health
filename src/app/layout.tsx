@@ -4,6 +4,7 @@ import type { Metadata } from 'next';
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from '@/components/theme/ThemeProvider';
 import { MotionConfigProvider } from '@/components/motion/MotionConfigProvider';
+import { AnnouncementProvider } from '@/components/announcement/AnnouncementProvider';
 import { GoogleAnalytics } from '@next/third-parties/google';
 import DeferredGlobalWidgets from '@/components/global/DeferredGlobalWidgets';
 import {
@@ -134,8 +135,10 @@ export default function RootLayout({
       >
         <ThemeProvider defaultTheme="system" storageKey="akomapa-theme">
           <MotionConfigProvider>
-            {children}
-            <DeferredGlobalWidgets />
+            <AnnouncementProvider>
+              {children}
+              <DeferredGlobalWidgets />
+            </AnnouncementProvider>
           </MotionConfigProvider>
         </ThemeProvider>
       </body>

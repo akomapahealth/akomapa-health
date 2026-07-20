@@ -13,11 +13,19 @@ import { getAnnouncementPosterSrc, parseVideoUrl } from "@/lib/video-utils";
 import { trackEvent } from "@/lib/analytics";
 
 const STORAGE_KEY = "akomapa-announcements-dismissed";
-const DELAY_MS = 3000;
 const AUTO_ADVANCE_MS = 6000;
 
-export default function AnnouncementModal() {
-  const [isOpen, setIsOpen] = useState(false);
+type AnnouncementModalProps = {
+  isOpen: boolean;
+  onOpenChange: (open: boolean) => void;
+  onDismiss: () => void;
+};
+
+export default function AnnouncementModal({
+  isOpen,
+  onOpenChange,
+  onDismiss,
+}: AnnouncementModalProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
@@ -32,28 +40,21 @@ export default function AnnouncementModal() {
 
   const { slides, version } = announcementCampaign;
 
-  // Delayed open, gated by localStorage
+  // Reset slide index when the modal opens
   useEffect(() => {
-    if (slides.length === 0) return;
-
-    try {
-      if (localStorage.getItem(STORAGE_KEY) === version) return;
-    } catch {
-      // localStorage unavailable — show anyway
-    }
-
-    const timer = setTimeout(() => {
-      previousFocusRef.current = document.activeElement as HTMLElement;
-      setIsOpen(true);
-      trackEvent({
-        name: "announcement_popup_open",
-        version,
-        slide_count: slides.length,
-      });
-    }, DELAY_MS);
-
-    return () => clearTimeout(timer);
-  }, [slides.length, version]);
+    if (!isOpen) return;
+    setCurrentIndex(0);
+    setDirection(0);
+    setHasManualNav(false);
+    setVideoPlaying(false);
+    viewedSlideIdsRef.current = new Set();
+    previousFocusRef.current = document.activeElement as HTMLElement;
+    trackEvent({
+      name: "announcement_popup_open",
+      version,
+      slide_count: slides.length,
+    });
+  }, [isOpen, slides.length, version]);
 
   // Track each slide impression as it becomes visible
   useEffect(() => {
@@ -81,7 +82,7 @@ export default function AnnouncementModal() {
   }, [isOpen]);
 
   const close = useCallback(() => {
-    setIsOpen(false);
+    onOpenChange(false);
     trackEvent({
       name: "announcement_popup_dismiss",
       version,
@@ -92,8 +93,9 @@ export default function AnnouncementModal() {
     } catch {
       // localStorage unavailable
     }
+    onDismiss();
     previousFocusRef.current?.focus();
-  }, [version]);
+  }, [onOpenChange, onDismiss, version]);
 
   // ESC key + focus trap
   useEffect(() => {

@@ -117,11 +117,31 @@ test.describe("research detail PDF lazy loading", () => {
       await page.goto(researchPath, { waitUntil: "domcontentloaded" });
       await page.getByTestId("deferred-pdf-viewer").scrollIntoViewIfNeeded();
 
-      await expect(page.getByTestId("pdf-viewer-loaded")).toBeVisible();
+      const loaded = page.getByTestId("pdf-viewer-loaded");
+      const loadButton = page.getByRole("button", { name: "Load PDF viewer" });
+
+      // IntersectionObserver may auto-load after scroll, or we click the button.
+      // Race both so a mid-click detach from auto-load does not fail the test.
+      await Promise.race([
+        loaded.waitFor({ state: "visible", timeout: 15_000 }),
+        loadButton
+          .click({ timeout: 5_000 })
+          .catch(() => undefined)
+          .then(() => loaded.waitFor({ state: "visible", timeout: 15_000 })),
+      ]);
+
+      // Shell mounts before the PDF request finishes — wait for real load.
+      await expect(page.getByText(/Page 1 of \d+/)).toBeVisible({
+        timeout: 15_000,
+      });
       await expectNoPageOverflow(page);
     }
 
-    expect(pdfRequests.some((url) => url.includes(pdfPath))).toBe(true);
-    expect(pdfRequests.some((url) => url.includes("pdf.worker"))).toBe(true);
+    await expect
+      .poll(() => pdfRequests.some((url) => url.includes(pdfPath)))
+      .toBe(true);
+    await expect
+      .poll(() => pdfRequests.some((url) => url.includes("pdf.worker")))
+      .toBe(true);
   });
 });
