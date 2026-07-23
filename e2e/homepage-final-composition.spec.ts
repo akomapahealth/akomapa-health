@@ -37,7 +37,7 @@ test.describe("final homepage composition", () => {
 
       await expect(
         page.getByRole("heading", {
-          name: /the world.s fastest-growing health crisis deserves a stronger response/i,
+          name: /the crisis is not only disease burden\. it is the gap between risk, diagnosis, and care\./i,
         }),
       ).toBeVisible();
       await expect(
