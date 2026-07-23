@@ -259,7 +259,7 @@ export default function GHLTPPage() {
                 <Link href="/get-involved">Apply Now</Link>
               </Button>
               <Button asChild className={secondaryCtaClass}>
-                <Link href="/#">Become a Mentor</Link>
+                <Link href="/contact">Become a Mentor</Link>
               </Button>
             </motion.div>
           </div>
