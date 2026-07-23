@@ -14,7 +14,7 @@ export default function AkomapaMeaningSection() {
   const headingId = "akomapa-meaning-heading";
 
   return (
-    <HomeBand tone="cream" marker="05" aria-labelledby={headingId}>
+    <HomeBand tone="cream" marker="06" aria-labelledby={headingId}>
       <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-16">
         <FadeIn direction="right" className="lg:col-span-5">
           <div className="relative mx-auto aspect-[4/5] w-full max-w-md overflow-hidden rounded-2xl border border-[#E6E7E7] dark:border-[#2F3332]">

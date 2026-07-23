@@ -43,13 +43,6 @@ export default function TransformationalImpactSection() {
       className="relative isolate overflow-hidden bg-[#0097b2] text-[#FCFAEF]"
     >
       <div className="site-container relative mx-auto px-4 py-20 md:py-24 lg:py-28">
-        <span
-          aria-hidden="true"
-          className="pointer-events-none absolute right-4 top-6 hidden select-none rounded px-2 py-1 font-subheading text-xs font-bold tracking-[0.2em] text-[#FCFAEF]/70 ring-1 ring-[#FCFAEF]/30 md:inline-block"
-        >
-          06
-        </span>
-
         <div className="grid gap-10 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-5">
             <HomeEyebrow tone="light">Transformational Impact</HomeEyebrow>
