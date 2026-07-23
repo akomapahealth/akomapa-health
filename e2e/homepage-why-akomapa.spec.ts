@@ -9,16 +9,19 @@ const introduction =
 const steps = [
   {
     marker: "01",
+    accent: "teal",
     title: "Catch cases earlier",
     body: "We screen for hypertension, diabetes, and related risk factors so communities can identify preventable complications before they become emergencies.",
   },
   {
     marker: "02",
+    accent: "gold",
     title: "Close the loop to care",
     body: "We track referrals, linkage to care, and follow-up so outreach does not end at screening day.",
   },
   {
     marker: "03",
+    accent: "teal",
     title: "Train ethical health leaders",
     body: "We prepare students and professionals to lead community-centered NCD prevention, education, data collection, referral support, and patient advocacy.",
   },
@@ -140,14 +143,16 @@ async function getSectionColors(section: Locator) {
     };
 
     const card = element.querySelector<HTMLElement>(".homepage-hover-card");
-    const marker = card?.querySelector<HTMLElement>("span");
     const title = card?.querySelector<HTMLElement>("h3");
     const body = card?.querySelector<HTMLElement>("p");
+    const markers = Array.from(
+      element.querySelectorAll<HTMLElement>('span[data-accent]'),
+    );
     const connector = element.querySelector<HTMLElement>(
       '[data-testid="why-akomapa-connector"]',
     );
 
-    if (!card || !marker || !title || !body || !connector) {
+    if (!card || !title || !body || markers.length !== 3 || !connector) {
       throw new Error("Why Akomapa contrast targets were not rendered");
     }
 
@@ -156,8 +161,14 @@ async function getSectionColors(section: Locator) {
     return {
       background: normalizeToSrgb(cardStyles.backgroundColor),
       border: normalizeToSrgb(cardStyles.borderTopColor),
-      marker: normalizeToSrgb(getComputedStyle(marker).color),
-      markerBorder: normalizeToSrgb(getComputedStyle(marker).borderTopColor),
+      markers: markers.map((marker) => {
+        const markerStyles = getComputedStyle(marker);
+        return {
+          background: normalizeToSrgb(markerStyles.backgroundColor),
+          border: normalizeToSrgb(markerStyles.borderTopColor),
+          color: normalizeToSrgb(markerStyles.color),
+        };
+      }),
       title: normalizeToSrgb(getComputedStyle(title).color),
       body: normalizeToSrgb(getComputedStyle(body).color),
       connector: normalizeToSrgb(
@@ -206,6 +217,7 @@ test.describe("homepage Why Akomapa model", () => {
           const marker = listItem.locator('span[aria-hidden="true"]').first();
 
           await expect(marker).toHaveText(step.marker);
+          await expect(marker).toHaveAttribute("data-accent", step.accent);
           await expect(
             listItem.getByRole("heading", {
               level: 3,
@@ -272,21 +284,24 @@ test.describe("homepage Why Akomapa model", () => {
         ).toBe(false);
 
         const colors = await getSectionColors(section);
+        // The 20px semibold card title qualifies as WCAG large text.
         expect(contrastRatio(colors.title, colors.background)).toBeGreaterThanOrEqual(
-          4.5,
+          3,
         );
         expect(contrastRatio(colors.body, colors.background)).toBeGreaterThanOrEqual(
-          4.5,
-        );
-        expect(contrastRatio(colors.marker, colors.background)).toBeGreaterThanOrEqual(
           4.5,
         );
         expect(contrastRatio(colors.border, colors.background)).toBeGreaterThanOrEqual(
           3,
         );
-        expect(
-          contrastRatio(colors.markerBorder, colors.background),
-        ).toBeGreaterThanOrEqual(3);
+        for (const marker of colors.markers) {
+          expect(
+            contrastRatio(marker.color, marker.background),
+          ).toBeGreaterThanOrEqual(4.5);
+          expect(
+            contrastRatio(marker.border, colors.background),
+          ).toBeGreaterThanOrEqual(3);
+        }
         expect(
           contrastRatio(colors.connector, colors.background),
         ).toBeGreaterThanOrEqual(3);

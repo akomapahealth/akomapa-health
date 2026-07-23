@@ -10,16 +10,19 @@ const introduction =
 const steps = [
   {
     marker: "01",
+    accent: "teal",
     title: "Catch cases earlier",
     body: "We screen for hypertension, diabetes, and related risk factors so communities can identify preventable complications before they become emergencies.",
   },
   {
     marker: "02",
+    accent: "gold",
     title: "Close the loop to care",
     body: "We track referrals, linkage to care, and follow-up so outreach does not end at screening day.",
   },
   {
     marker: "03",
+    accent: "teal",
     title: "Train ethical health leaders",
     body: "We prepare students and professionals to lead community-centered NCD prevention, education, data collection, referral support, and patient advocacy.",
   },
@@ -60,6 +63,10 @@ describe("WhyAkomapaSection", () => {
       expect(within(listItem).getByText(step.marker)).toHaveAttribute(
         "aria-hidden",
         "true",
+      );
+      expect(within(listItem).getByText(step.marker)).toHaveAttribute(
+        "data-accent",
+        step.accent,
       );
       expect(
         within(listItem).getByRole("heading", {

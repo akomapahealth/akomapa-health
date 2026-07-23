@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils";
 
 type WhyAkomapaStep = Readonly<{
   marker: string;
+  accent: "teal" | "gold";
   title: string;
   body: string;
 }>;
@@ -16,20 +17,30 @@ type WhyAkomapaStep = Readonly<{
 const whyAkomapaSteps = [
   {
     marker: "01",
+    accent: "teal",
     title: "Catch cases earlier",
     body: "We screen for hypertension, diabetes, and related risk factors so communities can identify preventable complications before they become emergencies.",
   },
   {
     marker: "02",
+    accent: "gold",
     title: "Close the loop to care",
     body: "We track referrals, linkage to care, and follow-up so outreach does not end at screening day.",
   },
   {
     marker: "03",
+    accent: "teal",
     title: "Train ethical health leaders",
     body: "We prepare students and professionals to lead community-centered NCD prevention, education, data collection, referral support, and patient advocacy.",
   },
 ] as const satisfies readonly WhyAkomapaStep[];
+
+const markerAccentClasses: Record<WhyAkomapaStep["accent"], string> = {
+  teal:
+    "border-[#0F4C5C] bg-[#0F4C5C] text-[#FCFAEF] dark:border-[#66C4DC] dark:bg-[#66C4DC] dark:text-[#121514]",
+  gold:
+    "border-[#7A5200] bg-[#eeba2b] text-[#1C1F1E] dark:border-[#F5C94D] dark:bg-[#F5C94D] dark:text-[#121514]",
+};
 
 export default function WhyAkomapaSection() {
   const headingId = "why-akomapa-heading";
@@ -68,7 +79,11 @@ export default function WhyAkomapaSection() {
             <div className="homepage-hover-card relative h-full rounded-xl border border-[#8C908E] bg-white p-7 dark:border-[#69706E] dark:bg-[#1C1F1E] md:p-8">
               <span
                 aria-hidden="true"
-                className="relative z-10 flex h-14 w-14 items-center justify-center rounded-full border border-[#527B80] bg-white font-subheading text-sm font-bold tracking-[0.12em] text-[#0F4C5C] dark:border-[#7AAAB4] dark:bg-[#1C1F1E] dark:text-[#66C4DC]"
+                data-accent={step.accent}
+                className={cn(
+                  "relative z-10 flex h-14 w-14 items-center justify-center rounded-full border font-subheading text-sm font-bold tracking-[0.12em]",
+                  markerAccentClasses[step.accent],
+                )}
               >
                 {step.marker}
               </span>
@@ -79,7 +94,7 @@ export default function WhyAkomapaSection() {
                   className="absolute left-[5.5rem] top-[3.75rem] z-0 hidden h-px bg-[#527B80] dark:bg-[#7AAAB4] lg:block lg:-right-14"
                 />
               ) : null}
-              <h3 className="mt-6 font-heading text-xl font-semibold leading-snug text-[#0F4C5C] dark:text-[#66C4DC]">
+              <h3 className="mt-6 font-heading text-xl font-semibold leading-snug text-[#0097b2] dark:text-[#66C4DC]">
                 {step.title}
               </h3>
               <p className="mt-3 text-base leading-relaxed text-[#2F3332]/80 dark:text-[#E6E7E7]/80">
