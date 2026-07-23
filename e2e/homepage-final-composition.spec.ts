@@ -42,6 +42,12 @@ test.describe("final homepage composition", () => {
       ).toBeVisible();
       await expect(
         page.getByRole("heading", {
+          name: "From screening numbers to care outcomes.",
+          exact: true,
+        }),
+      ).toBeVisible();
+      await expect(
+        page.getByRole("heading", {
           name: 'Akomapa means "A Good Heart."',
         }),
       ).toBeVisible();
@@ -55,6 +61,40 @@ test.describe("final homepage composition", () => {
           name: /five components, one connected system/i,
         }),
       ).toBeVisible();
+      await expect(
+        page.getByText("Community members screened", { exact: true }).first(),
+      ).toBeVisible();
+      await expect(
+        page.getByText("Linkage-to-care rate", { exact: true }).first(),
+      ).toBeVisible();
+
+      const narrativeHeadingOrder = await page
+        .locator("main h2")
+        .evaluateAll((headings) => headings.map((heading) => heading.textContent?.trim()));
+      expect(narrativeHeadingOrder.indexOf("One model. Two challenges. Lasting impact."))
+        .toBeLessThan(
+          narrativeHeadingOrder.indexOf(
+            "From screening numbers to care outcomes.",
+          ),
+        );
+      expect(
+        narrativeHeadingOrder.indexOf(
+          "From screening numbers to care outcomes.",
+        ),
+      ).toBeLessThan(
+        narrativeHeadingOrder.indexOf("Research before implementation."),
+      );
+
+      await expect(page.locator("[data-home-band-marker]")).toHaveText([
+        "01",
+        "02",
+        "03",
+        "04",
+        "05",
+        "06",
+        "07",
+        "08",
+      ]);
       await expect(
         page.getByRole("heading", {
           name: "Nkwapa connects care, learning, and evidence.",

@@ -92,10 +92,10 @@ export default function CarePathwaySection() {
               >
                 {step.marker}
               </span>
-              <h3 className="font-heading text-xl font-semibold leading-snug text-[#0097b2] dark:text-[#66C4DC] md:mt-6 xl:text-lg">
+              <h3 className="break-words font-heading text-xl font-semibold leading-snug text-[#0097b2] dark:text-[#66C4DC] md:mt-6 xl:text-lg">
                 {step.title}
               </h3>
-              <p className="mt-3 text-sm leading-relaxed text-[#2F3332]/80 dark:text-[#E6E7E7]/80 md:text-base xl:text-sm">
+              <p className="mt-3 break-words text-sm leading-relaxed text-[#2F3332]/80 dark:text-[#E6E7E7]/80 md:text-base xl:text-sm">
                 {step.description}
               </p>
             </div>
