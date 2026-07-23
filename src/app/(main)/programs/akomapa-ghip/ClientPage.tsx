@@ -205,7 +205,7 @@ export default function GHIPPage() {
                 <Link href="/get-involved">Apply Now</Link>
               </Button>
               <Button asChild className={secondaryCtaClass}>
-                <Link href="/#">Request Program Brochure</Link>
+                <Link href="/contact">Request Program Brochure</Link>
               </Button>
             </motion.div>
           </div>
@@ -611,7 +611,7 @@ export default function GHIPPage() {
                 </Link>
               </Button>
               <Button asChild className={secondaryCtaClass}>
-                <Link href="/programs" className="flex items-center">
+                <Link href="/contact" className="flex items-center">
                   Request Program Brochure
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
