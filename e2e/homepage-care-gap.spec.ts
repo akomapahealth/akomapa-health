@@ -273,22 +273,21 @@ test.describe("homepage care-gap evidence", () => {
 
     const evidenceGroups = section.locator("dl > div");
     await expect(evidenceGroups).toHaveCount(4);
-    await section.getByText("51.1%", { exact: true }).scrollIntoViewIfNeeded();
 
-    await expect
-      .poll(() =>
-        section.evaluate((element) =>
-          Array.from(element.querySelectorAll("dl > div"), (evidenceGroup) => {
-            const styles = getComputedStyle(evidenceGroup);
+    for (const value of ["43M", "75%", "73%", "51.1%"]) {
+      const metricValue = section.getByText(value, { exact: true });
+      const evidenceGroup = evidenceGroups.filter({ hasText: value });
+
+      await expect(evidenceGroup).toHaveCount(1);
+      await metricValue.scrollIntoViewIfNeeded();
+      await expect
+        .poll(() =>
+          evidenceGroup.evaluate((element) => {
+            const styles = getComputedStyle(element);
             return { opacity: styles.opacity, transform: styles.transform };
           }),
-        ),
-      )
-      .toEqual([
-        { opacity: "1", transform: "none" },
-        { opacity: "1", transform: "none" },
-        { opacity: "1", transform: "none" },
-        { opacity: "1", transform: "none" },
-      ]);
+        )
+        .toEqual({ opacity: "1", transform: "none" });
+    }
   });
 });
