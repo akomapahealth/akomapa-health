@@ -60,30 +60,32 @@ export default function WhyAkomapaSection() {
             key={step.marker}
             delay={index * 0.08}
             className={cn(
-              "homepage-hover-card relative min-w-0 rounded-xl border border-[#D8D6C8] bg-white p-7 dark:border-[#2F3332] dark:bg-[#1C1F1E] md:p-8",
+              "relative min-w-0",
               index === whyAkomapaSteps.length - 1 &&
                 "md:col-span-2 lg:col-span-1",
             )}
           >
-            <span
-              aria-hidden="true"
-              className="relative z-10 flex h-14 w-14 items-center justify-center rounded-full border border-[#0F4C5C]/25 bg-white font-subheading text-sm font-bold tracking-[0.12em] text-[#0F4C5C] dark:border-[#66C4DC]/35 dark:bg-[#1C1F1E] dark:text-[#66C4DC]"
-            >
-              {step.marker}
-            </span>
-            {index < whyAkomapaSteps.length - 1 ? (
+            <div className="homepage-hover-card relative h-full rounded-xl border border-[#8C908E] bg-white p-7 dark:border-[#69706E] dark:bg-[#1C1F1E] md:p-8">
               <span
                 aria-hidden="true"
-                data-testid="why-akomapa-connector"
-                className="absolute left-[5.5rem] top-[3.75rem] z-0 hidden h-px bg-[#0F4C5C]/25 dark:bg-[#66C4DC]/30 lg:block lg:-right-14"
-              />
-            ) : null}
-            <h3 className="mt-6 font-heading text-xl font-semibold leading-snug text-[#0F4C5C] dark:text-[#66C4DC]">
-              {step.title}
-            </h3>
-            <p className="mt-3 text-base leading-relaxed text-[#2F3332]/80 dark:text-[#E6E7E7]/80">
-              {step.body}
-            </p>
+                className="relative z-10 flex h-14 w-14 items-center justify-center rounded-full border border-[#527B80] bg-white font-subheading text-sm font-bold tracking-[0.12em] text-[#0F4C5C] dark:border-[#7AAAB4] dark:bg-[#1C1F1E] dark:text-[#66C4DC]"
+              >
+                {step.marker}
+              </span>
+              {index < whyAkomapaSteps.length - 1 ? (
+                <span
+                  aria-hidden="true"
+                  data-testid="why-akomapa-connector"
+                  className="absolute left-[5.5rem] top-[3.75rem] z-0 hidden h-px bg-[#527B80] dark:bg-[#7AAAB4] lg:block lg:-right-14"
+                />
+              ) : null}
+              <h3 className="mt-6 font-heading text-xl font-semibold leading-snug text-[#0F4C5C] dark:text-[#66C4DC]">
+                {step.title}
+              </h3>
+              <p className="mt-3 text-base leading-relaxed text-[#2F3332]/80 dark:text-[#E6E7E7]/80">
+                {step.body}
+              </p>
+            </div>
           </FadeIn>
         ))}
       </ol>
