@@ -1,5 +1,3 @@
-"use client";
-
 import { FadeIn } from "@/components/animations";
 import { HeroEntranceH1, HeroEntranceP } from "@/components/motion/HeroEntrance";
 import Breadcrumb from "@/components/layout/Breadcrumb";
@@ -24,7 +22,7 @@ function SectionRule({ variant }: { variant: "teal" | "amber" }) {
   );
 }
 
-export default function PrivacyPage() {
+export default function Content() {
   return (
     <>
       <div className="site-container mx-auto">

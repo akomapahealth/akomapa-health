@@ -1,11 +1,9 @@
 import type { Metadata } from "next";
 import { buildPageMetadata } from "@/lib/seo";
-import ClientPage from "./ClientPage";
+import Content from "./Content";
 
-export const metadata: Metadata = buildPageMetadata(
-  "/programs/akomapa-young-advocates",
-);
+export const metadata: Metadata = buildPageMetadata("/programs/akomapa-young-advocates");
 
-export default function AkomapaYoungAdvocatesPage() {
-  return <ClientPage />;
+export default function YoungAdvocatesPage() {
+  return <Content />;
 }

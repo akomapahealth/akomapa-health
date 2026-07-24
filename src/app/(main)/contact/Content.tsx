@@ -1,12 +1,10 @@
-"use client";
-
 import Breadcrumb from "@/components/layout/Breadcrumb";
 import ContactForm from "@/components/contact/ContactForm";
 import LocationMap from "@/components/contact/LocationMap";
 import { CONTACT } from "@/config/contact";
-import { motion } from "framer-motion";
+import { MotionDiv, MotionH1, MotionP } from "@/components/motion/framer";
 
-export default function ContactPage() {
+export default function Content() {
   return (
     <>
       <div className="site-container mx-auto">
@@ -20,22 +18,22 @@ export default function ContactPage() {
         
         <div className="site-container mx-auto px-4 sm:px-6 relative z-10">
           <div className="max-w-5xl pt-4 sm:pt-8">
-            <motion.h1 
+            <MotionH1 
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
               className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-light text-[#FCFAEF] mb-6 leading-tight"
             >
               Get in touch with us.
-            </motion.h1>
-            <motion.p 
+            </MotionH1>
+            <MotionP 
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.15, duration: 0.8, ease: "easeOut" }}
               className="text-base sm:text-lg md:text-2xl text-[#FCFAEF]/80 font-light max-w-3xl"
             >
               Have questions or want to learn more about our healthcare programs? We&apos;d love to hear from you regarding partnerships, volunteering, or general inquiries.
-            </motion.p>
+            </MotionP>
           </div>
         </div>
         </section>
@@ -45,7 +43,7 @@ export default function ContactPage() {
         <div className="site-container mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12">
             {/* Contact Form */}
-            <motion.div
+            <MotionDiv
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
@@ -65,10 +63,10 @@ export default function ContactPage() {
               </div>
               
               <ContactForm />
-            </motion.div>
+            </MotionDiv>
             
             {/* Contact Information */}
-            <motion.div
+            <MotionDiv
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
@@ -135,7 +133,7 @@ export default function ContactPage() {
               <div className="rounded-2xl overflow-hidden h-64 sm:h-80 md:h-96 shadow-lg border border-[#E6E7E7]/20 dark:border-[#4F5554]/20">
                 <LocationMap />
               </div>
-            </motion.div>
+            </MotionDiv>
           </div>
         </div>
         </section>

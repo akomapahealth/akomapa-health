@@ -77,7 +77,7 @@ const impactAreas = [
   }
 ];
 
-export default function PartnerPage() {
+export default function DonatePageContent() {
   const [selectedPartnerAmount, setSelectedPartnerAmount] = useState("20");
   const [selectedOneTimeAmount, setSelectedOneTimeAmount] = useState("25");
   const [customPartnerAmount, setCustomPartnerAmount] = useState("");

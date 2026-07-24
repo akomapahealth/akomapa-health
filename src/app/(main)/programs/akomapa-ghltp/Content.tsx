@@ -1,15 +1,13 @@
-"use client";
-
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { MotionDiv, MotionH1, MotionP } from "@/components/motion/framer";
 import { AnimatedMetric } from "@/components/motion/AnimatedMetric";
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, Quote } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import Breadcrumb from "@/components/layout/Breadcrumb";
 import Image from "@/components/common/Image";
 /** `next/image` for static files under `public/` (partner logos). ImageKit paths use `Image` above. */
 import NextImage from "next/image";
 import { Button } from "@/components/ui/button";
+import GhltpTestimonialsCarousel from "@/components/programs/GhltpTestimonialsCarousel";
 
 const coreThemes = [
   {
@@ -148,22 +146,6 @@ const facultyInstitutions = [
   }
 ];
 
-const testimonials = [
-  {
-    id: 1,
-    quote: "The Akomapa Program changed how I see leadership. It's not about titles — it's about empathy, ethics, and action.",
-    name: "Program Fellow",
-    title: "Ghana",
-    image: "/avatar-2.jpg"
-  },
-  {
-    id: 2,
-    quote: "Learning directly from world leaders while engaging with peers across continents gave me the confidence to lead in my own community.",
-    name: "Student",
-    title: "Yale University",
-    image: "/avatar-2.jpg"
-  }
-];
 
 const ctaBaseClass =
   "group inline-flex items-center justify-center gap-2 rounded-half px-8 py-6 h-auto text-base sm:text-lg font-medium transition-all duration-300 transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2";
@@ -174,30 +156,7 @@ const primaryCtaClass =
 const secondaryCtaClass =
   `${ctaBaseClass} bg-[#eeba2b] hover:bg-[#eeba2b]/80 text-[#FCFAEF] shadow-lg hover:shadow-xl focus-visible:ring-[#F5C94D]`;
 
-export default function GHLTPPage() {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isHovered, setIsHovered] = useState(false);
-
-  useEffect(() => {
-    if (isHovered) {
-      return;
-    }
-
-    const timer = setInterval(() => {
-      setCurrentIndex((prev) => (prev === testimonials.length - 1 ? 0 : prev + 1));
-    }, 5000);
-
-    return () => clearInterval(timer);
-  }, [isHovered]);
-
-  const handlePrevious = () => {
-    setCurrentIndex((prev) => (prev === 0 ? testimonials.length - 1 : prev - 1));
-  };
-
-  const handleNext = () => {
-    setCurrentIndex((prev) => (prev === testimonials.length - 1 ? 0 : prev + 1));
-  };
-
+export default function Content() {
   return (
     <>
       <div className="site-container mx-auto">
@@ -210,7 +169,7 @@ export default function GHLTPPage() {
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#FCFAEF]/10 rounded-full translate-y-1/2 -translate-x-1/2 blur-3xl" />
 
         <div className="site-container mx-auto px-4 sm:px-6 relative z-10 flex flex-col gap-4 sm:gap-8">
-          <motion.div
+          <MotionDiv
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -223,33 +182,33 @@ export default function GHLTPPage() {
               <ArrowLeft className="mr-2 h-4 w-4" />
               Back to Programs
             </Link>
-          </motion.div>
+          </MotionDiv>
           <div className="max-w-5xl">
-            <motion.p
+            <MotionP
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
               className="uppercase tracking-[0.3em] text-sm font-semibold text-[#FCFAEF]/80 mb-6"
             >
               Akomapa Global Health Leadership Training Program
-            </motion.p>
-            <motion.h1 
+            </MotionP>
+            <MotionH1 
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1, duration: 0.8, ease: "easeOut" }}
               className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-light text-[#FCFAEF] mb-6 leading-tight"
             >
               Training the Next Generation of Ethical, Compassionate, and Impact-Driven Health Leaders
-            </motion.h1>
-            <motion.p 
+            </MotionH1>
+            <MotionP 
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.8, ease: "easeOut" }}
               className="text-base sm:text-lg md:text-2xl text-[#FCFAEF]/85 font-light max-w-3xl"
             >
               A semester-long, certificate-bearing course that equips emerging health professionals with the knowledge, empathy, and vision to lead transformative change in global health.
-            </motion.p>
-            <motion.div
+            </MotionP>
+            <MotionDiv
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.8, ease: "easeOut" }}
@@ -261,10 +220,10 @@ export default function GHLTPPage() {
               <Button asChild className={secondaryCtaClass}>
                 <Link href="/contact">Become a Mentor</Link>
               </Button>
-            </motion.div>
+            </MotionDiv>
           </div>
 
-          <motion.div
+          <MotionDiv
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.8, ease: "easeOut" }}
@@ -280,7 +239,7 @@ export default function GHLTPPage() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
             </div>
-          </motion.div>
+          </MotionDiv>
         </div>
       </section>
 
@@ -288,7 +247,7 @@ export default function GHLTPPage() {
       <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
         <div className="site-container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            <motion.div
+            <MotionDiv
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
@@ -309,8 +268,8 @@ export default function GHLTPPage() {
                   Rooted in Akomapa&apos;s philosophy of leadership through service, the course blends rigorous academic instruction with mentorship, live dialogue, and hands-on learning from the field.
                 </p>
               </div>
-            </motion.div>
-            <motion.div
+            </MotionDiv>
+            <MotionDiv
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1, duration: 0.6 }}
@@ -327,7 +286,7 @@ export default function GHLTPPage() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent" />
               </div>
-            </motion.div>
+            </MotionDiv>
           </div>
         </div>
       </section>
@@ -340,7 +299,7 @@ export default function GHLTPPage() {
         </div>
         <div className="relative site-container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <motion.div
+            <MotionDiv
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
@@ -353,7 +312,7 @@ export default function GHLTPPage() {
               <p className="text-lg md:text-xl text-[#FCFAEF]/90 leading-relaxed">
                 To train a new generation of 1,000+ global health leaders who lead with integrity, humility, and innovation — bridging the gap between care and justice, and between learning and leadership.
               </p>
-            </motion.div>
+            </MotionDiv>
           </div>
         </div>
       </section>
@@ -361,7 +320,7 @@ export default function GHLTPPage() {
       {/* What You'll Learn Section */}
       <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
         <div className="site-container mx-auto px-4">
-          <motion.div
+          <MotionDiv
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -374,7 +333,7 @@ export default function GHLTPPage() {
             <p className="text-lg text-[#2F3332] dark:text-[#E6E7E7] leading-relaxed">
               Our curriculum integrates cross-disciplinary theory, ethical frameworks, and practice-based learning — all grounded in real case studies from Akomapa clinics across Ghana and the United States.
             </p>
-          </motion.div>
+          </MotionDiv>
 
           <div className="max-w-6xl mx-auto">
             <h3 className="text-xl md:text-2xl font-semibold text-[#1C1F1E] dark:text-[#FCFAEF] mb-8 text-center">
@@ -382,7 +341,7 @@ export default function GHLTPPage() {
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
               {coreThemes.map((theme, index) => (
-                <motion.div
+                <MotionDiv
                   key={theme.id}
                   initial={{ opacity: 0, y: 24 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -403,7 +362,7 @@ export default function GHLTPPage() {
                       {theme.description}
                     </p>
                   </div>
-                </motion.div>
+                </MotionDiv>
               ))}
             </div>
           </div>
@@ -417,7 +376,7 @@ export default function GHLTPPage() {
           <div className="absolute bottom-0 right-0 h-72 w-72 rounded-full bg-[#F5C94D]/10 blur-3xl" />
         </div>
         <div className="relative site-container mx-auto px-4">
-          <motion.div
+          <MotionDiv
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -427,7 +386,7 @@ export default function GHLTPPage() {
             <h2 className="text-3xl md:text-4xl font-bold">
               How the Program Works
             </h2>
-          </motion.div>
+          </MotionDiv>
 
           <div className="max-w-4xl mx-auto mb-12">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
@@ -456,7 +415,7 @@ export default function GHLTPPage() {
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
               {programFeatures.map((feature, index) => (
-                <motion.div
+                <MotionDiv
                   key={feature.id}
                   initial={{ opacity: 0, y: 24 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -474,7 +433,7 @@ export default function GHLTPPage() {
                   <p className="text-sm md:text-base text-[#2F3332]/85 leading-relaxed">
                     {feature.description}
                   </p>
-                </motion.div>
+                </MotionDiv>
               ))}
             </div>
           </div>
@@ -484,7 +443,7 @@ export default function GHLTPPage() {
       {/* Faculty & Contributors Section */}
       <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
         <div className="site-container mx-auto px-4">
-          <motion.div
+          <MotionDiv
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -502,7 +461,7 @@ export default function GHLTPPage() {
 
             <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 md:gap-8 lg:gap-10">
               {facultyInstitutions.map((institution, index) => (
-                <motion.div
+                <MotionDiv
                   key={institution.id}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -519,10 +478,10 @@ export default function GHLTPPage() {
                       className="object-contain h-full w-auto transition-transform duration-300 group-hover:scale-110"
                     />
                   </div>
-                </motion.div>
+                </MotionDiv>
               ))}
             </div>
-          </motion.div>
+          </MotionDiv>
         </div>
       </section>
 
@@ -533,7 +492,7 @@ export default function GHLTPPage() {
           <div className="absolute bottom-0 right-0 h-72 w-72 rounded-full bg-[#F5C94D]/10 blur-3xl" />
         </div>
         <div className="relative site-container mx-auto px-4">
-          <motion.div
+          <MotionDiv
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -546,12 +505,12 @@ export default function GHLTPPage() {
             <p className="text-lg text-[#FCFAEF]/90 leading-relaxed">
               Students gain exclusive access to:
             </p>
-          </motion.div>
+          </MotionDiv>
 
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
               {learningBenefits.map((benefit, index) => (
-                <motion.div
+                <MotionDiv
                   key={benefit.id}
                   initial={{ opacity: 0, y: 24 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -569,7 +528,7 @@ export default function GHLTPPage() {
                   <p className="text-sm md:text-base text-[#2F3332]/85 leading-relaxed">
                     {benefit.description}
                   </p>
-                </motion.div>
+                </MotionDiv>
               ))}
             </div>
           </div>
@@ -579,7 +538,7 @@ export default function GHLTPPage() {
       {/* Impact Goal Section */}
       <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
         <div className="site-container mx-auto px-4">
-          <motion.div
+          <MotionDiv
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -592,11 +551,11 @@ export default function GHLTPPage() {
             <p className="text-lg text-[#2F3332] dark:text-[#E6E7E7] leading-relaxed">
               By 2027, we aim to:
             </p>
-          </motion.div>
+          </MotionDiv>
 
           <div className="max-w-5xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-              <motion.div
+              <MotionDiv
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.1 }}
@@ -618,8 +577,8 @@ export default function GHLTPPage() {
                 <p className="text-base md:text-lg text-[#2F3332] dark:text-[#E6E7E7] leading-relaxed flex-1">
                   Train students and young professionals in ethical, community-driven leadership
                 </p>
-              </motion.div>
-              <motion.div
+              </MotionDiv>
+              <MotionDiv
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
@@ -641,8 +600,8 @@ export default function GHLTPPage() {
                 <p className="text-base md:text-lg text-[#2F3332] dark:text-[#E6E7E7] leading-relaxed flex-1">
                   Build a sustainable pipeline of interprofessional global health leaders across countries
                 </p>
-              </motion.div>
-              <motion.div
+              </MotionDiv>
+              <MotionDiv
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.3 }}
@@ -663,7 +622,7 @@ export default function GHLTPPage() {
                 <p className="text-base md:text-lg text-[#2F3332] dark:text-[#E6E7E7] leading-relaxed flex-1">
                   Strengthen links between academic learning and real-world systems change through the Akomapa Network
                 </p>
-              </motion.div>
+              </MotionDiv>
             </div>
           </div>
         </div>
@@ -678,83 +637,7 @@ export default function GHLTPPage() {
             </h2>
           </div>
           
-          <div
-            className="relative max-w-4xl mx-auto"
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-          >
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={currentIndex}
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
-                transition={{ duration: 0.3 }}
-                className="bg-white/90 dark:bg-[#2F3332] rounded-2xl shadow-xl p-8 md:p-12 min-h-[300px] flex flex-col"
-              >
-                <div className="absolute top-8 left-8 text-[#0097b2] dark:text-[#66C4DC] opacity-20">
-                  <Quote size={64} />
-                </div>
-                
-                <div className="relative z-10 flex flex-col h-full">
-                  <div className="flex-1 flex flex-col justify-center">
-                    <blockquote className="text-xl md:text-2xl leading-relaxed text-[#2F3332] dark:text-[#E6E7E7]">
-                      &quot;{testimonials[currentIndex].quote}&quot;
-                    </blockquote>
-                  </div>
-
-                  <div className="flex items-center mt-8">
-                    <div className="rounded-full overflow-hidden h-16 w-16 mr-4">
-                      <Image
-                        src={testimonials[currentIndex].image}
-                        alt={`Headshot of ${testimonials[currentIndex].name}, ${testimonials[currentIndex].title}`}
-                        width={64}
-                        height={64}
-                        className="object-cover h-full w-full"
-                      />
-                    </div>
-                    <div>
-                      <div className="font-bold text-lg text-[#1C1F1E] dark:text-[#FCFAEF]">{testimonials[currentIndex].name}</div>
-                      <div className="text-[#eeba2b] dark:text-[#F5C94D]">{testimonials[currentIndex].title}</div>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            </AnimatePresence>
-            
-            <div className="flex justify-center mt-8 gap-2">
-              {testimonials.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setCurrentIndex(index)}
-                  className={`h-3 w-3 rounded-full ${
-                    index === currentIndex ? "bg-[#F5C94D]" : "bg-[#FCFAEF]/30"
-                  }`}
-                  aria-label={`Go to testimonial ${index + 1}`}
-                />
-              ))}
-            </div>
-            
-            {testimonials.length > 1 && (
-              <>
-                <button
-                  onClick={handlePrevious}
-                  className="absolute top-1/2 -left-4 md:-left-8 transform -translate-y-1/2 bg-white/90 dark:bg-[#2F3332] rounded-full p-2 shadow-md hover:bg-white dark:hover:bg-gray-700 transition"
-                  aria-label="Previous testimonial"
-                >
-                  <ArrowLeft className="h-6 w-6 text-[#0097b2]" />
-                </button>
-                
-                <button
-                  onClick={handleNext}
-                  className="absolute top-1/2 -right-4 md:-right-8 transform -translate-y-1/2 bg-white/90 dark:bg-[#2F3332] rounded-full p-2 shadow-md hover:bg-white dark:hover:bg-gray-700 transition"
-                  aria-label="Next testimonial"
-                >
-                  <ArrowRight className="h-6 w-6 text-[#0097b2]" />
-                </button>
-              </>
-            )}
-          </div>
+          <GhltpTestimonialsCarousel />
         </div>
       </section>
 
@@ -767,7 +650,7 @@ export default function GHLTPPage() {
 
         <div className="relative site-container mx-auto px-4 sm:px-6">
           <div className="text-center max-w-4xl mx-auto">
-            <motion.div
+            <MotionDiv
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
@@ -785,7 +668,7 @@ export default function GHLTPPage() {
               <p className="text-base sm:text-lg md:text-xl text-[#FCFAEF]/85 leading-relaxed max-w-3xl mx-auto">
                 Shape the future of compassionate, ethical healthcare through our Global Health Leadership Training Program.
               </p>
-              <motion.div
+              <MotionDiv
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
@@ -824,8 +707,8 @@ export default function GHLTPPage() {
                     <ArrowRight className="h-5 w-5 ml-2 group-hover:translate-x-1 transition-transform" />
                   </Link>
                 </Button>
-              </motion.div>
-            </motion.div>
+              </MotionDiv>
+            </MotionDiv>
           </div>
         </div>
       </section>

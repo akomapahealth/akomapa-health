@@ -1,6 +1,4 @@
-"use client";
-
-import { motion } from "framer-motion";
+import { MotionDiv, MotionH1, MotionP } from "@/components/motion/framer";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import Breadcrumb from "@/components/layout/Breadcrumb";
@@ -93,7 +91,7 @@ const recognitionBenefits = [
   }
 ];
 
-export default function CorporateSponsorshipPage() {
+export default function Content() {
 
   return (
     <>
@@ -108,30 +106,30 @@ export default function CorporateSponsorshipPage() {
         
         <div className="site-container mx-auto px-4 sm:px-6 relative z-10">
           <div className="max-w-5xl pt-4 sm:pt-8">
-            <motion.h1 
+            <MotionH1 
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
               className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-light text-[#FCFAEF] mb-6 leading-tight"
             >
               Partner with Purpose. Build Health. Leave a Legacy.
-            </motion.h1>
-            <motion.p 
+            </MotionH1>
+            <MotionP 
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.15, duration: 0.8, ease: "easeOut" }}
               className="text-base sm:text-lg md:text-2xl text-[#FCFAEF]/80 font-light max-w-3xl"
             >
               At Akomapa, we believe in bold partnerships that change lives. Our mission—to deliver compassionate, community-rooted care to underserved Ghanaians—is too urgent, too vast, and too vital to do alone. That&apos;s why we&apos;re inviting visionary companies, foundations, and institutions to stand with us as Corporate Sponsors.
-            </motion.p>
-            <motion.p 
+            </MotionP>
+            <MotionP 
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.8, ease: "easeOut" }}
               className="text-base sm:text-lg md:text-xl text-[#FCFAEF]/80 font-light max-w-3xl mt-4 sm:mt-6"
             >
               When you sponsor Akomapa, you&apos;re not just funding a clinic. You&apos;re fueling access, equity, and the future of healthcare in Africa.
-            </motion.p>
+            </MotionP>
           </div>
         </div>
       </section>
@@ -147,7 +145,7 @@ export default function CorporateSponsorshipPage() {
 
         <div className="site-container mx-auto px-4 relative z-10">
           <div className="max-w-7xl mx-auto">
-            <motion.div
+            <MotionDiv
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
@@ -168,11 +166,11 @@ export default function CorporateSponsorshipPage() {
               <p className="text-base sm:text-lg md:text-xl text-[#2F3332]/80 dark:text-[#E6E7E7]/80 max-w-4xl mx-auto leading-relaxed">
                 We welcome both financial and in-kind contributions. Here are some of the many ways your organization can make a meaningful impact:
               </p>
-            </motion.div>
+            </MotionDiv>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12">
               {sponsorshipOptions.map((option, index) => (
-                <motion.div
+                <MotionDiv
                   key={option.id}
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -218,7 +216,7 @@ export default function CorporateSponsorshipPage() {
                         
                         <div className="space-y-3 sm:space-y-4">
                           {option.recognition.map((item, idx) => (
-                            <motion.div
+                            <MotionDiv
                               key={idx}
                               initial={{ opacity: 0, x: -10 }}
                               whileInView={{ opacity: 1, x: 0 }}
@@ -233,7 +231,7 @@ export default function CorporateSponsorshipPage() {
                               <p className="text-sm sm:text-base text-[#2F3332]/80 dark:text-[#E6E7E7]/80 leading-relaxed group-hover/item:text-[#1C1F1E] dark:group-hover/item:text-[#FCFAEF] transition-colors duration-300">
                                 {item}
                               </p>
-                            </motion.div>
+                            </MotionDiv>
                           ))}
                         </div>
                       </div>
@@ -245,12 +243,12 @@ export default function CorporateSponsorshipPage() {
                       style={{ backgroundColor: option.color }}
                     />
                   </div>
-                </motion.div>
+                </MotionDiv>
               ))}
             </div>
 
             {/* Call-to-Action Section */}
-            <motion.div
+            <MotionDiv
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
@@ -281,7 +279,7 @@ export default function CorporateSponsorshipPage() {
                   </a>
                 </div>
               </div>
-            </motion.div>
+            </MotionDiv>
           </div>
         </div>
       </section>
@@ -293,7 +291,7 @@ export default function CorporateSponsorshipPage() {
 
         <div className="site-container mx-auto px-4 sm:px-6 relative z-10">
           <div className="max-w-6xl mx-auto">
-            <motion.div
+            <MotionDiv
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
@@ -314,12 +312,12 @@ export default function CorporateSponsorshipPage() {
               <p className="text-base sm:text-lg md:text-xl text-[#2F3332]/80 dark:text-[#E6E7E7]/80 max-w-3xl mx-auto leading-relaxed">
                 All corporate sponsors receive comprehensive recognition and partnership benefits designed to showcase your commitment to healthcare equity.
               </p>
-            </motion.div>
+            </MotionDiv>
 
             {/* Benefits Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 mb-12 sm:mb-16">
               {recognitionBenefits.map((benefit, index) => (
-                <motion.div
+                <MotionDiv
                   key={index}
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -351,12 +349,12 @@ export default function CorporateSponsorshipPage() {
                       </p>
                     </div>
                   </div>
-                </motion.div>
+                </MotionDiv>
               ))}
             </div>
 
             {/* Special Recognition Highlight */}
-            <motion.div
+            <MotionDiv
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.7, delay: 0.3 }}
@@ -378,7 +376,7 @@ export default function CorporateSponsorshipPage() {
                   </p>
                 </div>
               </div>
-            </motion.div>
+            </MotionDiv>
           </div>
         </div>
       </section>
@@ -392,7 +390,7 @@ export default function CorporateSponsorshipPage() {
 
         <div className="site-container mx-auto px-4 sm:px-6 relative z-10">
           <div className="max-w-6xl mx-auto">
-            <motion.div
+            <MotionDiv
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
@@ -413,10 +411,10 @@ export default function CorporateSponsorshipPage() {
               <p className="text-base sm:text-lg md:text-xl text-[#FCFAEF]/85 max-w-4xl mx-auto leading-relaxed">
                 Your company&apos;s generosity can change lives, uplift communities, and inspire a new standard of sustainable care in Ghana. Join us in rewriting what is possible.
               </p>
-            </motion.div>
+            </MotionDiv>
 
             {/* Contact Card */}
-            <motion.div
+            <MotionDiv
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.7 }}
@@ -468,10 +466,10 @@ export default function CorporateSponsorshipPage() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </MotionDiv>
 
             {/* Partner with Us CTA */}
-            <motion.div
+            <MotionDiv
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
@@ -502,7 +500,7 @@ export default function CorporateSponsorshipPage() {
                   </Button>
                 </a>
               </div>
-            </motion.div>
+            </MotionDiv>
           </div>
         </div>
       </section>

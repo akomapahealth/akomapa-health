@@ -1,13 +1,11 @@
-"use client";
-
+import { MotionDiv, MotionH1, MotionP } from "@/components/motion/framer";
 import Image from "@/components/common/Image";
 import Link from "next/link";
 import { ArrowRight, ChevronsDown } from "lucide-react";
 import Breadcrumb from "@/components/layout/Breadcrumb";
-import { motion } from "framer-motion";
 import { researchPapers } from "@/data/research-papers";
 
-export default function ResearchPage() {
+export default function Content() {
   return (
     <>
       <div className="site-container mx-auto">
@@ -21,25 +19,25 @@ export default function ResearchPage() {
         
         <div className="site-container mx-auto px-4 sm:px-6 relative z-10 h-full flex flex-col lg:flex-row lg:items-center gap-12 sm:gap-14">
           <div className="flex-1 max-w-3xl pt-4 sm:pt-8 lg:pt-0">
-            <motion.h1 
+            <MotionH1 
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
               className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-light text-[#FCFAEF] mb-6 leading-tight"
             >
               Evidence-based research driving healthcare innovation.
-            </motion.h1>
-            <motion.p 
+            </MotionH1>
+            <MotionP 
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.15, duration: 0.8, ease: "easeOut" }}
               className="text-base sm:text-lg md:text-2xl text-[#FCFAEF]/80 font-light"
             >
               Our research explores student-powered healthcare models, community-based interventions, and leadership development programs that transform how care is delivered in underserved communities.
-            </motion.p>
+            </MotionP>
           </div>
 
-          <motion.div
+          <MotionDiv
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.8, ease: "easeOut" }}
@@ -65,7 +63,7 @@ export default function ResearchPage() {
                 </div>
               </div>
             </div>
-          </motion.div>
+          </MotionDiv>
         </div>
       </section>
 
@@ -73,7 +71,7 @@ export default function ResearchPage() {
       <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
         <div className="site-container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto text-center mb-12 sm:mb-16">
-            <motion.div
+            <MotionDiv
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
@@ -88,12 +86,12 @@ export default function ResearchPage() {
               <p className="text-base sm:text-lg text-[#2F3332] dark:text-[#E6E7E7] leading-relaxed max-w-3xl mx-auto">
                 Explore our latest research findings and contributions to healthcare innovation, student-powered care models, and community health outcomes.
               </p>
-            </motion.div>
+            </MotionDiv>
           </div>
 
           <div className="space-y-6 sm:space-y-8 max-w-5xl mx-auto">
             {researchPapers.map((paper, index) => (
-              <motion.div
+              <MotionDiv
                 key={paper.id}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -148,7 +146,7 @@ export default function ResearchPage() {
                     </div>
                   </div>
                 </Link>
-              </motion.div>
+              </MotionDiv>
             ))}
           </div>
         </div>
@@ -163,7 +161,7 @@ export default function ResearchPage() {
 
         <div className="relative site-container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto text-center">
-            <motion.div
+            <MotionDiv
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
@@ -187,7 +185,7 @@ export default function ResearchPage() {
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </a>
               </div>
-            </motion.div>
+            </MotionDiv>
           </div>
         </div>
       </section>

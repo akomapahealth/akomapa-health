@@ -1,6 +1,4 @@
-"use client";
-
-import { motion } from "framer-motion";
+import { MotionDiv, MotionH1, MotionP } from "@/components/motion/framer";
 import Link from "next/link";
 import Breadcrumb from "@/components/layout/Breadcrumb";
 import Image from "@/components/common/Image";
@@ -102,7 +100,7 @@ const secondaryCtaClass =
 const outlineCtaClass =
   `${ctaBaseClass} border-2 border-[#FCFAEF] text-[#FCFAEF] hover:bg-[#FCFAEF]/10 shadow-none focus-visible:ring-[#FCFAEF]`;
 
-export default function FoodsPage() {
+export default function Content() {
   return (
     <>
       <div className="site-container mx-auto">
@@ -114,7 +112,7 @@ export default function FoodsPage() {
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#FCFAEF]/10 rounded-full translate-y-1/2 -translate-x-1/2 blur-3xl" />
 
         <div className="site-container mx-auto px-4 sm:px-6 relative z-10 flex flex-col gap-12 sm:gap-14">
-          <motion.div
+          <MotionDiv
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -127,34 +125,34 @@ export default function FoodsPage() {
               <ArrowLeft className="mr-2 h-4 w-4" />
               Back to Programs
             </Link>
-          </motion.div>
+          </MotionDiv>
           <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
             <div className="w-full lg:w-1/2 max-w-3xl">
-              <motion.p
+              <MotionP
                 initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, ease: "easeOut" }}
                 className="uppercase tracking-[0.3em] text-xs sm:text-sm font-semibold text-[#FCFAEF]/80 mb-6"
               >
                 Akomapa Foods & Stores Initiative
-              </motion.p>
-              <motion.h1
+              </MotionP>
+              <MotionH1
                 initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1, duration: 0.8, ease: "easeOut" }}
                 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-light text-[#FCFAEF] mb-6 leading-tight"
               >
                 Nourishing Health. Sustaining Care. Empowering Communities.
-              </motion.h1>
-              <motion.p
+              </MotionH1>
+              <MotionP
                 initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2, duration: 0.8, ease: "easeOut" }}
                 className="text-base sm:text-lg md:text-2xl text-[#FCFAEF]/85 font-light"
               >
                 Health begins long before patients reach our clinics. By linking agriculture, nutrition, and economic participation, Akomapa ensures that every community can feed, heal, and sustain itself.
-              </motion.p>
-              <motion.div
+              </MotionP>
+              <MotionDiv
                 initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3, duration: 0.8, ease: "easeOut" }}
@@ -169,9 +167,9 @@ export default function FoodsPage() {
                 <Button asChild className={secondaryCtaClass}>
                   <Link href="/donate">Donate</Link>
                 </Button>
-              </motion.div>
+              </MotionDiv>
             </div>
-            <motion.div
+            <MotionDiv
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.8, ease: "easeOut" }}
@@ -185,7 +183,7 @@ export default function FoodsPage() {
                 className="object-cover object-center"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
-            </motion.div>
+            </MotionDiv>
           </div>
         </div>
       </section>
@@ -193,7 +191,7 @@ export default function FoodsPage() {
       <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
         <div className="site-container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            <motion.div
+            <MotionDiv
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1, duration: 0.6 }}
@@ -208,8 +206,8 @@ export default function FoodsPage() {
                 className="object-cover object-center"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent" />
-            </motion.div>
-            <motion.div
+            </MotionDiv>
+            <MotionDiv
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
@@ -230,7 +228,7 @@ export default function FoodsPage() {
                   By linking agriculture and nutrition to student-powered community health hubs, Akomapa ensures communities receive care and co-own the means to sustain it for generations.
                 </p>
               </div>
-            </motion.div>
+            </MotionDiv>
           </div>
         </div>
       </section>
@@ -241,7 +239,7 @@ export default function FoodsPage() {
           <div className="absolute bottom-0 right-0 h-72 w-72 rounded-full bg-[#F5C94D]/10 blur-3xl" />
         </div>
         <div className="relative site-container mx-auto px-4">
-          <motion.div
+          <MotionDiv
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -254,13 +252,13 @@ export default function FoodsPage() {
             <p className="text-lg md:text-xl text-[#FCFAEF]/90 leading-relaxed">
               We are building a network of community-run farms and food stores that make nutritious food accessible while generating revenue to fund free, student-led healthcare. Every clinic becomes part of a thriving local economy where wellness, work, and sustainability reinforce one another.
             </p>
-          </motion.div>
+          </MotionDiv>
         </div>
       </section>
 
       <section className="py-16 md:py-24 bg-[#F4F1E8] dark:bg-[#1C1F1E]">
         <div className="site-container mx-auto px-4">
-          <motion.div
+          <MotionDiv
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -273,10 +271,10 @@ export default function FoodsPage() {
             <p className="text-lg text-[#2F3332] dark:text-[#E6E7E7] leading-relaxed">
               A full-circle model blends agriculture, retail, education, and reinvestment so communities thrive alongside their clinics.
             </p>
-          </motion.div>
+          </MotionDiv>
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
             {whatWeDo.map((item, index) => (
-              <motion.div
+              <MotionDiv
                 key={item.title}
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -294,7 +292,7 @@ export default function FoodsPage() {
                 <p className="text-base text-[#2F3332] dark:text-[#E6E7E7]/90 leading-relaxed">
                   {item.description}
                 </p>
-              </motion.div>
+              </MotionDiv>
             ))}
           </div>
         </div>
@@ -303,7 +301,7 @@ export default function FoodsPage() {
       <section id="pilot" className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
         <div className="site-container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            <motion.div
+            <MotionDiv
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
@@ -327,8 +325,8 @@ export default function FoodsPage() {
                   Launch Timeline · 2027
                 </p>
               </div>
-            </motion.div>
-            <motion.div
+            </MotionDiv>
+            <MotionDiv
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1, duration: 0.6 }}
@@ -343,14 +341,14 @@ export default function FoodsPage() {
                 className="object-cover object-center"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
-            </motion.div>
+            </MotionDiv>
           </div>
         </div>
       </section>
 
       <section className="py-16 md:py-24 bg-gradient-to-r from-[#0F4C5C] via-[#0097b2] to-[#0B2F3A] text-[#FCFAEF]">
         <div className="site-container mx-auto px-4">
-          <motion.div
+          <MotionDiv
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -363,10 +361,10 @@ export default function FoodsPage() {
             <p className="text-lg text-[#FCFAEF]/90 leading-relaxed">
               Every goal ties nutrition to sustainable healthcare financing and community leadership.
             </p>
-          </motion.div>
+          </MotionDiv>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
             {longTermGoals.map((goal, index) => (
-              <motion.div
+              <MotionDiv
                 key={goal.title}
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -384,7 +382,7 @@ export default function FoodsPage() {
                 <p className="text-base text-[#FCFAEF]/85 leading-relaxed">
                   {goal.detail}
                 </p>
-              </motion.div>
+              </MotionDiv>
             ))}
           </div>
         </div>
@@ -392,7 +390,7 @@ export default function FoodsPage() {
 
       <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
         <div className="site-container mx-auto px-4">
-          <motion.div
+          <MotionDiv
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -405,7 +403,7 @@ export default function FoodsPage() {
             <p className="text-lg text-[#2F3332] dark:text-[#E6E7E7] leading-relaxed">
               We collaborate with institutions that share a commitment to food security, research, and ethical healthcare delivery.
             </p>
-          </motion.div>
+          </MotionDiv>
           <div className="w-full overflow-x-auto">
             <div className="flex items-stretch gap-4 sm:gap-6 md:gap-8 min-w-max py-2">
               {partners.map((partner) => (
@@ -434,7 +432,7 @@ export default function FoodsPage() {
 
       <section className="py-16 md:py-24 bg-gradient-to-r from-[#0F4C5C] to-[#0097b2] text-[#FCFAEF]">
         <div className="site-container mx-auto px-4">
-          <motion.div
+          <MotionDiv
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -448,13 +446,13 @@ export default function FoodsPage() {
             <p className="text-base font-semibold text-[#F5C94D]">
               — Akomapa Executive Team
             </p>
-          </motion.div>
+          </MotionDiv>
         </div>
       </section>
 
       <section className="py-16 md:py-24 bg-gradient-to-r from-[#0B2F3A] via-[#0F4C5C] to-[#0097b2] text-[#FCFAEF]">
         <div className="site-container mx-auto px-4">
-          <motion.div
+          <MotionDiv
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -478,7 +476,7 @@ export default function FoodsPage() {
                 <Link href="/donate">Donate</Link>
               </Button>
             </div>
-          </motion.div>
+          </MotionDiv>
         </div>
       </section>
     </>

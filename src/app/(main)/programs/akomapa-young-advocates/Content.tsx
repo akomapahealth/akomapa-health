@@ -1,6 +1,4 @@
-"use client";
-
-import { motion } from "framer-motion";
+import { MotionDiv, MotionH1, MotionP } from "@/components/motion/framer";
 import { AnimatedMetric } from "@/components/motion/AnimatedMetric";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight } from "lucide-react";
@@ -172,7 +170,7 @@ const primaryCtaClass =
 const secondaryCtaClass =
   `${ctaBaseClass} bg-[#eeba2b] hover:bg-[#eeba2b]/80 text-[#FCFAEF] shadow-lg hover:shadow-xl focus-visible:ring-[#F5C94D]`;
 
-export default function YoungAdvocatesPage() {
+export default function Content() {
   return (
     <div className="overflow-x-hidden">
       <div className="site-container mx-auto">
@@ -184,7 +182,7 @@ export default function YoungAdvocatesPage() {
         <div className="absolute bottom-6 left-6 w-96 h-96 bg-[#FCFAEF]/10 rounded-full blur-3xl" />
 
         <div className="site-container mx-auto px-4 sm:px-6 relative z-10 flex flex-col gap-12 sm:gap-14">
-          <motion.div
+          <MotionDiv
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -197,33 +195,33 @@ export default function YoungAdvocatesPage() {
               <ArrowLeft className="mr-2 h-4 w-4" />
               Back to Programs
             </Link>
-          </motion.div>
+          </MotionDiv>
           <div className="max-w-5xl">
-            <motion.p
+            <MotionP
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
               className="uppercase tracking-[0.3em] text-sm font-semibold text-[#FCFAEF]/80 mb-6"
             >
               Akomapa Young Advocates Program
-            </motion.p>
-            <motion.h1
+            </MotionP>
+            <MotionH1
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1, duration: 0.8, ease: "easeOut" }}
               className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-light text-[#FCFAEF] mb-6 leading-tight"
             >
               Educating. Empowering. Inspiring the Next Generation of Health Leaders.
-            </motion.h1>
-            <motion.p
+            </MotionH1>
+            <MotionP
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.8, ease: "easeOut" }}
               className="text-base sm:text-lg md:text-2xl text-[#FCFAEF]/85 font-light max-w-3xl"
             >
               Led by university students trained through Akomapa clinics, the Young Advocates Program brings education on hypertension, diabetes, mental health, and whole-person wellness—alongside mentorship and leadership development—directly to high schools.
-            </motion.p>
-            <motion.div
+            </MotionP>
+            <MotionDiv
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.8, ease: "easeOut" }}
@@ -235,10 +233,10 @@ export default function YoungAdvocatesPage() {
               <Button asChild className={secondaryCtaClass}>
                 <Link href="/get-involved">Volunteer as a University Student</Link>
               </Button>
-            </motion.div>
+            </MotionDiv>
           </div>
 
-          <motion.div
+          <MotionDiv
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.8, ease: "easeOut" }}
@@ -254,14 +252,14 @@ export default function YoungAdvocatesPage() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
             </div>
-          </motion.div>
+          </MotionDiv>
         </div>
       </section>
 
       <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
         <div className="site-container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            <motion.div
+            <MotionDiv
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
@@ -282,8 +280,8 @@ export default function YoungAdvocatesPage() {
                   Every session bridges education and community care—nurturing ethical, community-minded leaders who champion physical and mental well-being in their schools and neighborhoods.
                 </p>
               </div>
-            </motion.div>
-            <motion.div
+            </MotionDiv>
+            <MotionDiv
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1, duration: 0.6 }}
@@ -300,7 +298,7 @@ export default function YoungAdvocatesPage() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent" />
               </div>
-            </motion.div>
+            </MotionDiv>
           </div>
         </div>
       </section>
@@ -311,7 +309,7 @@ export default function YoungAdvocatesPage() {
           <div className="absolute bottom-0 right-0 h-72 w-72 rounded-full bg-[#F5C94D]/10 blur-3xl" />
         </div>
         <div className="relative site-container mx-auto px-4">
-          <motion.div
+          <MotionDiv
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -322,13 +320,13 @@ export default function YoungAdvocatesPage() {
             <p className="text-lg text-[#FCFAEF]/90 leading-relaxed">
               To cultivate youth leaders who understand their power to improve community health, advocate for well-being, and serve as role models of compassion and integrity.
             </p>
-          </motion.div>
+          </MotionDiv>
         </div>
       </section>
 
       <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
         <div className="site-container mx-auto px-4">
-          <motion.div
+          <MotionDiv
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -339,11 +337,11 @@ export default function YoungAdvocatesPage() {
             <p className="text-lg text-[#2F3332] dark:text-[#E6E7E7] leading-relaxed">
               University student teams lead immersive sessions that turn classrooms into hubs of curiosity and leadership—where students learn to prevent hypertension, diabetes, and mental health challenges through health literacy and peer support.
             </p>
-          </motion.div>
+          </MotionDiv>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             {whatWeDo.map((item, index) => (
-              <motion.div
+              <MotionDiv
                 key={item.id}
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -361,7 +359,7 @@ export default function YoungAdvocatesPage() {
                 <p className="text-sm md:text-base text-[#2F3332] dark:text-[#E6E7E7] leading-relaxed">
                   {item.description}
                 </p>
-              </motion.div>
+              </MotionDiv>
             ))}
           </div>
         </div>
@@ -374,7 +372,7 @@ export default function YoungAdvocatesPage() {
         </div>
         <div className="relative site-container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-[1.1fr,0.9fr] gap-12 lg:gap-16 items-stretch">
-            <motion.div
+            <MotionDiv
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
@@ -393,7 +391,7 @@ export default function YoungAdvocatesPage() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {mentorshipHighlights.map((highlight, index) => (
-                  <motion.div
+                  <MotionDiv
                     key={highlight.title}
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -411,12 +409,12 @@ export default function YoungAdvocatesPage() {
                     <p className="text-sm text-[#FCFAEF]/80 leading-relaxed mt-1">
                       {highlight.description}
                     </p>
-                  </motion.div>
+                  </MotionDiv>
                 ))}
               </div>
-            </motion.div>
+            </MotionDiv>
 
-            <motion.div
+            <MotionDiv
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1, duration: 0.6 }}
@@ -427,7 +425,7 @@ export default function YoungAdvocatesPage() {
               <div className="relative">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   {mentorshipBenefits.map((benefit, index) => (
-                    <motion.div
+                    <MotionDiv
                       key={benefit.title}
                       initial={{ opacity: 0, y: 15 }}
                       whileInView={{ opacity: 1, y: 0 }}
@@ -458,18 +456,18 @@ export default function YoungAdvocatesPage() {
                           {benefit.description}
                         </p>
                       </div>
-                    </motion.div>
+                    </MotionDiv>
                   ))}
                 </div>
               </div>
-            </motion.div>
+            </MotionDiv>
           </div>
         </div>
       </section>
 
       <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
         <div className="site-container mx-auto px-4">
-          <motion.div
+          <MotionDiv
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -480,11 +478,11 @@ export default function YoungAdvocatesPage() {
             <p className="text-lg text-[#2F3332] dark:text-[#E6E7E7] leading-relaxed">
               A simple, repeatable model ensures every region delivers quality mentorship anchored in community care.
             </p>
-          </motion.div>
+          </MotionDiv>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-5xl mx-auto">
             {howItWorks.map((step, index) => (
-              <motion.div
+              <MotionDiv
                 key={step.title}
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -501,7 +499,7 @@ export default function YoungAdvocatesPage() {
                 <p className="text-sm md:text-base text-[#2F3332] dark:text-[#E6E7E7]/90 leading-relaxed">
                   {step.description}
                 </p>
-              </motion.div>
+              </MotionDiv>
             ))}
           </div>
         </div>
@@ -516,7 +514,7 @@ export default function YoungAdvocatesPage() {
           <div className="absolute bottom-0 right-0 h-72 w-72 rounded-full bg-[#F5C94D]/10 blur-3xl" />
         </div>
         <div className="relative site-container mx-auto px-4">
-          <motion.div
+          <MotionDiv
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -527,14 +525,14 @@ export default function YoungAdvocatesPage() {
             <p className="text-lg text-[#FCFAEF]/85 leading-relaxed">
               Every classroom conversation is part of a larger movement to build a healthier, more compassionate generation.
             </p>
-          </motion.div>
+          </MotionDiv>
 
           <div
             data-testid="young-advocates-impact-grid"
             className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 md:gap-8 xl:gap-10 items-stretch w-full max-w-[90rem] mx-auto"
           >
             {impactMetrics.map((metric, index) => (
-              <motion.div
+              <MotionDiv
                 key={metric.id}
                 data-testid="young-advocates-impact-card"
                 initial={{ opacity: 0, y: 24 }}
@@ -569,7 +567,7 @@ export default function YoungAdvocatesPage() {
                     {metric.description}
                   </p>
                 </div>
-              </motion.div>
+              </MotionDiv>
             ))}
           </div>
         </div>
@@ -578,7 +576,7 @@ export default function YoungAdvocatesPage() {
       <section className="py-16 md:py-24 bg-[#F4F1E8] dark:bg-[#1C1F1E]">
         <div className="site-container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            <motion.div
+            <MotionDiv
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
@@ -594,9 +592,9 @@ export default function YoungAdvocatesPage() {
               <p>
                 Partnerships between clinics, faculty mentors, and education authorities ensure students receive accurate information and compassionate guidance on hypertension, diabetes, and mental health—with real pathways to care that support whole-person well-being.
               </p>
-            </motion.div>
+            </MotionDiv>
 
-            <motion.div
+            <MotionDiv
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1, duration: 0.6 }}
@@ -611,7 +609,7 @@ export default function YoungAdvocatesPage() {
                 className="object-cover object-center"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent" />
-            </motion.div>
+            </MotionDiv>
           </div>
         </div>
       </section>
@@ -622,7 +620,7 @@ export default function YoungAdvocatesPage() {
           <div className="absolute bottom-0 right-0 h-72 w-72 rounded-full bg-[#F5C94D]/10 blur-3xl" />
         </div>
         <div className="relative site-container mx-auto px-4">
-          <motion.div
+          <MotionDiv
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -654,13 +652,13 @@ export default function YoungAdvocatesPage() {
                 </p>
               </div>
             </div>
-          </motion.div>
+          </MotionDiv>
         </div>
       </section>
 
       <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
         <div className="site-container mx-auto px-4">
-          <motion.div
+          <MotionDiv
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -696,7 +694,7 @@ export default function YoungAdvocatesPage() {
                 </Link>
               </Button>
             </div>
-          </motion.div>
+          </MotionDiv>
         </div>
       </section>
     </div>
