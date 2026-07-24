@@ -80,10 +80,11 @@ export function AnnouncementProvider({ children }: AnnouncementProviderProps) {
     }
   }, [slides.length, version]);
 
-  // Idle-mount the FAB; keep it available without blocking first paint.
+  // Code-split the FAB immediately on the client (still off the SSR path).
+  // Avoid idle-delaying the trigger so tip reveal (2s) stays aligned with auto-open.
   useEffect(() => {
     if (slides.length === 0) return;
-    return scheduleIdle(() => setMountTrigger(true));
+    setMountTrigger(true);
   }, [slides.length]);
 
   // Mount the modal chunk only when needed: unseen auto-open path, or user opens FAB.
@@ -100,9 +101,11 @@ export function AnnouncementProvider({ children }: AnnouncementProviderProps) {
     return scheduleIdle(() => setMountModal(true));
   }, [slides.length, version, isOpen, mountModal]);
 
-  // Auto-open for first-time visitors (new browser / unseen campaign version).
+  // Auto-open for first-time visitors. Clock starts after the trigger mounts so
+  // tip reveal (2s) and auto-open (3s) stay in the same relative window even if
+  // the dynamic trigger chunk loads a beat after hydration.
   useEffect(() => {
-    if (slides.length === 0) return;
+    if (!mountTrigger || slides.length === 0) return;
     if (isCampaignDismissed(version)) return;
 
     const timer = setTimeout(() => {
@@ -111,7 +114,7 @@ export function AnnouncementProvider({ children }: AnnouncementProviderProps) {
     }, AUTO_OPEN_DELAY_MS);
 
     return () => clearTimeout(timer);
-  }, [slides.length, version]);
+  }, [mountTrigger, slides.length, version]);
 
   const openAnnouncements = useCallback(() => {
     setMountModal(true);

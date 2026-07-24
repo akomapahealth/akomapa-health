@@ -188,7 +188,8 @@ test.describe("homepage Why Akomapa model", () => {
           width: viewport.width,
           height: viewport.height,
         });
-        await preparePage(page, theme);
+        // Reduced motion avoids mid-FadeIn opacity compositing flaking contrast.
+        await preparePage(page, theme, true);
         await page.goto("/", { waitUntil: "domcontentloaded" });
 
         const section = getSection(page);
