@@ -85,13 +85,13 @@ describe("CarePathwaySection", () => {
     });
   });
 
-  it("uses one continuous field of care-stage bands", () => {
+  it("uses one open ledger instead of cards or connectors", () => {
     render(<CarePathwaySection />);
 
     const section = screen.getByRole("region", { name: heading });
     const list = within(section).getByRole("list");
 
-    expect(list).toHaveAttribute("data-care-pathway-bands");
+    expect(list).toHaveAttribute("data-care-pathway-ledger");
     expect(list.querySelectorAll("[data-care-pathway-marker]")).toHaveLength(
       steps.length,
     );
