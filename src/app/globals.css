@@ -337,6 +337,57 @@ html.dark {
   }
 }
 
+/* Hero entrance + scroll cue without Framer Motion on the LCP path */
+@keyframes hero-entrance {
+  from {
+    opacity: 0;
+    transform: translateY(1.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes hero-scroll-cue-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes hero-scroll-bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(4px);
+  }
+}
+
+.hero-entrance {
+  animation: hero-entrance 0.7s ease-out 0.15s both;
+}
+
+.hero-scroll-cue {
+  animation: hero-scroll-cue-in 1s ease-out 1.2s both;
+}
+
+.hero-scroll-chevron {
+  animation: hero-scroll-bounce 1.5s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-entrance,
+  .hero-scroll-cue,
+  .hero-scroll-chevron {
+    animation: none;
+  }
+}
+
 /* Hero orbit portrait responsive sizing */
 @media (min-width: 1024px) {
   .hero-portrait {
