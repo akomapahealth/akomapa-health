@@ -71,14 +71,19 @@ export default function CarePathwaySection() {
   const headingId = "care-pathway-heading";
 
   return (
-    <HomeBand tone="cream" marker="03" aria-labelledby={headingId}>
+    <HomeBand
+      tone="teal"
+      marker="03"
+      aria-labelledby={headingId}
+      className="bg-[#0F4C5C]"
+    >
       <FadeIn>
         <div className="max-w-3xl">
-          <HomeEyebrow>What We Measure</HomeEyebrow>
+          <HomeEyebrow tone="light">What We Measure</HomeEyebrow>
           <HomeHeading id={headingId} className="mt-4">
             From screening numbers to care outcomes.
           </HomeHeading>
-          <HomeLead className="mt-6">
+          <HomeLead className="mt-6 text-[#FCFAEF]/85 dark:text-[#FCFAEF]/85">
             Akomapa measures success beyond the number of people reached. Our
             goal is to understand whether people at risk are identified,
             referred, connected to care, and supported over time.
@@ -95,11 +100,11 @@ export default function CarePathwaySection() {
             as="li"
             key={step.id}
             delay={index * 0.08}
-            className={`relative min-w-0 border-b border-[#527B80] py-7 last:border-b-0 md:border-b-0 md:border-t-2 md:pb-0 md:pt-6 dark:border-[#7AAAB4] ${desktopStepOffsets[index]}`}
+            className={`relative min-w-0 border-b border-[#66C4DC] py-7 last:border-b-0 md:border-b-0 md:border-t-2 md:pb-0 md:pt-6 ${desktopStepOffsets[index]}`}
           >
             <span
               aria-hidden="true"
-              className="absolute -top-0.5 left-0 hidden h-0.5 w-10 bg-[#C9920F] md:block dark:bg-[#F5C94D]"
+              className="absolute -top-0.5 left-0 hidden h-0.5 w-10 bg-[#eeba2b] md:block"
             />
 
             <div className="grid grid-cols-[4.75rem_minmax(0,1fr)] gap-x-5 md:block">
@@ -107,23 +112,23 @@ export default function CarePathwaySection() {
                 <span
                   aria-hidden="true"
                   data-care-pathway-marker
-                  className="font-heading text-[3rem] font-semibold leading-none tracking-[-0.06em] text-[#0F4C5C]/65 dark:text-[#66C4DC]/65 md:text-[3.5rem] xl:text-[3.25rem]"
+                  className="font-heading text-[3rem] font-semibold leading-none tracking-[-0.06em] text-[#FCFAEF]/80 md:text-[3.5rem] xl:text-[3.25rem]"
                 >
                   {step.marker}
                 </span>
                 <span
                   aria-hidden="true"
-                  className="mt-0.5 font-subheading text-lg font-bold leading-none text-[#C9920F] dark:text-[#F5C94D]"
+                  className="mt-0.5 font-subheading text-lg font-bold leading-none text-[#eeba2b]"
                 >
                   /
                 </span>
               </div>
 
               <div className="min-w-0 self-center md:mt-6">
-                <h3 className="break-words font-heading text-xl font-semibold leading-snug text-[#0F4C5C] dark:text-[#66C4DC] xl:text-lg">
+                <h3 className="break-words font-heading text-xl font-semibold leading-snug text-[#F5C94D] xl:text-lg">
                   {step.title}
                 </h3>
-                <p className="mt-2 break-words text-sm leading-relaxed text-[#2F3332]/80 dark:text-[#E6E7E7]/80 md:mt-3 md:text-base xl:text-sm">
+                <p className="mt-2 break-words text-sm leading-relaxed text-[#FCFAEF]/85 md:mt-3 md:text-base xl:text-sm">
                   {step.description}
                 </p>
               </div>
