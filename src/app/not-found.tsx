@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import SkipToMainContent from "@/components/layout/SkipToMainContent";
 import { PublicCta } from "@/components/shared/PublicPagePrimitives";
 
 // Lottie ships ~30kB of runtime. Defer it so a hard-404 doesn't pay the cost
@@ -30,8 +31,13 @@ export default function NotFound() {
 
   return (
     <div className="flex min-h-screen flex-col bg-background text-foreground">
+      <SkipToMainContent />
       <Header />
-      <main className="flex flex-1 items-center justify-center px-4 py-16 sm:py-24">
+      <main
+        id="main-content"
+        tabIndex={-1}
+        className="flex flex-1 items-center justify-center px-4 py-16 sm:py-24 outline-none"
+      >
         <div className="mx-auto max-w-lg text-center">
           {animationData !== null ? (
             <div className="mx-auto mb-8 max-w-md">
