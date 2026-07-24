@@ -78,36 +78,43 @@ export default function CarePathwaySection() {
       </FadeIn>
 
       <ol
-        data-care-pathway-ledger
-        className="mt-12 grid list-none border-y border-[#527B80] md:grid-cols-2 xl:grid-cols-6 dark:border-[#7AAAB4]"
+        data-care-pathway-bands
+        className="mt-12 grid list-none overflow-hidden md:grid-cols-2 xl:grid-cols-6"
       >
         {carePathwaySteps.map((step, index) => (
           <FadeIn
             as="li"
             key={step.id}
             delay={index * 0.08}
-            className="relative min-w-0 border-b border-[#527B80] py-7 last:border-b-0 md:border-b md:px-7 md:py-9 md:[&:nth-child(2n+1)]:border-r md:[&:nth-child(n+5)]:border-b-0 xl:border-b-0 xl:border-r xl:px-5 xl:py-10 xl:first:pl-0 xl:last:border-r-0 xl:last:pr-0 dark:border-[#7AAAB4]"
+            className="relative min-w-0 overflow-hidden border-b border-[#FCFAEF]/60 bg-[#0F4C5C] px-5 py-7 text-[#FCFAEF] last:border-b-0 even:bg-[#16697A] md:min-h-64 md:border-b md:border-r md:px-7 md:py-9 md:[&:nth-child(2n)]:border-r-0 md:[&:nth-child(n+5)]:border-b-0 xl:min-h-80 xl:border-b-0 xl:border-r xl:px-5 xl:py-10 xl:last:border-r-0"
           >
-            <div className="grid grid-cols-[4.5rem_minmax(0,1fr)] gap-x-5 md:block">
-              <div className="flex items-center gap-3 md:block">
+            <span
+              aria-hidden="true"
+              className="pointer-events-none absolute -bottom-3 right-3 font-heading text-[5.5rem] font-semibold leading-none tracking-[-0.08em] text-[#FCFAEF]/10 md:-bottom-4 md:text-[7rem] xl:-bottom-2 xl:right-2 xl:text-[5.5rem]"
+            >
+              {step.marker}
+            </span>
+
+            <div className="relative z-10 grid grid-cols-[4.5rem_minmax(0,1fr)] gap-x-5 md:block">
+              <div className="flex items-center gap-3">
                 <span
                   aria-hidden="true"
                   data-care-pathway-marker
-                  className="font-heading text-[2.75rem] font-semibold leading-none tracking-[-0.06em] text-[#0F4C5C]/65 dark:text-[#66C4DC]/65 md:text-[3.25rem] xl:text-[3rem]"
+                  className="font-subheading text-xs font-bold uppercase tracking-[0.18em] text-[#F5C94D]"
                 >
-                  {step.marker}
+                  Stage {step.marker}
                 </span>
                 <span
                   aria-hidden="true"
-                  className="h-px w-5 bg-[#C9920F] md:mt-5 md:block md:w-8 dark:bg-[#F5C94D]"
+                  className="h-px w-5 bg-[#F5C94D]/80"
                 />
               </div>
 
-              <div className="min-w-0 self-center md:mt-7">
-                <h3 className="break-words font-heading text-xl font-semibold leading-snug text-[#0F4C5C] dark:text-[#66C4DC] xl:text-lg">
+              <div className="min-w-0 self-center md:mt-8">
+                <h3 className="break-words font-heading text-xl font-semibold leading-snug text-[#FCFAEF] xl:text-lg">
                   {step.title}
                 </h3>
-                <p className="mt-2 break-words text-sm leading-relaxed text-[#2F3332]/80 dark:text-[#E6E7E7]/80 md:mt-3 md:text-base xl:text-sm">
+                <p className="mt-2 break-words text-sm leading-relaxed text-[#FCFAEF]/90 md:mt-3 md:text-base xl:text-sm">
                   {step.description}
                 </p>
               </div>

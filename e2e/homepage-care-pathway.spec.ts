@@ -160,29 +160,37 @@ async function getSectionColors(section: Locator) {
       return normalizedColor;
     };
 
-    const ledger = element.querySelector<HTMLElement>(
-      "[data-care-pathway-ledger]",
-    );
-    const title = ledger?.querySelector<HTMLElement>("h3");
-    const body = ledger?.querySelector<HTMLElement>("p");
-    const marker = ledger?.querySelector<HTMLElement>(
-      "[data-care-pathway-marker]",
+    const stages = Array.from(
+      element.querySelectorAll<HTMLElement>(
+        "[data-care-pathway-bands] > li",
+      ),
     );
 
-    if (!ledger || !title || !body || !marker) {
+    if (stages.length === 0) {
       throw new Error("Care pathway contrast targets were not rendered");
     }
 
-    const sectionStyles = getComputedStyle(element);
-    const ledgerStyles = getComputedStyle(ledger);
+    return stages.map((stage) => {
+      const title = stage.querySelector<HTMLElement>("h3");
+      const body = stage.querySelector<HTMLElement>("p");
+      const marker = stage.querySelector<HTMLElement>(
+        "[data-care-pathway-marker]",
+      );
 
-    return {
-      sectionBackground: normalizeToSrgb(sectionStyles.backgroundColor),
-      ledgerRule: normalizeToSrgb(ledgerStyles.borderTopColor),
-      marker: normalizeToSrgb(getComputedStyle(marker).color),
-      title: normalizeToSrgb(getComputedStyle(title).color),
-      body: normalizeToSrgb(getComputedStyle(body).color),
-    };
+      if (!title || !body || !marker) {
+        throw new Error("Care pathway stage content was not rendered");
+      }
+
+      const stageStyles = getComputedStyle(stage);
+
+      return {
+        background: normalizeToSrgb(stageStyles.backgroundColor),
+        border: normalizeToSrgb(stageStyles.borderBottomColor),
+        marker: normalizeToSrgb(getComputedStyle(marker).color),
+        title: normalizeToSrgb(getComputedStyle(title).color),
+        body: normalizeToSrgb(getComputedStyle(body).color),
+      };
+    });
   });
 }
 
@@ -215,7 +223,7 @@ test.describe("homepage care outcomes pathway", () => {
         await expect(section.getByText("What We Measure", { exact: true })).toBeVisible();
         await expect(section.getByText(introduction, { exact: true })).toBeVisible();
         await expect(list).toHaveCount(1);
-        await expect(list).toHaveAttribute("data-care-pathway-ledger");
+        await expect(list).toHaveAttribute("data-care-pathway-bands");
         await expect(listItems).toHaveCount(steps.length);
         await expect(section.locator(".homepage-hover-card")).toHaveCount(0);
         await expect(
@@ -302,19 +310,21 @@ test.describe("homepage care outcomes pathway", () => {
           ),
         ).toBe(false);
 
-        const colors = await getSectionColors(section);
-        expect(
-          contrastRatio(colors.title, colors.sectionBackground),
-        ).toBeGreaterThanOrEqual(4.5);
-        expect(
-          contrastRatio(colors.body, colors.sectionBackground),
-        ).toBeGreaterThanOrEqual(4.5);
-        expect(
-          contrastRatio(colors.ledgerRule, colors.sectionBackground),
-        ).toBeGreaterThanOrEqual(3);
-        expect(
-          contrastRatio(colors.marker, colors.sectionBackground),
-        ).toBeGreaterThanOrEqual(3);
+        const stageColors = await getSectionColors(section);
+        for (const colors of stageColors) {
+          expect(
+            contrastRatio(colors.title, colors.background),
+          ).toBeGreaterThanOrEqual(4.5);
+          expect(
+            contrastRatio(colors.body, colors.background),
+          ).toBeGreaterThanOrEqual(4.5);
+          expect(
+            contrastRatio(colors.border, colors.background),
+          ).toBeGreaterThanOrEqual(3);
+          expect(
+            contrastRatio(colors.marker, colors.background),
+          ).toBeGreaterThanOrEqual(3);
+        }
       });
     }
   }
