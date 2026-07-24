@@ -58,6 +58,15 @@ const carePathwaySteps = [
   },
 ] as const satisfies readonly CarePathwayStep[];
 
+const desktopStepOffsets = [
+  "xl:mt-0",
+  "xl:mt-[1.5rem]",
+  "xl:mt-[3rem]",
+  "xl:mt-[4.5rem]",
+  "xl:mt-[6rem]",
+  "xl:mt-[7.5rem]",
+] as const;
+
 export default function CarePathwaySection() {
   const headingId = "care-pathway-heading";
 
@@ -78,32 +87,39 @@ export default function CarePathwaySection() {
       </FadeIn>
 
       <ol
-        data-care-pathway-ledger
-        className="mt-12 grid list-none border-y border-[#527B80] md:grid-cols-2 xl:grid-cols-6 dark:border-[#7AAAB4]"
+        data-care-pathway-staircase
+        className="mt-12 grid list-none gap-y-2 md:grid-cols-2 md:gap-x-10 md:gap-y-10 xl:grid-cols-6 xl:items-start xl:gap-x-5 xl:gap-y-0"
       >
         {carePathwaySteps.map((step, index) => (
           <FadeIn
             as="li"
             key={step.id}
             delay={index * 0.08}
-            className="relative min-w-0 border-b border-[#527B80] py-7 last:border-b-0 md:border-b md:px-7 md:py-9 md:[&:nth-child(2n+1)]:border-r md:[&:nth-child(n+5)]:border-b-0 xl:border-b-0 xl:border-r xl:px-5 xl:py-10 xl:first:pl-0 xl:last:border-r-0 xl:last:pr-0 dark:border-[#7AAAB4]"
+            className={`relative min-w-0 border-b border-[#527B80] py-7 last:border-b-0 md:border-b-0 md:border-t-2 md:pb-0 md:pt-6 dark:border-[#7AAAB4] ${desktopStepOffsets[index]}`}
           >
-            <div className="grid grid-cols-[4.5rem_minmax(0,1fr)] gap-x-5 md:block">
-              <div className="flex items-center gap-3 md:block">
+            <span
+              aria-hidden="true"
+              className="absolute -top-0.5 left-0 hidden h-0.5 w-10 bg-[#C9920F] md:block dark:bg-[#F5C94D]"
+            />
+
+            <div className="grid grid-cols-[4.75rem_minmax(0,1fr)] gap-x-5 md:block">
+              <div className="flex items-start gap-2">
                 <span
                   aria-hidden="true"
                   data-care-pathway-marker
-                  className="font-heading text-[2.75rem] font-semibold leading-none tracking-[-0.06em] text-[#0F4C5C]/65 dark:text-[#66C4DC]/65 md:text-[3.25rem] xl:text-[3rem]"
+                  className="font-heading text-[3rem] font-semibold leading-none tracking-[-0.06em] text-[#0F4C5C]/65 dark:text-[#66C4DC]/65 md:text-[3.5rem] xl:text-[3.25rem]"
                 >
                   {step.marker}
                 </span>
                 <span
                   aria-hidden="true"
-                  className="h-px w-5 bg-[#C9920F] md:mt-5 md:block md:w-8 dark:bg-[#F5C94D]"
-                />
+                  className="mt-0.5 font-subheading text-lg font-bold leading-none text-[#C9920F] dark:text-[#F5C94D]"
+                >
+                  /
+                </span>
               </div>
 
-              <div className="min-w-0 self-center md:mt-7">
+              <div className="min-w-0 self-center md:mt-6">
                 <h3 className="break-words font-heading text-xl font-semibold leading-snug text-[#0F4C5C] dark:text-[#66C4DC] xl:text-lg">
                   {step.title}
                 </h3>

@@ -160,25 +160,30 @@ async function getSectionColors(section: Locator) {
       return normalizedColor;
     };
 
-    const ledger = element.querySelector<HTMLElement>(
-      "[data-care-pathway-ledger]",
+    const staircase = element.querySelector<HTMLElement>(
+      "[data-care-pathway-staircase]",
     );
-    const title = ledger?.querySelector<HTMLElement>("h3");
-    const body = ledger?.querySelector<HTMLElement>("p");
-    const marker = ledger?.querySelector<HTMLElement>(
+    const firstStep = staircase?.querySelector<HTMLElement>(":scope > li");
+    const title = firstStep?.querySelector<HTMLElement>("h3");
+    const body = firstStep?.querySelector<HTMLElement>("p");
+    const marker = firstStep?.querySelector<HTMLElement>(
       "[data-care-pathway-marker]",
     );
 
-    if (!ledger || !title || !body || !marker) {
+    if (!staircase || !firstStep || !title || !body || !marker) {
       throw new Error("Care pathway contrast targets were not rendered");
     }
 
     const sectionStyles = getComputedStyle(element);
-    const ledgerStyles = getComputedStyle(ledger);
+    const stepStyles = getComputedStyle(firstStep);
+    const stepRule =
+      stepStyles.borderTopWidth === "0px"
+        ? stepStyles.borderBottomColor
+        : stepStyles.borderTopColor;
 
     return {
       sectionBackground: normalizeToSrgb(sectionStyles.backgroundColor),
-      ledgerRule: normalizeToSrgb(ledgerStyles.borderTopColor),
+      stepRule: normalizeToSrgb(stepRule),
       marker: normalizeToSrgb(getComputedStyle(marker).color),
       title: normalizeToSrgb(getComputedStyle(title).color),
       body: normalizeToSrgb(getComputedStyle(body).color),
@@ -215,7 +220,7 @@ test.describe("homepage care outcomes pathway", () => {
         await expect(section.getByText("What We Measure", { exact: true })).toBeVisible();
         await expect(section.getByText(introduction, { exact: true })).toBeVisible();
         await expect(list).toHaveCount(1);
-        await expect(list).toHaveAttribute("data-care-pathway-ledger");
+        await expect(list).toHaveAttribute("data-care-pathway-staircase");
         await expect(listItems).toHaveCount(steps.length);
         await expect(section.locator(".homepage-hover-card")).toHaveCount(0);
         await expect(
@@ -226,7 +231,7 @@ test.describe("homepage care outcomes pathway", () => {
 
         for (const [index, step] of steps.entries()) {
           const listItem = listItems.nth(index);
-          const marker = listItem.locator('span[aria-hidden="true"]').first();
+          const marker = listItem.locator("[data-care-pathway-marker]");
 
           await expect(marker).toHaveText(step.marker);
           await expect(
@@ -286,12 +291,12 @@ test.describe("homepage care outcomes pathway", () => {
             }
           }
         } else {
-          expect(Math.max(...geometry.map((item) => item.top))).toBeLessThan(
-            Math.min(...geometry.map((item) => item.top)) + 2,
-          );
           for (let index = 1; index < geometry.length; index += 1) {
             expect(geometry[index].left).toBeGreaterThanOrEqual(
               geometry[index - 1].right,
+            );
+            expect(geometry[index].top).toBeGreaterThan(
+              geometry[index - 1].top,
             );
           }
         }
@@ -310,7 +315,7 @@ test.describe("homepage care outcomes pathway", () => {
           contrastRatio(colors.body, colors.sectionBackground),
         ).toBeGreaterThanOrEqual(4.5);
         expect(
-          contrastRatio(colors.ledgerRule, colors.sectionBackground),
+          contrastRatio(colors.stepRule, colors.sectionBackground),
         ).toBeGreaterThanOrEqual(3);
         expect(
           contrastRatio(colors.marker, colors.sectionBackground),

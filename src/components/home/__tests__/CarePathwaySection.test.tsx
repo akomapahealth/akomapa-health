@@ -85,13 +85,13 @@ describe("CarePathwaySection", () => {
     });
   });
 
-  it("uses one open ledger instead of cards or connectors", () => {
+  it("uses an open typographic staircase instead of cards or connectors", () => {
     render(<CarePathwaySection />);
 
     const section = screen.getByRole("region", { name: heading });
     const list = within(section).getByRole("list");
 
-    expect(list).toHaveAttribute("data-care-pathway-ledger");
+    expect(list).toHaveAttribute("data-care-pathway-staircase");
     expect(list.querySelectorAll("[data-care-pathway-marker]")).toHaveLength(
       steps.length,
     );
