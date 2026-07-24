@@ -15,6 +15,32 @@ async function dismissAnnouncementIfPresent(page: import("@playwright/test").Pag
   );
 }
 
+test.describe("skip to main content", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.setViewportSize(DESKTOP_VIEWPORT);
+    await dismissAnnouncementIfPresent(page);
+    await page.goto("/");
+    await page.waitForLoadState("networkidle");
+  });
+
+  test("Tab focuses skip link and Enter moves focus to main content", async ({
+    page,
+  }) => {
+    const skipLink = page.getByRole("link", { name: "Skip to main content" });
+    const main = page.locator("main#main-content");
+
+    await expect(main).toBeAttached();
+
+    // First Tab from the document should land on the skip link.
+    await page.keyboard.press("Tab");
+    await expect(skipLink).toBeFocused();
+    await expect(skipLink).toBeVisible();
+
+    await page.keyboard.press("Enter");
+    await expect(main).toBeFocused();
+  });
+});
+
 test.describe("desktop header dropdown keyboard accessibility", () => {
   test.beforeEach(async ({ page }) => {
     await page.setViewportSize(DESKTOP_VIEWPORT);
