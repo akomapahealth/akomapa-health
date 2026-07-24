@@ -77,43 +77,41 @@ export default function CarePathwaySection() {
         </div>
       </FadeIn>
 
-      <ol className="mt-12 grid list-none gap-x-6 gap-y-8 md:grid-cols-2 md:gap-y-10 xl:grid-cols-6 xl:gap-x-5">
+      <ol
+        data-care-pathway-ledger
+        className="mt-12 grid list-none border-y border-[#527B80] md:grid-cols-2 xl:grid-cols-6 dark:border-[#7AAAB4]"
+      >
         {carePathwaySteps.map((step, index) => (
           <FadeIn
             as="li"
             key={step.id}
             delay={index * 0.08}
-            className="relative min-w-0 pl-16 md:pl-0"
+            className="relative min-w-0 border-b border-[#527B80] py-7 last:border-b-0 md:border-b md:px-7 md:py-9 md:[&:nth-child(2n+1)]:border-r md:[&:nth-child(n+5)]:border-b-0 xl:border-b-0 xl:border-r xl:px-5 xl:py-10 xl:first:pl-0 xl:last:border-r-0 xl:last:pr-0 dark:border-[#7AAAB4]"
           >
-            <div className="homepage-hover-card relative z-10 h-full rounded-xl border border-[#8C908E] bg-white p-5 dark:border-[#69706E] dark:bg-[#1C1F1E] md:p-6 xl:p-5">
-              <span
-                aria-hidden="true"
-                className="absolute -left-16 top-0 z-30 flex h-14 w-14 items-center justify-center rounded-full border border-[#0F4C5C] bg-[#0F4C5C] font-subheading text-sm font-bold tracking-[0.12em] text-[#FCFAEF] dark:border-[#66C4DC] dark:bg-[#66C4DC] dark:text-[#121514] md:static"
-              >
-                {step.marker}
-              </span>
-              <h3 className="break-words font-heading text-xl font-semibold leading-snug text-[#0097b2] dark:text-[#66C4DC] md:mt-6 xl:text-lg">
-                {step.title}
-              </h3>
-              <p className="mt-3 break-words text-sm leading-relaxed text-[#2F3332]/80 dark:text-[#E6E7E7]/80 md:text-base xl:text-sm">
-                {step.description}
-              </p>
-            </div>
+            <div className="grid grid-cols-[4.5rem_minmax(0,1fr)] gap-x-5 md:block">
+              <div className="flex items-center gap-3 md:block">
+                <span
+                  aria-hidden="true"
+                  data-care-pathway-marker
+                  className="font-heading text-[2.75rem] font-semibold leading-none tracking-[-0.06em] text-[#0F4C5C]/65 dark:text-[#66C4DC]/65 md:text-[3.25rem] xl:text-[3rem]"
+                >
+                  {step.marker}
+                </span>
+                <span
+                  aria-hidden="true"
+                  className="h-px w-5 bg-[#C9920F] md:mt-5 md:block md:w-8 dark:bg-[#F5C94D]"
+                />
+              </div>
 
-            {index < carePathwaySteps.length - 1 ? (
-              <>
-                <span
-                  aria-hidden="true"
-                  data-testid="care-pathway-mobile-connector"
-                  className="absolute -bottom-8 left-7 top-14 w-px bg-[#527B80] dark:bg-[#7AAAB4] md:hidden"
-                />
-                <span
-                  aria-hidden="true"
-                  data-testid="care-pathway-desktop-connector"
-                  className="absolute left-[4.75rem] right-[-1.25rem] top-12 z-20 hidden h-px bg-[#527B80] dark:bg-[#7AAAB4] xl:block"
-                />
-              </>
-            ) : null}
+              <div className="min-w-0 self-center md:mt-7">
+                <h3 className="break-words font-heading text-xl font-semibold leading-snug text-[#0F4C5C] dark:text-[#66C4DC] xl:text-lg">
+                  {step.title}
+                </h3>
+                <p className="mt-2 break-words text-sm leading-relaxed text-[#2F3332]/80 dark:text-[#E6E7E7]/80 md:mt-3 md:text-base xl:text-sm">
+                  {step.description}
+                </p>
+              </div>
+            </div>
           </FadeIn>
         ))}
       </ol>

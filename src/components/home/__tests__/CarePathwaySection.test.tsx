@@ -85,19 +85,23 @@ describe("CarePathwaySection", () => {
     });
   });
 
-  it("keeps connectors decorative and excludes numerical achievements", () => {
+  it("uses one open ledger instead of cards or connectors", () => {
     render(<CarePathwaySection />);
 
     const section = screen.getByRole("region", { name: heading });
-    const connectors = [
-      ...within(section).getAllByTestId("care-pathway-mobile-connector"),
-      ...within(section).getAllByTestId("care-pathway-desktop-connector"),
-    ];
+    const list = within(section).getByRole("list");
 
-    expect(connectors).toHaveLength((steps.length - 1) * 2);
-    connectors.forEach((connector) => {
-      expect(connector).toHaveAttribute("aria-hidden", "true");
-    });
+    expect(list).toHaveAttribute("data-care-pathway-ledger");
+    expect(list.querySelectorAll("[data-care-pathway-marker]")).toHaveLength(
+      steps.length,
+    );
+    expect(list.querySelector(".homepage-hover-card")).not.toBeInTheDocument();
+    expect(
+      within(section).queryByTestId("care-pathway-mobile-connector"),
+    ).not.toBeInTheDocument();
+    expect(
+      within(section).queryByTestId("care-pathway-desktop-connector"),
+    ).not.toBeInTheDocument();
 
     expect(section).not.toHaveTextContent(/\d{1,3}(?:,\d{3})+\+?/);
     expect(section).not.toHaveTextContent(/\d+%/);

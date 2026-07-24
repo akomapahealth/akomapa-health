@@ -47,8 +47,11 @@ const steps = [
 
 const viewports = [
   { name: "mobile", width: 390, height: 844, columns: 1 },
+  { name: "mobile-boundary", width: 767, height: 1024, columns: 1 },
   { name: "tablet", width: 768, height: 1024, columns: 2 },
   { name: "ipad-pro", width: 1024, height: 1366, columns: 2 },
+  { name: "tablet-boundary", width: 1279, height: 900, columns: 2 },
+  { name: "desktop-boundary", width: 1280, height: 900, columns: 6 },
   { name: "desktop", width: 1440, height: 900, columns: 6 },
 ] as const;
 
@@ -157,29 +160,26 @@ async function getSectionColors(section: Locator) {
       return normalizedColor;
     };
 
-    const card = element.querySelector<HTMLElement>(".homepage-hover-card");
-    const title = card?.querySelector<HTMLElement>("h3");
-    const body = card?.querySelector<HTMLElement>("p");
-    const marker = card?.querySelector<HTMLElement>(
-      'span[aria-hidden="true"]',
+    const ledger = element.querySelector<HTMLElement>(
+      "[data-care-pathway-ledger]",
     );
-    const connector = element.querySelector<HTMLElement>(
-      '[data-testid^="care-pathway-"][data-testid$="-connector"]',
+    const title = ledger?.querySelector<HTMLElement>("h3");
+    const body = ledger?.querySelector<HTMLElement>("p");
+    const marker = ledger?.querySelector<HTMLElement>(
+      "[data-care-pathway-marker]",
     );
 
-    if (!card || !title || !body || !marker || !connector) {
+    if (!ledger || !title || !body || !marker) {
       throw new Error("Care pathway contrast targets were not rendered");
     }
 
-    const cardStyles = getComputedStyle(card);
-    const markerStyles = getComputedStyle(marker);
+    const sectionStyles = getComputedStyle(element);
+    const ledgerStyles = getComputedStyle(ledger);
 
     return {
-      cardBackground: normalizeToSrgb(cardStyles.backgroundColor),
-      cardBorder: normalizeToSrgb(cardStyles.borderTopColor),
-      connector: normalizeToSrgb(getComputedStyle(connector).backgroundColor),
-      markerBackground: normalizeToSrgb(markerStyles.backgroundColor),
-      markerColor: normalizeToSrgb(markerStyles.color),
+      sectionBackground: normalizeToSrgb(sectionStyles.backgroundColor),
+      ledgerRule: normalizeToSrgb(ledgerStyles.borderTopColor),
+      marker: normalizeToSrgb(getComputedStyle(marker).color),
       title: normalizeToSrgb(getComputedStyle(title).color),
       body: normalizeToSrgb(getComputedStyle(body).color),
     };
@@ -202,12 +202,6 @@ test.describe("homepage care outcomes pathway", () => {
         const section = getSection(page);
         const list = section.locator("ol");
         const listItems = list.locator(":scope > li");
-        const mobileConnectors = section.getByTestId(
-          "care-pathway-mobile-connector",
-        );
-        const desktopConnectors = section.getByTestId(
-          "care-pathway-desktop-connector",
-        );
 
         await expect(page.locator("html")).toHaveClass(new RegExp(theme));
         await expect(section).toBeVisible();
@@ -221,7 +215,12 @@ test.describe("homepage care outcomes pathway", () => {
         await expect(section.getByText("What We Measure", { exact: true })).toBeVisible();
         await expect(section.getByText(introduction, { exact: true })).toBeVisible();
         await expect(list).toHaveCount(1);
+        await expect(list).toHaveAttribute("data-care-pathway-ledger");
         await expect(listItems).toHaveCount(steps.length);
+        await expect(section.locator(".homepage-hover-card")).toHaveCount(0);
+        await expect(
+          section.locator('[data-testid$="-connector"]'),
+        ).toHaveCount(0);
         await expect(section).not.toContainText("3,000+");
         await expect(section).not.toContainText("95%");
 
@@ -268,7 +267,7 @@ test.describe("homepage care outcomes pathway", () => {
             expect(Math.abs(geometry[index].left - geometry[0].left)).toBeLessThan(
               2,
             );
-            expect(geometry[index].top).toBeGreaterThan(
+            expect(geometry[index].top).toBeGreaterThanOrEqual(
               geometry[index - 1].bottom,
             );
           }
@@ -278,10 +277,12 @@ test.describe("homepage care outcomes pathway", () => {
             const second = geometry[row * 2 + 1];
 
             expect(Math.abs(first.top - second.top)).toBeLessThan(2);
-            expect(second.left).toBeGreaterThan(first.right);
+            expect(second.left).toBeGreaterThanOrEqual(first.right);
 
             if (row > 0) {
-              expect(first.top).toBeGreaterThan(geometry[(row - 1) * 2].bottom);
+              expect(first.top).toBeGreaterThanOrEqual(
+                geometry[(row - 1) * 2].bottom,
+              );
             }
           }
         } else {
@@ -289,28 +290,10 @@ test.describe("homepage care outcomes pathway", () => {
             Math.min(...geometry.map((item) => item.top)) + 2,
           );
           for (let index = 1; index < geometry.length; index += 1) {
-            expect(geometry[index].left).toBeGreaterThan(
+            expect(geometry[index].left).toBeGreaterThanOrEqual(
               geometry[index - 1].right,
             );
           }
-        }
-
-        await expect(mobileConnectors).toHaveCount(steps.length - 1);
-        await expect(desktopConnectors).toHaveCount(steps.length - 1);
-        for (let index = 0; index < steps.length - 1; index += 1) {
-          const mobileDisplay = await mobileConnectors
-            .nth(index)
-            .evaluate((element) => getComputedStyle(element).display);
-          const desktopDisplay = await desktopConnectors
-            .nth(index)
-            .evaluate((element) => getComputedStyle(element).display);
-
-          expect(mobileDisplay).toBe(
-            viewport.columns === 1 ? "block" : "none",
-          );
-          expect(desktopDisplay).toBe(
-            viewport.columns === 6 ? "block" : "none",
-          );
         }
 
         expect(
@@ -321,19 +304,16 @@ test.describe("homepage care outcomes pathway", () => {
 
         const colors = await getSectionColors(section);
         expect(
-          contrastRatio(colors.title, colors.cardBackground),
-        ).toBeGreaterThanOrEqual(3);
-        expect(
-          contrastRatio(colors.body, colors.cardBackground),
+          contrastRatio(colors.title, colors.sectionBackground),
         ).toBeGreaterThanOrEqual(4.5);
         expect(
-          contrastRatio(colors.cardBorder, colors.cardBackground),
-        ).toBeGreaterThanOrEqual(3);
-        expect(
-          contrastRatio(colors.markerColor, colors.markerBackground),
+          contrastRatio(colors.body, colors.sectionBackground),
         ).toBeGreaterThanOrEqual(4.5);
         expect(
-          contrastRatio(colors.connector, colors.cardBackground),
+          contrastRatio(colors.ledgerRule, colors.sectionBackground),
+        ).toBeGreaterThanOrEqual(3);
+        expect(
+          contrastRatio(colors.marker, colors.sectionBackground),
         ).toBeGreaterThanOrEqual(3);
       });
     }
@@ -348,7 +328,6 @@ test.describe("homepage care outcomes pathway", () => {
 
     const section = getSection(page);
     const listItems = section.locator("ol > li");
-    const firstCard = section.locator(".homepage-hover-card").first();
 
     await section.scrollIntoViewIfNeeded();
     await expect(listItems).toHaveCount(steps.length);
@@ -363,13 +342,6 @@ test.describe("homepage care outcomes pathway", () => {
         )
         .toEqual({ opacity: "1", transform: "none" });
     }
-
-    await firstCard.hover();
-    await expect
-      .poll(() =>
-        firstCard.evaluate((element) => getComputedStyle(element).transform),
-      )
-      .toBe("none");
   });
 
   test("200% text zoom preserves reflow and readable content", async ({
