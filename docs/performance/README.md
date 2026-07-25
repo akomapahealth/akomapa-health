@@ -3,6 +3,12 @@
 This directory captures the before/after measurements for the comprehensive QA,
 performance, and stability pass.
 
+## Issue #86 — homepage critical path (2026-07-24)
+
+See [`lighthouse-issue-86.md`](./lighthouse-issue-86.md) for the homepage
+critical-path reduction (deferred announcements, dynamic near-fold bands,
+Framer-free hero LCP path, removed unused Swiper) and updated `/` metrics.
+
 ## How to reproduce
 
 ```bash

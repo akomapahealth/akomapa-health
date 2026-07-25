@@ -97,7 +97,7 @@ export default function WhyAkomapaSection() {
               <h3 className="mt-6 font-heading text-xl font-semibold leading-snug text-[#0097b2] dark:text-[#66C4DC]">
                 {step.title}
               </h3>
-              <p className="mt-3 text-base leading-relaxed text-[#2F3332]/80 dark:text-[#E6E7E7]/80">
+              <p className="mt-3 text-base leading-relaxed text-[#2F3332] dark:text-[#E6E7E7]">
                 {step.body}
               </p>
             </div>

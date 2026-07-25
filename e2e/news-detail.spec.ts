@@ -211,12 +211,14 @@ test.describe("Announcement modal", () => {
     const tip = page.getByTestId("announcement-trigger-tip");
 
     // Tip reveals after a short chatbot-style delay, before the 3s auto-open.
-    await expect(tip).toBeVisible({ timeout: 3000 });
-    await expect(
-      tip.getByRole("button", { name: /what's new at akomapa/i }),
-    ).toBeVisible();
-
-    await tip.getByRole("button", { name: /what's new at akomapa/i }).click();
+    await expect(tip).toBeVisible({ timeout: 5000 });
+    const tipButton = tip.getByRole("button", {
+      name: /what's new at akomapa/i,
+    });
+    await expect(tipButton).toBeVisible();
+    // Entrance motion can leave the tip "unstable" for Playwright; open via the
+    // tip before the auto-open timer wins the race.
+    await tipButton.click({ force: true });
     await expect(modal).toBeVisible({ timeout: 15000 });
     await expect(tip).toHaveCount(0);
   });
