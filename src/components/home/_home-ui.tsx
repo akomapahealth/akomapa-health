@@ -119,6 +119,7 @@ export function HomeBand({
         {marker ? (
           <span
             aria-hidden="true"
+            data-home-band-marker
             className={cn(
               "pointer-events-none absolute right-4 top-6 hidden select-none rounded px-2 py-1 font-subheading text-xs font-bold tracking-[0.2em] ring-1 md:inline-block",
               markerToneClasses[tone],

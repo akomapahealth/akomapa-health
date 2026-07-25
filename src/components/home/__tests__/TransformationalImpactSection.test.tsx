@@ -11,6 +11,8 @@ describe("TransformationalImpactSection", () => {
       name: /building healthier communities\. preparing stronger health leaders\./i,
     });
 
+    expect(section).toHaveAttribute("data-transformational-impact");
+    expect(section).toHaveClass("bg-[#0097b2]");
     expect(
       within(section).getByRole("heading", {
         level: 2,
@@ -36,6 +38,14 @@ describe("TransformationalImpactSection", () => {
     for (const label of labels) {
       expect(screen.getAllByText(label).length).toBeGreaterThan(0);
     }
+
+    expect(
+      within(
+        screen.getByRole("region", {
+          name: /building healthier communities\. preparing stronger health leaders\./i,
+        }),
+      ).getByText("04"),
+    ).toBeVisible();
   });
 
   it("reuses canonical research impact metrics", () => {

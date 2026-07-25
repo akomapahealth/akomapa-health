@@ -34,7 +34,7 @@ describe("site container layout contract", () => {
   });
 
   it("preserves the Our Teams network hero composition", () => {
-    const teamPage = readSource("src/app/(main)/about/team/ClientPage.tsx");
+    const teamPage = readSource("src/components/about/TeamPageContent.tsx");
     const heroContainer =
       'className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-10 xl:px-12 2xl:px-6 flex flex-col gap-8 sm:gap-10 md:gap-12 lg:flex-row lg:items-center"';
 

@@ -63,7 +63,7 @@ describe("canonical contact configuration", () => {
 
   it("keeps every public contact surface tied to the canonical source", () => {
     for (const path of [
-      "src/app/(main)/contact/ClientPage.tsx",
+      "src/app/(main)/contact/Content.tsx",
       "src/components/contact/ContactForm.tsx",
       "src/components/layout/Footer.tsx",
       "src/components/contact/LocationMap.tsx",

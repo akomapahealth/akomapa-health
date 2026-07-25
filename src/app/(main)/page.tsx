@@ -11,6 +11,9 @@ const ChallengeSection = dynamic(
 const WhyAkomapaSection = dynamic(
   () => import("@/components/home/WhyAkomapaSection"),
 );
+const CarePathwaySection = dynamic(
+  () => import("@/components/home/CarePathwaySection"),
+);
 const BuiltOnEvidenceSection = dynamic(
   () => import("@/components/home/BuiltOnEvidenceSection"),
 );
@@ -42,6 +45,7 @@ export default function Home() {
       <HeroSection />
       <ChallengeSection />
       <WhyAkomapaSection />
+      <CarePathwaySection />
       <BuiltOnEvidenceSection />
       <OurModelSection />
       <TransformationalImpactSection />
