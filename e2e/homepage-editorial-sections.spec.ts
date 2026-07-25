@@ -5,7 +5,7 @@ const viewports = [
   { name: "mobile", width: 390, height: 844, impactColumns: 1 },
   { name: "tablet", width: 768, height: 1024, impactColumns: 2 },
   { name: "ipad-pro", width: 1024, height: 1366, impactColumns: 2 },
-  { name: "desktop", width: 1440, height: 900, impactColumns: 4 },
+  { name: "desktop", width: 1440, height: 900, impactColumns: 3 },
 ] as const;
 
 const themes = ["light", "dark"] as const;
@@ -139,17 +139,24 @@ test.describe("homepage editorial impact, values, and vision sections", () => {
         }
 
         const metricBoxes = await boxesFor(
-          impact.locator("[data-community-metrics] > *"),
+          impact.locator("[data-impact-metrics] > *"),
         );
-        expect(metricBoxes).toHaveLength(4);
-        if (viewport.impactColumns === 1) {
-          expect(metricBoxes[1].y).toBeGreaterThan(metricBoxes[0].y);
-        } else if (viewport.impactColumns === 2) {
-          expect(Math.abs(metricBoxes[0].y - metricBoxes[1].y)).toBeLessThan(2);
-          expect(metricBoxes[2].y).toBeGreaterThan(metricBoxes[0].y);
-        } else {
-          for (const metricBox of metricBoxes.slice(1)) {
-            expect(Math.abs(metricBoxes[0].y - metricBox.y)).toBeLessThan(2);
+        expect(metricBoxes).toHaveLength(6);
+        for (let index = 0; index < metricBoxes.length; index += 1) {
+          const columnIndex = index % viewport.impactColumns;
+          const rowIndex = Math.floor(index / viewport.impactColumns);
+          const rowStartIndex = index - columnIndex;
+
+          if (columnIndex > 0) {
+            expect(
+              Math.abs(metricBoxes[rowStartIndex].y - metricBoxes[index].y),
+            ).toBeLessThan(2);
+          }
+
+          if (rowIndex > 0) {
+            expect(metricBoxes[index].y).toBeGreaterThan(
+              metricBoxes[index - viewport.impactColumns].y,
+            );
           }
         }
 

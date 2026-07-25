@@ -11,9 +11,8 @@ const ChallengeSection = dynamic(
 const WhyAkomapaSection = dynamic(
   () => import("@/components/home/WhyAkomapaSection"),
 );
-const CarePathwaySection = dynamic(
-  () => import("@/components/home/CarePathwaySection"),
-);
+// CarePathwaySection is intentionally not rendered for now. Keep the component
+// available for a future section that may reuse its typographic staircase.
 const BuiltOnEvidenceSection = dynamic(
   () => import("@/components/home/BuiltOnEvidenceSection"),
 );
@@ -45,10 +44,9 @@ export default function Home() {
       <HeroSection />
       <ChallengeSection />
       <WhyAkomapaSection />
-      <CarePathwaySection />
+      <TransformationalImpactSection />
       <BuiltOnEvidenceSection />
       <OurModelSection />
-      <TransformationalImpactSection />
       <AkomapaMeaningSection />
       <VisionSection />
       <StoriesOfImpactSection />

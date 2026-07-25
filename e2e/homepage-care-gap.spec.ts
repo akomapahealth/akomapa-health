@@ -2,7 +2,7 @@ import { expect, test, type Locator, type Page } from "@playwright/test";
 import { announcementCampaign } from "../src/data/announcements";
 
 const careGapHeading =
-  "The crisis is not only disease burden. It is the gap between risk, diagnosis, and care.";
+  "The world's fastest-growing health crisis demands a better system of care.";
 
 const viewports = [
   { name: "mobile", width: 390, height: 844, layout: "stacked" },
@@ -13,23 +13,11 @@ const viewports = [
 
 const themes = ["light", "dark"] as const;
 
-const sourceLinks = [
-  {
-    name: "Source for 43M: WHO NCD Fact Sheet, updated 2025; mortality data year 2021 (opens in a new tab)",
-    href: "https://www.who.int/news-room/fact-sheets/detail/noncommunicable-diseases",
-  },
-  {
-    name: "Source for 75%: WHO NCD Fact Sheet, updated 2025; mortality data year 2021 (opens in a new tab)",
-    href: "https://www.who.int/news-room/fact-sheets/detail/noncommunicable-diseases",
-  },
-  {
-    name: "Source for 73%: WHO NCD Fact Sheet, updated 2025; mortality data year 2021 (opens in a new tab)",
-    href: "https://www.who.int/news-room/fact-sheets/detail/noncommunicable-diseases",
-  },
-  {
-    name: "Source for 51.1%: Ghana STEPS Report 2023 (opens in a new tab)",
-    href: "https://www.afro.who.int/sites/default/files/2024-11/GHANA%20STEPS%20REPORT%202023.pdf",
-  },
+const metricValues = [
+  "74%",
+  "34M+",
+  "1 in 3",
+  "Tomorrow's health systems need better-prepared professionals.",
 ] as const;
 
 type Rgba = { red: number; green: number; blue: number; alpha: number };
@@ -41,10 +29,13 @@ function parseCssColor(color: string): Rgba {
     throw new Error(`Unsupported CSS color: ${color}`);
   }
 
+  const usesNormalizedSrgb = color.trimStart().startsWith("color(srgb ");
+  const channelScale = usesNormalizedSrgb ? 255 : 1;
+
   return {
-    red: channels[0],
-    green: channels[1],
-    blue: channels[2],
+    red: channels[0] * channelScale,
+    green: channels[1] * channelScale,
+    blue: channels[2] * channelScale,
     alpha: channels[3] ?? 1,
   };
 }
@@ -122,10 +113,10 @@ async function getSectionColors(section: Locator) {
     const heading = element.querySelector("h2");
     const eyebrow = heading?.previousElementSibling;
     const value = element.querySelector("dt");
-    const source = element.querySelector("dd a");
+    const body = element.querySelector("dd");
     const background = getComputedStyle(element).backgroundColor;
 
-    if (!eyebrow || !value || !source) {
+    if (!eyebrow || !value || !body) {
       throw new Error("Care-gap contrast targets were not rendered");
     }
 
@@ -133,7 +124,7 @@ async function getSectionColors(section: Locator) {
       background,
       eyebrow: getComputedStyle(eyebrow).color,
       value: getComputedStyle(value).color,
-      source: getComputedStyle(source).color,
+      body: getComputedStyle(body).color,
     };
   });
 }
@@ -169,20 +160,18 @@ test.describe("homepage care-gap evidence", () => {
         await expect(definitionList.locator("dt")).toHaveCount(4);
         await expect(definitionList.locator("dd")).toHaveCount(4);
 
-        for (const source of sourceLinks) {
-          const link = section.getByRole("link", {
-            name: source.name,
-            exact: true,
-          });
-          await expect(link).toBeVisible();
-          await expect(link).toHaveAttribute("href", source.href);
+        for (const value of metricValues) {
+          await expect(
+            section.getByText(value, { exact: true }),
+          ).toBeVisible();
         }
+        await expect(section.getByRole("link")).toHaveCount(0);
 
         const geometry = await section.evaluate((element) => {
           const headingElement = element.querySelector("h2");
           const listElement = element.querySelector("dl");
-          const sourceElements = Array.from(
-            element.querySelectorAll<HTMLElement>("dd, dd a"),
+          const contentElements = Array.from(
+            element.querySelectorAll<HTMLElement>("dt, dd"),
           );
 
           if (!headingElement || !listElement) {
@@ -197,9 +186,9 @@ test.describe("homepage care-gap evidence", () => {
             headingBottom: headingRect.bottom,
             listLeft: listRect.left,
             listTop: listRect.top,
-            contentClips: sourceElements.some(
-              (sourceElement) =>
-                sourceElement.scrollWidth - sourceElement.clientWidth > 1,
+            contentClips: contentElements.some(
+              (contentElement) =>
+                contentElement.scrollWidth - contentElement.clientWidth > 1,
             ),
           };
         });
@@ -216,40 +205,47 @@ test.describe("homepage care-gap evidence", () => {
         );
         expect(hasHorizontalOverflow).toBe(false);
 
-        const colors = await getSectionColors(section);
-        expect(contrastRatio(colors.eyebrow, colors.background)).toBeGreaterThanOrEqual(
-          4.5,
-        );
-        expect(contrastRatio(colors.source, colors.background)).toBeGreaterThanOrEqual(
-          4.5,
-        );
-        expect(contrastRatio(colors.value, colors.background)).toBeGreaterThanOrEqual(
-          3,
-        );
+        await expect
+          .poll(async () => {
+            const colors = await getSectionColors(section);
+            return contrastRatio(colors.eyebrow, colors.background);
+          })
+          .toBeGreaterThanOrEqual(4.5);
+        await expect
+          .poll(async () => {
+            const colors = await getSectionColors(section);
+            return contrastRatio(colors.body, colors.background);
+          })
+          .toBeGreaterThanOrEqual(4.5);
+        await expect
+          .poll(async () => {
+            const colors = await getSectionColors(section);
+            return contrastRatio(colors.value, colors.background);
+          })
+          .toBeGreaterThanOrEqual(3);
       });
     }
   }
 
-  test("source links expose a visible keyboard focus indicator", async ({ page }) => {
+  test("preserves the approved emphasis and removes the retired evidence", async ({
+    page,
+  }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await preparePage(page, "light");
     await page.goto("/", { waitUntil: "domcontentloaded" });
 
-    const sourceLink = page.getByRole("link", {
-      name: sourceLinks[0].name,
+    const section = page.getByRole("region", {
+      name: careGapHeading,
       exact: true,
     });
-    await sourceLink.focus();
-    await expect(sourceLink).toBeFocused();
-
-    const focusStyles = await sourceLink.evaluate((element) => {
-      const styles = getComputedStyle(element);
-      return { boxShadow: styles.boxShadow, outlineStyle: styles.outlineStyle };
-    });
-
-    expect(
-      focusStyles.boxShadow !== "none" || focusStyles.outlineStyle !== "none",
-    ).toBe(true);
+    await expect(
+      section.getByText("That's the gap Akomapa was created to close.", {
+        exact: true,
+      }),
+    ).toBeVisible();
+    await expect(section).not.toContainText("43M");
+    await expect(section).not.toContainText("51.1%");
+    await expect(section.getByRole("link")).toHaveCount(0);
   });
 
   test("reduced-motion users receive visible evidence without transform motion", async ({
@@ -274,7 +270,7 @@ test.describe("homepage care-gap evidence", () => {
     const evidenceGroups = section.locator("dl > div");
     await expect(evidenceGroups).toHaveCount(4);
 
-    for (const value of ["43M", "75%", "73%", "51.1%"]) {
+    for (const value of metricValues) {
       const metricValue = section.getByText(value, { exact: true });
       const evidenceGroup = evidenceGroups.filter({ hasText: value });
 

@@ -37,7 +37,8 @@ test.describe("final homepage composition", () => {
 
       await expect(
         page.getByRole("heading", {
-          name: /the crisis is not only disease burden\. it is the gap between risk, diagnosis, and care\./i,
+          name: "The world's fastest-growing health crisis demands a better system of care.",
+          exact: true,
         }),
       ).toBeVisible();
       await expect(
@@ -45,7 +46,7 @@ test.describe("final homepage composition", () => {
           name: "From screening numbers to care outcomes.",
           exact: true,
         }),
-      ).toBeVisible();
+      ).toHaveCount(0);
       await expect(
         page.getByRole("heading", {
           name: 'Akomapa means "A Good Heart."',
@@ -53,7 +54,8 @@ test.describe("final homepage composition", () => {
       ).toBeVisible();
       await expect(
         page.getByRole("heading", {
-          name: /building healthier communities\. preparing stronger health leaders\./i,
+          name: "Closing the Primary Care Gap. Building healthier communities. Preparing stronger health leaders.",
+          exact: true,
         }),
       ).toBeVisible();
       await expect(
@@ -62,10 +64,17 @@ test.describe("final homepage composition", () => {
         }),
       ).toBeVisible();
       await expect(
-        page.getByText("Community members screened", { exact: true }).first(),
+        page
+          .locator("[data-impact-metrics] dd")
+          .filter({ hasText: "People screened for chronic disease risk" }),
       ).toBeVisible();
       await expect(
-        page.getByText("Linkage-to-care rate", { exact: true }).first(),
+        page
+          .locator("[data-impact-metrics] dd")
+          .filter({
+            hasText:
+              "Patients successfully connected to ongoing primary care",
+          }),
       ).toBeVisible();
 
       const narrativeHeadingOrder = await page
@@ -74,12 +83,12 @@ test.describe("final homepage composition", () => {
       expect(narrativeHeadingOrder.indexOf("One model. Two challenges. Lasting impact."))
         .toBeLessThan(
           narrativeHeadingOrder.indexOf(
-            "From screening numbers to care outcomes.",
+            "Closing the Primary Care Gap. Building healthier communities. Preparing stronger health leaders.",
           ),
         );
       expect(
         narrativeHeadingOrder.indexOf(
-          "From screening numbers to care outcomes.",
+          "Closing the Primary Care Gap. Building healthier communities. Preparing stronger health leaders.",
         ),
       ).toBeLessThan(
         narrativeHeadingOrder.indexOf("Research before implementation."),

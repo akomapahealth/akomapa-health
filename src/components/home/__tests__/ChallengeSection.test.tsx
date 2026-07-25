@@ -3,48 +3,41 @@ import { describe, expect, it } from "vitest";
 import ChallengeSection from "@/components/home/ChallengeSection";
 
 const heading =
-  "The crisis is not only disease burden. It is the gap between risk, diagnosis, and care.";
+  "The world's fastest-growing health crisis demands a better system of care.";
 
 const paragraphs = [
-  "Noncommunicable diseases such as hypertension, diabetes, cardiovascular disease, chronic kidney disease, and stroke are among the defining health challenges of our time. Globally, NCDs caused at least 43 million deaths in 2021, with most NCD deaths occurring in low- and middle-income countries. In Ghana and across similar contexts, the challenge is not only disease burden. It is the gap between early risk, diagnosis, referral, follow-up, and long-term primary care.",
-  "Too many people learn their risk only after preventable complications have already begun. Screening can reveal danger earlier, but screening alone is not enough. Communities need systems that help people move from risk identification to care, and health professionals need training to lead that process with competence, humility, and ethical responsibility.",
+  "Noncommunicable diseases—including hypertension, diabetes, cardiovascular disease, and chronic kidney disease—are responsible for 74% of deaths worldwide. Their burden is rising fastest in low- and middle-income countries, where communities face growing rates of chronic illness but often lack reliable access to prevention, early diagnosis, and continuous primary care.",
+  "Hypertension and diabetes have become silent epidemics. Millions of people remain undiagnosed until preventable complications such as stroke, heart failure, kidney disease, or blindness occur. Even after diagnosis, too many patients never begin treatment or are lost during follow-up, allowing preventable diseases to become life-threatening.",
+  "But the challenge extends beyond access to care. Health systems need stronger community-based models that guide people from screening to diagnosis, treatment, and lifelong care. They also need a new generation of health professionals equipped to lead that transformation through ethical, interprofessional, and community-centred practice.",
 ] as const;
 
-const emphasis =
-  "A stronger response must do two things at once: catch preventable disease earlier and prepare ethical health leaders who can keep communities connected to care.";
+const emphasis = "That's the gap Akomapa was created to close.";
 
 const metrics = [
   {
-    value: "43M",
-    label: "people died from NCDs globally in 2021.",
-    source: "WHO NCD Fact Sheet, updated 2025; mortality data year 2021",
-    href: "https://www.who.int/news-room/fact-sheets/detail/noncommunicable-diseases",
+    value: "74%",
+    label:
+      "of deaths worldwide are caused by noncommunicable diseases with 75% of them in low and middle-income countries.",
   },
   {
-    value: "75%",
+    value: "34M+",
     label:
-      "of non-pandemic-related global deaths were caused by NCDs in 2021.",
-    source: "WHO NCD Fact Sheet, updated 2025; mortality data year 2021",
-    href: "https://www.who.int/news-room/fact-sheets/detail/noncommunicable-diseases",
+      "adults in the WHO African Region are without essential NCD care, many because they remain undiagnosed.",
   },
   {
-    value: "73%",
+    value: "1 in 3",
     label:
-      "of all NCD deaths occur in low- and middle-income countries.",
-    source: "WHO NCD Fact Sheet, updated 2025; mortality data year 2021",
-    href: "https://www.who.int/news-room/fact-sheets/detail/noncommunicable-diseases",
+      "patients with hypertension or diabetes in a large Ghanaian study were lost to follow-up after entering care.",
   },
   {
-    value: "51.1%",
+    value: "Tomorrow's health systems need better-prepared professionals.",
     label:
-      "of Ghanaian adults aged 18–69 with elevated blood pressure had not previously been diagnosed.",
-    source: "Ghana STEPS Report 2023",
-    href: "https://www.afro.who.int/sites/default/files/2024-11/GHANA%20STEPS%20REPORT%202023.pdf",
+      "Future healthcare leaders need more opportunities to learn community-based, interprofessional, and ethical models of care before entering practice.",
   },
 ] as const;
 
 describe("ChallengeSection", () => {
-  it("renders the approved care-gap narrative and sourced semantic evidence", () => {
+  it("renders the CEO-approved care-gap narrative and semantic evidence", () => {
     render(<ChallengeSection />);
 
     const section = screen.getByRole("region", { name: heading });
@@ -55,7 +48,7 @@ describe("ChallengeSection", () => {
     ).toBeVisible();
 
     for (const paragraph of paragraphs) {
-      expect(within(section).getByText(paragraph)).toBeVisible();
+      expect(section).toHaveTextContent(paragraph);
     }
     expect(within(section).getByText(emphasis)).toBeVisible();
 
@@ -67,14 +60,8 @@ describe("ChallengeSection", () => {
     for (const metric of metrics) {
       expect(within(section).getByText(metric.value)).toBeVisible();
       expect(within(section).getByText(metric.label)).toBeVisible();
-
-      const link = within(section).getByRole("link", {
-        name: `Source for ${metric.value}: ${metric.source} (opens in a new tab)`,
-      });
-      expect(link).toHaveTextContent(metric.source);
-      expect(link).toHaveAttribute("href", metric.href);
-      expect(link).toHaveAttribute("target", "_blank");
-      expect(link).toHaveAttribute("rel", "noopener noreferrer");
     }
+
+    expect(within(section).queryAllByRole("link")).toHaveLength(0);
   });
 });
