@@ -1,13 +1,21 @@
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 import HeroSection from "@/components/home/HeroSection";
-import ChallengeSection from "@/components/home/ChallengeSection";
-import WhyAkomapaSection from "@/components/home/WhyAkomapaSection";
-import BuiltOnEvidenceSection from "@/components/home/BuiltOnEvidenceSection";
 import { buildPageMetadata } from "@/lib/seo";
 
-// Below-the-fold bands — split into their own chunks so the initial homepage
-// payload stays light until the user scrolls toward them.
+// Near- and below-the-fold bands — split into their own chunks so the initial
+// homepage payload stays light until the user scrolls toward them.
+const ChallengeSection = dynamic(
+  () => import("@/components/home/ChallengeSection"),
+);
+const WhyAkomapaSection = dynamic(
+  () => import("@/components/home/WhyAkomapaSection"),
+);
+// CarePathwaySection is intentionally not rendered for now. Keep the component
+// available for a future section that may reuse its typographic staircase.
+const BuiltOnEvidenceSection = dynamic(
+  () => import("@/components/home/BuiltOnEvidenceSection"),
+);
 const OurModelSection = dynamic(
   () => import("@/components/home/OurModelSection"),
 );
@@ -36,9 +44,9 @@ export default function Home() {
       <HeroSection />
       <ChallengeSection />
       <WhyAkomapaSection />
+      <TransformationalImpactSection />
       <BuiltOnEvidenceSection />
       <OurModelSection />
-      <TransformationalImpactSection />
       <AkomapaMeaningSection />
       <VisionSection />
       <StoriesOfImpactSection />

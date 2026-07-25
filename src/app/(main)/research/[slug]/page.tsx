@@ -10,7 +10,7 @@ import {
   getResearchPaperBySlug,
   researchPapers,
 } from "@/data/research-papers";
-import ClientPage from "./ClientPage";
+import ResearchPaperContent from "./ResearchPaperContent";
 
 type ResearchPaperPageProps = {
   params: Promise<{ slug: string }>;
@@ -67,7 +67,7 @@ export default async function ResearchPaperPage({
           __html: serializeJsonLd(jsonLd),
         }}
       />
-      <ClientPage paper={paper} />
+      <ResearchPaperContent paper={paper} />
     </>
   );
 }

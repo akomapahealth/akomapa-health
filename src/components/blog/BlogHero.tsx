@@ -20,7 +20,7 @@ export function BlogHero({ postCount }: BlogHeroProps) {
         <div className="absolute right-1/4 top-1/2 h-40 w-40 rounded-full bg-[#F5C94D]/15 blur-2xl" />
       </div>
 
-      <div className="container relative z-10 mx-auto px-4 sm:px-6">
+      <div className="site-container relative z-10 mx-auto px-4 sm:px-6">
         <div className="mx-auto max-w-3xl text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

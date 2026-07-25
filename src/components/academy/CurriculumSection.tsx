@@ -128,7 +128,7 @@ export default function CurriculumSection() {
         <div className="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-[#F5C94D]/10 blur-3xl" />
       </div>
 
-      <div className="container relative z-10 mx-auto px-4 sm:px-6">
+      <div className="site-container relative z-10 mx-auto px-4 sm:px-6">
         <FadeIn>
           <div className="mx-auto mb-12 max-w-3xl space-y-4 text-center">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#F5C94D]">

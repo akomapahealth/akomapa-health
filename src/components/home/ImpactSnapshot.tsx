@@ -62,7 +62,7 @@ export default function ImpactSnapshot() {
       aria-labelledby="impact-snapshot-heading"
       className="bg-[#FCFAEF] text-[#1C1F1E] dark:bg-[#121514] dark:text-[#FCFAEF]"
     >
-      <div className="container mx-auto px-4">
+      <div className="site-container mx-auto px-4">
         <div className="border-y border-[#D8D6C8] py-8 dark:border-[#2F3332] md:py-10">
           <div className="grid gap-8 lg:grid-cols-[minmax(0,0.34fr)_minmax(0,0.66fr)] lg:items-center">
             <div className="max-w-xl">

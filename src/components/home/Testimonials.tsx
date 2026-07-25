@@ -57,7 +57,7 @@ export default function Testimonials() {
   
   return (
     <section className="overflow-x-hidden bg-gradient-to-r from-[#0097b2] to-[#0F4C5C] py-16 text-[#FCFAEF] md:py-24 dark:from-[#121514] dark:to-[#0F4C5C]">
-      <div className="container mx-auto px-4">
+      <div className="site-container mx-auto px-4">
         <PublicSectionHeader
           eyebrow="Voices from the Field"
           eyebrowTone="gold"

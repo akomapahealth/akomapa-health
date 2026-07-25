@@ -154,6 +154,10 @@ select {
   * {
     @apply border-border;
   }
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
   body {
     @apply bg-background text-foreground font-body;
   }
@@ -173,6 +177,45 @@ select {
 /* Add these styles to support theme switching while preserving all existing code */
 html.dark {
   color-scheme: dark;
+}
+
+@layer components {
+  .site-container {
+    width: 100%;
+    max-width: 90rem;
+    margin-inline: auto;
+    padding-inline: 1rem !important;
+  }
+
+  @media (min-width: 40rem) {
+    .site-container {
+      padding-inline: 1.5rem !important;
+    }
+  }
+
+  @media (min-width: 48rem) {
+    .site-container {
+      padding-inline: 2rem !important;
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .site-container {
+      padding-inline: 2.5rem !important;
+    }
+  }
+
+  @media (min-width: 80rem) {
+    .site-container {
+      padding-inline: 3rem !important;
+    }
+  }
+
+  @media (min-width: 96rem) {
+    .site-container {
+      padding-inline: 4rem !important;
+    }
+  }
 }
 
 .homepage-hover-card,
@@ -291,6 +334,57 @@ html.dark {
       0 0 1px rgba(0, 0, 0, 0.32),
       0 1px 2px rgba(0, 0, 0, 0.48),
       0 2px 10px rgba(0, 0, 0, 0.32);
+  }
+}
+
+/* Hero entrance + scroll cue without Framer Motion on the LCP path */
+@keyframes hero-entrance {
+  from {
+    opacity: 0;
+    transform: translateY(1.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes hero-scroll-cue-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes hero-scroll-bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(4px);
+  }
+}
+
+.hero-entrance {
+  animation: hero-entrance 0.7s ease-out 0.15s both;
+}
+
+.hero-scroll-cue {
+  animation: hero-scroll-cue-in 1s ease-out 1.2s both;
+}
+
+.hero-scroll-chevron {
+  animation: hero-scroll-bounce 1.5s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-entrance,
+  .hero-scroll-cue,
+  .hero-scroll-chevron {
+    animation: none;
   }
 }
 

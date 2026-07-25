@@ -4,9 +4,9 @@ import type { Metadata } from 'next';
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from '@/components/theme/ThemeProvider';
 import { MotionConfigProvider } from '@/components/motion/MotionConfigProvider';
-import AnnouncementModal from '@/components/announcement/AnnouncementModal';
+import { AnnouncementProvider } from '@/components/announcement/AnnouncementProvider';
 import { GoogleAnalytics } from '@next/third-parties/google';
-import GlobalClickTracker from '@/components/analytics/GlobalClickTracker';
+import DeferredGlobalWidgets from '@/components/global/DeferredGlobalWidgets';
 import {
   DEFAULT_DESCRIPTION,
   DEFAULT_OG_IMAGE,
@@ -135,9 +135,10 @@ export default function RootLayout({
       >
         <ThemeProvider defaultTheme="system" storageKey="akomapa-theme">
           <MotionConfigProvider>
-            {children}
-            <AnnouncementModal />
-            <GlobalClickTracker />
+            <AnnouncementProvider>
+              {children}
+              <DeferredGlobalWidgets />
+            </AnnouncementProvider>
           </MotionConfigProvider>
         </ThemeProvider>
       </body>

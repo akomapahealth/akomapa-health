@@ -28,7 +28,7 @@ export const partners: Partner[] = [
   {
     id: "yale-university",
     name: "Yale University",
-    logo: "/images/partners/yale-uni-logo.png",
+    logo: "/images/partners/yale-sm-logo.png",
     description:
       "A university partner contributing student leadership, faculty expertise, research collaboration, and the New Haven community health hub model.",
     category: "university",
@@ -48,7 +48,6 @@ export const partners: Partner[] = [
   {
     id: "community-partners",
     name: "Community Leaders and Institutions",
-    logo: "/images/partners/local-coops-logo.svg",
     description:
       "Traditional leaders, residents, health facilities, churches, schools, barbershops, salons, and local organizations that co-design and sustain community health work.",
     category: "community",
@@ -190,12 +189,7 @@ export const categoryOrder: Partner["category"][] = [
 // Logo grid (all partner / collaborator logos)
 // ---------------------------------------------------------------------------
 
-export const allPartnerLogos: PartnerLogo[] = [
-  {
-    name: "Yale University",
-    logo: "/images/partners/yale-uni-logo.png",
-    url: "https://www.yale.edu/",
-  },
+export const academicAndResearchPartnerLogos = [
   {
     name: "University of Cape Coast",
     logo: "/images/partners/ucc.png",
@@ -207,7 +201,11 @@ export const allPartnerLogos: PartnerLogo[] = [
     url: "https://www.ug.edu.gh/",
   },
   {
-    name: "UCLA",
+    name: "Yale School of Medicine",
+    logo: "/images/partners/yale-sm-logo.png",
+  },
+  {
+    name: "David Geffen School of Medicine at UCLA",
     logo: "/images/partners/ucla.png",
     url: "https://www.ucla.edu/",
   },
@@ -217,49 +215,35 @@ export const allPartnerLogos: PartnerLogo[] = [
     url: "https://ghs.gov.gh/",
   },
   {
-    name: "African Health Innovation Centre",
-    logo: "/images/partners/african-health-logo.png",
-    url: "https://africanhealthinnovation.org/",
+    name: "African Impact Initiative",
+    logo: "/images/partners/AII-logo.png",
   },
   {
-    name: "Yale School of Medicine",
-    logo: "/images/partners/yale-logo.png",
+    name: "Yale African Innovation Symposium",
+    logo: "/images/partners/yale-african-innovation.webp",
   },
   {
     name: "Tsai Center for Innovative Thinking",
     logo: "/images/partners/tsai-city-logo.png",
   },
+] satisfies readonly PartnerLogo[];
+
+export const allPartnerLogos = [
+  ...academicAndResearchPartnerLogos,
   {
-    name: "Africa Health Collaborative",
-    logo: "/images/partners/africa-health-collab.png",
-  },
-  {
-    name: "African Innovation Institute",
-    logo: "/images/partners/AII-logo.png",
+    name: "African Health Innovation Centre",
+    logo: "/images/partners/african-health-logo.png",
+    url: "https://africanhealthinnovation.org/",
   },
   {
     name: "AFC",
-    logo: "/images/partners/afc-logo.png",
+    logo: "/images/partners/afc.png",
   },
   {
     name: "Mastercard Foundation",
     logo: "/images/partners/mastercard-foundation.png",
   },
-  {
-    name: "Yale African Innovation",
-    logo: "/images/partners/yale-african-innovation.webp",
-  },
-  {
-    name: "UCC",
-    logo: "/images/partners/ucc-logo.webp",
-    url: "https://ucc.edu.gh/",
-  },
-  {
-    name: "UCLA",
-    logo: "/images/partners/ucla-logo.png",
-    url: "https://www.ucla.edu/",
-  },
-];
+] satisfies readonly PartnerLogo[];
 
 // ---------------------------------------------------------------------------
 // Become a Partner CTA

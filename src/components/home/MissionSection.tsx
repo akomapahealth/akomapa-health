@@ -13,7 +13,7 @@ export default function MissionSection() {
       <div className="absolute top-0 right-0 w-64 h-64 bg-[#FCFAEF]/10 dark:bg-[#0097b2]/20 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl"></div>
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#FCFAEF]/10 dark:bg-[#eeba2b]/20 rounded-full translate-y-1/2 -translate-x-1/2 blur-3xl"></div>
 
-      <div className="container mx-auto px-4 relative z-10">
+      <div className="site-container mx-auto px-4 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 md:gap-14 lg:gap-16 items-start lg:items-center">
           {/* Text Content */}
           <motion.div

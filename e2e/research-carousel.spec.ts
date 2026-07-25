@@ -1,4 +1,5 @@
 import { expect, test, type Page } from '@playwright/test';
+import { announcementCampaign } from '../src/data/announcements';
 
 const themes = ['light', 'dark'] as const;
 const viewports = [
@@ -12,9 +13,16 @@ async function openHomeWithTheme(
   viewport: (typeof viewports)[number]
 ) {
   await page.setViewportSize({ width: viewport.width, height: viewport.height });
-  await page.addInitScript((storedTheme) => {
-    window.localStorage.setItem('akomapa-theme', storedTheme);
-  }, theme);
+  await page.addInitScript(
+    ({ storedTheme, announcementVersion }) => {
+      window.localStorage.setItem('akomapa-theme', storedTheme);
+      window.localStorage.setItem(
+        'akomapa-announcements-dismissed',
+        announcementVersion,
+      );
+    },
+    { storedTheme: theme, announcementVersion: announcementCampaign.version },
+  );
   await page.goto('/', { waitUntil: 'domcontentloaded' });
 }
 
@@ -36,7 +44,9 @@ test.describe('Homepage partner logos', () => {
           page.getByRole('heading', { name: /designed with evidence/i })
         ).toBeVisible();
 
-        const carousel = page.getByTestId('partner-logos');
+        const carousel = page
+          .getByRole('region', { name: /designed with evidence/i })
+          .getByTestId('partner-logos');
         await carousel.scrollIntoViewIfNeeded();
         await expect(carousel).toBeVisible();
 

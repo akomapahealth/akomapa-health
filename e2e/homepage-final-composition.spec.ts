@@ -37,9 +37,16 @@ test.describe("final homepage composition", () => {
 
       await expect(
         page.getByRole("heading", {
-          name: /the world.s fastest-growing health crisis deserves a stronger response/i,
+          name: "The world's fastest-growing health crisis demands a better system of care.",
+          exact: true,
         }),
       ).toBeVisible();
+      await expect(
+        page.getByRole("heading", {
+          name: "From screening numbers to care outcomes.",
+          exact: true,
+        }),
+      ).toHaveCount(0);
       await expect(
         page.getByRole("heading", {
           name: 'Akomapa means "A Good Heart."',
@@ -47,7 +54,8 @@ test.describe("final homepage composition", () => {
       ).toBeVisible();
       await expect(
         page.getByRole("heading", {
-          name: /building healthier communities\. preparing stronger health leaders\./i,
+          name: "Closing the Primary Care Gap. Building healthier communities. Preparing stronger health leaders.",
+          exact: true,
         }),
       ).toBeVisible();
       await expect(
@@ -55,6 +63,47 @@ test.describe("final homepage composition", () => {
           name: /five components, one connected system/i,
         }),
       ).toBeVisible();
+      await expect(
+        page
+          .locator("[data-impact-metrics] dd")
+          .filter({ hasText: "People screened for chronic disease risk" }),
+      ).toBeVisible();
+      await expect(
+        page
+          .locator("[data-impact-metrics] dd")
+          .filter({
+            hasText:
+              "Patients successfully connected to ongoing primary care",
+          }),
+      ).toBeVisible();
+
+      const narrativeHeadingOrder = await page
+        .locator("main h2")
+        .evaluateAll((headings) => headings.map((heading) => heading.textContent?.trim()));
+      expect(narrativeHeadingOrder.indexOf("One model. Two challenges. Lasting impact."))
+        .toBeLessThan(
+          narrativeHeadingOrder.indexOf(
+            "Closing the Primary Care Gap. Building healthier communities. Preparing stronger health leaders.",
+          ),
+        );
+      expect(
+        narrativeHeadingOrder.indexOf(
+          "Closing the Primary Care Gap. Building healthier communities. Preparing stronger health leaders.",
+        ),
+      ).toBeLessThan(
+        narrativeHeadingOrder.indexOf("Research before implementation."),
+      );
+
+      await expect(page.locator("[data-home-band-marker]")).toHaveText([
+        "01",
+        "02",
+        "03",
+        "04",
+        "05",
+        "06",
+        "07",
+        "08",
+      ]);
       await expect(
         page.getByRole("heading", {
           name: "Nkwapa connects care, learning, and evidence.",

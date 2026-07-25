@@ -112,13 +112,14 @@ export function HomeBand({
     >
       <div
         className={cn(
-          "container relative mx-auto px-4 py-16 md:py-20 lg:py-24",
+          "site-container relative mx-auto px-4 py-16 md:py-20 lg:py-24",
           containerClassName,
         )}
       >
         {marker ? (
           <span
             aria-hidden="true"
+            data-home-band-marker
             className={cn(
               "pointer-events-none absolute right-4 top-6 hidden select-none rounded px-2 py-1 font-subheading text-xs font-bold tracking-[0.2em] ring-1 md:inline-block",
               markerToneClasses[tone],

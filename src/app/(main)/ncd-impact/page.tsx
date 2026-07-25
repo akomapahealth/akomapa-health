@@ -14,7 +14,7 @@ export const metadata: Metadata = buildPageMetadata("/ncd-impact");
 export default function NcdImpactPage() {
   return (
     <div data-rebrand-page className="bg-background text-foreground">
-      <div className="container mx-auto">
+      <div className="site-container mx-auto">
         <Breadcrumb />
       </div>
 

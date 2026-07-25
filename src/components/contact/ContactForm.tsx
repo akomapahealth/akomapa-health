@@ -9,6 +9,11 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { CONTACT } from "@/config/contact";
+import {
+  CONTACT_NETWORK_ERROR_MESSAGE,
+  getContactErrorMessage,
+} from "@/lib/contact-errors";
 
 function ContactFormContent() {
   const searchParams = useSearchParams();
@@ -18,7 +23,8 @@ function ContactFormContent() {
     phone: "",
     subject: "",
     message: "",
-    partnershipType: ""
+    partnershipType: "",
+    company: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -74,14 +80,21 @@ function ContactFormContent() {
           phone: "",
           subject: "",
           message: "",
-          partnershipType: ""
+          partnershipType: "",
+          company: "",
         });
       } else {
-        const errorData = await response.json();
-        setError(errorData.message || "Failed to send message. Please try again.");
+        const errorData: unknown = await response.json().catch(() => null);
+        const responseMessage =
+          typeof errorData === "object" &&
+          errorData !== null &&
+          "message" in errorData
+            ? errorData.message
+            : undefined;
+        setError(getContactErrorMessage(response.status, responseMessage));
       }
     } catch {
-      setError("Network error. Please check your connection and try again.");
+      setError(CONTACT_NETWORK_ERROR_MESSAGE);
     } finally {
       setIsSubmitting(false);
     }
@@ -129,8 +142,25 @@ function ContactFormContent() {
       </div>
 
       {error && (
-        <div role="alert" className="mb-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
-          <p className="text-red-600 dark:text-red-400 text-sm">{error}</p>
+        <div
+          role="alert"
+          data-testid="contact-form-error"
+          className="mb-6 rounded-lg border border-red-200 bg-red-50 p-4 dark:border-red-800 dark:bg-red-900/20"
+        >
+          <p className="text-sm font-medium text-red-700 dark:text-red-300">
+            We couldn&apos;t send your message
+          </p>
+          <p className="mt-1 text-sm text-red-600 dark:text-red-400">{error}</p>
+          <p className="mt-2 text-sm text-red-600 dark:text-red-400">
+            If the problem continues, email us directly at{" "}
+            <a
+              href={CONTACT.email.href}
+              className="font-semibold underline underline-offset-2 hover:text-red-800 dark:hover:text-red-200"
+            >
+              {CONTACT.email.display}
+            </a>
+            .
+          </p>
         </div>
       )}
 
@@ -234,6 +264,19 @@ function ContactFormContent() {
         />
       </div>
 
+      <div className="hidden" aria-hidden="true">
+        <Label htmlFor="company">Company</Label>
+        <Input
+          id="company"
+          name="company"
+          type="text"
+          value={formData.company}
+          onChange={handleChange}
+          tabIndex={-1}
+          autoComplete="off"
+        />
+      </div>
+
       <Button
         type="submit"
         disabled={isSubmitting}
@@ -253,28 +296,39 @@ function ContactFormContent() {
       </Button>
 
       <div className="mt-8 pt-8 border-t border-gray-200 dark:border-gray-700">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
           <div className="flex items-start">
             <Mail className="w-5 h-5 text-[#0097b2] dark:text-[#66C4DC] mr-3 flex-shrink-0 mt-0.5" />
             <div className="min-w-0 flex-1">
               <p className="text-sm font-medium text-[#1C1F1E] dark:text-[#FCFAEF] mb-1">Email</p>
-              <p className="text-sm text-[#2F3332] dark:text-[#E6E7E7]">akomapahealth@gmail.com</p>
+              <a
+                href={CONTACT.email.href}
+                className="break-all text-sm text-[#2F3332] transition-colors hover:text-[#0097b2] dark:text-[#E6E7E7] dark:hover:text-[#66C4DC]"
+              >
+                {CONTACT.email.display}
+              </a>
             </div>
           </div>
-          <div className="flex items-start">
-            <Phone className="w-5 h-5 text-[#0097b2] dark:text-[#66C4DC] mr-3 flex-shrink-0 mt-0.5" />
-            <div className="min-w-0 flex-1">
-              <p className="text-sm font-medium text-[#1C1F1E] dark:text-[#FCFAEF] mb-1">Phone</p>
-              <p className="text-sm text-[#2F3332] dark:text-[#E6E7E7] break-words">+233 20 954 4834</p>
+          {CONTACT.offices.map((office) => (
+            <div key={office.id} className="flex items-start">
+              <MapPin className="w-5 h-5 text-[#0097b2] dark:text-[#66C4DC] mr-3 flex-shrink-0 mt-0.5" />
+              <div className="min-w-0 flex-1">
+                <p className="text-sm font-medium text-[#1C1F1E] dark:text-[#FCFAEF] mb-1">{office.label}</p>
+                <address className="not-italic text-sm text-[#2F3332] dark:text-[#E6E7E7] break-words">
+                  {office.addressLines.map((line) => (
+                    <span key={line} className="block">{line}</span>
+                  ))}
+                </address>
+                <a
+                  href={office.phone.href}
+                  className="mt-1 inline-flex items-center text-sm text-[#2F3332] transition-colors hover:text-[#0097b2] dark:text-[#E6E7E7] dark:hover:text-[#66C4DC]"
+                >
+                  <Phone className="mr-1.5 h-4 w-4" aria-hidden="true" />
+                  {office.phone.display}
+                </a>
+              </div>
             </div>
-          </div>
-          <div className="flex items-start sm:col-span-2 lg:col-span-1">
-            <MapPin className="w-5 h-5 text-[#0097b2] dark:text-[#66C4DC] mr-3 flex-shrink-0 mt-0.5" />
-            <div className="min-w-0 flex-1">
-              <p className="text-sm font-medium text-[#1C1F1E] dark:text-[#FCFAEF] mb-1">Location</p>
-              <p className="text-sm text-[#2F3332] dark:text-[#E6E7E7] break-words">New Haven, CT, USA</p>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </motion.form>

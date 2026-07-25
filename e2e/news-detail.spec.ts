@@ -85,11 +85,15 @@ test.describe("News Detail Pages", () => {
   });
 
   test("nonexistent news item returns 404", async ({ page }) => {
-    const response = await page.goto("/news/nonexistent-item-id", {
+    await page.goto("/news/nonexistent-item-id", {
       waitUntil: "domcontentloaded",
     });
 
-    expect(response?.status()).toBe(404);
+    // With (main)/loading.tsx, the document response may stream as 200 before
+    // notFound() resolves to the branded 404 UI.
+    await expect(
+      page.getByRole("heading", { name: /page not found/i })
+    ).toBeVisible({ timeout: 15000 });
   });
 
   test("/news page displays category filter pills", async ({ page }) => {
@@ -138,20 +142,112 @@ test.describe("News Detail Pages", () => {
 
 });
 
-test("announcement modal shows increased size and closes properly", async ({
-  page,
-}) => {
-  await page.goto("/", { waitUntil: "domcontentloaded" });
+test.describe("Announcement modal", () => {
+  const dismissedStorageScript = () => {
+    localStorage.setItem(
+      "akomapa-announcements-dismissed",
+      "2026-04-v2"
+    );
+  };
 
-  // Wait for modal to appear (3s delay + animation)
-  const modal = page.locator('[role="dialog"][aria-label="Announcements"]');
-  await expect(modal).toBeVisible({ timeout: 15000 });
+  test("auto-opens for first-time visitors", async ({ page }) => {
+    await page.addInitScript(() => {
+      localStorage.removeItem("akomapa-announcements-dismissed");
+    });
+    await page.goto("/donate", { waitUntil: "load" });
 
-  // Verify modal has content
-  await expect(modal.locator("h2").first()).toBeVisible();
-  await expect(modal.locator("p").first()).toBeVisible();
+    const modal = page.locator('[role="dialog"][aria-label="Announcements"]');
+    await expect(modal).toBeVisible({ timeout: 15000 });
+  });
 
-  // Close button should work
-  await modal.locator('button[aria-label="Close announcements"]').click();
-  await expect(modal).not.toBeVisible({ timeout: 5000 });
+  test("does not auto-open after the campaign was dismissed", async ({
+    page,
+  }) => {
+    await page.addInitScript(dismissedStorageScript);
+    await page.goto("/donate", { waitUntil: "load" });
+
+    const modal = page.locator('[role="dialog"][aria-label="Announcements"]');
+    await page.waitForTimeout(4000);
+    await expect(modal).not.toBeVisible();
+  });
+
+  test("floating announcement button opens and closes the modal", async ({
+    page,
+  }) => {
+    await page.addInitScript(() => {
+      localStorage.setItem("akomapa-announcements-dismissed", "2026-04-v2");
+      // Silence the session tip so this test stays focused on the bell.
+      sessionStorage.setItem("akomapa-announcement-tip-dismissed", "1");
+    });
+    await page.goto("/donate", { waitUntil: "load" });
+
+    const modal = page.locator('[role="dialog"][aria-label="Announcements"]');
+    await expect(modal).not.toBeVisible({ timeout: 5000 });
+
+    const trigger = page.getByTestId("announcement-trigger");
+    await expect(trigger).toBeVisible({ timeout: 15000 });
+    // Tip dismissed for the session: it should not show.
+    await expect(page.getByTestId("announcement-trigger-tip")).toHaveCount(0);
+    await trigger.click();
+    await expect(modal).toBeVisible({ timeout: 15000 });
+
+    await expect(modal.locator("h2").first()).toBeVisible();
+    await expect(modal.locator("p").first()).toBeVisible();
+
+    await modal.locator('button[aria-label="Close announcements"]').click();
+    await expect(modal).not.toBeVisible({ timeout: 5000 });
+  });
+
+  test("chatbot tip shows for unread campaign and opens the modal", async ({
+    page,
+  }) => {
+    await page.addInitScript(() => {
+      localStorage.removeItem("akomapa-announcements-dismissed");
+      sessionStorage.removeItem("akomapa-announcement-tip-dismissed");
+    });
+    await page.goto("/donate", { waitUntil: "domcontentloaded" });
+
+    const modal = page.locator('[role="dialog"][aria-label="Announcements"]');
+    const tip = page.getByTestId("announcement-trigger-tip");
+
+    // Tip reveals after a short chatbot-style delay, before the 3s auto-open.
+    await expect(tip).toBeVisible({ timeout: 5000 });
+    const tipButton = tip.getByRole("button", {
+      name: /what's new at akomapa/i,
+    });
+    await expect(tipButton).toBeVisible();
+    // Entrance motion can leave the tip "unstable" for Playwright; open via the
+    // tip before the auto-open timer wins the race.
+    await tipButton.click({ force: true });
+    await expect(modal).toBeVisible({ timeout: 15000 });
+    await expect(tip).toHaveCount(0);
+  });
+
+  test("tip resurfaces for returning visitors and dismiss hides it for the session", async ({
+    page,
+  }) => {
+    await page.addInitScript(() => {
+      // Returning visitor: campaign already seen, but a fresh session.
+      localStorage.setItem("akomapa-announcements-dismissed", "2026-04-v2");
+      sessionStorage.removeItem("akomapa-announcement-tip-dismissed");
+    });
+    await page.goto("/donate", { waitUntil: "domcontentloaded" });
+
+    const modal = page.locator('[role="dialog"][aria-label="Announcements"]');
+    const tip = page.getByTestId("announcement-trigger-tip");
+
+    // Campaign is seen, so the modal must not auto-open...
+    await expect(modal).not.toBeVisible({ timeout: 5000 });
+    // ...but the nudge tip still resurfaces for the returning visitor.
+    await expect(tip).toBeVisible({ timeout: 4000 });
+
+    await tip.getByRole("button", { name: /dismiss update tip/i }).click();
+    await expect(tip).toHaveCount(0);
+
+    // Dismissal is persisted for the rest of the session.
+    const dismissed = await page.evaluate(() =>
+      sessionStorage.getItem("akomapa-announcement-tip-dismissed"),
+    );
+    expect(dismissed).toBe("1");
+  });
 });

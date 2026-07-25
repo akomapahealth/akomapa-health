@@ -1,0 +1,143 @@
+import Breadcrumb from "@/components/layout/Breadcrumb";
+import ContactForm from "@/components/contact/ContactForm";
+import LocationMap from "@/components/contact/LocationMap";
+import { CONTACT } from "@/config/contact";
+import { MotionDiv, MotionH1, MotionP } from "@/components/motion/framer";
+
+export default function Content() {
+  return (
+    <>
+      <div className="site-container mx-auto">
+        <Breadcrumb />
+      </div>
+      <div className="flex flex-col gap-y-section-mobile md:gap-y-section-tablet lg:gap-y-section-desktop">
+        {/* Hero Section */}
+        <section className="relative py-16 sm:py-20 md:py-28 bg-gradient-to-r from-[#0097b2] to-[#0F4C5C] overflow-hidden">
+        <div className="absolute top-0 right-0 w-64 h-64 bg-[#FCFAEF]/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl" />
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#FCFAEF]/10 rounded-full translate-y-1/2 -translate-x-1/2 blur-3xl" />
+        
+        <div className="site-container mx-auto px-4 sm:px-6 relative z-10">
+          <div className="max-w-5xl pt-4 sm:pt-8">
+            <MotionH1 
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-light text-[#FCFAEF] mb-6 leading-tight"
+            >
+              Get in touch with us.
+            </MotionH1>
+            <MotionP 
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.15, duration: 0.8, ease: "easeOut" }}
+              className="text-base sm:text-lg md:text-2xl text-[#FCFAEF]/80 font-light max-w-3xl"
+            >
+              Have questions or want to learn more about our healthcare programs? We&apos;d love to hear from you regarding partnerships, volunteering, or general inquiries.
+            </MotionP>
+          </div>
+        </div>
+        </section>
+        
+        {/* Contact Section */}
+        <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
+        <div className="site-container mx-auto px-4 sm:px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12">
+            {/* Contact Form */}
+            <MotionDiv
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+            >
+              <div className="mb-6 sm:mb-8">
+                <div className="flex items-center gap-2 mb-4">
+                  <div className="h-1 w-8 bg-[#0097b2] rounded-full" />
+                  <div className="h-1 w-1 bg-[#0097b2] rounded-full" />
+                </div>
+                <h2 className="text-2xl sm:text-3xl font-semibold mb-4 text-[#1C1F1E] dark:text-[#FCFAEF]">
+                  Send us a message
+                </h2>
+                <p className="text-base sm:text-lg text-[#2F3332]/80 dark:text-[#E6E7E7]/80 leading-relaxed">
+                  Please fill out the form with your information and we&apos;ll get back to you as soon as possible. Whether you have questions about our programs, want to volunteer, or discuss potential partnerships, we&apos;re here to help.
+                </p>
+              </div>
+              
+              <ContactForm />
+            </MotionDiv>
+            
+            {/* Contact Information */}
+            <MotionDiv
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              viewport={{ once: true }}
+            >
+              <div className="mb-6 sm:mb-8">
+                <div className="flex items-center gap-2 mb-4">
+                  <div className="h-1 w-8 bg-[#eeba2b] rounded-full" />
+                  <div className="h-1 w-1 bg-[#eeba2b] rounded-full" />
+                </div>
+                <h2 className="text-2xl sm:text-3xl font-semibold mb-4 text-[#1C1F1E] dark:text-[#FCFAEF]">
+                  Our Information
+                </h2>
+              </div>
+              
+              <div className="bg-white dark:bg-[#2F3332] rounded-2xl shadow-lg border border-[#E6E7E7]/20 dark:border-[#4F5554]/20 p-6 sm:p-8 mb-6 sm:mb-8">
+                <div className="space-y-6 sm:space-y-8">
+                  {CONTACT.offices.map((office, index) => (
+                    <div
+                      key={office.id}
+                      className={index === 0 ? undefined : "pt-6 border-t border-[#E6E7E7]/40 dark:border-[#4F5554]/40"}
+                    >
+                      <h3 className="font-semibold text-lg sm:text-xl mb-3 text-[#1C1F1E] dark:text-[#FCFAEF]">
+                        {office.label}
+                      </h3>
+                      <address className="not-italic text-base sm:text-lg text-[#2F3332]/80 dark:text-[#E6E7E7]/80 leading-relaxed">
+                        {office.addressLines.map((line) => (
+                          <span key={line} className="block">{line}</span>
+                        ))}
+                        <a href={office.phone.href} className="text-[#0097b2] dark:text-[#66C4DC] hover:text-[#eeba2b] dark:hover:text-[#F5C94D] transition-colors">
+                          {office.phone.display}
+                        </a>
+                      </address>
+                    </div>
+                  ))}
+                  
+                  <div className="pt-6 border-t border-[#E6E7E7]/40 dark:border-[#4F5554]/40">
+                    <h3 className="font-semibold text-lg sm:text-xl mb-3 text-[#1C1F1E] dark:text-[#FCFAEF]">
+                      Contact Details
+                    </h3>
+                    <div className="space-y-2 text-base sm:text-lg text-[#2F3332]/80 dark:text-[#E6E7E7]/80">
+                      <p>
+                        <span className="font-medium text-[#1C1F1E] dark:text-[#FCFAEF]">Email: </span>
+                        <a href={CONTACT.email.href} className="text-[#0097b2] dark:text-[#66C4DC] hover:text-[#eeba2b] dark:hover:text-[#F5C94D] transition-colors">
+                          {CONTACT.email.display}
+                        </a>
+                      </p>
+                    </div>
+                  </div>
+                  
+                  <div className="pt-6 border-t border-[#E6E7E7]/40 dark:border-[#4F5554]/40">
+                    <h3 className="font-semibold text-lg sm:text-xl mb-3 text-[#1C1F1E] dark:text-[#FCFAEF]">
+                      Office Hours
+                    </h3>
+                    <p className="text-base sm:text-lg text-[#2F3332]/80 dark:text-[#E6E7E7]/80 leading-relaxed">
+                      Monday - Friday: 8:00 AM - 5:00 PM<br />
+                      Saturday: 7:00 AM - 1:00 PM<br />
+                      Sunday: Closed
+                    </p>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="rounded-2xl overflow-hidden h-64 sm:h-80 md:h-96 shadow-lg border border-[#E6E7E7]/20 dark:border-[#4F5554]/20">
+                <LocationMap />
+              </div>
+            </MotionDiv>
+          </div>
+        </div>
+        </section>
+      </div>
+    </>
+  );
+}

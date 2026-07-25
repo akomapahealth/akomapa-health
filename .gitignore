@@ -21,6 +21,7 @@
 # per-route JSON is large and reproducible on demand.
 /docs/performance/lighthouse-before
 /docs/performance/lighthouse-after
+/docs/performance/lighthouse-issue-86-after
 
 # next.js
 /.next/

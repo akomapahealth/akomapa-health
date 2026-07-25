@@ -9,20 +9,13 @@ import {
   HomeEyebrow,
   HomeHeading,
 } from "@/components/home/_home-ui";
-
-const partners = [
-  { name: "University of Cape Coast", logo: "/images/partners/ucc.png" },
-  { name: "University of Ghana", logo: "/images/partners/ug-logo.png" },
-  { name: "Yale School of Medicine", logo: "/images/partners/yale-sm-logo.png" },
-  { name: "David Geffen School of Medicine at UCLA", logo: "/images/partners/ucla.png" },
-  { name: "Ghana Health Service", logo: "/images/partners/ghana-health-service-logo.png" },
-  { name: "African Impact Initiative", logo: "/images/partners/AII-logo.png" },
-  { name: "Yale African Innovation Symposium", logo: "/images/partners/yale-african-innovation.webp" },
-  { name: "Tsai Center for Innovative Thinking", logo: "/images/partners/tsai-city-logo.png" },
-];
+import { academicAndResearchPartnerLogos } from "@/data/partnerships";
 
 // Duplicated for a seamless looping marquee.
-const marquee = [...partners, ...partners];
+const marquee = [
+  ...academicAndResearchPartnerLogos,
+  ...academicAndResearchPartnerLogos,
+];
 
 // Fallback edge-fade colours (used only when CSS masks are unsupported) match
 // the white band so the carousel blends into the section.

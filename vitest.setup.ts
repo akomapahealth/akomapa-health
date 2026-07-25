@@ -179,29 +179,6 @@ vi.mock("framer-motion", async () => {
   };
 });
 
-// swiper/react — render slides as children inside a div.
-vi.mock("swiper/react", () => ({
-  __esModule: true,
-  Swiper: ({ children, className }: { children?: React.ReactNode; className?: string }) =>
-    React.createElement("div", { className, "data-testid": "swiper" }, children),
-  SwiperSlide: ({ children, className }: { children?: React.ReactNode; className?: string }) =>
-    React.createElement("div", { className, "data-testid": "swiper-slide" }, children),
-}));
-
-vi.mock("swiper/modules", () => ({
-  Autoplay: {},
-  EffectFade: {},
-  Keyboard: {},
-  Navigation: {},
-  Pagination: {},
-  A11y: {},
-}));
-
-vi.mock("swiper/css", () => ({}));
-vi.mock("swiper/css/effect-fade", () => ({}));
-vi.mock("swiper/css/pagination", () => ({}));
-vi.mock("swiper/css/navigation", () => ({}));
-
 // lottie-react — render a placeholder so import alone doesn't fail.
 vi.mock("lottie-react", () => ({
   __esModule: true,

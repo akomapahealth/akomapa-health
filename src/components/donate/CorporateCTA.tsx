@@ -8,7 +8,7 @@ import { trackEvent } from "@/lib/analytics";
 export default function CorporateCTA() {
   return (
     <section className="bg-gradient-to-r from-[#0097b2] via-[#0F4C5C] to-[#031C3A] py-16 text-[#FCFAEF]">
-      <div className="container mx-auto px-4">
+      <div className="site-container mx-auto px-4">
         <div className="mx-auto max-w-5xl rounded-2xl border border-white/15 bg-white/5 p-8">
           <p className="mb-2 font-semibold text-[#F5C94D]">CORPORATE PARTNERSHIPS</p>
           <h2 className="mb-3 text-3xl font-bold">Scale your impact with Akomapa</h2>

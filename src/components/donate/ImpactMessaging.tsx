@@ -4,7 +4,7 @@ import { impactHighlights } from "@/data/donation";
 export default function ImpactMessaging() {
   return (
     <section className="bg-[#FCFAEF] py-12 dark:bg-[#1C1F1E] md:py-16">
-      <div className="container mx-auto px-4">
+      <div className="site-container mx-auto px-4">
         <div className="mb-8 text-center">
           <p className="font-semibold uppercase tracking-wide text-amber">Impact Messaging</p>
           <h2 className="text-3xl font-bold text-[#1C1F1E] dark:text-[#FCFAEF] md:text-4xl">What your donation enables</h2>

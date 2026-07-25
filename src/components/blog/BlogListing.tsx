@@ -60,12 +60,12 @@ function BlogListingContent() {
   if (authorFilter) {
     return (
       <>
-        <div className="container mx-auto">
+        <div className="site-container mx-auto">
           <Breadcrumb />
         </div>
         <BlogHero postCount={allPosts.length} />
         <section className="bg-[#FCFAEF] py-16 md:py-24 dark:bg-[#1C1F1E]">
-          <div className="container mx-auto px-4 sm:px-6">
+          <div className="site-container mx-auto px-4 sm:px-6">
             <FadeIn
               className="mx-auto mb-10 max-w-3xl text-center"
               duration={motionDurations.enter}
@@ -93,7 +93,7 @@ function BlogListingContent() {
 
   return (
     <>
-      <div className="container mx-auto">
+      <div className="site-container mx-auto">
         <Breadcrumb />
       </div>
 
@@ -102,7 +102,7 @@ function BlogListingContent() {
       {/* Featured */}
       {showFeatured && featuredPost && (
         <section className="bg-[#FCFAEF] pt-14 md:pt-20 dark:bg-[#1C1F1E]">
-          <div className="container mx-auto px-4 sm:px-6">
+          <div className="site-container mx-auto px-4 sm:px-6">
             <FadeIn
               className="mx-auto max-w-6xl"
               duration={motionDurations.enter}
@@ -115,7 +115,7 @@ function BlogListingContent() {
 
       {/* Grid + filter */}
       <section className="bg-[#FCFAEF] py-14 md:py-20 dark:bg-[#1C1F1E]">
-        <div className="container mx-auto px-4 sm:px-6">
+        <div className="site-container mx-auto px-4 sm:px-6">
           <FadeIn
             className="mx-auto mb-8 max-w-3xl text-center"
             duration={motionDurations.enter}
@@ -150,7 +150,7 @@ function BlogListingContent() {
           <div className="absolute -left-32 -top-28 h-72 w-72 rounded-full bg-[#FCFAEF]/10 blur-3xl" />
           <div className="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-[#F5C94D]/10 blur-3xl" />
         </div>
-        <div className="container relative mx-auto px-4 sm:px-6">
+        <div className="site-container relative mx-auto px-4 sm:px-6">
           <div className="mx-auto max-w-3xl space-y-6 text-center">
             <h2 className="font-heading text-2xl font-bold sm:text-3xl md:text-4xl">
               Have a story to tell?

@@ -1,0 +1,183 @@
+import Image from "@/components/common/Image";
+import Link from "next/link";
+import { ArrowRight, Megaphone } from "lucide-react";
+import Breadcrumb from "@/components/layout/Breadcrumb";
+import { Button } from "@/components/ui/button";
+import { MotionDiv, MotionH1, MotionP } from "@/components/motion/framer";
+import NewsCategoryListing from "@/components/news/NewsCategoryListing";
+import { getNewsOnlyItems } from "@/data/unified-news";
+
+const allItems = getNewsOnlyItems();
+
+export default function Content() {
+  return (
+    <>
+      <div className="site-container mx-auto">
+        <Breadcrumb />
+      </div>
+      <div className="flex flex-col gap-y-section-mobile md:gap-y-section-tablet lg:gap-y-section-desktop">
+        {/* Hero Section */}
+        <section className="relative min-h-[60vh] md:min-h-[70vh] py-16 sm:py-20 md:py-28 bg-gradient-to-r from-[#0097b2] to-[#0F4C5C] overflow-hidden">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-[#FCFAEF]/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl" />
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#eeba2b]/15 rounded-full translate-y-1/2 -translate-x-1/2 blur-3xl" />
+          <div className="absolute top-1/2 right-1/4 w-32 h-32 bg-[#F5C94D]/20 rounded-full blur-2xl" />
+
+          <div className="site-container mx-auto px-4 sm:px-6 relative z-10 h-full flex flex-col lg:flex-row lg:items-center gap-10 sm:gap-12">
+            <div className="flex-1 max-w-3xl pt-4 sm:pt-8 lg:pt-0">
+              <MotionDiv
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#eeba2b]/20 border border-[#eeba2b]/30 mb-6"
+              >
+                <Megaphone className="w-4 h-4 text-[#eeba2b]" />
+                <span className="text-sm font-medium text-[#eeba2b]">
+                  Latest news
+                </span>
+              </MotionDiv>
+
+              <MotionH1
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-[#FCFAEF] mb-6 leading-tight"
+              >
+                News from the{" "}
+                <span className="text-[#eeba2b] font-medium">frontlines</span>
+              </MotionH1>
+
+              <MotionP
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.15, duration: 0.8, ease: "easeOut" }}
+                className="text-base sm:text-lg md:text-xl text-[#FCFAEF]/85 font-light max-w-2xl mb-8"
+              >
+                Awards, partnerships, program launches, and milestones — stay
+                connected with everything shaping the future of student-powered
+                healthcare.
+              </MotionP>
+
+              <MotionDiv
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3, duration: 0.6 }}
+                className="flex flex-col sm:flex-row gap-4"
+              >
+                <Button
+                  asChild
+                  className="group bg-[#eeba2b] hover:bg-[#eeba2b]/90 text-[#1C1F1E] font-medium px-6"
+                >
+                  <Link href="/get-involved" className="flex items-center">
+                    Get Involved
+                    <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                  </Link>
+                </Button>
+                <Button
+                  asChild
+                  variant="outline"
+                  className="group border-[#FCFAEF]/30 text-[#FCFAEF] hover:bg-[#FCFAEF]/10 px-6"
+                >
+                  <Link href="/" className="flex items-center">
+                    Back to Home
+                    <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                  </Link>
+                </Button>
+              </MotionDiv>
+            </div>
+
+            {/* Decorative Image */}
+            <MotionDiv
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.2, duration: 0.8, ease: "easeOut" }}
+              className="flex-1 w-full lg:max-w-[500px] xl:max-w-[550px]"
+            >
+              <div className="relative w-full h-[300px] sm:h-[400px] lg:h-[450px] rounded-3xl overflow-hidden shadow-2xl border border-white/10">
+                <Image
+                  src="/highlights/Akomapa-2.jpg"
+                  alt="Akomapa community health activities"
+                  fill
+                  sizes="(min-width: 1024px) 42vw, 100vw"
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+
+                {/* Floating badge */}
+                <div className="absolute bottom-6 left-6 right-6">
+                  <div className="bg-white/95 dark:bg-[#2F3332]/95 backdrop-blur-sm rounded-xl p-4 shadow-lg">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-full bg-[#0097b2]/10 flex items-center justify-center">
+                        <Megaphone className="w-5 h-5 text-[#0097b2]" />
+                      </div>
+                      <div>
+                        <p className="text-sm font-semibold text-[#1C1F1E] dark:text-[#FCFAEF]">
+                          {allItems.length}{" "}
+                          {allItems.length === 1 ? "story" : "stories"}
+                        </p>
+                        <p className="text-xs text-[#2F3332]/70 dark:text-[#E6E7E7]/70">
+                          Field notes, wins, and program news
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </MotionDiv>
+          </div>
+        </section>
+
+        <NewsCategoryListing />
+
+        {/* CTA Section */}
+        <section className="py-16 md:py-24 bg-gradient-to-r from-[#0097b2] via-[#0F4C5C] to-[#031C3A] text-[#FCFAEF] relative overflow-hidden">
+          <div className="absolute inset-0 pointer-events-none">
+            <div className="absolute -top-28 -left-32 h-72 w-72 rounded-full bg-[#FCFAEF]/10 blur-3xl" />
+            <div className="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-[#F5C94D]/10 blur-3xl" />
+          </div>
+
+          <div className="relative site-container mx-auto px-4 sm:px-6">
+            <div className="max-w-3xl mx-auto text-center">
+              <MotionDiv
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                viewport={{ once: true, amount: 0.4 }}
+                className="space-y-6"
+              >
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#FCFAEF]">
+                  Want to Be Part of the Story?
+                </h2>
+                <p className="text-base sm:text-lg text-[#FCFAEF]/85 leading-relaxed max-w-2xl mx-auto">
+                  Join our movement of student leaders transforming healthcare
+                  delivery in underserved communities.
+                </p>
+
+                <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+                  <Button
+                    asChild
+                    className="group bg-[#eeba2b] hover:bg-[#eeba2b]/90 text-[#1C1F1E] font-medium px-8"
+                  >
+                    <Link href="/get-involved" className="flex items-center">
+                      Join Our Movement
+                      <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                    </Link>
+                  </Button>
+                  <Button
+                    asChild
+                    variant="outline"
+                    className="group border-[#FCFAEF]/30 text-[#FCFAEF] hover:bg-[#FCFAEF]/10 px-8"
+                  >
+                    <Link href="/contact" className="flex items-center">
+                      Contact Us
+                      <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                    </Link>
+                  </Button>
+                </div>
+              </MotionDiv>
+            </div>
+          </div>
+        </section>
+      </div>
+    </>
+  );
+}

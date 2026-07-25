@@ -45,7 +45,7 @@ export default function OurModelSection() {
   const headingId = "our-model-heading";
 
   return (
-    <HomeBand tone="white" marker="04" aria-labelledby={headingId}>
+    <HomeBand tone="cream" marker="05" aria-labelledby={headingId}>
       <FadeIn>
         <div className="max-w-3xl">
           <HomeEyebrow>Our Model</HomeEyebrow>
@@ -72,7 +72,7 @@ export default function OurModelSection() {
             >
               <Link
                 href={item.href}
-                className="group relative flex h-full flex-col rounded-xl p-3 transition-colors hover:bg-[#FCFAEF] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0097b2] dark:hover:bg-[#1C1F1E]"
+                className="group relative flex h-full flex-col rounded-xl p-3 transition-colors hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0097b2] dark:hover:bg-[#1C1F1E]"
               >
                 <span className="relative z-10 flex h-14 w-14 items-center justify-center rounded-md border border-[#1C1F1E]/25 bg-white font-subheading text-base font-bold tracking-[0.1em] text-[#0097b2] transition-colors group-hover:border-transparent group-hover:bg-[#0097b2] group-hover:text-[#FCFAEF] dark:border-[#FCFAEF]/25 dark:bg-[#1C1F1E] dark:text-[#66C4DC] dark:group-hover:bg-[#0097b2] dark:group-hover:text-[#FCFAEF]">
                   {String(index + 1).padStart(2, "0")}
