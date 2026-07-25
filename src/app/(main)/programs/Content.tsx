@@ -1,6 +1,4 @@
-"use client";
-
-import { motion } from "framer-motion";
+import { MotionDiv, MotionH1, MotionP } from "@/components/motion/framer";
 import { AnimatedMetric } from "@/components/motion/AnimatedMetric";
 import Image from "@/components/common/Image";
 import { ArrowRight, Globe, GraduationCap, Users, Building, ChevronsDown, Sparkles, Sprout } from "lucide-react";
@@ -194,7 +192,7 @@ const impactMetrics = [
   }
 ];
 
-export default function ProgramsPage() {
+export default function Content() {
   return (
     <>
       <div className="site-container mx-auto">
@@ -208,25 +206,25 @@ export default function ProgramsPage() {
         
         <div className="site-container mx-auto px-4 sm:px-6 relative z-10 h-full flex flex-col gap-12 sm:gap-14">
           <div className="max-w-5xl pt-4 sm:pt-8">
-            <motion.h1 
+            <MotionH1 
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
               className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-light text-[#FCFAEF] mb-6 leading-tight"
             >
               Students. Communities. Partnerships. One Vision for Health.
-            </motion.h1>
-            <motion.p 
+            </MotionH1>
+            <MotionP 
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.15, duration: 0.8, ease: "easeOut" }}
               className="text-base sm:text-lg md:text-2xl text-[#FCFAEF]/80 font-light max-w-3xl"
             >
               At Akomapa, we&apos;re reimagining how the next generation of health professionals learn, lead, and serve. Through our integrated programs, we build student-powered community health hubs, leadership pathways, and global partnerships that make care more accessible—while preparing students to transform the health systems of tomorrow.
-            </motion.p>
+            </MotionP>
           </div>
 
-          <motion.div
+          <MotionDiv
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.8, ease: "easeOut" }}
@@ -252,7 +250,7 @@ export default function ProgramsPage() {
                 </div>
               </div>
             </div>
-          </motion.div>
+          </MotionDiv>
         </div>
         </section>
 
@@ -260,7 +258,7 @@ export default function ProgramsPage() {
         <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
         <div className="site-container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center mb-12 sm:mb-16">
-            <motion.div
+            <MotionDiv
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
@@ -275,12 +273,12 @@ export default function ProgramsPage() {
               <p className="text-base sm:text-lg text-[#2F3332] dark:text-[#E6E7E7] leading-relaxed max-w-3xl mx-auto px-4 sm:px-0">
                 Each program is designed to build upon the others, creating a comprehensive ecosystem that prepares students, serves communities, and transforms healthcare systems.
               </p>
-            </motion.div>
+            </MotionDiv>
           </div>
 
           <div className="space-y-12 sm:space-y-16 lg:space-y-24">
             {programs.map((program, index) => (
-              <motion.div
+              <MotionDiv
                 key={program.id}
                 initial={{ opacity: 0, y: 60 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -352,7 +350,7 @@ export default function ProgramsPage() {
                     </Button>
                   </div>
                 </div>
-              </motion.div>
+              </MotionDiv>
             ))}
           </div>
         </div>
@@ -380,7 +378,7 @@ export default function ProgramsPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 md:gap-8">
             {impactMetrics.map((metric, index) => (
-              <motion.div
+              <MotionDiv
                 key={metric.label}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -403,7 +401,7 @@ export default function ProgramsPage() {
                     {metric.description}
                   </p>
                 </div>
-              </motion.div>
+              </MotionDiv>
             ))}
           </div>
         </div>
@@ -418,7 +416,7 @@ export default function ProgramsPage() {
 
         <div className="relative site-container mx-auto px-4 sm:px-6">
           <div className="text-center max-w-4xl mx-auto">
-            <motion.div
+            <MotionDiv
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
@@ -436,7 +434,7 @@ export default function ProgramsPage() {
               <p className="text-base sm:text-lg md:text-xl text-[#FCFAEF]/85 leading-relaxed max-w-3xl mx-auto">
                 Your support powers every program. Whether through financial contributions, in-kind donations, or strategic partnerships—there&apos;s a place for you at Akomapa.
               </p>
-              <motion.div
+              <MotionDiv
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
@@ -464,8 +462,8 @@ export default function ProgramsPage() {
                     <ArrowRight className="h-5 w-5 ml-2 group-hover:translate-x-1 transition-transform" />
                   </Link>
                 </Button>
-              </motion.div>
-            </motion.div>
+              </MotionDiv>
+            </MotionDiv>
           </div>
         </div>
         </section>

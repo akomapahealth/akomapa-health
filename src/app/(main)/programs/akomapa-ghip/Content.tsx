@@ -1,7 +1,5 @@
-"use client";
-
+import { MotionDiv, MotionH1, MotionP } from "@/components/motion/framer";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { ArrowLeft, ArrowRight, CalendarIcon, DollarSignIcon, MailIcon, SchoolIcon } from "lucide-react";
 import Breadcrumb from "@/components/layout/Breadcrumb";
 import Image from "@/components/common/Image";
@@ -144,7 +142,7 @@ const primaryCtaClass =
 const secondaryCtaClass =
   `${ctaBaseClass} bg-[#eeba2b] hover:bg-[#eeba2b]/80 text-[#FCFAEF] shadow-lg hover:shadow-xl focus-visible:ring-[#F5C94D]`;
 
-export default function GHIPPage() {
+export default function Content() {
   return (
     <>
       <div className="site-container mx-auto">
@@ -156,7 +154,7 @@ export default function GHIPPage() {
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#FCFAEF]/10 rounded-full translate-y-1/2 -translate-x-1/2 blur-3xl" />
 
         <div className="site-container mx-auto px-4 sm:px-6 relative z-10 flex flex-col gap-12 sm:gap-14">
-          <motion.div
+          <MotionDiv
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -169,33 +167,33 @@ export default function GHIPPage() {
               <ArrowLeft className="mr-2 h-4 w-4" />
               Back to Programs
             </Link>
-          </motion.div>
+          </MotionDiv>
           <div className="max-w-4xl">
-            <motion.p
+            <MotionP
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
               className="uppercase tracking-[0.3em] text-sm font-semibold text-[#FCFAEF]/80 mb-6"
             >
               Akomapa Global Health Immersion Program
-            </motion.p>
-            <motion.h1
+            </MotionP>
+            <MotionH1
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1, duration: 0.8, ease: "easeOut" }}
               className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-light text-[#FCFAEF] mb-6 leading-tight"
             >
               Learn by Serving. Lead by Understanding.
-            </motion.h1>
-            <motion.p
+            </MotionH1>
+            <MotionP
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.8, ease: "easeOut" }}
               className="text-base sm:text-lg md:text-2xl text-[#FCFAEF]/85 font-light max-w-3xl"
             >
               A three-week experiential global health fellowship that bridges learning and service, bringing together students from across Africa, the United States, and beyond to explore how communities, health systems, and students collaborate to advance care.
-            </motion.p>
-            <motion.div
+            </MotionP>
+            <MotionDiv
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.8, ease: "easeOut" }}
@@ -207,10 +205,10 @@ export default function GHIPPage() {
               <Button asChild className={secondaryCtaClass}>
                 <Link href="/contact">Request Program Brochure</Link>
               </Button>
-            </motion.div>
+            </MotionDiv>
           </div>
 
-          <motion.div
+          <MotionDiv
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.8, ease: "easeOut" }}
@@ -226,14 +224,14 @@ export default function GHIPPage() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
             </div>
-          </motion.div>
+          </MotionDiv>
         </div>
       </section>
 
       <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
         <div className="site-container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            <motion.div
+            <MotionDiv
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
@@ -251,8 +249,8 @@ export default function GHIPPage() {
                   The program will expand across several countries through the Akomapa Network, beginning with its inaugural cohort in Ghana. Each site immerses participants in community health delivery, systems learning, and cultural exchange—preparing future leaders to translate experience into impact.
                 </p>
               </div>
-            </motion.div>
-            <motion.div
+            </MotionDiv>
+            <MotionDiv
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1, duration: 0.6 }}
@@ -269,7 +267,7 @@ export default function GHIPPage() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent" />
               </div>
-            </motion.div>
+            </MotionDiv>
           </div>
         </div>
       </section>
@@ -280,7 +278,7 @@ export default function GHIPPage() {
           <div className="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-[#F5C94D]/10 blur-3xl" />
         </div>
         <div className="relative site-container mx-auto px-4">
-          <motion.div
+          <MotionDiv
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -293,13 +291,13 @@ export default function GHIPPage() {
             <p className="text-base sm:text-lg text-[#FCFAEF]/90 leading-relaxed">
               To cultivate global health leaders who are grounded in empathy, cultural humility, and community partnership, and who can transform firsthand experience into sustainable solutions for health equity.
             </p>
-          </motion.div>
+          </MotionDiv>
         </div>
       </section>
 
       <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
         <div className="site-container mx-auto px-4">
-          <motion.div
+          <MotionDiv
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -312,12 +310,12 @@ export default function GHIPPage() {
             <p className="text-lg text-[#2F3332] dark:text-[#E6E7E7] leading-relaxed">
               The Akomapa Immersion Program combines classroom learning, clinical exposure, and cultural discovery. While details vary by country, participants can expect to:
             </p>
-          </motion.div>
+          </MotionDiv>
 
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
               {whatToExpect.map((item, index) => (
-                <motion.div
+                <MotionDiv
                   key={item.title}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -335,7 +333,7 @@ export default function GHIPPage() {
                   <p className="text-sm md:text-base text-[#2F3332] dark:text-[#E6E7E7] leading-relaxed flex-1">
                     {item.description}
                   </p>
-                </motion.div>
+                </MotionDiv>
               ))}
             </div>
           </div>
@@ -348,7 +346,7 @@ export default function GHIPPage() {
           <div className="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-[#F5C94D]/10 blur-3xl" />
         </div>
         <div className="relative site-container mx-auto px-4">
-          <motion.div
+          <MotionDiv
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -358,10 +356,10 @@ export default function GHIPPage() {
             <h2 className="text-3xl md:text-4xl font-bold">
               Program Highlights
             </h2>
-          </motion.div>
+          </MotionDiv>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 md:gap-8">
             {programHighlights.map((highlight, index) => (
-              <motion.div
+              <MotionDiv
                 key={highlight.label}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -385,7 +383,7 @@ export default function GHIPPage() {
                 <p className="mt-3 text-sm md:text-base text-[#2F3332]/85 leading-relaxed flex-1">
                   {highlight.description}
                 </p>
-              </motion.div>
+              </MotionDiv>
             ))}
           </div>
         </div>
@@ -393,7 +391,7 @@ export default function GHIPPage() {
 
       <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
         <div className="site-container mx-auto px-4">
-          <motion.div
+          <MotionDiv
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -403,12 +401,12 @@ export default function GHIPPage() {
             <h2 className="text-3xl md:text-4xl font-bold text-[#1C1F1E] dark:text-[#FCFAEF]">
               Learning Components
             </h2>
-          </motion.div>
+          </MotionDiv>
 
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
               {learningComponents.map((component, index) => (
-                <motion.div
+                <MotionDiv
                   key={component.title}
                   initial={{ opacity: 0, y: 24 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -429,7 +427,7 @@ export default function GHIPPage() {
                       {component.description}
                     </p>
                   </div>
-                </motion.div>
+                </MotionDiv>
               ))}
             </div>
           </div>
@@ -442,7 +440,7 @@ export default function GHIPPage() {
           <div className="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-[#F5C94D]/10 blur-3xl" />
         </div>
         <div className="relative site-container mx-auto px-4">
-          <motion.div
+          <MotionDiv
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -455,11 +453,11 @@ export default function GHIPPage() {
             <p className="text-lg text-[#FCFAEF]/90 leading-relaxed">
               We welcome applicants who are curious, humble, and committed to health equity.
             </p>
-          </motion.div>
+          </MotionDiv>
 
           <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
             {whoCanApply.map((item, index) => (
-              <motion.div
+              <MotionDiv
                 key={item.title}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -477,7 +475,7 @@ export default function GHIPPage() {
                 <p className="text-sm md:text-base text-[#FCFAEF]/85 leading-relaxed">
                   {item.description}
                 </p>
-              </motion.div>
+              </MotionDiv>
             ))}
           </div>
 
@@ -489,7 +487,7 @@ export default function GHIPPage() {
 
       <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
         <div className="site-container mx-auto px-4">
-          <motion.div
+          <MotionDiv
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -502,11 +500,11 @@ export default function GHIPPage() {
             <p className="text-lg text-[#2F3332] dark:text-[#E6E7E7] leading-relaxed">
               By embedding students directly within community systems, the Akomapa Immersion Program:
             </p>
-          </motion.div>
+          </MotionDiv>
 
           <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
             {globalImpact.map((item, index) => (
-              <motion.div
+              <MotionDiv
                 key={item.title}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -524,7 +522,7 @@ export default function GHIPPage() {
               <p className="text-sm md:text-base text-[#2F3332] dark:text-[#E6E7E7] leading-relaxed">
                 {item.description}
               </p>
-            </motion.div>
+            </MotionDiv>
           ))}
         </div>
           </div>
@@ -533,7 +531,7 @@ export default function GHIPPage() {
       <section className="py-16 md:py-24 bg-[#F4F1E8] dark:bg-[#1C1F1E]">
         <div className="site-container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            <motion.div
+            <MotionDiv
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
@@ -564,8 +562,8 @@ export default function GHIPPage() {
                   TBD
                 </div>
               </div>
-            </motion.div>
-            <motion.div
+            </MotionDiv>
+            <MotionDiv
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1, duration: 0.6 }}
@@ -582,14 +580,14 @@ export default function GHIPPage() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent" />
               </div>
-            </motion.div>
+            </MotionDiv>
           </div>
         </div>
       </section>
 
       <section className="py-16 md:py-24 bg-gradient-to-r from-[#0F4C5C] via-[#0097b2] to-[#0B2F3A] text-[#FCFAEF]">
         <div className="site-container mx-auto px-4">
-          <motion.div
+          <MotionDiv
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -623,7 +621,7 @@ export default function GHIPPage() {
                 </Link>
               </Button>
             </div>
-          </motion.div>
+          </MotionDiv>
         </div>
       </section>
     </>

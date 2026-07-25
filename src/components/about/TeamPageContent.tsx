@@ -554,7 +554,7 @@ function TeamCard({
   );
 }
 
-export default function TeamPage() {
+export default function TeamPageContent() {
   const [selectedMember, setSelectedMember] = useState<SpotlightMember | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 

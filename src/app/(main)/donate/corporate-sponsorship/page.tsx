@@ -1,11 +1,9 @@
 import type { Metadata } from "next";
 import { buildPageMetadata } from "@/lib/seo";
-import ClientPage from "./ClientPage";
+import Content from "./Content";
 
-export const metadata: Metadata = buildPageMetadata(
-  "/donate/corporate-sponsorship",
-);
+export const metadata: Metadata = buildPageMetadata("/donate/corporate-sponsorship");
 
-export default function DonateCorporateSponsorshipPage() {
-  return <ClientPage />;
+export default function CorporateSponsorshipPage() {
+  return <Content />;
 }

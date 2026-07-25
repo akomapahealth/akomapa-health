@@ -9,7 +9,7 @@ import ResourceGrid from "@/components/resources/ResourceGrid";
 import ResourceFilter from "@/components/resources/ResourceFilter";
 import { resources } from "@/data/resources";
 
-function ResourcesContent() {
+function ResourcesExplorerInner() {
   const searchParams = useSearchParams();
   const initialProgram = searchParams.get('program');
   
@@ -83,7 +83,7 @@ function ResourcesContent() {
   );
 }
 
-export default function ResourcesPage() {
+export default function ResourcesExplorer() {
   return (
     <Suspense fallback={
       <div className="min-h-screen flex items-center justify-center">
@@ -93,7 +93,7 @@ export default function ResourcesPage() {
         </div>
       </div>
     }>
-      <ResourcesContent />
+      <ResourcesExplorerInner />
     </Suspense>
   );
 }
