@@ -109,6 +109,35 @@ test.describe("desktop header dropdown keyboard accessibility", () => {
     await expect(page).toHaveURL(/\/research$/);
   });
 
+  test("Community Health Hubs retains keyboard access to individual hubs", async ({
+    page,
+  }) => {
+    const workTrigger = page.getByRole("button", { name: "Our Work" });
+    await workTrigger.focus();
+    await page.keyboard.press("Enter");
+
+    const hubsSubmenu = page.getByRole("menuitem", {
+      name: "Community Health Hubs",
+      exact: true,
+    });
+    await expect(hubsSubmenu).toBeFocused();
+    await page.keyboard.press("ArrowRight");
+
+    const allHubsLink = page.getByRole("menuitem", {
+      name: "All Community Health Hubs",
+    });
+    const uccLink = page.getByRole("menuitem", { name: "Akomapa UCC Hub" });
+    await expect(allHubsLink).toBeFocused();
+    await page.keyboard.press("ArrowDown");
+    await expect(uccLink).toBeFocused();
+    await page.keyboard.press("Enter");
+
+    await expect(page).toHaveURL(/\/community-hubs\/ucc$/);
+    await workTrigger.click();
+    await hubsSubmenu.hover();
+    await expect(uccLink).toHaveAttribute("aria-current", "page");
+  });
+
   test("Learning Experiences reaches the Immersion program by keyboard", async ({
     page,
   }) => {
@@ -170,6 +199,7 @@ test.describe("desktop header dropdown keyboard accessibility", () => {
       const header = page.locator("header").first();
       const logo = header.locator("a").first();
       const nav = header.getByRole("navigation", { name: "Main" });
+      const donate = header.getByRole("link", { name: "Donate" });
       const menuButton = header.getByRole("button", {
         name: "Open main menu",
       });
@@ -179,10 +209,18 @@ test.describe("desktop header dropdown keyboard accessibility", () => {
 
       const logoBox = await logo.boundingBox();
       const navBox = await nav.boundingBox();
+      const donateBox = await donate.boundingBox();
       expect(logoBox).not.toBeNull();
       expect(navBox).not.toBeNull();
+      expect(donateBox).not.toBeNull();
       expect(navBox!.x - (logoBox!.x + logoBox!.width)).toBeGreaterThanOrEqual(
         24,
+      );
+      const availableCenter =
+        (logoBox!.x + logoBox!.width + donateBox!.x) / 2;
+      const navigationCenter = navBox!.x + navBox!.width / 2;
+      expect(Math.abs(navigationCenter - availableCenter)).toBeLessThanOrEqual(
+        4,
       );
 
       const dimensions = await page.evaluate(() => ({
@@ -215,7 +253,16 @@ test.describe("mobile grouped navigation", () => {
       drawer.getByText("Join Us", { exact: true }),
     ).toBeVisible();
     await expect(
-      drawer.getByRole("link", { name: "Community Health Hubs" }),
+      drawer.getByRole("link", { name: "All Community Health Hubs" }),
+    ).toBeVisible();
+    await expect(
+      drawer.getByRole("link", { name: "Akomapa UCC Hub" }),
+    ).toBeVisible();
+    await expect(
+      drawer.getByRole("link", { name: "Akomapa UG Hub" }),
+    ).toBeVisible();
+    await expect(
+      drawer.getByRole("link", { name: "Akomapa NHP Yale Hub" }),
     ).toBeVisible();
     await expect(
       drawer.getByRole("link", { name: "Research & Innovation" }),
@@ -243,6 +290,25 @@ test.describe("mobile grouped navigation", () => {
     await immersionLink.click();
 
     await expect(page).toHaveURL(/\/global-health-immersion-program$/);
+    await expect(drawer).toBeHidden();
+  });
+
+  test("individual hub links remain touch-friendly and close the drawer", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await dismissAnnouncementIfPresent(page);
+    await page.goto("/");
+
+    await page.getByRole("button", { name: "Open main menu" }).click();
+    const drawer = page.getByRole("dialog");
+    const uccLink = drawer.getByRole("link", { name: "Akomapa UCC Hub" });
+
+    await expect(uccLink).toBeVisible();
+    expect((await uccLink.boundingBox())?.height).toBeGreaterThanOrEqual(44);
+    await uccLink.click();
+
+    await expect(page).toHaveURL(/\/community-hubs\/ucc$/);
     await expect(drawer).toBeHidden();
   });
 });
