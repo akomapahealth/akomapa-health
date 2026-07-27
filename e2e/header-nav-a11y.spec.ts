@@ -101,4 +101,58 @@ test.describe("desktop header dropdown keyboard accessibility", () => {
     await uccLink.click();
     await expect(page).toHaveURL(/\/community-hubs\/ucc$/);
   });
+
+  test("Learning Experiences reaches the Immersion program by keyboard", async ({
+    page,
+  }) => {
+    const learningTrigger = page.getByRole("button", {
+      name: "Learning Experiences",
+    });
+    await learningTrigger.focus();
+    await page.keyboard.press("Enter");
+
+    const academyLink = page.getByRole("menuitem", {
+      name: "Akomapa Academy",
+    });
+    const immersionLink = page.getByRole("menuitem", {
+      name: "Global Health Immersion Program",
+    });
+
+    await expect(academyLink).toBeFocused();
+    await page.keyboard.press("ArrowDown");
+    await expect(immersionLink).toBeFocused();
+    await page.keyboard.press("Enter");
+
+    await expect(page).toHaveURL(/\/global-health-immersion-program$/);
+    await learningTrigger.click();
+    await expect(immersionLink).toBeVisible();
+    await expect(immersionLink).toHaveAttribute("aria-current", "page");
+  });
+});
+
+test.describe("mobile learning experiences navigation", () => {
+  test("shows both destinations and closes after navigation", async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await dismissAnnouncementIfPresent(page);
+    await page.goto("/");
+
+    await page.getByRole("button", { name: "Open main menu" }).click();
+    const drawer = page.getByRole("dialog");
+
+    await expect(
+      drawer.getByText("Learning Experiences", { exact: true }),
+    ).toBeVisible();
+    await expect(
+      drawer.getByRole("link", { name: "Akomapa Academy" }),
+    ).toBeVisible();
+
+    const immersionLink = drawer.getByRole("link", {
+      name: "Global Health Immersion Program",
+    });
+    await expect(immersionLink).toBeVisible();
+    await immersionLink.click();
+
+    await expect(page).toHaveURL(/\/global-health-immersion-program$/);
+    await expect(drawer).toBeHidden();
+  });
 });

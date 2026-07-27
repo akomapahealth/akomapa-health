@@ -14,6 +14,7 @@ import {
   CONTACT_NETWORK_ERROR_MESSAGE,
   getContactErrorMessage,
 } from "@/lib/contact-errors";
+import { getContactIntent } from "@/lib/contact-intents";
 
 function ContactFormContent() {
   const searchParams = useSearchParams();
@@ -30,23 +31,15 @@ function ContactFormContent() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [error, setError] = useState("");
 
-  // Handle URL parameters for partnership types
+  // Apply only known inquiry intents. Unknown values leave the form untouched.
   useEffect(() => {
-    const type = searchParams.get('type');
-    if (type) {
-      const partnershipTypes = {
-        'outreach': 'Host Community Engagement Programs',
-        'partnership': 'Strategic Partnerships',
-        'donation': 'Monetary Sponsorship'
-      };
-      
-      setFormData(prev => ({
-        ...prev,
-        subject: `Partnership Inquiry - ${partnershipTypes[type as keyof typeof partnershipTypes] || 'General'}`,
-        partnershipType: partnershipTypes[type as keyof typeof partnershipTypes] || '',
-        message: `I&apos;m interested in learning more about ${partnershipTypes[type as keyof typeof partnershipTypes] || 'partnership opportunities'} with Akomapa Health Foundation.`
-      }));
-    }
+    const intent = getContactIntent(searchParams.get("type"));
+    if (!intent) return;
+
+    setFormData((previous) => ({
+      ...previous,
+      ...intent,
+    }));
   }, [searchParams]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {

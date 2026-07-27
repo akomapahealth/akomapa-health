@@ -12,7 +12,7 @@ import { announcementCampaign } from "../src/data/announcements";
  */
 
 const viewports = [
-  { name: "mobile-375", width: 375, height: 812 },
+  { name: "mobile-390", width: 390, height: 844 },
   { name: "tablet-768", width: 768, height: 1024 },
   { name: "ipad-pro-1024", width: 1024, height: 1366 },
   { name: "laptop-1280", width: 1280, height: 800 },
@@ -21,7 +21,7 @@ const viewports = [
 ] as const;
 
 const expectedGutterByWidth = new Map<number, number>([
-  [375, 16],
+  [390, 16],
   [768, 32],
   [1024, 40],
   [1280, 48],
@@ -47,6 +47,10 @@ const routes: ReadonlyArray<{ path: string; name: string }> = [
   { path: "/blog", name: "blog" },
   { path: "/about/team", name: "team" },
   { path: "/programs", name: "programs" },
+  {
+    path: "/global-health-immersion-program",
+    name: "global-health-immersion-program",
+  },
   { path: "/philosophy", name: "philosophy" },
   { path: "/privacy", name: "privacy" },
   { path: "/terms", name: "terms" },
