@@ -124,6 +124,8 @@ test.describe("desktop header dropdown keyboard accessibility", () => {
     await page.keyboard.press("Enter");
 
     await expect(page).toHaveURL(/\/programs\/akomapa-ghip$/);
+    await learningTrigger.click();
+    await expect(immersionLink).toBeVisible();
     await expect(immersionLink).toHaveAttribute("aria-current", "page");
   });
 });

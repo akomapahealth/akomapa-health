@@ -418,7 +418,7 @@ export default function Content() {
               <PublicCta
                 href="/contact?type=immersion"
                 variant="teal"
-                className="min-h-12 justify-center"
+                className="min-h-12 justify-center !text-[#1C1F1E]"
               >
                 Register Interest
               </PublicCta>
