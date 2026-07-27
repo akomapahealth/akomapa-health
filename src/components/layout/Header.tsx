@@ -111,7 +111,7 @@ function HeaderContent() {
         <div className="flex items-center gap-4">
           <BrandLogo className="flex-shrink-0" priority />
 
-          <div className="hidden xl:flex items-center gap-4 ml-auto 2xl:gap-8">
+          <div className="ml-auto hidden items-center gap-4 min-[1360px]:flex 2xl:gap-8">
             <nav className="flex items-center gap-x-2.5 2xl:gap-5" aria-label="Main">
               {mainNavigation.map((item) =>
                 isNavigationGroup(item) ? (
@@ -144,7 +144,7 @@ function HeaderContent() {
             </div>
           </div>
 
-          <div className="xl:hidden flex items-center ml-auto space-x-2">
+          <div className="ml-auto flex items-center space-x-2 min-[1360px]:hidden">
             <ThemeToggle />
             <button
               onClick={() => setIsMobileMenuOpen(true)}
@@ -174,7 +174,7 @@ export default function Header() {
           <div className="site-container mx-auto px-4">
             <div className="flex items-center">
               <div className="animate-pulse bg-gray-200 dark:bg-gray-700 h-12 w-48 rounded"></div>
-              <div className="hidden xl:flex items-center ml-auto space-x-4">
+              <div className="ml-auto hidden items-center space-x-4 min-[1360px]:flex">
                 <div className="animate-pulse bg-gray-200 dark:bg-gray-700 h-10 w-32 rounded"></div>
               </div>
             </div>

@@ -1,629 +1,445 @@
-import { MotionDiv, MotionH1, MotionP } from "@/components/motion/framer";
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, SchoolIcon } from "lucide-react";
 import Breadcrumb from "@/components/layout/Breadcrumb";
 import Image from "@/components/common/Image";
-import { Button } from "@/components/ui/button";
+import { FadeIn } from "@/components/animations";
+import {
+  PublicCta,
+  SectionEyebrow,
+} from "@/components/shared/PublicPagePrimitives";
+import { immersionProgram } from "@/data/immersion-program";
+import { cn } from "@/lib/utils";
 
-const programHighlights = [
-  {
-    label: "Duration",
-    value: "3 weeks",
-    description: "Intensive experiential learning program",
-    accentColor: "#0097b2"
-  },
-  {
-    label: "First Site",
-    value: "Ghana",
-    description: "Next cohort details forthcoming",
-    accentColor: "#eeba2b"
-  },
-  {
-    label: "Certification",
-    value: "Certificate",
-    description: "Akomapa Certificate in Global Health & Community Engagement",
-    accentColor: "#0F4C5C"
-  }
-];
+const sectionContainerClass =
+  "site-container mx-auto px-4 py-16 md:py-20 lg:py-24";
 
-const learningComponents = [
-  {
-    title: "Service Learning",
-    description: "Hands-on participation in Akomapa's community-based clinics and outreach programs.",
-    color: "#0097b2"
-  },
-  {
-    title: "Community-Based Research",
-    description: "Small-group projects investigating real public-health challenges using qualitative and quantitative methods.",
-    color: "#eeba2b"
-  },
-  {
-    title: "Leadership Development",
-    description: "Peer-led discussions linking fieldwork to cultural humility, ethics, and systems thinking.",
-    color: "#0097b2"
-  },
-  {
-    title: "Expert Seminars",
-    description: "Sessions taught by faculty from partner universities and global health organizations on NCD prevention, health systems, and innovation.",
-    color: "#eeba2b"
-  },
-  {
-    title: "Capstone Reflection",
-    description: "Fellows present project findings and personal insights to peers, mentors, and community partners.",
-    color: "#0097b2"
-  }
-];
+function SectionHeading({
+  eyebrow,
+  title,
+  description,
+  tone = "dark",
+  id,
+}: {
+  eyebrow: string;
+  title: string;
+  description?: string;
+  tone?: "dark" | "light";
+  id: string;
+}) {
+  return (
+    <div className="max-w-3xl">
+      <SectionEyebrow tone={tone === "light" ? "light" : "teal"}>
+        {eyebrow}
+      </SectionEyebrow>
+      <h2
+        id={id}
+        className={cn(
+          "mt-4 max-w-3xl font-heading text-[1.9rem] font-semibold leading-[1.14] tracking-tight md:text-[2.4rem] lg:text-[2.8rem]",
+          tone === "light" ? "text-[#FCFAEF]" : "text-[#1C1F1E] dark:text-[#FCFAEF]",
+        )}
+      >
+        {title}
+      </h2>
+      {description ? (
+        <p
+          className={cn(
+            "mt-5 max-w-2xl text-base leading-7 md:text-lg",
+            tone === "light"
+              ? "text-[#FCFAEF]/78"
+              : "text-[#2F3332]/78 dark:text-[#E6E7E7]/78",
+          )}
+        >
+          {description}
+        </p>
+      ) : null}
+    </div>
+  );
+}
 
-const whatToExpect = [
-  {
-    title: "Student-Powered Community Health Hubs",
-    description: "Join Akomapa clinics delivering free screenings, counseling, and health education alongside local student teams.",
-    accentColor: "#0097b2"
-  },
-  {
-    title: "Community Engagement Projects",
-    description: "Design outreach initiatives with neighborhood partners to strengthen trust and expand preventative care.",
-    accentColor: "#eeba2b"
-  },
-  {
-    title: "Applied Research",
-    description: "Conduct field-based studies that investigate public-health challenges and propose context-driven solutions.",
-    accentColor: "#0F4C5C"
-  },
-  {
-    title: "Mentored Seminars",
-    description: "Participate in interactive case discussions led by Akomapa mentors, faculty, and visiting global health experts.",
-    accentColor: "#0097b2"
-  },
-  {
-    title: "Health Systems Immersion",
-    description: "Observe how national, regional, and community health systems work together—from policy tables to primary care sites.",
-    accentColor: "#eeba2b"
-  },
-  {
-    title: "Leadership Circles",
-    description: "Reflect daily with peers through facilitated sessions linking lived experience to ethics, leadership, and humility.",
-    accentColor: "#0F4C5C"
-  },
-  {
-    title: "Cultural Excursions",
-    description: "Explore historical and cultural landmarks that deepen cultural competence and community understanding.",
-    accentColor: "#0097b2"
-  }
-];
-
-const whoCanApply = [
-  {
-    title: "Undergraduate & Pre-Med Pathways",
-    description: "Students exploring medicine, global health, or public service who want immersive, community-centered experience.",
-    accentColor: "#0097b2"
-  },
-  {
-    title: "Health Professional Learners",
-    description: "Medical, nursing, pharmacy, public health, and allied health students eager to practice collaborative care.",
-    accentColor: "#eeba2b"
-  },
-  {
-    title: "Graduate & Early-Career Professionals",
-    description: "Emerging leaders committed to ethical, community-based global engagement and systems innovation.",
-    accentColor: "#0F4C5C"
-  }
-];
-
-const globalImpact = [
-  {
-    title: "Cross-Cultural Leadership",
-    description: "Strengthens collaboration between rising healthcare leaders across continents through shared service.",
-    accentColor: "#0097b2"
-  },
-  {
-    title: "Community-Driven Innovation",
-    description: "Advances research and interventions that originate from, and are sustained by, local partners.",
-    accentColor: "#eeba2b"
-  },
-  {
-    title: "Student-Powered Care",
-    description: "Expands Akomapa’s model where students lead with empathy under expert supervision.",
-    accentColor: "#0F4C5C"
-  },
-  {
-    title: "Global Network Building",
-    description: "Cultivates compassionate, evidence-driven changemakers connected through the Akomapa Network.",
-    accentColor: "#0097b2"
-  }
-];
-
-const ctaBaseClass =
-  "group inline-flex items-center justify-center gap-2 rounded-half px-8 py-6 h-auto text-base sm:text-lg font-medium transition-all duration-300 transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2";
-
-const primaryCtaClass =
-  `${ctaBaseClass} bg-[#0097b2] hover:bg-[#0097b2]/80 text-[#FCFAEF] shadow-lg hover:shadow-xl focus-visible:ring-[#8DD4E6]`;
-
-const secondaryCtaClass =
-  `${ctaBaseClass} bg-[#eeba2b] hover:bg-[#eeba2b]/80 text-[#FCFAEF] shadow-lg hover:shadow-xl focus-visible:ring-[#F5C94D]`;
+function EditorialArrow() {
+  return (
+    <span aria-hidden="true" className="transition-transform group-hover:translate-x-0.5">
+      →
+    </span>
+  );
+}
 
 export default function Content() {
+  const {
+    eyebrow,
+    title,
+    introduction,
+    overview,
+    vision,
+    facts,
+    experiences,
+    learningComponents,
+    audiences,
+    outcomes,
+    hostSite,
+    images,
+  } = immersionProgram;
+
   return (
-    <>
+    <div
+      data-immersion-page
+      className="bg-[#FCFAEF] text-[#1C1F1E] dark:bg-[#121514] dark:text-[#FCFAEF]"
+    >
       <div className="site-container mx-auto">
         <Breadcrumb />
       </div>
 
-      <section className="relative min-h-[80vh] py-16 sm:py-20 md:py-28 bg-gradient-to-r from-[#0097b2] to-[#0F4C5C] overflow-hidden">
-        <div className="absolute top-0 right-0 w-64 h-64 bg-[#FCFAEF]/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#FCFAEF]/10 rounded-full translate-y-1/2 -translate-x-1/2 blur-3xl" />
-
-        <div className="site-container mx-auto px-4 sm:px-6 relative z-10 flex flex-col gap-12 sm:gap-14">
-          <MotionDiv
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="pt-2"
-          >
-            <Link 
-              href="/programs" 
-              className="inline-flex items-center text-[#FCFAEF]/80 hover:text-[#FCFAEF] transition-colors text-sm font-medium"
+      <section
+        aria-labelledby="immersion-title"
+        className="border-y border-[#FCFAEF]/12 bg-[#0F4C5C] text-[#FCFAEF]"
+      >
+        <div className="site-container mx-auto grid items-center gap-12 px-4 py-14 md:py-20 lg:grid-cols-12 lg:gap-16 lg:py-24">
+          <div className="lg:col-span-7">
+            <SectionEyebrow tone="light">{eyebrow}</SectionEyebrow>
+            <h1
+              id="immersion-title"
+              className="mt-5 max-w-4xl font-heading text-[2.35rem] font-semibold leading-[1.04] tracking-[-0.025em] text-[#FCFAEF] sm:text-[3.1rem] lg:text-[4.35rem]"
             >
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              Back to Programs
-            </Link>
-          </MotionDiv>
-          <div className="max-w-4xl">
-            <MotionP
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-              className="uppercase tracking-[0.3em] text-sm font-semibold text-[#FCFAEF]/80 mb-6"
-            >
-              Akomapa Global Health Immersion Program
-            </MotionP>
-            <MotionH1
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1, duration: 0.8, ease: "easeOut" }}
-              className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-light text-[#FCFAEF] mb-6 leading-tight"
-            >
-              Learn by Serving. Lead by Understanding.
-            </MotionH1>
-            <MotionP
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2, duration: 0.8, ease: "easeOut" }}
-              className="text-base sm:text-lg md:text-2xl text-[#FCFAEF]/85 font-light max-w-3xl"
-            >
-              A three-week experiential global health fellowship that bridges learning and service, bringing together students from across Africa, the United States, and beyond to explore how communities, health systems, and students collaborate to advance care.
-            </MotionP>
-            <MotionDiv
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3, duration: 0.8, ease: "easeOut" }}
-              className="mt-8 flex flex-wrap gap-4"
-            >
-              <Button asChild className={primaryCtaClass}>
-                <Link href="/contact?type=immersion">Register Interest</Link>
-              </Button>
-              <Button asChild className={secondaryCtaClass}>
-                <Link href="/contact?type=immersion-brochure">
-                  Request Program Brochure
-                </Link>
-              </Button>
-            </MotionDiv>
+              {title}
+            </h1>
+            <p className="mt-6 max-w-2xl text-base leading-7 text-[#FCFAEF]/82 sm:text-lg sm:leading-8">
+              {introduction}
+            </p>
+            <div className="mt-8 flex max-w-xl flex-col items-stretch gap-3 sm:flex-row sm:items-center lg:flex-col lg:items-stretch xl:flex-row xl:items-center">
+              <PublicCta
+                href="/contact?type=immersion"
+                variant="gold"
+                className="min-h-12 justify-center"
+              >
+                Register Interest
+              </PublicCta>
+              <PublicCta
+                href="/contact?type=immersion-brochure"
+                variant="outline-light"
+                className="min-h-12 justify-center"
+              >
+                Request Program Brochure
+              </PublicCta>
+            </div>
           </div>
 
-          <MotionDiv
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.8, ease: "easeOut" }}
-            className="w-full"
-          >
-            <div className="relative w-full h-[280px] sm:h-[360px] md:h-[520px] lg:h-[640px] rounded-3xl overflow-hidden shadow-2xl border border-white/10">
+          <figure className="lg:col-span-5">
+            <div className="relative aspect-[4/5] overflow-hidden border-l-4 border-[#eeba2b] bg-[#121514]">
               <Image
-                src="/highlights/Akomapa-40.jpg"
-                alt="Global health immersion program participants"
+                src={images.hero.src}
+                alt={images.hero.alt}
                 fill
-                sizes="(min-width: 1024px) 50vw, 100vw"
-                className="object-cover object-center"
+                priority
+                sizes="(min-width: 1024px) 38vw, 100vw"
+                className="object-cover"
+                style={{ objectPosition: images.hero.position }}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
             </div>
-          </MotionDiv>
+            <figcaption className="mt-3 border-t border-[#FCFAEF]/24 pt-3 text-xs font-semibold uppercase tracking-[0.18em] text-[#FCFAEF]/65">
+              Community-centered learning in Ghana
+            </figcaption>
+          </figure>
         </div>
       </section>
 
-      <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
-        <div className="site-container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            <MotionDiv
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true, amount: 0.3 }}
-              className="order-1"
-            >
-              <h2 className="text-3xl md:text-4xl font-bold mb-6 text-[#1C1F1E] dark:text-[#FCFAEF]">
-                About the Program
+      <section
+        aria-labelledby="program-facts-title"
+        className="border-b border-[#1C1F1E]/12 bg-white dark:border-[#FCFAEF]/12 dark:bg-[#1C1F1E]"
+      >
+        <div className="site-container mx-auto px-4 py-12 md:py-16">
+          <div className="flex flex-col justify-between gap-3 border-b border-[#1C1F1E]/16 pb-6 dark:border-[#FCFAEF]/16 md:flex-row md:items-end">
+            <div>
+              <SectionEyebrow>Program overview</SectionEyebrow>
+              <h2
+                id="program-facts-title"
+                className="mt-3 font-heading text-2xl font-semibold tracking-tight md:text-3xl"
+              >
+                At a glance
               </h2>
-              <div className="space-y-5 text-lg text-[#2F3332] dark:text-[#E6E7E7] leading-relaxed">
-                <p>
-                  The Akomapa Immersion Program is a three-week experiential global health fellowship that bridges learning and service. It brings together undergraduate, pre-medical, and health professional students from across Africa, the United States, and beyond to explore how communities, health systems, and students collaborate to advance care.
-                </p>
-                <p>
-                  The program will expand across several countries through the Akomapa Network, beginning with its inaugural cohort in Ghana. Each site immerses participants in community health delivery, systems learning, and cultural exchange—preparing future leaders to translate experience into impact.
-                </p>
-              </div>
-            </MotionDiv>
-            <MotionDiv
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1, duration: 0.6 }}
-              viewport={{ once: true, amount: 0.3 }}
-              className="order-2"
-            >
-              <div className="relative w-full min-h-[320px] h-[320px] sm:h-[380px] md:h-[420px] lg:h-[460px] rounded-3xl overflow-hidden shadow-2xl">
-                <Image
-                  src="/highlights/Akomapa-66.jpg"
-                  alt="Students participating in global health immersion program"
-                  fill
-                  sizes="(min-width: 1024px) 50vw, 100vw"
-                  className="object-cover object-center"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent" />
-              </div>
-            </MotionDiv>
+            </div>
+            <p className="max-w-md text-sm leading-6 text-[#2F3332]/65 dark:text-[#E6E7E7]/68">
+              Confirmed program details are shown separately from information
+              that has not yet been announced.
+            </p>
           </div>
+
+          <dl className="grid md:grid-cols-2 xl:grid-cols-4">
+            {facts.map((fact, index) => (
+              <div
+                key={fact.label}
+                className={cn(
+                  "border-b border-[#1C1F1E]/12 py-7 dark:border-[#FCFAEF]/12 md:px-6 xl:border-b-0",
+                  index % 2 === 0 && "md:border-r",
+                  index > 0 && "xl:border-l xl:border-r-0",
+                  index === 0 && "md:pl-0 xl:border-l-0",
+                )}
+              >
+                <dt className="text-xs font-bold uppercase tracking-[0.18em] text-[#0097b2] dark:text-[#66C4DC]">
+                  {fact.label}
+                </dt>
+                <dd className="mt-3">
+                  <span className="block font-heading text-2xl font-semibold leading-tight">
+                    {fact.value}
+                  </span>
+                  <span className="mt-2 block text-sm leading-6 text-[#2F3332]/68 dark:text-[#E6E7E7]/68">
+                    {fact.description}
+                  </span>
+                </dd>
+              </div>
+            ))}
+          </dl>
         </div>
       </section>
 
-      <section className="py-16 md:py-24 bg-gradient-to-r from-[#0097b2] to-[#0F4C5C] text-[#FCFAEF] relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute -top-24 -left-24 h-64 w-64 rounded-full bg-[#FCFAEF]/10 blur-3xl" />
-          <div className="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-[#F5C94D]/10 blur-3xl" />
-        </div>
-        <div className="relative site-container mx-auto px-4">
-          <MotionDiv
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true, amount: 0.4 }}
-            className="text-center max-w-3xl mx-auto mb-12 space-y-4"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold">
-              Our Vision
-            </h2>
-            <p className="text-base sm:text-lg text-[#FCFAEF]/90 leading-relaxed">
-              To cultivate global health leaders who are grounded in empathy, cultural humility, and community partnership, and who can transform firsthand experience into sustainable solutions for health equity.
-            </p>
-          </MotionDiv>
-        </div>
-      </section>
-
-      <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
-        <div className="site-container mx-auto px-4">
-          <MotionDiv
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true, amount: 0.3 }}
-            className="text-center max-w-4xl mx-auto mb-12 space-y-4"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold text-[#1C1F1E] dark:text-[#FCFAEF]">
-              What to Expect
-            </h2>
-            <p className="text-lg text-[#2F3332] dark:text-[#E6E7E7] leading-relaxed">
-              The Akomapa Immersion Program combines classroom learning, clinical exposure, and cultural discovery. While details vary by country, participants can expect to:
-            </p>
-          </MotionDiv>
-
-          <div className="max-w-6xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-              {whatToExpect.map((item, index) => (
-                <MotionDiv
-                  key={item.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  viewport={{ once: true, amount: 0.3 }}
-                  className="relative rounded-2xl bg-white dark:bg-[#2F3332] p-6 md:p-8 shadow-lg border border-[#E6E7E7]/30 dark:border-[#4F5554]/30 flex flex-col"
-                >
-                  <div
-                    className="h-1 w-16 rounded-full mb-4"
-                    style={{ backgroundColor: item.accentColor }}
-                  />
-                  <h3 className="text-xl font-semibold text-[#1C1F1E] dark:text-[#FCFAEF] mb-3">
-                    {item.title}
-                  </h3>
-                  <p className="text-sm md:text-base text-[#2F3332] dark:text-[#E6E7E7] leading-relaxed flex-1">
-                    {item.description}
-                  </p>
-                </MotionDiv>
+      <section
+        aria-labelledby="program-purpose-title"
+        className="bg-[#FCFAEF] dark:bg-[#121514]"
+      >
+        <div
+          className={cn(
+            sectionContainerClass,
+            "grid items-center gap-12 lg:grid-cols-12 lg:gap-16",
+          )}
+        >
+          <FadeIn className="lg:col-span-6">
+            <SectionHeading
+              eyebrow="The program"
+              title="Global health education grounded in place and partnership."
+              id="program-purpose-title"
+            />
+            <div className="mt-7 max-w-2xl space-y-5 text-base leading-7 text-[#2F3332]/82 dark:text-[#E6E7E7]/80 md:text-lg md:leading-8">
+              {overview.map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
               ))}
             </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="py-16 md:py-24 bg-gradient-to-r from-[#0097b2] to-[#0F4C5C] text-[#FCFAEF] relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute -top-24 -left-24 h-64 w-64 rounded-full bg-[#FCFAEF]/10 blur-3xl" />
-          <div className="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-[#F5C94D]/10 blur-3xl" />
-        </div>
-        <div className="relative site-container mx-auto px-4">
-          <MotionDiv
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true, amount: 0.4 }}
-            className="text-center max-w-3xl mx-auto mb-12 space-y-4"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold">
-              Program Highlights
-            </h2>
-          </MotionDiv>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 md:gap-8">
-            {programHighlights.map((highlight, index) => (
-              <MotionDiv
-                key={highlight.label}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true, amount: 0.4 }}
-                className="relative rounded-2xl bg-[#FCFAEF]/95 text-[#1C1F1E] shadow-xl border border-[#E6E7E7]/40 overflow-hidden p-6 md:p-8 flex flex-col"
-              >
-                <div
-                  className="h-1 w-16 rounded-full mb-4"
-                  style={{ backgroundColor: highlight.accentColor }}
-                />
-                <span
-                  className="text-4xl font-semibold tracking-tight"
-                  style={{ color: highlight.accentColor }}
-                >
-                  {highlight.value}
-                </span>
-                <h3 className="mt-4 text-lg font-semibold uppercase tracking-[0.2em] text-[#1C1F1E]/70">
-                  {highlight.label}
-                </h3>
-                <p className="mt-3 text-sm md:text-base text-[#2F3332]/85 leading-relaxed flex-1">
-                  {highlight.description}
-                </p>
-              </MotionDiv>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
-        <div className="site-container mx-auto px-4">
-          <MotionDiv
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true, amount: 0.3 }}
-            className="text-center max-w-4xl mx-auto mb-12 space-y-4"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold text-[#1C1F1E] dark:text-[#FCFAEF]">
-              Learning Components
-            </h2>
-          </MotionDiv>
-
-          <div className="max-w-6xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-              {learningComponents.map((component, index) => (
-                <MotionDiv
-                  key={component.title}
-                  initial={{ opacity: 0, y: 24 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  viewport={{ once: true, amount: 0.3 }}
-                  className="group relative rounded-2xl bg-white dark:bg-[#2F3332] p-6 md:p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-[#E6E7E7]/20 dark:border-[#4F5554]/20 hover:-translate-y-1"
-                >
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-br from-[#0097b2]/5 via-transparent to-[#eeba2b]/5 rounded-2xl" />
-                  <div className="relative">
-                    <div 
-                      className="h-1 w-16 rounded-full mb-4"
-                      style={{ backgroundColor: component.color }}
-                    />
-                    <h3 className="text-xl font-semibold text-[#1C1F1E] dark:text-[#FCFAEF] mb-3">
-                      {component.title}
-                    </h3>
-                    <p className="text-sm md:text-base text-[#2F3332] dark:text-[#E6E7E7] leading-relaxed">
-                      {component.description}
-                    </p>
-                  </div>
-                </MotionDiv>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="py-16 md:py-24 bg-gradient-to-r from-[#0097b2] to-[#0F4C5C] text-[#FCFAEF] relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute -top-24 -left-24 h-64 w-64 rounded-full bg-[#FCFAEF]/10 blur-3xl" />
-          <div className="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-[#F5C94D]/10 blur-3xl" />
-        </div>
-        <div className="relative site-container mx-auto px-4">
-          <MotionDiv
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true, amount: 0.3 }}
-            className="text-center max-w-4xl mx-auto mb-12 space-y-4"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold">
-              Who Can Apply
-            </h2>
-            <p className="text-lg text-[#FCFAEF]/90 leading-relaxed">
-              We welcome applicants who are curious, humble, and committed to health equity.
-            </p>
-          </MotionDiv>
-
-          <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-            {whoCanApply.map((item, index) => (
-              <MotionDiv
-                key={item.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true, amount: 0.3 }}
-                className="rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 p-6 md:p-8 shadow-xl flex flex-col gap-3"
-              >
-                <div
-                  className="h-1 w-16 rounded-full"
-                  style={{ backgroundColor: item.accentColor }}
-                />
-                <h3 className="text-xl font-semibold text-white">
-                  {item.title}
-                </h3>
-                <p className="text-sm md:text-base text-[#FCFAEF]/85 leading-relaxed">
-                  {item.description}
-                </p>
-              </MotionDiv>
-            ))}
-          </div>
-
-          <p className="text-center text-base text-[#FCFAEF]/85 italic mt-10">
-            Participants are selected for their curiosity, humility, and commitment to health equity.
-          </p>
-        </div>
-      </section>
-
-      <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
-        <div className="site-container mx-auto px-4">
-          <MotionDiv
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true, amount: 0.3 }}
-            className="text-center max-w-4xl mx-auto mb-12 space-y-4"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold text-[#1C1F1E] dark:text-[#FCFAEF]">
-              Global Impact
-            </h2>
-            <p className="text-lg text-[#2F3332] dark:text-[#E6E7E7] leading-relaxed">
-              By embedding students directly within community systems, the Akomapa Immersion Program:
-            </p>
-          </MotionDiv>
-
-          <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-            {globalImpact.map((item, index) => (
-              <MotionDiv
-                key={item.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true, amount: 0.3 }}
-                className="rounded-2xl bg-white dark:bg-[#2F3332] p-6 md:p-8 shadow-lg border border-[#E6E7E7]/30 dark:border-[#4F5554]/30 flex flex-col gap-3"
-              >
-                <div
-                  className="h-1 w-16 rounded-full"
-                  style={{ backgroundColor: item.accentColor }}
-                />
-              <h3 className="text-xl font-semibold text-[#1C1F1E] dark:text-[#FCFAEF]">
-                {item.title}
-              </h3>
-              <p className="text-sm md:text-base text-[#2F3332] dark:text-[#E6E7E7] leading-relaxed">
-                {item.description}
+            <blockquote className="mt-9 border-l-4 border-[#eeba2b] pl-5">
+              <p className="font-heading text-xl font-semibold leading-8 text-[#0F4C5C] dark:text-[#FCFAEF] md:text-2xl">
+                {vision}
               </p>
-            </MotionDiv>
-          ))}
-        </div>
-          </div>
-      </section>
+            </blockquote>
+          </FadeIn>
 
-      <section className="py-16 md:py-24 bg-[#F4F1E8] dark:bg-[#1C1F1E]">
-        <div className="site-container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            <MotionDiv
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true, amount: 0.3 }}
-              className="order-1"
-            >
-              <h2 className="text-3xl md:text-4xl font-bold mb-6 text-[#1C1F1E] dark:text-[#FCFAEF]">
-                First host site
-              </h2>
-              <div className="space-y-5 text-lg text-[#2F3332] dark:text-[#E6E7E7] leading-relaxed">
-                <div className="flex items-center">
-                <SchoolIcon className="w-6 h-6 text-[#0097b2] dark:text-[#66C4DC] mr-2 flex-shrink-0" />
-                  <span className="font-semibold text-[#0097b2] dark:text-[#66C4DC] mr-2">University of Cape Coast, Ghana</span>
-                </div>
-                <p>
-                  <span className="font-semibold text-[#0097b2] dark:text-[#66C4DC]">
-                    Next cohort details forthcoming.
-                  </span>{" "}
-                  Dates, fees, and application timing will be published after
-                  they are confirmed.
-                </p>
-              </div>
-            </MotionDiv>
-            <MotionDiv
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1, duration: 0.6 }}
-              viewport={{ once: true, amount: 0.3 }}
-              className="order-2"
-            >
-              <div className="relative w-full min-h-[320px] h-[320px] sm:h-[380px] md:h-[420px] lg:h-[460px] rounded-3xl overflow-hidden shadow-2xl">
+          <FadeIn delay={0.08} className="lg:col-span-6">
+            <figure>
+              <div className="relative aspect-[16/11] overflow-hidden border border-[#1C1F1E]/14 bg-[#E6E7E7] dark:border-[#FCFAEF]/14 dark:bg-[#2F3332]">
                 <Image
-                  src="/highlights/Akomapa-12.jpg"
-                  alt="Akomapa participants at the first host site in Ghana"
+                  src={images.overview.src}
+                  alt={images.overview.alt}
                   fill
-                  sizes="(min-width: 1024px) 50vw, 100vw"
-                  className="object-cover object-center"
+                  sizes="(min-width: 1024px) 48vw, 100vw"
+                  className="object-cover"
+                  style={{ objectPosition: images.overview.position }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent" />
               </div>
-            </MotionDiv>
+              <figcaption className="mt-3 text-xs font-semibold uppercase tracking-[0.18em] text-[#2F3332]/58 dark:text-[#FCFAEF]/58">
+                Supervised practice, research, and reflection
+              </figcaption>
+            </figure>
+          </FadeIn>
+        </div>
+      </section>
+
+      <section
+        aria-labelledby="participant-experience-title"
+        className="border-y border-[#1C1F1E]/10 bg-white dark:border-[#FCFAEF]/10 dark:bg-[#1C1F1E]"
+      >
+        <div className={sectionContainerClass}>
+          <FadeIn>
+            <SectionHeading
+              eyebrow="The experience"
+              title="What participants experience"
+              description="The program combines supervised community health practice, academic study, research, reflection, and cultural learning."
+              id="participant-experience-title"
+            />
+          </FadeIn>
+
+          <ol className="mt-12 grid lg:grid-cols-2 lg:gap-x-12">
+            {experiences.map((experience, index) => (
+              <li
+                key={experience.title}
+                className="grid grid-cols-[2.75rem_1fr] gap-4 border-t border-[#1C1F1E]/16 py-6 dark:border-[#FCFAEF]/16 md:grid-cols-[3.5rem_1fr] md:py-7"
+              >
+                <span
+                  aria-hidden="true"
+                  className="font-heading text-sm font-semibold tracking-[0.14em] text-[#C9920F] dark:text-[#F5C94D]"
+                >
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <div>
+                  <h3 className="font-heading text-lg font-semibold leading-7 md:text-xl">
+                    {experience.title}
+                  </h3>
+                  <p className="mt-2 max-w-xl text-sm leading-6 text-[#2F3332]/72 dark:text-[#E6E7E7]/72 md:text-base md:leading-7">
+                    {experience.description}
+                  </p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <section
+        aria-labelledby="learning-components-title"
+        className="bg-[#121514] text-[#FCFAEF]"
+      >
+        <div className={sectionContainerClass}>
+          <FadeIn>
+            <SectionHeading
+              eyebrow="Learning model"
+              title="How participants learn"
+              description="Each component connects practical experience with disciplined inquiry and guided reflection."
+              tone="light"
+              id="learning-components-title"
+            />
+          </FadeIn>
+
+          <ol className="mt-12 border-b border-[#FCFAEF]/18">
+            {learningComponents.map((component, index) => (
+              <li
+                key={component.title}
+                className="grid gap-4 border-t border-[#FCFAEF]/18 py-7 md:grid-cols-[4rem_minmax(13rem,0.75fr)_1.25fr] md:items-baseline md:gap-8"
+              >
+                <span
+                  aria-hidden="true"
+                  className="text-xs font-bold tracking-[0.2em] text-[#F5C94D]"
+                >
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <h3 className="font-heading text-xl font-semibold leading-7 text-[#FCFAEF]">
+                  {component.title}
+                </h3>
+                <p className="max-w-2xl text-sm leading-6 text-[#FCFAEF]/70 md:text-base md:leading-7">
+                  {component.description}
+                </p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <section
+        aria-labelledby="eligibility-title"
+        className="bg-[#FCFAEF] dark:bg-[#121514]"
+      >
+        <div className={cn(sectionContainerClass, "grid gap-14 lg:grid-cols-2 lg:gap-20")}>
+          <div>
+            <FadeIn>
+              <SectionHeading
+                eyebrow="Eligibility"
+                title="Who the program is for"
+                description="The experience is designed for learners prepared to approach community health with curiosity, humility, and care."
+                id="eligibility-title"
+              />
+            </FadeIn>
+            <ul className="mt-10 border-b border-[#1C1F1E]/14 dark:border-[#FCFAEF]/14">
+              {audiences.map((audience) => (
+                <li
+                  key={audience.title}
+                  className="border-t border-[#1C1F1E]/14 py-6 dark:border-[#FCFAEF]/14"
+                >
+                  <h3 className="font-heading text-lg font-semibold leading-7">
+                    {audience.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-6 text-[#2F3332]/72 dark:text-[#E6E7E7]/72 md:text-base md:leading-7">
+                    {audience.description}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div aria-labelledby="participant-outcomes-title">
+            <FadeIn delay={0.08}>
+              <SectionHeading
+                eyebrow="Participant development"
+                title="What participants develop"
+                description="These are learning outcomes, not claims of achieved community impact."
+                id="participant-outcomes-title"
+              />
+            </FadeIn>
+            <ul className="mt-10 border-b border-[#1C1F1E]/14 dark:border-[#FCFAEF]/14">
+              {outcomes.map((outcome) => (
+                <li
+                  key={outcome.title}
+                  className="border-t border-[#1C1F1E]/14 py-6 dark:border-[#FCFAEF]/14"
+                >
+                  <h3 className="font-heading text-lg font-semibold leading-7">
+                    {outcome.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-6 text-[#2F3332]/72 dark:text-[#E6E7E7]/72 md:text-base md:leading-7">
+                    {outcome.description}
+                  </p>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </section>
 
-      <section className="py-16 md:py-24 bg-gradient-to-r from-[#0F4C5C] via-[#0097b2] to-[#0B2F3A] text-[#FCFAEF]">
-        <div className="site-container mx-auto px-4">
-          <MotionDiv
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true, amount: 0.3 }}
-            className="max-w-3xl mx-auto text-center space-y-6"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold">Apply or Partner</h2>
-            <p className="text-lg text-[#FCFAEF]/85 leading-relaxed">
-              Join us in building the next generation of global health leaders through immersive, community-centered learning.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button
-                asChild
-                className={primaryCtaClass}
-              >
-                <Link
-                  href="/contact?type=immersion"
-                  className="flex items-center"
-                >
-                  Register Interest
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Link>
-              </Button>
-              <Button asChild className={secondaryCtaClass}>
-                <Link
-                  href="/contact?type=immersion-brochure"
-                  className="flex items-center"
-                >
-                  Request Program Brochure
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Link>
-              </Button>
-              <Button asChild className={secondaryCtaClass}>
-                <Link href="/partnerships" className="flex items-center">
-                  Partner as a Faculty Mentor
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Link>
-              </Button>
+      <section
+        aria-labelledby="host-site-title"
+        className="border-t border-[#1C1F1E]/12 bg-white dark:border-[#FCFAEF]/12 dark:bg-[#1C1F1E]"
+      >
+        <div
+          className={cn(
+            sectionContainerClass,
+            "grid items-center gap-12 lg:grid-cols-12 lg:gap-16",
+          )}
+        >
+          <figure className="lg:col-span-6">
+            <div className="relative aspect-[16/11] overflow-hidden border-b-4 border-[#eeba2b] bg-[#E6E7E7] dark:bg-[#2F3332]">
+              <Image
+                src={images.hostSite.src}
+                alt={images.hostSite.alt}
+                fill
+                sizes="(min-width: 1024px) 48vw, 100vw"
+                className="object-cover"
+                style={{ objectPosition: images.hostSite.position }}
+              />
             </div>
-          </MotionDiv>
+          </figure>
+
+          <div className="lg:col-span-6">
+            <SectionEyebrow>{hostSite.heading}</SectionEyebrow>
+            <h2
+              id="host-site-title"
+              className="mt-4 font-heading text-[1.9rem] font-semibold leading-[1.14] tracking-tight md:text-[2.4rem] lg:text-[2.8rem]"
+            >
+              {hostSite.name}
+            </h2>
+            <p className="mt-6 inline-flex border-y border-[#0097b2]/28 py-3 text-sm font-bold uppercase tracking-[0.14em] text-[#0F4C5C] dark:text-[#66C4DC]">
+              {hostSite.status}
+            </p>
+            <p className="mt-6 max-w-xl text-base leading-7 text-[#2F3332]/76 dark:text-[#E6E7E7]/76 md:text-lg">
+              {hostSite.description}
+            </p>
+
+            <div className="mt-8 flex max-w-xl flex-col gap-3 sm:flex-row lg:flex-col 2xl:flex-row">
+              <PublicCta
+                href="/contact?type=immersion"
+                variant="teal"
+                className="min-h-12 justify-center"
+              >
+                Register Interest
+              </PublicCta>
+              <PublicCta
+                href="/contact?type=immersion-brochure"
+                variant="outline"
+                className="min-h-12 justify-center"
+              >
+                Request Program Brochure
+              </PublicCta>
+            </div>
+            <Link
+              href="/partnerships"
+              className="group mt-6 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-[#0F4C5C] underline decoration-[#eeba2b] decoration-2 underline-offset-4 hover:text-[#0097b2] dark:text-[#66C4DC] dark:hover:text-[#F5C94D]"
+            >
+              Partner as a faculty mentor
+              <EditorialArrow />
+            </Link>
+          </div>
         </div>
       </section>
-    </>
+    </div>
   );
 }

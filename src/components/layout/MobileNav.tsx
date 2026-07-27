@@ -25,7 +25,11 @@ function MobileNavContent({ isOpen, onClose, navigation }: MobileNavProps) {
   
   return (
     <Transition show={isOpen} as={Fragment}>
-      <Dialog as="div" className="relative z-50 xl:hidden" onClose={onClose}>
+      <Dialog
+        as="div"
+        className="relative z-50 min-[1360px]:hidden"
+        onClose={onClose}
+      >
         {/* Backdrop */}
         <TransitionChild 
           as={Fragment}

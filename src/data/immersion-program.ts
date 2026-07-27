@@ -186,7 +186,7 @@ export const immersionProgram: ImmersionProgramContent = {
   images: {
     hero: {
       src: "/highlights/Akomapa-40.jpg",
-      alt: "Akomapa students and health professionals learning together in Ghana",
+      alt: "A community member receiving an eye examination during an Akomapa health program",
       position: "center",
     },
     overview: {
