@@ -27,7 +27,7 @@ function MobileNavContent({ isOpen, onClose, navigation }: MobileNavProps) {
     <Transition show={isOpen} as={Fragment}>
       <Dialog
         as="div"
-        className="relative z-50 min-[1360px]:hidden"
+        className="relative z-50 xl:hidden"
         onClose={onClose}
       >
         {/* Backdrop */}
@@ -73,7 +73,7 @@ function MobileNavContent({ isOpen, onClose, navigation }: MobileNavProps) {
                 </button>
               </div>
 
-              <div className="mt-6 px-4 space-y-2.5">
+              <div className="mt-6 space-y-5 px-4">
                 {navigation.map((item) => (
                   <div key={item.name} className="space-y-2">
                     {item.href ? (
@@ -95,10 +95,10 @@ function MobileNavContent({ isOpen, onClose, navigation }: MobileNavProps) {
                       </Link>
                     ) : (
                       <p
-                        className={`flex min-h-11 items-center rounded-md px-3 py-2.5 font-subheading text-[15px] font-medium leading-none ${
+                        className={`px-3 font-subheading text-xs font-bold uppercase leading-5 tracking-[0.14em] ${
                           isNavigationItemActive(pathname, item)
-                            ? "bg-[#0097b2]/10 text-[#0097b2] dark:bg-[#0097b2]/20 dark:text-[#FCFAEF]"
-                            : "text-[#252828] dark:text-[#FCFAEF]"
+                            ? "text-[#0097b2] dark:text-[#66C4DC]"
+                            : "text-[#5F6463] dark:text-[#FCFAEF]/70"
                         }`}
                       >
                         {item.name}
@@ -106,7 +106,7 @@ function MobileNavContent({ isOpen, onClose, navigation }: MobileNavProps) {
                     )}
                     
                     {isNavigationGroup(item) && (
-                      <div className="pl-4 space-y-1 border-l-2 border-[#E6E7E7] dark:border-[#757A79]">
+                      <div className="space-y-1 border-l-2 border-[#0097b2]/20 pl-3 dark:border-[#66C4DC]/25">
                         {item.children.map((child) => (
                           <Link
                             key={child.name}

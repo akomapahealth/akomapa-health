@@ -29,6 +29,14 @@ export const mainNavigation: readonly NavigationItem[] = [
     ],
   },
   {
+    name: "Our Work",
+    children: [
+      { name: "Community Health Hubs", href: "/community-hubs" },
+      { name: "Research & Innovation", href: "/research" },
+      { name: "Impact", href: "/impact" },
+    ],
+  },
+  {
     name: "Learning Experiences",
     children: [
       { name: "Akomapa Academy", href: "/academy" },
@@ -39,19 +47,12 @@ export const mainNavigation: readonly NavigationItem[] = [
     ],
   },
   {
-    name: "Community Health Hubs",
-    href: "/community-hubs",
+    name: "Join Us",
     children: [
-      { name: "All Hubs", href: "/community-hubs" },
-      { name: "Akomapa UCC Hub", href: "/community-hubs/ucc" },
-      { name: "Akomapa UG Hub", href: "/community-hubs/ug" },
-      { name: "Akomapa NHP Yale Hub", href: "/community-hubs/nhp" },
+      { name: "Get Involved", href: "/get-involved" },
+      { name: "Partnerships", href: "/partnerships" },
     ],
   },
-  { name: "Research & Innovation", href: "/research" },
-  { name: "Impact", href: "/impact" },
-  { name: "Partnerships", href: "/partnerships" },
-  { name: "Get Involved", href: "/get-involved" },
 ] as const;
 
 export function isNavigationGroup(

@@ -23,15 +23,15 @@ import {
 } from "@/config/navigation";
 
 const navLinkClass = (isActive: boolean) =>
-  `flex items-center gap-1 whitespace-nowrap text-[13px] 2xl:text-sm font-subheading font-medium leading-none transition-colors hover:text-[#eeba2b] dark:hover:text-[#eeba2b] ${
+  `flex min-h-11 items-center gap-1.5 whitespace-nowrap text-sm font-subheading font-medium leading-none transition-colors hover:text-[#eeba2b] dark:hover:text-[#eeba2b] ${
     isActive ? "text-[#0097b2]" : "text-[#2F3332] dark:text-[#FCFAEF]"
   }`;
 
 const dropdownPanelClass =
-  "w-56 rounded-md shadow-lg bg-[#FCFAEF] dark:bg-[#2F3332] ring-1 ring-[#C1C3C3] ring-opacity-5 dark:ring-[#FCFAEF] dark:ring-opacity-10";
+  "min-w-60 rounded-md bg-[#FCFAEF] p-1.5 shadow-lg ring-1 ring-[#C1C3C3] ring-opacity-5 dark:bg-[#2F3332] dark:ring-[#FCFAEF] dark:ring-opacity-10";
 
 const dropdownItemClass = (isActive: boolean) =>
-  `block px-4 py-2 text-sm font-body cursor-pointer ${
+  `flex min-h-11 items-center rounded-sm px-3.5 py-2.5 text-sm font-body cursor-pointer ${
     isActive
       ? "bg-[#0097b2]/10 dark:bg-[#0097b2]/20 text-[#0097b2] dark:text-[#FCFAEF]"
       : "text-[#2F3332] dark:text-[#FCFAEF] hover:bg-[#eeba2b]/10 dark:hover:bg-[#eeba2b]/20 hover:text-[#eeba2b]"
@@ -108,11 +108,11 @@ function HeaderContent() {
       }`}
     >
       <div className="site-container mx-auto px-4">
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-6 2xl:gap-10">
           <BrandLogo className="flex-shrink-0" priority />
 
-          <div className="ml-auto hidden items-center gap-4 min-[1360px]:flex 2xl:gap-8">
-            <nav className="flex items-center gap-x-2.5 2xl:gap-5" aria-label="Main">
+          <div className="ml-auto hidden items-center gap-5 xl:flex 2xl:gap-8">
+            <nav className="flex items-center gap-x-4 2xl:gap-7" aria-label="Main">
               {mainNavigation.map((item) =>
                 isNavigationGroup(item) ? (
                   <NavDropdown key={item.name} item={item} pathname={pathname} />
@@ -144,7 +144,7 @@ function HeaderContent() {
             </div>
           </div>
 
-          <div className="ml-auto flex items-center space-x-2 min-[1360px]:hidden">
+          <div className="ml-auto flex items-center space-x-2 xl:hidden">
             <ThemeToggle />
             <button
               onClick={() => setIsMobileMenuOpen(true)}
@@ -174,7 +174,7 @@ export default function Header() {
           <div className="site-container mx-auto px-4">
             <div className="flex items-center">
               <div className="animate-pulse bg-gray-200 dark:bg-gray-700 h-12 w-48 rounded"></div>
-              <div className="ml-auto hidden items-center space-x-4 min-[1360px]:flex">
+              <div className="ml-auto hidden items-center space-x-4 xl:flex">
                 <div className="animate-pulse bg-gray-200 dark:bg-gray-700 h-10 w-32 rounded"></div>
               </div>
             </div>
