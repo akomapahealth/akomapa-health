@@ -15,7 +15,7 @@ test.describe("Program CTA links", () => {
   test("GHIP inquiry CTAs use allow-listed contact intents", async ({
     page,
   }) => {
-    await page.goto("/programs/akomapa-ghip", {
+    await page.goto("/global-health-immersion-program", {
       waitUntil: "domcontentloaded",
     });
 

@@ -73,6 +73,11 @@ const nextConfig: NextConfig = {
         destination: "/about/team",
         statusCode: 301,
       },
+      {
+        source: "/programs/akomapa-ghip",
+        destination: "/global-health-immersion-program",
+        statusCode: 301,
+      },
     ];
   },
   experimental: {

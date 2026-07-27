@@ -54,7 +54,8 @@ describe("SEO metadata contract", () => {
 
   it("describes the Immersion program without implying open enrollment", () => {
     const route = canonicalSeoRoutes.find(
-      (candidate) => candidate.path === "/programs/akomapa-ghip",
+      (candidate) =>
+        candidate.path === "/global-health-immersion-program",
     );
 
     expect(route).toBeDefined();

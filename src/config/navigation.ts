@@ -34,7 +34,7 @@ export const mainNavigation: readonly NavigationItem[] = [
       { name: "Akomapa Academy", href: "/academy" },
       {
         name: "Global Health Immersion Program",
-        href: "/programs/akomapa-ghip",
+        href: "/global-health-immersion-program",
       },
     ],
   },

@@ -1,7 +1,7 @@
 import { MotionDiv, MotionH1, MotionP } from "@/components/motion/framer";
 import { AnimatedMetric } from "@/components/motion/AnimatedMetric";
 import Image from "@/components/common/Image";
-import { ArrowRight, Globe, GraduationCap, Users, Building, ChevronsDown, Sparkles, Sprout } from "lucide-react";
+import { ArrowRight, Globe, GraduationCap, Building, ChevronsDown, Sparkles, Sprout } from "lucide-react";
 import Link from "next/link";
 import Breadcrumb from "@/components/layout/Breadcrumb";
 import { Button } from "@/components/ui/button";
@@ -93,29 +93,6 @@ const programs: Program[] = [
   },
   {
     id: 4,
-    title: "Global Health Immersion Camp",
-    description: "Starting in Ghana and expanding globally, our 3-week Summer Immersion Camp gives students hands-on exposure to community and public health in low-resource settings. Participants engage in clinical service, health education, and cultural exchange—bridging classroom learning with lived experience.",
-    details: [
-      "Three-week intensive program in Ghana combining clinical service with cultural immersion",
-      "Hands-on experience in community health, public health, and primary care delivery",
-      "Cultural exchange activities that build understanding and respect for local contexts",
-      "Designed to bridge theoretical learning with real-world application in resource-limited settings"
-    ],
-    href: "/programs/akomapa-ghip",
-    icon: Users,
-    color: "#eeba2b",
-    bgGradient: "from-[#eeba2b]/10 to-[#eeba2b]/5",
-    image: "/highlights/Akomapa-61.jpg",
-    alt: "Students participating in global health immersion program",
-    features: [
-      "Hands-On Experience",
-      "Cultural Immersion",
-      "Clinical Service",
-      "Global Expansion"
-    ]
-  },
-  {
-    id: 5,
     title: "Akomapa Young Advocates",
     description: "The Akomapa Young Advocates Program is a youth empowerment and health education initiative that brings community health, mentorship, and leadership development directly to high schools. Led by interprofessional university health professional students trained through Akomapa clinics, the program equips young people with practical knowledge about non-communicable diseases (NCDs) such as hypertension and diabetes, mental wellness, and preventive health so they can become champions of healthy living and positive change in their schools and communities.",
     details: [
@@ -138,7 +115,7 @@ const programs: Program[] = [
     ]
   },
   {
-    id: 6,
+    id: 5,
     title: "Akomapa Foods & Stores",
     description: "The Akomapa Foods & Stores Initiative is the sustainability arm of the Akomapa Health model—connecting food security, economic empowerment, and healthcare access into one self-sustaining ecosystem. We believe that health doesn't start in hospitals; it starts in homes, kitchens, and markets. By linking agriculture and nutrition to our student-powered community health hubs, Akomapa creates a cycle where communities not only receive care but also co-own the means to sustain it.",
     details: [
@@ -344,7 +321,17 @@ export default function Content() {
                       className="w-full sm:w-auto bg-[#0097b2] hover:bg-[#0097b2]/80 text-[#FCFAEF] group"
                     >
                       <Link href={program.href} className="flex items-center justify-center">
-                        {program.id === 1 ? "Explore Akomapa Clinics" : program.id === 2 ? "Discover the Akomapa Network" : program.id === 3 ? "Join the Leadership Program" : program.id === 4 ? "Experience the Immersion Camp" : program.id === 5 ? "Join the Akomapa Young Advocates" : program.id === 6 ? "Discover the Akomapa Foods & Stores" : "Learn More"}
+                        {program.id === 1
+                          ? "Explore Akomapa Clinics"
+                          : program.id === 2
+                            ? "Discover the Akomapa Network"
+                            : program.id === 3
+                              ? "Join the Leadership Program"
+                              : program.id === 4
+                                ? "Join the Akomapa Young Advocates"
+                                : program.id === 5
+                                  ? "Discover the Akomapa Foods & Stores"
+                                  : "Learn More"}
                         <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                       </Link>
                     </Button>

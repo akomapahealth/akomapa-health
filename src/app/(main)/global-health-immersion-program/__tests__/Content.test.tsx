@@ -3,7 +3,7 @@ import { describe, expect, it } from "vitest";
 import Content from "../Content";
 import { immersionProgram } from "@/data/immersion-program";
 
-describe("Global Health Immersion Program page", () => {
+describe("Global Health Immersion Program top-level page", () => {
   it("renders one page heading and a logical editorial section hierarchy", () => {
     render(<Content />);
 

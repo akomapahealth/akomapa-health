@@ -123,7 +123,7 @@ test.describe("desktop header dropdown keyboard accessibility", () => {
     await expect(immersionLink).toBeFocused();
     await page.keyboard.press("Enter");
 
-    await expect(page).toHaveURL(/\/programs\/akomapa-ghip$/);
+    await expect(page).toHaveURL(/\/global-health-immersion-program$/);
     await learningTrigger.click();
     await expect(immersionLink).toBeVisible();
     await expect(immersionLink).toHaveAttribute("aria-current", "page");
@@ -152,7 +152,7 @@ test.describe("mobile learning experiences navigation", () => {
     await expect(immersionLink).toBeVisible();
     await immersionLink.click();
 
-    await expect(page).toHaveURL(/\/programs\/akomapa-ghip$/);
+    await expect(page).toHaveURL(/\/global-health-immersion-program$/);
     await expect(drawer).toBeHidden();
   });
 });

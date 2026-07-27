@@ -55,7 +55,7 @@ function SectionHeading({
   );
 }
 
-function EditorialArrow() {
+function EditorialLinkArrow() {
   return (
     <span aria-hidden="true" className="transition-transform group-hover:translate-x-0.5">
       →
@@ -435,7 +435,7 @@ export default function Content() {
               className="group mt-6 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-[#0F4C5C] underline decoration-[#eeba2b] decoration-2 underline-offset-4 hover:text-[#0097b2] dark:text-[#66C4DC] dark:hover:text-[#F5C94D]"
             >
               Partner as a faculty mentor
-              <EditorialArrow />
+              <EditorialLinkArrow />
             </Link>
           </div>
         </div>

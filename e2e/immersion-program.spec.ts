@@ -58,7 +58,7 @@ test.describe("Immersion program responsive editorial layout", () => {
       }) => {
         await page.setViewportSize(viewport);
         await preparePage(page, theme);
-        await page.goto("/programs/akomapa-ghip", {
+        await page.goto("/global-health-immersion-program", {
           waitUntil: "domcontentloaded",
         });
         await page.evaluate(async () => document.fonts.ready);
@@ -117,7 +117,7 @@ test.describe("Immersion program responsive editorial layout", () => {
   test("reflows at a 200%-zoom-equivalent CSS viewport", async ({ page }) => {
     await page.setViewportSize({ width: 720, height: 450 });
     await preparePage(page, "light");
-    await page.goto("/programs/akomapa-ghip", {
+    await page.goto("/global-health-immersion-program", {
       waitUntil: "domcontentloaded",
     });
 
@@ -135,7 +135,7 @@ test.describe("Immersion program responsive editorial layout", () => {
   }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await preparePage(page, "light", true);
-    await page.goto("/programs/akomapa-ghip", {
+    await page.goto("/global-health-immersion-program", {
       waitUntil: "domcontentloaded",
     });
 
@@ -172,7 +172,7 @@ test.describe("Immersion program responsive editorial layout", () => {
   }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await preparePage(page, "light");
-    await page.goto("/programs/akomapa-ghip", {
+    await page.goto("/global-health-immersion-program", {
       waitUntil: "domcontentloaded",
     });
 
@@ -230,5 +230,26 @@ test.describe("Immersion contact intents", () => {
 
     await expect(page.getByLabel("Subject *", { exact: true })).toHaveValue("");
     await expect(page.getByLabel("Message *", { exact: true })).toHaveValue("");
+  });
+});
+
+test.describe("Immersion program route migration", () => {
+  test("redirects the former Programs URL to the top-level page", async ({
+    page,
+  }) => {
+    const response = await page.goto("/programs/akomapa-ghip", {
+      waitUntil: "domcontentloaded",
+    });
+
+    const redirectedRequest = response?.request().redirectedFrom();
+    expect(redirectedRequest).not.toBeNull();
+    expect((await redirectedRequest?.response())?.status()).toBe(301);
+    await expect(page).toHaveURL(/\/global-health-immersion-program$/);
+    await expect(
+      page.getByRole("heading", {
+        level: 1,
+        name: immersionProgram.title,
+      }),
+    ).toBeVisible();
   });
 });

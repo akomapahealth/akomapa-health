@@ -48,7 +48,7 @@ const routes: ReadonlyArray<{ path: string; name: string }> = [
   { path: "/about/team", name: "team" },
   { path: "/programs", name: "programs" },
   {
-    path: "/programs/akomapa-ghip",
+    path: "/global-health-immersion-program",
     name: "global-health-immersion-program",
   },
   { path: "/philosophy", name: "philosophy" },
