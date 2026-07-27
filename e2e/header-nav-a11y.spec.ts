@@ -86,20 +86,56 @@ test.describe("desktop header dropdown keyboard accessibility", () => {
     await expect(aboutTrigger).toBeFocused();
   });
 
-  test("Community Health Hubs dropdown opens with keyboard and reaches hub link", async ({
+  test("Our Work dropdown opens with keyboard and reaches Research", async ({
     page,
   }) => {
-    const hubsTrigger = page.getByRole("button", {
-      name: "Community Health Hubs",
+    const workTrigger = page.getByRole("button", {
+      name: "Our Work",
     });
-    await hubsTrigger.focus();
+    await workTrigger.focus();
     await page.keyboard.press("Enter");
 
-    const uccLink = page.getByRole("menuitem", { name: "Akomapa UCC Hub" });
-    await expect(uccLink).toBeVisible();
+    const hubsLink = page.getByRole("menuitem", {
+      name: "Community Health Hubs",
+    });
+    const researchLink = page.getByRole("menuitem", {
+      name: "Research & Innovation",
+    });
+    await expect(hubsLink).toBeFocused();
+    await page.keyboard.press("ArrowDown");
+    await expect(researchLink).toBeFocused();
 
-    await uccLink.click();
+    await page.keyboard.press("Enter");
+    await expect(page).toHaveURL(/\/research$/);
+  });
+
+  test("Community Health Hubs retains keyboard access to individual hubs", async ({
+    page,
+  }) => {
+    const workTrigger = page.getByRole("button", { name: "Our Work" });
+    await workTrigger.focus();
+    await page.keyboard.press("Enter");
+
+    const hubsSubmenu = page.getByRole("menuitem", {
+      name: "Community Health Hubs",
+      exact: true,
+    });
+    await expect(hubsSubmenu).toBeFocused();
+    await page.keyboard.press("ArrowRight");
+
+    const allHubsLink = page.getByRole("menuitem", {
+      name: "All Community Health Hubs",
+    });
+    const uccLink = page.getByRole("menuitem", { name: "Akomapa UCC Hub" });
+    await expect(allHubsLink).toBeFocused();
+    await page.keyboard.press("ArrowDown");
+    await expect(uccLink).toBeFocused();
+    await page.keyboard.press("Enter");
+
     await expect(page).toHaveURL(/\/community-hubs\/ucc$/);
+    await workTrigger.click();
+    await hubsSubmenu.hover();
+    await expect(uccLink).toHaveAttribute("aria-current", "page");
   });
 
   test("Learning Experiences reaches the Immersion program by keyboard", async ({
@@ -128,10 +164,78 @@ test.describe("desktop header dropdown keyboard accessibility", () => {
     await expect(immersionLink).toBeVisible();
     await expect(immersionLink).toHaveAttribute("aria-current", "page");
   });
+
+  test("Join Us reaches Partnerships and exposes its active child", async ({
+    page,
+  }) => {
+    const joinTrigger = page.getByRole("button", { name: "Join Us" });
+    await joinTrigger.focus();
+    await page.keyboard.press("Enter");
+
+    const involvementLink = page.getByRole("menuitem", {
+      name: "Get Involved",
+    });
+    const partnershipsLink = page.getByRole("menuitem", {
+      name: "Partnerships",
+    });
+
+    await expect(involvementLink).toBeFocused();
+    await page.keyboard.press("ArrowDown");
+    await expect(partnershipsLink).toBeFocused();
+    await page.keyboard.press("Enter");
+
+    await expect(page).toHaveURL(/\/partnerships$/);
+    await joinTrigger.click();
+    await expect(partnershipsLink).toHaveAttribute("aria-current", "page");
+  });
+
+  test("desktop navigation is spacious and overflow-free at its breakpoint", async ({
+    page,
+  }) => {
+    for (const width of [1280, 1440, 1536]) {
+      await page.setViewportSize({ width, height: 900 });
+      await page.reload();
+
+      const header = page.locator("header").first();
+      const logo = header.locator("a").first();
+      const nav = header.getByRole("navigation", { name: "Main" });
+      const donate = header.getByRole("link", { name: "Donate" });
+      const menuButton = header.getByRole("button", {
+        name: "Open main menu",
+      });
+
+      await expect(nav).toBeVisible();
+      await expect(menuButton).toBeHidden();
+
+      const logoBox = await logo.boundingBox();
+      const navBox = await nav.boundingBox();
+      const donateBox = await donate.boundingBox();
+      expect(logoBox).not.toBeNull();
+      expect(navBox).not.toBeNull();
+      expect(donateBox).not.toBeNull();
+      expect(navBox!.x - (logoBox!.x + logoBox!.width)).toBeGreaterThanOrEqual(
+        24,
+      );
+      const availableCenter =
+        (logoBox!.x + logoBox!.width + donateBox!.x) / 2;
+      const navigationCenter = navBox!.x + navBox!.width / 2;
+      expect(Math.abs(navigationCenter - availableCenter)).toBeLessThanOrEqual(
+        4,
+      );
+
+      const dimensions = await page.evaluate(() => ({
+        documentWidth: document.documentElement.scrollWidth,
+        viewportWidth: window.innerWidth,
+      }));
+      expect(dimensions.documentWidth).toBeLessThanOrEqual(
+        dimensions.viewportWidth + 1,
+      );
+    }
+  });
 });
 
-test.describe("mobile learning experiences navigation", () => {
-  test("shows both destinations and closes after navigation", async ({ page }) => {
+test.describe("mobile grouped navigation", () => {
+  test("shows every group and closes after child navigation", async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await dismissAnnouncementIfPresent(page);
     await page.goto("/");
@@ -140,7 +244,37 @@ test.describe("mobile learning experiences navigation", () => {
     const drawer = page.getByRole("dialog");
 
     await expect(
+      drawer.getByText("Our Work", { exact: true }),
+    ).toBeVisible();
+    await expect(
       drawer.getByText("Learning Experiences", { exact: true }),
+    ).toBeVisible();
+    await expect(
+      drawer.getByText("Join Us", { exact: true }),
+    ).toBeVisible();
+    await expect(
+      drawer.getByRole("link", { name: "All Community Health Hubs" }),
+    ).toBeVisible();
+    await expect(
+      drawer.getByRole("link", { name: "Akomapa UCC Hub" }),
+    ).toBeVisible();
+    await expect(
+      drawer.getByRole("link", { name: "Akomapa UG Hub" }),
+    ).toBeVisible();
+    await expect(
+      drawer.getByRole("link", { name: "Akomapa NHP Yale Hub" }),
+    ).toBeVisible();
+    await expect(
+      drawer.getByRole("link", { name: "Research & Innovation" }),
+    ).toBeVisible();
+    await expect(
+      drawer.getByRole("link", { name: "Impact", exact: true }),
+    ).toBeVisible();
+    await expect(
+      drawer.getByRole("link", { name: "Get Involved" }),
+    ).toBeVisible();
+    await expect(
+      drawer.getByRole("link", { name: "Partnerships" }),
     ).toBeVisible();
     await expect(
       drawer.getByRole("link", { name: "Akomapa Academy" }),
@@ -150,9 +284,31 @@ test.describe("mobile learning experiences navigation", () => {
       name: "Global Health Immersion Program",
     });
     await expect(immersionLink).toBeVisible();
+    expect((await immersionLink.boundingBox())?.height).toBeGreaterThanOrEqual(
+      44,
+    );
     await immersionLink.click();
 
     await expect(page).toHaveURL(/\/global-health-immersion-program$/);
+    await expect(drawer).toBeHidden();
+  });
+
+  test("individual hub links remain touch-friendly and close the drawer", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await dismissAnnouncementIfPresent(page);
+    await page.goto("/");
+
+    await page.getByRole("button", { name: "Open main menu" }).click();
+    const drawer = page.getByRole("dialog");
+    const uccLink = drawer.getByRole("link", { name: "Akomapa UCC Hub" });
+
+    await expect(uccLink).toBeVisible();
+    expect((await uccLink.boundingBox())?.height).toBeGreaterThanOrEqual(44);
+    await uccLink.click();
+
+    await expect(page).toHaveURL(/\/community-hubs\/ucc$/);
     await expect(drawer).toBeHidden();
   });
 });

@@ -1,8 +1,3 @@
-export type NavigationChild = {
-  name: string;
-  href: string;
-};
-
 export type NavigationLink = {
   name: string;
   href: string;
@@ -11,10 +6,11 @@ export type NavigationLink = {
 export type NavigationGroup = {
   name: string;
   href?: string;
-  children: readonly NavigationChild[];
+  children: readonly NavigationNode[];
 };
 
-export type NavigationItem = NavigationLink | NavigationGroup;
+export type NavigationNode = NavigationLink | NavigationGroup;
+export type NavigationItem = NavigationNode;
 
 export const mainNavigation: readonly NavigationItem[] = [
   { name: "Home", href: "/" },
@@ -29,6 +25,23 @@ export const mainNavigation: readonly NavigationItem[] = [
     ],
   },
   {
+    name: "Our Work",
+    children: [
+      {
+        name: "Community Health Hubs",
+        href: "/community-hubs",
+        children: [
+          { name: "All Community Health Hubs", href: "/community-hubs" },
+          { name: "Akomapa UCC Hub", href: "/community-hubs/ucc" },
+          { name: "Akomapa UG Hub", href: "/community-hubs/ug" },
+          { name: "Akomapa NHP Yale Hub", href: "/community-hubs/nhp" },
+        ],
+      },
+      { name: "Research & Innovation", href: "/research" },
+      { name: "Impact", href: "/impact" },
+    ],
+  },
+  {
     name: "Learning Experiences",
     children: [
       { name: "Akomapa Academy", href: "/academy" },
@@ -39,23 +52,16 @@ export const mainNavigation: readonly NavigationItem[] = [
     ],
   },
   {
-    name: "Community Health Hubs",
-    href: "/community-hubs",
+    name: "Join Us",
     children: [
-      { name: "All Hubs", href: "/community-hubs" },
-      { name: "Akomapa UCC Hub", href: "/community-hubs/ucc" },
-      { name: "Akomapa UG Hub", href: "/community-hubs/ug" },
-      { name: "Akomapa NHP Yale Hub", href: "/community-hubs/nhp" },
+      { name: "Get Involved", href: "/get-involved" },
+      { name: "Partnerships", href: "/partnerships" },
     ],
   },
-  { name: "Research & Innovation", href: "/research" },
-  { name: "Impact", href: "/impact" },
-  { name: "Partnerships", href: "/partnerships" },
-  { name: "Get Involved", href: "/get-involved" },
 ] as const;
 
 export function isNavigationGroup(
-  item: NavigationItem,
+  item: NavigationNode,
 ): item is NavigationGroup {
   return "children" in item;
 }
@@ -66,8 +72,8 @@ export function isNavigationPathActive(pathname: string, href: string) {
 
 export function isNavigationItemActive(
   pathname: string,
-  item: NavigationItem,
-) {
+  item: NavigationNode,
+): boolean {
   if (item.href && isNavigationPathActive(pathname, item.href)) {
     return true;
   }
@@ -75,7 +81,7 @@ export function isNavigationItemActive(
   return (
     isNavigationGroup(item) &&
     item.children.some((child) =>
-      isNavigationPathActive(pathname, child.href),
+      isNavigationItemActive(pathname, child),
     )
   );
 }
