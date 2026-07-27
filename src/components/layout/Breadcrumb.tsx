@@ -43,6 +43,7 @@ function BreadcrumbContent() {
       "ncd-impact": "NCD Impact",
       "community-hubs": "Community Health Hubs",
       "get-involved": "Get Involved",
+      "akomapa-ghip": "Global Health Immersion Program",
       blog: "Thought Leadership",
     };
 

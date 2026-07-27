@@ -14,39 +14,13 @@ import {
 import MobileNav from "./MobileNav";
 import { ThemeToggle } from "@/components/theme/ThemeToggle";
 import BrandLogo from "@/components/shared/BrandLogo";
-
-type NavChild = { name: string; href: string };
-type NavItem = { name: string; href: string; children?: NavChild[] };
-
-// Navigation structure
-const navigation: NavItem[] = [
-  { name: "Home", href: "/" },
-  {
-    name: "About",
-    href: "/about",
-    children: [
-      { name: "Our Story", href: "/about" },
-      { name: "Our Team", href: "/about/team" },
-      { name: "Our Philosophy", href: "/philosophy" },
-      { name: "Thought Leadership", href: "/blog" },
-    ],
-  },
-  { name: "Academy", href: "/academy" },
-  {
-    name: "Community Health Hubs",
-    href: "/community-hubs",
-    children: [
-      { name: "All Hubs", href: "/community-hubs" },
-      { name: "Akomapa UCC Hub", href: "/community-hubs/ucc" },
-      { name: "Akomapa UG Hub", href: "/community-hubs/ug" },
-      { name: "Akomapa NHP Yale Hub", href: "/community-hubs/nhp" },
-    ],
-  },
-  { name: "Research & Innovation", href: "/research" },
-  { name: "Impact", href: "/impact" },
-  { name: "Partnerships", href: "/partnerships" },
-  { name: "Get Involved", href: "/get-involved" },
-];
+import {
+  isNavigationItemActive,
+  isNavigationGroup,
+  isNavigationPathActive,
+  mainNavigation,
+  type NavigationGroup,
+} from "@/config/navigation";
 
 const navLinkClass = (isActive: boolean) =>
   `flex items-center gap-1 whitespace-nowrap text-[13px] 2xl:text-sm font-subheading font-medium leading-none transition-colors hover:text-[#eeba2b] dark:hover:text-[#eeba2b] ${
@@ -63,9 +37,14 @@ const dropdownItemClass = (isActive: boolean) =>
       : "text-[#2F3332] dark:text-[#FCFAEF] hover:bg-[#eeba2b]/10 dark:hover:bg-[#eeba2b]/20 hover:text-[#eeba2b]"
   }`;
 
-function NavDropdown({ item, pathname }: { item: NavItem; pathname: string }) {
-  const isActive =
-    pathname === item.href || pathname.startsWith(`${item.href}/`);
+function NavDropdown({
+  item,
+  pathname,
+}: {
+  item: NavigationGroup;
+  pathname: string;
+}) {
+  const isActive = isNavigationItemActive(pathname, item);
 
   return (
     <DropdownMenu>
@@ -82,7 +61,17 @@ function NavDropdown({ item, pathname }: { item: NavItem; pathname: string }) {
       <DropdownMenuContent align="start" className={dropdownPanelClass}>
         {item.children!.map((child) => (
           <DropdownMenuItem key={child.name} asChild>
-            <Link href={child.href} className={dropdownItemClass(pathname === child.href)}>
+            <Link
+              href={child.href}
+              aria-current={
+                isNavigationPathActive(pathname, child.href)
+                  ? "page"
+                  : undefined
+              }
+              className={dropdownItemClass(
+                isNavigationPathActive(pathname, child.href),
+              )}
+            >
               {child.name}
             </Link>
           </DropdownMenuItem>
@@ -124,17 +113,19 @@ function HeaderContent() {
 
           <div className="hidden xl:flex items-center gap-4 ml-auto 2xl:gap-8">
             <nav className="flex items-center gap-x-2.5 2xl:gap-5" aria-label="Main">
-              {navigation.map((item) =>
-                item.children ? (
+              {mainNavigation.map((item) =>
+                isNavigationGroup(item) ? (
                   <NavDropdown key={item.name} item={item} pathname={pathname} />
                 ) : (
                   <Link
                     key={item.name}
                     href={item.href}
-                    className={navLinkClass(
-                      pathname === item.href ||
-                        (item.href !== "/" && pathname.startsWith(`${item.href}/`))
-                    )}
+                    aria-current={
+                      isNavigationPathActive(pathname, item.href)
+                        ? "page"
+                        : undefined
+                    }
+                    className={navLinkClass(isNavigationItemActive(pathname, item))}
                   >
                     {item.name}
                   </Link>
@@ -169,7 +160,7 @@ function HeaderContent() {
       <MobileNav
         isOpen={isMobileMenuOpen}
         onClose={() => setIsMobileMenuOpen(false)}
-        navigation={navigation}
+        navigation={mainNavigation}
       />
     </header>
   );

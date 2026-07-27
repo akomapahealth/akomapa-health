@@ -7,17 +7,17 @@ import { Dialog, DialogPanel, Transition, TransitionChild } from "@headlessui/re
 import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import BrandLogo from "@/components/shared/BrandLogo";
-
-type NavigationItem = {
-  name: string;
-  href: string;
-  children?: NavigationItem[];
-};
+import {
+  isNavigationItemActive,
+  isNavigationGroup,
+  isNavigationPathActive,
+  type NavigationItem,
+} from "@/config/navigation";
 
 type MobileNavProps = {
   isOpen: boolean;
   onClose: () => void;
-  navigation: NavigationItem[];
+  navigation: readonly NavigationItem[];
 };
 
 function MobileNavContent({ isOpen, onClose, navigation }: MobileNavProps) {
@@ -72,29 +72,51 @@ function MobileNavContent({ isOpen, onClose, navigation }: MobileNavProps) {
               <div className="mt-6 px-4 space-y-2.5">
                 {navigation.map((item) => (
                   <div key={item.name} className="space-y-2">
-                    <Link 
-                      href={item.href}
-                      onClick={onClose}
-                      className={`block rounded-md px-3 py-2.5 font-subheading text-[15px] font-medium leading-none ${
-                        pathname === item.href || pathname.startsWith(`${item.href}/`) 
-                          ? 'bg-[#0097b2]/10 dark:bg-[#0097b2]/20 text-[#0097b2] dark:text-[#FCFAEF]' 
-                          : 'text-[#252828] dark:text-[#FCFAEF] hover:bg-[#eeba2b]/10 dark:hover:bg-[#eeba2b]/20 hover:text-[#eeba2b]'
-                      }`}
-                    >
-                      {item.name}
-                    </Link>
+                    {item.href ? (
+                      <Link
+                        href={item.href}
+                        onClick={onClose}
+                        aria-current={
+                          isNavigationPathActive(pathname, item.href)
+                            ? "page"
+                            : undefined
+                        }
+                        className={`flex min-h-11 items-center rounded-md px-3 py-2.5 font-subheading text-[15px] font-medium leading-none ${
+                          isNavigationItemActive(pathname, item)
+                            ? "bg-[#0097b2]/10 text-[#0097b2] dark:bg-[#0097b2]/20 dark:text-[#FCFAEF]"
+                            : "text-[#252828] hover:bg-[#eeba2b]/10 hover:text-[#eeba2b] dark:text-[#FCFAEF] dark:hover:bg-[#eeba2b]/20"
+                        }`}
+                      >
+                        {item.name}
+                      </Link>
+                    ) : (
+                      <p
+                        className={`flex min-h-11 items-center rounded-md px-3 py-2.5 font-subheading text-[15px] font-medium leading-none ${
+                          isNavigationItemActive(pathname, item)
+                            ? "bg-[#0097b2]/10 text-[#0097b2] dark:bg-[#0097b2]/20 dark:text-[#FCFAEF]"
+                            : "text-[#252828] dark:text-[#FCFAEF]"
+                        }`}
+                      >
+                        {item.name}
+                      </p>
+                    )}
                     
-                    {item.children && (
+                    {isNavigationGroup(item) && (
                       <div className="pl-4 space-y-1 border-l-2 border-[#E6E7E7] dark:border-[#757A79]">
                         {item.children.map((child) => (
                           <Link
                             key={child.name}
                             href={child.href}
                             onClick={onClose}
-                            className={`block rounded-md px-3 py-2 font-body text-sm leading-snug ${
-                              pathname === child.href 
-                                ? 'bg-[#0097b2]/10 dark:bg-[#0097b2]/20 text-[#0097b2] dark:text-[#FCFAEF]' 
-                                : 'text-[#252828] dark:text-[#FCFAEF] hover:bg-[#eeba2b]/10 dark:hover:bg-[#eeba2b]/20 hover:text-[#eeba2b]'
+                            aria-current={
+                              isNavigationPathActive(pathname, child.href)
+                                ? "page"
+                                : undefined
+                            }
+                            className={`flex min-h-11 items-center rounded-md px-3 py-2 font-body text-sm leading-snug ${
+                              isNavigationPathActive(pathname, child.href)
+                                ? "bg-[#0097b2]/10 text-[#0097b2] dark:bg-[#0097b2]/20 dark:text-[#FCFAEF]"
+                                : "text-[#252828] hover:bg-[#eeba2b]/10 hover:text-[#eeba2b] dark:text-[#FCFAEF] dark:hover:bg-[#eeba2b]/20"
                             }`}
                           >
                             {child.name}
