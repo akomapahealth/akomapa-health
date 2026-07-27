@@ -12,7 +12,7 @@ test.describe("Program CTA links", () => {
     await preparePage(page);
   });
 
-  test("GHIP Request Program Brochure CTAs point to /contact", async ({
+  test("GHIP inquiry CTAs use allow-listed contact intents", async ({
     page,
   }) => {
     await page.goto("/programs/akomapa-ghip", {
@@ -29,7 +29,24 @@ test.describe("Program CTA links", () => {
     expect(count).toBeGreaterThan(0);
 
     for (let i = 0; i < count; i += 1) {
-      await expect(brochureLinks.nth(i)).toHaveAttribute("href", "/contact");
+      await expect(brochureLinks.nth(i)).toHaveAttribute(
+        "href",
+        "/contact?type=immersion-brochure",
+      );
+    }
+
+    const interestLinks = page.getByRole("link", {
+      name: "Register Interest",
+      exact: true,
+    });
+    const interestLinkCount = await interestLinks.count();
+    expect(interestLinkCount).toBeGreaterThan(0);
+
+    for (let i = 0; i < interestLinkCount; i += 1) {
+      await expect(interestLinks.nth(i)).toHaveAttribute(
+        "href",
+        "/contact?type=immersion",
+      );
     }
   });
 

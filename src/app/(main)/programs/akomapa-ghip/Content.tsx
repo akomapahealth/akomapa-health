@@ -1,6 +1,6 @@
 import { MotionDiv, MotionH1, MotionP } from "@/components/motion/framer";
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, CalendarIcon, DollarSignIcon, MailIcon, SchoolIcon } from "lucide-react";
+import { ArrowLeft, ArrowRight, SchoolIcon } from "lucide-react";
 import Breadcrumb from "@/components/layout/Breadcrumb";
 import Image from "@/components/common/Image";
 import { Button } from "@/components/ui/button";
@@ -15,7 +15,7 @@ const programHighlights = [
   {
     label: "First Site",
     value: "Ghana",
-    description: "2026, Dates TBD",
+    description: "Next cohort details forthcoming",
     accentColor: "#eeba2b"
   },
   {
@@ -200,10 +200,12 @@ export default function Content() {
               className="mt-8 flex flex-wrap gap-4"
             >
               <Button asChild className={primaryCtaClass}>
-                <Link href="/get-involved">Apply Now</Link>
+                <Link href="/contact?type=immersion">Register Interest</Link>
               </Button>
               <Button asChild className={secondaryCtaClass}>
-                <Link href="/contact">Request Program Brochure</Link>
+                <Link href="/contact?type=immersion-brochure">
+                  Request Program Brochure
+                </Link>
               </Button>
             </MotionDiv>
           </div>
@@ -539,28 +541,20 @@ export default function Content() {
               className="order-1"
             >
               <h2 className="text-3xl md:text-4xl font-bold mb-6 text-[#1C1F1E] dark:text-[#FCFAEF]">
-                2026 Pilot Cohort
+                First host site
               </h2>
               <div className="space-y-5 text-lg text-[#2F3332] dark:text-[#E6E7E7] leading-relaxed">
                 <div className="flex items-center">
                 <SchoolIcon className="w-6 h-6 text-[#0097b2] dark:text-[#66C4DC] mr-2 flex-shrink-0" />
                   <span className="font-semibold text-[#0097b2] dark:text-[#66C4DC] mr-2">University of Cape Coast, Ghana</span>
                 </div>
-                <div className="flex items-center">
-                  <CalendarIcon className="w-6 h-6 text-[#0097b2] dark:text-[#66C4DC] mr-2 flex-shrink-0" />
-                  <span className="font-semibold text-[#0097b2] dark:text-[#66C4DC] mr-2">Exact Dates: </span>
-                  TBD (Summer 2026)
-                </div>
-                <div className="flex items-center">
-                  <MailIcon className="w-6 h-6 text-[#0097b2] dark:text-[#66C4DC] mr-2 flex-shrink-0" />
-                  <span className="font-semibold text-[#0097b2] dark:text-[#66C4DC] mr-2">Applications open: </span>
-                  January 2026
-                </div>
-                <div className="flex items-center">
-                  <DollarSignIcon className="w-6 h-6 text-[#0097b2] dark:text-[#66C4DC] mr-2 flex-shrink-0" />
-                  <span className="font-semibold text-[#0097b2] dark:text-[#66C4DC] mr-2">Program Fees: </span>
-                  TBD
-                </div>
+                <p>
+                  <span className="font-semibold text-[#0097b2] dark:text-[#66C4DC]">
+                    Next cohort details forthcoming.
+                  </span>{" "}
+                  Dates, fees, and application timing will be published after
+                  they are confirmed.
+                </p>
               </div>
             </MotionDiv>
             <MotionDiv
@@ -573,7 +567,7 @@ export default function Content() {
               <div className="relative w-full min-h-[320px] h-[320px] sm:h-[380px] md:h-[420px] lg:h-[460px] rounded-3xl overflow-hidden shadow-2xl">
                 <Image
                   src="/highlights/Akomapa-12.jpg"
-                  alt="2026 Pilot Cohort in Ghana"
+                  alt="Akomapa participants at the first host site in Ghana"
                   fill
                   sizes="(min-width: 1024px) 50vw, 100vw"
                   className="object-cover object-center"
@@ -603,13 +597,19 @@ export default function Content() {
                 asChild
                 className={primaryCtaClass}
               >
-                <Link href="/get-involved" className="flex items-center">
-                  Apply Now
+                <Link
+                  href="/contact?type=immersion"
+                  className="flex items-center"
+                >
+                  Register Interest
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
               <Button asChild className={secondaryCtaClass}>
-                <Link href="/contact" className="flex items-center">
+                <Link
+                  href="/contact?type=immersion-brochure"
+                  className="flex items-center"
+                >
                   Request Program Brochure
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>

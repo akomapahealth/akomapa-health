@@ -189,7 +189,7 @@ export const canonicalSeoRoutes = [
     path: "/programs/akomapa-ghip",
     title: "Global Health Immersion Program",
     description:
-      "Join Akomapa's immersion experience in Ghana for hands-on community health service, research, leadership, and cultural learning.",
+      "Explore Akomapa's three-week learning experience in Ghana centered on supervised community health practice, research, ethical leadership, and cultural learning.",
     changeFrequency: "monthly",
     priority: 0.7,
   },
