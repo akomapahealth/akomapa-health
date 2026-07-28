@@ -46,7 +46,7 @@ test.describe("impact map", () => {
     expect(overflow).toBe(false);
   });
 
-  test("mobile width keeps the map panel usable without horizontal overflow", async ({
+  test("mobile width keeps popups compact within the map panel", async ({
     page,
   }) => {
     await page.setViewportSize({ width: 390, height: 844 });
@@ -55,9 +55,6 @@ test.describe("impact map", () => {
 
     const panel = page.getByTestId("impact-map-panel");
     await expect(panel).toBeVisible({ timeout: 15000 });
-    await expect(
-      page.locator(".leaflet-marker-icon").first(),
-    ).toBeVisible({ timeout: 15000 });
 
     const cardLink = page.getByRole("link", {
       name: "Akomapa–UCC Community Health Hub",
@@ -66,9 +63,41 @@ test.describe("impact map", () => {
     await expect(cardLink).toBeVisible();
     await expect(cardLink).toHaveAttribute("href", "/community-hubs/ucc");
 
+    // Isolated NA marker avoids Ghana pin overlap at mobile zoom.
+    const marker = page.locator(
+      '.leaflet-marker-icon[title*="Akomapa–NHP Yale Community Health Hub"]',
+    );
+    await expect(marker).toBeVisible({ timeout: 15000 });
+    await marker.click({ force: true });
+
+    const popup = page.getByTestId("impact-map-popup-nhp-yale-hub");
+    await expect(popup).toBeVisible({ timeout: 10000 });
+    await expect(popup.getByText("View hub")).toBeVisible();
+    // Description is card-only on small screens so the popup does not cover the map.
+    await expect(
+      popup.locator(".impact-map-popup-description"),
+    ).toBeHidden();
+
+    const sizing = await page.evaluate(() => {
+      const panelEl = document.querySelector("[data-testid='impact-map-panel']");
+      const popupEl = document.querySelector(".leaflet-popup");
+      if (!panelEl || !popupEl) {
+        throw new Error("Missing panel or popup");
+      }
+      const panelRect = panelEl.getBoundingClientRect();
+      const popupRect = popupEl.getBoundingClientRect();
+      return {
+        heightRatio: popupRect.height / panelRect.height,
+        widthRatio: popupRect.width / panelRect.width,
+      };
+    });
+    expect(sizing.heightRatio).toBeLessThan(0.75);
+    expect(sizing.widthRatio).toBeLessThan(0.7);
+
     const overflow = await page.evaluate(
       () => document.documentElement.scrollWidth - window.innerWidth > 1,
     );
     expect(overflow).toBe(false);
   });
 });
+

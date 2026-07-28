@@ -72,7 +72,7 @@ export default function ImpactMap() {
       <FadeIn direction="up" delay={0.05}>
         <div
           data-testid="impact-map-panel"
-          className="relative mx-auto aspect-[1000/386] w-full max-w-5xl overflow-hidden rounded-2xl border border-[#0097b2]/20 bg-gradient-to-b from-[#EAF4F6] to-[#DCEEF1] shadow-[0_24px_70px_rgba(15,76,92,0.18)]"
+          className="relative mx-auto aspect-[4/3] min-h-[16rem] w-full max-w-5xl overflow-hidden rounded-2xl border border-[#0097b2]/20 bg-gradient-to-b from-[#EAF4F6] to-[#DCEEF1] shadow-[0_24px_70px_rgba(15,76,92,0.18)] sm:aspect-[1000/386] sm:min-h-0"
         >
           <ImpactMapCanvas />
         </div>

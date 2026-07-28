@@ -134,9 +134,14 @@ export default function ImpactMapCanvas() {
           title={`${location.name} — ${typeLabels[location.type]}`}
           alt={`${location.name} — ${typeLabels[location.type]}`}
         >
-          <Popup>
+          <Popup
+            maxWidth={240}
+            minWidth={160}
+            autoPanPadding={[20, 20]}
+            className="impact-map-popup-root"
+          >
             <div
-              className="impact-map-popup max-w-[14rem] space-y-1.5 text-left"
+              className="impact-map-popup space-y-1.5 text-left"
               data-testid={`impact-map-popup-${location.id}`}
             >
               <span
@@ -151,7 +156,8 @@ export default function ImpactMapCanvas() {
               <p className="text-sm font-semibold leading-snug text-[#1C1F1E]">
                 {location.name}
               </p>
-              <p className="text-xs leading-snug text-[#2F3332]/80">
+              {/* Full copy stays in the cards below; keep popups compact on small maps. */}
+              <p className="impact-map-popup-description text-xs leading-snug text-[#2F3332]/80">
                 {location.description}
               </p>
               {location.href ? (

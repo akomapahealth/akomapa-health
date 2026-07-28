@@ -18,3 +18,19 @@
 .leaflet-popup-content {
   margin: 0.75rem 0.9rem;
 }
+
+.impact-map-popup-root .leaflet-popup-content {
+  margin: 0.65rem 0.8rem;
+  width: auto !important;
+}
+
+/* Mobile: short map panels cannot fit full descriptions — cards below carry detail. */
+@media (max-width: 639px) {
+  .impact-map-popup-description {
+    display: none;
+  }
+
+  .impact-map-popup-root .leaflet-popup-content-wrapper {
+    max-width: min(200px, 58vw);
+  }
+}
