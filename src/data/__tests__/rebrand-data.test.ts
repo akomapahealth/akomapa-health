@@ -137,6 +137,7 @@ describe("rebrand content data", () => {
       expect(mapLocation?.type).toBe(
         hub.status === "in-development" ? "planned-hub" : "active-hub",
       );
+      expect(mapLocation?.href).toBe(getHubHref(hub));
     }
 
     for (const location of mapLocations) {

@@ -154,6 +154,7 @@ export const mapLocations: MapLocation[] = [
     type: "active-hub",
     description:
       "An active community health and leadership hub serving Abeadze Dominase and Abura in Ghana's Central Region.",
+    href: "/community-hubs/ucc",
   },
   {
     id: "ug-hub",
@@ -162,6 +163,7 @@ export const mapLocations: MapLocation[] = [
     type: "planned-hub",
     description:
       "An in-development community health and interprofessional learning hub in the Greater Accra Region.",
+    href: "/community-hubs/ug",
   },
   {
     id: "nhp-yale-hub",
@@ -170,6 +172,7 @@ export const mapLocations: MapLocation[] = [
     type: "active-hub",
     description:
       "An active New Haven hub using trusted barbershops and salons for community-based screening and health education.",
+    href: "/community-hubs/nhp",
   },
   {
     id: "ucla-partner",

@@ -1,0 +1,20 @@
+/* Reset Leaflet default icon chrome for our divIcons. */
+.impact-map-marker {
+  background: transparent !important;
+  border: none !important;
+}
+
+.leaflet-container {
+  z-index: 0;
+  font: inherit;
+  background: #eaf4f6;
+}
+
+.leaflet-popup-content-wrapper {
+  border-radius: 0.75rem;
+  box-shadow: 0 12px 32px rgba(15, 76, 92, 0.18);
+}
+
+.leaflet-popup-content {
+  margin: 0.75rem 0.9rem;
+}
