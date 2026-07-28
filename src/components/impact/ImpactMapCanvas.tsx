@@ -135,8 +135,9 @@ export default function ImpactMapCanvas() {
           alt={`${location.name} — ${typeLabels[location.type]}`}
         >
           <Popup
-            maxWidth={240}
-            minWidth={160}
+            // Desktop keeps Leaflet's roomier default; mobile width is capped in CSS.
+            maxWidth={300}
+            minWidth={180}
             autoPanPadding={[20, 20]}
             className="impact-map-popup-root"
           >

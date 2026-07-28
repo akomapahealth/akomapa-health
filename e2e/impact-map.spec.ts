@@ -31,6 +31,11 @@ test.describe("impact map", () => {
     await expect(
       popup.getByText("Akomapa–UCC Community Health Hub", { exact: true }),
     ).toBeVisible();
+    // Desktop must still show the full description (mobile hides it).
+    await expect(popup.locator(".impact-map-popup-description")).toBeVisible();
+    await expect(popup.locator(".impact-map-popup-description")).toContainText(
+      "Abeadze Dominase",
+    );
 
     const hubLink = popup.getByRole("link", { name: /view hub/i });
     await expect(hubLink).toBeVisible();
