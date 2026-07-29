@@ -20,6 +20,11 @@ async function preparePage(page: Page, theme: (typeof themes)[number]) {
       localStorage.setItem("akomapa-theme", storedTheme);
       document.documentElement.classList.remove("light", "dark");
       document.documentElement.classList.add(storedTheme);
+
+      const style = document.createElement("style");
+      style.textContent =
+        "*,*::before,*::after{transition-duration:0s!important;animation-duration:0s!important}";
+      document.documentElement.append(style);
     },
     { version: announcementCampaign.version, storedTheme: theme },
   );
