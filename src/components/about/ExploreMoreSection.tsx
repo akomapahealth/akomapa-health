@@ -1,63 +1,67 @@
-"use client";
-
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
-import { FadeIn, FadeInStagger, FadeInStaggerItem } from "@/components/animations";
+import {
+  EditorialArrow,
+  EditorialBand,
+  EditorialEyebrow,
+  EditorialHeading,
+  EditorialLead,
+} from "@/components/shared/EditorialPrimitives";
 import { exploreMoreCards } from "@/data/about";
 
 export default function ExploreMoreSection() {
   return (
-    <section
+    <EditorialBand
+      tone="onyx"
+      marker="05"
       id="explore-more"
-      className="relative overflow-hidden bg-gradient-to-r from-[#0097b2] via-[#0F4C5C] to-[#031C3A] py-16 text-[#FCFAEF] md:py-24"
       aria-labelledby="explore-more-heading"
+      className="border-t border-[#66C4DC]/35"
     >
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute -top-28 -left-32 h-72 w-72 rounded-full bg-[#FCFAEF]/10 blur-3xl" />
-        <div className="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-[#F5C94D]/10 blur-3xl" />
-      </div>
-
-      <div className="site-container relative mx-auto px-4 sm:px-6">
-        <FadeIn className="mx-auto max-w-4xl text-center">
-          <p className="text-sm font-bold uppercase tracking-[0.18em] text-[#F5C94D]">
+      <div className="grid gap-8 lg:grid-cols-12 lg:gap-16">
+        <div className="lg:col-span-5">
+          <EditorialEyebrow tone="gold" className="text-[#F5C94D]">
             Explore More
-          </p>
-          <h2
-            id="explore-more-heading"
-            className="mt-4 text-2xl font-bold sm:text-3xl md:text-4xl"
-          >
+          </EditorialEyebrow>
+          <EditorialHeading id="explore-more-heading" className="mt-4">
             Learn About Our Foundation
-          </h2>
-          <p className="mx-auto mt-4 max-w-3xl text-base leading-relaxed text-[#FCFAEF]/85 sm:text-lg">
-            Discover our philosophy, team, impact, and partners working together to
-            advance ethical global health leadership.
-          </p>
-        </FadeIn>
-
-        <FadeInStagger className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {exploreMoreCards.map((card) => (
-            <FadeInStaggerItem key={card.id} direction="up">
-              <Link
-                href={card.href}
-                className="group flex h-full flex-col rounded-2xl border border-[#FCFAEF]/15 bg-[#FCFAEF]/10 p-6 backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:bg-[#FCFAEF]/15 hover:shadow-2xl sm:p-8"
-              >
-                <div className="flex items-center gap-2">
-                  <div className="h-1 w-8 rounded-full bg-[#F5C94D]" />
-                  <div className="h-1 w-1 rounded-full bg-[#F5C94D]" />
-                </div>
-                <h3 className="mt-4 text-xl font-semibold sm:text-2xl">{card.title}</h3>
-                <p className="mt-3 flex-1 text-sm leading-relaxed text-[#FCFAEF]/80 sm:text-base">
-                  {card.description}
-                </p>
-                <span className="mt-6 inline-flex items-center font-medium text-[#F5C94D] transition-transform group-hover:translate-x-2">
-                  Read More
-                  <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
-                </span>
-              </Link>
-            </FadeInStaggerItem>
-          ))}
-        </FadeInStagger>
+          </EditorialHeading>
+        </div>
+        <EditorialLead className="max-w-3xl text-[#FCFAEF]/78 dark:text-[#FCFAEF]/78 lg:col-span-7 lg:pt-8">
+          Discover our philosophy, team, impact, and partners working together to
+          advance ethical global health leadership.
+        </EditorialLead>
       </div>
-    </section>
+
+      <ul className="mt-12 grid border-t border-[#FCFAEF]/20 sm:grid-cols-2 lg:grid-cols-4">
+        {exploreMoreCards.map((card, index) => (
+          <li
+            key={card.id}
+            className="border-b border-[#FCFAEF]/20 sm:odd:border-r lg:border-r lg:last:border-r-0"
+          >
+            <Link
+              href={card.href}
+              className="group flex h-full min-h-11 flex-col px-1 py-7 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#eeba2b] sm:px-6"
+            >
+              <span
+                aria-hidden="true"
+                className="font-subheading text-xs font-bold tracking-[0.2em] text-[#F5C94D]"
+              >
+                0{index + 1}
+              </span>
+              <h3 className="mt-5 font-heading text-xl font-semibold text-[#FCFAEF]">
+                {card.title}
+              </h3>
+              <p className="mt-3 flex-1 text-sm leading-relaxed text-[#FCFAEF]/72 md:text-base">
+                {card.description}
+              </p>
+              <span className="mt-6 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-[#F5C94D]">
+                Read more
+                <EditorialArrow className="transition-transform group-hover:translate-x-0.5" />
+              </span>
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </EditorialBand>
   );
 }
