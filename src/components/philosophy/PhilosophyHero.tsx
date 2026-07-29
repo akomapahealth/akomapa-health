@@ -6,21 +6,14 @@ import {
   EditorialHeading,
   EditorialLead,
 } from "@/components/shared/EditorialPrimitives";
+import { silentEpidemicContent } from "@/data/homepage-narrative";
 
-const philosophyStats = [
-  {
-    value: "43M",
-    label: "NCD deaths globally in 2021",
-  },
-  {
-    value: "73%",
-    label: "of NCD deaths in low- and middle-income countries",
-  },
-  {
-    value: "9",
-    label: "principles shaping Akomapa's approach",
-  },
-] as const;
+const philosophyStats = silentEpidemicContent.metrics.map((metric) => ({
+  ...metric,
+  displayValue: `${metric.value}${
+    metric.suffix === " million" ? "M" : (metric.suffix ?? "")
+  }`,
+}));
 
 export default function PhilosophyHero() {
   return (
@@ -60,7 +53,7 @@ export default function PhilosophyHero() {
                 }`}
               >
                 <dd className="font-heading text-2xl font-semibold text-[#FCFAEF] sm:text-3xl">
-                  {stat.value}
+                  {stat.displayValue}
                 </dd>
                 <dt className="mt-2 text-sm leading-snug text-[#FCFAEF]/75">
                   {stat.label}

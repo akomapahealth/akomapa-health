@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 import PhilosophyHero from "@/components/philosophy/PhilosophyHero";
 import PhilosophySection from "@/components/philosophy/PhilosophySection";
 import PhilosophyVision from "@/components/philosophy/PhilosophyVision";
+import { silentEpidemicContent } from "@/data/homepage-narrative";
 import { philosophySections } from "@/data/philosophy";
 
 function PhilosophyContent() {
@@ -77,6 +78,10 @@ describe("Philosophy editorial content", () => {
     expect(metrics).toHaveClass("border-y");
     expect(screen.getByText("43M")).toBeInTheDocument();
     expect(screen.getByText("73%")).toBeInTheDocument();
+    expect(screen.getByText("18M")).toBeInTheDocument();
+    for (const metric of silentEpidemicContent.metrics) {
+      expect(screen.getByText(metric.label)).toBeInTheDocument();
+    }
 
     expect(
       screen.getAllByRole("link", { name: "Join Us" }),

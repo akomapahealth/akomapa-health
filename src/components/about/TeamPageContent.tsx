@@ -358,15 +358,15 @@ export default function TeamPageContent() {
         aria-labelledby="team-hero-heading"
         className="border-b border-[#FCFAEF]/20 bg-[#0F4C5C]"
       >
-        <div className="grid gap-12 lg:grid-cols-12 lg:items-center lg:gap-10 xl:gap-16">
-          <div className="lg:col-span-7">
+        <div className="grid gap-12 lg:grid-cols-12 lg:items-center lg:gap-8 2xl:gap-16">
+          <div className="lg:col-span-6 2xl:col-span-7">
             <EditorialEyebrow tone="light">
               A team of young leaders for young people
             </EditorialEyebrow>
             <EditorialHeading
               as="h1"
               id="team-hero-heading"
-              className="mt-5 max-w-4xl text-[2.25rem] text-[#FCFAEF] sm:text-[2.85rem] md:text-[3.4rem] lg:text-[3.1rem] xl:text-[3.75rem]"
+              className="mt-5 max-w-4xl text-[2.25rem] text-[#FCFAEF] sm:text-[2.85rem] md:text-[3.4rem] lg:text-[2.75rem] xl:text-[3.15rem] 2xl:text-[3.75rem]"
             >
               We are a youth-powered team reimagining healthcare with heart,
               science, and shared purpose.
@@ -419,7 +419,7 @@ export default function TeamPageContent() {
           <div
             data-team-node-network
             aria-hidden="true"
-            className="mx-auto flex w-full max-w-md flex-col gap-2 overflow-hidden border-y border-[#FCFAEF]/20 py-5 sm:gap-3 sm:py-7 lg:col-span-5 lg:max-w-none lg:gap-4 lg:border-y-0 lg:border-l lg:py-4 lg:pl-8"
+            className="mx-auto flex w-full max-w-md flex-col gap-2 overflow-hidden border-y border-[#FCFAEF]/20 py-5 sm:gap-3 sm:py-7 lg:col-span-6 lg:max-w-none lg:gap-3 lg:border-y-0 lg:border-l lg:py-4 lg:pl-6 2xl:col-span-5 2xl:gap-4 2xl:pl-8"
           >
             {heroRows.map((row, rowIndex) => (
               <div
@@ -431,17 +431,17 @@ export default function TeamPageContent() {
                     key={`${face.image}-${faceIndex}`}
                     className="flex min-w-0 items-center gap-1.5 sm:gap-2"
                   >
-                    <div className="hero-portrait relative h-7 w-7 shrink-0 overflow-hidden rounded-full border border-[#FCFAEF]/35 bg-[#0F4C5C] sm:h-9 sm:w-9 lg:h-11 lg:w-11 xl:h-12 xl:w-12">
+                    <div className="hero-portrait relative h-7 w-7 shrink-0 overflow-hidden rounded-full border border-[#FCFAEF]/35 bg-[#0F4C5C] sm:h-9 sm:w-9 lg:h-9 lg:w-9 xl:h-10 xl:w-10 2xl:h-12 2xl:w-12">
                       <Image
                         src={face.image}
                         alt=""
                         fill
                         className="object-cover object-center"
-                        sizes="(max-width: 639px) 28px, (max-width: 1023px) 36px, (max-width: 1279px) 44px, 48px"
+                        sizes="(max-width: 639px) 28px, (max-width: 1199px) 36px, (max-width: 1535px) 40px, 48px"
                       />
                     </div>
                     {faceIndex !== row.faces.length - 1 ? (
-                      <span className="h-px w-3 shrink-0 border-t border-dotted border-[#FCFAEF]/40 sm:w-5 lg:w-7 xl:w-9" />
+                      <span className="h-px w-3 shrink-0 border-t border-dotted border-[#FCFAEF]/40 sm:w-5 lg:w-5 xl:w-7 2xl:w-9" />
                     ) : null}
                   </div>
                 ))}

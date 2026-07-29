@@ -13,6 +13,10 @@ describe("TeamPageContent", () => {
     expect(
       container.querySelector("[data-team-node-network]"),
     ).toHaveAttribute("aria-hidden", "true");
+    expect(container.querySelector("[data-team-node-network]")).toHaveClass(
+      "lg:col-span-6",
+      "2xl:col-span-5",
+    );
     expect(screen.getByText("Executive Team")).toBeInTheDocument();
     expect(screen.getByText("Advisory Board")).toBeInTheDocument();
     expect(
