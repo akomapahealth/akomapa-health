@@ -105,6 +105,7 @@ for (const viewport of viewports) {
         );
 
         return {
+          copyWidth: copy?.width ?? 0,
           contained:
             box.left >= -1 &&
             box.right <= window.innerWidth + 1 &&
@@ -119,10 +120,25 @@ for (const viewport of viewports) {
                 portraitBox.bottom <= box.bottom + 1
               );
             }),
+          minimumPortraitSize: Math.min(
+            ...portraits.map(
+              (portrait) => portrait.getBoundingClientRect().width,
+            ),
+          ),
+          networkWidth: box.width,
           overlapsCopy,
         };
       });
-      expect(networkLayout).toEqual({ contained: true, overlapsCopy: false });
+      expect(networkLayout).toMatchObject({
+        contained: true,
+        overlapsCopy: false,
+      });
+      if (viewport.width >= 1536) {
+        expect(networkLayout.networkWidth).toBeGreaterThan(
+          networkLayout.copyWidth,
+        );
+        expect(networkLayout.minimumPortraitSize).toBeGreaterThanOrEqual(63);
+      }
     });
   }
 }

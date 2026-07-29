@@ -358,20 +358,20 @@ export default function TeamPageContent() {
         aria-labelledby="team-hero-heading"
         className="border-b border-[#FCFAEF]/20 bg-[#0F4C5C]"
       >
-        <div className="grid gap-12 lg:grid-cols-12 lg:items-center lg:gap-8 2xl:gap-16">
-          <div className="lg:col-span-6 2xl:col-span-7">
+        <div className="grid gap-12 lg:grid-cols-12 lg:items-center lg:gap-6 xl:gap-8 2xl:gap-12">
+          <div className="lg:col-span-5">
             <EditorialEyebrow tone="light">
               A team of young leaders for young people
             </EditorialEyebrow>
             <EditorialHeading
               as="h1"
               id="team-hero-heading"
-              className="mt-5 max-w-4xl text-[2.25rem] text-[#FCFAEF] sm:text-[2.85rem] md:text-[3.4rem] lg:text-[2.75rem] xl:text-[3.15rem] 2xl:text-[3.75rem]"
+              className="mt-5 max-w-3xl text-[2.25rem] text-[#FCFAEF] sm:text-[2.75rem] md:text-[3.1rem] lg:text-[2.5rem] xl:text-[2.75rem] 2xl:text-[3.1rem]"
             >
               We are a youth-powered team reimagining healthcare with heart,
               science, and shared purpose.
             </EditorialHeading>
-            <EditorialLead className="mt-6 max-w-3xl text-[#FCFAEF]/85 dark:text-[#FCFAEF]/85">
+            <EditorialLead className="mt-6 max-w-2xl text-[0.95rem] text-[#FCFAEF]/85 dark:text-[#FCFAEF]/85 md:text-base xl:text-[1.05rem]">
               From Cape Coast to Yale and UCLA, Akomapa leaders blend academic
               rigor, community roots, and relentless hope to build a
               student-powered model of care that is ethical, joyful, and
@@ -419,7 +419,7 @@ export default function TeamPageContent() {
           <div
             data-team-node-network
             aria-hidden="true"
-            className="mx-auto flex w-full max-w-md flex-col gap-2 overflow-hidden border-y border-[#FCFAEF]/20 py-5 sm:gap-3 sm:py-7 lg:col-span-6 lg:max-w-none lg:gap-3 lg:border-y-0 lg:border-l lg:py-4 lg:pl-6 2xl:col-span-5 2xl:gap-4 2xl:pl-8"
+            className="mx-auto flex w-full max-w-md flex-col gap-2 overflow-hidden border-y border-[#FCFAEF]/20 py-5 sm:gap-3 sm:py-7 lg:col-span-7 lg:max-w-none lg:gap-3 lg:border-y-0 lg:border-l lg:py-4 lg:pl-6 xl:gap-4 xl:pl-8 2xl:gap-5 2xl:pl-10"
           >
             {heroRows.map((row, rowIndex) => (
               <div
@@ -433,19 +433,19 @@ export default function TeamPageContent() {
                   >
                     <div
                       data-team-node-portrait
-                      className="relative size-7 shrink-0 overflow-hidden rounded-full border border-[#FCFAEF]/35 bg-[#0F4C5C] sm:size-9 xl:size-10 2xl:size-12"
+                      className="relative size-7 shrink-0 overflow-hidden rounded-full border border-[#FCFAEF]/35 bg-[#0F4C5C] sm:size-9 lg:size-10 xl:size-12 2xl:size-16"
                     >
                       <Image
                         src={face.image}
                         alt=""
-                        width={48}
-                        height={48}
+                        width={64}
+                        height={64}
                         className="h-full w-full object-cover object-center"
-                        sizes="(max-width: 639px) 28px, (max-width: 1199px) 36px, (max-width: 1535px) 40px, 48px"
+                        sizes="(max-width: 639px) 28px, (max-width: 1023px) 36px, (max-width: 1279px) 40px, (max-width: 1535px) 48px, 64px"
                       />
                     </div>
                     {faceIndex !== row.faces.length - 1 ? (
-                      <span className="h-px w-3 shrink-0 border-t border-dotted border-[#FCFAEF]/40 sm:w-5 lg:w-5 xl:w-7 2xl:w-9" />
+                      <span className="h-px w-3 shrink-0 border-t border-dotted border-[#FCFAEF]/40 sm:w-5 lg:w-6 xl:w-9 2xl:w-12" />
                     ) : null}
                   </div>
                 ))}
