@@ -31,7 +31,7 @@ export default function PhilosophyPage() {
               <li key={section.id} className="shrink-0">
                 <Link
                   href={`#${section.id}`}
-                  className="group inline-flex min-h-12 items-center gap-3 border border-[#B8B5A8] bg-white px-3 py-2 text-sm font-semibold text-[#2F3332] transition-colors hover:border-[#0F4C5C] hover:bg-[#0F4C5C] hover:text-[#FCFAEF] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0F4C5C] focus-visible:ring-offset-2 dark:border-[#3E555A] dark:bg-[#1C1F1E] dark:text-[#FCFAEF] dark:hover:border-[#66C4DC] dark:hover:bg-[#0F4C5C] dark:focus-visible:ring-[#F5C94D]"
+                  className="group inline-flex min-h-12 items-center gap-3 border border-[#B8B5A8] bg-white px-3 py-2 text-sm font-semibold text-[#2F3332] transition-none hover:border-[#0F4C5C] hover:bg-[#0F4C5C] hover:text-[#FCFAEF] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0F4C5C] focus-visible:ring-offset-2 dark:border-[#3E555A] dark:bg-[#1C1F1E] dark:text-[#FCFAEF] dark:hover:border-[#66C4DC] dark:hover:bg-[#0F4C5C] dark:focus-visible:ring-[#F5C94D]"
                 >
                   <span
                     aria-hidden="true"

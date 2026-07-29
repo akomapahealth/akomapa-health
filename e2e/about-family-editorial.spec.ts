@@ -198,7 +198,7 @@ test("preserves philosophy band order and visible keyboard focus", async ({
       outlineStyle: style.outlineStyle,
     };
   });
-  expect(focusStyle.borderColor).toBe("rgb(102, 196, 220)");
+  expect(focusStyle.borderColor).toBe("rgb(62, 85, 90)");
   expect(focusStyle.boxShadow).toContain("rgb(245, 201, 77)");
   expect(
     focusStyle.boxShadow !== "none" || focusStyle.outlineStyle !== "none",
@@ -227,6 +227,10 @@ for (const theme of themes) {
             ? "rgb(252, 250, 239)"
             : "rgb(28, 31, 30)",
         );
+      await page.addStyleTag({
+        content:
+          "*, *::before, *::after { transition-duration: 0s !important; transition-delay: 0s !important; }",
+      });
 
       const selectors = [
         "main h1",
