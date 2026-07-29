@@ -53,7 +53,7 @@ export default function HubResearch({ items = [], emptyState }: HubResearchProps
                     href={item.link}
                     className="mt-4 inline-flex text-sm font-semibold text-[#0097b2] hover:text-[#eeba2b] dark:text-[#66C4DC]"
                   >
-                    Read more
+                    Explore the research
                   </Link>
                 ) : null}
               </SurfaceCard>

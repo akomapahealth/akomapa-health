@@ -3,9 +3,16 @@
 import { Suspense, useMemo, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { ArrowRight, X } from "lucide-react";
+import { X } from "lucide-react";
 import Breadcrumb from "@/components/layout/Breadcrumb";
 import { FadeIn, motionDurations } from "@/components/animations";
+import {
+  EditorialBand,
+  EditorialButton,
+  EditorialEyebrow,
+  EditorialHeading,
+  EditorialLead,
+} from "@/components/shared/EditorialPrimitives";
 import {
   BlogCategoryFilter,
   BlogFeaturedPost,
@@ -64,16 +71,14 @@ function BlogListingContent() {
           <Breadcrumb />
         </div>
         <BlogHero postCount={allPosts.length} />
-        <section className="bg-[#FCFAEF] py-16 md:py-24 dark:bg-[#1C1F1E]">
+        <section className="bg-[#FCFAEF] py-16 md:py-24 dark:bg-[#121514]">
           <div className="site-container mx-auto px-4 sm:px-6">
             <FadeIn
-              className="mx-auto mb-10 max-w-3xl text-center"
+              className="mb-10 max-w-3xl"
               duration={motionDurations.enter}
             >
-              <p className="mb-2 text-base font-bold text-[#F5C94D] sm:text-lg">
-                AUTHOR
-              </p>
-              <h2 className="mb-4 font-heading text-2xl font-bold text-[#1C1F1E] sm:text-3xl md:text-4xl dark:text-[#FCFAEF]">
+              <EditorialEyebrow>Author archive</EditorialEyebrow>
+              <h2 className="mb-4 mt-4 font-heading text-2xl font-bold text-[#1C1F1E] sm:text-3xl md:text-4xl dark:text-[#FCFAEF]">
                 Stories by {authorFilter}
               </h2>
               <Link
@@ -101,7 +106,7 @@ function BlogListingContent() {
 
       {/* Featured */}
       {showFeatured && featuredPost && (
-        <section className="bg-[#FCFAEF] pt-14 md:pt-20 dark:bg-[#1C1F1E]">
+        <section className="bg-[#FCFAEF] pt-14 md:pt-20 dark:bg-[#121514]">
           <div className="site-container mx-auto px-4 sm:px-6">
             <FadeIn
               className="mx-auto max-w-6xl"
@@ -114,19 +119,17 @@ function BlogListingContent() {
       )}
 
       {/* Grid + filter */}
-      <section className="bg-[#FCFAEF] py-14 md:py-20 dark:bg-[#1C1F1E]">
+      <section className="bg-[#FCFAEF] py-14 md:py-20 dark:bg-[#121514]">
         <div className="site-container mx-auto px-4 sm:px-6">
           <FadeIn
-            className="mx-auto mb-8 max-w-3xl text-center"
+            className="mb-8 max-w-3xl"
             duration={motionDurations.enter}
           >
-            <p className="mb-2 text-base font-bold text-[#F5C94D] sm:text-lg">
-              ALL ARTICLES
-            </p>
-            <h2 className="mb-4 font-heading text-2xl font-bold text-[#1C1F1E] sm:text-3xl md:text-4xl dark:text-[#FCFAEF]">
-              Explore by category
-            </h2>
-            <p className="mx-auto max-w-2xl text-base leading-relaxed text-[#2F3332]/70 sm:text-lg dark:text-[#E6E7E7]/60">
+            <EditorialEyebrow>Browse the journal</EditorialEyebrow>
+            <EditorialHeading as="h2" className="mb-4 mt-4">
+              Follow the ideas that move you
+            </EditorialHeading>
+            <p className="max-w-2xl text-base leading-relaxed text-[#2F3332]/70 sm:text-lg dark:text-[#E6E7E7]/70">
               Perspectives from students, faculty, and communities across the
               Akomapa network.
             </p>
@@ -144,40 +147,42 @@ function BlogListingContent() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="relative overflow-hidden bg-gradient-to-r from-[#0097b2] via-[#0F4C5C] to-[#031C3A] py-16 text-[#FCFAEF] md:py-24">
-        <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-          <div className="absolute -left-32 -top-28 h-72 w-72 rounded-full bg-[#FCFAEF]/10 blur-3xl" />
-          <div className="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-[#F5C94D]/10 blur-3xl" />
-        </div>
-        <div className="site-container relative mx-auto px-4 sm:px-6">
-          <div className="mx-auto max-w-3xl space-y-6 text-center">
-            <h2 className="font-heading text-2xl font-bold sm:text-3xl md:text-4xl">
+      <EditorialBand
+        tone="onyx"
+        aria-labelledby="thought-leadership-cta"
+        className="border-t border-[#66C4DC]/35"
+      >
+        <div className="grid gap-8 lg:grid-cols-12 lg:items-end lg:gap-16">
+          <div className="lg:col-span-7">
+            <EditorialEyebrow tone="gold" className="text-[#F5C94D]">
+              Add your voice
+            </EditorialEyebrow>
+            <EditorialHeading id="thought-leadership-cta" className="mt-4">
               Have a story to tell?
-            </h2>
-            <p className="mx-auto max-w-2xl text-base leading-relaxed text-[#FCFAEF]/85 sm:text-lg">
+            </EditorialHeading>
+            <EditorialLead className="mt-5 max-w-2xl text-[#FCFAEF]/82 dark:text-[#FCFAEF]/82">
               We welcome essays, reflections, and voices from students, faculty,
               and the communities we partner with.
-            </p>
-            <div className="flex flex-col justify-center gap-4 pt-2 sm:flex-row">
-              <Link
+            </EditorialLead>
+          </div>
+          <div className="flex flex-col gap-3 border-t border-[#FCFAEF]/20 pt-7 sm:flex-row lg:col-span-5 lg:border-l lg:border-t-0 lg:pl-8 lg:pt-0">
+              <EditorialButton
                 href="/get-involved"
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-[#eeba2b] px-8 py-3 text-sm font-semibold text-[#1C1F1E] transition-colors hover:bg-[#FCFAEF]"
+                variant="amber"
+                className="w-full sm:w-auto"
               >
-                Get Involved
-                <ArrowRight className="h-4 w-4" />
-              </Link>
-              <Link
+                Share your perspective
+              </EditorialButton>
+              <EditorialButton
                 href="/news"
-                className="inline-flex items-center justify-center gap-2 rounded-full border border-[#FCFAEF]/30 px-8 py-3 text-sm font-semibold text-[#FCFAEF] transition-colors hover:bg-[#FCFAEF]/10"
+                variant="outline-light"
+                className="w-full sm:w-auto"
               >
-                Read the latest news
-                <ArrowRight className="h-4 w-4" />
-              </Link>
-            </div>
+                Discover what’s happening
+              </EditorialButton>
           </div>
         </div>
-      </section>
+      </EditorialBand>
     </>
   );
 }

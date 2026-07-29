@@ -66,7 +66,7 @@ export default function FeaturedNews() {
                   }
                   className="text-[#0097b2] font-medium hover:text-[#eeba2b] inline-flex items-center"
                 >
-                  Read More <ArrowRight size={16} className="ml-1" />
+                  Discover the story <ArrowRight size={16} className="ml-1" />
                 </Link>
               </div>
             </div>

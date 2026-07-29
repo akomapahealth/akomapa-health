@@ -132,7 +132,7 @@ test.describe("News Detail Pages", () => {
     // Find a card that links to a detail page
     const detailLink = page
       .locator('a[href^="/news/"]')
-      .filter({ hasText: /Read More/i })
+      .filter({ hasText: /Explore the update/i })
       .first();
 
     await expect(detailLink).toBeVisible({ timeout: 15000 });

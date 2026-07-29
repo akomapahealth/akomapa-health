@@ -55,7 +55,7 @@ export default function ExploreMoreSection() {
                 {card.description}
               </p>
               <span className="mt-6 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-[#F5C94D]">
-                Read more
+                Explore {card.title.toLowerCase()}
                 <EditorialArrow className="transition-transform group-hover:translate-x-0.5" />
               </span>
             </Link>
