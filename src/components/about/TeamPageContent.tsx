@@ -356,7 +356,7 @@ export default function TeamPageContent() {
       <EditorialBand
         tone="teal"
         aria-labelledby="team-hero-heading"
-        className="border-b border-[#FCFAEF]/20"
+        className="border-b border-[#FCFAEF]/20 bg-[#0F4C5C]"
       >
         <div className="grid gap-12 lg:grid-cols-12 lg:items-center lg:gap-10 xl:gap-16">
           <div className="lg:col-span-7">
@@ -402,14 +402,14 @@ export default function TeamPageContent() {
               <EditorialButton
                 href="/contact"
                 variant="light"
-                className="sm:min-w-40"
+                className="text-[#0F4C5C] focus-visible:ring-[#F5C94D] sm:min-w-40"
               >
                 Meet with Us
               </EditorialButton>
               <EditorialButton
                 href="/get-involved"
                 variant="amber"
-                className="sm:min-w-40"
+                className="focus-visible:ring-[#F5C94D] sm:min-w-40"
               >
                 Join the Movement
               </EditorialButton>
@@ -458,7 +458,9 @@ export default function TeamPageContent() {
       >
         <div className="grid gap-8 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-5">
-            <EditorialEyebrow>Executive Team</EditorialEyebrow>
+            <EditorialEyebrow className="text-[#0F4C5C] dark:text-[#66C4DC]">
+              Executive Team
+            </EditorialEyebrow>
             <EditorialHeading id="executive-team-heading" className="mt-4">
               The builders behind the Akomapa model
             </EditorialHeading>
@@ -526,10 +528,17 @@ export default function TeamPageContent() {
             </EditorialLead>
           </div>
           <div className="flex flex-col gap-3 sm:flex-row lg:col-span-5 lg:justify-end">
-            <EditorialButton href="/partnerships">
+            <EditorialButton
+              href="/partnerships"
+              className="bg-[#0F4C5C] focus-visible:ring-[#0F4C5C] dark:focus-visible:ring-[#F5C94D]"
+            >
               Partner with Akomapa
             </EditorialButton>
-            <EditorialButton href="/get-involved" variant="amber">
+            <EditorialButton
+              href="/get-involved"
+              variant="amber"
+              className="focus-visible:ring-[#0F4C5C] dark:focus-visible:ring-[#F5C94D]"
+            >
               Apply to Serve
             </EditorialButton>
           </div>

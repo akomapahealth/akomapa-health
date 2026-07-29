@@ -32,7 +32,7 @@ export default function PhilosophySection({
       className={cn(
         "scroll-mt-28 border-b",
         isTeal
-          ? "border-[#FCFAEF]/20"
+          ? "border-[#FCFAEF]/20 bg-[#0F4C5C]"
           : "border-[#1C1F1E]/10 dark:border-[#FCFAEF]/15",
         className,
       )}
@@ -78,7 +78,11 @@ export default function PhilosophySection({
         >
           <EditorialEyebrow
             tone={isTeal ? "gold" : "teal"}
-            className={isTeal ? "text-[#F5C94D]" : undefined}
+            className={
+              isTeal
+                ? "text-[#F5C94D]"
+                : "text-[#0F4C5C] dark:text-[#66C4DC]"
+            }
           >
             Principle {section.order}
           </EditorialEyebrow>
@@ -125,7 +129,7 @@ export default function PhilosophySection({
                   "mt-4 text-sm font-semibold",
                   isTeal
                     ? "text-[#F5C94D]"
-                    : "text-[#0097b2] dark:text-[#66C4DC]",
+                    : "text-[#0F4C5C] dark:text-[#66C4DC]",
                 )}
               >
                 {section.quote.author}

@@ -52,7 +52,7 @@ export default function TeamMemberDialog({
         </div>
 
         <div className="flex flex-1 flex-col pt-5">
-          <p className="font-subheading text-xs font-bold uppercase tracking-[0.16em] text-[#0F4C5C]/70 dark:text-[#66C4DC]">
+          <p className="font-subheading text-xs font-bold uppercase tracking-[0.16em] text-[#0F4C5C] dark:text-[#66C4DC]">
             {member.org}
           </p>
           <h3 className="mt-3 font-heading text-xl font-semibold text-[#1C1F1E] dark:text-[#FCFAEF]">
@@ -68,7 +68,7 @@ export default function TeamMemberDialog({
                 type="button"
                 data-team-bio-trigger={member.name}
                 onClick={() => setIsOpen(true)}
-                className="inline-flex min-h-11 items-center justify-center rounded-md border border-[#0097b2]/35 px-4 py-2 text-sm font-semibold text-[#0097b2] transition-colors hover:bg-[#0097b2] hover:text-[#FCFAEF] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eeba2b] focus-visible:ring-offset-2 dark:border-[#66C4DC]/45 dark:text-[#66C4DC] dark:hover:bg-[#66C4DC] dark:hover:text-[#1C1F1E]"
+                className="inline-flex min-h-11 items-center justify-center rounded-md border border-[#0F4C5C] px-4 py-2 text-sm font-semibold text-[#0F4C5C] transition-colors hover:bg-[#0F4C5C] hover:text-[#FCFAEF] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0F4C5C] focus-visible:ring-offset-2 dark:border-[#66C4DC] dark:text-[#66C4DC] dark:hover:bg-[#66C4DC] dark:hover:text-[#1C1F1E] dark:focus-visible:ring-[#F5C94D]"
               >
                 Read bio
               </button>
@@ -77,7 +77,7 @@ export default function TeamMemberDialog({
               <Link
                 href={`mailto:${email}`}
                 aria-label={`Email ${member.name}`}
-                className="inline-flex h-11 w-11 items-center justify-center rounded-md border border-[#1C1F1E]/20 text-[#1C1F1E] transition-colors hover:border-[#0097b2] hover:text-[#0097b2] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eeba2b] focus-visible:ring-offset-2 dark:border-[#FCFAEF]/25 dark:text-[#FCFAEF] dark:hover:border-[#66C4DC] dark:hover:text-[#66C4DC]"
+                className="inline-flex h-11 w-11 items-center justify-center rounded-md border border-[#1C1F1E]/45 text-[#1C1F1E] transition-colors hover:border-[#0097b2] hover:text-[#0097b2] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0F4C5C] focus-visible:ring-offset-2 dark:border-[#FCFAEF]/45 dark:text-[#FCFAEF] dark:hover:border-[#66C4DC] dark:hover:text-[#66C4DC] dark:focus-visible:ring-[#F5C94D]"
               >
                 <Mail className="h-4 w-4" aria-hidden="true" />
               </Link>
@@ -88,7 +88,7 @@ export default function TeamMemberDialog({
                 target="_blank"
                 rel="noreferrer"
                 aria-label={`View ${member.name} on LinkedIn`}
-                className="inline-flex h-11 w-11 items-center justify-center rounded-md border border-[#1C1F1E]/20 text-[#1C1F1E] transition-colors hover:border-[#0097b2] hover:text-[#0097b2] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eeba2b] focus-visible:ring-offset-2 dark:border-[#FCFAEF]/25 dark:text-[#FCFAEF] dark:hover:border-[#66C4DC] dark:hover:text-[#66C4DC]"
+                className="inline-flex h-11 w-11 items-center justify-center rounded-md border border-[#1C1F1E]/45 text-[#1C1F1E] transition-colors hover:border-[#0097b2] hover:text-[#0097b2] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0F4C5C] focus-visible:ring-offset-2 dark:border-[#FCFAEF]/45 dark:text-[#FCFAEF] dark:hover:border-[#66C4DC] dark:hover:text-[#66C4DC] dark:focus-visible:ring-[#F5C94D]"
               >
                 <Linkedin className="h-4 w-4" aria-hidden="true" />
               </Link>
@@ -100,12 +100,12 @@ export default function TeamMemberDialog({
       {member.bio ? (
         <Transition show={isOpen} as={Fragment}>
           <Dialog
-            className="relative z-50"
+            className="fixed inset-0 z-50"
             onClose={() => setIsOpen(false)}
           >
             <TransitionChild
               as={Fragment}
-              enter="ease-out duration-200 motion-reduce:transition-none"
+              enter="ease-out duration-200 motion-reduce:!opacity-100 motion-reduce:transition-none"
               enterFrom="opacity-0"
               enterTo="opacity-100"
               leave="ease-in duration-150 motion-reduce:transition-none"
@@ -119,7 +119,7 @@ export default function TeamMemberDialog({
               <div className="flex min-h-full items-center justify-center p-4 sm:p-6">
                 <TransitionChild
                   as={Fragment}
-                  enter="ease-out duration-200 motion-reduce:transition-none motion-reduce:transform-none"
+                  enter="ease-out duration-200 motion-reduce:!opacity-100 motion-reduce:transition-none motion-reduce:transform-none"
                   enterFrom="opacity-0 translate-y-3"
                   enterTo="opacity-100 translate-y-0"
                   leave="ease-in duration-150 motion-reduce:transition-none motion-reduce:transform-none"
@@ -131,7 +131,7 @@ export default function TeamMemberDialog({
                       type="button"
                       onClick={() => setIsOpen(false)}
                       aria-label={`Close ${member.name} biography`}
-                      className="absolute right-3 top-3 z-10 inline-flex h-11 w-11 items-center justify-center rounded-md bg-[#FCFAEF] text-[#1C1F1E] shadow-sm transition-colors hover:bg-[#eeba2b] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0097b2] focus-visible:ring-offset-2 dark:bg-[#1C1F1E] dark:text-[#FCFAEF] dark:hover:bg-[#0F4C5C]"
+                      className="absolute right-3 top-3 z-10 inline-flex h-11 w-11 items-center justify-center rounded-md bg-[#FCFAEF] text-[#1C1F1E] shadow-sm transition-colors hover:bg-[#eeba2b] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0F4C5C] focus-visible:ring-offset-2 dark:bg-[#1C1F1E] dark:text-[#FCFAEF] dark:hover:bg-[#0F4C5C] dark:focus-visible:ring-[#F5C94D]"
                     >
                       <X className="h-5 w-5" aria-hidden="true" />
                     </button>
@@ -148,7 +148,7 @@ export default function TeamMemberDialog({
                       </div>
 
                       <div className="p-6 sm:p-8 md:p-10">
-                        <p className="font-subheading text-xs font-bold uppercase tracking-[0.16em] text-[#0F4C5C]/70 dark:text-[#66C4DC]">
+                        <p className="font-subheading text-xs font-bold uppercase tracking-[0.16em] text-[#0F4C5C] dark:text-[#66C4DC]">
                           {member.org}
                         </p>
                         <DialogTitle

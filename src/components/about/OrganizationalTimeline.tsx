@@ -16,7 +16,9 @@ export default function OrganizationalTimeline() {
     >
       <div className="grid gap-8 lg:grid-cols-12 lg:gap-16">
         <div className="lg:col-span-5">
-          <EditorialEyebrow>Our Journey</EditorialEyebrow>
+          <EditorialEyebrow className="text-[#0F4C5C] dark:text-[#66C4DC]">
+            Our Journey
+          </EditorialEyebrow>
           <EditorialHeading id="timeline-heading" className="mt-4">
             Organizational Story
           </EditorialHeading>
@@ -38,11 +40,11 @@ export default function OrganizationalTimeline() {
             <div className="flex items-baseline gap-3 sm:block">
               <span
                 aria-hidden="true"
-                className="font-subheading text-xs font-bold tracking-[0.2em] text-[#C9920F] dark:text-[#F5C94D]"
+                className="font-subheading text-xs font-bold tracking-[0.2em] text-[#765500] dark:text-[#F5C94D]"
               >
                 {String(index + 1).padStart(2, "0")}
               </span>
-              <p className="font-heading text-2xl font-semibold text-[#0097b2] dark:text-[#66C4DC] sm:mt-3">
+              <p className="font-heading text-2xl font-semibold text-[#0F4C5C] dark:text-[#66C4DC] sm:mt-3">
                 {event.year}
               </p>
             </div>

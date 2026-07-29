@@ -17,7 +17,9 @@ export default function WhatWeDoSection() {
       aria-labelledby="what-we-do-heading"
     >
       <div className="max-w-3xl">
-        <EditorialEyebrow>What We Do</EditorialEyebrow>
+        <EditorialEyebrow className="text-[#0F4C5C] dark:text-[#66C4DC]">
+          What We Do
+        </EditorialEyebrow>
         <EditorialHeading id="what-we-do-heading" className="mt-4">
           Five Pillars of Our Work
         </EditorialHeading>
@@ -35,7 +37,7 @@ export default function WhatWeDoSection() {
           >
             <Link
               href={category.href}
-              className="group flex h-full min-h-11 flex-col px-1 py-7 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#eeba2b] md:px-6 xl:px-5"
+              className="group flex h-full min-h-11 flex-col px-1 py-7 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#0F4C5C] md:px-6 xl:px-5 dark:focus-visible:ring-[#F5C94D]"
             >
               <span
                 aria-hidden="true"
@@ -49,7 +51,7 @@ export default function WhatWeDoSection() {
               <p className="mt-3 flex-1 text-sm leading-relaxed text-[#2F3332]/80 dark:text-[#E6E7E7]/80">
                 {category.description}
               </p>
-              <span className="mt-6 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-[#0097b2] dark:text-[#66C4DC]">
+              <span className="mt-6 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-[#0F4C5C] dark:text-[#66C4DC]">
                 Learn more
                 <EditorialArrow className="transition-transform group-hover:translate-x-0.5" />
               </span>

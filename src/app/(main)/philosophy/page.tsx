@@ -28,7 +28,7 @@ export default function PhilosophyPage() {
               <li key={section.id} className="shrink-0">
                 <Link
                   href={`#${section.id}`}
-                  className="inline-flex min-h-11 items-center rounded-md border border-[#0097b2]/25 px-4 py-2 text-sm font-semibold text-[#2F3332] transition-colors hover:border-[#0097b2] hover:text-[#0097b2] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eeba2b] focus-visible:ring-offset-2 dark:border-[#FCFAEF]/25 dark:text-[#FCFAEF] dark:hover:border-[#66C4DC] dark:hover:text-[#66C4DC]"
+                  className="inline-flex min-h-11 items-center rounded-md border border-[#0F4C5C] px-4 py-2 text-sm font-semibold text-[#2F3332] transition-colors hover:border-[#0097b2] hover:text-[#0097b2] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0F4C5C] focus-visible:ring-offset-2 dark:border-[#66C4DC] dark:text-[#FCFAEF] dark:hover:border-[#66C4DC] dark:hover:text-[#66C4DC] dark:focus-visible:ring-[#F5C94D]"
                 >
                   {section.title}
                 </Link>

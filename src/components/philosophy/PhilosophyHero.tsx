@@ -27,7 +27,7 @@ export default function PhilosophyHero() {
     <EditorialBand
       tone="teal"
       aria-labelledby="philosophy-hero-heading"
-      className="border-b border-[#FCFAEF]/20"
+      className="border-b border-[#FCFAEF]/20 bg-[#0F4C5C]"
     >
       <div className="grid gap-12 lg:grid-cols-12 lg:items-center lg:gap-16">
         <div className="lg:col-span-7">
@@ -70,10 +70,18 @@ export default function PhilosophyHero() {
           </dl>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <EditorialButton href="/get-involved" variant="amber">
+            <EditorialButton
+              href="/get-involved"
+              variant="amber"
+              className="focus-visible:ring-[#F5C94D]"
+            >
               Join Us
             </EditorialButton>
-            <EditorialButton href="/partnerships" variant="outline-light">
+            <EditorialButton
+              href="/partnerships"
+              variant="outline-light"
+              className="focus-visible:ring-[#F5C94D]"
+            >
               Partner With Us
             </EditorialButton>
           </div>

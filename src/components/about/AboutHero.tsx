@@ -12,7 +12,7 @@ export default function AboutHero() {
     <EditorialBand
       tone="teal"
       aria-labelledby="about-hero-heading"
-      className="border-b border-[#FCFAEF]/20"
+      className="border-b border-[#FCFAEF]/20 bg-[#0F4C5C]"
       containerClassName="py-14 sm:py-16 md:py-20 lg:py-24"
     >
       <div className="grid gap-12 lg:grid-cols-12 lg:items-end lg:gap-16">

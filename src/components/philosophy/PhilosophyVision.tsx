@@ -31,10 +31,18 @@ export default function PhilosophyVision() {
           </EditorialLead>
         </div>
         <div className="flex flex-col gap-3 sm:flex-row lg:col-span-4 lg:flex-col">
-          <EditorialButton href="/get-involved" variant="amber">
+          <EditorialButton
+            href="/get-involved"
+            variant="amber"
+            className="focus-visible:ring-[#F5C94D]"
+          >
             Join Us
           </EditorialButton>
-          <EditorialButton href="/partnerships" variant="outline-light">
+          <EditorialButton
+            href="/partnerships"
+            variant="outline-light"
+            className="focus-visible:ring-[#F5C94D]"
+          >
             Partner With Us
           </EditorialButton>
         </div>
