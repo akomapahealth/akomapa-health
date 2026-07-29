@@ -30,11 +30,15 @@ describe("TeamPageContent", () => {
   it("renders decorative network portraits with empty alternatives", () => {
     const { container } = render(<TeamPageContent />);
     const network = container.querySelector("[data-team-node-network]");
+    const portraitFrames =
+      network?.querySelectorAll("[data-team-node-portrait]") ?? [];
     const portraits = network?.querySelectorAll("img") ?? [];
 
-    expect(portraits.length).toBeGreaterThan(0);
+    expect(portraitFrames).toHaveLength(22);
+    expect(portraits).toHaveLength(22);
     for (const portrait of portraits) {
       expect(portrait).toHaveAttribute("alt", "");
+      expect(portrait).not.toHaveAttribute("data-nimg", "fill");
     }
   });
 });

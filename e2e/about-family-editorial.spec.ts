@@ -10,6 +10,7 @@ const viewports = [
   { name: "laptop-1280", width: 1280, height: 800 },
   { name: "desktop-1440", width: 1440, height: 900 },
   { name: "wide-1536", width: 1536, height: 960 },
+  { name: "retina-laptop-1920", width: 1920, height: 1080 },
 ] as const;
 const themes = ["light", "dark"] as const;
 
@@ -92,7 +93,7 @@ for (const viewport of viewports) {
         const grid = element.parentElement;
         const copy = grid?.firstElementChild?.getBoundingClientRect();
         const portraits = Array.from(
-          element.querySelectorAll<HTMLElement>(".hero-portrait"),
+          element.querySelectorAll<HTMLElement>("[data-team-node-portrait]"),
         );
 
         const overlapsCopy = Boolean(

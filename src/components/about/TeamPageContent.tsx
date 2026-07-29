@@ -431,12 +431,16 @@ export default function TeamPageContent() {
                     key={`${face.image}-${faceIndex}`}
                     className="flex min-w-0 items-center gap-1.5 sm:gap-2"
                   >
-                    <div className="hero-portrait relative h-7 w-7 shrink-0 overflow-hidden rounded-full border border-[#FCFAEF]/35 bg-[#0F4C5C] sm:h-9 sm:w-9 lg:h-9 lg:w-9 xl:h-10 xl:w-10 2xl:h-12 2xl:w-12">
+                    <div
+                      data-team-node-portrait
+                      className="relative size-7 shrink-0 overflow-hidden rounded-full border border-[#FCFAEF]/35 bg-[#0F4C5C] sm:size-9 xl:size-10 2xl:size-12"
+                    >
                       <Image
                         src={face.image}
                         alt=""
-                        fill
-                        className="object-cover object-center"
+                        width={48}
+                        height={48}
+                        className="h-full w-full object-cover object-center"
                         sizes="(max-width: 639px) 28px, (max-width: 1199px) 36px, (max-width: 1535px) 40px, 48px"
                       />
                     </div>

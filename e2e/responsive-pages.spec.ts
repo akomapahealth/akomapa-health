@@ -159,7 +159,7 @@ test("the Team node network is unique and contained to its editorial band", asyn
   await expect(network).toHaveCount(1);
   await expect(network).toBeVisible();
   await expect(network).toHaveAttribute("aria-hidden", "true");
-  await expect(network.locator(".hero-portrait")).toHaveCount(22);
+  await expect(network.locator("[data-team-node-portrait]")).toHaveCount(22);
 
   const isContained = await network.evaluate((element) => {
     const networkBox = element.getBoundingClientRect();
