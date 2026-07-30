@@ -91,9 +91,16 @@ for (const viewport of viewports) {
             .filter((control) => {
               const style = getComputedStyle(control);
               const rect = control.getBoundingClientRect();
+              const inViewport =
+                rect.bottom > 0 &&
+                rect.right > 0 &&
+                rect.top < window.innerHeight &&
+                rect.left < window.innerWidth;
               return (
+                inViewport &&
                 style.display !== "none" &&
                 style.visibility !== "hidden" &&
+                style.opacity !== "0" &&
                 (rect.width < 44 || rect.height < 44)
               );
             })
