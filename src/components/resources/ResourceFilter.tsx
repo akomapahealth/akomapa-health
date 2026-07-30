@@ -10,7 +10,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Button } from "@/components/ui/button";
 import { Search, FilterX } from "lucide-react";
 
 interface FiltersState {
@@ -26,59 +25,74 @@ interface ResourceFilterProps {
   totalResources: number;
 }
 
-export default function ResourceFilter({ filters, setFilters, totalResources }: ResourceFilterProps) {
+export default function ResourceFilter({
+  filters,
+  setFilters,
+  totalResources,
+}: ResourceFilterProps) {
   const [searchInput, setSearchInput] = useState(filters.search);
-  
+
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchInput(e.target.value);
   };
-  
+
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setFilters(prev => ({ ...prev, search: searchInput }));
+    setFilters((prev) => ({ ...prev, search: searchInput }));
   };
-  
+
   const handleCategoryChange = (value: string) => {
-    setFilters(prev => ({ ...prev, category: value }));
+    setFilters((prev) => ({ ...prev, category: value }));
   };
-  
+
   const handleTypeChange = (value: string) => {
-    setFilters(prev => ({ ...prev, type: value }));
+    setFilters((prev) => ({ ...prev, type: value }));
   };
-  
+
   const handleProgramChange = (value: string) => {
-    setFilters(prev => ({ ...prev, program: value }));
+    setFilters((prev) => ({ ...prev, program: value }));
   };
-  
+
   const resetFilters = () => {
     setFilters({
       category: "all",
       type: "all",
       program: "all",
-      search: ""
+      search: "",
     });
     setSearchInput("");
   };
-  
+
+  const hasActiveFilters =
+    filters.category !== "all" ||
+    filters.type !== "all" ||
+    filters.program !== "all" ||
+    Boolean(filters.search);
+
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden sticky top-24">
-      <div className="p-6">
-        <div className="flex items-center justify-between mb-6">
-          <h3 className="text-lg font-bold">Filter Resources</h3>
-          {(filters.category !== "all" || filters.type !== "all" || filters.program !== "all" || filters.search) && (
-            <Button 
-              variant="ghost" 
-              size="sm" 
-              onClick={resetFilters}
-              className="text-gray-500 hover:text-gray-700"
-            >
-              <FilterX size={16} className="mr-1" />
-              Reset
-            </Button>
-          )}
-        </div>
-        
-        <form onSubmit={handleSearchSubmit} className="mb-6">
+    <div
+      data-resource-filter
+      className="border border-[#1C1F1E]/12 bg-[#FCFAEF] dark:border-[#FCFAEF]/15 dark:bg-[#121514] lg:sticky lg:top-24"
+    >
+      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#1C1F1E]/10 px-5 py-4 dark:border-[#FCFAEF]/10 sm:px-6">
+        <h3 className="font-heading text-lg font-semibold text-[#1C1F1E] dark:text-[#FCFAEF]">
+          Filter Resources
+        </h3>
+        {hasActiveFilters ? (
+          <button
+            type="button"
+            onClick={resetFilters}
+            className="inline-flex min-h-11 items-center gap-1.5 text-sm font-semibold text-[#0F4C5C] transition-colors hover:text-[#0097b2] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eeba2b] focus-visible:ring-offset-2 dark:text-[#66C4DC]"
+          >
+            <FilterX size={16} aria-hidden="true" />
+            Reset
+            <span className="sr-only"> all filters</span>
+          </button>
+        ) : null}
+      </div>
+
+      <div className="space-y-6 px-5 py-6 sm:px-6">
+        <form onSubmit={handleSearchSubmit}>
           <Label htmlFor="search" className="sr-only">
             Search resources
           </Label>
@@ -88,30 +102,28 @@ export default function ResourceFilter({ filters, setFilters, totalResources }: 
               placeholder="Search resources..."
               value={searchInput}
               onChange={handleSearchChange}
-              className="pr-10"
+              className="min-h-11 border-[#1C1F1E]/15 bg-white pr-12 dark:border-[#FCFAEF]/20 dark:bg-[#1C1F1E]"
             />
-            <Button 
-              type="submit" 
-              variant="ghost" 
-              size="sm" 
-              className="absolute right-0 top-0 h-full px-3 text-gray-400 hover:text-gray-600"
+            <button
+              type="submit"
+              className="absolute right-0 top-0 inline-flex h-full min-w-11 items-center justify-center text-[#2F3332]/70 transition-colors hover:text-[#0097b2] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eeba2b] dark:text-[#E6E7E7]/70"
             >
-              <Search size={16} />
+              <Search size={16} aria-hidden="true" />
               <span className="sr-only">Search</span>
-            </Button>
+            </button>
           </div>
         </form>
-        
-        <div className="space-y-6">
+
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-1">
           <div>
-            <Label htmlFor="category" className="block mb-2 text-sm font-medium">
+            <Label
+              htmlFor="category"
+              className="mb-2 block text-sm font-semibold text-[#1C1F1E] dark:text-[#FCFAEF]"
+            >
               Category
             </Label>
-            <Select
-              value={filters.category}
-              onValueChange={handleCategoryChange}
-            >
-              <SelectTrigger id="category">
+            <Select value={filters.category} onValueChange={handleCategoryChange}>
+              <SelectTrigger id="category" className="min-h-11">
                 <SelectValue placeholder="All Categories" />
               </SelectTrigger>
               <SelectContent>
@@ -122,57 +134,70 @@ export default function ResourceFilter({ filters, setFilters, totalResources }: 
               </SelectContent>
             </Select>
           </div>
-          
+
           <div>
-            <Label htmlFor="type" className="block mb-2 text-sm font-medium">
+            <Label
+              htmlFor="type"
+              className="mb-2 block text-sm font-semibold text-[#1C1F1E] dark:text-[#FCFAEF]"
+            >
               Resource Type
             </Label>
-            <Select
-              value={filters.type}
-              onValueChange={handleTypeChange}
-            >
-              <SelectTrigger id="type">
+            <Select value={filters.type} onValueChange={handleTypeChange}>
+              <SelectTrigger id="type" className="min-h-11">
                 <SelectValue placeholder="All Types" />
               </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="all">All Types</SelectItem>
-                            <SelectItem value="PDF">PDF Documents</SelectItem>
-                            <SelectItem value="Video">Videos</SelectItem>
-                            <SelectItem value="Article">Articles</SelectItem>
-                            <SelectItem value="Toolkit">Toolkits</SelectItem>
-                            <SelectItem value="Infographic">Infographics</SelectItem>
-                          </SelectContent>
-                    </Select>
-                    </div>
-                      
-                    <div>
-                        <Label htmlFor="program" className="block mb-2 text-sm font-medium">
-                          Related Program
-                        </Label>
-                        <Select
-                          value={filters.program}
-                          onValueChange={handleProgramChange}
-                        >
-                          <SelectTrigger id="program">
-                            <SelectValue placeholder="All Programs" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="all">All Programs</SelectItem>
-                            <SelectItem value="community-clinics">Community Clinics</SelectItem>
-                            <SelectItem value="health-education">Health Education</SelectItem>
-                            <SelectItem value="medical-training">Medical Training</SelectItem>
-                            <SelectItem value="research">Research Initiatives</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-                    
-                      <div className="pt-4 border-t border-gray-200">
-                        <p className="text-sm text-gray-600">
-                          Showing <span className="font-medium">{totalResources}</span> resource{totalResources !== 1 ? 's' : ''}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              );
-            }
+              <SelectContent>
+                <SelectItem value="all">All Types</SelectItem>
+                <SelectItem value="PDF">PDF Documents</SelectItem>
+                <SelectItem value="Video">Videos</SelectItem>
+                <SelectItem value="Article">Articles</SelectItem>
+                <SelectItem value="Toolkit">Toolkits</SelectItem>
+                <SelectItem value="Infographic">Infographics</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div className="sm:col-span-2 lg:col-span-1">
+            <Label
+              htmlFor="program"
+              className="mb-2 block text-sm font-semibold text-[#1C1F1E] dark:text-[#FCFAEF]"
+            >
+              Related Program
+            </Label>
+            <Select value={filters.program} onValueChange={handleProgramChange}>
+              <SelectTrigger id="program" className="min-h-11">
+                <SelectValue placeholder="All Programs" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Programs</SelectItem>
+                <SelectItem value="community-clinics">
+                  Community Clinics
+                </SelectItem>
+                <SelectItem value="health-education">
+                  Health Education
+                </SelectItem>
+                <SelectItem value="medical-training">
+                  Medical Training
+                </SelectItem>
+                <SelectItem value="research">Research Initiatives</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+
+        <div className="border-t border-[#1C1F1E]/10 pt-4 dark:border-[#FCFAEF]/10">
+          <p
+            className="text-sm text-[#2F3332]/80 dark:text-[#E6E7E7]/80"
+            aria-live="polite"
+          >
+            Showing{" "}
+            <span className="font-semibold text-[#1C1F1E] dark:text-[#FCFAEF]">
+              {totalResources}
+            </span>{" "}
+            resource{totalResources !== 1 ? "s" : ""}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}

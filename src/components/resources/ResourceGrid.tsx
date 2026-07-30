@@ -1,31 +1,31 @@
 "use client";
 
 import { FadeInStagger, FadeInStaggerItem } from "@/components/animations";
+import { PublicationEmptyState } from "@/components/publication";
 import ResourceCard from "./ResourceCard";
 import { Resource } from "@/lib/types";
 
 export default function ResourceGrid({ resources }: { resources: Resource[] }) {
   if (resources.length === 0) {
     return (
-      <div className="bg-gray-50 rounded-lg p-8 text-center">
-        <h3 className="text-xl font-medium mb-2">No Resources Found</h3>
-        <p className="text-gray-600">
-          Try adjusting your filters or search criteria to find what you&apos;re looking for.
-        </p>
-      </div>
+      <PublicationEmptyState
+        title="No Resources Found"
+        description="Try adjusting your filters or search criteria to find what you're looking for."
+      />
     );
   }
-  
+
   return (
     <div>
-      <div className="mb-4 text-gray-600">
-        Showing {resources.length} resource{resources.length !== 1 ? "s" : ""}
-      </div>
-      
-      <FadeInStagger
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-        staggerDelay={0.08}
+      <p
+        className="mb-6 text-sm font-medium text-[#2F3332]/80 dark:text-[#E6E7E7]/80"
+        aria-live="polite"
       >
+        Showing {resources.length} resource
+        {resources.length !== 1 ? "s" : ""}
+      </p>
+
+      <FadeInStagger className="flex flex-col" staggerDelay={0.06}>
         {resources.map((resource) => (
           <FadeInStaggerItem key={resource.id}>
             <ResourceCard resource={resource} />
