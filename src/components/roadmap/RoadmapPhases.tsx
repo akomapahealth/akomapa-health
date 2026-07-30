@@ -1,136 +1,117 @@
-"use client";
-
-import { useState } from "react";
-import { Target, Globe, TrendingUp, CheckCircle, type LucideIcon } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { MotionDiv } from "@/components/motion/framer";
+import { FadeIn } from "@/components/animations";
+import {
+  EditorialBand,
+  EditorialEyebrow,
+  EditorialHeading,
+  EditorialLead,
+} from "@/components/shared/EditorialPrimitives";
 import { phases } from "./phases";
 
-const iconMap: Record<(typeof phases)[number]["icon"], LucideIcon> = {
-  Target,
-  TrendingUp,
-  Globe,
-};
-
 export default function RoadmapPhases() {
-  const [activePhase, setActivePhase] = useState(1);
-
   return (
-    <>
-      {/* Phase Navigation */}
-      <section className="py-8 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
-        <div className="site-container mx-auto px-4">
-          <div className="flex flex-wrap justify-center gap-4">
-            {phases.map((phase) => {
-              const Icon = iconMap[phase.icon];
-              return (
-                <Button
-                  key={phase.id}
-                  onClick={() => setActivePhase(phase.id)}
-                  variant={activePhase === phase.id ? "default" : "outline"}
-                  className={`rounded-full px-6 py-3 ${
-                    activePhase === phase.id
-                      ? `${phase.color} text-[#FCFAEF] hover:${phase.color}`
-                      : "border-[#0097b2] text-[#0097b2] hover:bg-[#0097b2] hover:text-[#FCFAEF] dark:border-[#66C4DC] dark:text-[#66C4DC] dark:hover:bg-[#66C4DC] dark:hover:text-[#1C1F1E]"
-                  }`}
-                >
-                  <Icon className="h-4 w-4 mr-2" />
-                  {phase.title.split(":")[1]}
-                </Button>
-              );
-            })}
-          </div>
+    <EditorialBand
+      tone="cream"
+      marker="01"
+      id="roadmap-phases"
+      aria-labelledby="roadmap-phases-heading"
+    >
+      <FadeIn>
+        <div className="max-w-3xl">
+          <EditorialEyebrow className="text-[#0F4C5C] dark:text-[#66C4DC]">
+            Three Phases
+          </EditorialEyebrow>
+          <EditorialHeading id="roadmap-phases-heading" className="mt-4">
+            Akomapa&apos;s 3-Year Roadmap
+          </EditorialHeading>
+          <EditorialLead className="mt-5">
+            Each phase builds on the last—from launching care and learning
+            systems, to testing sustainability models, to scaling what works.
+          </EditorialLead>
         </div>
-      </section>
+      </FadeIn>
 
-      {/* Active Phase Details */}
-      <section className="py-16">
-        <div className="site-container mx-auto px-4">
-          {phases.map((phase) => {
-            const Icon = iconMap[phase.icon];
-            return (
-              <MotionDiv
-                key={phase.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{
-                  opacity: activePhase === phase.id ? 1 : 0,
-                  y: activePhase === phase.id ? 0 : 20,
-                }}
-                transition={{ duration: 0.5 }}
-                className={`${activePhase === phase.id ? "block" : "hidden"}`}
+      <nav aria-label="Roadmap phases" className="mt-10">
+        <ol className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-4">
+          {phases.map((phase) => (
+            <li key={phase.id}>
+              <a
+                href={`#phase-${phase.id}`}
+                className="inline-flex min-h-11 items-center rounded-md border border-[#1C1F1E]/15 px-4 py-2 text-sm font-semibold text-[#0F4C5C] transition-colors hover:border-[#0097b2] hover:text-[#0097b2] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eeba2b] focus-visible:ring-offset-2 dark:border-[#FCFAEF]/25 dark:text-[#66C4DC] dark:hover:border-[#66C4DC]"
               >
-                <div className="max-w-4xl mx-auto">
-                  {/* Phase Header */}
-                  <div className="text-center mb-12">
-                    <div className="flex items-center justify-center mb-4">
-                      <div
-                        className={`w-16 h-16 rounded-full ${phase.color} flex items-center justify-center mr-4`}
-                      >
-                        <Icon className="h-8 w-8 text-white" />
-                      </div>
-                      <div>
-                        <h2 className="text-3xl md:text-4xl font-bold text-[#1C1F1E] dark:text-[#FCFAEF]">
-                          {phase.title}
-                        </h2>
-                        <p className="text-lg text-[#0097b2] dark:text-[#66C4DC] font-medium">
-                          {phase.period}
-                        </p>
-                      </div>
-                    </div>
+                <span className="mr-2 font-subheading text-xs tracking-[0.15em] uppercase opacity-70">
+                  Phase {phase.id}
+                </span>
+                {phase.title.split(": ")[1] ?? phase.title}
+              </a>
+            </li>
+          ))}
+        </ol>
+      </nav>
 
-                    <div className="bg-white dark:bg-[#2F3332] rounded-xl p-6 shadow-lg mb-8">
-                      <h3 className="text-xl font-semibold text-[#1C1F1E] dark:text-[#FCFAEF] mb-3">
-                        Focus
-                      </h3>
-                      <p className="text-[#2F3332] dark:text-[#E6E7E7] text-lg">
-                        {phase.focus}
-                      </p>
-                    </div>
+      <ol className="mt-14 space-y-0 border-t border-[#1C1F1E]/15 dark:border-[#FCFAEF]/20">
+        {phases.map((phase) => (
+          <li
+            key={phase.id}
+            id={`phase-${phase.id}`}
+            className="scroll-mt-28 border-b border-[#1C1F1E]/15 py-12 dark:border-[#FCFAEF]/20 lg:py-16"
+          >
+            <FadeIn>
+              <div className="grid gap-8 lg:grid-cols-12 lg:gap-12">
+                <div className="lg:col-span-4">
+                  <span
+                    aria-hidden="true"
+                    className="font-heading text-4xl font-semibold tracking-[-0.06em] text-[#0097b2]/55 dark:text-[#66C4DC]/65"
+                  >
+                    {String(phase.id).padStart(2, "0")}
+                  </span>
+                  <h3 className="mt-3 font-heading text-2xl font-semibold text-[#1C1F1E] dark:text-[#FCFAEF] md:text-3xl">
+                    {phase.title}
+                  </h3>
+                  <p className="mt-3 font-subheading text-xs font-bold uppercase tracking-[0.2em] text-[#0097b2] dark:text-[#66C4DC]">
+                    {phase.period}
+                  </p>
+                </div>
 
-                    <div className="bg-gradient-to-r from-[#0097b2] to-[#eeba2b] rounded-xl p-6 text-white">
-                      <h3 className="text-xl font-semibold mb-3 flex items-center">
-                        <Target className="h-5 w-5 mr-2" />
-                        Goal
-                      </h3>
-                      <p className="text-lg">
-                        {phase.goal.replace(/'/g, "&apos;")}
-                      </p>
-                    </div>
+                <div className="lg:col-span-8 space-y-8">
+                  <div>
+                    <h4 className="font-subheading text-xs font-bold uppercase tracking-[0.2em] text-[#2F3332]/70 dark:text-[#E6E7E7]/70">
+                      Focus
+                    </h4>
+                    <p className="mt-2 text-base leading-relaxed text-[#1C1F1E] dark:text-[#FCFAEF] md:text-lg">
+                      {phase.focus}
+                    </p>
                   </div>
 
-                  {/* Achievements Grid */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {phase.achievements.map((achievement, index) => (
-                      <MotionDiv
-                        key={index}
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: index * 0.1 }}
-                      >
-                        <Card className="h-full hover:shadow-lg transition-all duration-300 border-0 shadow-md bg-white dark:bg-[#2F3332] group">
-                          <CardContent className="p-6">
-                            <div className="flex items-start">
-                              <div
-                                className={`w-8 h-8 rounded-full ${phase.color} flex items-center justify-center mr-4 mt-1`}
-                              >
-                                <CheckCircle className="h-4 w-4 text-white" />
-                              </div>
-                              <p className="text-[#2F3332] dark:text-[#E6E7E7] group-hover:text-[#0097b2] dark:group-hover:text-[#66C4DC] transition-colors">
-                                {achievement}
-                              </p>
-                            </div>
-                          </CardContent>
-                        </Card>
-                      </MotionDiv>
-                    ))}
+                  <div className="border-l-2 border-[#eeba2b] pl-5">
+                    <h4 className="font-subheading text-xs font-bold uppercase tracking-[0.2em] text-[#C9920F] dark:text-[#F5C94D]">
+                      Goal
+                    </h4>
+                    <p className="mt-2 text-base leading-relaxed text-[#1C1F1E] dark:text-[#FCFAEF] md:text-lg">
+                      {phase.goal}
+                    </p>
+                  </div>
+
+                  <div>
+                    <h4 className="font-subheading text-xs font-bold uppercase tracking-[0.2em] text-[#2F3332]/70 dark:text-[#E6E7E7]/70">
+                      Key Milestones
+                    </h4>
+                    <ul className="mt-4 space-y-3 border-t border-[#1C1F1E]/10 pt-4 dark:border-[#FCFAEF]/15">
+                      {phase.achievements.map((achievement) => (
+                        <li
+                          key={achievement}
+                          className="text-sm leading-relaxed text-[#2F3332]/80 dark:text-[#E6E7E7]/80 md:text-base"
+                        >
+                          {achievement}
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 </div>
-              </MotionDiv>
-            );
-          })}
-        </div>
-      </section>
-    </>
+              </div>
+            </FadeIn>
+          </li>
+        ))}
+      </ol>
+    </EditorialBand>
   );
 }
