@@ -12,7 +12,7 @@ export const announcementCampaign: AnnouncementCampaign = {
       description:
         "Akomapa Health received the Yogesh Khanal Award to support the development of our Ethical Leadership Program, Akomapa Academy.",
       image: "/images/akomapa-yale.JPG",
-      ctaText: "Read More",
+      ctaText: "Explore the recognition",
       ctaLink: "https://medicine.yale.edu/news-article/global-health-and-equity-distinction-pathway-news-update-for-january-6-2025/",
       isExternal: true,
     },
@@ -66,7 +66,7 @@ export const announcementCampaign: AnnouncementCampaign = {
       description:
         "Akomapa has been promoted to the momentum track in the African Impact Initiative, run by Africa Health Collaborative, for our innovative approach to scaling healthcare access across Ghana.",
       image: "/images/partners/AII-logo.png",
-      ctaText: "Read More",
+      ctaText: "Discover the initiative",
       ctaLink: "https://www.africanimpact.ca/our-initiatives",
       isExternal: true,
     },

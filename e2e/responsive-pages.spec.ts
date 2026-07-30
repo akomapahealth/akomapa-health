@@ -45,6 +45,7 @@ const routes: ReadonlyArray<{ path: string; name: string }> = [
   { path: "/resources", name: "resources" },
   { path: "/news", name: "news" },
   { path: "/blog", name: "blog" },
+  { path: "/about", name: "about" },
   { path: "/about/team", name: "team" },
   { path: "/programs", name: "programs" },
   {
@@ -147,21 +148,35 @@ test.describe("Responsive pages — header, footer, no horizontal overflow", () 
   }
 });
 
-test("Our Teams network hero retains its existing layout container", async ({
+test("the Team node network is unique and contained to its editorial band", async ({
   page,
 }) => {
   await preparePage(page, "light");
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto("/about/team", { waitUntil: "domcontentloaded" });
 
-  const hero = page.locator("section").filter({
-    has: page.locator(".hero-portrait"),
-  });
-  await expect(hero).toHaveCount(1);
+  const network = page.locator("[data-team-node-network]");
+  await expect(network).toHaveCount(1);
+  await expect(network).toBeVisible();
+  await expect(network).toHaveAttribute("aria-hidden", "true");
+  await expect(network.locator("[data-team-node-portrait]")).toHaveCount(22);
 
-  const heroContainer = hero.locator(":scope > .container");
-  await expect(heroContainer).toHaveCount(1);
-  await expect(heroContainer).not.toHaveClass(/site-container/);
-  await expect(heroContainer).toHaveClass(/lg:px-10/);
-  await expect(heroContainer).toHaveClass(/2xl:px-6/);
+  const isContained = await network.evaluate((element) => {
+    const networkBox = element.getBoundingClientRect();
+    const bandBox = element.closest("[data-editorial-band]")?.getBoundingClientRect();
+
+    return Boolean(
+      bandBox &&
+        networkBox.left >= bandBox.left - 1 &&
+        networkBox.right <= bandBox.right + 1 &&
+        networkBox.top >= bandBox.top - 1 &&
+        networkBox.bottom <= bandBox.bottom + 1,
+    );
+  });
+  expect(isContained).toBe(true);
+
+  for (const path of ["/about", "/philosophy"]) {
+    await page.goto(path, { waitUntil: "domcontentloaded" });
+    await expect(page.locator("[data-team-node-network]")).toHaveCount(0);
+  }
 });

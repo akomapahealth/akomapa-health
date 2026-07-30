@@ -25,7 +25,7 @@ describe("site container layout contract", () => {
       "src/components/layout/Header.tsx",
       "src/components/layout/Footer.tsx",
       "src/components/shared/PublicPagePrimitives.tsx",
-      "src/components/home/_home-ui.tsx",
+      "src/components/shared/EditorialPrimitives.tsx",
     ]) {
       expect(readSource(path), `${path} should use site-container`).toContain(
         "site-container",
@@ -33,11 +33,11 @@ describe("site container layout contract", () => {
     }
   });
 
-  it("preserves the Our Teams network hero composition", () => {
+  it("keeps the Team network inside the shared layout system", () => {
     const teamPage = readSource("src/components/about/TeamPageContent.tsx");
-    const heroContainer =
-      'className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-10 xl:px-12 2xl:px-6 flex flex-col gap-8 sm:gap-10 md:gap-12 lg:flex-row lg:items-center"';
 
-    expect(teamPage).toContain(heroContainer);
+    expect(teamPage).toContain("data-team-node-network");
+    expect(teamPage).toContain("site-container");
+    expect(teamPage).not.toContain("container mx-auto px-4");
   });
 });

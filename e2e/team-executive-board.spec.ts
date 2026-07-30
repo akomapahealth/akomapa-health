@@ -102,4 +102,48 @@ test.describe("executive board additions", () => {
       await expectNoPageOverflow(page);
     }
   });
+
+  test("opens and closes a biography by keyboard and returns focus", async ({
+    page,
+  }) => {
+    const trigger = page.locator(
+      '[data-team-bio-trigger="Brian Amu Fleischer, MD"]',
+    );
+    await page.waitForLoadState("networkidle");
+    await trigger.scrollIntoViewIfNeeded();
+    await trigger.focus();
+    await expect(trigger).toBeFocused();
+
+    await page.keyboard.press("Enter");
+    const dialog = page.getByRole("dialog");
+    await expect(dialog).toBeVisible();
+    await expect(
+      dialog.getByRole("heading", {
+        name: "Brian Amu Fleischer, MD",
+        level: 2,
+      }),
+    ).toBeVisible();
+
+    const close = dialog.getByRole("button", {
+      name: "Close Brian Amu Fleischer, MD biography",
+    });
+    await expect(close).toBeVisible();
+    await expect
+      .poll(() =>
+        dialog.evaluate((element) => element.contains(document.activeElement)),
+      )
+      .toBe(true);
+
+    const lastControl = dialog.getByRole("link", {
+      name: "View Brian Amu Fleischer, MD on LinkedIn",
+    });
+    await lastControl.focus();
+    await expect(lastControl).toBeFocused();
+    await page.keyboard.press("Tab");
+    await expect(close).toBeFocused();
+
+    await page.keyboard.press("Escape");
+    await expect(dialog).toBeHidden();
+    await expect(trigger).toBeFocused();
+  });
 });

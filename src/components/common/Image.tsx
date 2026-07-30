@@ -11,9 +11,9 @@ type Props = Omit<ComponentProps<typeof NextImage>, "src" | "loader"> & {
 };
 
 /**
- * ImageKit-backed image using `next/image` with a custom loader (`imageKitLoader`).
- * Use for remote paths served via `NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT` (e.g. `/highlights/...`).
- * Local-only assets under `public/` should use `next/image` directly without this wrapper.
+ * ImageKit-backed image using `next/image` with a custom loader for ImageKit
+ * paths. Absolute remote URLs use Next.js' default optimizer so responsive
+ * width parameters are retained.
  */
 export default function Image({
   src,
@@ -34,6 +34,8 @@ export default function Image({
   const resolvedWidth = minWidth ?? width;
   const resolvedHeight = minHeight ?? height;
   const resolvedSizes = fill ? (sizes ?? "100vw") : sizes;
+  const isAbsoluteRemoteUrl =
+    src.startsWith("https://") || src.startsWith("http://");
 
   const resolvedLoading =
     loading !== undefined
@@ -45,7 +47,7 @@ export default function Image({
   return (
     <NextImage
       {...rest}
-      loader={imageKitLoader}
+      loader={isAbsoluteRemoteUrl ? undefined : imageKitLoader}
       src={src}
       alt={alt}
       width={fill ? undefined : resolvedWidth}

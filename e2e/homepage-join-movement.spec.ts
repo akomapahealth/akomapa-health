@@ -17,7 +17,10 @@ async function preparePage(
   page: Page,
   theme: (typeof themes)[number],
 ) {
-  await page.emulateMedia({ colorScheme: theme });
+  await page.emulateMedia({
+    colorScheme: theme,
+    reducedMotion: "reduce",
+  });
   await page.addInitScript(
     ({ announcementVersion, storedTheme }) => {
       localStorage.setItem(
@@ -47,6 +50,9 @@ test.describe("homepage Join the Movement call to action", () => {
         });
         await preparePage(page, theme);
         await page.goto("/", { waitUntil: "domcontentloaded" });
+        await page.evaluate(async () => {
+          await document.fonts.ready;
+        });
 
         const section = page.getByRole("region", {
           name: heading,

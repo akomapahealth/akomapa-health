@@ -172,6 +172,13 @@ select {
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 0.2s;
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    html,
+    html.dark body * {
+      transition-duration: 0s;
+    }
+  }
 }
 
 /* Add these styles to support theme switching while preserving all existing code */
@@ -385,27 +392,5 @@ html.dark {
   .hero-scroll-cue,
   .hero-scroll-chevron {
     animation: none;
-  }
-}
-
-/* Hero orbit portrait responsive sizing */
-@media (min-width: 1024px) {
-  .hero-portrait {
-    width: 44px !important;
-    height: 44px !important;
-  }
-}
-
-@media (min-width: 1280px) {
-  .hero-portrait {
-    width: 56px !important;
-    height: 56px !important;
-  }
-}
-
-@media (min-width: 1536px) {
-  .hero-portrait {
-    width: var(--portrait-size) !important;
-    height: var(--portrait-size) !important;
   }
 }

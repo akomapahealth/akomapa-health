@@ -22,11 +22,11 @@ describe("FeaturedNews", () => {
     ).slice(0, 3);
 
     for (const item of expected) {
-      const link = screen.getByRole("link", {
-        name: new RegExp(`^read more`, "i"),
-        // multiple "Read More" links exist; just ensure at least one slug is present
-      });
-      expect(link).toBeInTheDocument();
+      expect(
+        screen.getAllByRole("link", {
+          name: /^discover the story/i,
+        }).length,
+      ).toBeGreaterThan(0);
 
       expect(
         screen.getByRole("heading", { level: 3, name: item.title })
@@ -34,7 +34,7 @@ describe("FeaturedNews", () => {
     }
   });
 
-  it("each card 'Read More' link points to the article slug", () => {
+  it("each story link points to the article slug", () => {
     render(<FeaturedNews />);
     const expected = (news.filter((n) => n.featured).length > 0
       ? news.filter((n) => n.featured)
