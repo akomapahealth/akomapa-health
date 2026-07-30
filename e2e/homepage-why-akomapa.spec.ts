@@ -133,15 +133,6 @@ function getSection(page: Page) {
 
 async function getSectionColors(section: Locator) {
   return section.evaluate((element) => {
-    const normalizeToSrgb = (color: string) => {
-      const probe = document.createElement("span");
-      probe.style.color = `color-mix(in srgb, ${color} 100%, transparent)`;
-      element.append(probe);
-      const normalizedColor = getComputedStyle(probe).color;
-      probe.remove();
-      return normalizedColor;
-    };
-
     const card = element.querySelector<HTMLElement>(".homepage-hover-card");
     const title = card?.querySelector<HTMLElement>("h3");
     const body = card?.querySelector<HTMLElement>("p");
@@ -159,21 +150,19 @@ async function getSectionColors(section: Locator) {
     const cardStyles = getComputedStyle(card);
 
     return {
-      background: normalizeToSrgb(cardStyles.backgroundColor),
-      border: normalizeToSrgb(cardStyles.borderTopColor),
+      background: cardStyles.backgroundColor,
+      border: cardStyles.borderTopColor,
       markers: markers.map((marker) => {
         const markerStyles = getComputedStyle(marker);
         return {
-          background: normalizeToSrgb(markerStyles.backgroundColor),
-          border: normalizeToSrgb(markerStyles.borderTopColor),
-          color: normalizeToSrgb(markerStyles.color),
+          background: markerStyles.backgroundColor,
+          border: markerStyles.borderTopColor,
+          color: markerStyles.color,
         };
       }),
-      title: normalizeToSrgb(getComputedStyle(title).color),
-      body: normalizeToSrgb(getComputedStyle(body).color),
-      connector: normalizeToSrgb(
-        getComputedStyle(connector).backgroundColor,
-      ),
+      title: getComputedStyle(title).color,
+      body: getComputedStyle(body).color,
+      connector: getComputedStyle(connector).backgroundColor,
     };
   });
 }
