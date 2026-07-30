@@ -106,7 +106,7 @@ export default function ResourceFilter({
             />
             <button
               type="submit"
-              className="absolute right-0 top-0 inline-flex h-full min-w-11 items-center justify-center text-[#2F3332]/70 transition-colors hover:text-[#0097b2] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eeba2b] dark:text-[#E6E7E7]/70"
+              className="absolute right-1 top-1/2 inline-flex h-11 w-11 -translate-y-1/2 shrink-0 items-center justify-center text-[#2F3332]/70 transition-colors hover:text-[#0097b2] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eeba2b] dark:text-[#E6E7E7]/70"
             >
               <Search size={16} aria-hidden="true" />
               <span className="sr-only">Search</span>
