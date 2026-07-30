@@ -5,6 +5,7 @@ import {
   FadeInStaggerItem,
   motionDurations,
 } from "@/components/animations";
+import { PublicationEmptyState } from "@/components/publication";
 import type { BlogPost } from "@/lib/types";
 import { BlogCard } from "./BlogCard";
 
@@ -21,9 +22,12 @@ type BlogGridProps = {
 export function BlogGrid({ posts, animationKey }: BlogGridProps) {
   if (posts.length === 0) {
     return (
-      <p className="mt-12 text-center text-[#2F3332]/50 dark:text-[#E6E7E7]/40">
-        No articles in this category yet — check back soon.
-      </p>
+      <div className="mt-12">
+        <PublicationEmptyState
+          title="No articles in this category yet"
+          description="Check back soon for new Thought Leadership perspectives."
+        />
+      </div>
     );
   }
 

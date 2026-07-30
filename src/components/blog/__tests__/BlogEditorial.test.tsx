@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 import { BlogCard } from "@/components/blog/BlogCard";
 import { BlogFeaturedPost } from "@/components/blog/BlogFeaturedPost";
 import { BlogHero } from "@/components/blog/BlogHero";
+import { BlogPost } from "@/components/blog/BlogPost";
 import { blogPosts } from "@/data/blog";
 
 describe("Thought Leadership editorial components", () => {
@@ -31,4 +32,25 @@ describe("Thought Leadership editorial components", () => {
     expect(screen.getByText("Explore this perspective")).toBeInTheDocument();
     expect(screen.queryByText(/read more|read article/i)).not.toBeInTheDocument();
   });
+
+  it("renders a flat detail header without gradient chrome", () => {
+    const post = blogPosts[0];
+    const { container } = render(
+      <BlogPost post={post} related={[]} hasMoreByAuthor={false} />,
+    );
+
+    expect(
+      screen.getByRole("heading", { level: 1, name: post.title }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", { name: /Back to Thought Leadership/i }),
+    ).toHaveAttribute("href", "/blog");
+    expect(container.querySelector("[data-editorial-band]")).toHaveAttribute(
+      "data-editorial-tone",
+      "teal",
+    );
+    expect(container.innerHTML).not.toContain("gradient");
+    expect(container.innerHTML).not.toContain("blur-3xl");
+  });
 });
+

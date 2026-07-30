@@ -75,11 +75,11 @@ export function BlogCard({ post }: BlogCardProps) {
             </span>
           )}
 
-          <h3 className="mb-2 font-heading text-lg font-bold leading-snug text-[#1C1F1E] line-clamp-2 dark:text-[#FCFAEF]">
+          <h3 className="mb-2 font-heading text-lg font-bold leading-snug text-[#1C1F1E] dark:text-[#FCFAEF]">
             {post.title}
           </h3>
 
-          <p className="mb-5 flex-1 text-sm leading-relaxed text-[#2F3332]/70 line-clamp-3 dark:text-[#E6E7E7]/60">
+          <p className="mb-5 flex-1 text-sm leading-relaxed text-[#2F3332]/70 dark:text-[#E6E7E7]/60">
             {post.excerpt}
           </p>
 
