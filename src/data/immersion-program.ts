@@ -43,7 +43,7 @@ export const immersionProgram: ImmersionProgramContent = {
   eyebrow: "Global Health Immersion Program",
   title: "Learn through partnership. Lead with understanding.",
   introduction:
-    "A three-week global health learning experience in Ghana that brings students and emerging health professionals into supervised community health practice, applied research, seminars, and structured reflection.",
+    "A two-week global health learning experience in Ghana that brings students and emerging health professionals into supervised community health practice, applied research, seminars, and structured reflection.",
   overview: [
     "The Akomapa Global Health Immersion Program connects learning with supervised practice. Participants work alongside local student teams, faculty, and community partners to understand how prevention, primary care, research, and health systems meet in everyday settings.",
     "Ghana is the program's first host country. The experience is designed to help participants examine global health work with cultural humility, ethical discipline, and respect for local knowledge.",
@@ -53,13 +53,13 @@ export const immersionProgram: ImmersionProgramContent = {
   facts: [
     {
       label: "Duration",
-      value: "3 weeks",
+      value: "2 weeks",
       description: "An intensive, structured learning experience.",
     },
     {
       label: "First host site",
-      value: "Ghana",
-      description: "Beginning at the University of Cape Coast.",
+      value: "University of Ghana, Legon",
+      description: "Beginning at the University of Ghana.",
     },
     {
       label: "Credential",
@@ -178,7 +178,7 @@ export const immersionProgram: ImmersionProgramContent = {
   ],
   hostSite: {
     heading: "First host site",
-    name: "University of Cape Coast, Ghana",
+    name: "University of Ghana, Legon",
     status: "Next cohort details forthcoming",
     description:
       "Dates, fees, and application timing will be published after they are confirmed. Prospective participants can register interest now to request an update.",
@@ -196,7 +196,7 @@ export const immersionProgram: ImmersionProgramContent = {
     },
     hostSite: {
       src: "/highlights/Akomapa-12.jpg",
-      alt: "Akomapa participants gathered at the University of Cape Coast in Ghana",
+      alt: "Akomapa participants gathered during a health program in Ghana",
       position: "center",
     },
   },

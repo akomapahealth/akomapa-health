@@ -5,13 +5,17 @@ describe("immersion program content", () => {
   it("preserves the verified program facts and complete learning model", () => {
     expect(immersionProgram.facts).toEqual(
       expect.arrayContaining([
-        expect.objectContaining({ label: "Duration", value: "3 weeks" }),
-        expect.objectContaining({ label: "First host site", value: "Ghana" }),
+        expect.objectContaining({ label: "Duration", value: "2 weeks" }),
+        expect.objectContaining({
+          label: "First host site",
+          value: "University of Ghana, Legon",
+        }),
         expect.objectContaining({ label: "Credential", value: "Certificate" }),
       ]),
     );
+    expect(immersionProgram.introduction).toContain("two-week");
     expect(immersionProgram.hostSite.name).toBe(
-      "University of Cape Coast, Ghana",
+      "University of Ghana, Legon",
     );
     expect(immersionProgram.experiences).toHaveLength(7);
     expect(immersionProgram.learningComponents).toHaveLength(5);
