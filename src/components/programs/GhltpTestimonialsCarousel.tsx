@@ -63,7 +63,7 @@ export default function GhltpTestimonialsCarousel() {
       className="relative mx-auto max-w-4xl"
       role="region"
       aria-roledescription="carousel"
-      aria-label="Voices from participants"
+      aria-label="Participant testimonial carousel"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       onFocusCapture={() => setIsPaused(true)}

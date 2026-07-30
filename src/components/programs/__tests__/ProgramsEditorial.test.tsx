@@ -126,7 +126,7 @@ describe("GHLTP editorial contracts", () => {
     render(<GhltpTestimonialsCarousel />);
 
     expect(
-      screen.getByRole("region", { name: "Voices from participants" }),
+      screen.getByRole("region", { name: "Participant testimonial carousel" }),
     ).toBeVisible();
     expect(
       screen.getByRole("button", { name: /Previous testimonial/i }),
