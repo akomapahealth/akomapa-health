@@ -1,13 +1,16 @@
-import Link from "next/link";
-import {
-  ArrowLeft,
-  Download,
-  ExternalLink,
-  FileText,
-  Printer,
-} from "lucide-react";
 import Breadcrumb from "@/components/layout/Breadcrumb";
-import { Button } from "@/components/ui/button";
+import {
+  PublicationArticleMeasure,
+  PublicationBackLink,
+  PublicationDocumentActions,
+  PublicationMeta,
+} from "@/components/publication";
+import {
+  EditorialBand,
+  EditorialEyebrow,
+  EditorialHeading,
+  EditorialLead,
+} from "@/components/shared/EditorialPrimitives";
 import type { ResearchPaper } from "@/data/research-papers";
 import DeferredPdfViewer from "./DeferredPdfViewer";
 
@@ -19,94 +22,90 @@ export default function ResearchPaperContent({
   const downloadName = `${paper.slug}.pdf`;
 
   return (
-    <article>
+    <article data-rebrand-page className="bg-background text-foreground">
       <div className="site-container mx-auto">
         <Breadcrumb />
       </div>
 
-      <header className="relative overflow-hidden bg-gradient-to-r from-[#0097b2] to-[#0F4C5C] py-16 md:py-24">
-        <div className="absolute right-0 top-0 h-64 w-64 translate-x-1/2 -translate-y-1/2 rounded-full bg-[#FCFAEF]/10 blur-3xl" />
-        <div className="absolute bottom-0 left-0 h-96 w-96 -translate-x-1/2 translate-y-1/2 rounded-full bg-[#FCFAEF]/10 blur-3xl" />
+      <EditorialBand
+        tone="teal"
+        aria-labelledby="research-paper-heading"
+        className="border-b border-[#FCFAEF]/20 bg-[#0F4C5C]"
+        containerClassName="py-14 sm:py-16 md:py-20 lg:py-24"
+      >
+        <PublicationBackLink href="/research" tone="light">
+          Back to Research
+        </PublicationBackLink>
 
-        <div className="site-container relative z-10 mx-auto px-4 sm:px-6">
-          <div className="animate-in fade-in slide-in-from-bottom-3 duration-500 motion-reduce:animate-none">
-            <Link
-              href="/research"
-              className="mb-6 inline-flex items-center text-[#FCFAEF]/80 transition-colors hover:text-[#FCFAEF] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F5C94D] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0F4C5C]"
-            >
-              <ArrowLeft className="mr-2 h-4 w-4" aria-hidden="true" />
-              Back to Research
-            </Link>
+        <EditorialEyebrow tone="gold" className="text-[#F5C94D]">
+          Research Paper
+        </EditorialEyebrow>
+        <EditorialHeading
+          as="h1"
+          id="research-paper-heading"
+          className="mt-5 max-w-4xl text-[1.85rem] text-[#FCFAEF] sm:text-[2.35rem] md:text-[2.85rem] lg:text-[3.25rem]"
+        >
+          {paper.title}
+        </EditorialHeading>
+        <PublicationMeta
+          className="mt-5 text-[#FCFAEF]/85 [&_dd]:text-[#FCFAEF]"
+          items={[
+            { label: "Authors", value: paper.authors },
+            {
+              label: "Published",
+              value: `Published: ${paper.date}`,
+            },
+          ]}
+        />
+      </EditorialBand>
 
-            <div className="max-w-4xl">
-              <div className="mb-4 flex items-center gap-2" aria-hidden="true">
-                <span className="h-2.5 w-2.5 rounded-full bg-[#F5C94D]" />
-                <span className="h-2.5 w-2.5 rounded-full bg-[#F5C94D]" />
-                <span className="h-2.5 w-2.5 rounded-full bg-[#FCFAEF]/40" />
-              </div>
-              <h1 className="mb-4 text-2xl font-semibold leading-tight text-[#FCFAEF] sm:text-3xl md:text-4xl">
-                {paper.title}
-              </h1>
-              <p className="mb-2 text-base font-medium text-[#F5C94D] sm:text-lg">
-                {paper.authors}
-              </p>
-              <p className="text-sm text-[#FCFAEF]/70">
-                Published: <time>{paper.date}</time>
-              </p>
-            </div>
-          </div>
+      <EditorialBand
+        tone="cream"
+        aria-labelledby="research-abstract-heading"
+        containerClassName="py-12 md:py-16 lg:py-20"
+      >
+        <PublicationArticleMeasure className="max-w-3xl">
+          <EditorialEyebrow className="text-[#0F4C5C] dark:text-[#66C4DC]">
+            Summary
+          </EditorialEyebrow>
+          <EditorialHeading
+            as="h2"
+            id="research-abstract-heading"
+            className="mt-3"
+          >
+            Abstract
+          </EditorialHeading>
+          <EditorialLead className="mt-5 text-[#2F3332] dark:text-[#E6E7E7]">
+            {paper.abstract}
+          </EditorialLead>
+
+          <PublicationDocumentActions
+            className="mt-8 border-t border-[#1C1F1E]/10 pt-6 dark:border-[#FCFAEF]/15"
+            aria-label="Research paper actions"
+            actions={[
+              {
+                href: "#pdf-viewer",
+                label: "View PDF",
+                variant: "primary",
+              },
+              {
+                href: paper.pdfUrl,
+                label: "Download PDF",
+                download: downloadName,
+              },
+              {
+                href: paper.pdfUrl,
+                label: "Print PDF",
+                external: true,
+              },
+            ]}
+          />
+        </PublicationArticleMeasure>
+
+        <div className="mt-10 max-w-5xl">
+          <DeferredPdfViewer pdfUrl={paper.pdfUrl} />
         </div>
-      </header>
-
-      <section className="bg-[#FCFAEF] py-8 dark:bg-[#1C1F1E] md:py-12">
-        <div className="site-container mx-auto px-4 sm:px-6">
-          <div className="mx-auto max-w-7xl">
-            <div className="rounded-2xl bg-white p-6 shadow-lg dark:bg-[#2F3332] sm:p-8">
-              <div className="flex items-center gap-3">
-                <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#0097b2]/10 text-[#0097b2] dark:bg-[#66C4DC]/15 dark:text-[#66C4DC]">
-                  <FileText className="h-5 w-5" aria-hidden="true" />
-                </span>
-                <h2 className="text-xl font-semibold text-[#1C1F1E] dark:text-[#FCFAEF] sm:text-2xl">
-                  Abstract
-                </h2>
-              </div>
-              <p className="mt-5 text-base leading-relaxed text-[#2F3332] dark:text-[#E6E7E7] sm:text-lg">
-                {paper.abstract}
-              </p>
-
-              <div
-                className="mt-7 flex flex-col gap-3 border-t border-[#E6E7E7] pt-6 dark:border-[#4F5554] sm:flex-row sm:flex-wrap"
-                aria-label="Research paper actions"
-              >
-                <Button asChild className="w-full sm:w-auto">
-                  <a href="#pdf-viewer">
-                    <ExternalLink className="mr-2 h-4 w-4" aria-hidden="true" />
-                    View PDF
-                  </a>
-                </Button>
-                <Button asChild variant="outline" className="w-full sm:w-auto">
-                  <a href={paper.pdfUrl} download={downloadName}>
-                    <Download className="mr-2 h-4 w-4" aria-hidden="true" />
-                    Download PDF
-                  </a>
-                </Button>
-                <Button asChild variant="outline" className="w-full sm:w-auto">
-                  <a
-                    href={paper.pdfUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Printer className="mr-2 h-4 w-4" aria-hidden="true" />
-                    Print PDF
-                  </a>
-                </Button>
-              </div>
-            </div>
-
-            <DeferredPdfViewer pdfUrl={paper.pdfUrl} />
-          </div>
-        </div>
-      </section>
+      </EditorialBand>
     </article>
   );
 }
