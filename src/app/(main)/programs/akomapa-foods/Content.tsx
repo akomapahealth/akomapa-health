@@ -1,104 +1,89 @@
-import { MotionDiv, MotionH1, MotionP } from "@/components/motion/framer";
-import Link from "next/link";
-import Breadcrumb from "@/components/layout/Breadcrumb";
 import Image from "@/components/common/Image";
-import { Button } from "@/components/ui/button";
-import { ArrowLeft } from "lucide-react";
+import { FadeIn } from "@/components/animations";
+import Breadcrumb from "@/components/layout/Breadcrumb";
+import ProgramDetailHero from "@/components/programs/ProgramDetailHero";
+import ProgramQuoteBand from "@/components/programs/ProgramQuoteBand";
+import {
+  EditorialBand,
+  EditorialButton,
+  EditorialEyebrow,
+  EditorialHeading,
+  EditorialLead,
+} from "@/components/shared/EditorialPrimitives";
 
 const whatWeDo = [
   {
     title: "Community Farms",
     description:
       "We work alongside farmers and cooperatives to grow fresh produce with regenerative practices, ensuring every harvest strengthens local soil, nutrition, and income.",
-    accentColor: "#0097b2"
   },
   {
     title: "Akomapa Stores",
     description:
       "Neighborhood stores make healthy food accessible and affordable, with every purchase reinvested into clinic operations and health education.",
-    accentColor: "#eeba2b"
   },
   {
     title: "Nutrition & Wellness Education",
     description:
       "Clinic visits include personalized counseling and cooking demonstrations so families leave with knowledge, recipes, and confidence.",
-    accentColor: "#0F4C5C"
   },
   {
     title: "Economic Empowerment",
     description:
       "Agriculture, retail, and distribution roles create dignified jobs for youth and women, expanding leadership pathways tied to community wellbeing.",
-    accentColor: "#0097b2"
   },
   {
     title: "Sustainability Cycle",
     description:
       "Every cedi earned flows back into medication, equipment, and leadership training, making care both free at the point of service and financially resilient.",
-    accentColor: "#eeba2b"
-  }
-];
+  },
+] as const;
 
 const longTermGoals = [
   {
     title: "Establish 5+ farms and stores by 2030",
     detail:
       "Each site will anchor an Akomapa clinic with reliable access to nutritious food grown and sold by community members.",
-    accentColor: "#0097b2"
   },
   {
     title: "Cover 25% of clinic costs annually",
     detail:
       "Proceeds from farms and stores will underwrite essential services, medicines, and logistics across the network.",
-    accentColor: "#eeba2b"
   },
   {
     title: "Train local youth and women",
     detail:
       "Hands-on apprenticeships in sustainable farming and agribusiness will expand economic mobility and leadership.",
-    accentColor: "#0F4C5C"
   },
   {
     title: "Integrate nutrition education everywhere",
     detail:
       "Every outreach, clinic day, and community event will include live cooking, tastings, and practical guidance for day-to-day wellness.",
-    accentColor: "#66C4DC"
-  }
-];
+  },
+] as const;
 
 const partners = [
   {
     name: "Local Farming Cooperatives",
-    logo: "/images/partners/local-coops-logo.svg"
+    logo: "/images/partners/local-coops-logo.svg",
   },
   {
     name: "Ministry of Food & Agriculture",
-    logo: "/images/partners/mofa-logo.svg"
+    logo: "/images/partners/mofa-logo.svg",
   },
   {
     name: "Ghana Health Service Nutrition Units",
-    logo: "/images/partners/ghana-health-service-logo.png"
+    logo: "/images/partners/ghana-health-service-logo.png",
   },
   {
     name: "UCC School of Agriculture",
-    logo: "/images/partners/ucc.png"
+    logo: "/images/partners/ucc.png",
   },
   {
     name: "Global Nutrition & Sustainability Alliance",
-    logo: "/images/partners/global-nutrition-logo.svg"
-  }
-];
-
-const ctaBaseClass =
-  "group inline-flex items-center justify-center gap-2 rounded-half px-8 py-6 h-auto text-base sm:text-lg font-medium transition-all duration-300 transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2";
-
-const primaryCtaClass =
-  `${ctaBaseClass} bg-[#0097b2] hover:bg-[#0097b2]/80 text-[#FCFAEF] shadow-lg hover:shadow-xl focus-visible:ring-[#8DD4E6]`;
-
-const secondaryCtaClass =
-  `${ctaBaseClass} bg-[#eeba2b] hover:bg-[#eeba2b]/80 text-[#FCFAEF] shadow-lg hover:shadow-xl focus-visible:ring-[#F5C94D]`;
-
-const outlineCtaClass =
-  `${ctaBaseClass} border-2 border-[#FCFAEF] text-[#FCFAEF] hover:bg-[#FCFAEF]/10 shadow-none focus-visible:ring-[#FCFAEF]`;
+    logo: "/images/partners/global-nutrition-logo.svg",
+  },
+] as const;
 
 export default function Content() {
   return (
@@ -107,378 +92,347 @@ export default function Content() {
         <Breadcrumb />
       </div>
 
-      <section className="relative min-h-[80vh] py-16 sm:py-20 md:py-28 bg-gradient-to-r from-[#0B2F3A] via-[#0F4C5C] to-[#0097b2] overflow-hidden">
-        <div className="absolute top-0 right-0 w-64 h-64 bg-[#FCFAEF]/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#FCFAEF]/10 rounded-full translate-y-1/2 -translate-x-1/2 blur-3xl" />
+      <ProgramDetailHero
+        eyebrow="Akomapa Foods & Stores Initiative"
+        title="Nourishing Health. Sustaining Care. Empowering Communities."
+        lead="Health begins long before patients reach our clinics. By linking agriculture, nutrition, and economic participation, Akomapa ensures that every community can feed, heal, and sustain itself."
+        image="/highlights/Akomapa-47.jpg"
+        imageAlt="Akomapa Foods team cultivating community farms"
+        ctas={[
+          { href: "/partnerships", label: "Partner with Us", variant: "solid" },
+          {
+            href: "/get-involved",
+            label: "Support the Launch",
+            variant: "amber",
+          },
+          { href: "/donate", label: "Donate", variant: "amber" },
+        ]}
+      />
 
-        <div className="site-container mx-auto px-4 sm:px-6 relative z-10 flex flex-col gap-12 sm:gap-14">
-          <MotionDiv
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="pt-2"
-          >
-            <Link
-              href="/programs"
-              className="inline-flex items-center text-[#FCFAEF]/80 hover:text-[#FCFAEF] transition-colors text-sm font-medium"
-            >
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              Back to Programs
-            </Link>
-          </MotionDiv>
-          <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
-            <div className="w-full lg:w-1/2 max-w-3xl">
-              <MotionP
-                initial={{ opacity: 0, y: 40 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, ease: "easeOut" }}
-                className="uppercase tracking-[0.3em] text-xs sm:text-sm font-semibold text-[#FCFAEF]/80 mb-6"
-              >
-                Akomapa Foods & Stores Initiative
-              </MotionP>
-              <MotionH1
-                initial={{ opacity: 0, y: 40 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1, duration: 0.8, ease: "easeOut" }}
-                className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-light text-[#FCFAEF] mb-6 leading-tight"
-              >
-                Nourishing Health. Sustaining Care. Empowering Communities.
-              </MotionH1>
-              <MotionP
-                initial={{ opacity: 0, y: 40 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2, duration: 0.8, ease: "easeOut" }}
-                className="text-base sm:text-lg md:text-2xl text-[#FCFAEF]/85 font-light"
-              >
-                Health begins long before patients reach our clinics. By linking agriculture, nutrition, and economic participation, Akomapa ensures that every community can feed, heal, and sustain itself.
-              </MotionP>
-              <MotionDiv
-                initial={{ opacity: 0, y: 40 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3, duration: 0.8, ease: "easeOut" }}
-                className="mt-8 flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4"
-              >
-                <Button asChild className={primaryCtaClass}>
-                  <Link href="/partnerships">Partner with Us</Link>
-                </Button>
-                <Button asChild className={secondaryCtaClass}>
-                  <Link href="/get-involved">Support the Launch</Link>
-                </Button>
-                <Button asChild className={secondaryCtaClass}>
-                  <Link href="/donate">Donate</Link>
-                </Button>
-              </MotionDiv>
-            </div>
-            <MotionDiv
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4, duration: 0.8, ease: "easeOut" }}
-              className="w-full lg:w-1/2 relative h-[340px] sm:h-[420px] md:h-[520px] lg:h-[660px] rounded-3xl overflow-hidden shadow-2xl border border-white/10"
-            >
-              <Image
-                src="/highlights/Akomapa-47.jpg"
-                alt="Akomapa Foods team cultivating community farms"
-                fill
-                sizes="(min-width: 1024px) 50vw, 100vw"
-                className="object-cover object-center"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
-            </MotionDiv>
-          </div>
-        </div>
-      </section>
-
-      <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
-        <div className="site-container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            <MotionDiv
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1, duration: 0.6 }}
-              viewport={{ once: true, amount: 0.3 }}
-              className="order-2 lg:order-1 relative w-full min-h-[320px] h-[320px] sm:h-[380px] md:h-[420px] lg:h-[460px] rounded-3xl overflow-hidden shadow-2xl"
-            >
+      <EditorialBand
+        tone="cream"
+        marker="01"
+        id="foods-about"
+        aria-labelledby="foods-about-heading"
+      >
+        <div className="grid items-start gap-10 lg:grid-cols-12 lg:gap-16">
+          <FadeIn direction="left" className="relative order-2 lg:order-1 lg:col-span-5">
+            <span
+              aria-hidden="true"
+              className="absolute -top-3 left-0 z-10 h-1 w-24 bg-[#eeba2b]"
+            />
+            <div className="relative aspect-[4/3] overflow-hidden rounded-md border border-[#1C1F1E]/10 bg-[#E6E7E7] dark:border-[#FCFAEF]/15 dark:bg-[#2F3332]">
               <Image
                 src="/highlights/Akomapa-61.jpg"
                 alt="Fresh produce harvested for the Akomapa Foods Initiative"
                 fill
-                sizes="(min-width: 1024px) 50vw, 100vw"
+                sizes="(min-width: 1024px) 40vw, 100vw"
                 className="object-cover object-center"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent" />
-            </MotionDiv>
-            <MotionDiv
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true, amount: 0.3 }}
-              className="order-1 lg:order-2"
-            >
-              <h2 className="text-3xl md:text-4xl font-bold mb-6 text-[#1C1F1E] dark:text-[#FCFAEF]">
-                About the Initiative
-              </h2>
-              <div className="space-y-5 text-lg text-[#2F3332] dark:text-[#E6E7E7] leading-relaxed">
-                <p>
-                  The Akomapa Foods & Stores Initiative is the sustainability engine of our health model, connecting food security, economic empowerment, and clinic access in one ecosystem.
-                </p>
-                <p>
-                  Health starts in kitchens, markets, and farms. When communities grow and sell nutritious food, they also strengthen the very clinics that care for them.
-                </p>
-                <p>
-                  By linking agriculture and nutrition to student-powered community health hubs, Akomapa ensures communities receive care and co-own the means to sustain it for generations.
-                </p>
-              </div>
-            </MotionDiv>
-          </div>
-        </div>
-      </section>
-
-      <section className="py-16 md:py-24 bg-gradient-to-r from-[#0097b2] to-[#0F4C5C] text-[#FCFAEF] relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute -top-20 left-10 h-56 w-56 rounded-full bg-[#FCFAEF]/10 blur-3xl" />
-          <div className="absolute bottom-0 right-0 h-72 w-72 rounded-full bg-[#F5C94D]/10 blur-3xl" />
-        </div>
-        <div className="relative site-container mx-auto px-4">
-          <MotionDiv
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true, amount: 0.3 }}
-            className="max-w-4xl mx-auto text-center space-y-5"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold">
-              Our Vision
-            </h2>
-            <p className="text-lg md:text-xl text-[#FCFAEF]/90 leading-relaxed">
-              We are building a network of community-run farms and food stores that make nutritious food accessible while generating revenue to fund free, student-led healthcare. Every clinic becomes part of a thriving local economy where wellness, work, and sustainability reinforce one another.
-            </p>
-          </MotionDiv>
-        </div>
-      </section>
-
-      <section className="py-16 md:py-24 bg-[#F4F1E8] dark:bg-[#1C1F1E]">
-        <div className="site-container mx-auto px-4">
-          <MotionDiv
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true, amount: 0.3 }}
-            className="text-center max-w-4xl mx-auto mb-12 space-y-4"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold text-[#1C1F1E] dark:text-[#FCFAEF]">
-              What We Do
-            </h2>
-            <p className="text-lg text-[#2F3332] dark:text-[#E6E7E7] leading-relaxed">
-              A full-circle model blends agriculture, retail, education, and reinvestment so communities thrive alongside their clinics.
-            </p>
-          </MotionDiv>
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-            {whatWeDo.map((item, index) => (
-              <MotionDiv
-                key={item.title}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.05 }}
-                viewport={{ once: true, amount: 0.3 }}
-                className="rounded-3xl bg-white dark:bg-[#2F3332] p-6 lg:p-8 shadow-lg border border-[#E6E7E7]/50 dark:border-[#3A3E3D]"
-              >
-                <div
-                  className="h-1 w-16 rounded-full mb-4"
-                  style={{ backgroundColor: item.accentColor }}
-                />
-                <h3 className="text-xl font-semibold text-[#1C1F1E] dark:text-[#FCFAEF] mb-3">
-                  {item.title}
-                </h3>
-                <p className="text-base text-[#2F3332] dark:text-[#E6E7E7]/90 leading-relaxed">
-                  {item.description}
-                </p>
-              </MotionDiv>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="pilot" className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
-        <div className="site-container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            <MotionDiv
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true, amount: 0.3 }}
-              className="order-2 lg:order-1 bg-white/95 dark:bg-[#2F3332]/95 rounded-3xl p-8 md:p-10 shadow-2xl border border-[#E6E7E7]/60 dark:border-[#3A3E3D] space-y-5"
-            >
-              <div className="inline-flex items-center text-xs font-semibold uppercase tracking-[0.3em] text-[#0097b2]">
-                Spotlight
-              </div>
-              <h2 className="text-3xl md:text-4xl font-bold text-[#1C1F1E] dark:text-[#FCFAEF]">
-                Pilot Project
-              </h2>
-              <p className="text-lg text-[#2F3332] dark:text-[#E6E7E7] leading-relaxed">
-                Our first Akomapa Farm and Store launches near the University of Cape Coast in 2027. The site will supply fresh produce directly to local families, power free clinic days, and document a model for replication.
+            </div>
+          </FadeIn>
+          <FadeIn className="order-1 lg:order-2 lg:col-span-7">
+            <EditorialEyebrow className="text-[#0F4C5C] dark:text-[#66C4DC]">
+              About
+            </EditorialEyebrow>
+            <EditorialHeading id="foods-about-heading" className="mt-4">
+              About the Initiative
+            </EditorialHeading>
+            <div className="mt-6 space-y-5 text-base leading-relaxed text-[#2F3332]/80 dark:text-[#E6E7E7]/80 md:text-lg">
+              <p>
+                The Akomapa Foods & Stores Initiative is the sustainability
+                engine of our health model, connecting food security, economic
+                empowerment, and clinic access in one ecosystem.
               </p>
-              <div className="rounded-2xl bg-[#F4F1E8] dark:bg-[#1F2322] border border-[#E6E7E7]/70 dark:border-[#3A3E3D] p-6 space-y-3">
-                <p className="text-base text-[#2F3332] dark:text-[#E6E7E7] leading-relaxed">
-                  Expansion plans are already aligned with future Akomapa clinics across Ghana, Africa, and the United States. Each new location adapts to local crops, culture, and community priorities while staying rooted in our shared standards.
-                </p>
-                <p className="text-sm font-semibold text-[#0097b2] dark:text-[#66C4DC]">
-                  Launch Timeline · 2027
-                </p>
-              </div>
-            </MotionDiv>
-            <MotionDiv
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1, duration: 0.6 }}
-              viewport={{ once: true, amount: 0.3 }}
-              className="order-1 lg:order-2 relative w-full h-[260px] sm:h-[320px] md:h-[420px] rounded-3xl overflow-hidden shadow-2xl"
+              <p>
+                Health starts in kitchens, markets, and farms. When communities
+                grow and sell nutritious food, they also strengthen the very
+                clinics that care for them.
+              </p>
+              <p>
+                By linking agriculture and nutrition to student-powered community
+                health hubs, Akomapa ensures communities receive care and co-own
+                the means to sustain it for generations.
+              </p>
+            </div>
+          </FadeIn>
+        </div>
+      </EditorialBand>
+
+      <EditorialBand
+        tone="teal"
+        marker="02"
+        id="foods-vision"
+        aria-labelledby="foods-vision-heading"
+        className="bg-[#0F4C5C]"
+      >
+        <FadeIn>
+          <div className="max-w-4xl">
+            <EditorialEyebrow tone="gold" className="text-[#F5C94D]">
+              Vision
+            </EditorialEyebrow>
+            <EditorialHeading
+              id="foods-vision-heading"
+              className="mt-4 text-[#FCFAEF]"
             >
+              Our Vision
+            </EditorialHeading>
+            <EditorialLead className="mt-6 text-[#FCFAEF]/90 dark:text-[#FCFAEF]/90 md:text-xl">
+              We are building a network of community-run farms and food stores
+              that make nutritious food accessible while generating revenue to
+              fund free, student-led healthcare. Every clinic becomes part of a
+              thriving local economy where wellness, work, and sustainability
+              reinforce one another.
+            </EditorialLead>
+          </div>
+        </FadeIn>
+      </EditorialBand>
+
+      <EditorialBand
+        tone="cream"
+        marker="03"
+        id="foods-what"
+        aria-labelledby="foods-what-heading"
+      >
+        <FadeIn>
+          <div className="max-w-3xl">
+            <EditorialEyebrow className="text-[#0F4C5C] dark:text-[#66C4DC]">
+              Model
+            </EditorialEyebrow>
+            <EditorialHeading id="foods-what-heading" className="mt-4">
+              What We Do
+            </EditorialHeading>
+            <EditorialLead className="mt-5">
+              A full-circle model blends agriculture, retail, education, and
+              reinvestment so communities thrive alongside their clinics.
+            </EditorialLead>
+          </div>
+        </FadeIn>
+
+        <ol className="mt-12 grid border-t border-[#1C1F1E]/15 md:grid-cols-2 xl:grid-cols-3 dark:border-[#FCFAEF]/20">
+          {whatWeDo.map((item, index) => (
+            <li
+              key={item.title}
+              className="border-b border-[#1C1F1E]/15 px-1 py-7 md:border-r md:px-6 xl:[&:nth-child(3n)]:border-r-0 dark:border-[#FCFAEF]/20"
+            >
+              <span
+                aria-hidden="true"
+                className="font-heading text-3xl font-semibold tracking-[-0.06em] text-[#0097b2]/55 dark:text-[#66C4DC]/65"
+              >
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              <h3 className="mt-4 font-heading text-xl font-semibold text-[#1C1F1E] dark:text-[#FCFAEF]">
+                {item.title}
+              </h3>
+              <p className="mt-3 text-sm leading-relaxed text-[#2F3332]/80 dark:text-[#E6E7E7]/80 md:text-base">
+                {item.description}
+              </p>
+            </li>
+          ))}
+        </ol>
+      </EditorialBand>
+
+      <EditorialBand
+        tone="cream"
+        marker="04"
+        id="pilot"
+        aria-labelledby="foods-pilot-heading"
+      >
+        <div className="grid items-start gap-10 lg:grid-cols-12 lg:gap-16">
+          <FadeIn className="order-2 lg:order-1 lg:col-span-7">
+            <EditorialEyebrow className="text-[#0F4C5C] dark:text-[#66C4DC]">
+              Spotlight
+            </EditorialEyebrow>
+            <EditorialHeading id="foods-pilot-heading" className="mt-4">
+              Pilot Project
+            </EditorialHeading>
+            <EditorialLead className="mt-5">
+              Our first Akomapa Farm and Store launches near the University of
+              Cape Coast in 2027. The site will supply fresh produce directly to
+              local families, power free clinic days, and document a model for
+              replication.
+            </EditorialLead>
+            <dl className="mt-8 border-y border-[#1C1F1E]/15 dark:border-[#FCFAEF]/20">
+              <div className="py-6">
+                <dt className="sr-only">Expansion plans</dt>
+                <dd className="text-base leading-relaxed text-[#2F3332]/80 dark:text-[#E6E7E7]/80 md:text-lg">
+                  Expansion plans are already aligned with future Akomapa clinics
+                  across Ghana, Africa, and the United States. Each new location
+                  adapts to local crops, culture, and community priorities while
+                  staying rooted in our shared standards.
+                </dd>
+              </div>
+              <div className="border-t border-[#1C1F1E]/15 py-6 dark:border-[#FCFAEF]/20">
+                <dt className="sr-only">Launch timeline</dt>
+                <dd className="text-sm font-semibold text-[#0097b2] dark:text-[#66C4DC]">
+                  Launch Timeline · 2027
+                </dd>
+              </div>
+            </dl>
+          </FadeIn>
+          <FadeIn direction="left" delay={0.1} className="relative order-1 lg:order-2 lg:col-span-5">
+            <span
+              aria-hidden="true"
+              className="absolute -top-3 left-0 z-10 h-1 w-24 bg-[#eeba2b]"
+            />
+            <div className="relative aspect-[4/3] overflow-hidden rounded-md border border-[#1C1F1E]/10 bg-[#E6E7E7] dark:border-[#FCFAEF]/15 dark:bg-[#2F3332]">
               <Image
                 src="/highlights/Akomapa-40.jpg"
                 alt="Community members preparing the pilot farm launch"
                 fill
-                sizes="(min-width: 1024px) 45vw, 100vw"
+                sizes="(min-width: 1024px) 40vw, 100vw"
                 className="object-cover object-center"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
-            </MotionDiv>
-          </div>
+            </div>
+          </FadeIn>
         </div>
-      </section>
+      </EditorialBand>
 
-      <section className="py-16 md:py-24 bg-gradient-to-r from-[#0F4C5C] via-[#0097b2] to-[#0B2F3A] text-[#FCFAEF]">
-        <div className="site-container mx-auto px-4">
-          <MotionDiv
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true, amount: 0.3 }}
-            className="text-center max-w-4xl mx-auto mb-12 space-y-4"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold">
+      <EditorialBand
+        tone="teal"
+        marker="05"
+        id="foods-goals"
+        aria-labelledby="foods-goals-heading"
+        className="bg-[#0F4C5C]"
+      >
+        <FadeIn>
+          <div className="max-w-3xl">
+            <EditorialEyebrow tone="gold" className="text-[#F5C94D]">
+              Goals
+            </EditorialEyebrow>
+            <EditorialHeading
+              id="foods-goals-heading"
+              className="mt-4 text-[#FCFAEF]"
+            >
               Long-Term Goals
-            </h2>
-            <p className="text-lg text-[#FCFAEF]/90 leading-relaxed">
-              Every goal ties nutrition to sustainable healthcare financing and community leadership.
-            </p>
-          </MotionDiv>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
-            {longTermGoals.map((goal, index) => (
-              <MotionDiv
-                key={goal.title}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.05 }}
-                viewport={{ once: true, amount: 0.3 }}
-                className="rounded-3xl bg-white/10 backdrop-blur-sm border border-white/15 p-6 lg:p-8 shadow-xl"
+            </EditorialHeading>
+            <EditorialLead className="mt-5 text-[#FCFAEF]/90 dark:text-[#FCFAEF]/90">
+              Every goal ties nutrition to sustainable healthcare financing and
+              community leadership.
+            </EditorialLead>
+          </div>
+        </FadeIn>
+
+        <ol className="mt-12 grid border-t border-[#FCFAEF]/25 md:grid-cols-2">
+          {longTermGoals.map((goal, index) => (
+            <li
+              key={goal.title}
+              className="border-b border-[#FCFAEF]/25 px-1 py-7 md:border-r md:px-6 md:odd:[&:nth-last-child(-n+1)]:border-r-0 md:[&:nth-child(2n)]:border-r-0"
+            >
+              <span
+                aria-hidden="true"
+                className="font-heading text-3xl font-semibold tracking-[-0.06em] text-[#FCFAEF]/45"
               >
-                <div
-                  className="h-1 w-16 rounded-full mb-4"
-                  style={{ backgroundColor: goal.accentColor }}
-                />
-                <h3 className="text-xl font-semibold text-white mb-3">
-                  {goal.title}
-                </h3>
-                <p className="text-base text-[#FCFAEF]/85 leading-relaxed">
-                  {goal.detail}
-                </p>
-              </MotionDiv>
-            ))}
-          </div>
-        </div>
-      </section>
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              <h3 className="mt-4 font-heading text-lg font-semibold text-[#FCFAEF] md:text-xl">
+                {goal.title}
+              </h3>
+              <p className="mt-3 text-sm leading-relaxed text-[#FCFAEF]/85 md:text-base">
+                {goal.detail}
+              </p>
+            </li>
+          ))}
+        </ol>
+      </EditorialBand>
 
-      <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
-        <div className="site-container mx-auto px-4">
-          <MotionDiv
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true, amount: 0.3 }}
-            className="text-center max-w-4xl mx-auto mb-10 space-y-4"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold text-[#1C1F1E] dark:text-[#FCFAEF]">
+      <EditorialBand
+        tone="cream"
+        marker="06"
+        id="foods-partners"
+        aria-labelledby="foods-partners-heading"
+      >
+        <FadeIn>
+          <div className="max-w-3xl">
+            <EditorialEyebrow className="text-[#0F4C5C] dark:text-[#66C4DC]">
+              Partners
+            </EditorialEyebrow>
+            <EditorialHeading id="foods-partners-heading" className="mt-4">
               Partnerships Fuel Every Harvest
-            </h2>
-            <p className="text-lg text-[#2F3332] dark:text-[#E6E7E7] leading-relaxed">
-              We collaborate with institutions that share a commitment to food security, research, and ethical healthcare delivery.
-            </p>
-          </MotionDiv>
-          <div className="w-full overflow-x-auto">
-            <div className="flex items-stretch gap-4 sm:gap-6 md:gap-8 min-w-max py-2">
-              {partners.map((partner) => (
-                <div
-                  key={partner.name}
-                  className="group relative flex h-24 sm:h-28 lg:h-32 w-44 sm:w-56 lg:w-64 flex-shrink-0 flex-col items-center justify-center rounded-3xl border border-[#E6E7E7]/60 dark:border-[#2F3332] bg-white dark:bg-[#2F3332] shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
-                >
-                  <div className="relative h-10 sm:h-12 md:h-14 lg:h-16 w-28 sm:w-36 md:w-44 lg:w-48">
-                    <Image
-                      src={partner.logo}
-                      alt={`${partner.name} logo`}
-                      fill
-                      sizes="(min-width: 1024px) 12rem, 40vw"
-                      className="object-contain transition-transform duration-300 ease-out group-hover:scale-105"
-                    />
-                  </div>
-                  <p className="mt-3 text-xs font-semibold text-center text-[#1C1F1E] dark:text-[#FCFAEF] px-4">
-                    {partner.name}
-                  </p>
+            </EditorialHeading>
+            <EditorialLead className="mt-5">
+              We collaborate with institutions that share a commitment to food
+              security, research, and ethical healthcare delivery.
+            </EditorialLead>
+          </div>
+        </FadeIn>
+
+        <div
+          className="mt-10 w-full overflow-x-auto focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eeba2b] focus-visible:ring-offset-2"
+          tabIndex={0}
+          role="region"
+          aria-label="Partner logos"
+        >
+          <ul className="flex min-w-max items-stretch gap-4 py-2 sm:gap-6 md:gap-8">
+            {partners.map((partner) => (
+              <li
+                key={partner.name}
+                className="flex h-24 w-44 flex-shrink-0 flex-col items-center justify-center border border-[#1C1F1E]/15 bg-[#FCFAEF] px-4 dark:border-[#FCFAEF]/20 dark:bg-[#1C1F1E] sm:h-28 sm:w-56 lg:h-32 lg:w-64"
+              >
+                <div className="relative h-10 w-28 sm:h-12 sm:w-36 md:h-14 md:w-44 lg:h-16 lg:w-48">
+                  <Image
+                    src={partner.logo}
+                    alt={`${partner.name} logo`}
+                    fill
+                    sizes="(min-width: 1024px) 12rem, 40vw"
+                    className="object-contain"
+                  />
                 </div>
-              ))}
+                <p className="mt-3 px-2 text-center text-xs font-semibold text-[#1C1F1E] dark:text-[#FCFAEF]">
+                  {partner.name}
+                </p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </EditorialBand>
+
+      <ProgramQuoteBand
+        tone="teal"
+        marker="07"
+        id="foods-quote"
+        className="bg-[#0F4C5C]"
+        quote="Our goal is to build communities that not only receive care but help sustain it. Akomapa Foods & Stores redefines healthcare by making every harvest an act of healing."
+        attribution="Akomapa Executive Team"
+      />
+
+      <EditorialBand
+        tone="teal"
+        marker="08"
+        id="foods-cta"
+        aria-labelledby="foods-cta-heading"
+        className="border-t border-[#FCFAEF]/15 bg-[#0F4C5C]"
+      >
+        <FadeIn>
+          <div className="mx-auto max-w-3xl text-center">
+            <EditorialEyebrow tone="gold" className="text-[#F5C94D]">
+              Get Involved
+            </EditorialEyebrow>
+            <EditorialHeading
+              id="foods-cta-heading"
+              className="mt-4 text-[#FCFAEF]"
+            >
+              Join the Movement
+            </EditorialHeading>
+            <EditorialLead className="mx-auto mt-6 max-w-2xl text-[#FCFAEF]/85 dark:text-[#FCFAEF]/85">
+              Help us make nutrition the foundation of sustainable healthcare.
+              Your partnership advances farms, stores, and clinics that belong to
+              the communities they serve.
+            </EditorialLead>
+            <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap sm:gap-4">
+              <EditorialButton href="/partnerships" variant="light">
+                Partner with Us
+              </EditorialButton>
+              <EditorialButton href="/get-involved" variant="outline-light">
+                Support the Launch
+              </EditorialButton>
+              <EditorialButton href="/donate" variant="amber">
+                Donate
+              </EditorialButton>
             </div>
           </div>
-        </div>
-      </section>
-
-      <section className="py-16 md:py-24 bg-gradient-to-r from-[#0F4C5C] to-[#0097b2] text-[#FCFAEF]">
-        <div className="site-container mx-auto px-4">
-          <MotionDiv
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true, amount: 0.3 }}
-            className="max-w-3xl mx-auto text-center space-y-6"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold">From the Founders</h2>
-            <p className="text-lg md:text-xl text-[#FCFAEF]/90 leading-relaxed italic">
-              &quot;Our goal is to build communities that not only receive care but help sustain it. Akomapa Foods & Stores redefines healthcare by making every harvest an act of healing.&quot;
-            </p>
-            <p className="text-base font-semibold text-[#F5C94D]">
-              — Akomapa Executive Team
-            </p>
-          </MotionDiv>
-        </div>
-      </section>
-
-      <section className="py-16 md:py-24 bg-gradient-to-r from-[#0B2F3A] via-[#0F4C5C] to-[#0097b2] text-[#FCFAEF]">
-        <div className="site-container mx-auto px-4">
-          <MotionDiv
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true, amount: 0.3 }}
-            className="max-w-3xl mx-auto text-center space-y-6"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold">
-              Join the Movement
-            </h2>
-            <p className="text-lg text-[#FCFAEF]/85 leading-relaxed">
-              Help us make nutrition the foundation of sustainable healthcare. Your partnership advances farms, stores, and clinics that belong to the communities they serve.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-              <Button asChild className={primaryCtaClass}>
-                <Link href="/partnerships">Partner with Us</Link>
-              </Button>
-              <Button asChild className={outlineCtaClass}>
-                <Link href="/get-involved">Support the Launch</Link>
-              </Button>
-              <Button asChild className={secondaryCtaClass}>
-                <Link href="/donate">Donate</Link>
-              </Button>
-            </div>
-          </MotionDiv>
-        </div>
-      </section>
+        </FadeIn>
+      </EditorialBand>
     </>
   );
 }

@@ -1,19 +1,15 @@
-import { ArrowRight, Heart, ChevronRight } from "lucide-react";
-import Link from "next/link";
 import Image from "@/components/common/Image";
+import { FadeIn } from "@/components/animations";
 import Breadcrumb from "@/components/layout/Breadcrumb";
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { MotionDiv, MotionH1, MotionH2, MotionP } from "@/components/motion/framer";
 import RoadmapPhases from "@/components/roadmap/RoadmapPhases";
 import { phases } from "@/components/roadmap/phases";
+import {
+  EditorialBand,
+  EditorialButton,
+  EditorialEyebrow,
+  EditorialHeading,
+  EditorialLead,
+} from "@/components/shared/EditorialPrimitives";
 
 export default function Content() {
   return (
@@ -21,171 +17,130 @@ export default function Content() {
       <div className="site-container mx-auto">
         <Breadcrumb />
       </div>
-      <div className="flex flex-col gap-y-section-mobile md:gap-y-section-tablet lg:gap-y-section-desktop">
-        {/* Hero Section */}
-        <section className="relative py-16 md:py-24 overflow-hidden">
-          {/* Roadmap hero background — decorative — intentional empty alt */}
-          <div className="absolute inset-0 z-0 opacity-10" aria-hidden>
-            <Image
-              src="/highlights/Akomapa-28.jpg"
-              alt=""
-              fill
-              sizes="100vw"
-              className="object-cover"
-            />
+
+      <EditorialBand
+        tone="cream"
+        aria-labelledby="roadmap-hero-heading"
+        className="relative overflow-hidden border-b border-[#1C1F1E]/10 dark:border-[#FCFAEF]/15"
+        containerClassName="py-14 sm:py-16 md:py-20 lg:py-24"
+      >
+        <div className="pointer-events-none absolute inset-0 opacity-[0.08]" aria-hidden>
+          <Image
+            src="/highlights/Akomapa-28.jpg"
+            alt=""
+            fill
+            sizes="100vw"
+            className="object-cover"
+            priority
+          />
+        </div>
+
+        <FadeIn className="relative z-10 mx-auto max-w-4xl text-center">
+          <EditorialEyebrow className="text-[#0F4C5C] dark:text-[#66C4DC]">
+            Akomapa&apos;s 3-Year Roadmap
+          </EditorialEyebrow>
+          <EditorialHeading
+            as="h1"
+            id="roadmap-hero-heading"
+            className="mt-5 text-[2.35rem] sm:text-[3rem] md:text-[3.5rem]"
+          >
+            Building sustainable care, one step at a time.
+          </EditorialHeading>
+          <EditorialLead className="mx-auto mt-6 max-w-3xl">
+            Our comprehensive 3-year roadmap (2025–2028) outlines our journey
+            from launching essential healthcare services to building
+            sustainable, replicable care models across Ghana and beyond.
+          </EditorialLead>
+        </FadeIn>
+      </EditorialBand>
+
+      <RoadmapPhases />
+
+      <EditorialBand
+        tone="white"
+        marker="02"
+        id="roadmap-timeline"
+        aria-labelledby="roadmap-timeline-heading"
+      >
+        <FadeIn>
+          <div className="max-w-3xl">
+            <EditorialEyebrow className="text-[#0F4C5C] dark:text-[#66C4DC]">
+              Chronology
+            </EditorialEyebrow>
+            <EditorialHeading id="roadmap-timeline-heading" className="mt-4">
+              Our Journey Timeline
+            </EditorialHeading>
           </div>
+        </FadeIn>
 
-          <div className="site-container mx-auto px-4 relative z-10">
-            <div className="max-w-4xl mx-auto text-center">
-              <MotionDiv
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="mb-6"
-              >
-                <Badge className="bg-[#0097b2] text-[#FCFAEF] mb-4">
-                  🧭 Akomapa&apos;s 3-Year Roadmap
-                </Badge>
-              </MotionDiv>
-
-              <MotionH1
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 }}
-                className="text-4xl md:text-5xl font-bold text-[#1C1F1E] dark:text-[#FCFAEF] mb-6"
-              >
-                Building sustainable care, one step at a time.
-              </MotionH1>
-
-              <MotionP
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-                className="text-xl text-[#2F3332] dark:text-[#E6E7E7] mb-8 max-w-3xl mx-auto"
-              >
-                Our comprehensive 3-year roadmap (2025–2028) outlines our journey
-                from launching essential healthcare services to building
-                sustainable, replicable care models across Ghana and beyond.
-              </MotionP>
-            </div>
-          </div>
-        </section>
-
-        <RoadmapPhases />
-
-        {/* Progress Timeline */}
-        <section className="py-16 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
-          <div className="site-container mx-auto px-4">
-            <div className="max-w-4xl mx-auto">
-              <MotionH2
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-                viewport={{ once: true }}
-                className="text-3xl font-bold text-center text-[#1C1F1E] dark:text-[#FCFAEF] mb-12"
-              >
-                Our Journey Timeline
-              </MotionH2>
-
-              <div className="relative">
-                {/* Timeline Line */}
-                <div className="absolute left-1/2 transform -translate-x-1/2 w-1 bg-[#0097b2] dark:bg-[#66C4DC] h-full"></div>
-
-                {phases.map((phase, index) => (
-                  <MotionDiv
-                    key={phase.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: index * 0.2 }}
-                    viewport={{ once: true }}
-                    className={`relative mb-12 ${
-                      index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
-                    } flex flex-col md:flex-row items-center`}
-                  >
-                    {/* Timeline Dot */}
-                    <div
-                      className={`absolute left-1/2 transform -translate-x-1/2 w-6 h-6 rounded-full ${phase.color} border-4 border-white dark:border-[#2F3332] z-10`}
-                    ></div>
-
-                    {/* Content */}
-                    <div
-                      className={`w-full md:w-1/2 ${index % 2 === 0 ? "md:pr-8" : "md:pl-8"} text-center md:text-left`}
-                    >
-                      <Card className="bg-white dark:bg-[#2F3332] shadow-lg border-0">
-                        <CardHeader>
-                          <CardTitle className="text-[#1C1F1E] dark:text-[#FCFAEF]">
-                            {phase.title}
-                          </CardTitle>
-                          <CardDescription className="text-[#0097b2] dark:text-[#66C4DC] font-medium">
-                            {phase.period}
-                          </CardDescription>
-                        </CardHeader>
-                        <CardContent>
-                          <p className="text-[#2F3332] dark:text-[#E6E7E7]">
-                            {phase.focus}
-                          </p>
-                        </CardContent>
-                      </Card>
-                    </div>
-                  </MotionDiv>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Call to Action */}
-        <section className="py-16 bg-gradient-to-r from-[#0097b2] to-[#eeba2b]">
-          <div className="site-container mx-auto px-4 text-center">
-            <MotionDiv
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
+        <ol className="mt-12 border-t border-[#1C1F1E]/15 dark:border-[#FCFAEF]/20">
+          {phases.map((phase, index) => (
+            <li
+              key={phase.id}
+              className="grid gap-3 border-b border-[#1C1F1E]/15 py-7 sm:grid-cols-[auto_1fr] sm:gap-8 dark:border-[#FCFAEF]/20"
             >
-              <h2 className="text-3xl md:text-4xl font-bold mb-6 text-[#FCFAEF]">
-                📣 Help us bring this vision to life
-              </h2>
-              <p className="text-xl text-[#FCFAEF]/90 mb-8 max-w-2xl mx-auto">
-                Whether you&apos;re a donor, global health ally, or community
-                partner — we invite you to walk this road with us.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button
-                  asChild
-                  size="lg"
-                  className="bg-[#FCFAEF] text-[#0097b2] hover:bg-[#FCFAEF]/90 font-semibold"
-                >
-                  <Link href="/partnerships" className="flex items-center">
-                    Partner With Us <ArrowRight size={20} className="ml-2" />
-                  </Link>
-                </Button>
-                <Button
-                  asChild
-                  size="lg"
-                  className="bg-[#eeba2b] text-[#FCFAEF] hover:bg-[#F5C94D] font-semibold"
-                >
-                  <Link href="/partnerships" className="flex items-center">
-                    Donate <Heart size={20} className="ml-2" />
-                  </Link>
-                </Button>
-                <Button
-                  asChild
-                  size="lg"
-                  variant="outline"
-                  className="border-[#FCFAEF] text-[#FCFAEF] bg-transparent hover:bg-[#FCFAEF] hover:text-[#0097b2] font-semibold"
-                >
-                  <a
-                    href="mailto:akomapahealth@gmail.com"
-                    className="flex items-center"
-                  >
-                    Contact Us <ChevronRight size={20} className="ml-2" />
-                  </a>
-                </Button>
+              <span
+                aria-hidden="true"
+                className="font-heading text-3xl font-semibold tracking-[-0.06em] text-[#0097b2]/55 dark:text-[#66C4DC]/65"
+              >
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              <div>
+                <h3 className="font-heading text-xl font-semibold text-[#1C1F1E] dark:text-[#FCFAEF]">
+                  {phase.title}
+                </h3>
+                <p className="mt-2 font-subheading text-xs font-bold uppercase tracking-[0.2em] text-[#0097b2] dark:text-[#66C4DC]">
+                  {phase.period}
+                </p>
+                <p className="mt-3 text-sm leading-relaxed text-[#2F3332]/80 dark:text-[#E6E7E7]/80 md:text-base">
+                  {phase.focus}
+                </p>
               </div>
-            </MotionDiv>
+            </li>
+          ))}
+        </ol>
+      </EditorialBand>
+
+      <EditorialBand
+        tone="teal"
+        marker="03"
+        id="roadmap-cta"
+        aria-labelledby="roadmap-cta-heading"
+        className="bg-[#0F4C5C]"
+      >
+        <FadeIn>
+          <div className="mx-auto max-w-3xl text-center">
+            <EditorialEyebrow tone="gold" className="text-[#F5C94D]">
+              Get Involved
+            </EditorialEyebrow>
+            <EditorialHeading
+              id="roadmap-cta-heading"
+              className="mt-4 text-[#FCFAEF]"
+            >
+              Help us bring this vision to life
+            </EditorialHeading>
+            <EditorialLead className="mx-auto mt-6 max-w-2xl text-[#FCFAEF]/85 dark:text-[#FCFAEF]/85">
+              Whether you&apos;re a donor, global health ally, or community
+              partner — we invite you to walk this road with us.
+            </EditorialLead>
+            <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
+              <EditorialButton href="/partnerships" variant="light">
+                Partner With Us
+              </EditorialButton>
+              <EditorialButton href="/partnerships" variant="amber">
+                Donate
+              </EditorialButton>
+              <EditorialButton
+                href="mailto:akomapahealth@gmail.com"
+                variant="outline-light"
+                external
+              >
+                Contact Us
+              </EditorialButton>
+            </div>
           </div>
-        </section>
-      </div>
+        </FadeIn>
+      </EditorialBand>
     </>
   );
 }

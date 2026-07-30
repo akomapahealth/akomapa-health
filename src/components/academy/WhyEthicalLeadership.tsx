@@ -1,91 +1,96 @@
-import { AlertTriangle, Shield, Sparkles } from "lucide-react";
 import Image from "@/components/common/Image";
-import { FadeIn, FadeInStagger, FadeInStaggerItem } from "@/components/animations";
+import { FadeIn } from "@/components/animations";
+import {
+  EditorialBand,
+  EditorialEyebrow,
+  EditorialHeading,
+  EditorialLead,
+} from "@/components/shared/EditorialPrimitives";
 import { academyOverview } from "@/data/academy";
 
 const reasons = [
   {
-    icon: AlertTriangle,
     title: "The Gap in Health Education",
     description:
       "Most health professional training emphasizes clinical knowledge but overlooks ethics, power analysis, and community partnership — the skills that determine whether interventions help or harm.",
-    accentColor: "#0097b2",
   },
   {
-    icon: Shield,
     title: "Why Ethics and Partnership Matter",
     description:
       "Health professionals make decisions that affect communities, institutions, and public trust. Ethical leadership equips them to examine power, listen across differences, and use evidence responsibly.",
-    accentColor: "#eeba2b",
   },
   {
-    icon: Sparkles,
     title: "The Akomapa Difference",
     description:
       "The Academy combines faculty dialogue, case-based study, community practice, and mentorship — preparing leaders who build solutions with the people those solutions are intended to serve.",
-    accentColor: "#0F4C5C",
   },
 ] as const;
 
 export default function WhyEthicalLeadership() {
   return (
-    <section className="overflow-x-hidden bg-[#FCFAEF] py-16 dark:bg-[#1C1F1E] md:py-24">
-      <div className="site-container mx-auto px-4 sm:px-6">
-        <FadeIn direction="up" className="mx-auto mb-10 max-w-3xl space-y-3 text-center sm:space-y-4">
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#0097b2] dark:text-[#66C4DC] sm:text-sm">
+    <EditorialBand
+      tone="cream"
+      marker="01"
+      id="why-ethical-leadership"
+      aria-labelledby="why-ethical-leadership-heading"
+    >
+      <FadeIn>
+        <div className="max-w-3xl">
+          <EditorialEyebrow className="text-[#0F4C5C] dark:text-[#66C4DC]">
             Why It Matters
-          </p>
-          <h2 className="text-2xl font-bold text-[#1C1F1E] dark:text-[#FCFAEF] sm:text-3xl md:text-4xl">
+          </EditorialEyebrow>
+          <EditorialHeading id="why-ethical-leadership-heading" className="mt-4">
             The Case for Ethical Leadership
-          </h2>
-          <p className="text-base leading-relaxed text-[#2F3332]/80 dark:text-[#E6E7E7]/80 sm:text-lg">
+          </EditorialHeading>
+          <EditorialLead className="mt-5">
             {academyOverview.whyItMatters}
-          </p>
+          </EditorialLead>
+        </div>
+      </FadeIn>
+
+      <div className="mt-12 grid items-start gap-10 lg:grid-cols-12 lg:gap-16">
+        <FadeIn direction="up" delay={0.1} className="relative lg:col-span-5">
+          <span
+            aria-hidden="true"
+            className="absolute -top-3 left-0 z-10 h-1 w-24 bg-[#eeba2b] md:w-36"
+          />
+          <div className="relative aspect-[4/3] overflow-hidden rounded-md border border-[#1C1F1E]/15 bg-[#FCFAEF] dark:border-[#FCFAEF]/20 dark:bg-[#121514]">
+            <Image
+              src="/highlights/Akomapa-61.jpg"
+              alt="Students and faculty engaged in collaborative learning"
+              fill
+              sizes="(min-width: 1024px) 40vw, 100vw"
+              className="object-cover object-center"
+            />
+          </div>
         </FadeIn>
 
-        <div className="mx-auto grid max-w-6xl items-center gap-10 lg:grid-cols-2 lg:gap-16">
-          <FadeIn direction="up" delay={0.1}>
-            <div className="relative h-[280px] w-full overflow-hidden rounded-3xl shadow-2xl sm:h-[360px] md:h-[420px]">
-              <Image
-                src="/highlights/Akomapa-61.jpg"
-                alt="Students and faculty engaged in collaborative learning"
-                fill
-                sizes="(min-width: 1024px) 50vw, 100vw"
-                className="object-cover object-center"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent" />
-            </div>
-          </FadeIn>
-
-          <FadeInStagger className="space-y-4" staggerDelay={0.1}>
-            {reasons.map((reason) => (
-              <FadeInStaggerItem key={reason.title} direction="up">
-                <div className="rounded-2xl border border-[#E6E7E7]/80 bg-white/95 p-6 shadow-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-xl dark:border-[#2E3433] dark:bg-[#1C1F1E]/95">
-                  <div className="flex items-start gap-4">
-                    <span
-                      className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-lg"
-                      style={{
-                        backgroundColor: `${reason.accentColor}15`,
-                        color: reason.accentColor,
-                      }}
-                    >
-                      <reason.icon className="h-5 w-5" />
-                    </span>
-                    <div>
-                      <h3 className="text-lg font-semibold text-[#1C1F1E] dark:text-[#FCFAEF]">
-                        {reason.title}
-                      </h3>
-                      <p className="mt-1.5 text-sm leading-relaxed text-[#2F3332]/80 dark:text-[#E6E7E7]/80">
-                        {reason.description}
-                      </p>
-                    </div>
-                  </div>
+        <FadeIn delay={0.15} className="lg:col-span-7">
+          <ol className="border-t border-[#1C1F1E]/15 dark:border-[#FCFAEF]/20">
+            {reasons.map((reason, index) => (
+              <li
+                key={reason.title}
+                className="grid gap-4 border-b border-[#1C1F1E]/15 py-7 sm:grid-cols-[auto_1fr] sm:gap-8 dark:border-[#FCFAEF]/20"
+              >
+                <span
+                  aria-hidden="true"
+                  className="font-heading text-3xl font-semibold tracking-[-0.06em] text-[#0097b2]/55 dark:text-[#66C4DC]/65"
+                >
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <div>
+                  <h3 className="font-heading text-xl font-semibold text-[#1C1F1E] dark:text-[#FCFAEF]">
+                    {reason.title}
+                  </h3>
+                  <p className="mt-3 text-sm leading-relaxed text-[#2F3332]/80 dark:text-[#E6E7E7]/80 md:text-base">
+                    {reason.description}
+                  </p>
                 </div>
-              </FadeInStaggerItem>
+              </li>
             ))}
-          </FadeInStagger>
-        </div>
+          </ol>
+        </FadeIn>
       </div>
-    </section>
+    </EditorialBand>
   );
 }

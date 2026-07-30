@@ -1,112 +1,108 @@
-import { MotionDiv, MotionH1, MotionP } from "@/components/motion/framer";
-import { AnimatedMetric } from "@/components/motion/AnimatedMetric";
-import Link from "next/link";
-import { ArrowLeft, ArrowRight } from "lucide-react";
-import Breadcrumb from "@/components/layout/Breadcrumb";
-import Image from "@/components/common/Image";
-/** `next/image` for static files under `public/` (partner logos). ImageKit paths use `Image` above. */
 import NextImage from "next/image";
-import { Button } from "@/components/ui/button";
+import Image from "@/components/common/Image";
+import { FadeIn, FadeInStagger, FadeInStaggerItem } from "@/components/animations";
+import { AnimatedMetric } from "@/components/motion/AnimatedMetric";
+import Breadcrumb from "@/components/layout/Breadcrumb";
 import GhltpTestimonialsCarousel from "@/components/programs/GhltpTestimonialsCarousel";
+import ProgramDetailHero from "@/components/programs/ProgramDetailHero";
+import ProgramFactSummary from "@/components/programs/ProgramFactSummary";
+import {
+  EditorialBand,
+  EditorialButton,
+  EditorialEyebrow,
+  EditorialHeading,
+  EditorialLead,
+} from "@/components/shared/EditorialPrimitives";
 
 const coreThemes = [
   {
     id: "theme-1",
     title: "Community Engagement",
     description: "Partnering authentically with local voices and systems.",
-    color: "#0097b2"
   },
   {
     id: "theme-2",
     title: "Cultural Humility",
     description: "Practicing reflective, inclusive leadership.",
-    color: "#eeba2b"
   },
   {
     id: "theme-3",
     title: "Ethical Leadership",
     description: "Navigating complexity with transparency and accountability.",
-    color: "#0097b2"
   },
   {
     id: "theme-4",
     title: "Interprofessional Collaboration",
     description: "Working across disciplines for integrated care.",
-    color: "#eeba2b"
   },
   {
     id: "theme-5",
     title: "Health Systems Innovation",
     description: "Designing and scaling creative, context-driven solutions.",
-    color: "#0097b2"
   },
   {
     id: "theme-6",
     title: "Sustainable Systems Building",
     description: "Ensuring impact that outlives projects and individuals.",
-    color: "#eeba2b"
-  }
-];
+  },
+] as const;
 
 const programFeatures = [
   {
     id: "feature-1",
     title: "Featured Speaker Series",
-    description: "Renowned global health leaders from WHO, Yale, UCLA, University of Ghana, and beyond share insights on leadership and equity.",
-    color: "#0097b2"
+    description:
+      "Renowned global health leaders from WHO, Yale, UCLA, University of Ghana, and beyond share insights on leadership and equity.",
   },
   {
     id: "feature-2",
     title: "Student-Led Discussions",
-    description: "Each week, students moderate conversations, lead reflections, and present on local/global case studies.",
-    color: "#eeba2b"
+    description:
+      "Each week, students moderate conversations, lead reflections, and present on local/global case studies.",
   },
   {
     id: "feature-3",
     title: "Interactive Assignments",
-    description: "Real-world challenges drawn from Akomapa's clinics and global partner sites, encouraging systems thinking and problem-solving.",
-    color: "#0097b2"
+    description:
+      "Real-world challenges drawn from Akomapa's clinics and global partner sites, encouraging systems thinking and problem-solving.",
   },
   {
     id: "feature-4",
     title: "Capstone Project",
-    description: "Each participant designs a practical, community-driven intervention plan with mentorship from Akomapa faculty and field partners.",
-    color: "#eeba2b"
-  }
-];
+    description:
+      "Each participant designs a practical, community-driven intervention plan with mentorship from Akomapa faculty and field partners.",
+  },
+] as const;
 
 const learningBenefits = [
   {
     id: "benefit-1",
     title: "Mentorship Access",
     description: "Mentorship from Akomapa's global advisory network",
-    color: "#0097b2"
   },
   {
     id: "benefit-2",
     title: "Case-Based Learning",
-    description: "Case-based learning from active student-powered community health hubs",
-    color: "#eeba2b"
+    description:
+      "Case-based learning from active student-powered community health hubs",
   },
   {
     id: "benefit-3",
     title: "Immersion Program",
     description: "Invitations to the Akomapa Global Health Immersion Program",
-    color: "#0097b2"
   },
   {
     id: "benefit-4",
     title: "Networking Sessions",
     description: "Global networking sessions and leadership roundtables",
-    color: "#eeba2b"
   },
   {
     id: "benefit-5",
     title: "Leadership Summit",
-    description: "Priority participation in the annual Akomapa Global Health Leadership Summit",
-    color: "#0097b2"
-  }
-];
+    description:
+      "Priority participation in the annual Akomapa Global Health Leadership Summit",
+  },
+] as const;
 
 const facultyInstitutions = [
   {
@@ -114,47 +110,81 @@ const facultyInstitutions = [
     name: "Yale School of Medicine",
     logo: "/images/partners/yale-sm-logo.png",
     width: 280,
-    height: 140
+    height: 140,
   },
   {
     id: "faculty-2",
     name: "University of Cape Coast",
     logo: "/images/partners/ucc.png",
     width: 280,
-    height: 140
+    height: 140,
   },
   {
     id: "faculty-3",
     name: "University of Ghana",
     logo: "/images/partners/ug-logo.png",
     width: 280,
-    height: 140
+    height: 140,
   },
   {
     id: "faculty-4",
     name: "David Geffen School of Medicine at UCLA",
     logo: "/images/partners/ucla.png",
     width: 280,
-    height: 140
+    height: 140,
   },
   {
     id: "faculty-5",
     name: "Ghana Health Service",
     logo: "/images/partners/ghana-health-service-logo.png",
     width: 280,
-    height: 140
-  }
-];
+    height: 140,
+  },
+] as const;
 
+const programFacts = [
+  { label: "Duration", value: "10–16 weeks (semester-long)" },
+  {
+    label: "Format",
+    value: "Virtual and hybrid delivery (live + asynchronous)",
+  },
+  {
+    label: "Structure",
+    value: "Weekly live sessions, peer discussions, and applied projects",
+  },
+  {
+    label: "Certification",
+    value:
+      "Akomapa Certificate in Global Health Leadership awarded upon completion",
+  },
+] as const;
 
-const ctaBaseClass =
-  "group inline-flex items-center justify-center gap-2 rounded-half px-8 py-6 h-auto text-base sm:text-lg font-medium transition-all duration-300 transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2";
+const impactGoals = [
+  {
+    value: 1000,
+    suffix: "+",
+    description:
+      "Train students and young professionals in ethical, community-driven leadership",
+  },
+  {
+    value: 5,
+    suffix: "+",
+    description:
+      "Build a sustainable pipeline of interprofessional global health leaders across countries",
+  },
+  {
+    value: 1,
+    suffix: "",
+    description:
+      "Strengthen links between academic learning and real-world systems change through the Akomapa Network",
+  },
+] as const;
 
-const primaryCtaClass =
-  `${ctaBaseClass} bg-[#0097b2] hover:bg-[#0097b2]/80 text-[#FCFAEF] shadow-lg hover:shadow-xl focus-visible:ring-[#8DD4E6]`;
-
-const secondaryCtaClass =
-  `${ctaBaseClass} bg-[#eeba2b] hover:bg-[#eeba2b]/80 text-[#FCFAEF] shadow-lg hover:shadow-xl focus-visible:ring-[#F5C94D]`;
+const metricDividerClasses = [
+  "",
+  "border-t md:border-l md:border-t-0",
+  "border-t md:border-l md:border-t-0",
+] as const;
 
 export default function Content() {
   return (
@@ -162,556 +192,390 @@ export default function Content() {
       <div className="site-container mx-auto">
         <Breadcrumb />
       </div>
-      
-      {/* Hero Section */}
-      <section className="relative min-h-[80vh] py-16 sm:py-20 md:py-28 bg-gradient-to-r from-[#0B2F3A] via-[#0F4C5C] to-[#0097b2] overflow-hidden">
-        <div className="absolute top-0 right-0 w-64 h-64 bg-[#FCFAEF]/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#FCFAEF]/10 rounded-full translate-y-1/2 -translate-x-1/2 blur-3xl" />
 
-        <div className="site-container mx-auto px-4 sm:px-6 relative z-10 flex flex-col gap-4 sm:gap-8">
-          <MotionDiv
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="pt-2"
-          >
-            <Link 
-              href="/programs" 
-              className="inline-flex items-center text-[#FCFAEF]/80 hover:text-[#FCFAEF] transition-colors text-sm font-medium"
-            >
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              Back to Programs
-            </Link>
-          </MotionDiv>
-          <div className="max-w-5xl">
-            <MotionP
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-              className="uppercase tracking-[0.3em] text-sm font-semibold text-[#FCFAEF]/80 mb-6"
-            >
-              Akomapa Global Health Leadership Training Program
-            </MotionP>
-            <MotionH1 
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1, duration: 0.8, ease: "easeOut" }}
-              className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-light text-[#FCFAEF] mb-6 leading-tight"
-            >
-              Training the Next Generation of Ethical, Compassionate, and Impact-Driven Health Leaders
-            </MotionH1>
-            <MotionP 
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2, duration: 0.8, ease: "easeOut" }}
-              className="text-base sm:text-lg md:text-2xl text-[#FCFAEF]/85 font-light max-w-3xl"
-            >
-              A semester-long, certificate-bearing course that equips emerging health professionals with the knowledge, empathy, and vision to lead transformative change in global health.
-            </MotionP>
-            <MotionDiv
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3, duration: 0.8, ease: "easeOut" }}
-              className="mt-8 flex flex-wrap gap-4"
-            >
-              <Button asChild className={primaryCtaClass}>
-                <Link href="/get-involved">Apply Now</Link>
-              </Button>
-              <Button asChild className={secondaryCtaClass}>
-                <Link href="/contact">Become a Mentor</Link>
-              </Button>
-            </MotionDiv>
-          </div>
+      <ProgramDetailHero
+        eyebrow="Akomapa Global Health Leadership Training Program"
+        title="Training the Next Generation of Ethical, Compassionate, and Impact-Driven Health Leaders"
+        lead="A semester-long, certificate-bearing course that equips emerging health professionals with the knowledge, empathy, and vision to lead transformative change in global health."
+        image="/highlights/Akomapa-40.jpg"
+        imageAlt="Global health leadership training program"
+        ctas={[
+          { href: "/get-involved", label: "Apply Now", variant: "amber" },
+          {
+            href: "/contact",
+            label: "Become a Mentor",
+            variant: "outline-light",
+          },
+        ]}
+      />
 
-          <MotionDiv
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.8, ease: "easeOut" }}
-            className="w-full"
-          >
-            <div className="relative w-full h-[280px] sm:h-[360px] md:h-[520px] lg:h-[640px] rounded-3xl overflow-hidden shadow-2xl border border-white/10">
+      <EditorialBand
+        tone="cream"
+        marker="01"
+        id="ghltp-about"
+        aria-labelledby="ghltp-about-heading"
+      >
+        <div className="grid items-start gap-10 lg:grid-cols-12 lg:gap-16">
+          <FadeIn className="lg:col-span-7">
+            <EditorialEyebrow className="text-[#0F4C5C] dark:text-[#66C4DC]">
+              About
+            </EditorialEyebrow>
+            <EditorialHeading id="ghltp-about-heading" className="mt-4">
+              About the Program
+            </EditorialHeading>
+            <div className="mt-6 space-y-5 text-base leading-relaxed text-[#2F3332]/80 dark:text-[#E6E7E7]/80 md:text-lg">
+              <p>
+                The Akomapa Global Health Leadership Training Program is a
+                semester-long, certificate-bearing course that equips emerging
+                health professionals with the knowledge, empathy, and vision to
+                lead transformative change in global health.
+              </p>
+              <p>
+                Taught by world experts from leading universities across Africa,
+                the United States, and beyond, and from top global health
+                organizations, this program unites students passionate about
+                reimagining healthcare — from classrooms to communities.
+              </p>
+              <p className="font-semibold text-[#1C1F1E] dark:text-[#FCFAEF]">
+                Rooted in Akomapa&apos;s philosophy of leadership through
+                service, the course blends rigorous academic instruction with
+                mentorship, live dialogue, and hands-on learning from the field.
+              </p>
+            </div>
+          </FadeIn>
+          <FadeIn direction="left" delay={0.1} className="relative lg:col-span-5">
+            <span
+              aria-hidden="true"
+              className="absolute -top-3 left-0 z-10 h-1 w-24 bg-[#eeba2b]"
+            />
+            <div className="relative aspect-[4/3] overflow-hidden rounded-md border border-[#1C1F1E]/10 bg-[#E6E7E7] dark:border-[#FCFAEF]/15 dark:bg-[#2F3332]">
               <Image
-                src="/highlights/Akomapa-40.jpg"
-                alt="Global health leadership training program"
+                src="/highlights/Akomapa-66.jpg"
+                alt="Students in global health leadership training"
                 fill
-                sizes="(min-width: 1024px) 50vw, 100vw"
+                sizes="(min-width: 1024px) 40vw, 100vw"
                 className="object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
             </div>
-          </MotionDiv>
+          </FadeIn>
         </div>
-      </section>
+      </EditorialBand>
 
-      {/* About the Program Section */}
-      <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
-        <div className="site-container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            <MotionDiv
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true, amount: 0.3 }}
-              className="order-1"
+      <EditorialBand
+        tone="teal"
+        marker="02"
+        id="ghltp-vision"
+        aria-labelledby="ghltp-vision-heading"
+        className="bg-[#0F4C5C]"
+      >
+        <FadeIn>
+          <div className="max-w-4xl">
+            <EditorialEyebrow tone="gold" className="text-[#F5C94D]">
+              Vision
+            </EditorialEyebrow>
+            <EditorialHeading
+              id="ghltp-vision-heading"
+              className="mt-4 text-[#FCFAEF]"
             >
-              <h2 className="text-3xl md:text-4xl font-bold text-[#1C1F1E] dark:text-[#FCFAEF] mb-6">
-                About the Program
-              </h2>
-              <div className="space-y-5 text-lg text-[#2F3332] dark:text-[#E6E7E7] leading-relaxed">
-                <p>
-                  The Akomapa Global Health Leadership Training Program is a semester-long, certificate-bearing course that equips emerging health professionals with the knowledge, empathy, and vision to lead transformative change in global health.
-                </p>
-                <p>
-                  Taught by world experts from leading universities across Africa, the United States, and beyond, and from top global health organizations, this program unites students passionate about reimagining healthcare — from classrooms to communities.
-                </p>
-                <p className="font-semibold text-[#1C1F1E] dark:text-[#FCFAEF]">
-                  Rooted in Akomapa&apos;s philosophy of leadership through service, the course blends rigorous academic instruction with mentorship, live dialogue, and hands-on learning from the field.
-                </p>
-              </div>
-            </MotionDiv>
-            <MotionDiv
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1, duration: 0.6 }}
-              viewport={{ once: true, amount: 0.3 }}
-              className="order-2"
-            >
-              <div className="relative w-full min-h-[320px] h-[320px] sm:h-[380px] md:h-[420px] lg:h-[460px] rounded-3xl overflow-hidden shadow-2xl">
-                <Image
-                  src="/highlights/Akomapa-66.jpg"
-                  alt="Students in global health leadership training"
-                  fill
-                  sizes="(min-width: 1024px) 50vw, 100vw"
-                  className="object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent" />
-              </div>
-            </MotionDiv>
+              Our Vision
+            </EditorialHeading>
+            <EditorialLead className="mt-6 text-[#FCFAEF]/90 dark:text-[#FCFAEF]/90 md:text-xl">
+              To train a new generation of 1,000+ global health leaders who lead
+              with integrity, humility, and innovation — bridging the gap between
+              care and justice, and between learning and leadership.
+            </EditorialLead>
           </div>
-        </div>
-      </section>
+        </FadeIn>
+      </EditorialBand>
 
-      {/* Our Vision Section */}
-      <section className="py-16 md:py-24 bg-gradient-to-r from-[#0097b2] to-[#0F4C5C] text-[#FCFAEF] relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute -top-20 left-10 h-56 w-56 rounded-full bg-[#FCFAEF]/10 blur-3xl" />
-          <div className="absolute bottom-0 right-0 h-72 w-72 rounded-full bg-[#F5C94D]/10 blur-3xl" />
-        </div>
-        <div className="relative site-container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <MotionDiv
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true, amount: 0.3 }}
-              className="space-y-6"
-            >
-              <h2 className="text-3xl md:text-4xl font-bold mb-6">
-                Our Vision
-              </h2>
-              <p className="text-lg md:text-xl text-[#FCFAEF]/90 leading-relaxed">
-                To train a new generation of 1,000+ global health leaders who lead with integrity, humility, and innovation — bridging the gap between care and justice, and between learning and leadership.
-              </p>
-            </MotionDiv>
-          </div>
-        </div>
-      </section>
-
-      {/* What You'll Learn Section */}
-      <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
-        <div className="site-container mx-auto px-4">
-          <MotionDiv
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true, amount: 0.3 }}
-            className="text-center max-w-4xl mx-auto mb-12 space-y-4"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold text-[#1C1F1E] dark:text-[#FCFAEF]">
+      <EditorialBand
+        tone="cream"
+        marker="03"
+        id="ghltp-learn"
+        aria-labelledby="ghltp-learn-heading"
+      >
+        <FadeIn>
+          <div className="max-w-3xl">
+            <EditorialEyebrow className="text-[#0F4C5C] dark:text-[#66C4DC]">
+              Curriculum
+            </EditorialEyebrow>
+            <EditorialHeading id="ghltp-learn-heading" className="mt-4">
               What You&apos;ll Learn
-            </h2>
-            <p className="text-lg text-[#2F3332] dark:text-[#E6E7E7] leading-relaxed">
-              Our curriculum integrates cross-disciplinary theory, ethical frameworks, and practice-based learning — all grounded in real case studies from Akomapa clinics across Ghana and the United States.
-            </p>
-          </MotionDiv>
-
-          <div className="max-w-6xl mx-auto">
-            <h3 className="text-xl md:text-2xl font-semibold text-[#1C1F1E] dark:text-[#FCFAEF] mb-8 text-center">
-              Core Themes
-            </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-              {coreThemes.map((theme, index) => (
-                <MotionDiv
-                  key={theme.id}
-                  initial={{ opacity: 0, y: 24 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  viewport={{ once: true, amount: 0.3 }}
-                  className="group relative rounded-2xl bg-white dark:bg-[#2F3332] p-6 md:p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-[#E6E7E7]/20 dark:border-[#4F5554]/20 hover:-translate-y-1"
-                >
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-br from-[#0097b2]/5 via-transparent to-[#eeba2b]/5 rounded-2xl" />
-                  <div className="relative">
-                    <div 
-                      className="h-1 w-16 rounded-full mb-4"
-                      style={{ backgroundColor: theme.color }}
-                    />
-                    <h4 className="text-xl font-semibold text-[#1C1F1E] dark:text-[#FCFAEF] mb-3">
-                      {theme.title}
-                    </h4>
-                    <p className="text-sm md:text-base text-[#2F3332] dark:text-[#E6E7E7] leading-relaxed">
-                      {theme.description}
-                    </p>
-                  </div>
-                </MotionDiv>
-              ))}
-            </div>
+            </EditorialHeading>
+            <EditorialLead className="mt-5">
+              Our curriculum integrates cross-disciplinary theory, ethical
+              frameworks, and practice-based learning — all grounded in real case
+              studies from Akomapa clinics across Ghana and the United States.
+            </EditorialLead>
           </div>
-        </div>
-      </section>
+        </FadeIn>
 
-      {/* How the Program Works Section */}
-      <section className="py-16 md:py-24 bg-gradient-to-r from-[#0F4C5C] via-[#0097b2] to-[#0B2F3A] text-[#FCFAEF] relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute -top-20 left-10 h-56 w-56 rounded-full bg-[#FCFAEF]/10 blur-3xl" />
-          <div className="absolute bottom-0 right-0 h-72 w-72 rounded-full bg-[#F5C94D]/10 blur-3xl" />
-        </div>
-        <div className="relative site-container mx-auto px-4">
-          <MotionDiv
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true, amount: 0.3 }}
-            className="text-center max-w-4xl mx-auto mb-12 space-y-4"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold">
-              How the Program Works
-            </h2>
-          </MotionDiv>
-
-          <div className="max-w-4xl mx-auto mb-12">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-              <div className="bg-[#FCFAEF]/10 backdrop-blur-md rounded-2xl p-6 border border-[#FCFAEF]/20">
-                <h3 className="text-lg font-semibold mb-2">Duration</h3>
-                <p className="text-[#FCFAEF]/90">10–16 weeks (semester-long)</p>
-              </div>
-              <div className="bg-[#FCFAEF]/10 backdrop-blur-md rounded-2xl p-6 border border-[#FCFAEF]/20">
-                <h3 className="text-lg font-semibold mb-2">Format</h3>
-                <p className="text-[#FCFAEF]/90">Virtual and hybrid delivery (live + asynchronous)</p>
-              </div>
-              <div className="bg-[#FCFAEF]/10 backdrop-blur-md rounded-2xl p-6 border border-[#FCFAEF]/20">
-                <h3 className="text-lg font-semibold mb-2">Structure</h3>
-                <p className="text-[#FCFAEF]/90">Weekly live sessions, peer discussions, and applied projects</p>
-              </div>
-              <div className="bg-[#FCFAEF]/10 backdrop-blur-md rounded-2xl p-6 border border-[#FCFAEF]/20">
-                <h3 className="text-lg font-semibold mb-2">Certification</h3>
-                <p className="text-[#FCFAEF]/90">Akomapa Certificate in Global Health Leadership awarded upon completion</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="max-w-6xl mx-auto">
-            <h3 className="text-xl md:text-2xl font-semibold mb-8 text-center">
-              Program Features
-            </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-              {programFeatures.map((feature, index) => (
-                <MotionDiv
-                  key={feature.id}
-                  initial={{ opacity: 0, y: 24 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  viewport={{ once: true, amount: 0.3 }}
-                  className="relative rounded-2xl bg-[#FCFAEF]/95 text-[#1C1F1E] p-6 md:p-8 shadow-xl border border-[#E6E7E7]/40"
-                >
-                  <div 
-                    className="h-1 w-16 rounded-full mb-4"
-                    style={{ backgroundColor: feature.color }}
-                  />
-                  <h4 className="text-lg md:text-xl font-semibold mb-3 text-[#1C1F1E]">
-                    {feature.title}
-                  </h4>
-                  <p className="text-sm md:text-base text-[#2F3332]/85 leading-relaxed">
-                    {feature.description}
-                  </p>
-                </MotionDiv>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Faculty & Contributors Section */}
-      <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
-        <div className="site-container mx-auto px-4">
-          <MotionDiv
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true, amount: 0.3 }}
-            className="max-w-7xl mx-auto space-y-8"
-          >
-            <div className="text-center space-y-4">
-              <h2 className="text-3xl md:text-4xl font-bold text-[#1C1F1E] dark:text-[#FCFAEF]">
-                Faculty & Contributors
-              </h2>
-              <p className="text-lg text-[#2F3332] dark:text-[#E6E7E7] leading-relaxed max-w-3xl mx-auto">
-                Taught and mentored by faculty and practitioners from leading institutions and organizations worldwide.
+        <h3 className="mt-12 font-heading text-xl font-semibold text-[#1C1F1E] dark:text-[#FCFAEF] md:text-2xl">
+          Core Themes
+        </h3>
+        <ol className="mt-6 grid border-t border-[#1C1F1E]/15 md:grid-cols-2 xl:grid-cols-3 dark:border-[#FCFAEF]/20">
+          {coreThemes.map((theme, index) => (
+            <li
+              key={theme.id}
+              className="border-b border-[#1C1F1E]/15 px-1 py-7 md:border-r md:px-6 xl:[&:nth-child(3n)]:border-r-0 dark:border-[#FCFAEF]/20 md:odd:[&:nth-last-child(-n+1)]:border-r-0"
+            >
+              <span
+                aria-hidden="true"
+                className="font-heading text-3xl font-semibold tracking-[-0.06em] text-[#0097b2]/55 dark:text-[#66C4DC]/65"
+              >
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              <h4 className="mt-4 font-heading text-xl font-semibold text-[#1C1F1E] dark:text-[#FCFAEF]">
+                {theme.title}
+              </h4>
+              <p className="mt-3 text-sm leading-relaxed text-[#2F3332]/80 dark:text-[#E6E7E7]/80">
+                {theme.description}
               </p>
-            </div>
+            </li>
+          ))}
+        </ol>
+      </EditorialBand>
 
-            <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 md:gap-8 lg:gap-10">
-              {facultyInstitutions.map((institution, index) => (
-                <MotionDiv
-                  key={institution.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  viewport={{ once: true, amount: 0.3 }}
-                  className="group flex-shrink-0"
-                >
-                  <div className="relative flex items-center justify-center h-[55px] sm:h-[75px] md:h-[95px] lg:h-[115px] w-auto px-4 sm:px-6 opacity-75 hover:opacity-100 transition-opacity duration-300">
-                    <NextImage
-                      src={institution.logo}
-                      alt={`${institution.name} logo`}
-                      width={institution.width}
-                      height={institution.height}
-                      className="object-contain h-full w-auto transition-transform duration-300 group-hover:scale-110"
-                    />
-                  </div>
-                </MotionDiv>
-              ))}
-            </div>
-          </MotionDiv>
-        </div>
-      </section>
+      <EditorialBand
+        tone="teal"
+        marker="04"
+        id="ghltp-how"
+        aria-labelledby="ghltp-how-heading"
+        className="bg-[#0F4C5C]"
+      >
+        <FadeIn>
+          <div className="max-w-3xl">
+            <EditorialEyebrow tone="gold" className="text-[#F5C94D]">
+              Structure
+            </EditorialEyebrow>
+            <EditorialHeading
+              id="ghltp-how-heading"
+              className="mt-4 text-[#FCFAEF]"
+            >
+              How the Program Works
+            </EditorialHeading>
+          </div>
+        </FadeIn>
 
-      {/* Learning Beyond the Classroom Section */}
-      <section className="py-16 md:py-24 bg-gradient-to-r from-[#0097b2] to-[#0F4C5C] text-[#FCFAEF] relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute -top-20 left-10 h-56 w-56 rounded-full bg-[#FCFAEF]/10 blur-3xl" />
-          <div className="absolute bottom-0 right-0 h-72 w-72 rounded-full bg-[#F5C94D]/10 blur-3xl" />
+        <div className="mt-10">
+          <ProgramFactSummary facts={[...programFacts]} tone="dark" />
         </div>
-        <div className="relative site-container mx-auto px-4">
-          <MotionDiv
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true, amount: 0.3 }}
-            className="text-center max-w-4xl mx-auto mb-12 space-y-4"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold">
+
+        <h3 className="mt-14 font-heading text-xl font-semibold text-[#FCFAEF] md:text-2xl">
+          Program Features
+        </h3>
+        <ol className="mt-6 grid border-t border-[#FCFAEF]/25 md:grid-cols-2">
+          {programFeatures.map((feature, index) => (
+            <li
+              key={feature.id}
+              className="border-b border-[#FCFAEF]/25 px-1 py-7 md:px-6 md:odd:border-r"
+            >
+              <span
+                aria-hidden="true"
+                className="font-heading text-3xl font-semibold tracking-[-0.06em] text-[#FCFAEF]/45"
+              >
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              <h4 className="mt-4 font-heading text-lg font-semibold text-[#FCFAEF] md:text-xl">
+                {feature.title}
+              </h4>
+              <p className="mt-3 text-sm leading-relaxed text-[#FCFAEF]/85 md:text-base">
+                {feature.description}
+              </p>
+            </li>
+          ))}
+        </ol>
+      </EditorialBand>
+
+      <EditorialBand
+        tone="cream"
+        marker="05"
+        id="ghltp-faculty"
+        aria-labelledby="ghltp-faculty-heading"
+      >
+        <FadeIn>
+          <div className="max-w-3xl">
+            <EditorialEyebrow className="text-[#0F4C5C] dark:text-[#66C4DC]">
+              Partners
+            </EditorialEyebrow>
+            <EditorialHeading id="ghltp-faculty-heading" className="mt-4">
+              Faculty & Contributors
+            </EditorialHeading>
+            <EditorialLead className="mt-5">
+              Taught and mentored by faculty and practitioners from leading
+              institutions and organizations worldwide.
+            </EditorialLead>
+          </div>
+        </FadeIn>
+
+        <ul className="mt-12 flex flex-wrap items-center justify-center gap-6 sm:gap-8 md:gap-10">
+          {facultyInstitutions.map((institution) => (
+            <li key={institution.id} className="flex-shrink-0">
+              <div className="relative flex h-14 w-auto items-center justify-center px-2 sm:h-16 md:h-20">
+                <NextImage
+                  src={institution.logo}
+                  alt={`${institution.name} logo`}
+                  width={institution.width}
+                  height={institution.height}
+                  className="h-full w-auto object-contain opacity-80"
+                />
+              </div>
+            </li>
+          ))}
+        </ul>
+      </EditorialBand>
+
+      <EditorialBand
+        tone="teal"
+        marker="06"
+        id="ghltp-benefits"
+        aria-labelledby="ghltp-benefits-heading"
+        className="bg-[#0F4C5C]"
+      >
+        <FadeIn>
+          <div className="max-w-3xl">
+            <EditorialEyebrow tone="gold" className="text-[#F5C94D]">
+              Beyond the Classroom
+            </EditorialEyebrow>
+            <EditorialHeading
+              id="ghltp-benefits-heading"
+              className="mt-4 text-[#FCFAEF]"
+            >
               Learning Beyond the Classroom
-            </h2>
-            <p className="text-lg text-[#FCFAEF]/90 leading-relaxed">
+            </EditorialHeading>
+            <EditorialLead className="mt-5 text-[#FCFAEF]/90 dark:text-[#FCFAEF]/90">
               Students gain exclusive access to:
-            </p>
-          </MotionDiv>
-
-          <div className="max-w-6xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-              {learningBenefits.map((benefit, index) => (
-                <MotionDiv
-                  key={benefit.id}
-                  initial={{ opacity: 0, y: 24 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  viewport={{ once: true, amount: 0.3 }}
-                  className="relative rounded-2xl bg-[#FCFAEF]/95 text-[#1C1F1E] p-6 md:p-8 shadow-xl border border-[#E6E7E7]/40"
-                >
-                  <div 
-                    className="h-1 w-16 rounded-full mb-4"
-                    style={{ backgroundColor: benefit.color }}
-                  />
-                  <h4 className="text-lg font-semibold mb-3 text-[#1C1F1E]">
-                    {benefit.title}
-                  </h4>
-                  <p className="text-sm md:text-base text-[#2F3332]/85 leading-relaxed">
-                    {benefit.description}
-                  </p>
-                </MotionDiv>
-              ))}
-            </div>
+            </EditorialLead>
           </div>
-        </div>
-      </section>
+        </FadeIn>
 
-      {/* Impact Goal Section */}
-      <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
-        <div className="site-container mx-auto px-4">
-          <MotionDiv
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true, amount: 0.3 }}
-            className="text-center max-w-4xl mx-auto mb-12 space-y-4"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold text-[#1C1F1E] dark:text-[#FCFAEF]">
+        <ol className="mt-10 grid border-t border-[#FCFAEF]/25 md:grid-cols-2 lg:grid-cols-3">
+          {learningBenefits.map((benefit, index) => (
+            <li
+              key={benefit.id}
+              className="border-b border-[#FCFAEF]/25 px-1 py-7 md:px-6 lg:border-r lg:[&:nth-child(3n)]:border-r-0"
+            >
+              <span
+                aria-hidden="true"
+                className="font-heading text-3xl font-semibold tracking-[-0.06em] text-[#FCFAEF]/45"
+              >
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              <h3 className="mt-4 font-heading text-lg font-semibold text-[#FCFAEF]">
+                {benefit.title}
+              </h3>
+              <p className="mt-3 text-sm leading-relaxed text-[#FCFAEF]/85">
+                {benefit.description}
+              </p>
+            </li>
+          ))}
+        </ol>
+      </EditorialBand>
+
+      <EditorialBand
+        tone="cream"
+        marker="07"
+        id="ghltp-impact"
+        aria-labelledby="ghltp-impact-heading"
+      >
+        <FadeIn>
+          <div className="max-w-3xl">
+            <EditorialEyebrow className="text-[#0F4C5C] dark:text-[#66C4DC]">
+              Goals
+            </EditorialEyebrow>
+            <EditorialHeading id="ghltp-impact-heading" className="mt-4">
               Impact Goal
-            </h2>
-            <p className="text-lg text-[#2F3332] dark:text-[#E6E7E7] leading-relaxed">
-              By 2027, we aim to:
-            </p>
-          </MotionDiv>
-
-          <div className="max-w-5xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-              <MotionDiv
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.1 }}
-                viewport={{ once: true }}
-                className="relative rounded-2xl bg-white dark:bg-[#2F3332] text-[#1C1F1E] dark:text-[#FCFAEF] p-6 md:p-8 shadow-xl border border-[#E6E7E7]/40 dark:border-[#4F5554]/40 flex flex-col"
-              >
-                <div 
-                  className="h-1 w-16 rounded-full mb-6"
-                  style={{ backgroundColor: "#0097b2" }}
-                />
-                <div className="mb-4">
-                  <AnimatedMetric
-                    value={1000}
-                    suffix="+"
-                    className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight"
-                    style={{ color: "#0097b2" }}
-                  />
-                </div>
-                <p className="text-base md:text-lg text-[#2F3332] dark:text-[#E6E7E7] leading-relaxed flex-1">
-                  Train students and young professionals in ethical, community-driven leadership
-                </p>
-              </MotionDiv>
-              <MotionDiv
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                viewport={{ once: true }}
-                className="relative rounded-2xl bg-white dark:bg-[#2F3332] text-[#1C1F1E] dark:text-[#FCFAEF] p-6 md:p-8 shadow-xl border border-[#E6E7E7]/40 dark:border-[#4F5554]/40 flex flex-col"
-              >
-                <div 
-                  className="h-1 w-16 rounded-full mb-6"
-                  style={{ backgroundColor: "#eeba2b" }}
-                />
-                <div className="mb-4">
-                  <AnimatedMetric
-                    value={5}
-                    suffix="+"
-                    className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight"
-                    style={{ color: "#eeba2b" }}
-                  />
-                </div>
-                <p className="text-base md:text-lg text-[#2F3332] dark:text-[#E6E7E7] leading-relaxed flex-1">
-                  Build a sustainable pipeline of interprofessional global health leaders across countries
-                </p>
-              </MotionDiv>
-              <MotionDiv
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-                viewport={{ once: true }}
-                className="relative rounded-2xl bg-white dark:bg-[#2F3332] text-[#1C1F1E] dark:text-[#FCFAEF] p-6 md:p-8 shadow-xl border border-[#E6E7E7]/40 dark:border-[#4F5554]/40 flex flex-col"
-              >
-                <div 
-                  className="h-1 w-16 rounded-full mb-6"
-                  style={{ backgroundColor: "#0097b2" }}
-                />
-                <div className="mb-4">
-                  <AnimatedMetric
-                    value={1}
-                    className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight"
-                    style={{ color: "#0097b2" }}
-                  />
-                </div>
-                <p className="text-base md:text-lg text-[#2F3332] dark:text-[#E6E7E7] leading-relaxed flex-1">
-                  Strengthen links between academic learning and real-world systems change through the Akomapa Network
-                </p>
-              </MotionDiv>
-            </div>
+            </EditorialHeading>
+            <EditorialLead className="mt-5">By 2027, we aim to:</EditorialLead>
           </div>
-        </div>
-      </section>
+        </FadeIn>
 
-      {/* Voices from Participants Section */}
-      <section className="py-16 md:py-24 bg-gradient-to-r from-[#0097b2] to-[#0F4C5C] text-[#FCFAEF]">
-        <div className="site-container mx-auto px-4">
-          <div className="text-center max-w-3xl mx-auto mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">
+        <FadeInStagger className="mt-12">
+          <dl className="grid border-y border-[#1C1F1E]/15 md:grid-cols-3 dark:border-[#FCFAEF]/20">
+            {impactGoals.map((goal, index) => (
+              <FadeInStaggerItem key={goal.description} direction="up">
+                <div
+                  className={`flex min-h-40 flex-col justify-between px-1 py-7 sm:px-6 ${metricDividerClasses[index]} border-[#1C1F1E]/15 dark:border-[#FCFAEF]/20`}
+                >
+                  <dt className="sr-only">{goal.description}</dt>
+                  <dd>
+                    <AnimatedMetric
+                      value={goal.value}
+                      suffix={goal.suffix}
+                      className="font-heading text-4xl font-semibold tracking-tight text-[#0097b2] md:text-5xl dark:text-[#66C4DC]"
+                    />
+                    <p className="mt-4 text-sm leading-relaxed text-[#2F3332]/80 dark:text-[#E6E7E7]/80 md:text-base">
+                      {goal.description}
+                    </p>
+                  </dd>
+                </div>
+              </FadeInStaggerItem>
+            ))}
+          </dl>
+        </FadeInStagger>
+      </EditorialBand>
+
+      <EditorialBand
+        tone="teal"
+        marker="08"
+        id="ghltp-voices"
+        aria-labelledby="ghltp-voices-heading"
+        className="bg-[#0F4C5C]"
+      >
+        <FadeIn>
+          <div className="mx-auto max-w-3xl text-center">
+            <EditorialEyebrow tone="gold" className="text-[#F5C94D]">
+              Testimonials
+            </EditorialEyebrow>
+            <EditorialHeading
+              id="ghltp-voices-heading"
+              className="mt-4 text-[#FCFAEF]"
+            >
               Voices from Participants
-            </h2>
+            </EditorialHeading>
           </div>
-          
+        </FadeIn>
+        <div className="mt-12">
           <GhltpTestimonialsCarousel />
         </div>
-      </section>
+      </EditorialBand>
 
-      {/* Join the Next Cohort CTA Section */}
-      <section className="py-16 md:py-24 bg-gradient-to-r from-[#0F4C5C] via-[#0097b2] to-[#0B2F3A] text-[#FCFAEF] relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute -top-28 -left-32 h-72 w-72 rounded-full bg-[#FCFAEF]/10 blur-3xl" />
-          <div className="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-[#F5C94D]/10 blur-3xl" />
-        </div>
-
-        <div className="relative site-container mx-auto px-4 sm:px-6">
-          <div className="text-center max-w-4xl mx-auto">
-            <MotionDiv
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true, amount: 0.4 }}
-              className="space-y-6"
+      <EditorialBand
+        tone="teal"
+        marker="09"
+        id="ghltp-cta"
+        aria-labelledby="ghltp-cta-heading"
+        className="border-t border-[#FCFAEF]/15 bg-[#0F4C5C]"
+      >
+        <FadeIn>
+          <div className="mx-auto max-w-3xl text-center">
+            <EditorialEyebrow tone="gold" className="text-[#F5C94D]">
+              Join the Next Cohort
+            </EditorialEyebrow>
+            <EditorialHeading
+              id="ghltp-cta-heading"
+              className="mt-4 text-[#FCFAEF]"
             >
-              <div>
-                <p className="text-sm font-semibold tracking-[0.2em] text-[#F5C94D] uppercase mb-4">
-                  Join the Next Cohort
-                </p>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 text-[#FCFAEF] leading-tight">
-                  Become Part of a Global Movement
-                </h2>
-              </div>
-              <p className="text-base sm:text-lg md:text-xl text-[#FCFAEF]/85 leading-relaxed max-w-3xl mx-auto">
-                Shape the future of compassionate, ethical healthcare through our Global Health Leadership Training Program.
-              </p>
-              <MotionDiv
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                viewport={{ once: true }}
-                className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 pt-6"
-              >
-                <Button
-                  asChild
-                  size="lg"
-                  className="group bg-[#FCFAEF] text-[#0097b2] hover:bg-[#F5C94D] hover:text-[#1C1F1E] px-6 sm:px-8 py-6 h-auto text-base sm:text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
-                >
-                  <Link href="/get-involved" className="flex items-center whitespace-nowrap">
-                    Apply Now
-                    <ArrowRight className="h-5 w-5 ml-2 group-hover:translate-x-1 transition-transform" />
-                  </Link>
-                </Button>
-                <Button
-                  asChild
-                  size="lg"
-                  variant="outline"
-                  className="group border-2 border-[#FCFAEF] text-[#FCFAEF] bg-transparent hover:bg-[#FCFAEF] hover:text-[#0097b2] px-6 sm:px-8 py-6 h-auto text-base sm:text-lg font-semibold transition-all duration-300 transform hover:scale-105"
-                >
-                  <Link href="/programs" className="flex items-center">
-                    Download Program Overview
-                    <ArrowRight className="h-5 w-5 ml-2 group-hover:translate-x-1 transition-transform" />
-                  </Link>
-                </Button>
-                <Button
-                  asChild
-                  size="lg"
-                  variant="outline"
-                  className="group border-2 border-[#F5C94D] text-[#F5C94D] bg-transparent hover:bg-[#F5C94D] hover:text-[#1C1F1E] px-6 sm:px-8 py-6 h-auto text-base sm:text-lg font-semibold transition-all duration-300 transform hover:scale-105"
-                >
-                  <Link href="/partnerships" className="flex items-center whitespace-nowrap">
-                    Partner to Teach
-                    <ArrowRight className="h-5 w-5 ml-2 group-hover:translate-x-1 transition-transform" />
-                  </Link>
-                </Button>
-              </MotionDiv>
-            </MotionDiv>
+              Become Part of a Global Movement
+            </EditorialHeading>
+            <EditorialLead className="mx-auto mt-6 max-w-2xl text-[#FCFAEF]/85 dark:text-[#FCFAEF]/85">
+              Shape the future of compassionate, ethical healthcare through our
+              Global Health Leadership Training Program.
+            </EditorialLead>
+            <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap sm:gap-4">
+              <EditorialButton href="/get-involved" variant="light">
+                Apply Now
+              </EditorialButton>
+              <EditorialButton href="/programs" variant="outline-light">
+                Download Program Overview
+              </EditorialButton>
+              <EditorialButton href="/partnerships" variant="amber">
+                Partner to Teach
+              </EditorialButton>
+            </div>
           </div>
-        </div>
-      </section>
+        </FadeIn>
+      </EditorialBand>
     </>
   );
 }
