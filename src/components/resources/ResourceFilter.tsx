@@ -92,26 +92,27 @@ export default function ResourceFilter({
       </div>
 
       <div className="space-y-6 px-5 py-6 sm:px-6">
-        <form onSubmit={handleSearchSubmit}>
+        <form
+          onSubmit={handleSearchSubmit}
+          className="flex flex-col gap-3 sm:flex-row sm:items-stretch"
+        >
           <Label htmlFor="search" className="sr-only">
             Search resources
           </Label>
-          <div className="relative">
-            <Input
-              id="search"
-              placeholder="Search resources..."
-              value={searchInput}
-              onChange={handleSearchChange}
-              className="min-h-11 border-[#1C1F1E]/15 bg-white pr-12 dark:border-[#FCFAEF]/20 dark:bg-[#1C1F1E]"
-            />
-            <button
-              type="submit"
-              className="absolute right-1 top-1/2 inline-flex h-11 w-11 -translate-y-1/2 shrink-0 items-center justify-center text-[#2F3332]/70 transition-colors hover:text-[#0097b2] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eeba2b] dark:text-[#E6E7E7]/70"
-            >
-              <Search size={16} aria-hidden="true" />
-              <span className="sr-only">Search</span>
-            </button>
-          </div>
+          <Input
+            id="search"
+            placeholder="Search resources..."
+            value={searchInput}
+            onChange={handleSearchChange}
+            className="min-h-11 flex-1 border-[#1C1F1E]/15 bg-white dark:border-[#FCFAEF]/20 dark:bg-[#1C1F1E]"
+          />
+          <button
+            type="submit"
+            className="inline-flex min-h-11 shrink-0 items-center justify-center gap-2 rounded-md bg-[#0097b2] px-5 py-3 text-sm font-semibold text-[#FCFAEF] transition-colors hover:bg-[#eeba2b] hover:text-[#1C1F1E] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eeba2b] focus-visible:ring-offset-2"
+          >
+            <Search size={16} aria-hidden="true" />
+            Search
+          </button>
         </form>
 
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-1">
