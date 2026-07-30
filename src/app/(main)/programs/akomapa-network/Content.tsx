@@ -1,135 +1,134 @@
-import { MotionDiv, MotionH1, MotionP } from "@/components/motion/framer";
-import { AnimatedMetric } from "@/components/motion/AnimatedMetric";
-import Link from "next/link";
-import { ArrowLeft, ArrowRight, Quote } from "lucide-react";
-import Breadcrumb from "@/components/layout/Breadcrumb";
 import Image from "@/components/common/Image";
-import { Button } from "@/components/ui/button";
+import { FadeIn, FadeInStagger, FadeInStaggerItem } from "@/components/animations";
+import { AnimatedMetric } from "@/components/motion/AnimatedMetric";
+import Breadcrumb from "@/components/layout/Breadcrumb";
+import ProgramDetailHero from "@/components/programs/ProgramDetailHero";
+import ProgramQuoteBand from "@/components/programs/ProgramQuoteBand";
+import {
+  EditorialArrow,
+  EditorialArrowLink,
+  EditorialBand,
+  EditorialButton,
+  EditorialEyebrow,
+  EditorialHeading,
+  EditorialLead,
+} from "@/components/shared/EditorialPrimitives";
 
 const networkFeatures = [
   {
     id: "feature-1",
     title: "Peer-to-Peer Mentorship",
-    description: "Experienced student teams coach new chapters on operations, patient care, and sustainability.",
-    color: "#0097b2"
+    description:
+      "Experienced student teams coach new chapters on operations, patient care, and sustainability.",
   },
   {
     id: "feature-2",
     title: "Case-Based Learning",
-    description: "Real cases from Akomapa clinics are used for shared discussions across sites, building critical reasoning and global clinical competence.",
-    color: "#eeba2b"
+    description:
+      "Real cases from Akomapa clinics are used for shared discussions across sites, building critical reasoning and global clinical competence.",
   },
   {
     id: "feature-3",
     title: "Leadership & Training Access",
-    description: "All Network members have access to the Akomapa Global Health Leadership Training Program — a certificate-bearing course led by faculty from Yale, UCLA, UCC, and UG.",
-    color: "#0097b2"
+    description:
+      "All Network members have access to the Akomapa Global Health Leadership Training Program — a certificate-bearing course led by faculty from Yale, UCLA, UCC, and UG.",
   },
   {
     id: "feature-4",
     title: "Collaborative Research",
-    description: "Network partners co-design and publish studies that evaluate student-led interventions, community outcomes, and leadership development.",
-    color: "#eeba2b"
+    description:
+      "Network partners co-design and publish studies that evaluate student-led interventions, community outcomes, and leadership development.",
   },
   {
     id: "feature-5",
     title: "Immersion Opportunities",
-    description: "Clinics across the Network host visiting students and fellows through the Akomapa Global Health Immersion Program, promoting cross-site collaboration and cultural exchange.",
-    color: "#0097b2"
+    description:
+      "Clinics across the Network host visiting students and fellows through the Akomapa Global Health Immersion Program, promoting cross-site collaboration and cultural exchange.",
   },
   {
     id: "feature-6",
     title: "Knowledge Exchange",
-    description: "Members share best practices on community partnership, data collection, and patient-centered education through regular summits and online forums.",
-    color: "#eeba2b"
-  }
-];
+    description:
+      "Members share best practices on community partnership, data collection, and patient-centered education through regular summits and online forums.",
+  },
+] as const;
 
 const goals = [
   {
     id: "goal-1",
     title: "Strengthen Community-Based Care",
-    description: "Through sustainable, student-powered models that make preventative care accessible everywhere.",
-    color: "#0097b2",
-    value: null,
-    suffix: null,
-    label: null
+    description:
+      "Through sustainable, student-powered models that make preventative care accessible everywhere.",
+    value: null as number | null,
+    suffix: null as string | null,
+    label: null as string | null,
   },
   {
     id: "goal-2",
     title: "Train Global Leaders",
-    description: "Student leaders globally by 2027 in interprofessional collaboration and ethical leadership.",
-    color: "#eeba2b",
+    description:
+      "Student leaders globally by 2027 in interprofessional collaboration and ethical leadership.",
     value: 1000,
     suffix: "+",
-    label: "Student Leaders by 2027"
+    label: "Student Leaders by 2027",
   },
   {
     id: "goal-3",
     title: "Establish Global Presence",
     description: "Community clinics across Africa, North America, and beyond.",
-    color: "#0097b2",
     value: 10,
     suffix: "+",
-    label: "Community Clinics"
+    label: "Community Clinics",
   },
   {
     id: "goal-4",
     title: "Facilitate Joint Learning",
-    description: "Research that informs health policy and curriculum development.",
-    color: "#eeba2b",
-    value: null,
-    suffix: null,
-    label: null
+    description:
+      "Research that informs health policy and curriculum development.",
+    value: null as number | null,
+    suffix: null as string | null,
+    label: null as string | null,
   },
   {
     id: "goal-5",
     title: "Build Global Platform",
-    description: "Mentorship and exchange platform connecting students, faculty, and communities.",
-    color: "#0097b2",
+    description:
+      "Mentorship and exchange platform connecting students, faculty, and communities.",
     value: 5,
     suffix: "+",
-    label: "Countries Connected"
-  }
-];
+    label: "Countries Connected",
+  },
+] as const;
 
 const partnerClinics = [
   {
     name: "Akomapa UCC Clinic",
     location: "University of Cape Coast, Ghana",
-    description: "Our first clinic and proof of concept—serving over 1,000 patients while training 75+ students.",
+    description:
+      "Our first clinic and proof of concept—serving over 1,000 patients while training 75+ students.",
     href: "/community-hubs/ucc",
     logo: "/images/partners/akomapa-logo.png",
-    accentColor: "#0097b2"
+    external: false,
   },
   {
     name: "Neighborhood Health Project",
     location: "New Haven, USA",
-    description: "A longstanding student-powered organization advancing community health equity in Connecticut.",
+    description:
+      "A longstanding student-powered organization advancing community health equity in Connecticut.",
     href: "https://nhp.sites.yale.edu/",
     logo: "/images/partners/nhp-logo.png",
-    accentColor: "#eeba2b",
-    external: true
+    external: true,
   },
   {
     name: "South Side Student-Run Free Clinic",
     location: "University of Chicago, USA",
-    description: "A model clinic empowering students to lead in primary care and chronic disease management.",
+    description:
+      "A model clinic empowering students to lead in primary care and chronic disease management.",
     href: "#",
     logo: "/images/partners/uchicago.png",
-    accentColor: "#0097b2"
-  }
-];
-
-const ctaBaseClass =
-  "group inline-flex items-center justify-center gap-2 rounded-half px-8 py-6 h-auto text-base sm:text-lg font-medium transition-all duration-300 transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2";
-
-
-const primaryCtaClass =
-  `${ctaBaseClass} bg-[#0097b2] hover:bg-[#0097b2]/80 text-[#FCFAEF] shadow-lg hover:shadow-xl focus-visible:ring-[#8DD4E6]`;
-
-const secondaryCtaClass =
-  `${ctaBaseClass} bg-[#eeba2b] hover:bg-[#eeba2b]/80 text-[#FCFAEF] shadow-lg hover:shadow-xl focus-visible:ring-[#F5C94D]`;
+    external: false,
+  },
+] as const;
 
 export default function Content() {
   return (
@@ -137,493 +136,358 @@ export default function Content() {
       <div className="site-container mx-auto">
         <Breadcrumb />
       </div>
-      
-      {/* Hero Section */}
-      <section className="relative min-h-[80vh] py-16 sm:py-20 md:py-28 bg-gradient-to-r from-[#0B2F3A] via-[#0F4C5C] to-[#0097b2] overflow-hidden">
-        <div className="absolute top-0 right-0 w-64 h-64 bg-[#FCFAEF]/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#FCFAEF]/10 rounded-full translate-y-1/2 -translate-x-1/2 blur-3xl" />
 
-        <div className="site-container mx-auto px-4 sm:px-6 relative z-10 flex flex-col gap-4 sm:gap-8">
-          <MotionDiv
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="pt-2"
-          >
-            <Link 
-              href="/programs" 
-              className="inline-flex items-center text-[#FCFAEF]/80 hover:text-[#FCFAEF] transition-colors text-sm font-medium"
-            >
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              Back to Programs
-            </Link>
-          </MotionDiv>
-          <div className="max-w-5xl">
-            <MotionP
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-              className="uppercase tracking-[0.3em] text-sm font-semibold text-[#FCFAEF]/80 mb-6"
-            >
-              The Akomapa Network
-            </MotionP>
-            <MotionH1 
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1, duration: 0.8, ease: "easeOut" }}
-              className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-light text-[#FCFAEF] mb-6 leading-tight"
-            >
-              Connecting Clinics. Sharing Knowledge. Building the Future of Global Health.
-            </MotionH1>
-            <MotionP 
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2, duration: 0.8, ease: "easeOut" }}
-              className="text-base sm:text-lg md:text-2xl text-[#FCFAEF]/85 font-light max-w-3xl"
-            >
-              A global community of student-powered clinics, universities, and mentors working together to reimagine how healthcare is delivered and taught.
-            </MotionP>
-            <MotionDiv
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 0.8, ease: "easeOut" }}
-            className="mt-8 flex flex-wrap gap-4"
-            >
-              <Button asChild className={primaryCtaClass}>
-                <Link href="/get-involved">Join the Network</Link>
-              </Button>
-              <Button asChild className={secondaryCtaClass}>
-                <Link href="/partnerships">Partner with Us</Link>
-              </Button>
-            </MotionDiv>
-          </div>
+      <ProgramDetailHero
+        eyebrow="The Akomapa Network"
+        title="Connecting Clinics. Sharing Knowledge. Building the Future of Global Health."
+        lead="A global community of student-powered clinics, universities, and mentors working together to reimagine how healthcare is delivered and taught."
+        image="/highlights/Akomapa-40.jpg"
+        imageAlt="Global network of student healthcare leaders"
+        ctas={[
+          { href: "/get-involved", label: "Join the Network", variant: "solid" },
+          { href: "/partnerships", label: "Partner with Us", variant: "amber" },
+        ]}
+      />
 
-          <MotionDiv
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.8, ease: "easeOut" }}
-            className="w-full"
-          >
-            <div className="relative w-full h-[280px] sm:h-[360px] md:h-[520px] lg:h-[640px] rounded-3xl overflow-hidden shadow-2xl border border-white/10">
+      <EditorialBand
+        tone="cream"
+        marker="01"
+        id="network-about"
+        aria-labelledby="network-about-heading"
+      >
+        <div className="grid items-start gap-10 lg:grid-cols-12 lg:gap-16">
+          <FadeIn className="lg:col-span-7">
+            <EditorialEyebrow className="text-[#0F4C5C] dark:text-[#66C4DC]">
+              About
+            </EditorialEyebrow>
+            <EditorialHeading id="network-about-heading" className="mt-4">
+              About the Network
+            </EditorialHeading>
+            <div className="mt-6 space-y-5 text-base leading-relaxed text-[#2F3332]/80 dark:text-[#E6E7E7]/80 md:text-lg">
+              <p>
+                The Akomapa Network is a global community of student-powered
+                clinics, universities, and mentors working together to reimagine
+                how healthcare is delivered and taught.
+              </p>
+              <p>
+                We connect student-powered, expert-supervised clinics from across
+                Africa and the United States — uniting them through shared
+                learning, leadership training, and collaborative innovation.
+              </p>
+              <p className="font-semibold text-[#1C1F1E] dark:text-[#FCFAEF]">
+                Our goal is simple but bold: to make community-based,
+                preventative care accessible everywhere while training the next
+                generation of global health leaders.
+              </p>
+            </div>
+          </FadeIn>
+          <FadeIn direction="left" delay={0.1} className="relative lg:col-span-5">
+            <span
+              aria-hidden="true"
+              className="absolute -top-3 left-0 z-10 h-1 w-24 bg-[#eeba2b]"
+            />
+            <div className="relative aspect-[4/3] overflow-hidden rounded-md border border-[#1C1F1E]/10 bg-[#E6E7E7] dark:border-[#FCFAEF]/15 dark:bg-[#2F3332]">
               <Image
-                src="/highlights/Akomapa-40.jpg"
-                alt="Global network of student healthcare leaders"
+                src="/highlights/Akomapa-66.jpg"
+                alt="Students collaborating across the network"
                 fill
-                sizes="(min-width: 1024px) 50vw, 100vw"
+                sizes="(min-width: 1024px) 40vw, 100vw"
                 className="object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
             </div>
-          </MotionDiv>
+          </FadeIn>
         </div>
-      </section>
+      </EditorialBand>
 
-      {/* About the Network Section */}
-      <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
-        <div className="site-container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            <MotionDiv
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true, amount: 0.3 }}
-              className="order-1"
+      <EditorialBand
+        tone="teal"
+        marker="02"
+        id="network-vision"
+        aria-labelledby="network-vision-heading"
+        className="bg-[#0F4C5C]"
+      >
+        <FadeIn>
+          <div className="max-w-4xl">
+            <EditorialEyebrow tone="gold" className="text-[#F5C94D]">
+              Vision
+            </EditorialEyebrow>
+            <EditorialHeading
+              id="network-vision-heading"
+              className="mt-4 text-[#FCFAEF]"
             >
-              <h2 className="text-3xl md:text-4xl font-bold mb-6 text-[#1C1F1E] dark:text-[#FCFAEF]">
-                About the Network
-              </h2>
-              <div className="space-y-5 text-lg text-[#2F3332] dark:text-[#E6E7E7] leading-relaxed">
-                <p>
-                  The Akomapa Network is a global community of student-powered clinics, universities, and mentors working together to reimagine how healthcare is delivered and taught.
-                </p>
-                <p>
-                  We connect student-powered, expert-supervised clinics from across Africa and the United States — uniting them through shared learning, leadership training, and collaborative innovation.
-                </p>
-                <p className="font-semibold text-[#1C1F1E] dark:text-[#FCFAEF]">
-                  Our goal is simple but bold: to make community-based, preventative care accessible everywhere while training the next generation of global health leaders.
-                </p>
-              </div>
-            </MotionDiv>
-            <MotionDiv
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1, duration: 0.6 }}
-              viewport={{ once: true, amount: 0.3 }}
-              className="order-2"
-            >
-              <div className="relative w-full min-h-[320px] h-[320px] sm:h-[380px] md:h-[420px] lg:h-[460px] rounded-3xl overflow-hidden shadow-2xl">
-                <Image
-                  src="/highlights/Akomapa-66.jpg"
-                  alt="Students collaborating across the network"
-                  fill
-                  sizes="(min-width: 1024px) 50vw, 100vw"
-                  className="object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent" />
-              </div>
-            </MotionDiv>
+              Our Vision
+            </EditorialHeading>
+            <EditorialLead className="mt-6 text-[#FCFAEF]/90 dark:text-[#FCFAEF]/90 md:text-xl">
+              To build a global learning ecosystem where student-powered clinics
+              don&apos;t work in isolation but as part of a connected movement —
+              sharing data, stories, and strategies that strengthen both care
+              delivery and education.
+            </EditorialLead>
+            <EditorialLead className="mt-5 text-[#FCFAEF]/85 dark:text-[#FCFAEF]/85">
+              We envision a world where a student team in Ghana can learn from
+              one in Chicago, where a New Haven community project can inspire a
+              rural screening model, and where young leaders everywhere are
+              equipped to bridge the gap between knowledge and action.
+            </EditorialLead>
           </div>
-        </div>
-      </section>
+        </FadeIn>
+      </EditorialBand>
 
-      {/* Vision Section */}
-      <section className="py-16 md:py-24 bg-gradient-to-r from-[#0097b2] via-[#0F4C5C] to-[#0B2F3A] text-[#FCFAEF] relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute -top-24 -left-24 h-64 w-64 rounded-full bg-[#FCFAEF]/10 blur-3xl" />
-          <div className="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-[#F5C94D]/10 blur-3xl" />
-        </div>
-        <div className="relative site-container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <MotionDiv
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true, amount: 0.3 }}
-              className="text-center mb-12 space-y-6"
-            >
-              <h2 className="text-3xl md:text-4xl font-bold leading-tight">
-                Our Vision
-              </h2>
-              <p className="text-lg md:text-xl text-[#FCFAEF]/90 leading-relaxed">
-                To build a global learning ecosystem where student-powered clinics don&apos;t work in isolation but as part of a connected movement — sharing data, stories, and strategies that strengthen both care delivery and education.
-              </p>
-              <p className="text-base md:text-lg text-[#FCFAEF]/85 leading-relaxed">
-                We envision a world where a student team in Ghana can learn from one in Chicago, where a New Haven community project can inspire a rural screening model, and where young leaders everywhere are equipped to bridge the gap between knowledge and action.
-              </p>
-            </MotionDiv>
-          </div>
-        </div>
-      </section>
-
-      {/* What the Network Does Section */}
-      <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
-        <div className="site-container mx-auto px-4">
-          <MotionDiv
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true, amount: 0.3 }}
-            className="text-center max-w-4xl mx-auto mb-12 space-y-4"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold text-[#1C1F1E] dark:text-[#FCFAEF]">
+      <EditorialBand
+        tone="cream"
+        marker="03"
+        id="network-does"
+        aria-labelledby="network-does-heading"
+      >
+        <FadeIn>
+          <div className="max-w-3xl">
+            <EditorialEyebrow className="text-[#0F4C5C] dark:text-[#66C4DC]">
+              Functions
+            </EditorialEyebrow>
+            <EditorialHeading id="network-does-heading" className="mt-4">
               What the Network Does
-            </h2>
-            <p className="text-lg text-[#2F3332] dark:text-[#E6E7E7] leading-relaxed">
-              Six core functions that connect, empower, and amplify student-powered care across the globe.
-            </p>
-          </MotionDiv>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-            {networkFeatures.map((feature, index) => (
-              <MotionDiv
-                key={feature.id}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true, amount: 0.3 }}
-                className="group relative rounded-2xl bg-white dark:bg-[#2F3332] p-6 md:p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-[#E6E7E7]/20 dark:border-[#4F5554]/20 hover:-translate-y-1"
-              >
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-br from-[#0097b2]/5 via-transparent to-[#eeba2b]/5 rounded-2xl" />
-                <div className="relative">
-                  <div 
-                    className="h-1 w-16 rounded-full mb-4"
-                    style={{ backgroundColor: feature.color }}
-                  />
-                  <h3 className="text-xl font-semibold text-[#1C1F1E] dark:text-[#FCFAEF] mb-3">
-                    {feature.title}
-                  </h3>
-                  <p className="text-sm md:text-base text-[#2F3332] dark:text-[#E6E7E7] leading-relaxed">
-                    {feature.description}
-                  </p>
-                </div>
-              </MotionDiv>
-            ))}
+            </EditorialHeading>
+            <EditorialLead className="mt-5">
+              Six core functions that connect, empower, and amplify
+              student-powered care across the globe.
+            </EditorialLead>
           </div>
-        </div>
-      </section>
+        </FadeIn>
 
-      {/* Goals Section */}
-      <section className="py-16 md:py-24 bg-gradient-to-r from-[#0097b2] to-[#0F4C5C] text-[#FCFAEF] relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute -top-20 left-10 h-56 w-56 rounded-full bg-[#FCFAEF]/10 blur-3xl" />
-          <div className="absolute bottom-0 right-0 h-72 w-72 rounded-full bg-[#F5C94D]/10 blur-3xl" />
-        </div>
-        <div className="relative site-container mx-auto px-4">
-          <MotionDiv
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true, amount: 0.3 }}
-            className="text-center max-w-4xl mx-auto mb-12 space-y-4"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold leading-tight">
+        <ol className="mt-12 grid border-t border-[#1C1F1E]/15 md:grid-cols-2 xl:grid-cols-3 dark:border-[#FCFAEF]/20">
+          {networkFeatures.map((feature, index) => (
+            <li
+              key={feature.id}
+              className="border-b border-[#1C1F1E]/15 px-1 py-7 md:border-r md:px-6 xl:[&:nth-child(3n)]:border-r-0 dark:border-[#FCFAEF]/20"
+            >
+              <span
+                aria-hidden="true"
+                className="font-heading text-3xl font-semibold tracking-[-0.06em] text-[#0097b2]/55 dark:text-[#66C4DC]/65"
+              >
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              <h3 className="mt-4 font-heading text-xl font-semibold text-[#1C1F1E] dark:text-[#FCFAEF]">
+                {feature.title}
+              </h3>
+              <p className="mt-3 text-sm leading-relaxed text-[#2F3332]/80 dark:text-[#E6E7E7]/80">
+                {feature.description}
+              </p>
+            </li>
+          ))}
+        </ol>
+      </EditorialBand>
+
+      <EditorialBand
+        tone="teal"
+        marker="04"
+        id="network-goals"
+        aria-labelledby="network-goals-heading"
+        className="bg-[#0F4C5C]"
+      >
+        <FadeIn>
+          <div className="max-w-3xl">
+            <EditorialEyebrow tone="gold" className="text-[#F5C94D]">
+              Goals
+            </EditorialEyebrow>
+            <EditorialHeading
+              id="network-goals-heading"
+              className="mt-4 text-[#FCFAEF]"
+            >
               What We Hope to Accomplish
-            </h2>
-            <p className="text-lg text-[#FCFAEF]/85 leading-relaxed">
+            </EditorialHeading>
+            <EditorialLead className="mt-5 text-[#FCFAEF]/85 dark:text-[#FCFAEF]/85">
               Bold goals that drive our collective mission forward.
-            </p>
-          </MotionDiv>
+            </EditorialLead>
+          </div>
+        </FadeIn>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-6xl mx-auto">
+        <FadeInStagger className="mt-12">
+          <ol className="grid border-t border-[#FCFAEF]/25 md:grid-cols-2 lg:grid-cols-3">
             {goals.map((goal, index) => (
-              <MotionDiv
-                key={goal.id}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true, amount: 0.3 }}
-                className="relative rounded-2xl bg-[#FCFAEF]/95 text-[#1C1F1E] p-6 md:p-8 shadow-xl border border-[#E6E7E7]/40 hover:scale-105 transition-transform duration-300 flex flex-col"
-              >
-                <div 
-                  className="h-1 w-16 rounded-full mb-4"
-                  style={{ backgroundColor: goal.color }}
-                />
-                {goal.value !== null && (
-                  <div className="mb-4">
-                    <AnimatedMetric
-                      value={goal.value}
-                      suffix={goal.suffix ?? ""}
-                      className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight"
-                      style={{ color: goal.color }}
-                    />
-                    {goal.label && (
-                      <p className="mt-2 text-sm font-semibold uppercase tracking-[0.2em] text-[#1C1F1E]/70">
-                        {goal.label}
-                      </p>
-                    )}
-                  </div>
-                )}
-                <h3 className="text-lg md:text-xl font-semibold mb-3 text-[#1C1F1E]">
-                  {goal.title}
-                </h3>
-                <p className="text-sm md:text-base text-[#2F3332]/85 leading-relaxed flex-1">
-                  {goal.description}
-                </p>
-              </MotionDiv>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Partner Clinics Section */}
-      <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
-        <div className="site-container mx-auto px-4">
-          <MotionDiv
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true, amount: 0.3 }}
-            className="text-center max-w-4xl mx-auto mb-12 space-y-4"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold text-[#1C1F1E] dark:text-[#FCFAEF]">
-              Founding & Partner Clinics
-            </h2>
-            <p className="text-lg text-[#2F3332] dark:text-[#E6E7E7] leading-relaxed">
-              Student-powered clinics leading the way in community-based care and global collaboration.
-            </p>
-          </MotionDiv>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {partnerClinics.map((clinic, index) => (
-              <MotionDiv
-                key={clinic.name}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true, amount: 0.3 }}
-                className="group relative bg-white dark:bg-[#2F3332] rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 border border-[#E6E7E7]/20 dark:border-[#4F5554]/20 hover:-translate-y-1"
-              >
-                <div className="p-6 md:p-8">
-                  <div className="flex items-center justify-center h-28 md:h-32 mb-6">
-                    <div className="relative h-full w-full">
-                      <Image
-                        src={clinic.logo}
-                        alt={`${clinic.name} logo`}
-                        fill
-                        sizes="(min-width: 1024px) 28vw, 90vw"
-                        className="object-contain"
+              <FadeInStaggerItem key={goal.id} direction="up">
+                <li className="flex h-full flex-col border-b border-[#FCFAEF]/25 px-1 py-7 md:px-6 lg:border-r lg:[&:nth-child(3n)]:border-r-0">
+                  <span
+                    aria-hidden="true"
+                    className="font-heading text-3xl font-semibold tracking-[-0.06em] text-[#FCFAEF]/45"
+                  >
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  {goal.value !== null ? (
+                    <div className="mt-4">
+                      <AnimatedMetric
+                        value={goal.value}
+                        suffix={goal.suffix ?? ""}
+                        className="font-heading text-4xl font-semibold tracking-tight text-[#eeba2b] md:text-5xl"
                       />
+                      {goal.label ? (
+                        <p className="mt-2 font-subheading text-xs font-semibold uppercase tracking-[0.2em] text-[#FCFAEF]/65">
+                          {goal.label}
+                        </p>
+                      ) : null}
                     </div>
-                  </div>
-                  <h3 className="text-xl font-semibold text-[#1C1F1E] dark:text-[#FCFAEF] mb-2">
-                    {clinic.name}
+                  ) : null}
+                  <h3 className="mt-4 font-heading text-lg font-semibold text-[#FCFAEF] md:text-xl">
+                    {goal.title}
                   </h3>
-                  <p className="text-sm text-[#0097b2] dark:text-[#66C4DC] mb-4 font-medium">
-                    {clinic.location}
+                  <p className="mt-3 text-sm leading-relaxed text-[#FCFAEF]/85 md:text-base">
+                    {goal.description}
                   </p>
-                  <p className="text-sm md:text-base text-[#2F3332] dark:text-[#E6E7E7] leading-relaxed mb-6">
-                    {clinic.description}
-                  </p>
-                  {clinic.external ? (
-                    <a
-                      href={clinic.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center text-sm font-semibold"
-                      style={{ color: clinic.accentColor }}
-                    >
-                      Visit Page
-                      <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                    </a>
-                  ) : (
-                    <Link
-                      href={clinic.href}
-                      className="inline-flex items-center text-sm font-semibold"
-                      style={{ color: clinic.accentColor }}
-                    >
-                      Visit Page
-                      <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                    </Link>
-                  )}
-                </div>
-                <div 
-                  className="absolute bottom-0 left-0 right-0 h-1 opacity-0 group-hover:opacity-100 transition-opacity"
-                  style={{ backgroundColor: clinic.accentColor }}
-                />
-              </MotionDiv>
+                </li>
+              </FadeInStaggerItem>
             ))}
-          </div>
-        </div>
-      </section>
+          </ol>
+        </FadeInStagger>
+      </EditorialBand>
 
-      {/* Why It Matters Section */}
-      <section className="py-16 md:py-24 bg-gradient-to-r from-[#0B2F3A] via-[#0F4C5C] to-[#0097b2] text-[#FCFAEF] relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute -top-28 -left-32 h-72 w-72 rounded-full bg-[#FCFAEF]/10 blur-3xl" />
-          <div className="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-[#F5C94D]/10 blur-3xl" />
-        </div>
-        <div className="relative site-container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <MotionDiv
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true, amount: 0.3 }}
-              className="text-center mb-8"
+      <EditorialBand
+        tone="cream"
+        marker="05"
+        id="network-partners"
+        aria-labelledby="network-partners-heading"
+      >
+        <FadeIn>
+          <div className="max-w-3xl">
+            <EditorialEyebrow className="text-[#0F4C5C] dark:text-[#66C4DC]">
+              Partners
+            </EditorialEyebrow>
+            <EditorialHeading id="network-partners-heading" className="mt-4">
+              Founding & Partner Clinics
+            </EditorialHeading>
+            <EditorialLead className="mt-5">
+              Student-powered clinics leading the way in community-based care
+              and global collaboration.
+            </EditorialLead>
+          </div>
+        </FadeIn>
+
+        <ul className="mt-12 grid border-t border-[#1C1F1E]/15 md:grid-cols-3 dark:border-[#FCFAEF]/20">
+          {partnerClinics.map((clinic) => (
+            <li
+              key={clinic.name}
+              className="border-b border-[#1C1F1E]/15 px-1 py-8 md:border-r md:px-6 md:[&:nth-child(3n)]:border-r-0 dark:border-[#FCFAEF]/20"
             >
-              <h2 className="text-3xl md:text-4xl font-bold mb-6 leading-tight">
-                Why It Matters
-              </h2>
-            </MotionDiv>
-            <MotionDiv
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              viewport={{ once: true, amount: 0.3 }}
-              className="space-y-6 text-lg md:text-xl text-[#FCFAEF]/90 leading-relaxed"
+              <div className="relative mb-6 flex h-20 items-center justify-center sm:h-24">
+                <div className="relative h-full w-full max-w-[12rem]">
+                  <Image
+                    src={clinic.logo}
+                    alt={`${clinic.name} logo`}
+                    fill
+                    sizes="(min-width: 1024px) 20vw, 60vw"
+                    className="object-contain"
+                  />
+                </div>
+              </div>
+              <h3 className="font-heading text-xl font-semibold text-[#1C1F1E] dark:text-[#FCFAEF]">
+                {clinic.name}
+              </h3>
+              <p className="mt-2 text-sm font-medium text-[#0097b2] dark:text-[#66C4DC]">
+                {clinic.location}
+              </p>
+              <p className="mt-4 text-sm leading-relaxed text-[#2F3332]/80 dark:text-[#E6E7E7]/80 md:text-base">
+                {clinic.description}
+              </p>
+              {clinic.external ? (
+                <a
+                  href={clinic.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group mt-6 inline-flex min-h-11 w-fit items-center gap-2 text-sm font-semibold text-[#0097b2] transition-colors hover:text-[#0F4C5C] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eeba2b] focus-visible:ring-offset-2 dark:text-[#66C4DC] dark:hover:text-[#F5C94D]"
+                >
+                  Visit Page
+                  <EditorialArrow className="transition-transform group-hover:translate-x-0.5" />
+                </a>
+              ) : (
+                <EditorialArrowLink href={clinic.href} className="mt-6">
+                  Visit Page
+                </EditorialArrowLink>
+              )}
+            </li>
+          ))}
+        </ul>
+      </EditorialBand>
+
+      <EditorialBand
+        tone="teal"
+        marker="06"
+        id="network-matters"
+        aria-labelledby="network-matters-heading"
+        className="bg-[#0F4C5C]"
+      >
+        <FadeIn>
+          <div className="max-w-4xl">
+            <EditorialEyebrow tone="gold" className="text-[#F5C94D]">
+              Purpose
+            </EditorialEyebrow>
+            <EditorialHeading
+              id="network-matters-heading"
+              className="mt-4 text-[#FCFAEF]"
             >
+              Why It Matters
+            </EditorialHeading>
+            <div className="mt-6 space-y-5 text-base leading-relaxed text-[#FCFAEF]/90 md:text-lg">
               <p>
-                The Akomapa Network is more than a collaboration — it&apos;s a global classroom without walls.
+                The Akomapa Network is more than a collaboration — it&apos;s a
+                global classroom without walls.
               </p>
               <p>
-                Every clinic becomes both a site of care and a site of learning, where students grow as clinicians, leaders, and changemakers while improving the health of their communities.
+                Every clinic becomes both a site of care and a site of learning,
+                where students grow as clinicians, leaders, and changemakers
+                while improving the health of their communities.
               </p>
               <p className="font-semibold text-[#FCFAEF]">
-                By linking student-powered clinics into one connected system, we&apos;re making community care smarter, stronger, and sustainable — driven by evidence, compassion, and shared purpose.
+                By linking student-powered clinics into one connected system,
+                we&apos;re making community care smarter, stronger, and
+                sustainable — driven by evidence, compassion, and shared purpose.
               </p>
-            </MotionDiv>
+            </div>
           </div>
-        </div>
-      </section>
+        </FadeIn>
+      </EditorialBand>
 
-      {/* Join the Movement CTA */}
-      <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
-        <div className="site-container mx-auto px-4">
-          <MotionDiv
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true, amount: 0.3 }}
-            className="max-w-3xl mx-auto text-center space-y-6"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold text-[#1C1F1E] dark:text-[#FCFAEF]">
+      <EditorialBand
+        tone="cream"
+        marker="07"
+        id="network-cta"
+        aria-labelledby="network-cta-heading"
+      >
+        <FadeIn>
+          <div className="mx-auto max-w-3xl text-center">
+            <EditorialEyebrow className="text-[#0F4C5C] dark:text-[#66C4DC]">
+              Get Involved
+            </EditorialEyebrow>
+            <EditorialHeading id="network-cta-heading" className="mt-4">
               Join the Movement
-            </h2>
-            <p className="text-lg text-[#2F3332] dark:text-[#E6E7E7] leading-relaxed">
-              We invite universities, clinics, and community organizations to join a network redefining what it means to learn, lead, and serve.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-              <Button
-                asChild
-                className="bg-[#0097b2] hover:bg-[#0097b2]/80 text-[#FCFAEF] font-semibold px-8 py-6 h-auto"
-              >
-                <Link href="/partnerships" className="flex items-center whitespace-nowrap">
-                  Join the Network
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-              </Button>
-              <Button
-                asChild
-                variant="outline"
-                className="border-2 border-[#0097b2] text-[#0097b2] hover:bg-[#0097b2] hover:text-[#FCFAEF] font-semibold px-8 py-6 h-auto"
-              >
-                <Link href="/partnerships" className="flex items-center whitespace-nowrap">
-                  Propose a Partnership
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-              </Button>
-              <Button
-                asChild
-                variant="outline"
-                className="border-2 border-[#eeba2b] text-[#eeba2b] hover:bg-[#eeba2b] hover:text-[#1C1F1E] font-semibold px-8 py-6 h-auto"
-              >
-                <Link href="/programs" className="flex items-center whitespace-nowrap">
-                  Learn More
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-              </Button>
+            </EditorialHeading>
+            <EditorialLead className="mx-auto mt-5 max-w-2xl">
+              We invite universities, clinics, and community organizations to
+              join a network redefining what it means to learn, lead, and serve.
+            </EditorialLead>
+            <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap sm:gap-4">
+              <EditorialButton href="/partnerships" variant="solid">
+                Join the Network
+              </EditorialButton>
+              <EditorialButton href="/partnerships" variant="outline">
+                Propose a Partnership
+              </EditorialButton>
+              <EditorialButton href="/programs" variant="amber">
+                Learn More
+              </EditorialButton>
             </div>
-          </MotionDiv>
-        </div>
-      </section>
+          </div>
+        </FadeIn>
+      </EditorialBand>
 
-      {/* From the Founders Section */}
-      <section className="py-16 md:py-24 bg-gradient-to-r from-[#0F4C5C] via-[#0097b2] to-[#0B2F3A] text-[#FCFAEF] relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute -top-20 left-10 h-56 w-56 rounded-full bg-[#FCFAEF]/10 blur-3xl" />
-          <div className="absolute bottom-0 right-0 h-72 w-72 rounded-full bg-[#F5C94D]/10 blur-3xl" />
-        </div>
-        <div className="relative site-container mx-auto px-4">
-          <MotionDiv
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true, amount: 0.3 }}
-            className="max-w-3xl mx-auto space-y-8"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold text-center">From the Founders</h2>
-            
-            <div className="relative bg-[#FCFAEF]/10 backdrop-blur-md rounded-2xl p-8 md:p-10 shadow-xl border border-[#FCFAEF]/20">
-              <div className="absolute top-6 left-6 text-[#FCFAEF]/20">
-                <Quote size={48} />
-              </div>
-              <blockquote className="relative z-10 text-lg md:text-xl text-[#FCFAEF]/90 leading-relaxed italic pl-8">
-                &quot;The Akomapa Network is building a future where a clinic is not just a place of care but a platform for transformation. Together, we&apos;re proving that student leadership can move systems, and that collaboration across borders can save lives.&quot;
-              </blockquote>
-            </div>
-
-            <div className="flex items-center gap-4">
-              <div className="relative h-16 w-16 rounded-full overflow-hidden border-2 border-[#F5C94D]/40 shadow-lg flex-shrink-0">
-                <Image
-                  src="/team/sedem-dankwa.jpg"
-                  alt="Sedem Dankwa"
-                  fill
-                  className="object-cover object-center"
-                  sizes="64px"
-                />
-              </div>
-              <div className="flex flex-col items-start">
-                <p className="text-base font-semibold text-[#F5C94D]">
-                  Sedem Dankwa
-                </p>
-                <p className="text-sm text-[#FCFAEF]/80">
-                  Global Partnerships Team Lead
-                </p>
-              </div>
-            </div>
-          </MotionDiv>
-        </div>
-      </section>
+      <ProgramQuoteBand
+        tone="teal"
+        marker="08"
+        id="network-quote"
+        className="bg-[#0F4C5C]"
+        quote="The Akomapa Network is building a future where a clinic is not just a place of care but a platform for transformation. Together, we're proving that student leadership can move systems, and that collaboration across borders can save lives."
+        attribution="Sedem Dankwa"
+        role="Global Partnerships Team Lead"
+        image="/team/sedem-dankwa.jpg"
+        imageAlt="Sedem Dankwa"
+      />
     </>
   );
 }
