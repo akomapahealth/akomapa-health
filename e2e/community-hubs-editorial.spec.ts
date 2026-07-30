@@ -252,22 +252,48 @@ for (const theme of themes) {
     await page.setViewportSize({ width: 1280, height: 900 });
     await page.goto(listingRoute, { waitUntil: "domcontentloaded" });
     await expect(page.locator("main h1")).toBeVisible();
+    await expect(page.locator("html")).toHaveClass(new RegExp(`\\b${theme}\\b`));
 
     const creamHeading = page
       .locator("[data-editorial-band][data-editorial-tone='cream'] h2")
       .first();
+    const creamBand = page
+      .locator("[data-editorial-band][data-editorial-tone='cream']")
+      .first();
+    const expectedCreamHeading =
+      theme === "dark" ? "rgb(252, 250, 239)" : "rgb(28, 31, 30)";
+    const expectedCreamBandBg =
+      theme === "dark" ? "rgb(18, 21, 20)" : "rgb(252, 250, 239)";
     await expect
       .poll(() =>
         creamHeading.evaluate((element) => getComputedStyle(element).color),
       )
-      .toBe(
-        theme === "dark" ? "rgb(252, 250, 239)" : "rgb(28, 31, 30)",
-      );
+      .toBe(expectedCreamHeading);
+    await expect
+      .poll(() =>
+        creamBand.evaluate(
+          (element) => getComputedStyle(element).backgroundColor,
+        ),
+      )
+      .toBe(expectedCreamBandBg);
 
     await page.addStyleTag({
       content:
         "*, *::before, *::after { transition-duration: 0s !important; transition-delay: 0s !important; }",
     });
+
+    await expect
+      .poll(() =>
+        creamHeading.evaluate((element) => getComputedStyle(element).color),
+      )
+      .toBe(expectedCreamHeading);
+    await expect
+      .poll(() =>
+        creamBand.evaluate(
+          (element) => getComputedStyle(element).backgroundColor,
+        ),
+      )
+      .toBe(expectedCreamBandBg);
 
     const selectors = [
       "main h1",
