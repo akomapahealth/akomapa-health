@@ -158,6 +158,7 @@ async function getSectionColors(section: Locator) {
           background: markerStyles.backgroundColor,
           border: markerStyles.borderTopColor,
           color: markerStyles.color,
+          transitionDuration: markerStyles.transitionDuration,
         };
       }),
       title: getComputedStyle(title).color,
@@ -285,6 +286,7 @@ test.describe("homepage Why Akomapa model", () => {
           3,
         );
         for (const marker of colors.markers) {
+          expect(marker.transitionDuration).toBe("0s");
           expect(
             contrastRatio(marker.color, marker.background),
           ).toBeGreaterThanOrEqual(4.5);
