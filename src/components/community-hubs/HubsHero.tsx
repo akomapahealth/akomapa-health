@@ -2,51 +2,56 @@
 
 import Image from "@/components/common/Image";
 import { FadeIn } from "@/components/animations";
+import {
+  EditorialBand,
+  EditorialEyebrow,
+  EditorialHeading,
+  EditorialLead,
+} from "@/components/shared/EditorialPrimitives";
 import { communityHubsListing } from "@/data/community-hubs";
 
 export default function HubsHero() {
   return (
-    <section
-      className="relative overflow-hidden bg-gradient-to-r from-[#0097b2] to-[#0F4C5C] py-16 sm:py-20 md:py-28"
+    <EditorialBand
+      tone="teal"
       aria-labelledby="community-hubs-hero-heading"
+      className="border-b border-[#FCFAEF]/20 bg-[#0F4C5C]"
+      containerClassName="py-14 sm:py-16 md:py-20 lg:py-24"
     >
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute -top-24 right-0 h-64 w-64 rounded-full bg-[#FCFAEF]/10 blur-3xl" />
-        <div className="absolute bottom-0 -left-24 h-96 w-96 rounded-full bg-[#FCFAEF]/10 blur-3xl" />
-      </div>
+      <div className="grid gap-12 lg:grid-cols-12 lg:items-end lg:gap-16">
+        <FadeIn className="lg:col-span-7 lg:pb-8">
+          <EditorialEyebrow tone="gold" className="text-[#F5C94D]">
+            Community Learning & Care
+          </EditorialEyebrow>
+          <EditorialHeading
+            as="h1"
+            id="community-hubs-hero-heading"
+            className="mt-5 max-w-4xl text-[2.35rem] text-[#FCFAEF] sm:text-[3rem] md:text-[3.7rem] lg:text-[4.35rem]"
+          >
+            {communityHubsListing.headline}
+          </EditorialHeading>
+          <EditorialLead className="mt-7 max-w-3xl text-[#FCFAEF]/88 dark:text-[#FCFAEF]/88">
+            {communityHubsListing.subheadline}
+          </EditorialLead>
+        </FadeIn>
 
-      <div className="site-container relative z-10 mx-auto px-4 sm:px-6">
-        <div className="flex flex-col gap-12 lg:flex-row lg:items-center lg:gap-16">
-          <FadeIn className="max-w-3xl flex-1">
-            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#F5C94D] sm:text-sm">
-              Community Learning & Care
-            </p>
-            <h1
-              id="community-hubs-hero-heading"
-              className="mt-4 text-3xl font-light leading-tight text-[#FCFAEF] sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl"
-            >
-              {communityHubsListing.headline}
-            </h1>
-            <p className="mt-6 max-w-2xl text-base leading-relaxed text-[#FCFAEF]/85 sm:text-lg md:text-xl">
-              {communityHubsListing.subheadline}
-            </p>
-          </FadeIn>
-
-          <FadeIn direction="left" delay={0.2} className="w-full lg:max-w-md xl:max-w-lg">
-            <div className="relative h-[280px] w-full overflow-hidden rounded-3xl border border-white/10 shadow-2xl sm:h-[360px] md:h-[420px] lg:h-[480px]">
-              <Image
-                src="/highlights/Akomapa-62.jpg"
-                alt="Akomapa community health hub volunteers serving community members"
-                fill
-                priority
-                sizes="(min-width: 1024px) 40vw, 100vw"
-                className="object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
-            </div>
-          </FadeIn>
-        </div>
+        <FadeIn direction="left" delay={0.15} className="relative lg:col-span-5">
+          <span
+            aria-hidden="true"
+            className="absolute -top-3 left-0 z-10 h-1 w-24 bg-[#eeba2b] md:w-36"
+          />
+          <div className="relative aspect-[4/3] overflow-hidden rounded-md border border-[#FCFAEF]/25 bg-[#0F4C5C] lg:aspect-[4/5]">
+            <Image
+              src="/highlights/Akomapa-62.jpg"
+              alt="Akomapa community health hub volunteers serving community members"
+              fill
+              priority
+              sizes="(min-width: 1024px) 38vw, 100vw"
+              className="object-cover"
+            />
+          </div>
+        </FadeIn>
       </div>
-    </section>
+    </EditorialBand>
   );
 }
