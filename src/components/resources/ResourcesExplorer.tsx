@@ -83,12 +83,9 @@ function ResourcesExplorerInner() {
 
       <EditorialBand
         tone="white"
-        aria-labelledby="resources-explorer-heading"
+        aria-label="Browse and filter resources"
         containerClassName="py-12 md:py-16 lg:py-20"
       >
-        <h2 id="resources-explorer-heading" className="sr-only">
-          Browse and filter resources
-        </h2>
         <div className="flex flex-col gap-10 lg:flex-row lg:gap-12">
           <FadeIn className="w-full lg:w-80 lg:shrink-0" delay={0.05}>
             <ResourceFilter

@@ -44,13 +44,13 @@ export default function ResourceCard({ resource }: { resource: Resource }) {
           {resource.description}
         </p>
 
-        <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2">
+        <div className="mt-5 flex flex-wrap items-center gap-3">
           {isExternal ? (
             <a
               href={resource.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-[#0097b2] transition-colors hover:text-[#0F4C5C] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eeba2b] focus-visible:ring-offset-2 dark:text-[#66C4DC]"
+              className="inline-flex min-h-11 min-w-11 items-center justify-center gap-2 px-3 text-sm font-semibold text-[#0097b2] transition-colors hover:text-[#0F4C5C] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eeba2b] focus-visible:ring-offset-2 dark:text-[#66C4DC]"
             >
               View Resource
               <span className="sr-only"> (opens in a new tab)</span>
@@ -59,7 +59,7 @@ export default function ResourceCard({ resource }: { resource: Resource }) {
           ) : (
             <Link
               href={`/resources/${resource.id}`}
-              className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-[#0097b2] transition-colors hover:text-[#0F4C5C] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eeba2b] focus-visible:ring-offset-2 dark:text-[#66C4DC]"
+              className="inline-flex min-h-11 min-w-11 items-center justify-center gap-2 px-3 text-sm font-semibold text-[#0097b2] transition-colors hover:text-[#0F4C5C] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eeba2b] focus-visible:ring-offset-2 dark:text-[#66C4DC]"
             >
               View Details
               <EditorialArrow />
@@ -70,7 +70,7 @@ export default function ResourceCard({ resource }: { resource: Resource }) {
             <a
               href={resource.downloadUrl}
               download
-              className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-[#1C1F1E] underline decoration-[#eeba2b] decoration-2 underline-offset-4 transition-colors hover:text-[#0097b2] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eeba2b] focus-visible:ring-offset-2 dark:text-[#FCFAEF]"
+              className="inline-flex min-h-11 min-w-11 items-center justify-center gap-2 px-3 text-sm font-semibold text-[#1C1F1E] underline decoration-[#eeba2b] decoration-2 underline-offset-4 transition-colors hover:text-[#0097b2] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eeba2b] focus-visible:ring-offset-2 dark:text-[#FCFAEF]"
             >
               Download
               <span className="sr-only"> {resource.title}</span>

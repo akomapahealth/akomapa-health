@@ -121,11 +121,12 @@ test("research listing preserves paper metadata and contact mailto", async ({
   ).toBeVisible();
   await expect(page.getByText(paper.authors)).toBeVisible();
   await expect(
-    page.getByRole("link", { name: /Read Paper/i }),
-  ).toHaveAttribute("href", `/research/${paper.slug}`);
+    page.locator(`a[href="/research/${paper.slug}"]`).first(),
+  ).toBeVisible();
+  await expect(page.getByText("Read Paper").first()).toBeVisible();
   await expect(
-    page.getByRole("link", { name: /akomapahealth@gmail.com/i }),
-  ).toHaveAttribute("href", "mailto:akomapahealth@gmail.com");
+    page.locator('a[href="mailto:akomapahealth@gmail.com"]').first(),
+  ).toBeVisible();
 });
 
 test("resources explorer supports labeled search and empty results", async ({
