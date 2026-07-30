@@ -1,12 +1,11 @@
 "use client";
 
 import { FadeIn, FadeInStagger, FadeInStaggerItem } from "@/components/animations";
+import HubEmptyState from "@/components/community-hubs/HubEmptyState";
 import {
-  PublicSection,
-  PublicSectionHeader,
-  PublicCta,
-  SurfaceCard,
-} from "@/components/shared/PublicPagePrimitives";
+  EditorialBand,
+  EditorialHeading,
+} from "@/components/shared/EditorialPrimitives";
 import type { Story } from "@/lib/types";
 
 type EmptyState = {
@@ -29,49 +28,48 @@ export default function StoriesSection({
   sectionId,
 }: StoriesSectionProps) {
   const hasStories = stories.length > 0;
+  const headingId = `${sectionId}-heading`;
 
   return (
-    <PublicSection tone="white" spacing="normal" id={sectionId}>
+    <EditorialBand
+      tone="white"
+      id={sectionId}
+      aria-labelledby={headingId}
+    >
       <FadeIn>
-        <PublicSectionHeader title={title} titleId={`${sectionId}-heading`} />
+        <EditorialHeading id={headingId}>{title}</EditorialHeading>
       </FadeIn>
 
       {hasStories ? (
-        <FadeInStagger className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <FadeInStagger className="mt-12 grid gap-0 border-t border-[#1C1F1E]/15 md:grid-cols-2 lg:grid-cols-3 dark:border-[#FCFAEF]/20">
           {stories.map((story) => (
             <FadeInStaggerItem key={story.id} direction="up">
-              <SurfaceCard className="h-full p-6">
-                <p className="text-xs font-semibold uppercase tracking-wide text-[#0097b2] dark:text-[#66C4DC]">
+              <article className="flex h-full flex-col border-b border-[#1C1F1E]/15 px-1 py-7 md:border-r md:px-6 md:last:border-r-0 dark:border-[#FCFAEF]/20">
+                <p className="font-subheading text-xs font-bold uppercase tracking-[0.2em] text-[#0097b2] dark:text-[#66C4DC]">
                   {story.role}
                 </p>
-                <h3 className="mt-2 text-xl font-semibold text-[#1C1F1E] dark:text-[#FCFAEF]">
+                <h3 className="mt-3 font-heading text-xl font-semibold text-[#1C1F1E] dark:text-[#FCFAEF]">
                   {story.title}
                 </h3>
-                <p className="mt-3 text-sm leading-relaxed text-[#2F3332]/80 dark:text-[#E6E7E7]/80">
+                <p className="mt-3 flex-1 text-sm leading-relaxed text-[#2F3332]/80 dark:text-[#E6E7E7]/80">
                   {story.excerpt}
                 </p>
                 <p className="mt-4 text-sm font-medium text-[#2F3332] dark:text-[#E6E7E7]">
                   — {story.author}
                 </p>
-              </SurfaceCard>
+              </article>
             </FadeInStaggerItem>
           ))}
         </FadeInStagger>
       ) : (
-        <FadeIn className="mt-12">
-          <SurfaceCard className="mx-auto max-w-3xl p-8 text-center">
-            <h3 className="text-xl font-semibold text-[#1C1F1E] dark:text-[#FCFAEF]">
-              {emptyState.title}
-            </h3>
-            <p className="mt-3 text-base leading-relaxed text-[#2F3332]/80 dark:text-[#E6E7E7]/80">
-              {emptyState.description}
-            </p>
-            <PublicCta href={emptyState.cta.href} variant="teal" className="mt-6">
-              {emptyState.cta.label}
-            </PublicCta>
-          </SurfaceCard>
+        <FadeIn className="mt-10">
+          <HubEmptyState
+            title={emptyState.title}
+            description={emptyState.description}
+            cta={emptyState.cta}
+          />
         </FadeIn>
       )}
-    </PublicSection>
+    </EditorialBand>
   );
 }
