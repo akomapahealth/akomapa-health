@@ -71,7 +71,10 @@ export default function HubCard({ hub }: HubCardProps) {
           </div>
         </dl>
 
-        <EditorialArrowLink href={href} className="mt-6">
+        <EditorialArrowLink
+          href={href}
+          className="mt-6 text-[#0F4C5C] hover:text-[#0097b2] dark:text-[#66C4DC] dark:hover:text-[#F5C94D]"
+        >
           <span className="sr-only">{hub.name}: </span>
           Learn More
         </EditorialArrowLink>
