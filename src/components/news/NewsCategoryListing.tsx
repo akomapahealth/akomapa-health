@@ -6,9 +6,19 @@ import {
   FadeInStagger,
   FadeInStaggerItem,
 } from "@/components/animations";
-import { AnnouncementCard } from "@/components/common/AnnouncementCard";
-import { getNewsOnlyItems, newsItemToAnnouncement } from "@/data/unified-news";
-import { cn } from "@/lib/utils";
+import {
+  PublicationEmptyState,
+  PublicationEntry,
+  PublicationFilterChip,
+} from "@/components/publication";
+import {
+  EditorialBand,
+  EditorialEyebrow,
+  EditorialHeading,
+  EditorialLead,
+} from "@/components/shared/EditorialPrimitives";
+import { getNewsOnlyItems } from "@/data/unified-news";
+import { getAnnouncementPosterSrc } from "@/lib/video-utils";
 import { motionDurations } from "@/lib/motion/tokens";
 
 const allItems = getNewsOnlyItems();
@@ -17,6 +27,14 @@ const categories = [
   "All",
   ...Array.from(new Set(allItems.map((item) => item.category))),
 ];
+
+function formatNewsDate(dateStr: string): string {
+  return new Intl.DateTimeFormat("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  }).format(new Date(dateStr));
+}
 
 export default function NewsCategoryListing() {
   const [activeCategory, setActiveCategory] = useState("All");
@@ -27,62 +45,83 @@ export default function NewsCategoryListing() {
       : allItems.filter((item) => item.category === activeCategory);
 
   return (
-    <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
-      <div className="site-container mx-auto px-4 sm:px-6">
-        <FadeIn
-          className="text-center max-w-3xl mx-auto mb-10"
-          duration={motionDurations.enter}
+    <EditorialBand
+      tone="cream"
+      marker="01"
+      aria-labelledby="news-listing-heading"
+    >
+      <FadeIn duration={motionDurations.enter}>
+        <EditorialEyebrow className="text-[#0F4C5C] dark:text-[#66C4DC]">
+          All News
+        </EditorialEyebrow>
+        <EditorialHeading id="news-listing-heading" className="mt-4 max-w-3xl">
+          Everything You Need to Know
+        </EditorialHeading>
+        <EditorialLead className="mt-5 max-w-3xl">
+          Browse stories covering awards, partnerships, launches, and
+          milestones from our teams in the field.
+        </EditorialLead>
+      </FadeIn>
+
+      <FadeIn className="mt-10" duration={motionDurations.enter}>
+        <div
+          role="group"
+          aria-label="Filter news by category"
+          className="flex flex-wrap gap-2 sm:gap-3"
         >
-          <h2 className="text-[#F5C94D] font-bold text-base sm:text-lg mb-2">
-            ALL NEWS
-          </h2>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-[#1C1F1E] dark:text-[#FCFAEF]">
-            Everything You Need to Know
-          </h2>
-          <p className="text-base sm:text-lg text-[#2F3332]/70 dark:text-[#E6E7E7]/60 leading-relaxed max-w-2xl mx-auto">
-            Browse stories covering awards, partnerships, launches, and
-            milestones from our teams in the field.
-          </p>
-        </FadeIn>
+          {categories.map((cat) => (
+            <PublicationFilterChip
+              key={cat}
+              label={cat}
+              selected={activeCategory === cat}
+              onClick={() => setActiveCategory(cat)}
+            />
+          ))}
+        </div>
+      </FadeIn>
 
-        {/* Category Filter Pills */}
-        <FadeIn className="mb-10" duration={motionDurations.enter}>
-          <div className="flex flex-wrap justify-center gap-2 sm:gap-3 max-w-4xl mx-auto">
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setActiveCategory(cat)}
-                className={cn(
-                  "rounded-full px-4 py-2 text-sm font-medium transition-all duration-200",
-                  activeCategory === cat
-                    ? "bg-[#0097b2] text-[#FCFAEF] shadow-md"
-                    : "bg-white dark:bg-[#2F3332] text-[#2F3332]/70 dark:text-[#E6E7E7]/70 border border-black/[0.06] dark:border-white/[0.08] hover:border-[#0097b2]/30 hover:text-[#0097b2] dark:hover:text-[#66C4DC]"
-                )}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
-        </FadeIn>
-
+      {filtered.length === 0 ? (
+        <div className="mt-12">
+          <PublicationEmptyState
+            title="No stories in this category yet."
+            description="Choose another category to continue browsing Akomapa news."
+          />
+        </div>
+      ) : (
         <FadeInStagger
           key={activeCategory}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto"
+          className="mt-10 flex max-w-5xl flex-col"
           staggerDelay={motionDurations.staggerContainer}
         >
-          {filtered.map((item) => (
-            <FadeInStaggerItem key={item.id} direction="up">
-              <AnnouncementCard item={newsItemToAnnouncement(item)} />
-            </FadeInStaggerItem>
-          ))}
+          {filtered.map((item) => {
+            const poster = getAnnouncementPosterSrc(item);
+            return (
+              <FadeInStaggerItem key={item.id} direction="up">
+                <PublicationEntry
+                  href={`/news/${item.id}`}
+                  title={item.title}
+                  description={item.excerpt}
+                  image={poster}
+                  imageAlt={item.title}
+                  ctaLabel="Explore the update"
+                  eyebrow={item.category}
+                  meta={
+                    item.date
+                      ? [
+                          {
+                            label: "Published",
+                            value: formatNewsDate(item.date),
+                            dateTime: item.date,
+                          },
+                        ]
+                      : undefined
+                  }
+                />
+              </FadeInStaggerItem>
+            );
+          })}
         </FadeInStagger>
-
-        {filtered.length === 0 && (
-          <p className="text-center text-[#2F3332]/50 dark:text-[#E6E7E7]/40 mt-12">
-            No stories in this category yet.
-          </p>
-        )}
-      </div>
-    </section>
+      )}
+    </EditorialBand>
   );
 }

@@ -86,7 +86,7 @@ export function BlogFeaturedPost({ post }: BlogFeaturedPostProps) {
             {post.title}
           </h2>
 
-          <p className="mb-6 text-base leading-relaxed text-[#2F3332]/75 line-clamp-3 sm:text-lg dark:text-[#E6E7E7]/70">
+          <p className="mb-6 text-base leading-relaxed text-[#2F3332]/75 sm:text-lg dark:text-[#E6E7E7]/70">
             {post.excerpt}
           </p>
 
