@@ -10,8 +10,7 @@ import {
   User,
   type LucideIcon,
 } from "lucide-react";
-import type { CSSProperties } from "react";
-import { SurfaceCard } from "@/components/shared/PublicPagePrimitives";
+import { cn } from "@/lib/utils";
 
 const iconMap: Record<string, LucideIcon> = {
   User,
@@ -42,7 +41,6 @@ export default function PathwayCard({
   ctaLabel,
   ctaHref,
   external = false,
-  accent,
   featured = false,
 }: PathwayCardProps) {
   const Icon = iconMap[icon];
@@ -54,7 +52,7 @@ export default function PathwayCard({
         <ArrowUpRight className="ml-1.5 h-4 w-4" aria-hidden="true" />
       ) : (
         <ArrowRight
-          className="ml-1.5 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
+          className="ml-1.5 h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5"
           aria-hidden="true"
         />
       )}
@@ -62,49 +60,41 @@ export default function PathwayCard({
   );
 
   const ctaClassName =
-    "mt-6 inline-flex items-center font-subheading text-sm font-bold uppercase tracking-[0.14em] text-[#0097b2] transition-colors hover:text-[#eeba2b] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0097b2]/40 focus-visible:ring-offset-2 focus-visible:ring-offset-[#FCFAEF] dark:text-[#66C4DC] dark:hover:text-[#F5C94D] dark:focus-visible:ring-offset-[#121514]";
+    "mt-6 inline-flex min-h-11 items-center font-subheading text-sm font-bold uppercase tracking-[0.14em] text-[#0097b2] transition-colors hover:text-[#0F4C5C] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eeba2b] focus-visible:ring-offset-2 dark:text-[#66C4DC] dark:hover:text-[#F5C94D]";
 
   return (
-    <SurfaceCard
-      interactive
-      accentColor={`${accent}3D`}
-      className="group relative flex h-full flex-col overflow-hidden p-6 sm:p-7"
-      style={{ "--pathway-accent": accent } as CSSProperties}
+    <article
+      className={cn(
+        "group relative flex h-full flex-col border-t-2 pt-6",
+        featured
+          ? "border-[#eeba2b] md:col-span-1"
+          : "border-[#0097b2]/40 dark:border-[#66C4DC]/40",
+      )}
     >
-      {/* Accent top border */}
-      <span
-        aria-hidden="true"
-        className="absolute inset-x-0 top-0 h-1 rounded-t-xl"
-        style={{ backgroundColor: accent }}
-      />
-
-      <div className="flex items-center justify-between gap-3">
+      <div className="flex items-start justify-between gap-3">
         <span
-          className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-xl"
-          style={{ backgroundColor: `${accent}1F`, color: accent }}
+          aria-hidden="true"
+          className="inline-flex h-11 w-11 shrink-0 items-center justify-center border border-[#0097b2]/30 text-[#0097b2] dark:border-[#66C4DC]/35 dark:text-[#66C4DC]"
         >
-          {Icon ? <Icon className="h-6 w-6" aria-hidden="true" /> : null}
+          {Icon ? <Icon className="h-5 w-5" /> : null}
         </span>
         {featured ? (
-          <span
-            className="inline-flex items-center rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-[0.14em]"
-            style={{ backgroundColor: `${accent}1F`, color: accent }}
-          >
+          <span className="inline-flex min-h-8 items-center border border-[#eeba2b]/50 px-3 py-1 font-subheading text-[11px] font-bold uppercase tracking-[0.14em] text-[#C9920F] dark:text-[#F5C94D]">
             Primary pathway
           </span>
         ) : null}
       </div>
 
-      <h3 className="mt-5 font-heading text-xl font-bold text-[#1C1F1E] dark:text-[#FCFAEF]">
+      <h3 className="mt-5 font-heading text-xl font-semibold text-[#1C1F1E] dark:text-[#FCFAEF]">
         {title}
       </h3>
 
-      <p className="mt-3 font-body leading-7 text-[#2F3332]/75 dark:text-[#FCFAEF]/70">
+      <p className="mt-3 text-base leading-relaxed text-[#2F3332]/80 dark:text-[#E6E7E7]/75">
         {description}
       </p>
 
-      <p className="mt-4 border-l-2 border-[#E6E7E7] pl-3 font-body text-sm leading-6 text-[#2F3332]/65 dark:border-[#2E3433] dark:text-[#FCFAEF]/55">
-        <span className="font-semibold text-[#2F3332] dark:text-[#FCFAEF]/80">
+      <p className="mt-4 border-l-2 border-[#1C1F1E]/15 pl-3 text-sm leading-relaxed text-[#2F3332]/70 dark:border-[#FCFAEF]/20 dark:text-[#E6E7E7]/65">
+        <span className="font-semibold text-[#1C1F1E] dark:text-[#FCFAEF]">
           For:
         </span>{" "}
         {audience}
@@ -126,6 +116,6 @@ export default function PathwayCard({
           </Link>
         )}
       </div>
-    </SurfaceCard>
+    </article>
   );
 }
