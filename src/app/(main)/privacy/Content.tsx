@@ -1,15 +1,15 @@
 import { FadeIn } from "@/components/animations";
 import Breadcrumb from "@/components/layout/Breadcrumb";
 import {
+  LegalContentsNav,
   LegalLastUpdated,
   LegalProseArticle,
-  LegalSectionRule,
+  LegalSection,
   legalBodyClassName as body,
-  legalHeadingClassName as h2,
   legalLinkClassName as link,
   legalListClassName as list,
-  legalSectionClassName as section,
   legalSubheadingClassName as h3,
+  type LegalContentsItem,
 } from "@/components/legal/LegalDocumentPrimitives";
 import { PublicationArticleMeasure } from "@/components/publication";
 import {
@@ -21,6 +21,25 @@ import {
 import Link from "next/link";
 
 const LAST_UPDATED = "May 9, 2026";
+
+const contents: readonly LegalContentsItem[] = [
+  { href: "#scope", label: "Who we are and what this policy covers" },
+  { href: "#information-we-collect", label: "Information we collect" },
+  { href: "#how-we-use-information", label: "How we use information" },
+  { href: "#forms", label: "Forms and applications" },
+  {
+    href: "#cookies-local-storage",
+    label: "Cookies, local storage, and similar technologies",
+  },
+  { href: "#analytics", label: "Analytics and performance" },
+  { href: "#sharing", label: "How we share information" },
+  { href: "#international", label: "International transfers" },
+  { href: "#security", label: "Data security" },
+  { href: "#rights", label: "Your rights and choices" },
+  { href: "#children", label: "Children's privacy" },
+  { href: "#changes", label: "Changes to this Privacy Policy" },
+  { href: "#contact", label: "Contact us" },
+];
 
 export default function Content() {
   return (
@@ -51,6 +70,9 @@ export default function Content() {
             information across our website, programs, and related digital
             services.
           </EditorialLead>
+          <p className="mt-8 border-t border-[#FCFAEF]/20 pt-5 font-subheading text-xs font-bold uppercase tracking-[0.18em] text-[#F5C94D]/90">
+            Last updated: {LAST_UPDATED}
+          </p>
         </FadeIn>
       </EditorialBand>
 
@@ -58,13 +80,18 @@ export default function Content() {
         tone="cream"
         marker="01"
         aria-labelledby="privacy-policy-title"
+        containerClassName="py-12 md:py-16 lg:py-20"
       >
         <FadeIn amount="some">
-          <PublicationArticleMeasure>
+          <PublicationArticleMeasure className="max-w-3xl">
             <LegalProseArticle labelledBy="privacy-policy-title">
-              <div className="space-y-4 sm:space-y-6" id="scope">
-                <LegalSectionRule variant="teal" />
-                <h2 className={h2}>Who we are and what this policy covers</h2>
+              <LegalContentsNav items={contents} />
+
+              <LegalSection
+                id="scope"
+                ruleVariant="teal"
+                title="Who we are and what this policy covers"
+              >
                 <p className={body}>
                   Akomapa Health Foundation (&quot;we,&quot; &quot;our,&quot;
                   or &quot;us&quot;) runs community health programs, volunteer
@@ -83,11 +110,13 @@ export default function Content() {
                   data—not patient charts entered in an EMR—unless we tell you
                   otherwise at collection.
                 </p>
-              </div>
+              </LegalSection>
 
-              <div className={section} id="information-we-collect">
-                <LegalSectionRule variant="amber" />
-                <h2 className={h2}>Information we collect</h2>
+              <LegalSection
+                id="information-we-collect"
+                ruleVariant="amber"
+                title="Information we collect"
+              >
                 <p className={body}>Depending on how you engage with us, we may collect:</p>
                 <ul className={list}>
                   <li>
@@ -129,11 +158,13 @@ export default function Content() {
                     vendors that deliver forms or email on our behalf.
                   </li>
                 </ul>
-              </div>
+              </LegalSection>
 
-              <div className={section} id="how-we-use-information">
-                <LegalSectionRule variant="teal" />
-                <h2 className={h2}>How we use information</h2>
+              <LegalSection
+                id="how-we-use-information"
+                ruleVariant="teal"
+                title="How we use information"
+              >
                 <p className={body}>We use personal information to:</p>
                 <ul className={list}>
                   <li>Respond to questions and partnership inquiries</li>
@@ -157,15 +188,14 @@ export default function Content() {
                     understanding which content is most helpful
                   </li>
                 </ul>
-              </div>
+              </LegalSection>
 
-              <div className={section} id="forms">
-                <LegalSectionRule variant="amber" />
-                <h2 className={h2}>Forms and applications</h2>
-
-                <h3 className={`${h3} pt-2`}>
-                  Contact and partnership messages
-                </h3>
+              <LegalSection
+                id="forms"
+                ruleVariant="amber"
+                title="Forms and applications"
+              >
+                <h3 className={h3}>Contact and partnership messages</h3>
                 <p className={body}>
                   When you use our contact flow, your submission is transmitted
                   through a secure form delivery service so our team can reply.
@@ -173,9 +203,7 @@ export default function Content() {
                   maintain records where required, and protect our community.
                 </p>
 
-                <h3 className={h3}>
-                  Volunteer applications
-                </h3>
+                <h3 className={h3}>Volunteer applications</h3>
                 <p className={body}>
                   Volunteer applications are stored in a secure database tool
                   our staff uses for recruiting and placement. Access is limited
@@ -185,9 +213,7 @@ export default function Content() {
                   necessary.
                 </p>
 
-                <h3 className={h3}>
-                  Educational programs and future platforms
-                </h3>
+                <h3 className={h3}>Educational programs and future platforms</h3>
                 <p className={body}>
                   If you register for trainings, mentorship, or future online
                   learning experiences we offer, we may collect enrollment
@@ -196,11 +222,13 @@ export default function Content() {
                   license or certification unless we explicitly say so in
                   writing for that offering.
                 </p>
-              </div>
+              </LegalSection>
 
-              <div className={section} id="cookies-local-storage">
-                <LegalSectionRule variant="teal" />
-                <h2 className={h2}>Cookies, local storage, and similar technologies</h2>
+              <LegalSection
+                id="cookies-local-storage"
+                ruleVariant="teal"
+                title="Cookies, local storage, and similar technologies"
+              >
                 <p className={body}>
                   We may use cookies or similar technologies where needed for
                   security, preferences, or future analytics features. Today,
@@ -215,11 +243,13 @@ export default function Content() {
                   will update this Policy and, where required, provide a way to
                   manage preferences.
                 </p>
-              </div>
+              </LegalSection>
 
-              <div className={section} id="analytics">
-                <LegalSectionRule variant="amber" />
-                <h2 className={h2}>Analytics and performance</h2>
+              <LegalSection
+                id="analytics"
+                ruleVariant="amber"
+                title="Analytics and performance"
+              >
                 <p className={body}>
                   Like most hosted websites, our infrastructure automatically
                   logs technical activity needed to deliver pages securely and
@@ -228,11 +258,13 @@ export default function Content() {
                   describe the tools we use, what data they collect, and any
                   choices you have.
                 </p>
-              </div>
+              </LegalSection>
 
-              <div className={section} id="sharing">
-                <LegalSectionRule variant="teal" />
-                <h2 className={h2}>How we share information</h2>
+              <LegalSection
+                id="sharing"
+                ruleVariant="teal"
+                title="How we share information"
+              >
                 <p className={body}>
                   We do not sell your personal information. We may share data
                   with:
@@ -264,11 +296,13 @@ export default function Content() {
                   We require vendors to use information only to provide
                   services to us and to apply reasonable security measures.
                 </p>
-              </div>
+              </LegalSection>
 
-              <div className={section} id="international">
-                <LegalSectionRule variant="amber" />
-                <h2 className={h2}>International transfers</h2>
+              <LegalSection
+                id="international"
+                ruleVariant="amber"
+                title="International transfers"
+              >
                 <p className={body}>
                   Akomapa works across regions. Information may be processed in
                   the United States or other countries where our vendors operate.
@@ -276,11 +310,13 @@ export default function Content() {
                   organizational safeguards appropriate to the sensitivity of
                   the information involved.
                 </p>
-              </div>
+              </LegalSection>
 
-              <div className={section} id="security">
-                <LegalSectionRule variant="teal" />
-                <h2 className={h2}>Data security</h2>
+              <LegalSection
+                id="security"
+                ruleVariant="teal"
+                title="Data security"
+              >
                 <p className={body}>
                   We use administrative, technical, and physical safeguards
                   designed to protect personal information, including encryption
@@ -289,11 +325,13 @@ export default function Content() {
                   platform can guarantee perfect security; please use unique
                   passwords and contact us immediately if you suspect misuse.
                 </p>
-              </div>
+              </LegalSection>
 
-              <div className={section} id="rights">
-                <LegalSectionRule variant="amber" />
-                <h2 className={h2}>Your rights and choices</h2>
+              <LegalSection
+                id="rights"
+                ruleVariant="amber"
+                title="Your rights and choices"
+              >
                 <p className={body}>Depending on where you live, you may have rights to:</p>
                 <ul className={list}>
                   <li>Access the personal information we maintain about you</li>
@@ -318,11 +356,13 @@ export default function Content() {
                   . We may need to verify your identity before fulfilling certain
                   requests.
                 </p>
-              </div>
+              </LegalSection>
 
-              <div className={section} id="children">
-                <LegalSectionRule variant="teal" />
-                <h2 className={h2}>Children&apos;s privacy</h2>
+              <LegalSection
+                id="children"
+                ruleVariant="teal"
+                title="Children's privacy"
+              >
                 <p className={body}>
                   Our website and general mailing lists are not directed at
                   children under 13. Youth may participate in some educational
@@ -332,25 +372,26 @@ export default function Content() {
                   believe we collected information from a child improperly,
                   please contact us right away.
                 </p>
-              </div>
+              </LegalSection>
 
-              <div className={section} id="changes">
-                <LegalSectionRule variant="amber" />
-                <h2 className={h2}>Changes to this Privacy Policy</h2>
+              <LegalSection
+                id="changes"
+                ruleVariant="amber"
+                title="Changes to this Privacy Policy"
+              >
                 <p className={body}>
                   We may update this Policy as our programs evolve. When we make
                   material changes, we will revise the &quot;Last updated&quot;
                   date below and, where appropriate, provide additional notice on
                   the site or by email.
                 </p>
-              </div>
+              </LegalSection>
 
-              <div
-                className="space-y-4 border-t border-[#E6E7E7] pt-6 sm:space-y-6 dark:border-[#4F5554]"
+              <LegalSection
                 id="contact"
+                ruleVariant="teal"
+                title="Contact us"
               >
-                <LegalSectionRule variant="teal" />
-                <h2 className={h2}>Contact us</h2>
                 <p className={body}>
                   Questions about privacy? Email{" "}
                   <a href="mailto:akomapahealth@gmail.com" className={link}>
@@ -362,7 +403,7 @@ export default function Content() {
                   </Link>
                   .
                 </p>
-              </div>
+              </LegalSection>
 
               <LegalLastUpdated date={LAST_UPDATED} />
             </LegalProseArticle>

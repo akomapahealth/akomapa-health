@@ -70,10 +70,15 @@ describe("Terms Content editorial contracts", () => {
       expect(document.getElementById(id)).toBeTruthy();
     }
 
-    expect(screen.getByText("Last updated: May 9, 2026")).toBeInTheDocument();
+    expect(
+      screen.getAllByText("Last updated: May 9, 2026").length,
+    ).toBeGreaterThanOrEqual(1);
 
     expect(
-      screen.getByRole("link", { name: "Privacy Policy" }),
+      screen
+        .getByRole("heading", { level: 2, name: "Agreement to these terms" })
+        .closest("section")
+        ?.querySelector('a[href="/privacy"]'),
     ).toHaveAttribute("href", "/privacy");
 
     const mailLinks = screen.getAllByRole("link", {
@@ -89,15 +94,22 @@ describe("Terms Content editorial contracts", () => {
     ).toHaveAttribute("href", "/contact");
 
     expect(screen.getByText("www.akomapahealth.org")).toBeInTheDocument();
+    expect(
+      screen.getByRole("navigation", { name: "On this page" }),
+    ).toBeInTheDocument();
   });
 
-  it("uses a cream body band with restrained section rules", () => {
+  it("uses a cream body band with semantic legal sections and restrained rules", () => {
     render(<Content />);
 
     const bodyBand = document.querySelector(
       '[data-editorial-band][data-editorial-tone="cream"]',
     );
     expect(bodyBand).toBeTruthy();
+
+    expect(document.querySelectorAll("[data-legal-section]").length).toBe(
+      termsHeadings.length,
+    );
 
     const rules = document.querySelectorAll("[data-legal-section-rule]");
     expect(rules.length).toBeGreaterThanOrEqual(termsHeadings.length);

@@ -1,8 +1,10 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import {
+  LegalContentsNav,
   LegalLastUpdated,
   LegalProseArticle,
+  LegalSection,
   LegalSectionRule,
   legalBodyClassName,
   legalLinkClassName,
@@ -18,6 +20,44 @@ describe("LegalDocumentPrimitives", () => {
     expect(rule).toHaveAttribute("data-legal-section-rule-variant", "amber");
     expect(rule?.className).not.toContain("gradient");
     expect(rule?.className).not.toContain("shadow");
+  });
+
+  it("renders semantic legal sections with headings and section rules", () => {
+    render(
+      <LegalSection id="scope" ruleVariant="teal" title="Who we are">
+        <p className={legalBodyClassName}>Body copy</p>
+      </LegalSection>,
+    );
+
+    const section = document.getElementById("scope");
+    expect(section?.tagName).toBe("SECTION");
+    expect(section).toHaveAttribute("data-legal-section");
+    expect(
+      screen.getByRole("heading", { level: 2, name: "Who we are" }),
+    ).toHaveAttribute("id", "scope-heading");
+    expect(section?.querySelector("[data-legal-section-rule]")).toBeTruthy();
+  });
+
+  it("renders an on-this-page contents nav with numbered anchors", () => {
+    render(
+      <LegalContentsNav
+        items={[
+          { href: "#scope", label: "Who we are" },
+          { href: "#contact", label: "Contact us" },
+        ]}
+      />,
+    );
+
+    const nav = screen.getByRole("navigation", { name: "On this page" });
+    expect(nav).toHaveAttribute("data-legal-contents");
+    expect(screen.getByRole("link", { name: /Who we are/i })).toHaveAttribute(
+      "href",
+      "#scope",
+    );
+    expect(screen.getByRole("link", { name: /Contact us/i })).toHaveAttribute(
+      "href",
+      "#contact",
+    );
   });
 
   it("renders the last-updated line with the provided date", () => {

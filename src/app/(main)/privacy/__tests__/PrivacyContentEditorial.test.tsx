@@ -69,7 +69,9 @@ describe("Privacy Content editorial contracts", () => {
       expect(document.getElementById(id)).toBeTruthy();
     }
 
-    expect(screen.getByText("Last updated: May 9, 2026")).toBeInTheDocument();
+    expect(
+      screen.getAllByText("Last updated: May 9, 2026").length,
+    ).toBeGreaterThanOrEqual(1);
 
     const mailLinks = screen.getAllByRole("link", {
       name: "akomapahealth@gmail.com",
@@ -82,6 +84,15 @@ describe("Privacy Content editorial contracts", () => {
     expect(
       screen.getByRole("link", { name: "contact page" }),
     ).toHaveAttribute("href", "/contact");
+
+    expect(
+      screen.getByRole("navigation", { name: "On this page" }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", {
+        name: /Who we are and what this policy covers/i,
+      }),
+    ).toHaveAttribute("href", "#scope");
 
     expect(
       screen.getByRole("heading", {
@@ -103,13 +114,16 @@ describe("Privacy Content editorial contracts", () => {
     ).toBeInTheDocument();
   });
 
-  it("uses a cream body band with restrained mustard/teal section rules", () => {
+  it("uses a cream body band with semantic legal sections and restrained rules", () => {
     render(<Content />);
 
     const bodyBand = document.querySelector(
       '[data-editorial-band][data-editorial-tone="cream"]',
     );
     expect(bodyBand).toBeTruthy();
+
+    const sections = document.querySelectorAll("[data-legal-section]");
+    expect(sections.length).toBe(privacyHeadings.length);
 
     const rules = document.querySelectorAll("[data-legal-section-rule]");
     expect(rules.length).toBeGreaterThanOrEqual(privacyHeadings.length);

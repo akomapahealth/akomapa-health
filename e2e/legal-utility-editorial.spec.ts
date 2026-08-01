@@ -74,12 +74,15 @@ test.describe("legal utility editorial contracts", () => {
       page.getByRole("heading", { level: 1, name: "Privacy Policy" }),
     ).toBeVisible();
     await expect(page.locator("main h1")).toHaveCount(1);
-    await expect(page.getByText("Last updated: May 9, 2026")).toBeVisible();
+    await expect(page.getByText("Last updated: May 9, 2026").first()).toBeVisible();
     await expect(
       page.getByRole("heading", {
         level: 2,
         name: "Who we are and what this policy covers",
       }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole("navigation", { name: "On this page" }),
     ).toBeVisible();
     await expect(
       page.getByRole("link", { name: "akomapahealth@gmail.com" }).first(),
@@ -94,6 +97,7 @@ test.describe("legal utility editorial contracts", () => {
       page.locator('[data-editorial-band][data-editorial-tone="cream"]').first(),
     ).toBeVisible();
     await expect(page.locator("[data-legal-prose-article]")).toBeVisible();
+    await expect(page.locator("[data-legal-section]").first()).toBeVisible();
     await expect(
       page.locator("[data-publication-article-measure]"),
     ).toBeVisible();
@@ -109,7 +113,7 @@ test.describe("legal utility editorial contracts", () => {
     await expect(
       page.getByRole("heading", { level: 1, name: "Terms of Service" }),
     ).toBeVisible();
-    await expect(page.getByText("Last updated: May 9, 2026")).toBeVisible();
+    await expect(page.getByText("Last updated: May 9, 2026").first()).toBeVisible();
     await expect(
       page.getByRole("heading", {
         level: 2,
@@ -123,6 +127,9 @@ test.describe("legal utility editorial contracts", () => {
       page.getByRole("link", { name: "contact page" }),
     ).toHaveAttribute("href", "/contact");
     await expect(page.getByText("www.akomapahealth.org")).toBeVisible();
+    await expect(
+      page.getByRole("navigation", { name: "On this page" }),
+    ).toBeVisible();
   });
 
   test("renders accessible not-found recovery navigation", async ({ page }) => {
@@ -140,6 +147,11 @@ test.describe("legal utility editorial contracts", () => {
     await expect(
       page.getByRole("link", { name: "Back to Homepage" }),
     ).toHaveAttribute("href", "/");
+    await expect(page.getByRole("link", { name: "Contact us" })).toHaveAttribute(
+      "href",
+      "/contact",
+    );
+    await expect(page.locator("[data-route-not-found-state]")).toBeVisible();
 
     const recovery = page.getByRole("navigation", { name: "Helpful links" });
     await expect(recovery).toBeVisible();
@@ -264,7 +276,7 @@ test.describe("legal utility editorial contracts", () => {
           await expect(
             page.getByRole("heading", { level: 1, name: route.heading }),
           ).toBeVisible();
-          await expect(page.getByText(route.lastUpdated)).toBeVisible();
+          await expect(page.getByText(route.lastUpdated).first()).toBeVisible();
           await expect(
             page.getByRole("heading", {
               level: 2,

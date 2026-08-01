@@ -1,14 +1,14 @@
 import { FadeIn } from "@/components/animations";
 import Breadcrumb from "@/components/layout/Breadcrumb";
 import {
+  LegalContentsNav,
   LegalLastUpdated,
   LegalProseArticle,
-  LegalSectionRule,
+  LegalSection,
   legalBodyClassName as body,
-  legalHeadingClassName as h2,
   legalLinkClassName as link,
   legalListClassName as list,
-  legalSectionClassName as section,
+  type LegalContentsItem,
 } from "@/components/legal/LegalDocumentPrimitives";
 import { PublicationArticleMeasure } from "@/components/publication";
 import {
@@ -20,6 +20,29 @@ import {
 import Link from "next/link";
 
 const LAST_UPDATED = "May 9, 2026";
+
+const contents: readonly LegalContentsItem[] = [
+  { href: "#acceptance", label: "Agreement to these terms" },
+  { href: "#acceptable-use", label: "Acceptable use" },
+  {
+    href: "#informational-disclaimer",
+    label: "Informational content—not medical advice",
+  },
+  {
+    href: "#healthcare-limitations",
+    label: "Healthcare information and relationships",
+  },
+  { href: "#research", label: "Research and innovation content" },
+  { href: "#applications", label: "Applications and eligibility" },
+  { href: "#donations", label: "Donations and payments" },
+  { href: "#volunteer-conduct", label: "Volunteer responsibilities" },
+  { href: "#code-of-conduct", label: "Code of conduct" },
+  { href: "#intellectual-property", label: "Intellectual property" },
+  { href: "#liability", label: "Limitation of liability" },
+  { href: "#termination", label: "Suspension and termination" },
+  { href: "#changes", label: "Changes to these Terms" },
+  { href: "#contact", label: "Contact" },
+];
 
 export default function Content() {
   return (
@@ -49,6 +72,9 @@ export default function Content() {
             These terms govern your use of our website, digital services,
             donations, and applications to participate in Akomapa programs.
           </EditorialLead>
+          <p className="mt-8 border-t border-[#FCFAEF]/20 pt-5 font-subheading text-xs font-bold uppercase tracking-[0.18em] text-[#F5C94D]/90">
+            Last updated: {LAST_UPDATED}
+          </p>
         </FadeIn>
       </EditorialBand>
 
@@ -56,13 +82,18 @@ export default function Content() {
         tone="cream"
         marker="01"
         aria-labelledby="terms-of-service-title"
+        containerClassName="py-12 md:py-16 lg:py-20"
       >
         <FadeIn amount="some">
-          <PublicationArticleMeasure>
+          <PublicationArticleMeasure className="max-w-3xl">
             <LegalProseArticle labelledBy="terms-of-service-title">
-              <div className="space-y-4 sm:space-y-6" id="acceptance">
-                <LegalSectionRule variant="teal" />
-                <h2 className={h2}>Agreement to these terms</h2>
+              <LegalContentsNav items={contents} />
+
+              <LegalSection
+                id="acceptance"
+                ruleVariant="teal"
+                title="Agreement to these terms"
+              >
                 <p className={body}>
                   By accessing{" "}
                   <strong>www.akomapahealth.org</strong> or related sites we
@@ -83,11 +114,13 @@ export default function Content() {
                   privacy notices, or institutional agreements may apply in
                   addition to these Terms.
                 </p>
-              </div>
+              </LegalSection>
 
-              <div className={section} id="acceptable-use">
-                <LegalSectionRule variant="amber" />
-                <h2 className={h2}>Acceptable use</h2>
+              <LegalSection
+                id="acceptable-use"
+                ruleVariant="amber"
+                title="Acceptable use"
+              >
                 <p className={body}>
                   You may use our digital services only for lawful, respectful
                   purposes. Without limiting other obligations, you agree not to:
@@ -117,11 +150,13 @@ export default function Content() {
                     events coordinated through our programs
                   </li>
                 </ul>
-              </div>
+              </LegalSection>
 
-              <div className={section} id="informational-disclaimer">
-                <LegalSectionRule variant="teal" />
-                <h2 className={h2}>Informational content—not medical advice</h2>
+              <LegalSection
+                id="informational-disclaimer"
+                ruleVariant="teal"
+                title="Informational content—not medical advice"
+              >
                 <p className={body}>
                   Materials on this website—including articles, stories,
                   research summaries, and program descriptions—are provided for
@@ -136,11 +171,13 @@ export default function Content() {
                   local emergency services immediately. Do not rely on email,
                   contact forms, or website content for urgent care.
                 </p>
-              </div>
+              </LegalSection>
 
-              <div className={section} id="healthcare-limitations">
-                <LegalSectionRule variant="amber" />
-                <h2 className={h2}>Healthcare information and relationships</h2>
+              <LegalSection
+                id="healthcare-limitations"
+                ruleVariant="amber"
+                title="Healthcare information and relationships"
+              >
                 <p className={body}>
                   Browsing our website or signing up for newsletters{" "}
                   <strong>does not create</strong> a clinician–patient or other
@@ -149,11 +186,13 @@ export default function Content() {
                   partner policies, professional ethics, and privacy rules such
                   as HIPAA where they apply.
                 </p>
-              </div>
+              </LegalSection>
 
-              <div className={section} id="research">
-                <LegalSectionRule variant="teal" />
-                <h2 className={h2}>Research and innovation content</h2>
+              <LegalSection
+                id="research"
+                ruleVariant="teal"
+                title="Research and innovation content"
+              >
                 <p className={body}>
                   We may describe pilots, partnerships, or learning agendas on
                   our site. Those descriptions are illustrative and may change as
@@ -162,11 +201,13 @@ export default function Content() {
                   <strong>does not constitute an offer</strong> to enroll you in a
                   research study or clinical trial.
                 </p>
-              </div>
+              </LegalSection>
 
-              <div className={section} id="applications">
-                <LegalSectionRule variant="amber" />
-                <h2 className={h2}>Applications and eligibility</h2>
+              <LegalSection
+                id="applications"
+                ruleVariant="amber"
+                title="Applications and eligibility"
+              >
                 <p className={body}>
                   When you apply to volunteer, join leadership programs, or
                   participate in selective offerings, you agree that:
@@ -190,11 +231,13 @@ export default function Content() {
                     capacity, conduct, or compliance reasons
                   </li>
                 </ul>
-              </div>
+              </LegalSection>
 
-              <div className={section} id="donations">
-                <LegalSectionRule variant="teal" />
-                <h2 className={h2}>Donations and payments</h2>
+              <LegalSection
+                id="donations"
+                ruleVariant="teal"
+                title="Donations and payments"
+              >
                 <p className={body}>
                   Donations and certain partnership payments are processed
                   through a certified payment processor. You authorize charges you
@@ -210,11 +253,13 @@ export default function Content() {
                   promptly. Refunds, if any, are handled case by case and may
                   depend on processor policies and banking timelines.
                 </p>
-              </div>
+              </LegalSection>
 
-              <div className={section} id="volunteer-conduct">
-                <LegalSectionRule variant="amber" />
-                <h2 className={h2}>Volunteer responsibilities</h2>
+              <LegalSection
+                id="volunteer-conduct"
+                ruleVariant="amber"
+                title="Volunteer responsibilities"
+              >
                 <p className={body}>As a volunteer, you agree to:</p>
                 <ul className={list}>
                   <li>
@@ -233,22 +278,26 @@ export default function Content() {
                   </li>
                   <li>Report concerns or policy violations through proper channels</li>
                 </ul>
-              </div>
+              </LegalSection>
 
-              <div className={section} id="code-of-conduct">
-                <LegalSectionRule variant="teal" />
-                <h2 className={h2}>Code of conduct</h2>
+              <LegalSection
+                id="code-of-conduct"
+                ruleVariant="teal"
+                title="Code of conduct"
+              >
                 <p className={body}>
                   Participants are expected to behave professionally and respect
                   everyone&apos;s dignity—especially patients and community
                   members. Harassment, discrimination, or disruptive conduct may
                   result in removal from programs or sites.
                 </p>
-              </div>
+              </LegalSection>
 
-              <div className={section} id="intellectual-property">
-                <LegalSectionRule variant="amber" />
-                <h2 className={h2}>Intellectual property</h2>
+              <LegalSection
+                id="intellectual-property"
+                ruleVariant="amber"
+                title="Intellectual property"
+              >
                 <p className={body}>
                   The website, trademarks (including Akomapa and Nkwapa
                   branding where applicable), curriculum materials, documentation,
@@ -262,11 +311,13 @@ export default function Content() {
                   reverse engineer our materials or applications except where law
                   permits or we give written permission.
                 </p>
-              </div>
+              </LegalSection>
 
-              <div className={section} id="liability">
-                <LegalSectionRule variant="teal" />
-                <h2 className={h2}>Limitation of liability</h2>
+              <LegalSection
+                id="liability"
+                ruleVariant="teal"
+                title="Limitation of liability"
+              >
                 <p className={body}>
                   To the fullest extent permitted by law, Akomapa Health
                   Foundation and its directors, officers, volunteers, and
@@ -282,35 +333,34 @@ export default function Content() {
                   paid us in the twelve months before the claim or (b) one
                   hundred U.S. dollars, except where prohibited.
                 </p>
-              </div>
+              </LegalSection>
 
-              <div className={section} id="termination">
-                <LegalSectionRule variant="amber" />
-                <h2 className={h2}>Suspension and termination</h2>
+              <LegalSection
+                id="termination"
+                ruleVariant="amber"
+                title="Suspension and termination"
+              >
                 <p className={body}>
                   We may suspend or terminate access to our website, applications,
                   or programs when we reasonably believe there is a violation of
                   these Terms, risk to participants, or legal obligation.
                 </p>
-              </div>
+              </LegalSection>
 
-              <div className={section} id="changes">
-                <LegalSectionRule variant="teal" />
-                <h2 className={h2}>Changes to these Terms</h2>
+              <LegalSection
+                id="changes"
+                ruleVariant="teal"
+                title="Changes to these Terms"
+              >
                 <p className={body}>
                   We may update these Terms as our services grow. We will post
                   revisions on this page and update the &quot;Last updated&quot;
                   date. Continued use after changes become effective constitutes
                   acceptance unless applicable law requires additional steps.
                 </p>
-              </div>
+              </LegalSection>
 
-              <div
-                className="space-y-4 border-t border-[#E6E7E7] pt-6 sm:space-y-6 dark:border-[#4F5554]"
-                id="contact"
-              >
-                <LegalSectionRule variant="amber" />
-                <h2 className={h2}>Contact</h2>
+              <LegalSection id="contact" ruleVariant="amber" title="Contact">
                 <p className={body}>
                   Questions about these Terms? Email{" "}
                   <a href="mailto:akomapahealth@gmail.com" className={link}>
@@ -322,7 +372,7 @@ export default function Content() {
                   </Link>
                   .
                 </p>
-              </div>
+              </LegalSection>
 
               <LegalLastUpdated date={LAST_UPDATED} />
             </LegalProseArticle>
