@@ -158,7 +158,7 @@ export default function ImpactMap() {
                     {location.href ? (
                       <Link
                         href={location.href}
-                        className="transition-colors hover:text-[#0097b2] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eeba2b] focus-visible:ring-offset-2 dark:hover:text-[#66C4DC]"
+                        className="inline-flex min-h-11 items-center transition-colors hover:text-[#0097b2] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eeba2b] focus-visible:ring-offset-2 dark:hover:text-[#66C4DC]"
                       >
                         {location.name}
                       </Link>

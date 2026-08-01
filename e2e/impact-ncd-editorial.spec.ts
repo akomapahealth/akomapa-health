@@ -180,13 +180,13 @@ test("/impact preserves verified metrics, tones, and future distinction", async 
     ).toBeVisible();
   }
 
+  const ctaBand = page.locator("#impact-cta");
   await expect(
-    page.getByRole("link", { name: /Get Involved/i }),
+    ctaBand.getByRole("link", { name: /Get Involved/i }),
   ).toHaveAttribute("href", "/get-involved");
-  await expect(page.getByRole("link", { name: /^Donate$/i })).toHaveAttribute(
-    "href",
-    "/donate",
-  );
+  await expect(
+    ctaBand.getByRole("link", { name: /^Donate$/i }),
+  ).toHaveAttribute("href", "/donate");
 });
 
 test("/ncd-impact preserves burden evidence, current results, and future targets", async ({
