@@ -1,91 +1,89 @@
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import { FadeIn, FadeInStagger, FadeInStaggerItem } from "@/components/animations";
 import {
-  FadeIn,
-  FadeInStagger,
-  FadeInStaggerItem,
-} from "@/components/animations";
+  EditorialBand,
+  EditorialButton,
+  EditorialEyebrow,
+  EditorialHeading,
+  EditorialLead,
+} from "@/components/shared/EditorialPrimitives";
 import { ncdFutureVisionContent } from "@/data/ncd-impact";
 
-const ctaBaseClass =
-  "group inline-flex items-center justify-center gap-2 rounded-half px-8 py-6 h-auto text-base sm:text-lg font-medium transition-all duration-300 transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2";
-
-const ctaStyles = {
-  amber:
-    "bg-[#eeba2b] text-[#FCFAEF] shadow-lg hover:bg-[#eeba2b]/80 hover:shadow-xl focus-visible:ring-[#F5C94D]",
-  teal:
-    "bg-[#0097b2] text-[#FCFAEF] shadow-lg hover:bg-[#0097b2]/80 hover:shadow-xl focus-visible:ring-[#8DD4E6]",
-} as const;
+const metricDividerClasses = [
+  "",
+  "border-t sm:border-l sm:border-t-0",
+  "border-t lg:border-l lg:border-t-0",
+  "border-t sm:border-l lg:border-l",
+  "border-t lg:border-l",
+] as const;
 
 export default function NCDFutureVision() {
   return (
-    <section
-      className="relative overflow-hidden bg-gradient-to-r from-[#0097b2] to-[#0F4C5C] py-16 text-[#FCFAEF] sm:py-20 md:py-28"
+    <EditorialBand
+      tone="onyx"
+      marker="06"
+      id="ncd-future-vision"
       aria-labelledby="ncd-future-heading"
     >
-      {/* Decorative blurs */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute -top-24 -left-24 h-64 w-64 rounded-full bg-[#FCFAEF]/10 blur-3xl" />
-        <div className="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-[#F5C94D]/10 blur-3xl" />
-      </div>
-
-      <div className="site-container relative z-10 mx-auto px-4 sm:px-6">
-        {/* Header */}
-        <FadeIn
-          direction="up"
-          className="mx-auto mb-12 max-w-3xl space-y-4 text-center"
-        >
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#F5C94D]">
+      <FadeIn>
+        <div className="max-w-3xl">
+          <EditorialEyebrow tone="gold" className="text-[#F5C94D]">
             {ncdFutureVisionContent.eyebrow}
+          </EditorialEyebrow>
+          <p className="mt-3 font-subheading text-xs font-bold uppercase tracking-[0.2em] text-[#FCFAEF]/65">
+            Future targets — not yet achieved
           </p>
-          <h2
+          <EditorialHeading
             id="ncd-future-heading"
-            className="text-2xl font-bold sm:text-3xl md:text-4xl"
+            className="mt-4 text-[#FCFAEF]"
           >
             {ncdFutureVisionContent.heading}
-          </h2>
-          <p className="text-base leading-relaxed text-[#FCFAEF]/85 sm:text-lg">
+          </EditorialHeading>
+          <EditorialLead className="mt-5 text-[#FCFAEF]/85 dark:text-[#FCFAEF]/85">
             {ncdFutureVisionContent.description}
-          </p>
-        </FadeIn>
+          </EditorialLead>
+        </div>
+      </FadeIn>
 
-        {/* Future targets */}
-        <FadeInStagger
-          className="mx-auto mb-12 grid max-w-4xl grid-cols-2 gap-4 lg:grid-cols-4"
-          staggerDelay={0.1}
+      <FadeInStagger className="mt-12" staggerDelay={0.08}>
+        <dl
+          data-ncd-future-targets
+          className="grid border-y border-[#FCFAEF]/25 sm:grid-cols-2 lg:grid-cols-3"
         >
-          {ncdFutureVisionContent.targets.map((target) => (
+          {ncdFutureVisionContent.targets.map((target, index) => (
             <FadeInStaggerItem key={target.label} direction="up">
-              <div className="rounded-xl border border-white/10 bg-white/5 p-4 text-center sm:rounded-2xl sm:p-5">
-                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#F5C94D]">
-                  By {target.futureYear}
-                </p>
-                <p className="mt-2 text-2xl font-bold text-white sm:text-3xl">
-                  {target.futureValue}
-                </p>
-                <p className="mt-2 text-xs leading-snug text-white/70 sm:text-sm">
+              <div
+                className={`flex min-h-40 flex-col justify-between border-[#FCFAEF]/25 px-1 py-7 sm:px-6 ${metricDividerClasses[index]}`}
+              >
+                <dt className="font-subheading text-xs font-bold uppercase tracking-[0.2em] text-[#FCFAEF]/70">
                   {target.label}
-                </p>
+                </dt>
+                <dd className="mt-4">
+                  <p className="font-subheading text-[11px] font-bold uppercase tracking-[0.18em] text-[#F5C94D]/90">
+                    Target by {target.futureYear}
+                  </p>
+                  <p className="mt-2 font-heading text-3xl font-semibold tracking-tight text-[#F5C94D] md:text-4xl">
+                    {target.futureValue}
+                  </p>
+                </dd>
               </div>
             </FadeInStaggerItem>
           ))}
-        </FadeInStagger>
+        </dl>
+      </FadeInStagger>
 
-        {/* CTAs */}
-        <FadeIn direction="up" delay={0.3}>
-          <div className="flex flex-wrap justify-center gap-3 sm:gap-4">
-            {ncdFutureVisionContent.ctas.map((cta) => (
-              <Button
-                key={cta.label}
-                asChild
-                className={`${ctaBaseClass} ${ctaStyles[cta.variant]}`}
-              >
-                <Link href={cta.href}>{cta.label}</Link>
-              </Button>
-            ))}
-          </div>
-        </FadeIn>
-      </div>
-    </section>
+      <FadeIn direction="up" delay={0.15}>
+        <div className="mt-10 flex flex-wrap gap-3 sm:gap-4">
+          {ncdFutureVisionContent.ctas.map((cta) => (
+            <EditorialButton
+              key={cta.label}
+              href={cta.href}
+              variant={cta.variant === "amber" ? "amber" : "outline-light"}
+            >
+              {cta.label}
+            </EditorialButton>
+          ))}
+        </div>
+      </FadeIn>
+    </EditorialBand>
   );
 }
