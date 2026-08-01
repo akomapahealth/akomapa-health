@@ -67,6 +67,8 @@ describe("canonical contact configuration", () => {
       "src/components/contact/ContactForm.tsx",
       "src/components/layout/Footer.tsx",
       "src/components/contact/LocationMap.tsx",
+      "src/components/partnerships/CorporateSponsorshipContent.tsx",
+      "src/components/get-involved/GetInvolvedCTA.tsx",
     ]) {
       const source = readSource(path);
 

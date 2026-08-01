@@ -96,15 +96,15 @@ export default function DonationFollowUpForm({
   }
 
   return (
-    <div className="rounded-xl border border-[#2F3332]/12 bg-white/70 p-4 sm:p-5 dark:border-[#FCFAEF]/15 dark:bg-[#1C1F1E]/35">
+    <div className="rounded-md border border-[#2F3332]/12 bg-white p-4 sm:p-5 dark:border-[#FCFAEF]/15 dark:bg-[#1C1F1E]/35">
       <div className="mb-4 flex items-start gap-3">
-        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#0097b2]/12 text-[#0097b2] dark:bg-[#66C4DC]/15 dark:text-[#66C4DC]">
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center border border-[#0097b2]/30 text-[#0097b2] dark:border-[#66C4DC]/40 dark:text-[#66C4DC]">
           <Mail aria-hidden="true" className="h-5 w-5" />
         </div>
         <div>
-          <h4 className="text-base font-semibold text-[#1C1F1E] dark:text-[#FCFAEF]">
+          <h3 className="text-base font-semibold text-[#1C1F1E] dark:text-[#FCFAEF]">
             Let us thank you
-          </h4>
+          </h3>
           <p className="mt-1 text-sm leading-relaxed text-[#2F3332]/75 dark:text-[#E6E7E7]/75">
             After making your transfer, share your details so our team can send
             a personal thank-you.
@@ -193,7 +193,7 @@ export default function DonationFollowUpForm({
             type="submit"
             size="lg"
             disabled={form.formState.isSubmitting}
-            className="h-12 w-full rounded-xl bg-[#0097b2] py-3 text-[#FCFAEF] shadow-sm hover:bg-[#007f96] focus-visible:ring-[#F5C94D] sm:w-auto"
+            className="h-12 min-h-12 w-full rounded-md bg-[#0097b2] py-3 text-[#FCFAEF] shadow-none hover:bg-[#007f96] focus-visible:ring-[#F5C94D] sm:w-auto"
           >
             {form.formState.isSubmitting ? (
               <>

@@ -166,6 +166,10 @@ const legacyRedirects = [
     source: "/partner/corporate-sponsorship",
     destination: "/partnerships/corporate-sponsorship",
   },
+  {
+    source: "/donate/corporate-sponsorship",
+    destination: "/partnerships/corporate-sponsorship",
+  },
 ] as const;
 
 test.describe("Legacy route redirects", () => {

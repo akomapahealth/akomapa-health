@@ -69,6 +69,11 @@ const nextConfig: NextConfig = {
         statusCode: 301,
       },
       {
+        source: "/donate/corporate-sponsorship",
+        destination: "/partnerships/corporate-sponsorship",
+        statusCode: 301,
+      },
+      {
         source: "/faculty",
         destination: "/about/team",
         statusCode: 301,
