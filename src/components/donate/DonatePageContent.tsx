@@ -1,22 +1,26 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
-  ArrowRight,
   DollarSign,
   Heart,
   Smartphone,
-  Sparkles,
 } from "lucide-react";
 import Image from "@/components/common/Image";
 import Breadcrumb from "@/components/layout/Breadcrumb";
+import { FadeIn } from "@/components/animations";
 import DonationPaymentMethods from "@/components/donate/DonationPaymentMethods";
+import {
+  EditorialBand,
+  EditorialButton,
+  EditorialEyebrow,
+  EditorialHeading,
+  EditorialLead,
+} from "@/components/shared/EditorialPrimitives";
+import { cn } from "@/lib/utils";
 
-// Partner donation amounts
 const partnerAmounts = [
   { value: "20", label: "$20", description: "Monthly" },
   { value: "50", label: "$50", description: "Monthly" },
@@ -24,7 +28,6 @@ const partnerAmounts = [
   { value: "custom", label: "Other", description: "Custom amount" },
 ];
 
-// One-time donation amounts
 const oneTimeAmounts = [
   { value: "10", label: "$10" },
   { value: "25", label: "$25" },
@@ -33,56 +36,120 @@ const oneTimeAmounts = [
   { value: "custom", label: "Custom" },
 ];
 
-// Partner benefits
 const partnerBenefits = [
   {
     title: "Quarterly 'Heartbeat' Updates",
-    description: "Clinic impact and stories from the field"
+    description: "Clinic impact and stories from the field",
   },
   {
     title: "Early Event Invitations",
-    description: "Akomapa events and webinars"
+    description: "Akomapa events and webinars",
   },
   {
     title: "Behind-the-Scenes Access",
-    description: "Research, photos, and clinic milestones"
+    description: "Research, photos, and clinic milestones",
   },
   {
     title: "Part of Something Bold",
-    description: "Deep sense of knowing you're part of something lasting"
-  }
+    description:
+      "Deep sense of knowing you're part of something lasting",
+  },
 ];
 
-// Impact areas
 const impactAreas = [
   {
     title: "Early Disease Detection",
-    description: "Reach patients with high blood pressure and diabetes before it's too late, while reinforcing that prevention also requires mental health awareness, stress management, emotional well-being, and regular screenings.",
-    color: "#0097b2"
+    description:
+      "Reach patients with high blood pressure and diabetes before it's too late, while reinforcing that prevention also requires mental health awareness, stress management, emotional well-being, and regular screenings.",
   },
   {
     title: "Professional Development",
-    description: "Train the next generation of ethical, community-minded health professionals who understand the unique needs of underserved populations.",
-    color: "#eeba2b"
+    description:
+      "Train the next generation of ethical, community-minded health professionals who understand the unique needs of underserved populations.",
   },
   {
     title: "Program Expansion",
-    description: "Power our upcoming pharmacy and food security programs that will provide comprehensive care beyond clinical services.",
-    color: "#0097b2"
+    description:
+      "Power our upcoming pharmacy and food security programs that will provide comprehensive care beyond clinical services.",
   },
   {
     title: "Scalable Model",
-    description: "Build a replicable model of healthcare delivery in Ghana and beyond, demonstrating sustainable solutions for underserved communities.",
-    color: "#eeba2b"
-  }
+    description:
+      "Build a replicable model of healthcare delivery in Ghana and beyond, demonstrating sustainable solutions for underserved communities.",
+  },
 ];
+
+const oneTimeBenefits = [
+  {
+    title: "Choose any amount",
+    icon: DollarSign,
+    description:
+      "Give what feels right for you, whether it's $10 or $1,000",
+  },
+  {
+    title: "Manual Mobile Money transfer",
+    icon: Smartphone,
+    description:
+      "Review the verified MTN recipient details before completing a one-time transfer",
+  },
+  {
+    title: "100% supports care",
+    icon: Heart,
+    description:
+      "Every dollar goes directly to patient care and clinic operations",
+  },
+] as const;
+
+function AmountButton({
+  selected,
+  onClick,
+  label,
+  description,
+}: {
+  selected: boolean;
+  onClick: () => void;
+  label: string;
+  description?: string;
+}) {
+  return (
+    <button
+      type="button"
+      aria-pressed={selected}
+      onClick={onClick}
+      className={cn(
+        "min-h-14 rounded-md border-2 p-3 text-left transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eeba2b] focus-visible:ring-offset-2 md:p-4",
+        selected
+          ? "border-[#eeba2b] bg-[#FCFAEF] dark:bg-[#121514]"
+          : "border-[#1C1F1E]/15 hover:border-[#0097b2]/50 dark:border-[#FCFAEF]/20",
+      )}
+    >
+      <div className="flex items-start justify-between gap-2">
+        <div className="text-lg font-bold text-[#1C1F1E] dark:text-[#FCFAEF] md:text-xl">
+          {label}
+        </div>
+        {selected ? (
+          <span className="font-subheading text-[10px] font-bold uppercase tracking-[0.14em] text-[#C9920F] dark:text-[#F5C94D]">
+            Selected
+          </span>
+        ) : null}
+      </div>
+      {description ? (
+        <div className="mt-1 text-xs text-[#2F3332]/75 dark:text-[#E6E7E7]/75 md:text-sm">
+          {description}
+        </div>
+      ) : null}
+    </button>
+  );
+}
 
 export default function DonatePageContent() {
   const [selectedPartnerAmount, setSelectedPartnerAmount] = useState("20");
   const [selectedOneTimeAmount, setSelectedOneTimeAmount] = useState("25");
   const [customPartnerAmount, setCustomPartnerAmount] = useState("");
   const [customOneTimeAmount, setCustomOneTimeAmount] = useState("");
-  const [activeSection, setActiveSection] = useState<"partner" | "one-time">("partner");
+  const [activeSection, setActiveSection] = useState<"partner" | "one-time">(
+    "partner",
+  );
 
   const selectedPartnerGivingLevel =
     selectedPartnerAmount === "custom"
@@ -99,569 +166,409 @@ export default function DonatePageContent() {
       : `$${selectedOneTimeAmount} one time`;
 
   return (
-    <>
+    <div data-rebrand-page className="bg-background text-foreground">
       <div className="site-container mx-auto">
         <Breadcrumb />
       </div>
-      
-      {/* Hero Section */}
-      <section className="relative py-16 sm:py-20 md:py-28 bg-gradient-to-r from-[#0097b2] to-[#0F4C5C] overflow-hidden">
-        <div className="absolute top-0 right-0 w-64 h-64 bg-[#FCFAEF]/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#FCFAEF]/10 rounded-full translate-y-1/2 -translate-x-1/2 blur-3xl" />
-        
-        <div className="site-container mx-auto px-4 sm:px-6 relative z-10">
-          <div className="max-w-5xl pt-4 sm:pt-8">
-            <motion.h1 
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-              className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-light text-[#FCFAEF] mb-6 leading-tight"
-            >
-              Every act of generosity saves a life.
-            </motion.h1>
-            <motion.p 
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.15, duration: 0.8, ease: "easeOut" }}
-              className="text-base sm:text-lg md:text-2xl text-[#FCFAEF]/80 font-light max-w-3xl"
-            >
-              At Akomapa, we believe that healing is a shared calling—and transformation begins with bold hearts who dare to act. We are building something rare: a student-powered, community-rooted, and ethically led model of care for people who&apos;ve long been left behind.
-            </motion.p>
-          </div>
-        </div>
-      </section>
 
-      {/* Partnership Options - Bento Style Tab Switcher */}
-      <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
-        <div className="site-container mx-auto px-4 sm:px-6">
-          <div className="max-w-7xl mx-auto">
-            {/* Bento Style Tab Switcher */}
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-              viewport={{ once: true }}
-              className="mb-12 sm:mb-16"
-            >
-              <div className="relative max-w-2xl mx-auto">
-                <div className="relative bg-white dark:bg-[#2F3332] rounded-3xl p-2 shadow-2xl border border-[#E6E7E7]/20 dark:border-[#4F5554]/20 overflow-hidden">
-                  {/* Animated Background Indicator */}
-                  <motion.div
-                    className="absolute top-2 bottom-2 rounded-2xl bg-gradient-to-r from-[#eeba2b] to-[#F5C94D]"
-                    initial={false}
-                    animate={{
-                      left: activeSection === "partner" ? "4px" : "50%",
-                      width: "calc(50% - 4px)",
-                    }}
-                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
+      <EditorialBand
+        tone="teal"
+        aria-labelledby="donate-hero-heading"
+        className="border-b border-[#FCFAEF]/20 bg-[#0F4C5C]"
+        containerClassName="py-14 sm:py-16 md:py-20 lg:py-24"
+      >
+        <FadeIn>
+          <EditorialEyebrow tone="gold" className="text-[#F5C94D]">
+            Give With Purpose
+          </EditorialEyebrow>
+          <EditorialHeading
+            as="h1"
+            id="donate-hero-heading"
+            className="mt-5 max-w-4xl text-[2.35rem] text-[#FCFAEF] sm:text-[3rem] md:text-[3.7rem] lg:text-[4.35rem]"
+          >
+            Every act of generosity saves a life.
+          </EditorialHeading>
+          <EditorialLead className="mt-6 max-w-3xl text-[#FCFAEF]/88 dark:text-[#FCFAEF]/88">
+            At Akomapa, we believe that healing is a shared calling—and
+            transformation begins with bold hearts who dare to act. We are
+            building something rare: a student-powered, community-rooted, and
+            ethically led model of care for people who&apos;ve long been left
+            behind.
+          </EditorialLead>
+        </FadeIn>
+      </EditorialBand>
+
+      <EditorialBand
+        tone="cream"
+        marker="01"
+        aria-labelledby="giving-options-heading"
+      >
+        <FadeIn className="mx-auto mb-10 max-w-2xl text-center">
+          <EditorialEyebrow>Ways to Give</EditorialEyebrow>
+          <EditorialHeading id="giving-options-heading" className="mt-4">
+            Choose how you want to support Akomapa
+          </EditorialHeading>
+        </FadeIn>
+
+        <div
+          role="tablist"
+          aria-label="Donation options"
+          className="mx-auto grid max-w-2xl grid-cols-1 gap-3 sm:grid-cols-2"
+        >
+          <button
+            type="button"
+            role="tab"
+            id="donate-tab-partner"
+            aria-selected={activeSection === "partner"}
+            aria-controls="donate-panel-partner"
+            onClick={() => setActiveSection("partner")}
+            className={cn(
+              "min-h-14 border-2 px-4 py-4 text-left transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eeba2b] focus-visible:ring-offset-2",
+              activeSection === "partner"
+                ? "border-[#eeba2b] bg-white dark:bg-[#1C1F1E]"
+                : "border-[#1C1F1E]/12 bg-transparent hover:border-[#0097b2]/40 dark:border-[#FCFAEF]/15",
+            )}
+          >
+            <span className="flex items-center justify-between gap-2">
+              <span className="font-semibold text-[#1C1F1E] dark:text-[#FCFAEF]">
+                Partners Program
+              </span>
+              <span className="font-subheading text-[10px] font-bold uppercase tracking-[0.14em] text-[#C9920F] dark:text-[#F5C94D]">
+                Featured
+              </span>
+            </span>
+            {activeSection === "partner" ? (
+              <span className="mt-1 block text-xs text-[#2F3332]/70 dark:text-[#E6E7E7]/70">
+                Currently viewing
+              </span>
+            ) : null}
+          </button>
+          <button
+            type="button"
+            role="tab"
+            id="donate-tab-one-time"
+            aria-selected={activeSection === "one-time"}
+            aria-controls="donate-panel-one-time"
+            onClick={() => setActiveSection("one-time")}
+            className={cn(
+              "min-h-14 border-2 px-4 py-4 text-left transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eeba2b] focus-visible:ring-offset-2",
+              activeSection === "one-time"
+                ? "border-[#0097b2] bg-white dark:bg-[#1C1F1E]"
+                : "border-[#1C1F1E]/12 bg-transparent hover:border-[#0097b2]/40 dark:border-[#FCFAEF]/15",
+            )}
+          >
+            <span className="font-semibold text-[#1C1F1E] dark:text-[#FCFAEF]">
+              One-Time Gift
+            </span>
+            {activeSection === "one-time" ? (
+              <span className="mt-1 block text-xs text-[#2F3332]/70 dark:text-[#E6E7E7]/70">
+                Currently viewing
+              </span>
+            ) : null}
+          </button>
+        </div>
+
+        {activeSection === "partner" ? (
+          <div
+            id="donate-panel-partner"
+            role="tabpanel"
+            aria-labelledby="donate-tab-partner"
+            className="mt-12 space-y-12"
+          >
+            <FadeIn>
+              <div className="border-t-2 border-[#eeba2b] bg-white px-6 py-8 dark:bg-[#1C1F1E] sm:px-8 sm:py-10">
+                <div className="mx-auto max-w-3xl text-center">
+                  <h2 className="font-heading text-2xl font-semibold text-[#1C1F1E] dark:text-[#FCFAEF] sm:text-3xl md:text-4xl">
+                    The Akomapa Partners Program
+                  </h2>
+                  <p className="mt-5 text-base leading-relaxed text-[#2F3332]/80 dark:text-[#E6E7E7]/80 sm:text-lg">
+                    But we cannot do it alone. The Akomapa Partners Program is a
+                    growing community of monthly donors who believe in our
+                    mission and walk with us—month by month, life by life.
+                    Whether you give $20, $50, $100, or more, your partnership
+                    sustains free care, medication, NHIS enrollment, and student
+                    training in some of Ghana&apos;s most underserved
+                    communities.
+                  </p>
+                </div>
+
+                <dl className="mx-auto mt-10 grid max-w-md grid-cols-1 gap-6 sm:grid-cols-2">
+                  <div className="border-l-2 border-[#eeba2b] pl-4 text-left">
+                    <dt className="text-xs font-medium uppercase tracking-wide text-[#2F3332]/70 dark:text-[#E6E7E7]/70">
+                      Community Members Reached Monthly
+                    </dt>
+                    <dd className="mt-2 font-heading text-4xl font-bold text-[#1C1F1E] dark:text-[#FCFAEF]">
+                      50+
+                    </dd>
+                  </div>
+                  <div className="border-l-2 border-[#0097b2] pl-4 text-left">
+                    <dt className="text-xs font-medium uppercase tracking-wide text-[#2F3332]/70 dark:text-[#E6E7E7]/70">
+                      Monthly Impact Starts
+                    </dt>
+                    <dd className="mt-2 font-heading text-4xl font-bold text-[#1C1F1E] dark:text-[#FCFAEF]">
+                      $20
+                    </dd>
+                  </div>
+                </dl>
+
+                <div className="relative mt-10 aspect-[16/9] overflow-hidden rounded-md border border-[#1C1F1E]/10 dark:border-[#FCFAEF]/15">
+                  <Image
+                    src="/highlights/Akomapa-66.jpg"
+                    alt="Akomapa Partners Program - Community healthcare delivery"
+                    fill
+                    sizes="(min-width: 1024px) 80vw, 100vw"
+                    className="object-cover"
                   />
-                  
-                  {/* Tab Buttons */}
-                  <div className="relative flex gap-2">
-                    <button
-                      type="button"
-                      aria-pressed={activeSection === "partner"}
-                      onClick={() => setActiveSection("partner")}
-                      className={`flex-1 relative z-10 py-4 sm:py-5 px-4 sm:px-6 rounded-2xl text-center font-semibold text-sm sm:text-base md:text-lg transition-all duration-300 cursor-pointer flex items-center justify-center gap-2 ${
-                        activeSection === "partner"
-                          ? "text-[#1C1F1E] shadow-lg"
-                          : "text-[#2F3332]/60 dark:text-[#E6E7E7]/60 hover:text-[#2F3332] dark:hover:text-[#E6E7E7]"
-                      }`}
+                </div>
+
+                <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8">
+                  {impactAreas.map((impact) => (
+                    <article
+                      key={impact.title}
+                      className="border-t border-[#0097b2]/30 pt-5"
                     >
-                      <span>Partners Program</span>
-                      <motion.span
-                        initial={{ opacity: 0.8, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.3 }}
-                        className="flex items-center gap-1 px-2 py-0.5 bg-gradient-to-r from-[#eeba2b] to-[#F5C94D] text-[#1C1F1E] rounded-full text-xs font-bold shadow-sm"
-                      >
-                        <Sparkles className="w-3 h-3" />
-                        <span className="hidden sm:inline">Featured</span>
-                      </motion.span>
-                    </button>
-                    <button
-                      type="button"
-                      aria-pressed={activeSection === "one-time"}
-                      onClick={() => setActiveSection("one-time")}
-                      className={`flex-1 relative z-10 py-4 sm:py-5 px-4 sm:px-6 rounded-2xl text-center font-semibold text-sm sm:text-base md:text-lg transition-all duration-300 cursor-pointer ${
-                        activeSection === "one-time"
-                          ? "text-[#1C1F1E] shadow-lg"
-                          : "text-[#2F3332]/60 dark:text-[#E6E7E7]/60 hover:text-[#2F3332] dark:hover:text-[#E6E7E7]"
-                      }`}
-                    >
-                      One-Time Gift
-                    </button>
+                      <h3 className="font-heading text-lg font-semibold text-[#1C1F1E] dark:text-[#FCFAEF]">
+                        {impact.title}
+                      </h3>
+                      <p className="mt-3 text-sm leading-relaxed text-[#2F3332]/80 dark:text-[#E6E7E7]/80 sm:text-base">
+                        {impact.description}
+                      </p>
+                    </article>
+                  ))}
+                </div>
+
+                <div className="mt-10 border border-[#eeba2b]/35 bg-[#FCFAEF] px-5 py-6 dark:bg-[#121514] sm:px-8 sm:py-8">
+                  <h3 className="text-center font-heading text-xl font-semibold text-[#1C1F1E] dark:text-[#FCFAEF] sm:text-2xl">
+                    As a Partner, you&apos;ll receive:
+                  </h3>
+                  <div className="mt-6 grid grid-cols-1 gap-5 md:grid-cols-2">
+                    {partnerBenefits.map((benefit) => (
+                      <div key={benefit.title}>
+                        <h4 className="font-semibold text-[#1C1F1E] dark:text-[#FCFAEF]">
+                          {benefit.title}
+                        </h4>
+                        <p className="mt-1 text-sm leading-relaxed text-[#2F3332]/80 dark:text-[#E6E7E7]/80">
+                          {benefit.description}
+                        </p>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </FadeIn>
 
-            {/* Partner Program Section */}
-            {activeSection === "partner" && (
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-                className="space-y-12"
-              >
-                {/* Partner Program Description */}
-                <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6 }}
-                  viewport={{ once: true }}
-                  className="bg-white dark:bg-[#2F3332] rounded-2xl p-6 sm:p-8 md:p-10 shadow-xl border border-[#E6E7E7]/20 dark:border-[#4F5554]/20 mb-8 sm:mb-12"
-                >
-                  <div className="text-center mb-8 sm:mb-10">
-                    <div className="flex items-center gap-2 justify-center mb-4">
-                      <span className="h-2.5 w-2.5 rounded-full bg-[#eeba2b]" />
-                      <span className="h-2.5 w-2.5 rounded-full bg-[#eeba2b]" />
-                      <span className="h-2.5 w-2.5 rounded-full bg-[#C1C3C3]" />
-                    </div>
-                    <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-[#1C1F1E] dark:text-[#FCFAEF] mb-4 sm:mb-6">
-                      The Akomapa Partners Program
-                    </h2>
-                    <p className="text-base sm:text-lg text-[#2F3332]/80 dark:text-[#E6E7E7]/80 leading-relaxed max-w-3xl mx-auto">
-                      But we cannot do it alone. The Akomapa Partners Program is a growing community of monthly donors who believe in our mission and walk with us—month by month, life by life. Whether you give $20, $50, $100, or more, your partnership sustains free care, medication, NHIS enrollment, and student training in some of Ghana&apos;s most underserved communities.
-                    </p>
-                  </div>
-                  
-                  {/* Key Stats */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-8 sm:mb-10 max-w-md mx-auto">
-                    <motion.div
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      transition={{ duration: 0.5, delay: 0.1 }}
-                      viewport={{ once: true }}
-                      className="bg-gradient-to-br from-[#eeba2b]/20 to-[#eeba2b]/10 dark:from-[#eeba2b]/30 dark:to-[#eeba2b]/20 rounded-xl p-4 sm:p-6 text-center border border-[#eeba2b]/30"
+            <FadeIn delay={0.08}>
+              <div className="border border-[#1C1F1E]/10 bg-white px-6 py-8 dark:border-[#FCFAEF]/15 dark:bg-[#1C1F1E] sm:px-8 sm:py-10">
+                <h3 className="text-center font-heading text-xl font-semibold text-[#1C1F1E] dark:text-[#FCFAEF] sm:text-2xl md:text-3xl">
+                  Choose Your Monthly Partnership Amount
+                </h3>
+                <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4 md:gap-4">
+                  {partnerAmounts.map((amount) => (
+                    <AmountButton
+                      key={amount.value}
+                      selected={selectedPartnerAmount === amount.value}
+                      onClick={() => setSelectedPartnerAmount(amount.value)}
+                      label={amount.label}
+                      description={amount.description}
+                    />
+                  ))}
+                </div>
+
+                {selectedPartnerAmount === "custom" ? (
+                  <div className="mt-6 sm:mt-8">
+                    <Label
+                      htmlFor="custom-partner-amount"
+                      className="mb-2 block text-sm text-[#1C1F1E] dark:text-[#FCFAEF] sm:text-base"
                     >
-                      <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#eeba2b] dark:text-[#F5C94D] mb-2">50+</div>
-                      <div className="text-xs sm:text-sm text-[#2F3332] dark:text-[#E6E7E7] font-medium">Community Members Reached Monthly</div>
-                    </motion.div>
-                    <motion.div
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      transition={{ duration: 0.5, delay: 0.2 }}
-                      viewport={{ once: true }}
-                      className="bg-gradient-to-br from-[#0097b2]/20 to-[#0097b2]/10 dark:from-[#0097b2]/30 dark:to-[#0097b2]/20 rounded-xl p-4 sm:p-6 text-center border border-[#0097b2]/30"
-                    >
-                      <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#0097b2] dark:text-[#66C4DC] mb-2">$20</div>
-                      <div className="text-xs sm:text-sm text-[#2F3332] dark:text-[#E6E7E7] font-medium">Monthly Impact Starts</div>
-                    </motion.div>
+                      Enter your monthly amount
+                    </Label>
+                    <Input
+                      id="custom-partner-amount"
+                      type="number"
+                      placeholder="Enter amount"
+                      value={customPartnerAmount}
+                      onChange={(e) => setCustomPartnerAmount(e.target.value)}
+                      className="h-12 border-[#0097b2] bg-[#FCFAEF] text-base focus:border-[#eeba2b] dark:border-[#66C4DC] dark:bg-[#121514] dark:focus:border-[#F5C94D] sm:text-lg"
+                    />
                   </div>
-                  
-                  {/* Partner Image */}
-                  <div className="mt-8 sm:mt-10">
-                    <motion.div
-                      initial={{ opacity: 0, scale: 0.95 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      transition={{ duration: 0.8 }}
-                      viewport={{ once: true }}
-                      className="relative w-full h-[300px] sm:h-[400px] md:h-[500px] rounded-3xl overflow-hidden shadow-2xl border border-[#E6E7E7]/20 dark:border-[#4F5554]/20"
-                    >
-                      <Image
-                        src="/highlights/Akomapa-66.jpg"
-                        alt="Akomapa Partners Program - Community healthcare delivery"
-                        fill
-                        sizes="(min-width: 1024px) 80vw, 100vw"
-                        className="object-cover"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
-                      <div className="absolute top-4 right-4 bg-[#eeba2b] text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium z-20">
-                        Partners Program
-                      </div>
-                    </motion.div>
-                  </div>
+                ) : null}
 
-                  {/* Impact Areas */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 mb-8 sm:mb-10">
-                    {impactAreas.map((impact, index) => (
-                      <motion.div
-                        key={index}
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: index * 0.1 }}
-                        viewport={{ once: true }}
-                        className="group relative rounded-2xl bg-gradient-to-br from-white to-white/80 dark:from-[#2F3332] dark:to-[#2F3332]/80 p-5 sm:p-6 md:p-7 border-2 border-[#E6E7E7]/60 dark:border-[#4F5554]/60 hover:border-opacity-100 transition-all duration-300 hover:shadow-xl hover:scale-[1.02]"
-                        style={{ 
-                          borderLeftColor: `${impact.color}40`,
-                          borderLeftWidth: '4px'
-                        }}
-                      >
-                        <div className="space-y-3 sm:space-y-4">
-                          <div className="flex items-center gap-3">
-                            <div 
-                              className="w-3 h-3 rounded-full flex-shrink-0"
-                              style={{ backgroundColor: impact.color }}
-                            />
-                            <h3 className="text-base sm:text-lg md:text-xl font-semibold text-[#1C1F1E] dark:text-[#FCFAEF] leading-tight">
-                              {impact.title}
-                            </h3>
-                          </div>
-                          <p className="text-sm sm:text-base text-[#2F3332]/80 dark:text-[#E6E7E7]/80 leading-relaxed pl-6">
-                            {impact.description}
-                          </p>
-                        </div>
-                        <div 
-                          className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-5 transition-opacity duration-300 pointer-events-none"
-                          style={{ backgroundColor: impact.color }}
-                        />
-                      </motion.div>
-                    ))}
-                  </div>
-
-                  {/* Partner Benefits */}
-                  <div className="bg-gradient-to-br from-[#eeba2b]/10 to-[#eeba2b]/5 dark:from-[#2F3332] dark:to-[#1C1F1E] rounded-xl p-6 sm:p-8 border border-[#eeba2b]/20 dark:border-[#eeba2b]/30">
-                    <div className="flex items-center gap-2 justify-center mb-6">
-                      <span className="h-2.5 w-2.5 rounded-full bg-[#eeba2b]" />
-                      <span className="h-2.5 w-2.5 rounded-full bg-[#eeba2b]" />
-                      <span className="h-2.5 w-2.5 rounded-full bg-[#C1C3C3]" />
-                    </div>
-                    <h3 className="text-xl sm:text-2xl font-semibold text-[#1C1F1E] dark:text-[#FCFAEF] mb-6 text-center">
-                      As a Partner, you&apos;ll receive:
-                    </h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-                      {partnerBenefits.map((benefit, index) => (
-                        <motion.div
-                          key={index}
-                          initial={{ opacity: 0, y: 20 }}
-                          whileInView={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.6, delay: index * 0.1 }}
-                          viewport={{ once: true }}
-                          className="flex flex-col p-4 rounded-lg bg-white/60 dark:bg-[#2F3332]/60 hover:bg-white/80 dark:hover:bg-[#2F3332]/80 transition-colors"
-                        >
-                          <h4 className="font-semibold text-base sm:text-lg text-[#1C1F1E] dark:text-[#FCFAEF] mb-2">
-                            {benefit.title}
-                          </h4>
-                          <p className="text-sm sm:text-base text-[#2F3332]/80 dark:text-[#E6E7E7]/80 leading-relaxed">
-                            {benefit.description}
-                          </p>
-                        </motion.div>
-                      ))}
-                    </div>
-                  </div>
-                </motion.div>
-
-                {/* Partner Donation Form */}
-                <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.2 }}
-                  viewport={{ once: true }}
-                  className="bg-white dark:bg-[#2F3332] rounded-2xl shadow-xl p-6 sm:p-8 md:p-10 border border-[#E6E7E7]/20 dark:border-[#4F5554]/20"
-                >
-                  <div className="flex items-center gap-2 justify-center mb-6">
-                    <span className="h-2.5 w-2.5 rounded-full bg-[#eeba2b]" />
-                    <span className="h-2.5 w-2.5 rounded-full bg-[#eeba2b]" />
-                    <span className="h-2.5 w-2.5 rounded-full bg-[#C1C3C3]" />
-                  </div>
-                  <h3 className="text-xl sm:text-2xl md:text-3xl font-semibold text-[#1C1F1E] dark:text-[#FCFAEF] mb-8 text-center">
-                    Choose Your Monthly Partnership Amount
-                  </h3>
-                  
-                  {/* Partner Amount Selection - Responsive Grid */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 mb-8">
-                    {partnerAmounts.map((amount) => (
-                      <button
-                        type="button"
-                        key={amount.value}
-                        aria-pressed={selectedPartnerAmount === amount.value}
-                        onClick={() => setSelectedPartnerAmount(amount.value)}
-                        className={`p-3 md:p-4 rounded-xl border-2 transition-all duration-300 hover:shadow-lg ${
-                          selectedPartnerAmount === amount.value
-                            ? "border-[#eeba2b] bg-[#eeba2b]/10 shadow-lg transform scale-105"
-                            : "border-[#E6E7E7] dark:border-[#4F5554] hover:border-[#eeba2b]/50"
-                        }`}
-                      >
-                        <div className="text-lg md:text-xl font-bold text-[#1C1F1E] dark:text-[#FCFAEF]">
-                          {amount.label}
-                        </div>
-                        <div className="text-xs md:text-sm text-[#2F3332] dark:text-[#E6E7E7]">
-                          {amount.description}
-                        </div>
-                      </button>
-                    ))}
-                  </div>
-
-                  {selectedPartnerAmount === "custom" && (
-                    <motion.div
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: "auto" }}
-                      exit={{ opacity: 0, height: 0 }}
-                      transition={{ duration: 0.3 }}
-                      className="mb-6 sm:mb-8"
-                    >
-                      <Label className="text-[#1C1F1E] dark:text-[#FCFAEF] mb-2 block text-sm sm:text-base">
-                        Enter your monthly amount
-                      </Label>
-                      <Input
-                        type="number"
-                        placeholder="Enter amount"
-                        value={customPartnerAmount}
-                        onChange={(e) => setCustomPartnerAmount(e.target.value)}
-                        className="h-12 bg-[#FCFAEF] dark:bg-[#1C1F1E] border-[#0097b2] focus:border-[#eeba2b] dark:border-[#66C4DC] dark:focus:border-[#F5C94D] text-base sm:text-lg"
-                      />
-                    </motion.div>
-                  )}
-
+                <div className="mt-8">
                   <DonationPaymentMethods
                     flow="partner"
                     selectedGivingLevel={selectedPartnerGivingLevel}
                   />
-                </motion.div>
-              </motion.div>
-            )}
+                </div>
+              </div>
+            </FadeIn>
+          </div>
+        ) : (
+          <div
+            id="donate-panel-one-time"
+            role="tabpanel"
+            aria-labelledby="donate-tab-one-time"
+            className="mt-12 space-y-12"
+          >
+            <FadeIn>
+              <div className="border-t-2 border-[#0097b2] bg-white px-6 py-8 dark:bg-[#1C1F1E] sm:px-8 sm:py-10">
+                <div className="mx-auto max-w-3xl text-center">
+                  <h2 className="font-heading text-2xl font-semibold text-[#1C1F1E] dark:text-[#FCFAEF] sm:text-3xl md:text-4xl">
+                    Make a One-Time Gift
+                  </h2>
+                  <p className="mt-5 text-base leading-relaxed text-[#2F3332]/80 dark:text-[#E6E7E7]/80 sm:text-lg">
+                    Give at your own pace using verified MTN Mobile Money
+                    instructions. Every one-time contribution, large or small,
+                    fuels medications, labs, and care at our clinic sites.
+                  </p>
+                </div>
 
-            {/* One-Time Gift Section */}
-            {activeSection === "one-time" && (
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-                className="space-y-12"
-              >
-                {/* One-Time Gift Description */}
-                <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6 }}
-                  viewport={{ once: true }}
-                  className="bg-white dark:bg-[#2F3332] rounded-2xl p-6 sm:p-8 md:p-10 shadow-xl border border-[#E6E7E7]/20 dark:border-[#4F5554]/20 mb-8 sm:mb-12"
-                >
-                  <div className="text-center mb-8 sm:mb-10">
-                    <div className="flex items-center gap-2 justify-center mb-4">
-                      <span className="h-2.5 w-2.5 rounded-full bg-[#0097b2]" />
-                      <span className="h-2.5 w-2.5 rounded-full bg-[#0097b2]" />
-                      <span className="h-2.5 w-2.5 rounded-full bg-[#C1C3C3]" />
-                    </div>
-                    <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-[#1C1F1E] dark:text-[#FCFAEF] mb-4 sm:mb-6">
-                      Make a One-Time Gift
-                    </h2>
-                    <p className="text-base sm:text-lg text-[#2F3332]/80 dark:text-[#E6E7E7]/80 max-w-3xl mx-auto leading-relaxed">
-                      Give at your own pace using verified MTN Mobile Money instructions. Every one-time contribution, large or small, fuels medications, labs, and care at our clinic sites.
-                    </p>
-                  </div>
-
-                  {/* Benefits List */}
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
-                    {[
-                      { 
-                        title: "Choose any amount",
-                        icon: DollarSign,
-                        description: "Give what feels right for you, whether it's $10 or $1,000"
-                      },
-                      { 
-                        title: "Manual Mobile Money transfer",
-                        icon: Smartphone,
-                        description: "Review the verified MTN recipient details before completing a one-time transfer"
-                      },
-                      { 
-                        title: "100% supports care",
-                        icon: Heart,
-                        description: "Every dollar goes directly to patient care and clinic operations"
-                      }
-                    ].map((benefit, index) => {
-                      const IconComponent = benefit.icon;
-                      return (
-                        <motion.div
-                          key={index}
-                          initial={{ opacity: 0, y: 20 }}
-                          whileInView={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.5, delay: index * 0.1 }}
-                          viewport={{ once: true }}
-                          className="text-center p-5 sm:p-6 md:p-7 bg-gradient-to-br from-[#0097b2]/10 to-[#0097b2]/5 dark:from-[#0097b2]/20 dark:to-[#0097b2]/10 rounded-2xl border-2 border-[#0097b2]/30 dark:border-[#0097b2]/40 hover:border-[#0097b2]/60 dark:hover:border-[#0097b2]/70 hover:shadow-lg transition-all duration-300"
-                        >
-                          <div className="flex items-center justify-center mb-4">
-                            <div className="p-3 sm:p-4 rounded-full bg-[#0097b2]/20 dark:bg-[#0097b2]/30 border-2 border-[#0097b2]/40">
-                              <IconComponent className="h-5 w-5 sm:h-6 sm:w-6 md:h-7 md:w-7 text-[#0097b2] dark:text-[#66C4DC]" />
-                            </div>
-                          </div>
-                          <h4 className="text-base sm:text-lg font-semibold text-[#1C1F1E] dark:text-[#FCFAEF] mb-2 sm:mb-3">
-                            {benefit.title}
-                          </h4>
-                          <p className="text-xs sm:text-sm text-[#2F3332]/70 dark:text-[#E6E7E7]/70 leading-relaxed">
-                            {benefit.description}
-                          </p>
-                        </motion.div>
-                      );
-                    })}
-                  </div>
-                </motion.div>
-
-                {/* One-Time Donation Form */}
-                <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.2 }}
-                  viewport={{ once: true }}
-                  className="bg-white dark:bg-[#2F3332] rounded-2xl shadow-xl p-6 sm:p-8 md:p-10 border border-[#E6E7E7]/20 dark:border-[#4F5554]/20"
-                >
-                  <div className="flex items-center gap-2 justify-center mb-6">
-                    <span className="h-2.5 w-2.5 rounded-full bg-[#0097b2]" />
-                    <span className="h-2.5 w-2.5 rounded-full bg-[#0097b2]" />
-                    <span className="h-2.5 w-2.5 rounded-full bg-[#C1C3C3]" />
-                  </div>
-                  <h3 className="text-xl sm:text-2xl md:text-3xl font-semibold text-[#1C1F1E] dark:text-[#FCFAEF] mb-8 text-center">
-                    Choose Your Gift Amount
-                  </h3>
-                  
-                  {/* Amount Selection - Enhanced Responsive Grid */}
-                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 md:gap-4 mb-8">
-                    {oneTimeAmounts.map((amount) => (
-                      <button
-                        type="button"
-                        key={amount.value}
-                        aria-pressed={selectedOneTimeAmount === amount.value}
-                        onClick={() => setSelectedOneTimeAmount(amount.value)}
-                        className={`p-3 md:p-4 rounded-xl border-2 transition-all duration-300 hover:shadow-lg ${
-                          selectedOneTimeAmount === amount.value
-                            ? "border-[#0097b2] bg-[#0097b2]/10 shadow-lg transform scale-105"
-                            : "border-[#E6E7E7] dark:border-[#4F5554] hover:border-[#0097b2]/50"
-                        }`}
+                <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-3">
+                  {oneTimeBenefits.map((benefit) => {
+                    const IconComponent = benefit.icon;
+                    return (
+                      <article
+                        key={benefit.title}
+                        className="border-t border-[#0097b2]/30 pt-5 text-left"
                       >
-                        <div className="text-lg md:text-xl font-bold text-[#1C1F1E] dark:text-[#FCFAEF]">
-                          {amount.label}
+                        <div className="mb-3 inline-flex h-11 w-11 items-center justify-center border border-[#0097b2]/30 text-[#0097b2] dark:border-[#66C4DC]/40 dark:text-[#66C4DC]">
+                          <IconComponent
+                            className="h-5 w-5"
+                            aria-hidden="true"
+                          />
                         </div>
-                      </button>
-                    ))}
-                  </div>
+                        <h4 className="font-semibold text-[#1C1F1E] dark:text-[#FCFAEF]">
+                          {benefit.title}
+                        </h4>
+                        <p className="mt-2 text-sm leading-relaxed text-[#2F3332]/75 dark:text-[#E6E7E7]/75">
+                          {benefit.description}
+                        </p>
+                      </article>
+                    );
+                  })}
+                </div>
+              </div>
+            </FadeIn>
 
-                  {selectedOneTimeAmount === "custom" && (
-                    <motion.div
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: "auto" }}
-                      exit={{ opacity: 0, height: 0 }}
-                      transition={{ duration: 0.3 }}
-                      className="mb-6 sm:mb-8"
+            <FadeIn delay={0.08}>
+              <div className="border border-[#1C1F1E]/10 bg-white px-6 py-8 dark:border-[#FCFAEF]/15 dark:bg-[#1C1F1E] sm:px-8 sm:py-10">
+                <h3 className="text-center font-heading text-xl font-semibold text-[#1C1F1E] dark:text-[#FCFAEF] sm:text-2xl md:text-3xl">
+                  Choose Your Gift Amount
+                </h3>
+                <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5 md:gap-4">
+                  {oneTimeAmounts.map((amount) => (
+                    <AmountButton
+                      key={amount.value}
+                      selected={selectedOneTimeAmount === amount.value}
+                      onClick={() => setSelectedOneTimeAmount(amount.value)}
+                      label={amount.label}
+                    />
+                  ))}
+                </div>
+
+                {selectedOneTimeAmount === "custom" ? (
+                  <div className="mt-6 sm:mt-8">
+                    <Label
+                      htmlFor="custom-one-time-amount"
+                      className="mb-2 block text-sm text-[#1C1F1E] dark:text-[#FCFAEF] sm:text-base"
                     >
-                      <Label className="text-[#1C1F1E] dark:text-[#FCFAEF] mb-2 block text-sm sm:text-base">
-                        Enter your gift amount
-                      </Label>
-                      <Input
-                        type="number"
-                        placeholder="Enter amount"
-                        value={customOneTimeAmount}
-                        onChange={(e) => setCustomOneTimeAmount(e.target.value)}
-                        className="h-12 bg-[#FCFAEF] dark:bg-[#1C1F1E] border-[#0097b2] focus:border-[#eeba2b] dark:border-[#66C4DC] dark:focus:border-[#F5C94D] text-base sm:text-lg"
-                      />
-                    </motion.div>
-                  )}
+                      Enter your gift amount
+                    </Label>
+                    <Input
+                      id="custom-one-time-amount"
+                      type="number"
+                      placeholder="Enter amount"
+                      value={customOneTimeAmount}
+                      onChange={(e) => setCustomOneTimeAmount(e.target.value)}
+                      className="h-12 border-[#0097b2] bg-[#FCFAEF] text-base focus:border-[#eeba2b] dark:border-[#66C4DC] dark:bg-[#121514] dark:focus:border-[#F5C94D] sm:text-lg"
+                    />
+                  </div>
+                ) : null}
 
+                <div className="mt-8">
                   <DonationPaymentMethods
                     flow="oneTime"
                     selectedGivingLevel={selectedOneTimeGivingLevel}
                   />
-                </motion.div>
-              </motion.div>
-            )}
+                </div>
+              </div>
+            </FadeIn>
           </div>
-        </div>
-      </section>
+        )}
+      </EditorialBand>
 
-      {/* Corporate Sponsorship Section */}
-      <section className="py-16 md:py-24 bg-gradient-to-r from-[#0097b2] via-[#0F4C5C] to-[#031C3A] text-[#FCFAEF] relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute -top-28 -left-32 h-72 w-72 rounded-full bg-[#FCFAEF]/10 blur-3xl" />
-          <div className="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-[#F5C94D]/10 blur-3xl" />
-        </div>
-
-        <div className="relative site-container mx-auto px-4 sm:px-6">
-          <div className="max-w-6xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-              viewport={{ once: true }}
-              className="text-center mb-12 sm:mb-16"
+      <EditorialBand
+        tone="teal"
+        marker="02"
+        aria-labelledby="corporate-giving-heading"
+        className="border-t border-[#FCFAEF]/15 bg-[#0F4C5C]"
+      >
+        <div className="grid gap-12 lg:grid-cols-12 lg:items-center lg:gap-16">
+          <FadeIn className="lg:col-span-6">
+            <EditorialEyebrow tone="gold" className="text-[#F5C94D]">
+              Corporate Partnerships
+            </EditorialEyebrow>
+            <EditorialHeading
+              id="corporate-giving-heading"
+              className="mt-4 text-[#FCFAEF]"
             >
-              <h2 className="text-[#F5C94D] font-bold text-base sm:text-lg mb-2">
-                CORPORATE PARTNERSHIPS
-              </h2>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 text-[#FCFAEF]">
-                Corporate Sponsorship Opportunities
-              </h2>
-              <p className="text-base sm:text-lg text-[#FCFAEF]/85 leading-relaxed max-w-3xl mx-auto">
-                We welcome corporate partnerships with mission-aligned businesses and organizations seeking to invest in health equity.
-              </p>
-            </motion.div>
-
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 items-center">
-              {/* Description */}
-              <motion.div
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-                viewport={{ once: true }}
-                className="space-y-6 sm:space-y-8"
+              Corporate Sponsorship Opportunities
+            </EditorialHeading>
+            <EditorialLead className="mt-5 text-[#FCFAEF]/85 dark:text-[#FCFAEF]/85">
+              We welcome corporate partnerships with mission-aligned businesses
+              and organizations seeking to invest in health equity.
+            </EditorialLead>
+            <h3 className="mt-8 font-heading text-xl font-semibold text-[#FCFAEF] sm:text-2xl">
+              Transform Lives Together
+            </h3>
+            <p className="mt-3 text-base leading-relaxed text-[#FCFAEF]/85 sm:text-lg">
+              Your company&apos;s support can transform lives, and we&apos;re
+              happy to work with you to recognize your contribution, including
+              co-branding opportunities, features in our updates, and
+              involvement in community events.
+            </p>
+            <ul className="mt-6 space-y-3 text-base text-[#FCFAEF]/85 sm:text-lg">
+              {[
+                "Financial contributions",
+                "Donations of medications and medical supplies",
+                "Equipment or service support for our clinics",
+                "Collaboration on health education or outreach campaigns",
+              ].map((item) => (
+                <li key={item} className="flex gap-3">
+                  <span
+                    aria-hidden="true"
+                    className="mt-2 h-1.5 w-1.5 shrink-0 bg-[#eeba2b]"
+                  />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+            <div className="mt-8">
+              <EditorialButton
+                href="/partnerships/corporate-sponsorship"
+                variant="light"
               >
-                <div>
-                  <h3 className="text-xl sm:text-2xl font-semibold mb-4 text-[#FCFAEF]">
-                    Transform Lives Together
-                  </h3>
-                  <p className="text-base sm:text-lg text-[#FCFAEF]/85 leading-relaxed mb-6">
-                    Your company&apos;s support can transform lives, and we&apos;re happy to work with you to recognize your contribution, including co-branding opportunities, features in our updates, and involvement in community events.
-                  </p>
-                </div>
-
-                <div className="space-y-4">
-                  <div className="flex items-start gap-3">
-                    <div className="w-2 h-2 rounded-full bg-[#F5C94D] mt-2 flex-shrink-0" />
-                    <p className="text-base sm:text-lg text-[#FCFAEF]/85 leading-relaxed">
-                      Financial contributions
-                    </p>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <div className="w-2 h-2 rounded-full bg-[#F5C94D] mt-2 flex-shrink-0" />
-                    <p className="text-base sm:text-lg text-[#FCFAEF]/85 leading-relaxed">
-                      Donations of medications and medical supplies
-                    </p>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <div className="w-2 h-2 rounded-full bg-[#F5C94D] mt-2 flex-shrink-0" />
-                    <p className="text-base sm:text-lg text-[#FCFAEF]/85 leading-relaxed">
-                      Equipment or service support for our clinics
-                    </p>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <div className="w-2 h-2 rounded-full bg-[#F5C94D] mt-2 flex-shrink-0" />
-                    <p className="text-base sm:text-lg text-[#FCFAEF]/85 leading-relaxed">
-                      Collaboration on health education or outreach campaigns
-                    </p>
-                  </div>
-                </div>
-
-                <Button
-                  asChild
-                  className="group bg-[#FCFAEF] text-[#0097b2] hover:bg-[#F5C94D] hover:text-[#1C1F1E] mt-6 sm:mt-8"
-                >
-                  <a href="/partnerships/corporate-sponsorship" className="flex items-center">
-                    Learn More About Corporate Sponsorship
-                    <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                  </a>
-                </Button>
-              </motion.div>
-
-              {/* Image */}
-              <motion.div
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                viewport={{ once: true }}
-                className="relative w-full h-[300px] sm:h-[400px] md:h-[500px] rounded-3xl overflow-hidden shadow-2xl border border-white/10"
-              >
-                <Image
-                  src="/highlights/Akomapa-73.jpg"
-                  alt="Corporate partnerships and collaboration"
-                  fill
-                  sizes="(min-width: 1024px) 80vw, 100vw"
-                  className="object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
-              </motion.div>
+                Learn More About Corporate Sponsorship
+              </EditorialButton>
             </div>
-          </div>
+          </FadeIn>
+
+          <FadeIn delay={0.1} className="relative lg:col-span-6">
+            <span
+              aria-hidden="true"
+              className="absolute -top-3 left-0 z-10 h-1 w-24 bg-[#eeba2b] md:w-36"
+            />
+            <div className="relative aspect-[4/3] overflow-hidden rounded-md border border-[#FCFAEF]/25">
+              <Image
+                src="/highlights/Akomapa-73.jpg"
+                alt="Corporate partnerships and collaboration"
+                fill
+                sizes="(min-width: 1024px) 40vw, 100vw"
+                className="object-cover"
+              />
+            </div>
+          </FadeIn>
         </div>
-      </section>
-    </>
+      </EditorialBand>
+    </div>
   );
 }

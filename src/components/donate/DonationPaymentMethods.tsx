@@ -135,10 +135,10 @@ export default function DonationPaymentMethods({
                 <div
                   key={method.id}
                   className={cn(
-                    "relative min-h-40 overflow-hidden rounded-2xl border-2 bg-white transition-[border-color,box-shadow,transform] duration-200 dark:bg-[#1C1F1E]/40",
+                    "relative min-h-40 overflow-hidden rounded-md border-2 bg-white transition-colors duration-200 dark:bg-[#1C1F1E]/40",
                     isSelected
-                      ? "border-[#0097b2] shadow-[0_10px_30px_rgba(0,151,178,0.13)]"
-                      : "border-[#2F3332]/12 hover:-translate-y-0.5 hover:border-[#0097b2]/50 dark:border-[#FCFAEF]/15",
+                      ? "border-[#0097b2] ring-1 ring-[#0097b2]/40"
+                      : "border-[#2F3332]/12 hover:border-[#0097b2]/50 dark:border-[#FCFAEF]/15",
                   )}
                 >
                   <RadioGroupItem
@@ -150,7 +150,7 @@ export default function DonationPaymentMethods({
                     htmlFor={inputId}
                     className="flex h-full min-h-40 cursor-pointer flex-col items-center justify-center gap-3 p-4 text-center"
                   >
-                    <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#F5C94D] text-[#1C1F1E] shadow-sm">
+                    <span className="flex h-14 w-14 items-center justify-center border border-[#eeba2b]/50 bg-[#FCFAEF] text-[#1C1F1E] dark:bg-[#121514] dark:text-[#F5C94D]">
                       <Icon
                         aria-hidden="true"
                         className={paymentIconClasses[method.id]}
@@ -161,7 +161,7 @@ export default function DonationPaymentMethods({
                         {method.label}
                       </span>
                       <span className="mt-1 block text-xs font-normal text-[#0097b2] dark:text-[#66C4DC]">
-                        Available now
+                        {isSelected ? "Selected · Available now" : "Available now"}
                       </span>
                     </span>
                   </Label>
@@ -178,9 +178,9 @@ export default function DonationPaymentMethods({
                 key={method.id}
                 aria-disabled="true"
                 data-testid={`payment-method-${method.id}`}
-                className="flex min-h-40 cursor-not-allowed flex-col items-center justify-center gap-3 rounded-2xl border border-[#2F3332]/12 bg-[#2F3332]/[0.025] p-4 text-center opacity-55 grayscale select-none dark:border-[#FCFAEF]/15 dark:bg-[#FCFAEF]/[0.035]"
+                className="flex min-h-40 cursor-not-allowed flex-col items-center justify-center gap-3 rounded-md border border-[#2F3332]/12 bg-[#2F3332]/[0.025] p-4 text-center opacity-55 grayscale select-none dark:border-[#FCFAEF]/15 dark:bg-[#FCFAEF]/[0.035]"
               >
-                <span className="flex h-12 w-12 items-center justify-center rounded-xl border border-current/15 bg-white/70 text-[#2F3332] dark:bg-[#FCFAEF]/10 dark:text-[#E6E7E7]">
+                <span className="flex h-12 w-12 items-center justify-center border border-current/15 bg-white/70 text-[#2F3332] dark:bg-[#FCFAEF]/10 dark:text-[#E6E7E7]">
                   <Icon
                     aria-hidden="true"
                     className={paymentIconClasses[method.id]}
@@ -220,7 +220,7 @@ export default function DonationPaymentMethods({
       <Button
         type="button"
         size="lg"
-        className="h-12 w-full rounded-xl bg-[#0097b2] py-3 text-[#FCFAEF] shadow-sm hover:bg-[#007f96] focus-visible:ring-[#F5C94D]"
+        className="h-12 min-h-12 w-full rounded-md bg-[#0097b2] py-3 text-[#FCFAEF] shadow-none hover:bg-[#007f96] focus-visible:ring-[#F5C94D]"
         aria-expanded={showInstructions}
         aria-controls={instructionsId}
         onClick={() => setShowInstructions((current) => !current)}
@@ -241,27 +241,27 @@ export default function DonationPaymentMethods({
                   <p key={instruction}>{instruction}</p>
                 ))}
                 <dl className="grid gap-3 sm:grid-cols-3">
-                  <div className="rounded-lg bg-white/70 p-3 dark:bg-[#1C1F1E]/30">
+                  <div className="border border-[#1C1F1E]/10 bg-white p-3 dark:border-[#FCFAEF]/15 dark:bg-[#1C1F1E]/30">
                     <dt className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
                       Account name
                     </dt>
-                    <dd className="mt-1 font-semibold">
+                    <dd className="mt-1 break-words font-semibold">
                       {selectedMethod.accountName}
                     </dd>
                   </div>
-                  <div className="rounded-lg bg-white/70 p-3 dark:bg-[#1C1F1E]/30">
+                  <div className="border border-[#1C1F1E]/10 bg-white p-3 dark:border-[#FCFAEF]/15 dark:bg-[#1C1F1E]/30">
                     <dt className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
                       Network
                     </dt>
-                    <dd className="mt-1 font-semibold">
+                    <dd className="mt-1 break-words font-semibold">
                       {selectedMethod.network}
                     </dd>
                   </div>
-                  <div className="rounded-lg bg-white/70 p-3 dark:bg-[#1C1F1E]/30">
+                  <div className="border border-[#1C1F1E]/10 bg-white p-3 dark:border-[#FCFAEF]/15 dark:bg-[#1C1F1E]/30">
                     <dt className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
                       Mobile Money number
                     </dt>
-                    <dd className="mt-1 font-semibold tabular-nums">
+                    <dd className="mt-1 break-all font-semibold tabular-nums">
                       {selectedMethod.phone}
                     </dd>
                   </div>
