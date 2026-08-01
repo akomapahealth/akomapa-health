@@ -4,8 +4,8 @@ import { CONTACT } from "@/config/contact";
 
 export default function LocationMap() {
   return (
-    <figure className="flex h-full flex-col bg-white dark:bg-[#2F3332]">
-      <figcaption className="border-b border-[#E6E7E7]/40 px-4 py-3 font-heading text-sm font-semibold text-[#1C1F1E] dark:border-[#4F5554]/40 dark:text-[#FCFAEF] sm:px-5 sm:text-base">
+    <figure className="flex h-full flex-col bg-white dark:bg-[#1C1F1E]">
+      <figcaption className="border-b border-[#1C1F1E]/10 px-4 py-3 font-heading text-sm font-semibold text-[#1C1F1E] dark:border-[#FCFAEF]/15 dark:text-[#FCFAEF] sm:px-5 sm:text-base">
         {CONTACT.map.label}
       </figcaption>
       <iframe
