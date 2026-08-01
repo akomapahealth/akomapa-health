@@ -30,9 +30,9 @@ const metricDividerClasses = [
 export default function ImpactHero() {
   return (
     <EditorialBand
-      tone="onyx"
+      tone="teal"
       aria-labelledby="impact-hero-heading"
-      className="border-b border-[#FCFAEF]/15"
+      className="border-b border-[#FCFAEF]/15 bg-[#0F4C5C]"
       containerClassName="py-14 sm:py-16 md:py-20 lg:py-24"
     >
       <div className="grid gap-12 lg:grid-cols-12 lg:items-end lg:gap-16">
@@ -90,7 +90,7 @@ export default function ImpactHero() {
             aria-hidden="true"
             className="absolute -top-3 left-0 z-10 h-1 w-24 bg-[#eeba2b] md:w-36"
           />
-          <div className="relative aspect-[4/3] overflow-hidden rounded-md border border-[#FCFAEF]/25 bg-[#121514] lg:aspect-[4/5]">
+          <div className="relative aspect-[4/3] overflow-hidden rounded-md border border-[#FCFAEF]/25 bg-[#0F4C5C] lg:aspect-[4/5]">
             <Image
               src="/highlights/Akomapa-20.jpg"
               alt="Akomapa community health outreach in progress"

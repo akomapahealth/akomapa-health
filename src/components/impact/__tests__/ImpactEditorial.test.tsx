@@ -16,7 +16,7 @@ import {
 import { timeline } from "@/data/timeline";
 
 describe("Impact editorial system", () => {
-  it("renders a flat onyx hero with one h1 and semantic lead metrics", () => {
+  it("renders a flat deep-teal hero with one h1 and semantic lead metrics", () => {
     render(<ImpactHero />);
 
     const heading = screen.getByRole("heading", {
@@ -24,7 +24,7 @@ describe("Impact editorial system", () => {
       name: "Our Impact",
     });
     const hero = heading.closest("section");
-    expect(hero).toHaveAttribute("data-editorial-tone", "onyx");
+    expect(hero).toHaveAttribute("data-editorial-tone", "teal");
     expect(hero?.className).not.toContain("gradient");
     expect(document.querySelectorAll("h1")).toHaveLength(1);
 
@@ -73,7 +73,7 @@ describe("Impact editorial system", () => {
     const section = screen.getByRole("region", {
       name: "Students trained to lead with a good heart",
     });
-    expect(section).toHaveAttribute("data-editorial-tone", "onyx");
+    expect(section).toHaveAttribute("data-editorial-tone", "teal");
 
     const metrics = section.querySelector("[data-leadership-impact-metrics]");
     expect(metrics?.tagName).toBe("DL");

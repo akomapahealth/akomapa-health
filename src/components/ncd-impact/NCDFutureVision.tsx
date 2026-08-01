@@ -19,10 +19,11 @@ const metricDividerClasses = [
 export default function NCDFutureVision() {
   return (
     <EditorialBand
-      tone="onyx"
+      tone="teal"
       marker="06"
       id="ncd-future-vision"
       aria-labelledby="ncd-future-heading"
+      className="bg-[#0F4C5C]"
     >
       <FadeIn>
         <div className="max-w-3xl">

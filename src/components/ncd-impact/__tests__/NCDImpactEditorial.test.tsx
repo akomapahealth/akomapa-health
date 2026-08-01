@@ -19,7 +19,7 @@ import {
 } from "@/data/ncd-impact";
 
 describe("NCD Impact editorial system", () => {
-  it("renders a flat onyx hero with one h1 and labeled key burden stat", () => {
+  it("renders a flat deep-teal hero with one h1 and labeled key burden stat", () => {
     render(<NCDHero />);
 
     const heading = screen.getByRole("heading", {
@@ -27,7 +27,7 @@ describe("NCD Impact editorial system", () => {
       name: ncdHeroContent.heading,
     });
     const hero = heading.closest("section");
-    expect(hero).toHaveAttribute("data-editorial-tone", "onyx");
+    expect(hero).toHaveAttribute("data-editorial-tone", "teal");
     expect(hero?.className).not.toContain("gradient");
     expect(document.querySelectorAll("h1")).toHaveLength(1);
     expect(screen.getByText(/External evidence/i)).toBeVisible();
@@ -173,7 +173,7 @@ describe("NCD Impact editorial system", () => {
     const section = screen.getByRole("region", {
       name: ncdFutureVisionContent.heading,
     });
-    expect(section).toHaveAttribute("data-editorial-tone", "onyx");
+    expect(section).toHaveAttribute("data-editorial-tone", "teal");
     expect(
       within(section).getByText(/Future targets — not yet achieved/i),
     ).toBeVisible();

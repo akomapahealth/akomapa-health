@@ -88,12 +88,14 @@ for (const viewport of viewports) {
         );
         expect(gradientBands).toEqual([]);
 
+        // Exclude Leaflet chrome (zoom ±, attribution) — third-party map UI.
         const standaloneControls = page.locator(
           "[data-editorial-band] a, [data-editorial-band] button",
         );
         const undersized = await standaloneControls.evaluateAll((controls) =>
           controls
             .filter((control) => {
+              if (control.closest(".leaflet-container")) return false;
               const style = getComputedStyle(control);
               const rect = control.getBoundingClientRect();
               return (
@@ -127,9 +129,9 @@ test("/impact preserves verified metrics, tones, and future distinction", async 
       bands.map((band) => band.getAttribute("data-editorial-tone")),
     );
   expect(tones).toEqual([
-    "onyx",
+    "teal",
     "cream",
-    "onyx",
+    "teal",
     "cream",
     "white",
     "teal",
@@ -206,13 +208,13 @@ test("/ncd-impact preserves burden evidence, current results, and future targets
       bands.map((band) => band.getAttribute("data-editorial-tone")),
     );
   expect(tones).toEqual([
-    "onyx",
+    "teal",
     "cream",
     "teal",
     "cream",
     "white",
     "cream",
-    "onyx",
+    "teal",
   ]);
 
   await expect(page.getByText("External evidence").first()).toBeVisible();

@@ -26,10 +26,11 @@ const metricDividerClasses = [
 export default function LeadershipImpactSection() {
   return (
     <EditorialBand
-      tone="onyx"
+      tone="teal"
       marker="02"
       id="leadership-impact"
       aria-labelledby="leadership-impact-heading"
+      className="bg-[#0F4C5C]"
     >
       <FadeIn>
         <div className="max-w-3xl">
