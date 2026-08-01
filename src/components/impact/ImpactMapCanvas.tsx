@@ -36,12 +36,19 @@ const badgeStyles: Record<MapLocation["type"], { background: string; color: stri
     partner: { background: "rgba(15, 76, 92, 0.1)", color: "#0F4C5C" },
   };
 
+/** Distinct shapes (filled circle / filled square / outlined circle) so type is not color-alone. */
 function createMarkerIcon(type: MapLocation["type"]) {
   const { background, border } = markerStyles[type];
+  const shape =
+    type === "planned-hub"
+      ? "border-radius:2px;"
+      : "border-radius:9999px;";
+  const fill =
+    type === "partner" ? "transparent" : background;
 
   return divIcon({
     className: "impact-map-marker",
-    html: `<span style="display:block;width:14px;height:14px;border-radius:9999px;background:${background};border:2px solid ${border};box-shadow:0 2px 6px rgba(15,76,92,0.35);"></span>`,
+    html: `<span style="display:block;width:14px;height:14px;${shape}background:${fill};border:2px solid ${border};box-shadow:0 1px 3px rgba(15,76,92,0.25);"></span>`,
     iconSize: [18, 18],
     iconAnchor: [9, 9],
     popupAnchor: [0, -10],

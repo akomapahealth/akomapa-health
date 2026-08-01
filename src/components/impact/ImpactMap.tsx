@@ -8,41 +8,52 @@ import {
   FadeInStaggerItem,
 } from "@/components/animations";
 import {
-  PublicSection,
-  PublicSectionHeader,
-} from "@/components/shared/PublicPagePrimitives";
+  EditorialBand,
+  EditorialEyebrow,
+  EditorialHeading,
+  EditorialLead,
+  EditorialArrowLink,
+} from "@/components/shared/EditorialPrimitives";
 import { mapLocations } from "@/data/impact";
 import type { MapLocation } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
 type LocationTypeMeta = {
   label: string;
-  dot: string;
+  /** Shape cue so type is not color-alone (matches map markers). */
+  shape: "circle-filled" | "square-filled" | "circle-outline";
+  shapeClass: string;
   badge: string;
 };
 
 const typeMeta: Record<MapLocation["type"], LocationTypeMeta> = {
   "active-hub": {
     label: "Active hub",
-    dot: "bg-[#0097b2] border-white",
-    badge: "bg-[#0097b2]/10 text-[#0097b2]",
+    shape: "circle-filled",
+    shapeClass: "rounded-full bg-[#0097b2] border-2 border-[#0097b2]",
+    badge:
+      "border border-[#0097b2]/40 text-[#0097b2] dark:border-[#66C4DC]/50 dark:text-[#66C4DC]",
   },
   "planned-hub": {
     label: "Planned hub",
-    dot: "bg-[#eeba2b] border-white",
-    badge: "bg-[#eeba2b]/15 text-[#8a6b12]",
+    shape: "square-filled",
+    shapeClass: "rounded-sm bg-[#eeba2b] border-2 border-[#eeba2b]",
+    badge:
+      "border border-[#C9920F]/40 text-[#8a6b12] dark:border-[#F5C94D]/50 dark:text-[#F5C94D]",
   },
   partner: {
     label: "Partner",
-    dot: "bg-white border-[#0097b2]",
-    badge: "bg-[#0F4C5C]/10 text-[#0F4C5C]",
+    shape: "circle-outline",
+    shapeClass: "rounded-full bg-transparent border-2 border-[#0F4C5C] dark:border-[#FCFAEF]",
+    badge:
+      "border border-[#0F4C5C]/35 text-[#0F4C5C] dark:border-[#FCFAEF]/40 dark:text-[#FCFAEF]",
   },
 };
 
 function MapCanvasPlaceholder() {
   return (
     <div
-      className="flex h-full w-full items-center justify-center bg-gradient-to-b from-[#EAF4F6] to-[#DCEEF1] text-sm text-[#0F4C5C]/70"
+      className="flex h-full w-full items-center justify-center bg-[#EAF4F6] text-sm text-[#0F4C5C]/70 dark:bg-[#1C1F1E] dark:text-[#E6E7E7]/70"
       aria-hidden="true"
     >
       Loading map…
@@ -57,29 +68,40 @@ const ImpactMapCanvas = dynamic(() => import("./ImpactMapCanvas"), {
 
 export default function ImpactMap() {
   return (
-    <PublicSection tone="cream" aria-labelledby="impact-map-heading">
+    <EditorialBand
+      tone="cream"
+      marker="03"
+      id="impact-map"
+      aria-labelledby="impact-map-heading"
+    >
       <FadeIn>
-        <PublicSectionHeader
-          eyebrow="Global Footprint"
-          eyebrowTone="teal"
-          titleId="impact-map-heading"
-          title="A growing network of hubs"
-          description="Akomapa's Community Learning & Care Hubs and partner institutions span West Africa and North America — with more sites on the way."
-          className="mb-12"
-        />
+        <div className="max-w-3xl">
+          <EditorialEyebrow>Global Footprint</EditorialEyebrow>
+          <EditorialHeading id="impact-map-heading" className="mt-4">
+            A growing network of hubs
+          </EditorialHeading>
+          <EditorialLead className="mt-5">
+            Akomapa&apos;s Community Learning &amp; Care Hubs and partner
+            institutions span West Africa and North America — with more sites on
+            the way.
+          </EditorialLead>
+        </div>
       </FadeIn>
 
       <FadeIn direction="up" delay={0.05}>
         <div
           data-testid="impact-map-panel"
-          className="relative mx-auto aspect-[1000/386] w-full max-w-5xl overflow-hidden rounded-2xl border border-[#0097b2]/20 bg-gradient-to-b from-[#EAF4F6] to-[#DCEEF1] shadow-[0_24px_70px_rgba(15,76,92,0.18)] max-sm:aspect-[4/3] max-sm:min-h-[16rem]"
+          className="relative mx-auto mt-12 aspect-[1000/386] w-full max-w-5xl overflow-hidden rounded-md border border-[#1C1F1E]/15 bg-[#EAF4F6] dark:border-[#FCFAEF]/20 dark:bg-[#1C1F1E] max-sm:aspect-[4/3] max-sm:min-h-[16rem]"
         >
           <ImpactMapCanvas />
         </div>
       </FadeIn>
 
       <FadeIn direction="up" delay={0.1}>
-        <ul className="mx-auto mt-6 flex max-w-5xl flex-wrap items-center justify-center gap-x-6 gap-y-3">
+        <ul
+          data-impact-map-legend
+          className="mx-auto mt-6 flex max-w-5xl flex-wrap items-center justify-center gap-x-6 gap-y-3"
+        >
           {(
             Object.entries(typeMeta) as [MapLocation["type"], LocationTypeMeta][]
           ).map(([type, meta]) => (
@@ -89,62 +111,75 @@ export default function ImpactMap() {
             >
               <span
                 aria-hidden="true"
-                className={cn(
-                  "inline-flex h-3.5 w-3.5 rounded-full border-2",
-                  meta.dot,
-                )}
+                data-legend-shape={meta.shape}
+                className={cn("inline-flex h-3.5 w-3.5 shrink-0", meta.shapeClass)}
               />
-              {meta.label}
+              <span>{meta.label}</span>
             </li>
           ))}
         </ul>
       </FadeIn>
 
       <FadeInStagger
-        className="mx-auto mt-12 grid max-w-5xl grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3"
+        className="mx-auto mt-12 grid max-w-5xl grid-cols-1 gap-0 border-y border-[#1C1F1E]/15 sm:grid-cols-2 lg:grid-cols-3 dark:border-[#FCFAEF]/20"
         staggerDelay={0.08}
       >
-        {mapLocations.map((location) => {
+        {mapLocations.map((location, index) => {
           const meta = typeMeta[location.type];
+          const divider =
+            index === 0
+              ? ""
+              : index === 1
+                ? "border-t sm:border-l sm:border-t-0"
+                : index === 2
+                  ? "border-t lg:border-l lg:border-t-0"
+                  : "border-t sm:border-l lg:border-l";
+
           return (
-            <FadeInStaggerItem key={location.id} direction="up" className="h-full">
-              <div className="flex h-full flex-col rounded-xl border border-[#E6E7E7] bg-white/90 p-5 shadow-sm dark:border-[#2F3332] dark:bg-[#2F3332]/70">
-                <span
-                  className={cn(
-                    "inline-block w-fit rounded-full px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wide",
-                    meta.badge,
-                  )}
-                >
-                  {meta.label}
-                </span>
-                <h3 className="mt-2 font-heading text-lg font-semibold text-[#1C1F1E] dark:text-[#FCFAEF]">
-                  {location.href ? (
-                    <Link
-                      href={location.href}
-                      className="transition-colors hover:text-[#0097b2] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0097b2] dark:hover:text-[#66C4DC]"
-                    >
-                      {location.name}
-                    </Link>
-                  ) : (
-                    location.name
-                  )}
-                </h3>
-                <p className="mt-1.5 text-sm leading-relaxed text-[#2F3332]/75 dark:text-[#E6E7E7]/75">
-                  {location.description}
-                </p>
+            <FadeInStaggerItem key={location.id} direction="up">
+              <article
+                data-impact-map-location={location.id}
+                className={cn(
+                  "flex h-full flex-col justify-between border-[#1C1F1E]/15 px-1 py-7 sm:px-6 dark:border-[#FCFAEF]/20",
+                  divider,
+                )}
+              >
+                <div>
+                  <p className="inline-flex items-center gap-2 font-subheading text-xs font-bold uppercase tracking-[0.2em] text-[#2F3332]/70 dark:text-[#E6E7E7]/70">
+                    <span
+                      aria-hidden="true"
+                      className={cn("inline-flex h-3 w-3", meta.shapeClass)}
+                    />
+                    <span className={cn("px-0 py-0", meta.badge)}>
+                      {meta.label}
+                    </span>
+                  </p>
+                  <h3 className="mt-3 font-heading text-lg font-semibold text-[#1C1F1E] dark:text-[#FCFAEF]">
+                    {location.href ? (
+                      <Link
+                        href={location.href}
+                        className="transition-colors hover:text-[#0097b2] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eeba2b] focus-visible:ring-offset-2 dark:hover:text-[#66C4DC]"
+                      >
+                        {location.name}
+                      </Link>
+                    ) : (
+                      location.name
+                    )}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-[#2F3332]/75 dark:text-[#E6E7E7]/75">
+                    {location.description}
+                  </p>
+                </div>
                 {location.href ? (
-                  <Link
-                    href={location.href}
-                    className="mt-4 text-sm font-semibold text-[#0097b2] underline-offset-2 hover:underline dark:text-[#66C4DC]"
-                  >
+                  <EditorialArrowLink href={location.href} className="mt-5">
                     View hub
-                  </Link>
+                  </EditorialArrowLink>
                 ) : null}
-              </div>
+              </article>
             </FadeInStaggerItem>
           );
         })}
       </FadeInStagger>
-    </PublicSection>
+    </EditorialBand>
   );
 }
