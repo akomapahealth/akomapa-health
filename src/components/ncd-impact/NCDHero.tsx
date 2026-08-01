@@ -1,116 +1,104 @@
 "use client";
 
 import Image from "@/components/common/Image";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { AnimatedMetric } from "@/components/motion/AnimatedMetric";
 import {
   FadeIn,
   FadeInStagger,
   FadeInStaggerItem,
 } from "@/components/animations";
+import { AnimatedMetric } from "@/components/motion/AnimatedMetric";
+import {
+  EditorialBand,
+  EditorialButton,
+  EditorialEyebrow,
+  EditorialHeading,
+  EditorialLead,
+} from "@/components/shared/EditorialPrimitives";
 import { ncdHeroContent } from "@/data/ncd-impact";
-
-const ctaBaseClass =
-  "group inline-flex items-center justify-center gap-2 rounded-half px-8 py-6 h-auto text-base sm:text-lg font-medium transition-all duration-300 transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2";
-
-const ctaStyles = {
-  amber:
-    "bg-[#eeba2b] text-[#FCFAEF] shadow-lg hover:bg-[#eeba2b]/80 hover:shadow-xl focus-visible:ring-[#F5C94D]",
-  teal:
-    "bg-[#0097b2] text-[#FCFAEF] shadow-lg hover:bg-[#0097b2]/80 hover:shadow-xl focus-visible:ring-[#8DD4E6]",
-} as const;
 
 export default function NCDHero() {
   return (
-    <section
-      className="relative overflow-hidden bg-gradient-to-br from-[#1C1F1E] via-[#0F4C5C] to-[#0097b2] py-16 sm:py-20 md:py-28"
+    <EditorialBand
+      tone="teal"
       aria-labelledby="ncd-hero-heading"
+      className="border-b border-[#FCFAEF]/15 bg-[#0F4C5C]"
+      containerClassName="py-14 sm:py-16 md:py-20 lg:py-24"
     >
-      {/* Decorative blurs */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute -top-24 right-0 h-64 w-64 rounded-full bg-[#FCFAEF]/10 blur-3xl" />
-        <div className="absolute bottom-0 -left-24 h-96 w-96 rounded-full bg-[#FCFAEF]/10 blur-3xl" />
-        <div className="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-[#F5C94D]/10 blur-3xl" />
-      </div>
+      <div className="grid gap-12 lg:grid-cols-12 lg:items-end lg:gap-16">
+        <FadeIn className="lg:col-span-7 lg:pb-4">
+          <EditorialEyebrow tone="gold" className="text-[#F5C94D]">
+            {ncdHeroContent.eyebrow}
+          </EditorialEyebrow>
+          <EditorialHeading
+            as="h1"
+            id="ncd-hero-heading"
+            className="mt-5 max-w-4xl text-[2.35rem] text-[#FCFAEF] sm:text-[3rem] md:text-[3.7rem] lg:text-[4.35rem]"
+          >
+            {ncdHeroContent.heading}
+          </EditorialHeading>
+          <p className="mt-4 max-w-2xl font-heading text-lg font-semibold text-[#F5C94D] md:text-xl">
+            {ncdHeroContent.subtitle}
+          </p>
+          <EditorialLead className="mt-5 max-w-3xl text-[#FCFAEF]/85 dark:text-[#FCFAEF]/85">
+            {ncdHeroContent.description}
+          </EditorialLead>
 
-      <div className="site-container relative z-10 mx-auto px-4 sm:px-6">
-        <div className="flex flex-col gap-12 lg:flex-row lg:items-center lg:gap-16">
-          {/* Content */}
-          <FadeIn className="max-w-3xl flex-1">
-            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#F5C94D] sm:text-sm">
-              {ncdHeroContent.eyebrow}
-            </p>
-            <h1
-              id="ncd-hero-heading"
-              className="mt-4 text-3xl font-light leading-tight text-[#FCFAEF] sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl"
-            >
-              {ncdHeroContent.heading}
-            </h1>
-            <p className="mt-4 text-lg font-semibold text-[#F5C94D] md:text-xl lg:text-2xl">
-              {ncdHeroContent.subtitle}
-            </p>
-            <p className="mt-4 max-w-2xl text-base leading-relaxed text-[#FCFAEF]/85 sm:text-lg md:text-xl">
-              {ncdHeroContent.description}
-            </p>
-
-            {/* Key stat */}
-            <FadeInStagger
-              className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-1 sm:gap-4"
-              staggerDelay={0.1}
+          <FadeInStagger className="mt-10" staggerDelay={0.08}>
+            <dl
+              data-ncd-hero-key-stat
+              className="max-w-xl border-y border-[#FCFAEF]/25"
             >
               <FadeInStaggerItem direction="up">
-                <div className="inline-flex items-baseline gap-3 rounded-2xl border border-white/10 bg-white/5 px-6 py-4">
-                  <AnimatedMetric
-                    value={ncdHeroContent.keyStat.value}
-                    suffix={ncdHeroContent.keyStat.suffix}
-                    className="text-4xl font-bold text-white sm:text-5xl md:text-6xl"
-                    durationMs={2000}
-                  />
-                  <p className="text-sm leading-snug text-white/70 sm:text-base">
-                    {ncdHeroContent.keyStat.label}
-                  </p>
+                <div className="flex flex-col justify-between gap-3 px-1 py-6 sm:flex-row sm:items-end sm:px-5">
+                  <dt className="font-subheading text-xs font-bold uppercase tracking-[0.2em] text-[#FCFAEF]/70">
+                    External evidence · Annual burden
+                  </dt>
+                  <dd className="flex flex-wrap items-baseline gap-3">
+                    <AnimatedMetric
+                      value={ncdHeroContent.keyStat.value}
+                      suffix={ncdHeroContent.keyStat.suffix}
+                      className="font-heading text-4xl font-semibold tracking-tight text-[#F5C94D] sm:text-5xl md:text-6xl"
+                      durationMs={2000}
+                    />
+                    <span className="max-w-xs text-sm leading-snug text-[#FCFAEF]/75 sm:text-base">
+                      {ncdHeroContent.keyStat.label}
+                    </span>
+                  </dd>
                 </div>
               </FadeInStaggerItem>
-            </FadeInStagger>
+            </dl>
+          </FadeInStagger>
 
-            {/* CTAs */}
-            <FadeIn direction="up" delay={0.3}>
-              <div className="mt-8 flex flex-wrap gap-3 sm:gap-4">
-                {ncdHeroContent.ctas.map((cta) => (
-                  <Button
-                    key={cta.label}
-                    asChild
-                    className={`${ctaBaseClass} ${ctaStyles[cta.variant]}`}
-                  >
-                    <Link href={cta.href}>{cta.label}</Link>
-                  </Button>
-                ))}
-              </div>
-            </FadeIn>
-          </FadeIn>
+          <div className="mt-8 flex flex-wrap gap-3 sm:gap-4">
+            {ncdHeroContent.ctas.map((cta) => (
+              <EditorialButton
+                key={cta.label}
+                href={cta.href}
+                variant={cta.variant === "amber" ? "amber" : "outline-light"}
+              >
+                {cta.label}
+              </EditorialButton>
+            ))}
+          </div>
+        </FadeIn>
 
-          {/* Hero image */}
-          <FadeIn
-            direction="left"
-            delay={0.2}
-            className="w-full lg:max-w-md xl:max-w-lg"
-          >
-            <div className="relative h-[280px] w-full overflow-hidden rounded-3xl border border-white/10 shadow-2xl sm:h-[360px] md:h-[420px] lg:h-[480px]">
-              <Image
-                src={ncdHeroContent.image.src}
-                alt={ncdHeroContent.image.alt}
-                fill
-                priority
-                sizes="(min-width: 1024px) 40vw, 100vw"
-                className="object-cover"
-                style={{ objectPosition: "center" }}
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
-            </div>
-          </FadeIn>
-        </div>
+        <FadeIn direction="left" delay={0.15} className="relative lg:col-span-5">
+          <span
+            aria-hidden="true"
+            className="absolute -top-3 left-0 z-10 h-1 w-24 bg-[#eeba2b] md:w-36"
+          />
+          <div className="relative aspect-[4/3] overflow-hidden rounded-md border border-[#FCFAEF]/25 bg-[#0F4C5C] lg:aspect-[4/5]">
+            <Image
+              src={ncdHeroContent.image.src}
+              alt={ncdHeroContent.image.alt}
+              fill
+              priority
+              sizes="(min-width: 1024px) 38vw, 100vw"
+              className="object-cover object-center"
+            />
+          </div>
+        </FadeIn>
       </div>
-    </section>
+    </EditorialBand>
   );
 }

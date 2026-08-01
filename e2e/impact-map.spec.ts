@@ -104,5 +104,57 @@ test.describe("impact map", () => {
     );
     expect(overflow).toBe(false);
   });
+
+  test("keyboard path exposes equivalent location info without removing marker click", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1280, height: 800 });
+    await prepareImpactPage(page);
+    await page.goto("/impact", { waitUntil: "domcontentloaded" });
+
+    const panel = page.getByTestId("impact-map-panel");
+    await expect(panel).toBeVisible({ timeout: 15000 });
+
+    const uccLocation = page.locator(
+      '[data-impact-map-location="ucc-hub"]',
+    );
+    await expect(uccLocation).toBeVisible();
+    await expect(
+      uccLocation.getByText("Akomapa–UCC Community Health Hub", { exact: true }),
+    ).toBeVisible();
+    await expect(uccLocation.getByText("Active hub")).toBeVisible();
+    await expect(
+      uccLocation.getByText(/Abeadze Dominase/i),
+    ).toBeVisible();
+
+    const hubLink = uccLocation.getByRole("link", {
+      name: "Akomapa–UCC Community Health Hub",
+      exact: true,
+    });
+    await hubLink.focus();
+    await expect(hubLink).toBeFocused();
+    await expect(hubLink).toHaveAttribute("href", "/community-hubs/ucc");
+
+    const focusStyle = await hubLink.evaluate((element) => {
+      const style = getComputedStyle(element);
+      return {
+        boxShadow: style.boxShadow,
+        outlineStyle: style.outlineStyle,
+      };
+    });
+    expect(
+      focusStyle.boxShadow !== "none" || focusStyle.outlineStyle !== "none",
+    ).toBe(true);
+
+    // Marker click interaction remains available (pointer path from #177).
+    const marker = page.locator(
+      '.leaflet-marker-icon[title*="Akomapa–UCC Community Health Hub"]',
+    );
+    await expect(marker).toBeVisible({ timeout: 15000 });
+    await marker.click();
+    const popup = page.getByTestId("impact-map-popup-ucc-hub");
+    await expect(popup).toBeVisible({ timeout: 10000 });
+    await expect(popup.getByText("Active hub", { exact: true })).toBeVisible();
+  });
 });
 

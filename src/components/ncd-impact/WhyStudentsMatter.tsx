@@ -1,94 +1,89 @@
-import { GraduationCap, HeartHandshake, Sprout } from "lucide-react";
 import Image from "@/components/common/Image";
-import { FadeIn, FadeInStagger, FadeInStaggerItem } from "@/components/animations";
+import { FadeIn } from "@/components/animations";
+import {
+  EditorialBand,
+  EditorialEyebrow,
+  EditorialHeading,
+  EditorialLead,
+} from "@/components/shared/EditorialPrimitives";
 import { whyStudentsMatterContent } from "@/data/ncd-impact";
-import type { LucideIcon } from "lucide-react";
-
-const iconMap: Record<string, LucideIcon> = {
-  GraduationCap,
-  HeartHandshake,
-  Sprout,
-};
 
 export default function WhyStudentsMatter() {
   return (
-    <section
-      className="relative overflow-hidden bg-gradient-to-r from-[#0097b2] to-[#0F4C5C] py-16 text-[#FCFAEF] md:py-24"
+    <EditorialBand
+      tone="teal"
+      marker="02"
+      id="why-students-matter"
       aria-labelledby="why-students-heading"
+      className="bg-[#0F4C5C]"
     >
-      {/* Decorative blurs */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute -top-16 left-12 h-48 w-48 rounded-full bg-[#FCFAEF]/10 blur-3xl" />
-        <div className="absolute bottom-0 right-0 h-64 w-64 rounded-full bg-[#F5C94D]/10 blur-3xl" />
-      </div>
-
-      <div className="site-container relative z-10 mx-auto px-4 sm:px-6">
-        <FadeIn
-          direction="up"
-          className="mx-auto mb-10 max-w-3xl space-y-3 text-center sm:space-y-4"
-        >
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#F5C94D] sm:text-sm">
+      <FadeIn>
+        <div className="max-w-3xl">
+          <EditorialEyebrow tone="gold" className="text-[#F5C94D]">
             {whyStudentsMatterContent.eyebrow}
-          </p>
-          <h2
+          </EditorialEyebrow>
+          <EditorialHeading
             id="why-students-heading"
-            className="text-2xl font-bold sm:text-3xl md:text-4xl"
+            className="mt-4 text-[#FCFAEF]"
           >
             {whyStudentsMatterContent.heading}
-          </h2>
-          <p className="text-base leading-relaxed text-[#FCFAEF]/85 sm:text-lg">
+          </EditorialHeading>
+          <EditorialLead className="mt-5 text-[#FCFAEF]/85 dark:text-[#FCFAEF]/85">
             {whyStudentsMatterContent.description}
-          </p>
+          </EditorialLead>
+        </div>
+      </FadeIn>
+
+      <div className="mt-12 grid items-start gap-10 lg:grid-cols-12 lg:gap-14">
+        <FadeIn direction="up" delay={0.1} className="relative lg:col-span-5">
+          <span
+            aria-hidden="true"
+            className="absolute -top-3 left-0 z-10 h-1 w-24 bg-[#eeba2b] md:w-36"
+          />
+          <div className="relative aspect-[4/3] overflow-hidden rounded-md border border-[#FCFAEF]/25 bg-[#0F4C5C]">
+            <Image
+              src={whyStudentsMatterContent.image.src}
+              alt={whyStudentsMatterContent.image.alt}
+              fill
+              sizes="(min-width: 1024px) 40vw, 100vw"
+              className="object-cover object-center"
+            />
+          </div>
         </FadeIn>
 
-        <div className="mx-auto grid max-w-6xl items-center gap-10 lg:grid-cols-2 lg:gap-16">
-          {/* Image */}
-          <FadeIn direction="up" delay={0.1}>
-            <div className="relative h-[280px] w-full overflow-hidden rounded-3xl border border-white/10 shadow-2xl sm:h-[360px] md:h-[420px]">
-              <Image
-                src={whyStudentsMatterContent.image.src}
-                alt={whyStudentsMatterContent.image.alt}
-                fill
-                sizes="(min-width: 1024px) 50vw, 100vw"
-                className="object-cover object-center"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
-            </div>
-          </FadeIn>
-
-          {/* Reason cards */}
-          <FadeInStagger className="space-y-4" staggerDelay={0.1}>
-            {whyStudentsMatterContent.reasons.map((reason) => {
-              const Icon = iconMap[reason.icon];
-              return (
-                <FadeInStaggerItem key={reason.title} direction="up">
-                  <div className="rounded-2xl border border-white/20 bg-[#0B2F3A]/60 p-6 shadow-lg shadow-black/30 backdrop-blur-sm transition-all duration-200 hover:-translate-y-0.5">
-                    <div className="flex items-start gap-4">
-                      <span
-                        className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-lg"
-                        style={{
-                          backgroundColor: `${reason.accentColor}25`,
-                          color: "#FCFAEF",
-                        }}
-                      >
-                        {Icon ? <Icon className="h-5 w-5" /> : null}
-                      </span>
-                      <div>
-                        <h3 className="text-lg font-semibold text-[#FCFAEF]">
-                          {reason.title}
-                        </h3>
-                        <p className="mt-1.5 text-sm leading-relaxed text-[#FCFAEF]/85">
-                          {reason.description}
-                        </p>
-                      </div>
-                    </div>
+        <ol
+          data-ncd-student-reasons
+          className="border-y border-[#FCFAEF]/25 lg:col-span-7"
+        >
+          {whyStudentsMatterContent.reasons.map((reason, index) => (
+            <li
+              key={reason.title}
+              className={
+                index === 0 ? "" : "border-t border-[#FCFAEF]/25"
+              }
+            >
+              <FadeIn>
+                <div className="flex gap-5 px-1 py-7 sm:px-5">
+                  <span
+                    aria-hidden="true"
+                    className="shrink-0 font-heading text-2xl font-semibold tracking-tight text-[#F5C94D]"
+                  >
+                    0{index + 1}
+                  </span>
+                  <div>
+                    <h3 className="font-heading text-lg font-semibold text-[#FCFAEF] md:text-xl">
+                      {reason.title}
+                    </h3>
+                    <p className="mt-2 text-sm leading-relaxed text-[#FCFAEF]/85 md:text-base">
+                      {reason.description}
+                    </p>
                   </div>
-                </FadeInStaggerItem>
-              );
-            })}
-          </FadeInStagger>
-        </div>
+                </div>
+              </FadeIn>
+            </li>
+          ))}
+        </ol>
       </div>
-    </section>
+    </EditorialBand>
   );
 }
