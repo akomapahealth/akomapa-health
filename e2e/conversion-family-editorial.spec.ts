@@ -133,7 +133,7 @@ test.describe("conversion family editorial contracts", () => {
     await firstFaq.focus();
     await expect(firstFaq).toBeFocused();
     const expanded = await firstFaq.getAttribute("aria-expanded");
-    await page.keyboard.press("Enter");
+    await firstFaq.press("Enter");
     await expect(firstFaq).toHaveAttribute(
       "aria-expanded",
       expanded === "true" ? "false" : "true",
