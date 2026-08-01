@@ -206,6 +206,11 @@ test.describe("conversion family editorial contracts", () => {
     await expect(instructionsToggle).toBeVisible();
     await instructionsToggle.click();
     await expect(
+      paymentPanel.getByRole("button", {
+        name: "Hide Mobile Money instructions",
+      }),
+    ).toBeVisible();
+    await expect(
       paymentPanel.getByRole("heading", { name: "Let us thank you" }),
     ).toBeVisible();
     await paymentPanel.getByPlaceholder("Your full name").fill("Kojo Mensah");

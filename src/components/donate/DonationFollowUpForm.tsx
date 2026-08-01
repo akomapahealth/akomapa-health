@@ -102,9 +102,9 @@ export default function DonationFollowUpForm({
           <Mail aria-hidden="true" className="h-5 w-5" />
         </div>
         <div>
-          <h4 className="text-base font-semibold text-[#1C1F1E] dark:text-[#FCFAEF]">
+          <h3 className="text-base font-semibold text-[#1C1F1E] dark:text-[#FCFAEF]">
             Let us thank you
-          </h4>
+          </h3>
           <p className="mt-1 text-sm leading-relaxed text-[#2F3332]/75 dark:text-[#E6E7E7]/75">
             After making your transfer, share your details so our team can send
             a personal thank-you.
