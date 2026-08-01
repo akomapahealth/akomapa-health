@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import {
+  EditorialArrow,
   EditorialButton,
   EditorialHeading,
   EditorialLead,
@@ -24,17 +25,21 @@ function RouteRecoveryNav({ className }: { className?: string }) {
       aria-label="Helpful links"
       data-route-recovery-nav
     >
-      <p className="text-sm font-medium text-[#1C1F1E] dark:text-[#FCFAEF]">
+      <p className="font-subheading text-xs font-bold uppercase tracking-[0.18em] text-[#C9920F] dark:text-[#F5C94D]">
+        Helpful destinations
+      </p>
+      <p className="mt-2 text-sm font-medium text-[#1C1F1E] dark:text-[#FCFAEF]">
         Try one of these instead
       </p>
-      <ul className="mt-4 flex flex-wrap justify-center gap-x-6 gap-y-3">
+      <ul className="mt-5 grid gap-2 sm:grid-cols-2">
         {recoveryLinks.map(({ href, label }) => (
           <li key={href}>
             <Link
               href={href}
-              className="inline-flex min-h-11 items-center text-sm font-medium text-[#0097b2] underline-offset-4 transition-colors hover:text-[#eeba2b] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eeba2b] focus-visible:ring-offset-2 dark:text-[#66C4DC] dark:hover:text-[#F5C94D]"
+              className="group inline-flex min-h-11 w-full items-center justify-between gap-3 border border-[#1C1F1E]/10 bg-white/70 px-4 py-3 text-sm font-medium text-[#0097b2] transition-colors hover:border-[#0097b2]/40 hover:text-[#0F4C5C] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eeba2b] focus-visible:ring-offset-2 dark:border-[#FCFAEF]/15 dark:bg-[#1C1F1E]/50 dark:text-[#66C4DC] dark:hover:border-[#66C4DC]/40 dark:hover:text-[#F5C94D]"
             >
-              {label}
+              <span>{label}</span>
+              <EditorialArrow className="opacity-70 transition-transform group-hover:translate-x-0.5" />
             </Link>
           </li>
         ))}
@@ -73,11 +78,7 @@ export function RouteLoadingState({
       </div>
 
       <div className="flex flex-1 flex-col items-center px-4 py-16 sm:py-20">
-        <div
-          role="status"
-          aria-live="polite"
-          className="text-center"
-        >
+        <div role="status" aria-live="polite" className="text-center">
           <div
             data-route-loading-spinner
             className="mx-auto mb-4 h-8 w-8 animate-spin rounded-full border-b-2 border-[#0097b2] motion-reduce:animate-none"
@@ -111,9 +112,13 @@ export function RouteErrorState({ error, onRetry }: RouteErrorStateProps) {
   return (
     <div
       data-route-error-state
-      className="flex flex-1 items-center justify-center px-4 py-16 sm:py-24"
+      className="flex flex-1 items-center justify-center bg-[#FCFAEF] px-4 py-16 dark:bg-[#121514] sm:py-24"
     >
-      <div className="mx-auto w-full max-w-lg border-l-2 border-[#eeba2b] py-2 pl-6 text-left sm:pl-8">
+      <div className="mx-auto w-full max-w-xl border border-[#E6E7E7]/70 bg-white px-6 py-10 dark:border-[#4F5554]/50 dark:bg-[#1C1F1E] sm:px-10 sm:py-12">
+        <div
+          className="mb-6 h-1 w-12 bg-[#eeba2b]"
+          aria-hidden="true"
+        />
         <p className="font-subheading text-xs font-bold uppercase tracking-[0.2em] text-[#C9920F] dark:text-[#F5C94D]">
           Something went wrong
         </p>
@@ -139,7 +144,7 @@ export function RouteErrorState({ error, onRetry }: RouteErrorStateProps) {
           </div>
         ) : null}
 
-        <div className="mt-8 flex flex-wrap gap-4">
+        <div className="mt-8 flex flex-wrap gap-3">
           {onRetry ? (
             <button
               type="button"
@@ -149,13 +154,16 @@ export function RouteErrorState({ error, onRetry }: RouteErrorStateProps) {
               Try again
             </button>
           ) : (
-            <EditorialButton href="/" variant="solid" icon={false}>
+            <EditorialButton href="/" variant="solid">
               Back to Homepage
             </EditorialButton>
           )}
+          <EditorialButton href="/contact" variant="outline" icon={false}>
+            Contact us
+          </EditorialButton>
         </div>
 
-        <RouteRecoveryNav className="text-left [&_ul]:justify-start" />
+        <RouteRecoveryNav />
       </div>
     </div>
   );
@@ -169,31 +177,47 @@ export function RouteNotFoundState({ media }: RouteNotFoundStateProps) {
   return (
     <div
       data-route-not-found-state
-      className="mx-auto w-full max-w-lg text-center"
+      className="mx-auto w-full max-w-2xl border border-[#E6E7E7]/70 bg-white dark:border-[#4F5554]/50 dark:bg-[#1C1F1E]"
     >
-      {media}
+      {media ? (
+        <div
+          data-route-not-found-media
+          className="border-b border-[#E6E7E7]/50 bg-[#FCFAEF]/80 px-6 pt-8 dark:border-[#4F5554]/40 dark:bg-[#121514]/80 sm:px-10"
+        >
+          {media}
+        </div>
+      ) : null}
 
-      <p className="font-subheading text-xs font-bold uppercase tracking-[0.2em] text-[#C9920F] dark:text-[#F5C94D]">
-        404
-      </p>
-      <EditorialHeading
-        as="h1"
-        className="mt-3 text-[1.85rem] md:text-[2.25rem] lg:text-[2.5rem]"
-      >
-        Page Not Found
-      </EditorialHeading>
-      <EditorialLead className="mt-4">
-        We couldn&apos;t find the page you&apos;re looking for. It may have
-        been moved, renamed, or the URL might be mistyped.
-      </EditorialLead>
+      <div className="px-6 py-10 text-center sm:px-10 sm:py-12">
+        <div
+          className="mx-auto mb-6 h-1 w-12 bg-[#eeba2b]"
+          aria-hidden="true"
+        />
+        <p className="font-subheading text-xs font-bold uppercase tracking-[0.2em] text-[#C9920F] dark:text-[#F5C94D]">
+          404
+        </p>
+        <EditorialHeading
+          as="h1"
+          className="mt-3 text-[1.85rem] md:text-[2.25rem] lg:text-[2.5rem]"
+        >
+          Page Not Found
+        </EditorialHeading>
+        <EditorialLead className="mx-auto mt-4 max-w-md">
+          We couldn&apos;t find the page you&apos;re looking for. It may have
+          been moved, renamed, or the URL might be mistyped.
+        </EditorialLead>
 
-      <div className="mt-8 flex justify-center">
-        <EditorialButton href="/" variant="solid" icon={false}>
-          Back to Homepage
-        </EditorialButton>
+        <div className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center">
+          <EditorialButton href="/" variant="solid">
+            Back to Homepage
+          </EditorialButton>
+          <EditorialButton href="/contact" variant="outline" icon={false}>
+            Contact us
+          </EditorialButton>
+        </div>
+
+        <RouteRecoveryNav className="text-left" />
       </div>
-
-      <RouteRecoveryNav />
     </div>
   );
 }

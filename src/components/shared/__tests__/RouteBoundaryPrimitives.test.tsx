@@ -36,8 +36,12 @@ describe("RouteBoundaryPrimitives", () => {
     expect(screen.getByText("Something went wrong")).toBeInTheDocument();
 
     const errorRoot = document.querySelector("[data-route-error-state]");
-    expect(errorRoot?.innerHTML).toContain("border-[#eeba2b]");
+    expect(errorRoot?.innerHTML).toContain("bg-[#eeba2b]");
     expect(errorRoot?.querySelector("svg.lucide-alert-circle")).toBeNull();
+    expect(screen.getByRole("link", { name: "Contact us" })).toHaveAttribute(
+      "href",
+      "/contact",
+    );
 
     await user.click(screen.getByRole("button", { name: "Try again" }));
     expect(onRetry).toHaveBeenCalledTimes(1);
@@ -69,7 +73,7 @@ describe("RouteBoundaryPrimitives", () => {
     vi.unstubAllEnvs();
   });
 
-  it("renders not-found recovery with accessible naming and homepage CTA", () => {
+  it("renders not-found recovery with accessible naming and cohesive CTAs", () => {
     render(
       <RouteNotFoundState
         media={<div data-testid="not-found-media" aria-hidden="true" />}
@@ -87,8 +91,15 @@ describe("RouteBoundaryPrimitives", () => {
     expect(
       screen.getByRole("link", { name: "Back to Homepage" }),
     ).toHaveAttribute("href", "/");
+    expect(screen.getByRole("link", { name: "Contact us" })).toHaveAttribute(
+      "href",
+      "/contact",
+    );
     expect(
       screen.getByRole("navigation", { name: "Helpful links" }),
     ).toBeInTheDocument();
+    expect(
+      document.querySelector("[data-route-not-found-media]"),
+    ).toBeTruthy();
   });
 });

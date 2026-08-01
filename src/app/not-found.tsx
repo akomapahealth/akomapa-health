@@ -41,11 +41,11 @@ export default function NotFound() {
   const media =
     shouldReduceMotion === true ? (
       <div
-        className="mx-auto mb-8 aspect-[4/3] max-w-md rounded-md border border-[#E6E7E7]/50 bg-[#FCFAEF] dark:border-[#4F5554]/50 dark:bg-[#1C1F1E]"
+        className="mx-auto mb-8 aspect-[4/3] max-w-sm rounded-md border border-[#E6E7E7]/50 bg-white dark:border-[#4F5554]/50 dark:bg-[#1C1F1E]"
         aria-hidden="true"
       />
     ) : animationData !== null ? (
-      <div className="mx-auto mb-8 max-w-md" aria-hidden="true">
+      <div className="mx-auto mb-2 max-w-md" aria-hidden="true">
         <Lottie
           animationData={animationData as object}
           loop
@@ -55,19 +55,19 @@ export default function NotFound() {
       </div>
     ) : (
       <div
-        className="mx-auto mb-8 aspect-[4/3] max-w-md rounded-md bg-muted/40"
+        className="mx-auto mb-8 aspect-[4/3] max-w-sm rounded-md bg-[#E6E7E7]/40 dark:bg-[#4F5554]/30"
         aria-hidden="true"
       />
     );
 
   return (
-    <div className="flex min-h-screen flex-col bg-background text-foreground">
+    <div className="flex min-h-screen flex-col bg-[#FCFAEF] text-foreground dark:bg-[#121514]">
       <SkipToMainContent />
       <Header />
       <main
         id="main-content"
         tabIndex={-1}
-        className="flex flex-1 items-center justify-center px-4 py-16 outline-none sm:py-24"
+        className="flex flex-1 items-center justify-center px-4 py-16 outline-none sm:px-6 sm:py-24"
       >
         <RouteNotFoundState media={media} />
       </main>
