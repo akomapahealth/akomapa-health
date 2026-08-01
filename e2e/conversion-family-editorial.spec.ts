@@ -201,15 +201,16 @@ test.describe("conversion family editorial contracts", () => {
     await page.goto("/donate", { waitUntil: "domcontentloaded" });
     const paymentPanel = page.getByTestId("donation-payment-methods-partner");
     const instructionsToggle = paymentPanel.getByRole("button", {
-      name: "View Mobile Money instructions",
+      name: /Mobile Money instructions/i,
     });
     await expect(instructionsToggle).toBeVisible();
+    await expect(instructionsToggle).toHaveAttribute("aria-expanded", "false");
     await instructionsToggle.click();
-    await expect(
-      paymentPanel.getByRole("button", {
-        name: "Hide Mobile Money instructions",
-      }),
-    ).toBeVisible();
+    // Prefer aria-expanded + revealed content over exact toggle label timing.
+    await expect(instructionsToggle).toHaveAttribute("aria-expanded", "true", {
+      timeout: 10_000,
+    });
+    await expect(paymentPanel.getByRole("alert")).toBeVisible();
     await expect(
       paymentPanel.getByRole("heading", { name: "Let us thank you" }),
     ).toBeVisible();
