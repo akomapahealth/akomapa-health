@@ -47,7 +47,7 @@ export default function GetInvolvedCTA() {
           Or email us directly at{" "}
           <a
             href={CONTACT.email.href}
-            className="font-semibold text-[#F5C94D] underline-offset-4 transition-colors hover:text-[#FCFAEF] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eeba2b] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0F4C5C]"
+            className="inline-flex min-h-11 items-center font-semibold text-[#F5C94D] underline-offset-4 transition-colors hover:text-[#FCFAEF] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eeba2b] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0F4C5C]"
           >
             {CONTACT.email.display}
           </a>

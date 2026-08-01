@@ -211,16 +211,13 @@ export default function DonatePageContent() {
         </FadeIn>
 
         <div
-          role="tablist"
+          role="group"
           aria-label="Donation options"
           className="mx-auto grid max-w-2xl grid-cols-1 gap-3 sm:grid-cols-2"
         >
           <button
             type="button"
-            role="tab"
-            id="donate-tab-partner"
-            aria-selected={activeSection === "partner"}
-            aria-controls="donate-panel-partner"
+            aria-pressed={activeSection === "partner"}
             onClick={() => setActiveSection("partner")}
             className={cn(
               "min-h-14 border-2 px-4 py-4 text-left transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eeba2b] focus-visible:ring-offset-2",
@@ -245,10 +242,7 @@ export default function DonatePageContent() {
           </button>
           <button
             type="button"
-            role="tab"
-            id="donate-tab-one-time"
-            aria-selected={activeSection === "one-time"}
-            aria-controls="donate-panel-one-time"
+            aria-pressed={activeSection === "one-time"}
             onClick={() => setActiveSection("one-time")}
             className={cn(
               "min-h-14 border-2 px-4 py-4 text-left transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eeba2b] focus-visible:ring-offset-2",
@@ -269,12 +263,7 @@ export default function DonatePageContent() {
         </div>
 
         {activeSection === "partner" ? (
-          <div
-            id="donate-panel-partner"
-            role="tabpanel"
-            aria-labelledby="donate-tab-partner"
-            className="mt-12 space-y-12"
-          >
+          <div className="mt-12 space-y-12">
             <FadeIn>
               <div className="border-t-2 border-[#eeba2b] bg-white px-6 py-8 dark:bg-[#1C1F1E] sm:px-8 sm:py-10">
                 <div className="mx-auto max-w-3xl text-center">
@@ -403,12 +392,7 @@ export default function DonatePageContent() {
             </FadeIn>
           </div>
         ) : (
-          <div
-            id="donate-panel-one-time"
-            role="tabpanel"
-            aria-labelledby="donate-tab-one-time"
-            className="mt-12 space-y-12"
-          >
+          <div className="mt-12 space-y-12">
             <FadeIn>
               <div className="border-t-2 border-[#0097b2] bg-white px-6 py-8 dark:bg-[#1C1F1E] sm:px-8 sm:py-10">
                 <div className="mx-auto max-w-3xl text-center">

@@ -213,7 +213,7 @@ function ContactFormContent() {
             Partnership Type
           </Label>
           <Select value={formData.partnershipType} onValueChange={handleSelectChange}>
-            <SelectTrigger id="partnershipType" className="mt-2 w-full border-[#0097b2] focus:border-[#eeba2b] dark:border-[#66C4DC] dark:focus:border-[#F5C94D] bg-[#FCFAEF] dark:bg-[#1C1F1E] hover:bg-white dark:hover:bg-[#1C1F1E] cursor-pointer">
+            <SelectTrigger id="partnershipType" className="mt-2 h-12 min-h-12 w-full cursor-pointer border-[#0097b2] bg-[#FCFAEF] focus:border-[#eeba2b] hover:bg-white dark:border-[#66C4DC] dark:bg-[#1C1F1E] dark:focus:border-[#F5C94D] dark:hover:bg-[#1C1F1E]">
               <SelectValue placeholder="Select partnership type" className="text-[#1C1F1E] dark:text-[#FCFAEF]" />
             </SelectTrigger>
             <SelectContent className="bg-[#FCFAEF] dark:bg-[#1C1F1E] text-[#1C1F1E] dark:text-[#FCFAEF]">
@@ -305,7 +305,7 @@ function ContactFormContent() {
               </p>
               <a
                 href={CONTACT.email.href}
-                className="break-all text-sm text-[#2F3332] transition-colors hover:text-[#0097b2] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eeba2b] focus-visible:ring-offset-2 dark:text-[#E6E7E7] dark:hover:text-[#66C4DC]"
+                className="inline-flex min-h-11 items-center break-all text-sm text-[#2F3332] transition-colors hover:text-[#0097b2] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eeba2b] focus-visible:ring-offset-2 dark:text-[#E6E7E7] dark:hover:text-[#66C4DC]"
               >
                 {CONTACT.email.display}
               </a>

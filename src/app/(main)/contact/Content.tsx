@@ -109,7 +109,7 @@ export default function Content() {
                   </span>
                   <a
                     href={CONTACT.email.href}
-                    className="break-all text-[#0097b2] transition-colors hover:text-[#0F4C5C] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eeba2b] focus-visible:ring-offset-2 dark:text-[#66C4DC] dark:hover:text-[#F5C94D]"
+                    className="inline-flex min-h-11 items-center break-all text-[#0097b2] transition-colors hover:text-[#0F4C5C] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eeba2b] focus-visible:ring-offset-2 dark:text-[#66C4DC] dark:hover:text-[#F5C94D]"
                   >
                     {CONTACT.email.display}
                   </a>
