@@ -199,7 +199,7 @@ export default function NCDDataViz() {
               href={ncdDataVizContent.source.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="font-semibold text-[#0097b2] underline underline-offset-2 transition-colors hover:text-[#0F4C5C] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eeba2b] focus-visible:ring-offset-2 dark:text-[#66C4DC]"
+              className="inline-flex min-h-11 items-center font-semibold text-[#0097b2] underline underline-offset-2 transition-colors hover:text-[#0F4C5C] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eeba2b] focus-visible:ring-offset-2 dark:text-[#66C4DC]"
             >
               {ncdDataVizContent.source.label}
             </a>

@@ -167,7 +167,9 @@ test("/impact preserves verified metrics, tones, and future distinction", async 
     ).toBeVisible();
     if (target.currentValue) {
       await expect(
-        futureTargets.getByText(`Today: ${target.currentValue}`),
+        futureTargets.getByText(`Today: ${target.currentValue}`, {
+          exact: true,
+        }),
       ).toBeVisible();
     }
   }
@@ -221,15 +223,20 @@ test("/ncd-impact preserves burden evidence, current results, and future targets
     page.getByRole("link", { name: whyNCDsMatterContent.source.label }),
   ).toHaveAttribute("href", whyNCDsMatterContent.source.href);
 
+  const comparisonViz = page.locator("[data-ncd-comparison-viz]");
   for (const comparison of ncdDataVizContent.comparisons) {
     await expect(
-      page.getByText(comparison.label, { exact: true }),
+      comparisonViz.getByText(comparison.label, { exact: true }),
     ).toBeVisible();
     await expect(
-      page.getByText(`${comparison.ghana}${comparison.unit}`),
+      comparisonViz.getByText(`${comparison.ghana}${comparison.unit}`, {
+        exact: true,
+      }),
     ).toBeVisible();
     await expect(
-      page.getByText(`${comparison.global}${comparison.unit}`),
+      comparisonViz.getByText(`${comparison.global}${comparison.unit}`, {
+        exact: true,
+      }),
     ).toBeVisible();
   }
 
