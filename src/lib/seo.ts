@@ -117,7 +117,7 @@ export const canonicalSeoRoutes = [
     path: "/partnerships/corporate-sponsorship",
     title: "Corporate Sponsorship",
     description:
-      "Explore corporate sponsorship opportunities supporting Akomapa community health hubs, training grants, research, and sustainable care.",
+      "Explore corporate sponsorship opportunities supporting Akomapa community health hubs, training grants, clinic care, pharmacy access, and sustainable programs.",
     changeFrequency: "monthly",
     priority: 0.7,
   },
@@ -152,14 +152,6 @@ export const canonicalSeoRoutes = [
       "Support ethical global health leadership development and community health programs delivering prevention, screening, education, and care.",
     changeFrequency: "monthly",
     priority: 0.9,
-  },
-  {
-    path: "/donate/corporate-sponsorship",
-    title: "Corporate Giving",
-    description:
-      "Sponsor Akomapa medical supplies, community hub operations, training, pharmacy access, food security, and long-term health impact.",
-    changeFrequency: "monthly",
-    priority: 0.7,
   },
   {
     path: "/contact",
