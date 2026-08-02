@@ -96,15 +96,7 @@ export default function ImpactMap() {
           <ImpactMapCanvas />
         </div>
         <p className="mx-auto mt-2 max-w-5xl text-right text-[11px] leading-snug text-[#2F3332]/55 dark:text-[#E6E7E7]/55">
-          Map tiles ©{" "}
-          <a
-            href="https://www.esri.com/"
-            className="underline-offset-2 hover:underline"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Esri
-          </a>
+          Map tiles © Esri
         </p>
       </FadeIn>
 
