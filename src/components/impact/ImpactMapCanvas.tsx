@@ -14,6 +14,15 @@ import { mapLocations } from "@/data/impact";
 import "leaflet/dist/leaflet.css";
 import "./impact-map.css";
 
+/**
+ * Basemap with English / romanized place names.
+ * Standard OSM raster tiles bake in local-language labels; Leaflet cannot override that.
+ * Esri World Street Map serves English-leaning labels without an API key.
+ * Note Esri's path order is z/y/x (not z/x/y).
+ */
+const ENGLISH_BASEMAP_URL =
+  "https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}";
+
 const typeLabels: Record<MapLocation["type"], string> = {
   "active-hub": "Active hub",
   "planned-hub": "Planned hub",
@@ -117,19 +126,29 @@ export default function ImpactMapCanvas() {
   );
 
   const center: [number, number] = [20, -40];
+  // One world only — Leaflet wraps tiles horizontally by default.
+  const worldBounds: [[number, number], [number, number]] = [
+    [-85, -180],
+    [85, 180],
+  ];
 
   return (
     <MapContainer
       center={center}
       zoom={2}
+      minZoom={2}
+      maxBounds={worldBounds}
+      maxBoundsViscosity={1}
+      attributionControl={false}
       scrollWheelZoom={false}
       className="h-full w-full"
       data-testid="impact-map-canvas"
       aria-label="Interactive map of Akomapa hub and partner locations"
     >
       <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        url={ENGLISH_BASEMAP_URL}
+        noWrap
+        bounds={worldBounds}
       />
       <FitAllLocations locations={mapLocations} />
       <ScrollWheelOnEngage />

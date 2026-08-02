@@ -95,6 +95,9 @@ export default function ImpactMap() {
         >
           <ImpactMapCanvas />
         </div>
+        <p className="mx-auto mt-2 max-w-5xl text-right text-[11px] leading-snug text-[#2F3332]/55 dark:text-[#E6E7E7]/55">
+          Map tiles © Esri
+        </p>
       </FadeIn>
 
       <FadeIn direction="up" delay={0.1}>
