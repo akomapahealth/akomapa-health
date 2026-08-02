@@ -11,6 +11,7 @@ import {
   SiZelle,
 } from "react-icons/si";
 import DonationFollowUpForm from "@/components/donate/DonationFollowUpForm";
+import { editorialAmberButtonClassName } from "@/components/shared/editorialFormStyles";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -220,7 +221,7 @@ export default function DonationPaymentMethods({
       <Button
         type="button"
         size="lg"
-        className="h-12 min-h-12 w-full rounded-md bg-[#0097b2] py-3 text-[#FCFAEF] shadow-none hover:bg-[#007f96] focus-visible:ring-[#F5C94D]"
+        className={cn(editorialAmberButtonClassName, "w-full")}
         aria-expanded={showInstructions}
         aria-controls={instructionsId}
         onClick={() => setShowInstructions((current) => !current)}

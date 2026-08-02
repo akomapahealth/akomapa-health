@@ -19,6 +19,10 @@ import {
   EditorialHeading,
   EditorialLead,
 } from "@/components/shared/EditorialPrimitives";
+import {
+  editorialFieldClassName,
+  editorialLabelClassName,
+} from "@/components/shared/editorialFormStyles";
 import { cn } from "@/lib/utils";
 
 const partnerAmounts = [
@@ -117,14 +121,14 @@ function AmountButton({
       aria-pressed={selected}
       onClick={onClick}
       className={cn(
-        "min-h-14 rounded-md border-2 p-3 text-left transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eeba2b] focus-visible:ring-offset-2 md:p-4",
+        "min-h-14 rounded-md border-2 bg-white p-3 text-left shadow-[0_1px_0_rgba(28,31,30,0.03)] transition-[border-color,background-color,box-shadow] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eeba2b] focus-visible:ring-offset-2 md:p-4 dark:bg-[#121514] dark:shadow-none",
         selected
-          ? "border-[#eeba2b] bg-[#FCFAEF] dark:bg-[#121514]"
-          : "border-[#1C1F1E]/15 hover:border-[#0097b2]/50 dark:border-[#FCFAEF]/20",
+          ? "border-[#eeba2b] bg-[#FCFAEF] ring-1 ring-[#eeba2b]/35 dark:bg-[#1C1F1E]"
+          : "border-[#1C1F1E]/12 hover:border-[#0097b2]/55 hover:bg-[#FCFAEF]/80 dark:border-[#FCFAEF]/20 dark:hover:bg-[#1C1F1E]",
       )}
     >
       <div className="flex items-start justify-between gap-2">
-        <div className="text-lg font-bold text-[#1C1F1E] dark:text-[#FCFAEF] md:text-xl">
+        <div className="font-heading text-lg font-bold text-[#1C1F1E] dark:text-[#FCFAEF] md:text-xl">
           {label}
         </div>
         {selected ? (
@@ -364,10 +368,10 @@ export default function DonatePageContent() {
                 </div>
 
                 {selectedPartnerAmount === "custom" ? (
-                  <div className="mt-6 sm:mt-8">
+                  <div className="mt-6 space-y-2 sm:mt-8">
                     <Label
                       htmlFor="custom-partner-amount"
-                      className="mb-2 block text-sm text-[#1C1F1E] dark:text-[#FCFAEF] sm:text-base"
+                      className={editorialLabelClassName}
                     >
                       Enter your monthly amount
                     </Label>
@@ -377,7 +381,7 @@ export default function DonatePageContent() {
                       placeholder="Enter amount"
                       value={customPartnerAmount}
                       onChange={(e) => setCustomPartnerAmount(e.target.value)}
-                      className="h-12 border-[#0097b2] bg-[#FCFAEF] text-base focus:border-[#eeba2b] dark:border-[#66C4DC] dark:bg-[#121514] dark:focus:border-[#F5C94D] sm:text-lg"
+                      className={cn(editorialFieldClassName, "md:text-lg")}
                     />
                   </div>
                 ) : null}
@@ -450,10 +454,10 @@ export default function DonatePageContent() {
                 </div>
 
                 {selectedOneTimeAmount === "custom" ? (
-                  <div className="mt-6 sm:mt-8">
+                  <div className="mt-6 space-y-2 sm:mt-8">
                     <Label
                       htmlFor="custom-one-time-amount"
-                      className="mb-2 block text-sm text-[#1C1F1E] dark:text-[#FCFAEF] sm:text-base"
+                      className={editorialLabelClassName}
                     >
                       Enter your gift amount
                     </Label>
@@ -463,7 +467,7 @@ export default function DonatePageContent() {
                       placeholder="Enter amount"
                       value={customOneTimeAmount}
                       onChange={(e) => setCustomOneTimeAmount(e.target.value)}
-                      className="h-12 border-[#0097b2] bg-[#FCFAEF] text-base focus:border-[#eeba2b] dark:border-[#66C4DC] dark:bg-[#121514] dark:focus:border-[#F5C94D] sm:text-lg"
+                      className={cn(editorialFieldClassName, "md:text-lg")}
                     />
                   </div>
                 ) : null}

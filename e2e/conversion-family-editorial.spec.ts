@@ -125,26 +125,40 @@ test.describe("conversion family editorial contracts", () => {
   test("supports keyboard FAQ and donation tab switching", async ({ page }) => {
     await preparePage(page, "light");
     await page.goto("/get-involved", { waitUntil: "domcontentloaded" });
+    await page.waitForLoadState("networkidle");
 
     const firstFaq = page
       .locator('section[aria-labelledby="get-involved-faq-heading"]')
       .getByRole("button")
       .first();
+    await firstFaq.scrollIntoViewIfNeeded();
+    await expect(firstFaq).toHaveAttribute("aria-expanded", "false");
     await firstFaq.focus();
     await expect(firstFaq).toBeFocused();
-    const expanded = await firstFaq.getAttribute("aria-expanded");
-    await firstFaq.press("Enter");
-    await expect(firstFaq).toHaveAttribute(
-      "aria-expanded",
-      expanded === "true" ? "false" : "true",
-    );
+
+    // Retry until client hydration attaches the accordion handler.
+    await expect(async () => {
+      if ((await firstFaq.getAttribute("aria-expanded")) !== "true") {
+        await page.keyboard.press("Enter");
+      }
+      await expect(firstFaq).toHaveAttribute("aria-expanded", "true");
+    }).toPass({ timeout: 10_000 });
+
+    await page.keyboard.press("Enter");
+    await expect(firstFaq).toHaveAttribute("aria-expanded", "false");
 
     await page.goto("/donate", { waitUntil: "domcontentloaded" });
+    await page.waitForLoadState("networkidle");
     const oneTimeTab = page.getByRole("button", { name: /One-Time Gift/i });
+    await oneTimeTab.scrollIntoViewIfNeeded();
     await oneTimeTab.focus();
     await expect(oneTimeTab).toBeFocused();
-    await oneTimeTab.click();
-    await expect(oneTimeTab).toHaveAttribute("aria-pressed", "true");
+    await expect(async () => {
+      if ((await oneTimeTab.getAttribute("aria-pressed")) !== "true") {
+        await oneTimeTab.click();
+      }
+      await expect(oneTimeTab).toHaveAttribute("aria-pressed", "true");
+    }).toPass({ timeout: 10_000 });
     await expect(
       page.getByRole("heading", { name: "Make a One-Time Gift" }),
     ).toBeVisible();

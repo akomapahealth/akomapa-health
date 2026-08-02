@@ -1,19 +1,33 @@
 "use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
-import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ChevronLeft, ChevronRight, ArrowRight, Play } from "lucide-react";
+import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { MOTION_EASE, motionDurations } from "@/lib/motion/tokens";
 import { announcementCampaign } from "@/data/announcements";
 import Image from "@/components/common/Image";
-import { TAG_COLORS } from "@/data/announcement-colors";
+import {
+  EditorialArrowLink,
+  EditorialButton,
+  EditorialEyebrow,
+  EditorialPlay,
+  type EditorialEyebrowTone,
+} from "@/components/shared/EditorialPrimitives";
 import { getAnnouncementPosterSrc, parseVideoUrl } from "@/lib/video-utils";
 import { trackEvent } from "@/lib/analytics";
 
 const STORAGE_KEY = "akomapa-announcements-dismissed";
 const AUTO_ADVANCE_MS = 6000;
+
+const mediaControlClassName =
+  "inline-flex h-11 w-11 items-center justify-center rounded-md bg-[#FCFAEF] text-[#1C1F1E] shadow-sm transition-colors hover:bg-[#eeba2b] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eeba2b] focus-visible:ring-offset-2 dark:bg-[#1C1F1E] dark:text-[#FCFAEF] dark:hover:bg-[#0F4C5C] dark:focus-visible:ring-[#F5C94D]";
+
+function tagEyebrowTone(
+  tagColor: "lapis" | "amber" | "skobeloff" | undefined,
+): EditorialEyebrowTone {
+  return tagColor === "amber" ? "gold" : "teal";
+}
 
 type AnnouncementModalProps = {
   isOpen: boolean;
@@ -206,7 +220,7 @@ export default function AnnouncementModal({
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: motionDurations.enter, ease: [...MOTION_EASE] }}
-          className="fixed inset-0 z-50 flex items-end sm:items-center justify-center sm:p-4 bg-black/60 backdrop-blur-sm"
+          className="fixed inset-0 z-50 flex items-end justify-center bg-[#121514]/75 sm:items-center sm:p-4"
           onClick={close}
           aria-hidden="true"
         >
@@ -220,7 +234,7 @@ export default function AnnouncementModal({
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             transition={{ duration: motionDurations.enter, ease: [...MOTION_EASE] }}
-            className="relative w-full sm:max-w-[680px] max-h-[90vh] sm:max-h-[88vh] overflow-hidden rounded-t-2xl sm:rounded-2xl bg-white dark:bg-[#2F3332] shadow-2xl outline-none"
+            className="relative max-h-[90vh] w-full overflow-hidden rounded-t-md border border-[#1C1F1E]/10 bg-[#FCFAEF] shadow-2xl outline-none dark:border-[#FCFAEF]/12 dark:bg-[#1C1F1E] sm:max-h-[88vh] sm:max-w-[680px] sm:rounded-md"
             onClick={(e) => e.stopPropagation()}
             onMouseEnter={() => setIsPaused(true)}
             onMouseLeave={() => setIsPaused(false)}
@@ -236,29 +250,38 @@ export default function AnnouncementModal({
           >
             {/* Close Button — floats over the image */}
             <button
+              type="button"
               onClick={close}
-              className="absolute top-3 right-3 z-20 p-1.5 rounded-full bg-black/30 backdrop-blur-sm hover:bg-black/50 transition-colors focus:outline-none focus:ring-2 focus:ring-white/80 focus:ring-offset-2 focus:ring-offset-black/20"
+              className={cn(mediaControlClassName, "absolute top-3 right-3 z-20")}
               aria-label="Close announcements"
             >
-              <X size={18} className="text-white" />
+              <X className="h-5 w-5" aria-hidden="true" />
             </button>
 
             {/* Prev/Next overlays on image area */}
             {showNavigation && (
               <>
                 <button
+                  type="button"
                   onClick={goToPrevious}
-                  className="absolute left-2 top-[28vw] sm:top-[170px] -translate-y-1/2 z-20 p-1.5 rounded-full bg-black/30 backdrop-blur-sm hover:bg-black/50 text-white/80 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-white/80"
+                  className={cn(
+                    mediaControlClassName,
+                    "absolute left-2 top-[28vw] z-20 -translate-y-1/2 sm:top-[170px]",
+                  )}
                   aria-label="Previous announcement"
                 >
-                  <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
+                  <ChevronLeft className="h-5 w-5 sm:h-6 sm:w-6" aria-hidden="true" />
                 </button>
                 <button
+                  type="button"
                   onClick={goToNext}
-                  className="absolute right-2 top-[28vw] sm:top-[170px] -translate-y-1/2 z-20 p-1.5 rounded-full bg-black/30 backdrop-blur-sm hover:bg-black/50 text-white/80 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-white/80"
+                  className={cn(
+                    mediaControlClassName,
+                    "absolute right-2 top-[28vw] z-20 -translate-y-1/2 sm:top-[170px]",
+                  )}
                   aria-label="Next announcement"
                 >
-                  <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
+                  <ChevronRight className="h-5 w-5 sm:h-6 sm:w-6" aria-hidden="true" />
                 </button>
               </>
             )}
@@ -277,11 +300,11 @@ export default function AnnouncementModal({
               >
                 {/* Media Section (Image or Video) */}
                 {(currentSlide.image || currentSlide.videoUrl) && (
-                  <div className="relative w-full aspect-[16/9] sm:aspect-[2/1] overflow-hidden">
+                  <div className="relative aspect-[16/9] w-full overflow-hidden sm:aspect-[2/1]">
                     {currentSlide.videoUrl && videoPlaying ? (
                       <iframe
                         src={parseVideoUrl(currentSlide.videoUrl)?.embedUrl}
-                        className="absolute inset-0 w-full h-full"
+                        className="absolute inset-0 h-full w-full"
                         allow="autoplay; encrypted-media; picture-in-picture"
                         allowFullScreen
                         title={currentSlide.title}
@@ -290,46 +313,45 @@ export default function AnnouncementModal({
                       <>
                         {/* Video/announcement poster — decorative — intentional empty alt (slide title above) */}
                         <Image
-                          src={
-                            getAnnouncementPosterSrc(currentSlide) ||
-                            ""
-                          }
+                          src={getAnnouncementPosterSrc(currentSlide) || ""}
                           alt=""
                           fill
                           className="object-cover"
                           sizes="(max-width: 640px) 100vw, 680px"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/10" />
 
                         {currentSlide.videoUrl && (
                           <button
-                            onClick={() => { setVideoPlaying(true); setIsPaused(true); }}
-                            className="absolute inset-0 z-10 flex items-center justify-center group/play"
+                            type="button"
+                            onClick={() => {
+                              setVideoPlaying(true);
+                              setIsPaused(true);
+                            }}
+                            className="absolute inset-0 z-10 flex items-center justify-center"
                             aria-label="Play video"
                           >
-                            <span className="flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-white/90 shadow-xl group-hover/play:scale-110 transition-transform duration-200">
-                              <Play className="w-7 h-7 sm:w-8 sm:h-8 text-[#0097b2] ml-1" fill="currentColor" />
+                            <span className="inline-flex h-14 w-14 items-center justify-center rounded-md bg-[#FCFAEF] text-[#0097b2] shadow-sm transition-colors hover:bg-[#eeba2b] hover:text-[#1C1F1E] sm:h-16 sm:w-16">
+                              <EditorialPlay className="ml-0.5 h-5 w-5 sm:h-6 sm:w-6" />
                             </span>
                           </button>
                         )}
                       </>
                     )}
 
-                    {/* Tag badge overlaid on image */}
+                    {/* Tag eyebrow overlaid on image */}
                     {currentSlide.tag && !videoPlaying && (
-                      <span
-                        className={cn(
-                          "absolute top-3 left-3 z-10 inline-block rounded-full px-3 py-1 text-xs font-bold tracking-wide backdrop-blur-md shadow-sm",
-                          TAG_COLORS[currentSlide.tagColor ?? "lapis"]
-                        )}
-                      >
-                        {currentSlide.tag}
-                      </span>
+                      <div className="absolute top-3 left-3 z-10 rounded-md bg-[#FCFAEF]/95 px-3 py-2 dark:bg-[#1C1F1E]/95">
+                        <EditorialEyebrow
+                          tone={tagEyebrowTone(currentSlide.tagColor)}
+                        >
+                          {currentSlide.tag}
+                        </EditorialEyebrow>
+                      </div>
                     )}
 
                     {/* Slide counter on image */}
                     {showNavigation && !videoPlaying && (
-                      <span className="absolute bottom-3 right-3 text-xs font-medium text-white/80 bg-black/30 backdrop-blur-sm rounded-full px-2.5 py-0.5">
+                      <span className="absolute bottom-3 right-3 rounded-md bg-[#FCFAEF]/95 px-2.5 py-1 font-subheading text-xs font-semibold tracking-wide text-[#1C1F1E] dark:bg-[#1C1F1E]/95 dark:text-[#FCFAEF]">
                         {currentIndex + 1} / {slides.length}
                       </span>
                     )}
@@ -338,34 +360,32 @@ export default function AnnouncementModal({
 
                 {/* Text Content */}
                 <div className="p-5 sm:p-8">
-                  {/* Tag badge — only if no image */}
-                  {currentSlide.tag && !currentSlide.image && (
-                    <span
-                      className={cn(
-                        "inline-block rounded-full px-3 py-0.5 text-xs font-semibold mb-3",
-                        TAG_COLORS[currentSlide.tagColor ?? "lapis"]
-                      )}
+                  {currentSlide.tag &&
+                  !currentSlide.image &&
+                  !currentSlide.videoUrl ? (
+                    <EditorialEyebrow
+                      tone={tagEyebrowTone(currentSlide.tagColor)}
+                      className="mb-3"
                     >
                       {currentSlide.tag}
-                    </span>
-                  )}
+                    </EditorialEyebrow>
+                  ) : null}
 
-                  <h2 className="font-heading text-xl sm:text-2xl font-bold text-[#1C1F1E] dark:text-[#FCFAEF] mb-2 sm:mb-3">
+                  <h2 className="mb-2 font-heading text-xl font-semibold leading-tight text-[#1C1F1E] dark:text-[#FCFAEF] sm:mb-3 sm:text-2xl">
                     {currentSlide.title}
                   </h2>
 
-                  <p className="text-sm sm:text-base text-[#2F3332]/80 dark:text-[#E6E7E7]/80 leading-relaxed mb-5 sm:mb-6">
+                  <p className="mb-5 max-w-xl text-sm leading-relaxed text-[#2F3332]/80 dark:text-[#E6E7E7]/80 sm:mb-6 sm:text-base">
                     {currentSlide.description}
                   </p>
 
                   {/* CTA + Dismiss row */}
-                  <div className="flex items-center gap-3">
-                    {currentSlide.ctaText && currentSlide.ctaLink && (
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-3">
+                    {currentSlide.ctaText && currentSlide.ctaLink ? (
                       currentSlide.isExternal ? (
-                        <a
+                        <EditorialButton
                           href={currentSlide.ctaLink}
-                          target="_blank"
-                          rel="noopener noreferrer"
+                          external
                           onClick={() =>
                             trackEvent({
                               name: "announcement_cta_click",
@@ -374,13 +394,11 @@ export default function AnnouncementModal({
                               cta_link: currentSlide.ctaLink ?? "",
                             })
                           }
-                          className="group inline-flex items-center gap-2 px-6 py-3 bg-[#0097b2] text-[#FCFAEF] rounded-full hover:bg-[#005A55] transition-all duration-200 font-medium text-sm sm:text-base shadow-lg hover:shadow-xl hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-[#0097b2] focus:ring-offset-2"
                         >
                           {currentSlide.ctaText}
-                          <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                        </a>
+                        </EditorialButton>
                       ) : (
-                        <Link
+                        <EditorialButton
                           href={`/news/${currentSlide.id}`}
                           onClick={() => {
                             trackEvent({
@@ -391,25 +409,20 @@ export default function AnnouncementModal({
                             });
                             close();
                           }}
-                          className="group inline-flex items-center gap-2 px-6 py-3 bg-[#0097b2] text-[#FCFAEF] rounded-full hover:bg-[#005A55] transition-all duration-200 font-medium text-sm sm:text-base shadow-lg hover:shadow-xl hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-[#0097b2] focus:ring-offset-2"
                         >
                           {currentSlide.ctaText}
-                          <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                        </Link>
+                        </EditorialButton>
                       )
-                    )}
+                    ) : null}
 
-                    <Link
-                      href="/news"
-                      onClick={close}
-                      className="inline-flex items-center gap-1.5 text-sm font-medium text-[#0097b2] dark:text-[#66C4DC] hover:text-[#005A55] dark:hover:text-[#eeba2b] transition-colors focus:outline-none focus:ring-2 focus:ring-[#0097b2] focus:ring-offset-2 rounded px-2 py-1"
-                    >
+                    <EditorialArrowLink href="/news" onClick={close}>
                       View All Updates
-                    </Link>
+                    </EditorialArrowLink>
 
                     <button
+                      type="button"
                       onClick={close}
-                      className="text-sm text-[#2F3332]/50 dark:text-[#FCFAEF]/40 hover:text-[#2F3332] dark:hover:text-[#FCFAEF] transition-colors focus:outline-none focus:ring-2 focus:ring-[#0097b2] focus:ring-offset-2 rounded px-2 py-1"
+                      className="inline-flex min-h-11 items-center rounded-md px-3 text-sm text-[#2F3332]/55 transition-colors hover:text-[#1C1F1E] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eeba2b] focus-visible:ring-offset-2 dark:text-[#FCFAEF]/45 dark:hover:text-[#FCFAEF]"
                     >
                       Dismiss
                     </button>
@@ -420,7 +433,7 @@ export default function AnnouncementModal({
 
             {/* Dot Indicators — fixed at bottom */}
             {showNavigation && (
-              <div className="pb-5 pt-1 flex justify-center">
+              <div className="flex justify-center pb-5 pt-1">
                 <div
                   className="flex items-center gap-2"
                   role="tablist"
@@ -429,15 +442,18 @@ export default function AnnouncementModal({
                   {slides.map((slide, index) => (
                     <button
                       key={slide.id}
-                      onClick={() => navigate(index, index > currentIndex ? 1 : -1)}
+                      type="button"
+                      onClick={() =>
+                        navigate(index, index > currentIndex ? 1 : -1)
+                      }
                       role="tab"
                       aria-selected={index === currentIndex}
                       aria-label={`Go to announcement ${index + 1}: ${slide.title}`}
                       className={cn(
-                        "h-2 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#0097b2] focus:ring-offset-2",
+                        "h-1.5 rounded-sm transition-[width,background-color] duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eeba2b] focus-visible:ring-offset-2",
                         index === currentIndex
-                          ? "bg-[#0097b2] dark:bg-[#66C4DC] w-6"
-                          : "bg-[#2F3332]/15 dark:bg-[#FCFAEF]/15 hover:bg-[#2F3332]/30 dark:hover:bg-[#FCFAEF]/30 w-2"
+                          ? "w-6 bg-[#0097b2] dark:bg-[#66C4DC]"
+                          : "w-2 bg-[#1C1F1E]/15 hover:bg-[#1C1F1E]/30 dark:bg-[#FCFAEF]/15 dark:hover:bg-[#FCFAEF]/30",
                       )}
                     />
                   ))}

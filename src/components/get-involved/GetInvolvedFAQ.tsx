@@ -14,9 +14,7 @@ import { cn } from "@/lib/utils";
 
 export default function GetInvolvedFAQ() {
   const baseId = useId();
-  const [openId, setOpenId] = useState<string | null>(
-    getInvolvedFaqs[0]?.id ?? null,
-  );
+  const [openId, setOpenId] = useState<string | null>(null);
 
   return (
     <EditorialBand
@@ -50,7 +48,9 @@ export default function GetInvolvedFAQ() {
                 <button
                   id={buttonId}
                   type="button"
-                  onClick={() => setOpenId(isOpen ? null : faq.id)}
+                  onClick={() =>
+                    setOpenId((current) => (current === faq.id ? null : faq.id))
+                  }
                   className="flex min-h-14 w-full items-center justify-between gap-4 px-5 py-4 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#eeba2b] sm:px-6 sm:py-5"
                   aria-expanded={isOpen}
                   aria-controls={panelId}
@@ -60,7 +60,7 @@ export default function GetInvolvedFAQ() {
                   </span>
                   <ChevronDown
                     className={cn(
-                      "h-5 w-5 shrink-0 text-[#0097b2] transition-transform duration-200 motion-reduce:transition-none dark:text-[#66C4DC]",
+                      "h-5 w-5 shrink-0 text-[#0097b2] transition-transform duration-300 ease-out motion-reduce:transition-none dark:text-[#66C4DC]",
                       isOpen && "rotate-180",
                     )}
                     aria-hidden="true"
@@ -68,16 +68,30 @@ export default function GetInvolvedFAQ() {
                 </button>
               </h3>
 
+              {/*
+                CSS grid 0fr→1fr animates height without measuring content,
+                which avoids the layout flicker that instant show/hide caused.
+              */}
               <div
                 id={panelId}
                 role="region"
                 aria-labelledby={buttonId}
-                hidden={!isOpen}
-                className={cn(!isOpen && "hidden")}
+                inert={!isOpen ? true : undefined}
+                className={cn(
+                  "grid transition-[grid-template-rows] duration-300 ease-[cubic-bezier(0.25,0.4,0.25,1)] motion-reduce:transition-none",
+                  isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]",
+                )}
               >
-                <p className="border-t border-[#1C1F1E]/10 px-5 py-5 text-base leading-relaxed text-[#2F3332]/80 dark:border-[#FCFAEF]/12 dark:text-[#E6E7E7]/75 sm:px-6 sm:pb-6">
-                  {faq.answer}
-                </p>
+                <div className="min-h-0 overflow-hidden">
+                  <p
+                    className={cn(
+                      "border-t border-[#1C1F1E]/10 px-5 py-5 text-base leading-relaxed text-[#2F3332]/80 transition-opacity duration-300 ease-out motion-reduce:transition-none dark:border-[#FCFAEF]/12 dark:text-[#E6E7E7]/75 sm:px-6 sm:pb-6",
+                      isOpen ? "opacity-100" : "opacity-0",
+                    )}
+                  >
+                    {faq.answer}
+                  </p>
+                </div>
               </div>
             </div>
           );
