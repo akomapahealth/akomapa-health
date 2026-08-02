@@ -8,12 +8,21 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  editorialFieldClassName,
+  editorialFormShellClassName,
+  editorialLabelClassName,
+  editorialPrimaryButtonClassName,
+  editorialSelectTriggerClassName,
+  editorialTextareaClassName,
+} from "@/components/shared/editorialFormStyles";
 import { CONTACT } from "@/config/contact";
 import {
   CONTACT_NETWORK_ERROR_MESSAGE,
   getContactErrorMessage,
 } from "@/lib/contact-errors";
 import { getContactIntent } from "@/lib/contact-intents";
+import { cn } from "@/lib/utils";
 
 function ContactFormContent() {
   const searchParams = useSearchParams();
@@ -97,7 +106,7 @@ function ContactFormContent() {
       <div
         role="status"
         aria-live="polite"
-        className="border border-[#0097b2]/30 bg-white p-8 text-center dark:bg-[#1C1F1E]"
+        className={cn(editorialFormShellClassName, "border-[#0097b2]/30 text-center")}
       >
         <CheckCircle
           className="mx-auto mb-4 h-12 w-12 text-[#0097b2] dark:text-[#66C4DC]"
@@ -112,7 +121,7 @@ function ContactFormContent() {
         </p>
         <Button
           onClick={() => setIsSubmitted(false)}
-          className="min-h-12 bg-[#0097b2] text-[#FCFAEF] hover:bg-[#eeba2b] hover:text-[#1C1F1E]"
+          className={editorialPrimaryButtonClassName}
         >
           Send Another Message
         </Button>
@@ -123,14 +132,15 @@ function ContactFormContent() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="border border-[#1C1F1E]/10 bg-white p-6 dark:border-[#FCFAEF]/15 dark:bg-[#1C1F1E] md:p-8"
+      className={editorialFormShellClassName}
       noValidate={false}
     >
-      <div className="mb-6">
-        <h3 className="mb-2 font-heading text-2xl font-bold leading-tight text-[#1C1F1E] dark:text-[#FCFAEF]">
+      <div className="mb-8">
+        <p className={editorialLabelClassName}>Contact</p>
+        <h3 className="mt-3 mb-2 font-heading text-2xl font-bold leading-tight text-[#1C1F1E] dark:text-[#FCFAEF] sm:text-3xl">
           Get in Touch
         </h3>
-        <p className="text-[#2F3332] dark:text-[#E6E7E7]">
+        <p className="max-w-xl text-base leading-relaxed text-[#2F3332]/80 dark:text-[#E6E7E7]/80">
           Have questions about partnerships or want to learn more? We&apos;d love to hear from you.
         </p>
       </div>
@@ -158,9 +168,9 @@ function ContactFormContent() {
         </div>
       ) : null}
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-        <div>
-          <Label htmlFor="name" className="text-[#1C1F1E] dark:text-[#FCFAEF]">
+      <div className="mb-6 grid grid-cols-1 gap-6 md:grid-cols-2">
+        <div className="space-y-2">
+          <Label htmlFor="name" className={editorialLabelClassName}>
             Full Name *
           </Label>
           <Input
@@ -170,13 +180,13 @@ function ContactFormContent() {
             required
             value={formData.name}
             onChange={handleChange}
-            className="mt-2 border-[#0097b2] focus:border-[#eeba2b] dark:border-[#66C4DC] dark:focus:border-[#F5C94D]"
+            className={editorialFieldClassName}
             placeholder="Enter your full name"
           />
         </div>
 
-        <div>
-          <Label htmlFor="email" className="text-[#1C1F1E] dark:text-[#FCFAEF]">
+        <div className="space-y-2">
+          <Label htmlFor="email" className={editorialLabelClassName}>
             Email Address *
           </Label>
           <Input
@@ -186,15 +196,15 @@ function ContactFormContent() {
             required
             value={formData.email}
             onChange={handleChange}
-            className="mt-2 border-[#0097b2] focus:border-[#eeba2b] dark:border-[#66C4DC] dark:focus:border-[#F5C94D]"
+            className={editorialFieldClassName}
             placeholder="Enter your email address"
           />
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-        <div>
-          <Label htmlFor="phone" className="text-[#1C1F1E] dark:text-[#FCFAEF]">
+      <div className="mb-6 grid grid-cols-1 gap-6 md:grid-cols-2">
+        <div className="space-y-2">
+          <Label htmlFor="phone" className={editorialLabelClassName}>
             Phone Number
           </Label>
           <Input
@@ -203,31 +213,42 @@ function ContactFormContent() {
             type="tel"
             value={formData.phone}
             onChange={handleChange}
-            className="mt-2 border-[#0097b2] focus:border-[#eeba2b] dark:border-[#66C4DC] dark:focus:border-[#F5C94D]"
+            className={editorialFieldClassName}
             placeholder="Enter your phone number"
           />
         </div>
 
-        <div>
-          <Label htmlFor="partnershipType" className="text-[#1C1F1E] dark:text-[#FCFAEF]">
+        <div className="space-y-2">
+          <Label htmlFor="partnershipType" className={editorialLabelClassName}>
             Partnership Type
           </Label>
           <Select value={formData.partnershipType} onValueChange={handleSelectChange}>
-            <SelectTrigger id="partnershipType" className="mt-2 h-12 min-h-12 w-full cursor-pointer border-[#0097b2] bg-[#FCFAEF] focus:border-[#eeba2b] hover:bg-white dark:border-[#66C4DC] dark:bg-[#1C1F1E] dark:focus:border-[#F5C94D] dark:hover:bg-[#1C1F1E]">
-              <SelectValue placeholder="Select partnership type" className="text-[#1C1F1E] dark:text-[#FCFAEF]" />
+            <SelectTrigger
+              id="partnershipType"
+              className={cn(editorialSelectTriggerClassName, "cursor-pointer")}
+            >
+              <SelectValue placeholder="Select partnership type" />
             </SelectTrigger>
-            <SelectContent className="bg-[#FCFAEF] dark:bg-[#1C1F1E] text-[#1C1F1E] dark:text-[#FCFAEF]">
-              <SelectItem value="Monetary Sponsorship" className="cursor-pointer">Monetary Sponsorship</SelectItem>
-              <SelectItem value="Host Community Engagement Programs" className="cursor-pointer">Host Community Engagement Programs</SelectItem>
-              <SelectItem value="Strategic Partnerships" className="cursor-pointer">Strategic Partnerships</SelectItem>
-              <SelectItem value="General Inquiry" className="cursor-pointer">General Inquiry</SelectItem>
+            <SelectContent className="border-[#0097b2]/30 bg-[#FCFAEF] text-[#1C1F1E] dark:border-[#66C4DC]/40 dark:bg-[#1C1F1E] dark:text-[#FCFAEF]">
+              <SelectItem value="Monetary Sponsorship" className="cursor-pointer focus:bg-[#0097b2]/10">
+                Monetary Sponsorship
+              </SelectItem>
+              <SelectItem value="Host Community Engagement Programs" className="cursor-pointer focus:bg-[#0097b2]/10">
+                Host Community Engagement Programs
+              </SelectItem>
+              <SelectItem value="Strategic Partnerships" className="cursor-pointer focus:bg-[#0097b2]/10">
+                Strategic Partnerships
+              </SelectItem>
+              <SelectItem value="General Inquiry" className="cursor-pointer focus:bg-[#0097b2]/10">
+                General Inquiry
+              </SelectItem>
             </SelectContent>
           </Select>
         </div>
       </div>
 
-      <div className="mb-6">
-        <Label htmlFor="subject" className="text-[#1C1F1E] dark:text-[#FCFAEF]">
+      <div className="mb-6 space-y-2">
+        <Label htmlFor="subject" className={editorialLabelClassName}>
           Subject *
         </Label>
         <Input
@@ -237,13 +258,13 @@ function ContactFormContent() {
           required
           value={formData.subject}
           onChange={handleChange}
-          className="mt-2 border-[#0097b2] focus:border-[#eeba2b] dark:border-[#66C4DC] dark:focus:border-[#F5C94D]"
+          className={editorialFieldClassName}
           placeholder="Enter subject"
         />
       </div>
 
-      <div className="mb-8">
-        <Label htmlFor="message" className="text-[#1C1F1E] dark:text-[#FCFAEF]">
+      <div className="mb-8 space-y-2">
+        <Label htmlFor="message" className={editorialLabelClassName}>
           Message *
         </Label>
         <Textarea
@@ -253,7 +274,7 @@ function ContactFormContent() {
           value={formData.message}
           onChange={handleChange}
           rows={6}
-          className="mt-2 border-[#0097b2] focus:border-[#eeba2b] dark:border-[#66C4DC] dark:focus:border-[#F5C94D] resize-none"
+          className={cn(editorialTextareaClassName, "resize-none")}
           placeholder="Tell us about your partnership interest or inquiry..."
         />
       </div>
@@ -274,19 +295,19 @@ function ContactFormContent() {
       <Button
         type="submit"
         disabled={isSubmitting}
-        className="min-h-12 w-full rounded-md bg-[#0097b2] px-6 py-3 text-base text-[#FCFAEF] hover:bg-[#eeba2b] hover:text-[#1C1F1E] disabled:cursor-not-allowed disabled:opacity-50 sm:text-lg"
+        className={cn(editorialPrimaryButtonClassName, "w-full sm:w-full")}
       >
         {isSubmitting ? (
           <span className="flex items-center">
             <span
-              className="mr-2 h-5 w-5 animate-spin rounded-full border-2 border-[#FCFAEF] border-t-transparent"
+              className="mr-2 h-5 w-5 animate-spin rounded-full border-2 border-current border-t-transparent"
               aria-hidden="true"
             />
             Sending...
           </span>
         ) : (
           <span className="flex items-center">
-            <Send size={20} className="mr-2" aria-hidden="true" />
+            <Send size={18} className="mr-2" aria-hidden="true" />
             Send Message
           </span>
         )}
@@ -348,16 +369,14 @@ export default function ContactForm() {
   return (
     <Suspense
       fallback={
-        <div className="border border-[#1C1F1E]/10 bg-white p-8 dark:border-[#FCFAEF]/15 dark:bg-[#1C1F1E]">
-          <div className="text-center">
-            <div
-              className="mx-auto mb-4 h-8 w-8 animate-spin rounded-full border-2 border-[#0097b2] border-t-transparent"
-              aria-hidden="true"
-            />
-            <p className="text-[#2F3332]/80 dark:text-[#E6E7E7]/80">
-              Loading contact form...
-            </p>
-          </div>
+        <div className={cn(editorialFormShellClassName, "text-center")}>
+          <div
+            className="mx-auto mb-4 h-8 w-8 animate-spin rounded-full border-2 border-[#0097b2] border-t-transparent"
+            aria-hidden="true"
+          />
+          <p className="text-[#2F3332]/80 dark:text-[#E6E7E7]/80">
+            Loading contact form...
+          </p>
         </div>
       }
     >
