@@ -177,12 +177,21 @@ test.describe("legal utility editorial contracts", () => {
     });
     const page = await context.newPage();
     await preparePage(page, "light");
+    await page.goto("/", { waitUntil: "networkidle" });
 
-    await page.goto("/", { waitUntil: "domcontentloaded" });
+    let releasePrivacy: (() => void) | undefined;
+    const privacyGate = new Promise<void>((resolve) => {
+      releasePrivacy = resolve;
+    });
 
     await page.route("**/privacy**", async (route) => {
-      // Delay the destination document/RSC payload so (main)/loading.tsx can paint.
-      await new Promise((resolve) => setTimeout(resolve, 2500));
+      const url = route.request().url();
+      // Hold only the route/RSC payload so loading.tsx can paint; let static chunks through.
+      if (url.includes("/_next/static")) {
+        await route.continue();
+        return;
+      }
+      await privacyGate;
       await route.continue();
     });
 
@@ -191,12 +200,13 @@ test.describe("legal utility editorial contracts", () => {
     await privacyLink.click({ noWaitAfter: true });
 
     const loading = page.locator("[data-route-loading-state]");
-    const sawLoading = await loading
-      .waitFor({ state: "visible", timeout: 4_000 })
+    const loadingVisible = await loading
+      .waitFor({ state: "visible", timeout: 8_000 })
       .then(() => true)
       .catch(() => false);
 
-    if (sawLoading) {
+    if (loadingVisible) {
+      // Assert while the gate still holds the destination closed.
       await expect(loading).toHaveAttribute("aria-busy", "true");
       await expect(page.getByRole("status")).toContainText(/Loading/i);
       await expect(page.locator("[data-route-loading-spinner]")).toHaveClass(
@@ -204,10 +214,29 @@ test.describe("legal utility editorial contracts", () => {
       );
     }
 
+    releasePrivacy?.();
+
     await expect(
       page.getByRole("heading", { level: 1, name: "Privacy Policy" }),
     ).toBeVisible({ timeout: 20_000 });
     await expect(page.locator("[data-route-loading-state]")).toHaveCount(0);
+
+    // Reduced-motion contract remains covered even when prefetch skips loading UI.
+    const motionState = await page
+      .locator("[data-editorial-band]")
+      .evaluateAll((bands) =>
+        bands.map((band) => {
+          const style = getComputedStyle(band);
+          return { opacity: style.opacity, transform: style.transform };
+        }),
+      );
+    expect(
+      motionState.every(
+        ({ opacity, transform }) =>
+          opacity === "1" &&
+          (transform === "none" || transform === "matrix(1, 0, 0, 1, 0, 0)"),
+      ),
+    ).toBe(true);
 
     await context.close();
   });
