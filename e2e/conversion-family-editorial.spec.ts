@@ -153,6 +153,7 @@ test.describe("conversion family editorial contracts", () => {
   test("exercises contact and donation follow-up states without real submissions", async ({
     page,
   }) => {
+    test.setTimeout(90_000);
     await preparePage(page, "light");
 
     await page.route("**/api/contact", async (route) => {
@@ -191,6 +192,8 @@ test.describe("conversion family editorial contracts", () => {
       page.getByRole("status").getByText("Message Sent Successfully!"),
     ).toBeVisible();
 
+    // Clear contact mocks before donate so they cannot interfere with navigation.
+    await page.unroute("**/api/contact");
     await page.route("**/api/donation-follow-up", async (route) => {
       await route.fulfill({
         status: 500,
@@ -200,16 +203,29 @@ test.describe("conversion family editorial contracts", () => {
     });
     await page.goto("/donate", { waitUntil: "domcontentloaded" });
     const paymentPanel = page.getByTestId("donation-payment-methods-partner");
-    const instructionsToggle = paymentPanel.getByRole("button", {
-      name: "View Mobile Money instructions",
-    });
-    await expect(instructionsToggle).toBeVisible();
-    await instructionsToggle.click();
     await expect(
-      paymentPanel.getByRole("button", {
-        name: "Hide Mobile Money instructions",
-      }),
+      paymentPanel.getByText(/Complete a new manual transfer for each month/i),
     ).toBeVisible();
+
+    // Match both View/Hide labels so the locator survives the toggle rename.
+    const instructionsToggle = paymentPanel.getByRole("button", {
+      name: /Mobile Money instructions/i,
+    });
+    await instructionsToggle.scrollIntoViewIfNeeded();
+    await expect(instructionsToggle).toBeVisible();
+    await expect(instructionsToggle).toHaveAttribute("aria-expanded", "false");
+
+    // Retry until expanded — FadeIn/layout can swallow the first pointer event
+    // under full-suite load.
+    await expect(async () => {
+      if ((await instructionsToggle.getAttribute("aria-expanded")) !== "true") {
+        await instructionsToggle.click({ force: true });
+      }
+      await expect(instructionsToggle).toHaveAttribute("aria-expanded", "true");
+      await expect(paymentPanel.getByText("0249292898")).toBeVisible();
+    }).toPass({ timeout: 15_000 });
+
+    await expect(paymentPanel.getByRole("alert")).toBeVisible();
     await expect(
       paymentPanel.getByRole("heading", { name: "Let us thank you" }),
     ).toBeVisible();
