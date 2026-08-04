@@ -51,7 +51,9 @@ export type AnalyticsEvent =
       name: "newsletter_signup";
       page_path: string;
       success: boolean;
-    };
+    }
+  | { name: "immersion_alert_modal_open" }
+  | { name: "immersion_alert_signup"; success: boolean };
 
 type GtagFn = (
   command: "event" | "config" | "set" | "js" | "consent",
