@@ -2,6 +2,8 @@ import Link from "next/link";
 import Breadcrumb from "@/components/layout/Breadcrumb";
 import Image from "@/components/common/Image";
 import { FadeIn } from "@/components/animations";
+import ImmersionAlertSection from "@/components/immersion/ImmersionAlertSection";
+import ImmersionRegisterInterestButton from "@/components/immersion/ImmersionRegisterInterestButton";
 import {
   PublicCta,
   SectionEyebrow,
@@ -105,13 +107,10 @@ export default function Content() {
               {introduction}
             </p>
             <div className="mt-8 flex max-w-xl flex-col items-stretch gap-3 sm:flex-row sm:items-center lg:flex-col lg:items-stretch xl:flex-row xl:items-center">
-              <PublicCta
-                href="/contact?type=immersion"
+              <ImmersionRegisterInterestButton
                 variant="gold"
                 className="min-h-12 justify-center"
-              >
-                Register Interest
-              </PublicCta>
+              />
               <PublicCta
                 href="/contact?type=immersion-brochure"
                 variant="outline-light"
@@ -415,13 +414,10 @@ export default function Content() {
             </p>
 
             <div className="mt-8 flex max-w-xl flex-col gap-3 sm:flex-row lg:flex-col 2xl:flex-row">
-              <PublicCta
-                href="/contact?type=immersion"
+              <ImmersionRegisterInterestButton
                 variant="teal"
                 className="min-h-12 justify-center !text-[#1C1F1E]"
-              >
-                Register Interest
-              </PublicCta>
+              />
               <PublicCta
                 href="/contact?type=immersion-brochure"
                 variant="outline"
@@ -440,6 +436,8 @@ export default function Content() {
           </div>
         </div>
       </section>
+
+      <ImmersionAlertSection />
     </div>
   );
 }

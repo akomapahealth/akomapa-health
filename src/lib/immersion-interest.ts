@@ -43,13 +43,10 @@ export const immersionInterestSchema = z
       .string()
       .trim()
       .min(1, "Enter your email address.")
+      .toLowerCase()
       .max(254, "Enter a valid email address.")
-      .email("Enter a valid email address.")
-      .transform((value) => value.toLowerCase()),
-    interestAs: z.preprocess(
-      (value) => (value === "" || value === undefined ? undefined : value),
-      z.enum(interestAsValues).optional(),
-    ),
+      .email("Enter a valid email address."),
+    interestAs: z.union([z.enum(interestAsValues), z.literal("")]).optional(),
     consent: z
       .boolean({
         required_error:
@@ -61,11 +58,20 @@ export const immersionInterestSchema = z
         message:
           "Please confirm that we may email you about the Immersion Program.",
       }),
-    company: z.string().max(200).optional().default(""),
+    company: z.string().max(200).optional(),
   })
   .strict();
 
 export type ImmersionInterestInput = z.infer<typeof immersionInterestSchema>;
+
+export function normalizeImmersionInterestAs(
+  value: ImmersionInterestInput["interestAs"],
+): ImmersionInterestAs | undefined {
+  if (!value) {
+    return undefined;
+  }
+  return value;
+}
 
 export type ImmersionInterestOutcome =
   | "pending_confirmation"

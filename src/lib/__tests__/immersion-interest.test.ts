@@ -20,13 +20,11 @@ describe("immersionInterestSchema", () => {
       return;
     }
 
-    expect(parsed.data).toEqual({
-      firstName: "Ama",
-      email: "ama@example.com",
-      interestAs: "undergraduate_premed",
-      consent: true,
-      company: "",
-    });
+    expect(parsed.data.firstName).toBe("Ama");
+    expect(parsed.data.email).toBe("ama@example.com");
+    expect(parsed.data.interestAs).toBe("undergraduate_premed");
+    expect(parsed.data.consent).toBe(true);
+    expect(parsed.data.company).toBe("");
   });
 
   it("uses the approved validation messages", () => {

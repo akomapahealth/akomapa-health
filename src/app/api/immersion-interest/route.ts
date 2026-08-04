@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import {
   immersionInterestSchema,
   IMMERSION_SIGNUP_SOURCE,
+  normalizeImmersionInterestAs,
   type ImmersionInterestOutcome,
 } from "@/lib/immersion-interest";
 import {
@@ -163,8 +164,9 @@ export async function POST(request: NextRequest) {
     name: parsed.data.firstName,
     signup_source: IMMERSION_SIGNUP_SOURCE,
   };
-  if (parsed.data.interestAs) {
-    fields.immersion_interest_as = parsed.data.interestAs;
+  const interestAs = normalizeImmersionInterestAs(parsed.data.interestAs);
+  if (interestAs) {
+    fields.immersion_interest_as = interestAs;
   }
 
   try {
