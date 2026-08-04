@@ -1,5 +1,6 @@
 import { expect, test, type Page } from "@playwright/test";
 import { announcementCampaign } from "../src/data/announcements";
+import { immersionProgram } from "../src/data/immersion-program";
 import { IMMERSION_INTEREST_COPY } from "../src/lib/immersion-interest";
 
 async function preparePage(page: Page) {
@@ -23,8 +24,8 @@ async function openAlertModal(page: Page) {
     name: IMMERSION_INTEREST_COPY.section.cta,
     exact: true,
   });
-  await cta.focus();
-  await page.keyboard.press("Enter");
+  await cta.scrollIntoViewIfNeeded();
+  await cta.click();
   return page.getByRole("dialog");
 }
 
@@ -38,11 +39,16 @@ test.describe("Immersion alert signup modal", () => {
       waitUntil: "domcontentloaded",
     });
 
-    const cta = page.getByRole("button", {
-      name: IMMERSION_INTEREST_COPY.section.cta,
+    const hero = page.getByRole("region", {
+      name: immersionProgram.title,
+      exact: true,
+    });
+    const cta = hero.getByRole("button", {
+      name: "Register Interest",
       exact: true,
     });
     await cta.focus();
+    await expect(cta).toBeFocused();
     await page.keyboard.press("Enter");
 
     const dialog = page.getByRole("dialog");
@@ -54,8 +60,12 @@ test.describe("Immersion alert signup modal", () => {
     ).toBeVisible();
 
     await page.keyboard.press("Escape");
-    await expect(dialog).toHaveCount(0);
-    await expect(cta).toBeFocused();
+    await expect(dialog).toBeHidden();
+    await expect
+      .poll(async () =>
+        cta.evaluate((element) => element === document.activeElement),
+      )
+      .toBe(true);
   });
 
   test("submits successfully and supports retry after failure", async ({

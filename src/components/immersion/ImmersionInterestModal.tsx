@@ -1,6 +1,6 @@
 "use client";
 
-import { Fragment, useEffect, useState } from "react";
+import { Fragment } from "react";
 import {
   Description,
   Dialog,
@@ -16,22 +16,16 @@ import { IMMERSION_INTEREST_COPY } from "@/lib/immersion-interest";
 type ImmersionInterestModalProps = {
   open: boolean;
   onClose: () => void;
+  onAfterLeave?: () => void;
 };
 
 export default function ImmersionInterestModal({
   open,
   onClose,
+  onAfterLeave,
 }: ImmersionInterestModalProps) {
-  const [formKey, setFormKey] = useState(0);
-
-  useEffect(() => {
-    if (open) {
-      setFormKey((current) => current + 1);
-    }
-  }, [open]);
-
   return (
-    <Transition show={open} as={Fragment}>
+    <Transition show={open} as={Fragment} afterLeave={onAfterLeave}>
       <Dialog
         className="fixed inset-0 z-50"
         onClose={onClose}
@@ -85,11 +79,12 @@ export default function ImmersionInterestModal({
                   </Description>
 
                   <div className="mt-7 border-t border-[#1C1F1E]/12 pt-6 dark:border-[#FCFAEF]/15">
-                    <ImmersionInterestForm
-                      key={formKey}
-                      onDone={onClose}
-                      onDismiss={onClose}
-                    />
+                    {open ? (
+                      <ImmersionInterestForm
+                        onDone={onClose}
+                        onDismiss={onClose}
+                      />
+                    ) : null}
                   </div>
                 </div>
               </DialogPanel>

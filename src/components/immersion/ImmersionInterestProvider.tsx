@@ -40,20 +40,27 @@ export default function ImmersionInterestProvider({
   const triggerRef = useRef<HTMLElement | null>(null);
 
   const open = useCallback((trigger?: HTMLElement | null) => {
-    triggerRef.current = trigger ?? null;
+    const active =
+      typeof document !== "undefined" &&
+      document.activeElement instanceof HTMLElement
+        ? document.activeElement
+        : null;
+    triggerRef.current = trigger ?? active;
     setIsOpen(true);
     trackEvent({ name: "immersion_alert_modal_open" });
   }, []);
 
   const close = useCallback(() => {
     setIsOpen(false);
+  }, []);
+
+  const restoreTriggerFocus = useCallback(() => {
     const trigger = triggerRef.current;
     triggerRef.current = null;
-    if (trigger) {
-      window.requestAnimationFrame(() => {
-        trigger.focus();
-      });
-    }
+    // Defer past Headless UI Dialog focus cleanup that runs on unmount.
+    window.setTimeout(() => {
+      trigger?.focus();
+    }, 0);
   }, []);
 
   const value = useMemo(
@@ -68,7 +75,11 @@ export default function ImmersionInterestProvider({
   return (
     <ImmersionInterestContext.Provider value={value}>
       {children}
-      <ImmersionInterestModal open={isOpen} onClose={close} />
+      <ImmersionInterestModal
+        open={isOpen}
+        onClose={close}
+        onAfterLeave={restoreTriggerFocus}
+      />
     </ImmersionInterestContext.Provider>
   );
 }
