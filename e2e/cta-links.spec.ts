@@ -12,7 +12,7 @@ test.describe("Program CTA links", () => {
     await preparePage(page);
   });
 
-  test("GHIP inquiry CTAs use allow-listed contact intents", async ({
+  test("GHIP inquiry CTAs use alert modal and brochure contact intent", async ({
     page,
   }) => {
     await page.goto("/global-health-immersion-program", {
@@ -35,19 +35,21 @@ test.describe("Program CTA links", () => {
       );
     }
 
-    const interestLinks = page.getByRole("link", {
-      name: "Register Interest",
-      exact: true,
-    });
-    const interestLinkCount = await interestLinks.count();
-    expect(interestLinkCount).toBeGreaterThan(0);
+    // Register Interest is a modal trigger, not a competing contact-form path.
+    await expect(
+      page.getByRole("link", { name: "Register Interest", exact: true }),
+    ).toHaveCount(0);
 
-    for (let i = 0; i < interestLinkCount; i += 1) {
-      await expect(interestLinks.nth(i)).toHaveAttribute(
-        "href",
-        "/contact?type=immersion",
-      );
-    }
+    const interestButtons = page.locator("[data-immersion-register-interest]");
+    const interestButtonCount = await interestButtons.count();
+    expect(interestButtonCount).toBeGreaterThan(0);
+
+    await interestButtons.first().click();
+    const dialog = page.getByRole("dialog");
+    await expect(dialog).toBeVisible();
+    await expect(
+      dialog.getByRole("heading", { name: "Get Immersion Program alerts" }),
+    ).toBeVisible();
   });
 
   test("GHLTP Become a Mentor CTA points to /contact", async ({ page }) => {

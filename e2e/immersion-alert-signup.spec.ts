@@ -43,13 +43,12 @@ test.describe("Immersion alert signup modal", () => {
       name: immersionProgram.title,
       exact: true,
     });
-    const cta = hero.getByRole("button", {
-      name: "Register Interest",
-      exact: true,
-    });
+    const cta = hero.locator("[data-immersion-register-interest]");
+    await cta.scrollIntoViewIfNeeded();
     await cta.focus();
     await expect(cta).toBeFocused();
-    await page.keyboard.press("Enter");
+    // Target the control directly so activation is not lost to page-level keys.
+    await cta.press("Enter");
 
     const dialog = page.getByRole("dialog");
     await expect(dialog).toBeVisible();
