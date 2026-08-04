@@ -72,7 +72,7 @@ test.describe("Immersion program responsive editorial layout", () => {
           }),
         ).toBeVisible();
         await expect(page.locator("main h1")).toHaveCount(1);
-        await expect(pageShell.locator("section")).toHaveCount(7);
+        await expect(pageShell.locator("section")).toHaveCount(8);
 
         await assertNoHorizontalOverflow(page);
 
@@ -80,9 +80,14 @@ test.describe("Immersion program responsive editorial layout", () => {
           const headings = Array.from(
             element.querySelectorAll<HTMLElement>("h1, h2, h3"),
           );
-          const inquiryLinks = Array.from(
+          const brochureLinks = Array.from(
             element.querySelectorAll<HTMLElement>(
-              'a[href^="/contact?type=immersion"]',
+              'a[href="/contact?type=immersion-brochure"]',
+            ),
+          );
+          const interestButtons = Array.from(
+            element.querySelectorAll<HTMLElement>(
+              "[data-immersion-register-interest], [data-immersion-alert-cta]",
             ),
           );
 
@@ -90,7 +95,7 @@ test.describe("Immersion program responsive editorial layout", () => {
             headingOverflow: headings.some(
               (heading) => heading.scrollWidth > heading.clientWidth + 1,
             ),
-            inquiryLinks: inquiryLinks.map((link) => {
+            brochureLinks: brochureLinks.map((link) => {
               const rect = link.getBoundingClientRect();
               return {
                 text: link.textContent?.trim(),
@@ -100,15 +105,31 @@ test.describe("Immersion program responsive editorial layout", () => {
                 labelOverflow: link.scrollWidth > link.clientWidth + 1,
               };
             }),
+            interestButtons: interestButtons.map((button) => {
+              const rect = button.getBoundingClientRect();
+              return {
+                text: button.textContent?.trim(),
+                height: rect.height,
+                clipped:
+                  rect.left < -1 || rect.right > window.innerWidth + 1,
+                labelOverflow: button.scrollWidth > button.clientWidth + 1,
+              };
+            }),
           };
         });
 
         expect(layoutChecks.headingOverflow).toBe(false);
-        expect(layoutChecks.inquiryLinks).toHaveLength(4);
-        for (const link of layoutChecks.inquiryLinks) {
+        expect(layoutChecks.brochureLinks).toHaveLength(2);
+        expect(layoutChecks.interestButtons).toHaveLength(3);
+        for (const link of layoutChecks.brochureLinks) {
           expect(link.height, link.text).toBeGreaterThanOrEqual(44);
           expect(link.clipped, link.text).toBe(false);
           expect(link.labelOverflow, link.text).toBe(false);
+        }
+        for (const button of layoutChecks.interestButtons) {
+          expect(button.height, button.text).toBeGreaterThanOrEqual(44);
+          expect(button.clipped, button.text).toBe(false);
+          expect(button.labelOverflow, button.text).toBe(false);
         }
       });
     }
@@ -180,14 +201,14 @@ test.describe("Immersion program responsive editorial layout", () => {
       name: immersionProgram.title,
       exact: true,
     });
-    const interestLink = hero.getByRole("link", {
+    const interestButton = hero.getByRole("button", {
       name: "Register Interest",
       exact: true,
     });
 
-    await interestLink.focus();
-    await expect(interestLink).toBeFocused();
-    await expect(interestLink).toHaveCSS("outline-style", "solid");
+    await interestButton.focus();
+    await expect(interestButton).toBeFocused();
+    await expect(interestButton).toHaveCSS("outline-style", "solid");
   });
 });
 
