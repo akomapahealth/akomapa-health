@@ -9,6 +9,7 @@ import {
   legalBodyClassName,
   legalLinkClassName,
 } from "@/components/legal/LegalDocumentPrimitives";
+import { CONTACT } from "@/config/contact";
 
 describe("LegalDocumentPrimitives", () => {
   it("renders a decorative section rule that is hidden from assistive technology", () => {
@@ -74,8 +75,8 @@ describe("LegalDocumentPrimitives", () => {
       <LegalProseArticle labelledBy="privacy-policy-title">
         <h2 id="privacy-policy-title">Privacy Policy</h2>
         <p className={legalBodyClassName}>Body copy</p>
-        <a className={legalLinkClassName} href="mailto:akomapahealth@gmail.com">
-          akomapahealth@gmail.com
+        <a className={legalLinkClassName} href={CONTACT.email.href}>
+          {CONTACT.email.display}
         </a>
       </LegalProseArticle>,
     );
@@ -87,7 +88,7 @@ describe("LegalDocumentPrimitives", () => {
     expect(article?.className).not.toContain("shadow-xl");
     expect(article?.className).not.toContain("gradient");
     expect(
-      screen.getByRole("link", { name: "akomapahealth@gmail.com" }),
-    ).toHaveAttribute("href", "mailto:akomapahealth@gmail.com");
+      screen.getByRole("link", { name: CONTACT.email.display }),
+    ).toHaveAttribute("href", CONTACT.email.href);
   });
 });

@@ -210,7 +210,7 @@ test("roadmap preserves phase chronology and CTA destinations", async ({
   ).toHaveAttribute("href", "/partnerships");
   await expect(
     ctaRegion.getByRole("link", { name: /Contact Us/i }),
-  ).toHaveAttribute("href", "mailto:akomapahealth@gmail.com");
+  ).toHaveAttribute("href", "mailto:info@akomapa.org");
 });
 
 test("keeps akomapa-ghip redirect unchanged", async ({ page }) => {

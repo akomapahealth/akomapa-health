@@ -1,5 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
+import { CONTACT } from "@/config/contact";
 import Content from "../Content";
 
 const privacyHeadings = [
@@ -74,11 +75,11 @@ describe("Privacy Content editorial contracts", () => {
     ).toBeGreaterThanOrEqual(1);
 
     const mailLinks = screen.getAllByRole("link", {
-      name: "akomapahealth@gmail.com",
+      name: CONTACT.email.display,
     });
     expect(mailLinks.length).toBeGreaterThanOrEqual(2);
     for (const link of mailLinks) {
-      expect(link).toHaveAttribute("href", "mailto:akomapahealth@gmail.com");
+      expect(link).toHaveAttribute("href", CONTACT.email.href);
     }
 
     expect(

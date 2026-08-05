@@ -132,7 +132,7 @@ test("research listing preserves paper metadata and contact mailto", async ({
   ).toBeVisible();
   await expect(page.getByText("Read Paper").first()).toBeVisible();
   await expect(
-    page.locator('a[href="mailto:akomapahealth@gmail.com"]').first(),
+    page.locator('a[href="mailto:info@akomapa.org"]').first(),
   ).toBeVisible();
 });
 

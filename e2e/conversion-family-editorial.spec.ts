@@ -101,8 +101,8 @@ test.describe("conversion family editorial contracts", () => {
       page.getByRole("link", { name: /Individual Donations/i }).first(),
     ).toHaveAttribute("href", "/donate");
     await expect(
-      page.getByRole("link", { name: /akomapahealth@gmail.com/i }).first(),
-    ).toHaveAttribute("href", "mailto:akomapahealth@gmail.com");
+      page.getByRole("link", { name: /info@akomapa\.org/i }).first(),
+    ).toHaveAttribute("href", "mailto:info@akomapa.org");
 
     await page.goto("/get-involved", { waitUntil: "domcontentloaded" });
     await expect(

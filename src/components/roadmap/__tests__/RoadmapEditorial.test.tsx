@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 import RoadmapContent from "@/app/(main)/roadmap/Content";
 import RoadmapPhases from "@/components/roadmap/RoadmapPhases";
 import { phases } from "@/components/roadmap/phases";
+import { CONTACT } from "@/config/contact";
 
 describe("Roadmap editorial system", () => {
   it("renders a single h1 and flat hero without emoji ornamentation", () => {
@@ -50,7 +51,7 @@ describe("Roadmap editorial system", () => {
     );
     expect(screen.getByRole("link", { name: /Contact Us/i })).toHaveAttribute(
       "href",
-      "mailto:akomapahealth@gmail.com",
+      CONTACT.email.href,
     );
   });
 

@@ -10,7 +10,7 @@ const canonical = {
     display: "+1 (203) 410-6306",
     href: "tel:+12034106306",
   },
-  emailHref: "mailto:akomapahealth@gmail.com",
+  emailHref: "mailto:info@akomapa.org",
   mapTitle: "Map showing Akomapa Health Foundation's Ghana Office",
 };
 
@@ -47,7 +47,7 @@ test.describe("canonical contact details", () => {
       "Something went wrong on our side. Please try again in a few minutes.",
     );
     await expect(
-      alert.getByRole("link", { name: "akomapahealth@gmail.com" }),
+      alert.getByRole("link", { name: "info@akomapa.org" }),
     ).toHaveAttribute("href", canonical.emailHref);
   });
 

@@ -10,6 +10,7 @@ import {
   EditorialHeading,
   EditorialLead,
 } from "@/components/shared/EditorialPrimitives";
+import { CONTACT } from "@/config/contact";
 
 export default function Content() {
   return (
@@ -131,7 +132,7 @@ export default function Content() {
                 Donate
               </EditorialButton>
               <EditorialButton
-                href="mailto:akomapahealth@gmail.com"
+                href={CONTACT.email.href}
                 variant="outline-light"
                 external
               >

@@ -105,6 +105,7 @@ describe("POST /api/contact", () => {
     expect(init.signal).toBeInstanceOf(AbortSignal);
     const formData = init.body as FormData;
     expect(formData.get("access_key")).toBe("test-access-key");
+    expect(formData.get("to")).toBe("akomapahealth@gmail.com");
     expect(formData.get("replyto")).toBe(validBody.email);
     expect(formData.get("subject")).toBe(
       `Akomapa Health Foundation - ${validBody.subject}`,

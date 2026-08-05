@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import Content from "@/app/(main)/research/Content";
+import { CONTACT } from "@/config/contact";
 import { researchPapers } from "@/data/research-papers";
 
 describe("Research listing editorial", () => {
@@ -35,7 +36,7 @@ describe("Research listing editorial", () => {
     render(<Content />);
 
     expect(
-      screen.getByRole("link", { name: /akomapahealth@gmail.com/i }),
-    ).toHaveAttribute("href", "mailto:akomapahealth@gmail.com");
+      screen.getByRole("link", { name: CONTACT.email.display }),
+    ).toHaveAttribute("href", CONTACT.email.href);
   });
 });

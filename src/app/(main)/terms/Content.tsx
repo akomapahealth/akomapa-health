@@ -17,6 +17,7 @@ import {
   EditorialHeading,
   EditorialLead,
 } from "@/components/shared/EditorialPrimitives";
+import { CONTACT } from "@/config/contact";
 import Link from "next/link";
 
 const LAST_UPDATED = "May 9, 2026";
@@ -247,8 +248,8 @@ export default function Content() {
                 </p>
                 <p className={body}>
                   If you believe a charge is incorrect, reach out to{" "}
-                  <a href="mailto:akomapahealth@gmail.com" className={link}>
-                    akomapahealth@gmail.com
+                  <a href={CONTACT.email.href} className={link}>
+                    {CONTACT.email.display}
                   </a>{" "}
                   promptly. Refunds, if any, are handled case by case and may
                   depend on processor policies and banking timelines.
@@ -363,8 +364,8 @@ export default function Content() {
               <LegalSection id="contact" ruleVariant="amber" title="Contact">
                 <p className={body}>
                   Questions about these Terms? Email{" "}
-                  <a href="mailto:akomapahealth@gmail.com" className={link}>
-                    akomapahealth@gmail.com
+                  <a href={CONTACT.email.href} className={link}>
+                    {CONTACT.email.display}
                   </a>{" "}
                   or visit our{" "}
                   <Link href="/contact" className={link}>

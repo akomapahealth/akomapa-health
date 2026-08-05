@@ -5,6 +5,7 @@ import {
   EditorialHeading,
   EditorialLead,
 } from "@/components/shared/EditorialPrimitives";
+import { CONTACT } from "@/config/contact";
 
 export default function ResearchContactCta() {
   return (
@@ -25,11 +26,11 @@ export default function ResearchContactCta() {
           please reach out to our research team.
         </EditorialLead>
         <EditorialButton
-          href="mailto:akomapahealth@gmail.com"
+          href={CONTACT.email.href}
           variant="amber"
           className="mt-8"
         >
-          akomapahealth@gmail.com
+          {CONTACT.email.display}
         </EditorialButton>
       </FadeIn>
     </EditorialBand>

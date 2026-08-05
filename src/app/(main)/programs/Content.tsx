@@ -9,6 +9,7 @@ import {
   EditorialHeading,
   EditorialLead,
 } from "@/components/shared/EditorialPrimitives";
+import { CONTACT } from "@/config/contact";
 
 interface Program {
   id: number;
@@ -412,7 +413,7 @@ export default function Content() {
                 Partner with Us
               </EditorialButton>
               <EditorialButton
-                href="mailto:akomapahealth@gmail.com"
+                href={CONTACT.email.href}
                 variant="outline-light"
                 external
               >

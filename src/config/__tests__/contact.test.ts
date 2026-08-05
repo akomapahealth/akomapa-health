@@ -10,8 +10,8 @@ function readSource(path: string) {
 describe("canonical contact configuration", () => {
   it("publishes the approved organization email", () => {
     expect(CONTACT.email).toEqual({
-      display: "akomapahealth@gmail.com",
-      href: "mailto:akomapahealth@gmail.com",
+      display: "info@akomapa.org",
+      href: "mailto:info@akomapa.org",
     });
   });
 

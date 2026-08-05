@@ -18,6 +18,7 @@ import {
   EditorialHeading,
   EditorialLead,
 } from "@/components/shared/EditorialPrimitives";
+import { CONTACT } from "@/config/contact";
 import Link from "next/link";
 
 const LAST_UPDATED = "May 9, 2026";
@@ -350,8 +351,8 @@ export default function Content() {
                 </ul>
                 <p className={body}>
                   To exercise these rights, email{" "}
-                  <a href="mailto:akomapahealth@gmail.com" className={link}>
-                    akomapahealth@gmail.com
+                  <a href={CONTACT.email.href} className={link}>
+                    {CONTACT.email.display}
                   </a>
                   . We may need to verify your identity before fulfilling certain
                   requests.
@@ -394,8 +395,8 @@ export default function Content() {
               >
                 <p className={body}>
                   Questions about privacy? Email{" "}
-                  <a href="mailto:akomapahealth@gmail.com" className={link}>
-                    akomapahealth@gmail.com
+                  <a href={CONTACT.email.href} className={link}>
+                    {CONTACT.email.display}
                   </a>{" "}
                   or visit our{" "}
                   <Link href="/contact" className={link}>

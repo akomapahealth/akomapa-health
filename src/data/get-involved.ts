@@ -3,6 +3,7 @@ import type {
   GetInvolvedOpportunity,
   Pathway,
 } from "@/lib/types";
+import { CONTACT } from "@/config/contact";
 import { LEADERSHIP_APP_FORM_URL } from "@/config/links";
 
 // ---------------------------------------------------------------------------
@@ -175,6 +176,6 @@ export const getInvolvedFaqs: GetInvolvedFaq[] = [
     id: "how-to-start",
     question: "What's the best way to start?",
     answer:
-      "Choose the pathway that matches your goals and follow its call to action. Still deciding? Email us at akomapahealth@gmail.com or visit our contact page and we'll point you in the right direction.",
+      `Choose the pathway that matches your goals and follow its call to action. Still deciding? Email us at ${CONTACT.email.display} or visit our contact page and we'll point you in the right direction.`,
   },
 ];

@@ -10,6 +10,7 @@ import {
   EditorialHeading,
   EditorialLead,
 } from "@/components/shared/EditorialPrimitives";
+import { CONTACT } from "@/config/contact";
 
 const heroRows: Array<{
   offset: string;
@@ -179,7 +180,7 @@ const executiveTeam: TeamSpotlightMember[] = [
     role: "Lead Social Media Manager",
     org: "Akomapa Health Foundation",
     image: "/images/team/gabrielle-nartey.JPG",
-    email: "akomapahealth@gmail.com",
+    email: CONTACT.email.display,
     linkedin: "https://www.linkedin.com/in/gabrielle-nartey-a2456128b/",
     bio: "Gabrielle Nartey is a sophomore at Yale University studying Neuroscience on the pre-medical track. She currently serves as Lead Social Media Manager for Akomapa, where she oversees marketing across all social media platforms and works to expand the clinic’s reach and visibility on an international scale. Gabrielle joined the clinic to help bridge the gap between healthcare and access—ensuring that individuals who need care most are aware of and empowered to seek Akomapa’s services."
   },

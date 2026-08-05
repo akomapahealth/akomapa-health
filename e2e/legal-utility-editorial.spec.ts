@@ -85,8 +85,8 @@ test.describe("legal utility editorial contracts", () => {
       page.getByRole("navigation", { name: "On this page" }),
     ).toBeVisible();
     await expect(
-      page.getByRole("link", { name: "akomapahealth@gmail.com" }).first(),
-    ).toHaveAttribute("href", "mailto:akomapahealth@gmail.com");
+      page.getByRole("link", { name: "info@akomapa.org" }).first(),
+    ).toHaveAttribute("href", "mailto:info@akomapa.org");
     await expect(
       page.getByRole("link", { name: "contact page" }),
     ).toHaveAttribute("href", "/contact");

@@ -6,6 +6,8 @@ const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1_000;
 const RATE_LIMIT_MAX_REQUESTS = 5;
 const RATE_LIMIT_MAX_ENTRIES = 1_000;
 const WEB3FORMS_URL = new URL("https://api.web3forms.com/submit");
+/** Private Web3Forms delivery mailbox — not for public display. Public address is CONTACT.email. */
+const CONTACT_FORM_DELIVERY_TO = "akomapahealth@gmail.com";
 
 type RateLimitEntry = {
   count: number;
@@ -128,7 +130,7 @@ export async function POST(request: NextRequest) {
     : parsed.data.message;
   const formData = new FormData();
   formData.append("access_key", apiKey);
-  formData.append("to", "akomapahealth@gmail.com");
+  formData.append("to", CONTACT_FORM_DELIVERY_TO);
   formData.append("name", parsed.data.name);
   formData.append("email", parsed.data.email);
   formData.append("phone", parsed.data.phone);
