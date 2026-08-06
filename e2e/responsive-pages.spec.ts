@@ -119,8 +119,8 @@ test.describe("Responsive pages — header, footer, no horizontal overflow", () 
 
         if (route.path === "/global-health-immersion-program") {
           await expect(
-            page.locator("[data-immersion-hero-video]"),
-          ).toHaveCount(1);
+            page.locator("[data-immersion-hero-hydrated]"),
+          ).toHaveAttribute("data-immersion-hero-hydrated", "true");
         }
 
         // Page response was successful.

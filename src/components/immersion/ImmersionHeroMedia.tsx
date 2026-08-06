@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useReducedMotion } from "framer-motion";
 import Image from "@/components/common/Image";
 import { getImageKitUrl } from "@/lib/imagekit";
@@ -19,7 +19,11 @@ export default function ImmersionHeroMedia({
   posterPosition = "center",
 }: Props) {
   const shouldReduceMotion = useReducedMotion();
-  const [videoReady, setVideoReady] = useState(false);
+  const [isHydrated, setIsHydrated] = useState(false);
+
+  useEffect(() => {
+    setIsHydrated(true);
+  }, []);
 
   const mobileVideoSrc = getImageKitUrl(videoSrc, {
     width: 960,
@@ -29,39 +33,35 @@ export default function ImmersionHeroMedia({
     width: 1920,
     quality: 60,
   });
-  const posterUrl = getImageKitUrl(posterSrc, {
-    width: 1920,
-    quality: 75,
-  });
-
   return (
-    <div className="absolute inset-0 bg-[#0B0F0E]" data-immersion-hero-media>
-      <Image
-        src={posterSrc}
-        alt={posterAlt}
-        fill
-        priority
-        sizes="100vw"
-        className="object-cover"
-        style={{ objectPosition: posterPosition }}
-      />
+    <div
+      className="absolute inset-0 bg-[#0B0F0E]"
+      data-immersion-hero-hydrated={isHydrated ? "true" : "false"}
+      data-immersion-hero-media
+    >
+      {shouldReduceMotion === true ? (
+        <Image
+          src={posterSrc}
+          alt={posterAlt}
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover opacity-70"
+          style={{ objectPosition: posterPosition }}
+        />
+      ) : null}
 
-      {shouldReduceMotion === false ? (
+      {shouldReduceMotion !== true ? (
         <video
           aria-hidden="true"
           autoPlay
-          className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ${
-            videoReady ? "opacity-100" : "opacity-0"
-          }`}
+          className="absolute inset-0 h-full w-full object-cover opacity-70 motion-reduce:hidden"
           data-immersion-hero-video
           disablePictureInPicture
           loop
           muted
-          onCanPlay={() => setVideoReady(true)}
-          onError={() => setVideoReady(false)}
           playsInline
-          poster={posterUrl}
-          preload="metadata"
+          preload="auto"
           tabIndex={-1}
         >
           <source media="(max-width: 767px)" src={mobileVideoSrc} />

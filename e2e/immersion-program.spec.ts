@@ -62,9 +62,9 @@ test.describe("Immersion program responsive editorial layout", () => {
         await page.goto("/global-health-immersion-program", {
           waitUntil: "domcontentloaded",
         });
-        await expect(page.locator("[data-immersion-hero-video]")).toHaveCount(
-          1,
-        );
+        await expect(page.locator("[data-immersion-hero-hydrated]"))
+          .toHaveAttribute("data-immersion-hero-hydrated", "true");
+        await expect(page.locator("[data-immersion-hero-video]")).toHaveCount(1);
         await page.evaluate(async () => document.fonts.ready);
 
         const pageShell = page.locator("[data-immersion-page]");
@@ -194,13 +194,15 @@ test.describe("Immersion program responsive editorial layout", () => {
       )
       .toEqual({ opacity: "1", transform: "none" });
 
+    await expect(page.locator("[data-immersion-hero-hydrated]"))
+      .toHaveAttribute("data-immersion-hero-hydrated", "true");
     await expect(page.locator("[data-immersion-hero-video]")).toHaveCount(0);
     await expect(
       page.locator("[data-immersion-hero-media] img"),
     ).toBeVisible();
   });
 
-  test("hero video is decorative, muted, inline, and poster-backed", async ({
+  test("hero video is decorative, immediate, muted, and optimized", async ({
     page,
   }) => {
     await page.setViewportSize({ width: 1280, height: 800 });
@@ -210,8 +212,12 @@ test.describe("Immersion program responsive editorial layout", () => {
     });
 
     const video = page.locator("[data-immersion-hero-video]");
+    await expect(page.locator("[data-immersion-hero-hydrated]"))
+      .toHaveAttribute("data-immersion-hero-hydrated", "true");
     await expect(video).toHaveCount(1);
-    await expect(page.locator("[data-immersion-hero-media] img")).toBeVisible();
+    await expect(page.locator("[data-immersion-hero-media] img")).toHaveCount(
+      0,
+    );
 
     expect(
       await video.evaluate((element) => {
@@ -223,6 +229,7 @@ test.describe("Immersion program responsive editorial layout", () => {
           muted: media.muted,
           playsInline: media.playsInline,
           poster: media.poster,
+          preload: media.preload,
         };
       }),
     ).toMatchObject({
@@ -231,8 +238,36 @@ test.describe("Immersion program responsive editorial layout", () => {
       loop: true,
       muted: true,
       playsInline: true,
+      poster: "",
+      preload: "auto",
     });
-    await expect(video).toHaveAttribute("poster", /Akomapa-40\.jpg/);
+    await expect(video).toHaveCSS("opacity", "0.7");
+  });
+
+  test("never swaps to an image when video delivery is delayed or unavailable", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1280, height: 800 });
+    await preparePage(page, "light");
+    await page.route("**/immersion-hero.mp4**", async (route) => {
+      await route.abort("failed");
+    });
+    await page.goto("/global-health-immersion-program", {
+      waitUntil: "domcontentloaded",
+    });
+
+    await expect(page.locator("[data-immersion-hero-hydrated]"))
+      .toHaveAttribute("data-immersion-hero-hydrated", "true");
+    await expect(page.locator("[data-immersion-hero-video]")).toHaveCount(1);
+    await expect(page.locator("[data-immersion-hero-media] img")).toHaveCount(
+      0,
+    );
+    await expect(
+      page.getByRole("heading", {
+        level: 1,
+        name: immersionProgram.title,
+      }),
+    ).toBeVisible();
   });
 
   test("Explore the Experience moves to the four program pillars", async ({
@@ -243,7 +278,8 @@ test.describe("Immersion program responsive editorial layout", () => {
     await page.goto("/global-health-immersion-program", {
       waitUntil: "domcontentloaded",
     });
-    await expect(page.locator("[data-immersion-hero-video]")).toHaveCount(1);
+    await expect(page.locator("[data-immersion-hero-hydrated]"))
+      .toHaveAttribute("data-immersion-hero-hydrated", "true");
 
     await page
       .getByRole("link", { name: "Explore the Experience", exact: true })
@@ -266,7 +302,8 @@ test.describe("Immersion program responsive editorial layout", () => {
     await page.goto("/global-health-immersion-program", {
       waitUntil: "domcontentloaded",
     });
-    await expect(page.locator("[data-immersion-hero-video]")).toHaveCount(1);
+    await expect(page.locator("[data-immersion-hero-hydrated]"))
+      .toHaveAttribute("data-immersion-hero-hydrated", "true");
 
     const hero = page.getByRole("region", {
       name: immersionProgram.title,

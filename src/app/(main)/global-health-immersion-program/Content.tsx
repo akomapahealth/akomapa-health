@@ -103,7 +103,7 @@ export default function Content() {
         <div className="site-container relative z-10 mx-auto w-full px-4 py-16 md:py-24 lg:py-28">
           <div
             data-immersion-hero-panel
-            className="max-w-4xl border border-[#FCFAEF]/20 bg-[#07191d]/52 p-6 shadow-2xl shadow-black/20 backdrop-blur-md sm:p-8 lg:p-10"
+            className="max-w-4xl border border-[#FCFAEF]/22 bg-[#07191d]/32 p-6 shadow-2xl shadow-black/20 backdrop-blur-sm sm:p-8 lg:p-10"
           >
             <SectionEyebrow tone="light">{eyebrow}</SectionEyebrow>
             <p className="mt-5 inline-flex border border-[#F5C94D]/55 bg-[#F5C94D]/12 px-3 py-2 text-xs font-bold uppercase tracking-[0.2em] text-[#F5C94D] sm:text-sm">

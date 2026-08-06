@@ -21,7 +21,8 @@ async function preparePage(page: Page) {
 }
 
 async function openAlertModal(page: Page) {
-  await expect(page.locator("[data-immersion-hero-video]")).toHaveCount(1);
+  await expect(page.locator("[data-immersion-hero-hydrated]"))
+    .toHaveAttribute("data-immersion-hero-hydrated", "true");
   const cta = page.getByRole("button", {
     name: IMMERSION_INTEREST_COPY.section.cta,
     exact: true,
@@ -40,7 +41,8 @@ test.describe("Immersion alert signup modal", () => {
     await page.goto("/global-health-immersion-program", {
       waitUntil: "domcontentloaded",
     });
-    await expect(page.locator("[data-immersion-hero-video]")).toHaveCount(1);
+    await expect(page.locator("[data-immersion-hero-hydrated]"))
+      .toHaveAttribute("data-immersion-hero-hydrated", "true");
 
     const hero = page.getByRole("region", {
       name: immersionProgram.title,

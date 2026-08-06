@@ -76,7 +76,7 @@ describe("Global Health Immersion Program top-level page", () => {
       '[data-section-tone="teal"]',
     );
 
-    expect(heroPanel).toHaveClass("bg-[#07191d]/52");
+    expect(heroPanel).toHaveClass("bg-[#07191d]/32", "backdrop-blur-sm");
     expect(tealSections).toHaveLength(2);
     tealSections.forEach((section) => {
       expect(section).toHaveClass("bg-[#0F4C5C]", "text-[#FCFAEF]");

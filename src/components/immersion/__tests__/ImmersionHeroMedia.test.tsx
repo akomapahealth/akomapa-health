@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { useReducedMotion } from "framer-motion";
 import ImmersionHeroMedia from "../ImmersionHeroMedia";
@@ -28,11 +28,15 @@ describe("ImmersionHeroMedia", () => {
     );
   });
 
-  it("renders responsive ImageKit video sources over the poster", () => {
+  it("renders the optimized video immediately without a poster transition", () => {
     mockedUseReducedMotion.mockReturnValue(false);
     const { container } = render(<ImmersionHeroMedia {...props} />);
 
-    expect(screen.getByAltText(props.posterAlt)).toBeInTheDocument();
+    expect(container.firstElementChild).toHaveAttribute(
+      "data-immersion-hero-hydrated",
+      "true",
+    );
+    expect(screen.queryByAltText(props.posterAlt)).not.toBeInTheDocument();
 
     const video = container.querySelector("video");
     expect(video).not.toBeNull();
@@ -41,8 +45,9 @@ describe("ImmersionHeroMedia", () => {
     expect(video).toHaveProperty("muted", true);
     expect(video).toHaveProperty("playsInline", true);
     expect(video).toHaveAttribute("aria-hidden", "true");
-    expect(video).toHaveAttribute("preload", "metadata");
-    expect(video).toHaveClass("opacity-0");
+    expect(video).toHaveAttribute("preload", "auto");
+    expect(video).not.toHaveAttribute("poster");
+    expect(video).toHaveClass("opacity-70", "motion-reduce:hidden");
     expect(
       container.querySelector(
         '[data-immersion-hero-overlay="horizontal"]',
@@ -59,8 +64,14 @@ describe("ImmersionHeroMedia", () => {
       "ik.imagekit.io/akomapa/immersion-hero.mp4",
     );
 
-    fireEvent.canPlay(video as HTMLVideoElement);
-    expect(video).toHaveClass("opacity-100");
+  });
+
+  it("renders the video during the server-safe motion preference state", () => {
+    mockedUseReducedMotion.mockReturnValue(null);
+    const { container } = render(<ImmersionHeroMedia {...props} />);
+
+    expect(container.querySelector("video")).toBeInTheDocument();
+    expect(screen.queryByAltText(props.posterAlt)).not.toBeInTheDocument();
   });
 
   it("keeps the poster and omits motion when reduced motion is requested", () => {

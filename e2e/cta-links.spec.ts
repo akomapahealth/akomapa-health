@@ -19,7 +19,8 @@ test.describe("Program CTA links", () => {
     await page.goto("/global-health-immersion-program", {
       waitUntil: "domcontentloaded",
     });
-    await expect(page.locator("[data-immersion-hero-video]")).toHaveCount(1);
+    await expect(page.locator("[data-immersion-hero-hydrated]"))
+      .toHaveAttribute("data-immersion-hero-hydrated", "true");
 
     const experienceLink = page.getByRole("link", {
       name: "Explore the Experience",
