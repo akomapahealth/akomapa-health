@@ -77,6 +77,9 @@ test.describe("Immersion program responsive editorial layout", () => {
         ).toBeVisible();
         await expect(page.locator("main h1")).toHaveCount(1);
         await expect(pageShell.locator("section")).toHaveCount(7);
+        await expect(
+          pageShell.locator('[data-section-tone="teal"]'),
+        ).toHaveCount(2);
 
         await assertNoHorizontalOverflow(page);
 

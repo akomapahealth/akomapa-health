@@ -71,11 +71,13 @@ export default function ImmersionHeroMedia({
 
       <div
         aria-hidden="true"
-        className="absolute inset-0 bg-gradient-to-r from-[#07191d]/90 via-[#07191d]/62 to-[#07191d]/35"
+        data-immersion-hero-overlay="horizontal"
+        className="absolute inset-0 bg-gradient-to-r from-[#07191d]/78 via-[#07191d]/48 to-[#07191d]/22"
       />
       <div
         aria-hidden="true"
-        className="absolute inset-0 bg-gradient-to-t from-[#07191d]/65 via-transparent to-[#07191d]/30"
+        data-immersion-hero-overlay="vertical"
+        className="absolute inset-0 bg-gradient-to-t from-[#07191d]/48 via-transparent to-[#07191d]/20"
       />
     </div>
   );

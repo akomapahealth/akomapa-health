@@ -101,7 +101,10 @@ export default function Content() {
         />
 
         <div className="site-container relative z-10 mx-auto w-full px-4 py-16 md:py-24 lg:py-28">
-          <div className="max-w-4xl border border-[#FCFAEF]/20 bg-[#07191d]/68 p-6 shadow-2xl shadow-black/20 backdrop-blur-md sm:p-8 lg:p-10">
+          <div
+            data-immersion-hero-panel
+            className="max-w-4xl border border-[#FCFAEF]/20 bg-[#07191d]/52 p-6 shadow-2xl shadow-black/20 backdrop-blur-md sm:p-8 lg:p-10"
+          >
             <SectionEyebrow tone="light">{eyebrow}</SectionEyebrow>
             <p className="mt-5 inline-flex border border-[#F5C94D]/55 bg-[#F5C94D]/12 px-3 py-2 text-xs font-bold uppercase tracking-[0.2em] text-[#F5C94D] sm:text-sm">
               Coming 2027
@@ -227,7 +230,8 @@ export default function Content() {
       <section
         id="experience"
         aria-labelledby="participant-experience-title"
-        className="scroll-mt-24 border-y border-[#1C1F1E]/10 bg-white dark:border-[#FCFAEF]/10 dark:bg-[#1C1F1E]"
+        data-section-tone="teal"
+        className="scroll-mt-24 border-y border-[#FCFAEF]/14 bg-[#0F4C5C] text-[#FCFAEF]"
       >
         <div className={sectionContainerClass}>
           <FadeIn>
@@ -235,6 +239,7 @@ export default function Content() {
               eyebrow="The experience"
               title="What participants experience"
               description="Four connected experiences bring global health learning to life."
+              tone="light"
               id="participant-experience-title"
             />
           </FadeIn>
@@ -243,7 +248,7 @@ export default function Content() {
             {experiences.map((experience, index) => (
               <li
                 key={experience.title}
-                className="group overflow-hidden border border-[#1C1F1E]/12 bg-[#FCFAEF] dark:border-[#FCFAEF]/12 dark:bg-[#121514]"
+                className="group overflow-hidden border border-[#FCFAEF]/18 bg-[#FCFAEF] text-[#1C1F1E] shadow-[0_20px_50px_rgba(7,25,29,0.18)]"
               >
                 <div className="relative aspect-[4/3] overflow-hidden bg-[#E6E7E7] dark:bg-[#2F3332]">
                   <Image
@@ -265,7 +270,7 @@ export default function Content() {
                   <h3 className="font-heading text-xl font-semibold leading-7 md:text-2xl">
                     {experience.title}
                   </h3>
-                  <p className="mt-3 max-w-xl text-sm leading-6 text-[#2F3332]/72 dark:text-[#E6E7E7]/72 md:text-base md:leading-7">
+                  <p className="mt-3 max-w-xl text-sm leading-6 text-[#2F3332]/72 md:text-base md:leading-7">
                     {experience.description}
                   </p>
                 </div>
@@ -321,7 +326,8 @@ export default function Content() {
 
       <section
         aria-labelledby="host-cities-title"
-        className="border-t border-[#1C1F1E]/12 bg-white dark:border-[#FCFAEF]/12 dark:bg-[#1C1F1E]"
+        data-section-tone="teal"
+        className="border-t border-[#FCFAEF]/14 bg-[#0F4C5C] text-[#FCFAEF]"
       >
         <div
           className={cn(
@@ -343,29 +349,29 @@ export default function Content() {
           </figure>
 
           <div className="lg:col-span-6">
-            <SectionEyebrow>{hostCities.heading}</SectionEyebrow>
+            <SectionEyebrow tone="light">{hostCities.heading}</SectionEyebrow>
             <h2
               id="host-cities-title"
               className="mt-4 font-heading text-[1.9rem] font-semibold leading-[1.14] tracking-tight md:text-[2.4rem] lg:text-[2.8rem]"
             >
               {hostCities.name}
             </h2>
-            <p className="mt-6 inline-flex border-y border-[#0097b2]/28 py-3 text-sm font-bold uppercase tracking-[0.14em] text-[#0F4C5C] dark:text-[#66C4DC]">
+            <p className="mt-6 inline-flex border-y border-[#FCFAEF]/24 py-3 text-sm font-bold uppercase tracking-[0.14em] text-[#F5C94D]">
               {hostCities.status}
             </p>
-            <p className="mt-6 max-w-xl text-base leading-7 text-[#2F3332]/76 dark:text-[#E6E7E7]/76 md:text-lg">
+            <p className="mt-6 max-w-xl text-base leading-7 text-[#FCFAEF]/78 md:text-lg">
               {hostCities.description}
             </p>
 
             <div className="mt-8 flex max-w-xl flex-col gap-3 sm:flex-row lg:flex-col 2xl:flex-row">
               <ImmersionRegisterInterestButton
-                variant="teal"
-                className="min-h-12 justify-center !text-[#1C1F1E]"
+                variant="gold"
+                className="min-h-12 justify-center"
               />
             </div>
             <Link
               href="/partnerships"
-              className="group mt-6 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-[#0F4C5C] underline decoration-[#eeba2b] decoration-2 underline-offset-4 hover:text-[#0097b2] dark:text-[#66C4DC] dark:hover:text-[#F5C94D]"
+              className="group mt-6 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-[#FCFAEF] underline decoration-[#F5C94D] decoration-2 underline-offset-4 hover:text-[#F5C94D]"
             >
               Partner as a faculty mentor
               <EditorialLinkArrow />

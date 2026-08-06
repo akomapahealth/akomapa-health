@@ -69,6 +69,20 @@ describe("Global Health Immersion Program top-level page", () => {
     );
   });
 
+  it("uses a lighter hero treatment and alternating teal sections", () => {
+    const { container } = renderContent();
+    const heroPanel = container.querySelector("[data-immersion-hero-panel]");
+    const tealSections = container.querySelectorAll(
+      '[data-section-tone="teal"]',
+    );
+
+    expect(heroPanel).toHaveClass("bg-[#07191d]/52");
+    expect(tealSections).toHaveLength(2);
+    tealSections.forEach((section) => {
+      expect(section).toHaveClass("bg-[#0F4C5C]", "text-[#FCFAEF]");
+    });
+  });
+
   it("provides accurate inquiry actions without stale cohort language", () => {
     const { container } = renderContent();
 
