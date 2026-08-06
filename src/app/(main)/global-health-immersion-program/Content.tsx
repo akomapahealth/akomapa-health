@@ -3,6 +3,7 @@ import Breadcrumb from "@/components/layout/Breadcrumb";
 import Image from "@/components/common/Image";
 import { FadeIn } from "@/components/animations";
 import ImmersionAlertSection from "@/components/immersion/ImmersionAlertSection";
+import ImmersionHeroMedia from "@/components/immersion/ImmersionHeroMedia";
 import ImmersionRegisterInterestButton from "@/components/immersion/ImmersionRegisterInterestButton";
 import {
   PublicCta,
@@ -92,11 +93,21 @@ export default function Content() {
 
       <section
         aria-labelledby="immersion-title"
-        className="border-y border-[#FCFAEF]/12 bg-[#0F4C5C] text-[#FCFAEF]"
+        className="relative isolate flex min-h-[620px] items-center overflow-hidden border-y border-[#FCFAEF]/12 bg-[#0F4C5C] text-[#FCFAEF] sm:min-h-[680px] lg:min-h-[720px]"
       >
-        <div className="site-container mx-auto grid items-center gap-12 px-4 py-14 md:py-20 lg:grid-cols-12 lg:gap-16 lg:py-24">
-          <div className="lg:col-span-7">
+        <ImmersionHeroMedia
+          videoSrc={images.hero.videoSrc}
+          posterSrc={images.hero.src}
+          posterAlt={images.hero.alt}
+          posterPosition={images.hero.position}
+        />
+
+        <div className="site-container relative z-10 mx-auto w-full px-4 py-16 md:py-24 lg:py-28">
+          <div className="max-w-4xl border border-[#FCFAEF]/20 bg-[#07191d]/68 p-6 shadow-2xl shadow-black/20 backdrop-blur-md sm:p-8 lg:p-10">
             <SectionEyebrow tone="light">{eyebrow}</SectionEyebrow>
+            <p className="mt-5 inline-flex border border-[#F5C94D]/55 bg-[#F5C94D]/12 px-3 py-2 text-xs font-bold uppercase tracking-[0.2em] text-[#F5C94D] sm:text-sm">
+              Coming 2027
+            </p>
             <h1
               id="immersion-title"
               className="mt-5 max-w-4xl font-heading text-[2.35rem] font-semibold leading-[1.04] tracking-[-0.025em] text-[#FCFAEF] sm:text-[3.1rem] lg:text-[4.35rem]"
@@ -106,37 +117,20 @@ export default function Content() {
             <p className="mt-6 max-w-2xl text-base leading-7 text-[#FCFAEF]/82 sm:text-lg sm:leading-8">
               {introduction}
             </p>
-            <div className="mt-8 flex max-w-xl flex-col items-stretch gap-3 sm:flex-row sm:items-center lg:flex-col lg:items-stretch xl:flex-row xl:items-center">
+            <div className="mt-8 flex max-w-xl flex-col items-stretch gap-3 sm:flex-row sm:items-center">
               <ImmersionRegisterInterestButton
                 variant="gold"
                 className="min-h-12 justify-center"
               />
               <PublicCta
-                href="/contact?type=immersion-brochure"
+                href="#experience"
                 variant="outline-light"
                 className="min-h-12 justify-center"
               >
-                Request Program Brochure
+                Explore the Experience
               </PublicCta>
             </div>
           </div>
-
-          <figure className="lg:col-span-5">
-            <div className="relative aspect-[4/5] overflow-hidden border-l-4 border-[#eeba2b] bg-[#121514]">
-              <Image
-                src={images.hero.src}
-                alt={images.hero.alt}
-                fill
-                priority
-                sizes="(min-width: 1024px) 38vw, 100vw"
-                className="object-cover"
-                style={{ objectPosition: images.hero.position }}
-              />
-            </div>
-            <figcaption className="mt-3 border-t border-[#FCFAEF]/24 pt-3 text-xs font-semibold uppercase tracking-[0.18em] text-[#FCFAEF]/65">
-              Community-centered learning in Ghana
-            </figcaption>
-          </figure>
         </div>
       </section>
 
@@ -145,7 +139,7 @@ export default function Content() {
         className="border-b border-[#1C1F1E]/12 bg-white dark:border-[#FCFAEF]/12 dark:bg-[#1C1F1E]"
       >
         <div className="site-container mx-auto px-4 py-12 md:py-16">
-          <div className="flex flex-col justify-between gap-3 border-b border-[#1C1F1E]/16 pb-6 dark:border-[#FCFAEF]/16 md:flex-row md:items-end">
+          <div className="border-b border-[#1C1F1E]/16 pb-6 dark:border-[#FCFAEF]/16">
             <div>
               <SectionEyebrow>Program overview</SectionEyebrow>
               <h2
@@ -155,21 +149,16 @@ export default function Content() {
                 At a glance
               </h2>
             </div>
-            <p className="max-w-md text-sm leading-6 text-[#2F3332]/65 dark:text-[#E6E7E7]/68">
-              Confirmed program details are shown separately from information
-              that has not yet been announced.
-            </p>
           </div>
 
-          <dl className="grid md:grid-cols-2 xl:grid-cols-4">
+          <dl className="grid md:grid-cols-3">
             {facts.map((fact, index) => (
               <div
                 key={fact.label}
                 className={cn(
-                  "border-b border-[#1C1F1E]/12 py-7 dark:border-[#FCFAEF]/12 md:px-6 xl:border-b-0",
-                  index % 2 === 0 && "md:border-r",
-                  index > 0 && "xl:border-l xl:border-r-0",
-                  index === 0 && "md:pl-0 xl:border-l-0",
+                  "border-b border-[#1C1F1E]/12 py-7 dark:border-[#FCFAEF]/12 md:border-b-0 md:px-6",
+                  index > 0 && "md:border-l",
+                  index === 0 && "md:pl-0",
                 )}
               >
                 <dt className="text-xs font-bold uppercase tracking-[0.18em] text-[#0097b2] dark:text-[#66C4DC]">
@@ -202,7 +191,7 @@ export default function Content() {
           <FadeIn className="lg:col-span-6">
             <SectionHeading
               eyebrow="The program"
-              title="Global health education grounded in place and partnership."
+              title="See health through community, culture, and connection."
               id="program-purpose-title"
             />
             <div className="mt-7 max-w-2xl space-y-5 text-base leading-7 text-[#2F3332]/82 dark:text-[#E6E7E7]/80 md:text-lg md:leading-8">
@@ -230,7 +219,7 @@ export default function Content() {
                 />
               </div>
               <figcaption className="mt-3 text-xs font-semibold uppercase tracking-[0.18em] text-[#2F3332]/58 dark:text-[#FCFAEF]/58">
-                Supervised practice, research, and reflection
+                Learning grounded in place and partnership
               </figcaption>
             </figure>
           </FadeIn>
@@ -238,8 +227,9 @@ export default function Content() {
       </section>
 
       <section
+        id="experience"
         aria-labelledby="participant-experience-title"
-        className="border-y border-[#1C1F1E]/10 bg-white dark:border-[#FCFAEF]/10 dark:bg-[#1C1F1E]"
+        className="scroll-mt-24 border-y border-[#1C1F1E]/10 bg-white dark:border-[#FCFAEF]/10 dark:bg-[#1C1F1E]"
       >
         <div className={sectionContainerClass}>
           <FadeIn>
@@ -418,13 +408,6 @@ export default function Content() {
                 variant="teal"
                 className="min-h-12 justify-center !text-[#1C1F1E]"
               />
-              <PublicCta
-                href="/contact?type=immersion-brochure"
-                variant="outline"
-                className="min-h-12 justify-center"
-              >
-                Request Program Brochure
-              </PublicCta>
             </div>
             <Link
               href="/partnerships"

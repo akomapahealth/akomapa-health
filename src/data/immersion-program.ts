@@ -33,7 +33,9 @@ export type ImmersionProgramContent = {
     description: string;
   };
   images: {
-    hero: ImmersionProgramImage;
+    hero: ImmersionProgramImage & {
+      videoSrc: string;
+    };
     overview: ImmersionProgramImage;
     hostSite: ImmersionProgramImage;
   };
@@ -43,34 +45,27 @@ export const immersionProgram: ImmersionProgramContent = {
   eyebrow: "Global Health Immersion Program",
   title: "Learn through partnership. Lead with understanding.",
   introduction:
-    "A two-week global health learning experience in Ghana that brings students and emerging health professionals into supervised community health practice, applied research, seminars, and structured reflection.",
+    "A two-week global health experience in Ghana connecting emerging health leaders with community learning, primary care, ethical leadership, and cultural exchange.",
   overview: [
-    "The Akomapa Global Health Immersion Program connects learning with supervised practice. Participants work alongside local student teams, faculty, and community partners to understand how prevention, primary care, research, and health systems meet in everyday settings.",
-    "Ghana is the program's first host country. The experience is designed to help participants examine global health work with cultural humility, ethical discipline, and respect for local knowledge.",
+    "Move between health systems and community settings while learning through partnership, reflection, and Ghana's living history. Every experience is designed to build cultural humility and a deeper understanding of locally led health work.",
   ],
   vision:
     "Participants leave with a clearer understanding of community-centered health practice and a stronger foundation for ethical collaboration across cultures, disciplines, and health systems.",
   facts: [
     {
       label: "Duration",
-      value: "2 weeks",
-      description: "An intensive, structured learning experience.",
+      value: "Two weeks",
+      description: "An immersive learning journey in Ghana.",
     },
     {
-      label: "First host site",
-      value: "University of Ghana, Legon",
-      description: "Beginning at the University of Ghana.",
-    },
-    {
-      label: "Credential",
-      value: "Certificate",
-      description:
-        "Akomapa Certificate in Global Health and Community Engagement.",
+      label: "Host cities",
+      value: "Accra & Cape Coast",
+      description: "Two cities, one connected experience.",
     },
     {
       label: "Next cohort",
-      value: "Details forthcoming",
-      description: "Dates, fees, and application timing are not yet announced.",
+      value: "Coming 2027",
+      description: "Applications opening soon.",
     },
   ],
   experiences: [
@@ -185,8 +180,9 @@ export const immersionProgram: ImmersionProgramContent = {
   },
   images: {
     hero: {
+      videoSrc: "/immersion-hero.mp4",
       src: "/highlights/Akomapa-40.jpg",
-      alt: "A community member receiving an eye examination during an Akomapa health program",
+      alt: "A community member taking part in an Akomapa health program in Ghana",
       position: "center",
     },
     overview: {

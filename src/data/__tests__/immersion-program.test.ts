@@ -2,18 +2,19 @@ import { describe, expect, it } from "vitest";
 import { immersionProgram } from "@/data/immersion-program";
 
 describe("immersion program content", () => {
-  it("preserves the verified program facts and complete learning model", () => {
-    expect(immersionProgram.facts).toEqual(
-      expect.arrayContaining([
-        expect.objectContaining({ label: "Duration", value: "2 weeks" }),
-        expect.objectContaining({
-          label: "First host site",
-          value: "University of Ghana, Legon",
-        }),
-        expect.objectContaining({ label: "Credential", value: "Certificate" }),
-      ]),
-    );
+  it("publishes the concise program overview and video source", () => {
+    expect(immersionProgram.facts).toEqual([
+      expect.objectContaining({ label: "Duration", value: "Two weeks" }),
+      expect.objectContaining({
+        label: "Host cities",
+        value: "Accra & Cape Coast",
+      }),
+      expect.objectContaining({ label: "Next cohort", value: "Coming 2027" }),
+    ]);
     expect(immersionProgram.introduction).toContain("two-week");
+    expect(immersionProgram.images.hero.videoSrc).toBe(
+      "/immersion-hero.mp4",
+    );
     expect(immersionProgram.hostSite.name).toBe(
       "University of Ghana, Legon",
     );
@@ -27,8 +28,8 @@ describe("immersion program content", () => {
     const serializedContent = JSON.stringify(immersionProgram);
 
     expect(serializedContent).not.toMatch(
-      /January 2026|Summer 2026|2026 Pilot Cohort|Program Fees|TBD/,
+      /January 2026|Summer 2026|2026 Pilot Cohort|Program Fees|TBD|Certificate/,
     );
-    expect(serializedContent).toContain("Next cohort details forthcoming");
+    expect(serializedContent).toContain("Coming 2027");
   });
 });

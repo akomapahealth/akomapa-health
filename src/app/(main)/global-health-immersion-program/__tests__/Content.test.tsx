@@ -27,7 +27,7 @@ describe("Global Health Immersion Program top-level page", () => {
 
     [
       "At a glance",
-      "Global health education grounded in place and partnership.",
+      "See health through community, culture, and connection.",
       "What participants experience",
       "How participants learn",
       "Who the program is for",
@@ -78,14 +78,12 @@ describe("Global Health Immersion Program top-level page", () => {
       expect(button).toHaveAttribute("data-immersion-register-interest");
     });
 
-    screen
-      .getAllByRole("link", { name: "Request Program Brochure" })
-      .forEach((link) => {
-        expect(link).toHaveAttribute(
-          "href",
-          "/contact?type=immersion-brochure",
-        );
-      });
+    expect(
+      screen.getByRole("link", { name: "Explore the Experience" }),
+    ).toHaveAttribute("href", "#experience");
+    expect(
+      screen.queryByRole("link", { name: "Request Program Brochure" }),
+    ).not.toBeInTheDocument();
     expect(
       screen.getByRole("link", { name: /Partner as a faculty mentor/ }),
     ).toHaveAttribute("href", "/partnerships");
