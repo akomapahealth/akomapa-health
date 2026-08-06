@@ -11,6 +11,7 @@ async function preparePage(page: Page) {
         "akomapa-announcements-dismissed",
         announcementVersion,
       );
+      sessionStorage.setItem("akomapa-announcement-tip-dismissed", "1");
       localStorage.setItem("akomapa-theme", "light");
       document.documentElement.classList.remove("light", "dark");
       document.documentElement.classList.add("light");
@@ -20,6 +21,7 @@ async function preparePage(page: Page) {
 }
 
 async function openAlertModal(page: Page) {
+  await expect(page.locator("[data-immersion-hero-video]")).toHaveCount(1);
   const cta = page.getByRole("button", {
     name: IMMERSION_INTEREST_COPY.section.cta,
     exact: true,
@@ -38,6 +40,7 @@ test.describe("Immersion alert signup modal", () => {
     await page.goto("/global-health-immersion-program", {
       waitUntil: "domcontentloaded",
     });
+    await expect(page.locator("[data-immersion-hero-video]")).toHaveCount(1);
 
     const hero = page.getByRole("region", {
       name: immersionProgram.title,

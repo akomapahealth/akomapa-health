@@ -28,6 +28,7 @@ async function preparePage(
         "akomapa-announcements-dismissed",
         announcementVersion,
       );
+      sessionStorage.setItem("akomapa-announcement-tip-dismissed", "1");
       localStorage.setItem("akomapa-theme", storedTheme);
       document.documentElement.classList.remove("light", "dark");
       document.documentElement.classList.add(storedTheme);
@@ -61,6 +62,9 @@ test.describe("Immersion program responsive editorial layout", () => {
         await page.goto("/global-health-immersion-program", {
           waitUntil: "domcontentloaded",
         });
+        await expect(page.locator("[data-immersion-hero-video]")).toHaveCount(
+          1,
+        );
         await page.evaluate(async () => document.fonts.ready);
 
         const pageShell = page.locator("[data-immersion-page]");
@@ -72,7 +76,7 @@ test.describe("Immersion program responsive editorial layout", () => {
           }),
         ).toBeVisible();
         await expect(page.locator("main h1")).toHaveCount(1);
-        await expect(pageShell.locator("section")).toHaveCount(8);
+        await expect(pageShell.locator("section")).toHaveCount(7);
 
         await assertNoHorizontalOverflow(page);
 
@@ -80,9 +84,9 @@ test.describe("Immersion program responsive editorial layout", () => {
           const headings = Array.from(
             element.querySelectorAll<HTMLElement>("h1, h2, h3"),
           );
-          const brochureLinks = Array.from(
+          const experienceLinks = Array.from(
             element.querySelectorAll<HTMLElement>(
-              'a[href="/contact?type=immersion-brochure"]',
+              'a[href="#experience"]',
             ),
           );
           const interestButtons = Array.from(
@@ -95,7 +99,7 @@ test.describe("Immersion program responsive editorial layout", () => {
             headingOverflow: headings.some(
               (heading) => heading.scrollWidth > heading.clientWidth + 1,
             ),
-            brochureLinks: brochureLinks.map((link) => {
+            experienceLinks: experienceLinks.map((link) => {
               const rect = link.getBoundingClientRect();
               return {
                 text: link.textContent?.trim(),
@@ -119,9 +123,9 @@ test.describe("Immersion program responsive editorial layout", () => {
         });
 
         expect(layoutChecks.headingOverflow).toBe(false);
-        expect(layoutChecks.brochureLinks).toHaveLength(2);
+        expect(layoutChecks.experienceLinks).toHaveLength(1);
         expect(layoutChecks.interestButtons).toHaveLength(3);
-        for (const link of layoutChecks.brochureLinks) {
+        for (const link of layoutChecks.experienceLinks) {
           expect(link.height, link.text).toBeGreaterThanOrEqual(44);
           expect(link.clipped, link.text).toBe(false);
           expect(link.labelOverflow, link.text).toBe(false);
@@ -186,6 +190,69 @@ test.describe("Immersion program responsive editorial layout", () => {
         }),
       )
       .toEqual({ opacity: "1", transform: "none" });
+
+    await expect(page.locator("[data-immersion-hero-video]")).toHaveCount(0);
+    await expect(
+      page.locator("[data-immersion-hero-media] img"),
+    ).toBeVisible();
+  });
+
+  test("hero video is decorative, muted, inline, and poster-backed", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1280, height: 800 });
+    await preparePage(page, "light");
+    await page.goto("/global-health-immersion-program", {
+      waitUntil: "domcontentloaded",
+    });
+
+    const video = page.locator("[data-immersion-hero-video]");
+    await expect(video).toHaveCount(1);
+    await expect(page.locator("[data-immersion-hero-media] img")).toBeVisible();
+
+    expect(
+      await video.evaluate((element) => {
+        const media = element as HTMLVideoElement;
+        return {
+          ariaHidden: media.getAttribute("aria-hidden"),
+          autoplay: media.autoplay,
+          loop: media.loop,
+          muted: media.muted,
+          playsInline: media.playsInline,
+          poster: media.poster,
+        };
+      }),
+    ).toMatchObject({
+      ariaHidden: "true",
+      autoplay: true,
+      loop: true,
+      muted: true,
+      playsInline: true,
+    });
+    await expect(video).toHaveAttribute("poster", /Akomapa-40\.jpg/);
+  });
+
+  test("Explore the Experience moves to the four program pillars", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await preparePage(page, "light");
+    await page.goto("/global-health-immersion-program", {
+      waitUntil: "domcontentloaded",
+    });
+    await expect(page.locator("[data-immersion-hero-video]")).toHaveCount(1);
+
+    await page
+      .getByRole("link", { name: "Explore the Experience", exact: true })
+      .click();
+
+    await expect(page).toHaveURL(/#experience$/);
+    await expect(
+      page.getByRole("heading", {
+        level: 2,
+        name: "What participants experience",
+      }),
+    ).toBeInViewport();
   });
 
   test("primary hero inquiry action has visible keyboard focus", async ({
@@ -196,6 +263,7 @@ test.describe("Immersion program responsive editorial layout", () => {
     await page.goto("/global-health-immersion-program", {
       waitUntil: "domcontentloaded",
     });
+    await expect(page.locator("[data-immersion-hero-video]")).toHaveCount(1);
 
     const hero = page.getByRole("region", {
       name: immersionProgram.title,
