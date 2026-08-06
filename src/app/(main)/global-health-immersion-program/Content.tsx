@@ -75,10 +75,8 @@ export default function Content() {
     vision,
     facts,
     experiences,
-    learningComponents,
     audiences,
-    outcomes,
-    hostSite,
+    hostCities,
     images,
   } = immersionProgram;
 
@@ -236,28 +234,38 @@ export default function Content() {
             <SectionHeading
               eyebrow="The experience"
               title="What participants experience"
-              description="The program combines supervised community health practice, academic study, research, reflection, and cultural learning."
+              description="Four connected experiences bring global health learning to life."
               id="participant-experience-title"
             />
           </FadeIn>
 
-          <ol className="mt-12 grid lg:grid-cols-2 lg:gap-x-12">
+          <ol className="mt-12 grid gap-6 md:grid-cols-2">
             {experiences.map((experience, index) => (
               <li
                 key={experience.title}
-                className="grid grid-cols-[2.75rem_1fr] gap-4 border-t border-[#1C1F1E]/16 py-6 dark:border-[#FCFAEF]/16 md:grid-cols-[3.5rem_1fr] md:py-7"
+                className="group overflow-hidden border border-[#1C1F1E]/12 bg-[#FCFAEF] dark:border-[#FCFAEF]/12 dark:bg-[#121514]"
               >
-                <span
-                  aria-hidden="true"
-                  className="font-heading text-sm font-semibold tracking-[0.14em] text-[#C9920F] dark:text-[#F5C94D]"
-                >
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-                <div>
-                  <h3 className="font-heading text-lg font-semibold leading-7 md:text-xl">
+                <div className="relative aspect-[4/3] overflow-hidden bg-[#E6E7E7] dark:bg-[#2F3332]">
+                  <Image
+                    src={experience.image.src}
+                    alt={experience.image.alt}
+                    fill
+                    sizes="(min-width: 768px) 50vw, 100vw"
+                    className="object-cover transition-transform duration-500 motion-safe:group-hover:scale-[1.025]"
+                    style={{ objectPosition: experience.image.position }}
+                  />
+                  <span
+                    aria-hidden="true"
+                    className="absolute left-4 top-4 border border-[#FCFAEF]/35 bg-[#07191d]/78 px-3 py-2 font-heading text-xs font-semibold tracking-[0.16em] text-[#F5C94D] backdrop-blur-sm"
+                  >
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                </div>
+                <div className="p-6 sm:p-7">
+                  <h3 className="font-heading text-xl font-semibold leading-7 md:text-2xl">
                     {experience.title}
                   </h3>
-                  <p className="mt-2 max-w-xl text-sm leading-6 text-[#2F3332]/72 dark:text-[#E6E7E7]/72 md:text-base md:leading-7">
+                  <p className="mt-3 max-w-xl text-sm leading-6 text-[#2F3332]/72 dark:text-[#E6E7E7]/72 md:text-base md:leading-7">
                     {experience.description}
                   </p>
                 </div>
@@ -268,105 +276,51 @@ export default function Content() {
       </section>
 
       <section
-        aria-labelledby="learning-components-title"
-        className="bg-[#121514] text-[#FCFAEF]"
+        aria-labelledby="eligibility-title"
+        className="bg-[#FCFAEF] dark:bg-[#121514]"
       >
         <div className={sectionContainerClass}>
           <FadeIn>
             <SectionHeading
-              eyebrow="Learning model"
-              title="How participants learn"
-              description="Each component connects practical experience with disciplined inquiry and guided reflection."
-              tone="light"
-              id="learning-components-title"
+              eyebrow="Eligibility"
+              title="Who the program is for"
+              description="For learners ready to approach community health with curiosity, humility, and care."
+              id="eligibility-title"
             />
           </FadeIn>
 
-          <ol className="mt-12 border-b border-[#FCFAEF]/18">
-            {learningComponents.map((component, index) => (
+          <ul className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {audiences.map((audience) => (
               <li
-                key={component.title}
-                className="grid gap-4 border-t border-[#FCFAEF]/18 py-7 md:grid-cols-[4rem_minmax(13rem,0.75fr)_1.25fr] md:items-baseline md:gap-8"
+                key={audience.title}
+                className="group overflow-hidden border border-[#1C1F1E]/12 bg-white dark:border-[#FCFAEF]/12 dark:bg-[#1C1F1E]"
               >
-                <span
-                  aria-hidden="true"
-                  className="text-xs font-bold tracking-[0.2em] text-[#F5C94D]"
-                >
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-                <h3 className="font-heading text-xl font-semibold leading-7 text-[#FCFAEF]">
-                  {component.title}
-                </h3>
-                <p className="max-w-2xl text-sm leading-6 text-[#FCFAEF]/70 md:text-base md:leading-7">
-                  {component.description}
-                </p>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
-
-      <section
-        aria-labelledby="eligibility-title"
-        className="bg-[#FCFAEF] dark:bg-[#121514]"
-      >
-        <div className={cn(sectionContainerClass, "grid gap-14 lg:grid-cols-2 lg:gap-20")}>
-          <div>
-            <FadeIn>
-              <SectionHeading
-                eyebrow="Eligibility"
-                title="Who the program is for"
-                description="The experience is designed for learners prepared to approach community health with curiosity, humility, and care."
-                id="eligibility-title"
-              />
-            </FadeIn>
-            <ul className="mt-10 border-b border-[#1C1F1E]/14 dark:border-[#FCFAEF]/14">
-              {audiences.map((audience) => (
-                <li
-                  key={audience.title}
-                  className="border-t border-[#1C1F1E]/14 py-6 dark:border-[#FCFAEF]/14"
-                >
-                  <h3 className="font-heading text-lg font-semibold leading-7">
+                <div className="relative aspect-[4/3] overflow-hidden bg-[#E6E7E7] dark:bg-[#2F3332]">
+                  <Image
+                    src={audience.image.src}
+                    alt={audience.image.alt}
+                    fill
+                    sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                    className="object-cover transition-transform duration-500 motion-safe:group-hover:scale-[1.025]"
+                    style={{ objectPosition: audience.image.position }}
+                  />
+                </div>
+                <div className="p-6">
+                  <h3 className="font-heading text-lg font-semibold leading-7 md:text-xl">
                     {audience.title}
                   </h3>
-                  <p className="mt-2 text-sm leading-6 text-[#2F3332]/72 dark:text-[#E6E7E7]/72 md:text-base md:leading-7">
+                  <p className="mt-3 text-sm leading-6 text-[#2F3332]/72 dark:text-[#E6E7E7]/72 md:text-base md:leading-7">
                     {audience.description}
                   </p>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div aria-labelledby="participant-outcomes-title">
-            <FadeIn delay={0.08}>
-              <SectionHeading
-                eyebrow="Participant development"
-                title="What participants develop"
-                description="These are learning outcomes, not claims of achieved community impact."
-                id="participant-outcomes-title"
-              />
-            </FadeIn>
-            <ul className="mt-10 border-b border-[#1C1F1E]/14 dark:border-[#FCFAEF]/14">
-              {outcomes.map((outcome) => (
-                <li
-                  key={outcome.title}
-                  className="border-t border-[#1C1F1E]/14 py-6 dark:border-[#FCFAEF]/14"
-                >
-                  <h3 className="font-heading text-lg font-semibold leading-7">
-                    {outcome.title}
-                  </h3>
-                  <p className="mt-2 text-sm leading-6 text-[#2F3332]/72 dark:text-[#E6E7E7]/72 md:text-base md:leading-7">
-                    {outcome.description}
-                  </p>
-                </li>
-              ))}
-            </ul>
-          </div>
+                </div>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 
       <section
-        aria-labelledby="host-site-title"
+        aria-labelledby="host-cities-title"
         className="border-t border-[#1C1F1E]/12 bg-white dark:border-[#FCFAEF]/12 dark:bg-[#1C1F1E]"
       >
         <div
@@ -378,29 +332,29 @@ export default function Content() {
           <figure className="lg:col-span-6">
             <div className="relative aspect-[16/11] overflow-hidden border-b-4 border-[#eeba2b] bg-[#E6E7E7] dark:bg-[#2F3332]">
               <Image
-                src={images.hostSite.src}
-                alt={images.hostSite.alt}
+                src={hostCities.image.src}
+                alt={hostCities.image.alt}
                 fill
                 sizes="(min-width: 1024px) 48vw, 100vw"
                 className="object-cover"
-                style={{ objectPosition: images.hostSite.position }}
+                style={{ objectPosition: hostCities.image.position }}
               />
             </div>
           </figure>
 
           <div className="lg:col-span-6">
-            <SectionEyebrow>{hostSite.heading}</SectionEyebrow>
+            <SectionEyebrow>{hostCities.heading}</SectionEyebrow>
             <h2
-              id="host-site-title"
+              id="host-cities-title"
               className="mt-4 font-heading text-[1.9rem] font-semibold leading-[1.14] tracking-tight md:text-[2.4rem] lg:text-[2.8rem]"
             >
-              {hostSite.name}
+              {hostCities.name}
             </h2>
             <p className="mt-6 inline-flex border-y border-[#0097b2]/28 py-3 text-sm font-bold uppercase tracking-[0.14em] text-[#0F4C5C] dark:text-[#66C4DC]">
-              {hostSite.status}
+              {hostCities.status}
             </p>
             <p className="mt-6 max-w-xl text-base leading-7 text-[#2F3332]/76 dark:text-[#E6E7E7]/76 md:text-lg">
-              {hostSite.description}
+              {hostCities.description}
             </p>
 
             <div className="mt-8 flex max-w-xl flex-col gap-3 sm:flex-row lg:flex-col 2xl:flex-row">

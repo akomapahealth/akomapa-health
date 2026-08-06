@@ -15,6 +15,10 @@ export type ImmersionProgramImage = {
   position?: string;
 };
 
+export type ImmersionProgramVisualItem = ImmersionProgramItem & {
+  image: ImmersionProgramImage;
+};
+
 export type ImmersionProgramContent = {
   eyebrow: string;
   title: string;
@@ -22,22 +26,20 @@ export type ImmersionProgramContent = {
   overview: readonly string[];
   vision: string;
   facts: readonly ImmersionProgramFact[];
-  experiences: readonly ImmersionProgramItem[];
-  learningComponents: readonly ImmersionProgramItem[];
-  audiences: readonly ImmersionProgramItem[];
-  outcomes: readonly ImmersionProgramItem[];
-  hostSite: {
+  experiences: readonly ImmersionProgramVisualItem[];
+  audiences: readonly ImmersionProgramVisualItem[];
+  hostCities: {
     heading: string;
     name: string;
     status: string;
     description: string;
+    image: ImmersionProgramImage;
   };
   images: {
     hero: ImmersionProgramImage & {
       videoSrc: string;
     };
     overview: ImmersionProgramImage;
-    hostSite: ImmersionProgramImage;
   };
 };
 
@@ -70,113 +72,89 @@ export const immersionProgram: ImmersionProgramContent = {
   ],
   experiences: [
     {
-      title: "Student-Powered Community Health Hubs",
+      title: "Community Partnership",
       description:
-        "Take part in supervised screening, counseling, health education, and follow-up alongside local student teams.",
+        "Work alongside local teams on priorities shaped by the communities they serve.",
+      image: {
+        src: "/highlights/Akomapa-66.jpg",
+        alt: "Akomapa volunteers gathered together in a Ghanaian community",
+        position: "center",
+      },
     },
     {
-      title: "Community Partnership Projects",
+      title: "Primary Care & Global Health",
       description:
-        "Develop engagement activities with local partners around priorities they identify.",
-    },
-    {
-      title: "Applied Research",
-      description:
-        "Investigate public health questions through field-based qualitative and quantitative work.",
-    },
-    {
-      title: "Mentored Seminars",
-      description:
-        "Work through cases with Akomapa mentors, university faculty, and global health practitioners.",
-    },
-    {
-      title: "Health Systems Learning",
-      description:
-        "Study how national, regional, and community health services connect from policy to primary care.",
-    },
-    {
-      title: "Leadership Circles",
-      description:
-        "Use facilitated reflection to examine ethics, power, responsibility, and cultural humility.",
-    },
-    {
-      title: "Cultural Learning",
-      description:
-        "Engage Ghana's history and culture as essential context for responsible partnership.",
-    },
-  ],
-  learningComponents: [
-    {
-      title: "Community-Based Practice",
-      description:
-        "Supervised participation in Akomapa's community health and education activities.",
-    },
-    {
-      title: "Community-Based Research",
-      description:
-        "Small-group inquiry into real public health questions using qualitative and quantitative methods.",
+        "See how prevention, screening, health education, and follow-up connect across care settings.",
+      image: {
+        src: "/highlights/Akomapa-40.jpg",
+        alt: "A community member participating in a primary care eye screening",
+        position: "center",
+      },
     },
     {
       title: "Ethical Leadership",
       description:
-        "Peer discussion that connects field experience with cultural humility, ethics, and systems thinking.",
+        "Explore trust, power, sustainability, and responsibility through mentored discussion and reflection.",
+      image: {
+        src: "/gallery/gallery-pic-14.jpg",
+        alt: "Students participating in a facilitated leadership discussion",
+        position: "center",
+      },
     },
     {
-      title: "Expert Seminars",
+      title: "Cultural Immersion & Exchange",
       description:
-        "Faculty-led sessions on NCD prevention, health systems, research, and responsible practice.",
-    },
-    {
-      title: "Capstone Reflection",
-      description:
-        "A final presentation of project findings and personal learning to peers, mentors, and community partners.",
+        "Experience Ghana's history and culture while building genuine relationships across perspectives.",
+      image: {
+        src: "/akomapa-hangout/Akomapa_hangout-107.jpg",
+        alt: "A diverse group of Akomapa participants gathering in Ghana",
+        position: "center",
+      },
     },
   ],
   audiences: [
     {
       title: "Undergraduate and Pre-Medical Students",
       description:
-        "Students exploring medicine, global health, public health, or public service through community-centered learning.",
+        "Students exploring medicine, public health, global health, or service.",
+      image: {
+        src: "/gallery/gallery-pic-10.jpg",
+        alt: "Undergraduate students learning together in a classroom",
+        position: "center",
+      },
     },
     {
       title: "Health Professional Students",
       description:
-        "Medical, nursing, pharmacy, public health, and allied health students seeking interprofessional experience.",
+        "Medical, nursing, pharmacy, public health, and allied health learners.",
+      image: {
+        src: "/highlights/Akomapa-12.jpg",
+        alt: "Health professional students supporting community care in Ghana",
+        position: "center",
+      },
     },
     {
       title: "Graduate Students and Early-Career Professionals",
       description:
-        "Emerging professionals committed to ethical global engagement and stronger health systems.",
+        "Graduate learners and emerging professionals ready to deepen ethical, community-centered practice.",
+      image: {
+        src: "/akomapa-hangout/Akomapa_hangout-31.jpg",
+        alt: "An early-career professional connecting with peers at an Akomapa gathering",
+        position: "center",
+      },
     },
   ],
-  outcomes: [
-    {
-      title: "Cross-Cultural Collaboration",
-      description:
-        "Practice listening, communicating, and working responsibly across cultures and disciplines.",
-    },
-    {
-      title: "Community-Defined Problem Solving",
-      description:
-        "Learn to begin with local priorities and build responses with community partners.",
-    },
-    {
-      title: "Supervised, Student-Powered Care",
-      description:
-        "Understand how students contribute meaningfully while licensed professionals retain clinical oversight.",
-    },
-    {
-      title: "Reflective Leadership",
-      description:
-        "Connect practical experience with ethical reasoning, humility, and professional responsibility.",
-    },
-  ],
-  hostSite: {
-    heading: "First host site",
-    name: "University of Ghana, Legon",
-    status: "Next cohort details forthcoming",
+  hostCities: {
+    heading: "Across Ghana",
+    name: "Accra and Cape Coast",
+    status: "One journey. Two host cities.",
     description:
-      "Dates, fees, and application timing will be published after they are confirmed. Prospective participants can register interest now to request an update.",
+      "Experience the energy of Accra and the history of Cape Coast through community learning, health systems exploration, cultural exchange, and time to reflect.",
+    image: {
+      src: "/akomapa-hangout/Akomapa_hangout-6.jpg",
+      alt: "Akomapa participants exchanging ideas around a table in Ghana",
+      position: "center",
+    },
   },
   images: {
     hero: {
@@ -188,11 +166,6 @@ export const immersionProgram: ImmersionProgramContent = {
     overview: {
       src: "/highlights/Akomapa-66.jpg",
       alt: "Students taking part in a supervised community health learning experience",
-      position: "center",
-    },
-    hostSite: {
-      src: "/highlights/Akomapa-12.jpg",
-      alt: "Akomapa participants gathered during a health program in Ghana",
       position: "center",
     },
   },

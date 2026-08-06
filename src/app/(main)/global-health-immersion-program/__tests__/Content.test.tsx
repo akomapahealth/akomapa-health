@@ -29,10 +29,8 @@ describe("Global Health Immersion Program top-level page", () => {
       "At a glance",
       "See health through community, culture, and connection.",
       "What participants experience",
-      "How participants learn",
       "Who the program is for",
-      "What participants develop",
-      immersionProgram.hostSite.name,
+      immersionProgram.hostCities.name,
       IMMERSION_INTEREST_COPY.section.heading,
     ].forEach((heading) => {
       expect(
@@ -54,17 +52,21 @@ describe("Global Health Immersion Program top-level page", () => {
 
     [
       ...immersionProgram.experiences,
-      ...immersionProgram.learningComponents,
       ...immersionProgram.audiences,
-      ...immersionProgram.outcomes,
     ].forEach((item) => {
       expect(
         screen.getByRole("heading", { level: 3, name: item.title }),
       ).toBeInTheDocument();
     });
 
-    expect(container.querySelectorAll("ol")).toHaveLength(2);
-    expect(container.querySelectorAll("ul")).toHaveLength(2);
+    expect(container.querySelectorAll("ol")).toHaveLength(1);
+    expect(container.querySelectorAll("ul")).toHaveLength(1);
+
+    [...immersionProgram.experiences, ...immersionProgram.audiences].forEach(
+      (item) => {
+        expect(screen.getByAltText(item.image.alt)).toBeInTheDocument();
+      },
+    );
   });
 
   it("provides accurate inquiry actions without stale cohort language", () => {
@@ -94,7 +96,7 @@ describe("Global Health Immersion Program top-level page", () => {
     ).toBeInTheDocument();
 
     expect(container.textContent).not.toMatch(
-      /January 2026|Summer 2026|2026 Pilot Cohort|Program Fees|TBD/,
+      /January 2026|Summer 2026|2026 Pilot Cohort|Program Fees|TBD|Certificate|University of Ghana|Learning Model|Participant Development|Applied Research|Leadership Circles/,
     );
   });
 });
