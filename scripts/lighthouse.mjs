@@ -26,6 +26,10 @@ const ROUTES = [
   { path: "/about/team", name: "about-team" },
   { path: "/programs", name: "programs" },
   { path: "/programs/akomapa-ghltp", name: "programs-akomapa-ghltp" },
+  {
+    path: "/global-health-immersion-program",
+    name: "global-health-immersion-program",
+  },
 ];
 
 const LABEL = process.env.LIGHTHOUSE_LABEL || "before";

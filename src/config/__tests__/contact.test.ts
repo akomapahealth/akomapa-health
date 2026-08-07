@@ -10,8 +10,8 @@ function readSource(path: string) {
 describe("canonical contact configuration", () => {
   it("publishes the approved organization email", () => {
     expect(CONTACT.email).toEqual({
-      display: "akomapahealth@gmail.com",
-      href: "mailto:akomapahealth@gmail.com",
+      display: "info@akomapa.org",
+      href: "mailto:info@akomapa.org",
     });
   });
 
@@ -67,6 +67,8 @@ describe("canonical contact configuration", () => {
       "src/components/contact/ContactForm.tsx",
       "src/components/layout/Footer.tsx",
       "src/components/contact/LocationMap.tsx",
+      "src/components/partnerships/CorporateSponsorshipContent.tsx",
+      "src/components/get-involved/GetInvolvedCTA.tsx",
     ]) {
       const source = readSource(path);
 

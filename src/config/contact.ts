@@ -10,8 +10,8 @@ export type ContactOffice = Readonly<{
 
 export const CONTACT = {
   email: {
-    display: "akomapahealth@gmail.com",
-    href: "mailto:akomapahealth@gmail.com",
+    display: "info@akomapa.org",
+    href: "mailto:info@akomapa.org",
   },
   offices: [
     {

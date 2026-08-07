@@ -9,63 +9,94 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import MobileNav from "./MobileNav";
 import { ThemeToggle } from "@/components/theme/ThemeToggle";
 import BrandLogo from "@/components/shared/BrandLogo";
-
-type NavChild = { name: string; href: string };
-type NavItem = { name: string; href: string; children?: NavChild[] };
-
-// Navigation structure
-const navigation: NavItem[] = [
-  { name: "Home", href: "/" },
-  {
-    name: "About",
-    href: "/about",
-    children: [
-      { name: "Our Story", href: "/about" },
-      { name: "Our Team", href: "/about/team" },
-      { name: "Our Philosophy", href: "/philosophy" },
-      { name: "Thought Leadership", href: "/blog" },
-    ],
-  },
-  { name: "Academy", href: "/academy" },
-  {
-    name: "Community Health Hubs",
-    href: "/community-hubs",
-    children: [
-      { name: "All Hubs", href: "/community-hubs" },
-      { name: "Akomapa UCC Hub", href: "/community-hubs/ucc" },
-      { name: "Akomapa UG Hub", href: "/community-hubs/ug" },
-      { name: "Akomapa NHP Yale Hub", href: "/community-hubs/nhp" },
-    ],
-  },
-  { name: "Research & Innovation", href: "/research" },
-  { name: "Impact", href: "/impact" },
-  { name: "Partnerships", href: "/partnerships" },
-  { name: "Get Involved", href: "/get-involved" },
-];
+import {
+  isNavigationItemActive,
+  isNavigationGroup,
+  isNavigationPathActive,
+  mainNavigation,
+  type NavigationGroup,
+  type NavigationNode,
+} from "@/config/navigation";
 
 const navLinkClass = (isActive: boolean) =>
-  `flex items-center gap-1 whitespace-nowrap text-[13px] 2xl:text-sm font-subheading font-medium leading-none transition-colors hover:text-[#eeba2b] dark:hover:text-[#eeba2b] ${
-    isActive ? "text-[#0097b2]" : "text-[#2F3332] dark:text-[#FCFAEF]"
+  `relative flex min-h-11 items-center gap-1.5 whitespace-nowrap rounded-md px-2 font-subheading text-sm font-medium leading-none transition-colors after:absolute after:inset-x-2 after:bottom-0 after:h-0.5 after:origin-center after:scale-x-0 after:bg-[#0097b2] after:transition-transform hover:bg-[#eeba2b]/8 hover:text-[#9A6A00] dark:hover:bg-[#eeba2b]/10 dark:hover:text-[#F5C94D] ${
+    isActive
+      ? "bg-[#0097b2]/8 text-[#007F96] after:scale-x-100 dark:bg-[#66C4DC]/10 dark:text-[#66C4DC]"
+      : "text-[#2F3332] dark:text-[#FCFAEF]"
   }`;
 
 const dropdownPanelClass =
-  "w-56 rounded-md shadow-lg bg-[#FCFAEF] dark:bg-[#2F3332] ring-1 ring-[#C1C3C3] ring-opacity-5 dark:ring-[#FCFAEF] dark:ring-opacity-10";
+  "min-w-64 rounded-lg border border-[#0F4C5C]/12 bg-[#FCFAEF] p-1.5 shadow-[0_18px_45px_rgba(15,76,92,0.16)] dark:border-[#FCFAEF]/10 dark:bg-[#202423]";
 
 const dropdownItemClass = (isActive: boolean) =>
-  `block px-4 py-2 text-sm font-body cursor-pointer ${
+  `flex min-h-11 items-center rounded-md px-3.5 py-2.5 text-sm font-body cursor-pointer outline-none transition-colors ${
     isActive
-      ? "bg-[#0097b2]/10 dark:bg-[#0097b2]/20 text-[#0097b2] dark:text-[#FCFAEF]"
-      : "text-[#2F3332] dark:text-[#FCFAEF] hover:bg-[#eeba2b]/10 dark:hover:bg-[#eeba2b]/20 hover:text-[#eeba2b]"
+      ? "bg-[#0097b2]/10 text-[#007F96] dark:bg-[#66C4DC]/12 dark:text-[#66C4DC]"
+      : "text-[#2F3332] hover:bg-[#eeba2b]/10 hover:text-[#8A6100] dark:text-[#FCFAEF] dark:hover:bg-[#eeba2b]/12 dark:hover:text-[#F5C94D]"
   }`;
 
-function NavDropdown({ item, pathname }: { item: NavItem; pathname: string }) {
-  const isActive =
-    pathname === item.href || pathname.startsWith(`${item.href}/`);
+function NavDropdownNode({
+  item,
+  pathname,
+}: {
+  item: NavigationNode;
+  pathname: string;
+}) {
+  const isActive = isNavigationItemActive(pathname, item);
+
+  if (isNavigationGroup(item)) {
+    return (
+      <DropdownMenuSub>
+        <DropdownMenuSubTrigger className={dropdownItemClass(isActive)}>
+          {item.name}
+        </DropdownMenuSubTrigger>
+        <DropdownMenuSubContent
+          sideOffset={6}
+          className={dropdownPanelClass}
+        >
+          {item.children.map((child) => (
+            <NavDropdownNode
+              key={child.name}
+              item={child}
+              pathname={pathname}
+            />
+          ))}
+        </DropdownMenuSubContent>
+      </DropdownMenuSub>
+    );
+  }
+
+  return (
+    <DropdownMenuItem asChild>
+      <Link
+        href={item.href}
+        aria-current={
+          isNavigationPathActive(pathname, item.href) ? "page" : undefined
+        }
+        className={dropdownItemClass(isActive)}
+      >
+        {item.name}
+      </Link>
+    </DropdownMenuItem>
+  );
+}
+
+function NavDropdown({
+  item,
+  pathname,
+}: {
+  item: NavigationGroup;
+  pathname: string;
+}) {
+  const isActive = isNavigationItemActive(pathname, item);
 
   return (
     <DropdownMenu>
@@ -80,12 +111,12 @@ function NavDropdown({ item, pathname }: { item: NavItem; pathname: string }) {
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="start" className={dropdownPanelClass}>
-        {item.children!.map((child) => (
-          <DropdownMenuItem key={child.name} asChild>
-            <Link href={child.href} className={dropdownItemClass(pathname === child.href)}>
-              {child.name}
-            </Link>
-          </DropdownMenuItem>
+        {item.children.map((child) => (
+          <NavDropdownNode
+            key={child.name}
+            item={child}
+            pathname={pathname}
+          />
         ))}
       </DropdownMenuContent>
     </DropdownMenu>
@@ -112,48 +143,51 @@ function HeaderContent() {
 
   return (
     <header
-      className={`sticky top-0 z-50 w-full transition-all duration-300 ${
+      className={`sticky top-0 z-50 w-full border-b border-[#0F4C5C]/10 backdrop-blur-xl transition-all duration-300 dark:border-[#FCFAEF]/10 ${
         isScrolled
-          ? "bg-[#FCFAEF] shadow-md py-2 dark:bg-[#121514]"
-          : "bg-[#FCFAEF]/80 backdrop-blur-md py-4 dark:bg-[#121514]/90"
+          ? "bg-[#FCFAEF]/98 py-2 shadow-[0_8px_24px_rgba(15,76,92,0.08)] dark:bg-[#121514]/98"
+          : "bg-[#FCFAEF]/94 py-3 dark:bg-[#121514]/94"
       }`}
     >
       <div className="site-container mx-auto px-4">
-        <div className="flex items-center gap-4">
+        <div className="grid grid-cols-[auto_1fr_auto] items-center gap-6 2xl:gap-10">
           <BrandLogo className="flex-shrink-0" priority />
 
-          <div className="hidden xl:flex items-center gap-4 ml-auto 2xl:gap-8">
-            <nav className="flex items-center gap-x-2.5 2xl:gap-5" aria-label="Main">
-              {navigation.map((item) =>
-                item.children ? (
-                  <NavDropdown key={item.name} item={item} pathname={pathname} />
-                ) : (
-                  <Link
-                    key={item.name}
-                    href={item.href}
-                    className={navLinkClass(
-                      pathname === item.href ||
-                        (item.href !== "/" && pathname.startsWith(`${item.href}/`))
-                    )}
-                  >
-                    {item.name}
-                  </Link>
-                )
-              )}
-            </nav>
+          <nav
+            className="hidden items-center justify-self-center gap-x-3 xl:flex 2xl:gap-x-5"
+            aria-label="Main"
+          >
+            {mainNavigation.map((item) =>
+              isNavigationGroup(item) ? (
+                <NavDropdown key={item.name} item={item} pathname={pathname} />
+              ) : (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  aria-current={
+                    isNavigationPathActive(pathname, item.href)
+                      ? "page"
+                      : undefined
+                  }
+                  className={navLinkClass(isNavigationItemActive(pathname, item))}
+                >
+                  {item.name}
+                </Link>
+              )
+            )}
+          </nav>
 
-            <div className="flex items-center gap-2.5">
-              <Button
-                asChild
-                className="bg-[#0097b2] px-4 text-[#FCFAEF] hover:bg-[#0097b2]/80 hover:text-[#FCFAEF] font-subheading font-medium"
-              >
-                <Link href="/donate">Donate</Link>
-              </Button>
-              <ThemeToggle />
-            </div>
+          <div className="col-start-3 hidden items-center gap-2.5 xl:flex">
+            <Button
+              asChild
+              className="min-h-11 rounded-md bg-[#0097b2] px-5 font-subheading font-semibold text-[#FCFAEF] shadow-sm hover:bg-[#007F96] hover:text-[#FCFAEF]"
+            >
+              <Link href="/donate">Donate</Link>
+            </Button>
+            <ThemeToggle />
           </div>
 
-          <div className="xl:hidden flex items-center ml-auto space-x-2">
+          <div className="col-start-3 flex items-center space-x-2 xl:hidden">
             <ThemeToggle />
             <button
               onClick={() => setIsMobileMenuOpen(true)}
@@ -169,7 +203,7 @@ function HeaderContent() {
       <MobileNav
         isOpen={isMobileMenuOpen}
         onClose={() => setIsMobileMenuOpen(false)}
-        navigation={navigation}
+        navigation={mainNavigation}
       />
     </header>
   );
@@ -183,7 +217,7 @@ export default function Header() {
           <div className="site-container mx-auto px-4">
             <div className="flex items-center">
               <div className="animate-pulse bg-gray-200 dark:bg-gray-700 h-12 w-48 rounded"></div>
-              <div className="hidden xl:flex items-center ml-auto space-x-4">
+              <div className="ml-auto hidden items-center space-x-4 xl:flex">
                 <div className="animate-pulse bg-gray-200 dark:bg-gray-700 h-10 w-32 rounded"></div>
               </div>
             </div>

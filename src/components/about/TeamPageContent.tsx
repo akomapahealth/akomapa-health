@@ -1,30 +1,16 @@
-"use client";
-
-import { useState, Fragment } from "react";
-import Link from "next/link";
-import { Linkedin, Mail, X } from "lucide-react";
 import Breadcrumb from "@/components/layout/Breadcrumb";
 import Image from "@/components/common/Image";
-import { Button } from "@/components/ui/button";
-import { motion } from "framer-motion";
-import { Dialog, DialogPanel, Transition, TransitionChild } from "@headlessui/react";
-import { FadeIn, FadeInStagger, FadeInStaggerItem } from "@/components/animations";
-
-type SpotlightMember = {
-  name: string;
-  role: string;
-  org: string;
-  image: string;
-  email?: string;
-  linkedin?: string;
-  bio?: string;
-};
-
-function getValidContact(value?: string): string | undefined {
-  return value && value !== "#" ? value : undefined;
-}
-
-const HERO_PORTRAIT_SIZE = 80;
+import TeamMemberDialog, {
+  type TeamSpotlightMember,
+} from "@/components/about/TeamMemberDialog";
+import {
+  EditorialBand,
+  EditorialButton,
+  EditorialEyebrow,
+  EditorialHeading,
+  EditorialLead,
+} from "@/components/shared/EditorialPrimitives";
+import { CONTACT } from "@/config/contact";
 
 const heroRows: Array<{
   offset: string;
@@ -89,7 +75,7 @@ const heroRows: Array<{
   }
 ];
 
-const executiveTeam: SpotlightMember[] = [
+const executiveTeam: TeamSpotlightMember[] = [
   {
     name: "Brian Amu Fleischer, MD",
     role: "Founder & President",
@@ -194,7 +180,7 @@ const executiveTeam: SpotlightMember[] = [
     role: "Lead Social Media Manager",
     org: "Akomapa Health Foundation",
     image: "/images/team/gabrielle-nartey.JPG",
-    email: "akomapahealth@gmail.com",
+    email: CONTACT.email.display,
     linkedin: "https://www.linkedin.com/in/gabrielle-nartey-a2456128b/",
     bio: "Gabrielle Nartey is a sophomore at Yale University studying Neuroscience on the pre-medical track. She currently serves as Lead Social Media Manager for Akomapa, where she oversees marketing across all social media platforms and works to expand the clinic’s reach and visibility on an international scale. Gabrielle joined the clinic to help bridge the gap between healthcare and access—ensuring that individuals who need care most are aware of and empowered to seek Akomapa’s services."
   },
@@ -277,7 +263,7 @@ const executiveTeam: SpotlightMember[] = [
   }
 ];
 
-const advisoryBoard: SpotlightMember[] = [
+const advisoryBoard: TeamSpotlightMember[] = [
   {
     name: "Prof. Derek Anamaale Tuoyire",
     role: "Head of Community Medicine",
@@ -334,408 +320,235 @@ const heroStats = [
   { value: "100+", label: "Volunteers Inspired" }
 ];
 
-const ctaBaseClass =
-  "group inline-flex items-center justify-center gap-2 rounded-half px-8 py-6 h-auto text-base sm:text-lg font-medium transition-all duration-300 transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2";
-
-const primaryCtaClass =
-  `${ctaBaseClass} bg-[#0097b2] hover:bg-[#0097b2]/80 text-[#FCFAEF] shadow-lg hover:shadow-xl focus-visible:ring-[#8DD4E6]`;
-
-const secondaryCtaClass =
-  `${ctaBaseClass} bg-[#eeba2b] hover:bg-[#eeba2b]/80 text-[#FCFAEF] shadow-lg hover:shadow-xl focus-visible:ring-[#F5C94D]`;
-
-function BioModal({ 
-  member, 
-  isOpen, 
-  onClose 
-}: { 
-  member: SpotlightMember | null; 
-  isOpen: boolean; 
-  onClose: () => void;
-}) {
-  if (!member) return null;
-
-  const email = getValidContact(member.email);
-  const linkedin = getValidContact(member.linkedin);
-
+function AdvisoryCard({ member }: { member: TeamSpotlightMember }) {
   return (
-    <Transition show={isOpen} as={Fragment}>
-      <Dialog as="div" className="relative z-50" onClose={onClose}>
-        <TransitionChild
-          as={Fragment}
-          enter="ease-out duration-300"
-          enterFrom="opacity-0"
-          enterTo="opacity-100"
-          leave="ease-in duration-200"
-          leaveFrom="opacity-100"
-          leaveTo="opacity-0"
-        >
-          <div className="fixed inset-0 bg-black/50 backdrop-blur-sm" />
-        </TransitionChild>
-
-        <div className="fixed inset-0 z-50 overflow-y-auto">
-          <div className="flex min-h-full items-center justify-center p-4 sm:p-6">
-            <TransitionChild
-              as={Fragment}
-              enter="ease-out duration-300"
-              enterFrom="opacity-0 scale-95"
-              enterTo="opacity-100 scale-100"
-              leave="ease-in duration-200"
-              leaveFrom="opacity-100 scale-100"
-              leaveTo="opacity-0 scale-95"
-            >
-              <DialogPanel className="relative w-full max-w-2xl transform overflow-hidden rounded-2xl bg-white dark:bg-[#1C1F1E] shadow-xl transition-all">
-                <div className="relative">
-                  {/* Close button */}
-                  <button
-                    onClick={onClose}
-                    className="absolute right-4 top-4 z-10 rounded-full bg-white/90 dark:bg-[#1C1F1E]/90 p-2 text-[#2F3332] dark:text-[#FCFAEF] hover:bg-[#0097b2]/10 focus:outline-none focus:ring-2 focus:ring-[#0097b2]"
-                  >
-                    <X className="h-5 w-5" />
-                  </button>
-
-                  {/* Image */}
-                  <div className="relative h-80 sm:h-96 md:h-[28rem] w-full overflow-hidden">
-                    <Image
-                      src={member.image}
-                      alt={`Headshot of ${member.name}, ${member.role}`}
-                      fill
-                      sizes="(min-width: 768px) 672px, 100vw"
-                      className="object-cover object-center"
-                      quality={100}
-                    />
-                  </div>
-
-                  {/* Content */}
-                  <div className="px-6 sm:px-8 py-6 sm:py-8">
-                    <p className="text-xs sm:text-sm uppercase tracking-[0.3em] text-[#0F4C5C]/60 dark:text-[#66C4DC] mb-2">
-                      {member.org}
-                    </p>
-                    <h3 className="text-2xl sm:text-3xl font-semibold text-[#0B2F3A] dark:text-[#FCFAEF] mb-2">
-                      {member.name}
-                    </h3>
-                    <p className="text-base sm:text-lg text-[#0097b2] dark:text-[#66C4DC] mb-6">
-                      {member.role}
-                    </p>
-                    
-                    {member.bio && (
-                      <div className="mb-6">
-                        <p className="text-base sm:text-lg text-[#2F3332] dark:text-[#E6E7E7] leading-relaxed">
-                          {member.bio}
-                        </p>
-                      </div>
-                    )}
-
-                    {/* Social links */}
-                    {(email || linkedin) && (
-                      <div className="pt-4 border-t border-[#E6E7E7] dark:border-[#2E3433]">
-                        <p className="text-sm font-medium text-[#2F3332] dark:text-[#E6E7E7] mb-3">
-                          Connect:
-                        </p>
-                        <div className="flex flex-wrap items-center gap-3 sm:gap-4">
-                          {email && (
-                            <Link
-                              href={`mailto:${email}`}
-                              onClick={(e) => e.stopPropagation()}
-                              aria-label={`Email ${member.name}`}
-                              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-[#E6E7E7] dark:border-[#2E3433] text-[#0B2F3A] dark:text-[#FCFAEF] hover:bg-[#0097b2]/10 dark:hover:bg-[#0097b2]/20 transition-colors"
-                            >
-                              <Mail className="h-4 w-4" aria-hidden="true" />
-                              <span className="text-sm font-medium">Email</span>
-                            </Link>
-                          )}
-                          {linkedin && (
-                            <Link
-                              href={linkedin}
-                              target="_blank"
-                              rel="noreferrer"
-                              onClick={(e) => e.stopPropagation()}
-                              aria-label={`View ${member.name} on LinkedIn`}
-                              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-[#E6E7E7] dark:border-[#2E3433] text-[#0B2F3A] dark:text-[#FCFAEF] hover:bg-[#0097b2]/10 dark:hover:bg-[#0097b2]/20 transition-colors"
-                            >
-                              <Linkedin className="h-4 w-4" aria-hidden="true" />
-                              <span className="text-sm font-medium">LinkedIn</span>
-                            </Link>
-                          )}
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </DialogPanel>
-            </TransitionChild>
-          </div>
-        </div>
-      </Dialog>
-    </Transition>
-  );
-}
-
-function TeamCard({
-  member,
-  variant = "default",
-  onClick,
-  isClickable = false
-}: {
-  member: SpotlightMember;
-  variant?: "default" | "compact";
-  onClick?: () => void;
-  isClickable?: boolean;
-}) {
-  const imageHeight = variant === "compact" ? "h-56 sm:h-64 md:h-72 lg:h-80" : "h-80 sm:h-96 md:h-[28rem] lg:h-[32rem]";
-  const email = getValidContact(member.email);
-  const linkedin = getValidContact(member.linkedin);
-  
-  const handleClick = (e: React.MouseEvent) => {
-    if (isClickable && onClick) {
-      e.preventDefault();
-      onClick();
-    }
-  };
-
-  const handleLinkClick = (e: React.MouseEvent) => {
-    e.stopPropagation();
-  };
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      onClick={handleClick}
+    <article
       data-team-member={member.name}
-      className={`group flex flex-col rounded-[28px] border border-[#E6E7E7]/80 dark:border-[#2E3433] bg-white/95 dark:bg-[#1C1F1E]/95 shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-1 overflow-hidden ${
-        isClickable ? "cursor-pointer" : ""
-      }`}
+      className="flex h-full flex-col border-t border-[#FCFAEF]/25 pt-5"
     >
-      <div className={`relative w-full ${imageHeight} overflow-hidden`}>
+      <div className="relative aspect-[4/5] overflow-hidden rounded-md bg-[#2F3332]">
         <Image
           src={member.image}
           alt={`Headshot of ${member.name}, ${member.role}`}
           fill
-          className="object-cover object-center rounded-t-[28px]"
-          quality={100}
-          sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+          className="object-cover object-center"
+          sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 100vw"
         />
       </div>
-      <div className="flex flex-col gap-2 px-6 py-6">
-        <p className="text-sm uppercase tracking-[0.3em] text-[#0F4C5C]/60 dark:text-[#66C4DC]">
-          {member.org}
-        </p>
-        <h3 className="text-xl font-semibold text-[#0B2F3A] dark:text-[#FCFAEF]">
-          {member.name}
-        </h3>
-        <p className="text-[#2F3332]/80 dark:text-[#E6E7E7]/80">{member.role}</p>
-        {(email || linkedin) && (
-          <div className="flex items-center gap-3 pt-2" onClick={handleLinkClick}>
-            {email && (
-              <Link
-                href={`mailto:${email}`}
-                aria-label={`Email ${member.name}`}
-                className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[#E6E7E7] dark:border-[#2E3433] text-[#0B2F3A] dark:text-[#FCFAEF] hover:bg-[#0097b2]/10 dark:hover:bg-[#0097b2]/20 transition-colors"
-              >
-                <Mail className="h-4 w-4" aria-hidden="true" />
-              </Link>
-            )}
-            {linkedin && (
-              <Link
-                href={linkedin}
-                target="_blank"
-                rel="noreferrer"
-                aria-label={`View ${member.name} on LinkedIn`}
-                className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[#E6E7E7] dark:border-[#2E3433] text-[#0B2F3A] dark:text-[#FCFAEF] hover:bg-[#0097b2]/10 dark:hover:bg-[#0097b2]/20 transition-colors"
-              >
-                <Linkedin className="h-4 w-4" aria-hidden="true" />
-              </Link>
-            )}
-          </div>
-        )}
-      </div>
-    </motion.div>
+      <p className="mt-5 font-subheading text-xs font-bold uppercase tracking-[0.16em] text-[#F5C94D]">
+        {member.org}
+      </p>
+      <h3 className="mt-3 font-heading text-xl font-semibold text-[#FCFAEF]">
+        {member.name}
+      </h3>
+      <p className="mt-2 text-base leading-relaxed text-[#FCFAEF]/75">
+        {member.role}
+      </p>
+    </article>
   );
 }
-
 export default function TeamPageContent() {
-  const [selectedMember, setSelectedMember] = useState<SpotlightMember | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const handleCardClick = (member: SpotlightMember) => {
-    setSelectedMember(member);
-    setIsModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-    setTimeout(() => setSelectedMember(null), 300);
-  };
-
   return (
-    <>
-      <div className="site-container mx-auto px-4 sm:px-6 lg:px-10 xl:px-12 2xl:px-6">
+    <div data-rebrand-page className="bg-background text-foreground">
+      <div className="site-container mx-auto">
         <Breadcrumb />
       </div>
 
-      <BioModal 
-        member={selectedMember} 
-        isOpen={isModalOpen} 
-        onClose={handleCloseModal} 
-      />
-
-      <section className="relative overflow-hidden bg-gradient-to-r from-[#0097b2] to-[#0F4C5C] text-[#FCFAEF] py-16 md:py-24">
-        <div className="absolute top-0 right-0 w-64 h-64 bg-[#FCFAEF]/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#FCFAEF]/10 rounded-full translate-y-1/2 -translate-x-1/2 blur-3xl" />
-
-        <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-10 xl:px-12 2xl:px-6 flex flex-col gap-8 sm:gap-10 md:gap-12 lg:flex-row lg:items-center">
-          <FadeIn direction="up" className="max-w-3xl lg:max-w-xl xl:max-w-2xl 2xl:max-w-3xl w-full">
-            <p className="text-xs sm:text-sm lg:text-xs xl:text-sm uppercase tracking-[0.3em] sm:tracking-[0.5em] text-[#FCFAEF]/80 mb-3 sm:mb-4">
+      <EditorialBand
+        tone="teal"
+        aria-labelledby="team-hero-heading"
+        className="border-b border-[#FCFAEF]/20 bg-[#0F4C5C]"
+      >
+        <div className="grid gap-12 lg:grid-cols-12 lg:items-center lg:gap-6 xl:gap-8 2xl:gap-12">
+          <div className="lg:col-span-5">
+            <EditorialEyebrow tone="light">
               A team of young leaders for young people
-            </p>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-light leading-tight mb-4 sm:mb-6 text-[#FCFAEF]">
-              We are a youth-powered team reimagining healthcare with heart, science, and shared purpose.
-            </h1>
-            <p className="text-base sm:text-lg lg:text-sm xl:text-base 2xl:text-lg text-[#FCFAEF]/80 mb-6 sm:mb-8">
-              From Cape Coast to Yale and UCLA, Akomapa leaders blend academic rigor, community roots,
-              and relentless hope to build a student-powered model of care that is ethical, joyful, and
+            </EditorialEyebrow>
+            <EditorialHeading
+              as="h1"
+              id="team-hero-heading"
+              className="mt-5 max-w-3xl text-[2.25rem] text-[#FCFAEF] sm:text-[2.75rem] md:text-[3.1rem] lg:text-[2.5rem] xl:text-[2.75rem] 2xl:text-[3.1rem]"
+            >
+              We are a youth-powered team reimagining healthcare with heart,
+              science, and shared purpose.
+            </EditorialHeading>
+            <EditorialLead className="mt-6 max-w-2xl text-[0.95rem] text-[#FCFAEF]/85 dark:text-[#FCFAEF]/85 md:text-base xl:text-[1.05rem]">
+              From Cape Coast to Yale and UCLA, Akomapa leaders blend academic
+              rigor, community roots, and relentless hope to build a
+              student-powered model of care that is ethical, joyful, and
               unstoppable.
-            </p>
-            <FadeInStagger className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 lg:gap-3 xl:gap-4 mb-6 sm:mb-8" staggerDelay={0.1}>
-              {heroStats.map((stat) => (
-                <FadeInStaggerItem key={stat.label} direction="up">
-                  <div className="rounded-xl sm:rounded-2xl border border-white/10 bg-white/5 p-3 sm:p-4 lg:p-3 xl:p-4">
-                    <p className="text-2xl sm:text-3xl lg:text-xl xl:text-2xl 2xl:text-3xl font-semibold text-white">{stat.value}</p>
-                    <p className="text-xs sm:text-sm lg:text-xs xl:text-xs 2xl:text-sm uppercase tracking-[0.2em] sm:tracking-[0.3em] text-white/70 mt-1">{stat.label}</p>
-                  </div>
-                </FadeInStaggerItem>
-              ))}
-            </FadeInStagger>
-            <FadeIn direction="up" delay={0.3}>
-              <div className="flex flex-wrap gap-3 sm:gap-4">
-                <Button asChild className={primaryCtaClass}>
-                  <Link href="/contact">Meet with Us</Link>
-                </Button>
-                <Button asChild className={secondaryCtaClass}>
-                  <Link href="/get-involved">Join the Movement</Link>
-                </Button>
-              </div>
-            </FadeIn>
-          </FadeIn>
+            </EditorialLead>
 
-          <div className="hidden lg:flex w-full max-w-full lg:w-[280px] xl:w-[360px] 2xl:w-[480px] flex-col lg:gap-4 xl:gap-5 2xl:gap-7 self-center lg:self-start lg:ml-auto lg:pt-8 lg:translate-x-2 xl:translate-x-6 2xl:translate-x-10 mt-8 lg:mt-0">
+            <dl className="mt-8 grid border-y border-[#FCFAEF]/25 sm:grid-cols-3">
+              {heroStats.map((stat, index) => (
+                <div
+                  key={stat.label}
+                  className={`py-5 sm:px-5 ${
+                    index > 0
+                      ? "border-t border-[#FCFAEF]/25 sm:border-l sm:border-t-0"
+                      : ""
+                  }`}
+                >
+                  <dd className="font-heading text-2xl font-semibold text-[#FCFAEF] sm:text-3xl">
+                    {stat.value}
+                  </dd>
+                  <dt className="mt-2 font-subheading text-xs font-bold uppercase tracking-[0.16em] text-[#FCFAEF]/70">
+                    {stat.label}
+                  </dt>
+                </div>
+              ))}
+            </dl>
+
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <EditorialButton
+                href="/contact"
+                variant="light"
+                className="text-[#0F4C5C] focus-visible:ring-[#F5C94D] sm:min-w-40"
+              >
+                Meet with Us
+              </EditorialButton>
+              <EditorialButton
+                href="/get-involved"
+                variant="amber"
+                className="focus-visible:ring-[#F5C94D] sm:min-w-40"
+              >
+                Join the Movement
+              </EditorialButton>
+            </div>
+          </div>
+
+          <div
+            data-team-node-network
+            aria-hidden="true"
+            className="mx-auto flex w-full max-w-md flex-col gap-2 overflow-hidden border-y border-[#FCFAEF]/20 py-5 sm:gap-3 sm:py-7 lg:col-span-7 lg:max-w-none lg:gap-3 lg:border-y-0 lg:border-l lg:py-4 lg:pl-6 xl:gap-4 xl:pl-8 2xl:gap-5 2xl:pl-10"
+          >
             {heroRows.map((row, rowIndex) => (
               <div
                 key={`row-${rowIndex}`}
-                className={`flex items-center justify-end lg:gap-2 xl:gap-3 2xl:gap-4 ${row.offset}`}
+                className={`flex min-w-0 items-center justify-end gap-1.5 sm:gap-2 ${row.offset}`}
               >
                 {row.faces.map((face, faceIndex) => (
                   <div
                     key={`${face.image}-${faceIndex}`}
-                    className="flex items-center lg:gap-2 xl:gap-3 2xl:gap-4"
+                    className="flex min-w-0 items-center gap-1.5 sm:gap-2"
                   >
-                    <motion.div
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: face.delay }}
-                      className="relative rounded-full bg-white/10 backdrop-blur shrink-0 hero-portrait"
-                      aria-hidden
-                      style={{
-                        '--portrait-size': `${HERO_PORTRAIT_SIZE}px`,
-                        width: `clamp(32px, ${HERO_PORTRAIT_SIZE * 0.6}px, var(--portrait-size))`,
-                        height: `clamp(32px, ${HERO_PORTRAIT_SIZE * 0.6}px, var(--portrait-size))`
-                      } as React.CSSProperties & { '--portrait-size': string }}
+                    <div
+                      data-team-node-portrait
+                      className="relative size-7 shrink-0 overflow-hidden rounded-full border border-[#FCFAEF]/35 bg-[#0F4C5C] sm:size-9 lg:size-10 xl:size-12 2xl:size-16"
                     >
-                      {/* Hero collage portraits — decorative — intentional empty alt */}
                       <Image
                         src={face.image}
                         alt=""
-                        fill
-                        className="rounded-full object-cover object-center"
-                        quality={100}
-                        minWidth={240}
-                        minHeight={240}
-                        sizes="(max-width: 640px) 64px, (max-width: 1024px) 80px, 80px"
+                        width={64}
+                        height={64}
+                        className="h-full w-full object-cover object-center"
+                        sizes="(max-width: 639px) 28px, (max-width: 1023px) 36px, (max-width: 1279px) 40px, (max-width: 1535px) 48px, 64px"
                       />
-                    </motion.div>
-                    {faceIndex !== row.faces.length - 1 && (
-                      <span className="h-px lg:w-6 xl:w-10 2xl:w-14 border-t border-dotted border-white/30" />
-                    )}
+                    </div>
+                    {faceIndex !== row.faces.length - 1 ? (
+                      <span className="h-px w-3 shrink-0 border-t border-dotted border-[#FCFAEF]/40 sm:w-5 lg:w-6 xl:w-9 2xl:w-12" />
+                    ) : null}
                   </div>
                 ))}
               </div>
             ))}
           </div>
         </div>
-      </section>
+      </EditorialBand>
 
-      <section className="py-12 sm:py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
-        <div className="site-container mx-auto px-4 sm:px-6">
-          <FadeIn direction="up" className="max-w-3xl mb-8 sm:mb-12 text-center mx-auto space-y-3 sm:space-y-4">
-            <p className="text-xs sm:text-sm font-semibold tracking-[0.3em] sm:tracking-[0.5em] text-[#0097b2]">Executive Team</p>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#0B2F3A] dark:text-[#FCFAEF]">
+      <EditorialBand
+        tone="cream"
+        marker="02"
+        aria-labelledby="executive-team-heading"
+      >
+        <div className="grid gap-8 lg:grid-cols-12 lg:gap-16">
+          <div className="lg:col-span-5">
+            <EditorialEyebrow className="text-[#0F4C5C] dark:text-[#66C4DC]">
+              Executive Team
+            </EditorialEyebrow>
+            <EditorialHeading id="executive-team-heading" className="mt-4">
               The builders behind the Akomapa model
-            </h2>
-            <p className="text-base sm:text-lg text-[#2F3332]/80 dark:text-[#E6E7E7]/80">
-              Each leader blends academic excellence, community credibility, and operational discipline—
-              mentoring the next generation of ethical global health professionals while ensuring every
-              clinic day reflects empathy, rigor, and trust.
-            </p>
-          </FadeIn>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-            {executiveTeam.map((member) => (
-              <TeamCard 
-                key={member.name} 
-                member={member} 
-                isClickable={!!member.bio}
-                onClick={() => handleCardClick(member)}
-              />
-            ))}
+            </EditorialHeading>
           </div>
+          <EditorialLead className="max-w-3xl lg:col-span-7 lg:pt-8">
+            Each leader blends academic excellence, community credibility, and
+            operational discipline—mentoring the next generation of ethical
+            global health professionals while ensuring every clinic day reflects
+            empathy, rigor, and trust.
+          </EditorialLead>
         </div>
-      </section>
 
-      <section className="py-12 sm:py-16 md:py-24 bg-gradient-to-r from-[#0097b2] via-[#0F4C5C] to-[#031C3A] text-white">
-        <div className="site-container mx-auto px-4 sm:px-6">
-          <FadeIn direction="up" className="max-w-3xl mb-8 sm:mb-12 text-center mx-auto space-y-3 sm:space-y-4">
-            <p className="text-xs sm:text-sm font-semibold tracking-[0.3em] sm:tracking-[0.5em] text-[#F5C94D]">Advisory Board</p>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold">
+        <div className="mt-12 grid items-stretch gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+          {executiveTeam.map((member) => (
+            <TeamMemberDialog key={member.name} member={member} />
+          ))}
+        </div>
+      </EditorialBand>
+
+      <EditorialBand
+        tone="onyx"
+        marker="03"
+        aria-labelledby="advisory-board-heading"
+        className="border-y border-[#66C4DC]/35"
+      >
+        <div className="grid gap-8 lg:grid-cols-12 lg:gap-16">
+          <div className="lg:col-span-5">
+            <EditorialEyebrow tone="gold" className="text-[#F5C94D]">
+              Advisory Board
+            </EditorialEyebrow>
+            <EditorialHeading id="advisory-board-heading" className="mt-4">
               Global experts guiding our ethics, science, and scale
-            </h2>
-            <p className="text-base sm:text-lg text-white/80">
-              Learning from global leaders sits at the heart of our model. Faculty and advisors from
-              partner institutions worldwide keep Akomapa clinically sound, academically rigorous, and
-              deeply community-rooted as we expand across regions.
-            </p>
-          </FadeIn>
+            </EditorialHeading>
+          </div>
+          <EditorialLead className="max-w-3xl text-[#FCFAEF]/78 dark:text-[#FCFAEF]/78 lg:col-span-7 lg:pt-8">
+            Learning from global leaders sits at the heart of our model. Faculty
+            and advisors from partner institutions worldwide keep Akomapa
+            clinically sound, academically rigorous, and deeply community-rooted
+            as we expand across regions.
+          </EditorialLead>
+        </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-            {advisoryBoard.map((member) => (
-              <TeamCard key={member.name} member={member} variant="compact" />
-            ))}
+        <div className="mt-12 grid items-stretch gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+          {advisoryBoard.map((member) => (
+            <AdvisoryCard key={member.name} member={member} />
+          ))}
+        </div>
+      </EditorialBand>
+
+      <EditorialBand
+        tone="cream"
+        marker="04"
+        aria-labelledby="team-cta-heading"
+      >
+        <div className="grid gap-8 lg:grid-cols-12 lg:items-end lg:gap-16">
+          <div className="lg:col-span-7">
+            <EditorialHeading id="team-cta-heading">
+              Join the hearts behind the mission
+            </EditorialHeading>
+            <EditorialLead className="mt-5 max-w-3xl">
+              We are always looking for faculty, mentors, collaborators, and
+              students who believe in ethical, student-powered healthcare. Your
+              expertise, story, or sponsorship could open the next door for
+              patients we serve.
+            </EditorialLead>
+          </div>
+          <div className="flex flex-col gap-3 sm:flex-row lg:col-span-5 lg:justify-end">
+            <EditorialButton
+              href="/partnerships"
+              className="bg-[#0F4C5C] focus-visible:ring-[#0F4C5C] dark:focus-visible:ring-[#F5C94D]"
+            >
+              Partner with Akomapa
+            </EditorialButton>
+            <EditorialButton
+              href="/get-involved"
+              variant="amber"
+              className="focus-visible:ring-[#0F4C5C] dark:focus-visible:ring-[#F5C94D]"
+            >
+              Apply to Serve
+            </EditorialButton>
           </div>
         </div>
-      </section>
-
-      <section className="py-12 sm:py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
-        <FadeIn direction="up" className="site-container mx-auto px-4 sm:px-6 text-center space-y-4 sm:space-y-6">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#0B2F3A] dark:text-[#FCFAEF]">
-            Join the hearts behind the mission
-          </h2>
-          <p className="text-base sm:text-lg text-[#2F3332]/80 dark:text-[#E6E7E7]/80 max-w-3xl mx-auto">
-            We are always looking for faculty, mentors, collaborators, and students who believe in ethical,
-            student-powered healthcare. Your expertise, story, or sponsorship could open the next door for
-            patients we serve.
-          </p>
-          <FadeIn direction="up" delay={0.2}>
-            <div className="flex flex-wrap gap-3 sm:gap-4 justify-center">
-              <Button asChild className={primaryCtaClass}>
-                <Link href="/partnerships">Partner with Akomapa</Link>
-              </Button>
-              <Button asChild className={secondaryCtaClass}>
-                <Link href="/get-involved">Apply to Serve</Link>
-              </Button>
-            </div>
-          </FadeIn>
-        </FadeIn>
-      </section>
-    </>
+      </EditorialBand>
+    </div>
   );
 }

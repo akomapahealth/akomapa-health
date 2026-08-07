@@ -1,10 +1,16 @@
-import { MotionDiv, MotionH1, MotionP } from "@/components/motion/framer";
-import { AnimatedMetric } from "@/components/motion/AnimatedMetric";
-import Link from "next/link";
-import { ArrowLeft, ArrowRight } from "lucide-react";
-import Breadcrumb from "@/components/layout/Breadcrumb";
 import Image from "@/components/common/Image";
-import { Button } from "@/components/ui/button";
+import { FadeIn, FadeInStagger, FadeInStaggerItem } from "@/components/animations";
+import { AnimatedMetric } from "@/components/motion/AnimatedMetric";
+import Breadcrumb from "@/components/layout/Breadcrumb";
+import ProgramDetailHero from "@/components/programs/ProgramDetailHero";
+import ProgramQuoteBand from "@/components/programs/ProgramQuoteBand";
+import {
+  EditorialBand,
+  EditorialButton,
+  EditorialEyebrow,
+  EditorialHeading,
+  EditorialLead,
+} from "@/components/shared/EditorialPrimitives";
 
 const whatWeDo = [
   {
@@ -12,64 +18,55 @@ const whatWeDo = [
     title: "Educate on NCDs",
     description:
       "We translate complex topics—hypertension, diabetes, mental health, and nutrition—into relatable lessons, helping students see how these non-communicable concerns connect to stress, emotional well-being, and long-term health.",
-    color: "#0097b2"
   },
   {
     id: "screenings",
     title: "Provide Health Screenings",
     description:
       "Students receive free blood pressure and glucose checks with pathways to local Akomapa clinics for follow-up care when needed.",
-    color: "#eeba2b"
   },
   {
     id: "healthy-lifestyles",
     title: "Promote Healthy Lifestyles",
     description:
       "Interactive demonstrations share practical strategies for preventing hypertension, diabetes, and mental health challenges through balanced nutrition, movement, stress management, and emotional well-being.",
-    color: "#0F4C5C"
   },
   {
     id: "advocate-training",
     title: "Train Young Advocates",
     description:
       "We mentor student leaders to run awareness campaigns on hypertension, diabetes, and mental health—leading peer education and championing wellness initiatives on their campuses.",
-    color: "#0097b2"
   },
   {
     id: "career-mentorship",
     title: "Offer Career Mentorship",
     description:
       "Storytelling circles expose students to careers in medicine, nursing, pharmacy, public health, and leadership while demystifying the journey ahead.",
-    color: "#eeba2b"
-  }
-];
+  },
+] as const;
 
 const mentorshipBenefits = [
   {
     title: "Leadership Coaching",
     description:
       "Continued mentorship in health leadership, communication, and advocacy keeps every Young Advocate supported.",
-    color: "#0097b2"
   },
   {
     title: "Training Studios",
     description:
       "Periodic workshops dive into community engagement and prevention of hypertension, diabetes, and mental health challenges using real cases from Akomapa clinics.",
-    color: "#eeba2b"
   },
   {
     title: "Student Projects",
     description:
       "Advocates design and lead school-based health campaigns, service projects, and storytelling activations.",
-    color: "#0F4C5C"
   },
   {
     title: "Youth Forums",
     description:
       "Invitations to leadership forums and community health days connect students to regional clinic partners.",
-    color: "#8DD4E6"
-  }
-];
+  },
+] as const;
 
 const mentorshipHighlights = [
   {
@@ -77,50 +74,47 @@ const mentorshipHighlights = [
     title: "Guided by University Mentors",
     description:
       "Each advocate is paired with an interprofessional mentor who blends compassion, accountability, and lived experience.",
-    accent: "#F5C94D"
   },
   {
     label: "Leadership in Action",
     title: "Projects that Matter",
     description:
       "Students launch wellness clubs, awareness drives, and research projects that keep momentum alive between visits.",
-    accent: "#66C4DC"
   },
   {
     label: "Community Connection",
     title: "Clinic-Linked Support",
     description:
       "Mentorship stays tethered to Akomapa clinics so referrals, data, and storytelling always feed back into care.",
-    accent: "#E6E7E7"
-  }
-];
+  },
+] as const;
 
 const howItWorks = [
   {
     eyebrow: "Step 01",
     title: "Clinic Partnerships",
     description:
-      "Local Akomapa clinics collaborate with nearby high schools to co-design immersive health education experiences."
+      "Local Akomapa clinics collaborate with nearby high schools to co-design immersive health education experiences.",
   },
   {
     eyebrow: "Step 02",
     title: "Student Facilitation",
     description:
-      "Interprofessional university teams deliver interactive sessions that blend storytelling, demonstrations, and screenings for hypertension, diabetes, and mental wellness."
+      "Interprofessional university teams deliver interactive sessions that blend storytelling, demonstrations, and screenings for hypertension, diabetes, and mental wellness.",
   },
   {
     eyebrow: "Step 03",
     title: "Young Advocate Pathway",
     description:
-      "Students who show passion join the Young Advocates track for deeper mentorship and leadership development."
+      "Students who show passion join the Young Advocates track for deeper mentorship and leadership development.",
   },
   {
     eyebrow: "Step 04",
     title: "Sustained Engagement",
     description:
-      "Regional clinic teams host mentorship circles, community projects, and annual leadership events to keep momentum strong."
-  }
-];
+      "Regional clinic teams host mentorship circles, community projects, and annual leadership events to keep momentum strong.",
+  },
+] as const;
 
 const impactMetrics = [
   {
@@ -129,8 +123,8 @@ const impactMetrics = [
     value: 9000,
     suffix: "+",
     label: "Students Reached",
-    description: "Educating high school students on preventing hypertension, diabetes, and mental health challenges—building lifelong health literacy.",
-    color: "#0097b2"
+    description:
+      "Educating high school students on preventing hypertension, diabetes, and mental health challenges—building lifelong health literacy.",
   },
   {
     id: "advocates",
@@ -138,8 +132,8 @@ const impactMetrics = [
     value: 300,
     suffix: "+",
     label: "Youth Advocates",
-    description: "Training peer leaders to champion healthy habits and support students around hypertension, diabetes, mental health, and stress on their campuses.",
-    color: "#eeba2b"
+    description:
+      "Training peer leaders to champion healthy habits and support students around hypertension, diabetes, mental health, and stress on their campuses.",
   },
   {
     id: "partnerships",
@@ -147,8 +141,8 @@ const impactMetrics = [
     value: 6,
     suffix: "+",
     label: "Clinic Regions",
-    description: "Linking schools to clinic teams that reinforce prevention and referrals for hypertension, diabetes, mental health, and whole-person care across regions.",
-    color: "#0F4C5C"
+    description:
+      "Linking schools to clinic teams that reinforce prevention and referrals for hypertension, diabetes, mental health, and whole-person care across regions.",
   },
   {
     id: "pipeline",
@@ -156,547 +150,429 @@ const impactMetrics = [
     value: 1,
     suffix: "",
     label: "Leadership Pipeline",
-    description: "Building an early pathway into compassionate health leadership grounded in care for body and mind.",
-    color: "#0097b2"
-  }
-];
-
-const ctaBaseClass =
-  "group inline-flex items-center justify-center gap-2 rounded-half px-8 py-6 h-auto text-base sm:text-lg font-medium transition-all duration-300 transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2";
-
-const primaryCtaClass =
-  `${ctaBaseClass} bg-[#0097b2] hover:bg-[#0097b2]/80 text-[#FCFAEF] shadow-lg hover:shadow-xl focus-visible:ring-[#8DD4E6]`;
-
-const secondaryCtaClass =
-  `${ctaBaseClass} bg-[#eeba2b] hover:bg-[#eeba2b]/80 text-[#FCFAEF] shadow-lg hover:shadow-xl focus-visible:ring-[#F5C94D]`;
+    description:
+      "Building an early pathway into compassionate health leadership grounded in care for body and mind.",
+  },
+] as const;
 
 export default function Content() {
   return (
-    <div className="overflow-x-hidden">
+    <>
       <div className="site-container mx-auto">
         <Breadcrumb />
       </div>
 
-      <section className="relative min-h-[80vh] py-16 sm:py-20 md:py-28 bg-gradient-to-r from-[#0B2F3A] via-[#0F4C5C] to-[#0097b2] overflow-hidden">
-        <div className="absolute top-6 right-6 w-64 h-64 bg-[#FCFAEF]/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-6 left-6 w-96 h-96 bg-[#FCFAEF]/10 rounded-full blur-3xl" />
+      <ProgramDetailHero
+        eyebrow="Akomapa Young Advocates Program"
+        title="Educating. Empowering. Inspiring the Next Generation of Health Leaders."
+        lead="Led by university students trained through Akomapa clinics, the Young Advocates Program brings education on hypertension, diabetes, mental health, and whole-person wellness—alongside mentorship and leadership development—directly to high schools."
+        image="/gallery/gallery-pic-2.jpg"
+        imageAlt="Young advocates participating in a health education session"
+        ctas={[
+          { href: "/partnerships", label: "Partner with Us", variant: "solid" },
+          {
+            href: "/get-involved",
+            label: "Volunteer as a University Student",
+            variant: "amber",
+          },
+        ]}
+      />
 
-        <div className="site-container mx-auto px-4 sm:px-6 relative z-10 flex flex-col gap-12 sm:gap-14">
-          <MotionDiv
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="pt-2"
-          >
-            <Link
-              href="/programs"
-              className="inline-flex items-center text-[#FCFAEF]/80 hover:text-[#FCFAEF] transition-colors text-sm font-medium"
-            >
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              Back to Programs
-            </Link>
-          </MotionDiv>
-          <div className="max-w-5xl">
-            <MotionP
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-              className="uppercase tracking-[0.3em] text-sm font-semibold text-[#FCFAEF]/80 mb-6"
-            >
-              Akomapa Young Advocates Program
-            </MotionP>
-            <MotionH1
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1, duration: 0.8, ease: "easeOut" }}
-              className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-light text-[#FCFAEF] mb-6 leading-tight"
-            >
-              Educating. Empowering. Inspiring the Next Generation of Health Leaders.
-            </MotionH1>
-            <MotionP
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2, duration: 0.8, ease: "easeOut" }}
-              className="text-base sm:text-lg md:text-2xl text-[#FCFAEF]/85 font-light max-w-3xl"
-            >
-              Led by university students trained through Akomapa clinics, the Young Advocates Program brings education on hypertension, diabetes, mental health, and whole-person wellness—alongside mentorship and leadership development—directly to high schools.
-            </MotionP>
-            <MotionDiv
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3, duration: 0.8, ease: "easeOut" }}
-              className="mt-8 flex flex-wrap gap-4"
-            >
-              <Button asChild className={primaryCtaClass}>
-                <Link href="/partnerships">Partner with Us</Link>
-              </Button>
-              <Button asChild className={secondaryCtaClass}>
-                <Link href="/get-involved">Volunteer as a University Student</Link>
-              </Button>
-            </MotionDiv>
-          </div>
-
-          <MotionDiv
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.8, ease: "easeOut" }}
-            className="w-full"
-          >
-            <div className="relative w-full h-[280px] sm:h-[360px] md:h-[520px] lg:h-[640px] rounded-3xl overflow-hidden shadow-2xl border border-white/10">
+      <EditorialBand
+        tone="cream"
+        marker="01"
+        id="ya-about"
+        aria-labelledby="ya-about-heading"
+      >
+        <div className="grid items-start gap-10 lg:grid-cols-12 lg:gap-16">
+          <FadeIn className="lg:col-span-7">
+            <EditorialEyebrow className="text-[#0F4C5C] dark:text-[#66C4DC]">
+              About
+            </EditorialEyebrow>
+            <EditorialHeading id="ya-about-heading" className="mt-4">
+              About the Program
+            </EditorialHeading>
+            <div className="mt-6 space-y-5 text-base leading-relaxed text-[#2F3332]/80 dark:text-[#E6E7E7]/80 md:text-lg">
+              <p>
+                The Young Advocates Program brings community health, mentorship,
+                and leadership development directly to high schools. University
+                student teams trained through Akomapa clinics facilitate
+                learning, screenings, and storytelling that meet teens where they
+                are.
+              </p>
+              <p>
+                Education on hypertension, diabetes, and mental health—as key
+                non-communicable concerns—helps students understand how
+                lifestyle, stress, and emotional well-being shape long-term
+                health outcomes.
+              </p>
+              <p className="font-semibold text-[#1C1F1E] dark:text-[#FCFAEF]">
+                Every session bridges education and community care—nurturing
+                ethical, community-minded leaders who champion physical and
+                mental well-being in their schools and neighborhoods.
+              </p>
+            </div>
+          </FadeIn>
+          <FadeIn direction="left" delay={0.1} className="relative lg:col-span-5">
+            <span
+              aria-hidden="true"
+              className="absolute -top-3 left-0 z-10 h-1 w-24 bg-[#eeba2b]"
+            />
+            <div className="relative aspect-[4/3] overflow-hidden rounded-md border border-[#1C1F1E]/10 bg-[#E6E7E7] dark:border-[#FCFAEF]/15 dark:bg-[#2F3332]">
               <Image
-                src="/gallery/gallery-pic-2.jpg"
-                alt="Young advocates participating in a health education session"
+                src="/highlights/Akomapa-66.jpg"
+                alt="University mentors guiding high school students"
                 fill
-                sizes="(min-width: 1024px) 50vw, 100vw"
+                sizes="(min-width: 1024px) 40vw, 100vw"
                 className="object-cover object-center"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
             </div>
-          </MotionDiv>
+          </FadeIn>
         </div>
-      </section>
+      </EditorialBand>
 
-      <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
-        <div className="site-container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            <MotionDiv
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true, amount: 0.3 }}
-              className="order-1"
+      <EditorialBand
+        tone="teal"
+        marker="02"
+        id="ya-mission"
+        aria-labelledby="ya-mission-heading"
+        className="bg-[#0F4C5C]"
+      >
+        <FadeIn>
+          <div className="max-w-3xl">
+            <EditorialEyebrow tone="gold" className="text-[#F5C94D]">
+              Mission
+            </EditorialEyebrow>
+            <EditorialHeading
+              id="ya-mission-heading"
+              className="mt-4 text-[#FCFAEF]"
             >
-              <h2 className="text-3xl md:text-4xl font-bold mb-6 text-[#1C1F1E] dark:text-[#FCFAEF]">
-                About the Program
-              </h2>
-              <div className="space-y-5 text-lg text-[#2F3332] dark:text-[#E6E7E7] leading-relaxed">
-                <p>
-                  The Young Advocates Program brings community health, mentorship, and leadership development directly to high schools. University student teams trained through Akomapa clinics facilitate learning, screenings, and storytelling that meet teens where they are.
-                </p>
-                <p>
-                  Education on hypertension, diabetes, and mental health—as key non-communicable concerns—helps students understand how lifestyle, stress, and emotional well-being shape long-term health outcomes.
-                </p>
-                <p className="font-semibold text-[#1C1F1E] dark:text-[#FCFAEF]">
-                  Every session bridges education and community care—nurturing ethical, community-minded leaders who champion physical and mental well-being in their schools and neighborhoods.
-                </p>
-              </div>
-            </MotionDiv>
-            <MotionDiv
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1, duration: 0.6 }}
-              viewport={{ once: true, amount: 0.3 }}
-              className="order-2"
-            >
-              <div className="relative w-full min-h-[320px] h-[320px] sm:h-[380px] md:h-[420px] lg:h-[460px] rounded-3xl overflow-hidden shadow-2xl">
-                <Image
-                  src="/highlights/Akomapa-66.jpg"
-                  alt="University mentors guiding high school students"
-                  fill
-                  sizes="(min-width: 1024px) 50vw, 100vw"
-                  className="object-cover object-center"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent" />
-              </div>
-            </MotionDiv>
+              Our Mission
+            </EditorialHeading>
+            <EditorialLead className="mt-6 text-[#FCFAEF]/90 dark:text-[#FCFAEF]/90 md:text-xl">
+              To cultivate youth leaders who understand their power to improve
+              community health, advocate for well-being, and serve as role models
+              of compassion and integrity.
+            </EditorialLead>
           </div>
-        </div>
-      </section>
+        </FadeIn>
+      </EditorialBand>
 
-      <section className="py-16 md:py-24 bg-gradient-to-r from-[#0097b2] to-[#0F4C5C] text-[#FCFAEF] relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute -top-20 left-10 h-56 w-56 rounded-full bg-[#FCFAEF]/10 blur-3xl" />
-          <div className="absolute bottom-0 right-0 h-72 w-72 rounded-full bg-[#F5C94D]/10 blur-3xl" />
-        </div>
-        <div className="relative site-container mx-auto px-4">
-          <MotionDiv
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true, amount: 0.3 }}
-            className="text-center max-w-3xl mx-auto space-y-4"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold">Our Mission</h2>
-            <p className="text-lg text-[#FCFAEF]/90 leading-relaxed">
-              To cultivate youth leaders who understand their power to improve community health, advocate for well-being, and serve as role models of compassion and integrity.
-            </p>
-          </MotionDiv>
-        </div>
-      </section>
+      <EditorialBand
+        tone="cream"
+        marker="03"
+        id="ya-what"
+        aria-labelledby="ya-what-heading"
+      >
+        <FadeIn>
+          <div className="max-w-3xl">
+            <EditorialEyebrow className="text-[#0F4C5C] dark:text-[#66C4DC]">
+              Approach
+            </EditorialEyebrow>
+            <EditorialHeading id="ya-what-heading" className="mt-4">
+              What We Do
+            </EditorialHeading>
+            <EditorialLead className="mt-5">
+              University student teams lead immersive sessions that turn
+              classrooms into hubs of curiosity and leadership—where students
+              learn to prevent hypertension, diabetes, and mental health
+              challenges through health literacy and peer support.
+            </EditorialLead>
+          </div>
+        </FadeIn>
 
-      <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
-        <div className="site-container mx-auto px-4">
-          <MotionDiv
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true, amount: 0.3 }}
-            className="text-center max-w-4xl mx-auto mb-12 space-y-4"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold text-[#1C1F1E] dark:text-[#FCFAEF]">What We Do</h2>
-            <p className="text-lg text-[#2F3332] dark:text-[#E6E7E7] leading-relaxed">
-              University student teams lead immersive sessions that turn classrooms into hubs of curiosity and leadership—where students learn to prevent hypertension, diabetes, and mental health challenges through health literacy and peer support.
-            </p>
-          </MotionDiv>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-            {whatWeDo.map((item, index) => (
-              <MotionDiv
-                key={item.id}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true, amount: 0.3 }}
-                className="relative rounded-2xl bg-white dark:bg-[#2F3332] p-6 md:p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-[#E6E7E7]/30 dark:border-[#4F5554]/30 hover:-translate-y-1"
+        <ol className="mt-12 grid border-t border-[#1C1F1E]/15 md:grid-cols-2 lg:grid-cols-3 dark:border-[#FCFAEF]/20">
+          {whatWeDo.map((item, index) => (
+            <li
+              key={item.id}
+              className="border-b border-[#1C1F1E]/15 px-1 py-7 md:border-r md:px-6 lg:[&:nth-child(3n)]:border-r-0 dark:border-[#FCFAEF]/20"
+            >
+              <span
+                aria-hidden="true"
+                className="font-heading text-3xl font-semibold tracking-[-0.06em] text-[#0097b2]/55 dark:text-[#66C4DC]/65"
               >
-                <div
-                  className="h-1 w-16 rounded-full mb-4"
-                  style={{ backgroundColor: item.color }}
-                />
-                <h3 className="text-xl font-semibold text-[#1C1F1E] dark:text-[#FCFAEF] mb-3">
-                  {item.title}
-                </h3>
-                <p className="text-sm md:text-base text-[#2F3332] dark:text-[#E6E7E7] leading-relaxed">
-                  {item.description}
-                </p>
-              </MotionDiv>
-            ))}
-          </div>
-        </div>
-      </section>
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              <h3 className="mt-4 font-heading text-xl font-semibold text-[#1C1F1E] dark:text-[#FCFAEF]">
+                {item.title}
+              </h3>
+              <p className="mt-3 text-sm leading-relaxed text-[#2F3332]/80 dark:text-[#E6E7E7]/80">
+                {item.description}
+              </p>
+            </li>
+          ))}
+        </ol>
+      </EditorialBand>
 
-      <section className="py-16 md:py-24 bg-gradient-to-r from-[#0F4C5C] via-[#0097b2] to-[#0B2F3A] text-[#FCFAEF] relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-6 left-6 h-64 w-64 rounded-full bg-[#FCFAEF]/10 blur-3xl" />
-          <div className="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-[#F5C94D]/10 blur-3xl" />
-        </div>
-        <div className="relative site-container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-[1.1fr,0.9fr] gap-12 lg:gap-16 items-stretch">
-            <MotionDiv
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true, amount: 0.3 }}
-              className="space-y-8"
+      <EditorialBand
+        tone="teal"
+        marker="04"
+        id="ya-mentorship"
+        aria-labelledby="ya-mentorship-heading"
+        className="bg-[#0F4C5C]"
+      >
+        <div className="grid items-start gap-12 lg:grid-cols-12 lg:gap-16">
+          <FadeIn className="lg:col-span-6">
+            <EditorialEyebrow tone="gold" className="text-[#F5C94D]">
+              Beyond a single visit
+            </EditorialEyebrow>
+            <EditorialHeading
+              id="ya-mentorship-heading"
+              className="mt-4 text-[#FCFAEF]"
             >
-              <div className="space-y-3">
-                <p className="text-xs font-semibold tracking-[0.35em] uppercase text-[#F5C94D]/80">
-                  Beyond a single visit
-                </p>
-                <h2 className="text-3xl md:text-4xl font-bold">Ongoing Mentorship</h2>
-                <p className="text-lg text-[#FCFAEF]/85 leading-relaxed">
-                  Students who show enthusiasm join a long-term mentorship journey guided by university mentors from local Akomapa clinics—turning curiosity into consistent leadership, resilience, and peer support.
-                </p>
-              </div>
+              Ongoing Mentorship
+            </EditorialHeading>
+            <EditorialLead className="mt-5 text-[#FCFAEF]/85 dark:text-[#FCFAEF]/85">
+              Students who show enthusiasm join a long-term mentorship journey
+              guided by university mentors from local Akomapa clinics—turning
+              curiosity into consistent leadership, resilience, and peer support.
+            </EditorialLead>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {mentorshipHighlights.map((highlight, index) => (
-                  <MotionDiv
-                    key={highlight.title}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                    viewport={{ once: true }}
-                    className="rounded-2xl border border-white/15 bg-white/5 p-5 shadow-lg backdrop-blur-[2px]"
-                  >
-                    <p
-                      className="text-xs font-semibold tracking-[0.3em] uppercase"
-                      style={{ color: highlight.accent }}
-                    >
-                      {highlight.label}
-                    </p>
-                    <h3 className="text-lg font-semibold text-white mt-2">{highlight.title}</h3>
-                    <p className="text-sm text-[#FCFAEF]/80 leading-relaxed mt-1">
+            <dl className="mt-10 border-t border-[#FCFAEF]/25">
+              {mentorshipHighlights.map((highlight) => (
+                <div
+                  key={highlight.title}
+                  className="border-b border-[#FCFAEF]/25 py-6"
+                >
+                  <dt className="font-subheading text-xs font-bold uppercase tracking-[0.2em] text-[#F5C94D]">
+                    {highlight.label}
+                  </dt>
+                  <dd className="mt-2">
+                    <h3 className="font-heading text-lg font-semibold text-[#FCFAEF]">
+                      {highlight.title}
+                    </h3>
+                    <p className="mt-2 text-sm leading-relaxed text-[#FCFAEF]/80">
                       {highlight.description}
                     </p>
-                  </MotionDiv>
-                ))}
-              </div>
-            </MotionDiv>
-
-            <MotionDiv
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1, duration: 0.6 }}
-              viewport={{ once: true, amount: 0.3 }}
-              className="relative"
-            >
-              <div className="absolute top-4 right-4 h-24 w-24 bg-[#FCFAEF]/10 rounded-full blur-3xl" />
-              <div className="relative">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                  {mentorshipBenefits.map((benefit, index) => (
-                    <MotionDiv
-                      key={benefit.title}
-                      initial={{ opacity: 0, y: 15 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.5, delay: index * 0.1 }}
-                      viewport={{ once: true }}
-                      className="relative overflow-hidden rounded-3xl border border-[#E6E7E7]/40 bg-[#FCFAEF] p-5 sm:p-6 shadow-2xl"
-                    >
-                      <div className="pointer-events-none absolute inset-0 opacity-40">
-                        <div className="absolute inset-0 bg-gradient-to-br from-white via-transparent to-white/60" />
-                        <div className="absolute inset-0 mix-blend-multiply">
-                          <div className="h-full w-full bg-[radial-gradient(circle_at_top,_rgba(250,244,228,0.8),_transparent_60%)]" />
-                        </div>
-                      </div>
-                      <div className="relative space-y-3">
-                        <div className="flex items-center gap-3">
-                          <div
-                            className="h-10 w-10 rounded-2xl flex items-center justify-center text-sm font-semibold border border-[#E6E7E7]"
-                            style={{
-                              backgroundColor: `${benefit.color}22`,
-                              color: benefit.color
-                            }}
-                          >
-                            {String(index + 1).padStart(2, "0")}
-                          </div>
-                          <h3 className="text-lg font-semibold text-[#1C1F1E]">{benefit.title}</h3>
-                        </div>
-                        <p className="text-sm md:text-base text-[#2F3332] leading-relaxed">
-                          {benefit.description}
-                        </p>
-                      </div>
-                    </MotionDiv>
-                  ))}
+                  </dd>
                 </div>
-              </div>
-            </MotionDiv>
-          </div>
+              ))}
+            </dl>
+          </FadeIn>
+
+          <FadeIn delay={0.1} className="lg:col-span-6">
+            <ol className="grid border-t border-[#FCFAEF]/25 sm:grid-cols-2">
+              {mentorshipBenefits.map((benefit, index) => (
+                <li
+                  key={benefit.title}
+                  className="border-b border-[#FCFAEF]/25 px-1 py-7 sm:border-r sm:px-6 sm:odd:[&:nth-last-child(-n+1)]:border-r-0 sm:[&:nth-child(2n)]:border-r-0"
+                >
+                  <span
+                    aria-hidden="true"
+                    className="font-heading text-3xl font-semibold tracking-[-0.06em] text-[#FCFAEF]/45"
+                  >
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <h3 className="mt-4 font-heading text-lg font-semibold text-[#FCFAEF]">
+                    {benefit.title}
+                  </h3>
+                  <p className="mt-3 text-sm leading-relaxed text-[#FCFAEF]/85">
+                    {benefit.description}
+                  </p>
+                </li>
+              ))}
+            </ol>
+          </FadeIn>
         </div>
-      </section>
+      </EditorialBand>
 
-      <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
-        <div className="site-container mx-auto px-4">
-          <MotionDiv
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true, amount: 0.3 }}
-            className="text-center max-w-4xl mx-auto mb-12 space-y-4"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold text-[#1C1F1E] dark:text-[#FCFAEF]">How It Works</h2>
-            <p className="text-lg text-[#2F3332] dark:text-[#E6E7E7] leading-relaxed">
-              A simple, repeatable model ensures every region delivers quality mentorship anchored in community care.
-            </p>
-          </MotionDiv>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-5xl mx-auto">
-            {howItWorks.map((step, index) => (
-              <MotionDiv
-                key={step.title}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true, amount: 0.3 }}
-                className="rounded-3xl bg-white dark:bg-[#2F3332] p-6 md:p-8 shadow-xl border border-[#E6E7E7]/40 dark:border-[#4F5554]/40"
-              >
-                <p className="text-xs font-semibold tracking-[0.3em] uppercase text-[#0097b2] dark:text-[#66C4DC] mb-3">
-                  {step.eyebrow}
-                </p>
-                <h3 className="text-xl font-semibold text-[#1C1F1E] dark:text-[#FCFAEF] mb-3">
-                  {step.title}
-                </h3>
-                <p className="text-sm md:text-base text-[#2F3332] dark:text-[#E6E7E7]/90 leading-relaxed">
-                  {step.description}
-                </p>
-              </MotionDiv>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section
-        data-testid="young-advocates-impact-section"
-        className="py-16 md:py-24 bg-gradient-to-r from-[#0097b2] to-[#0F4C5C] text-[#FCFAEF] relative overflow-hidden"
+      <EditorialBand
+        tone="cream"
+        marker="05"
+        id="ya-how"
+        aria-labelledby="ya-how-heading"
       >
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute -top-20 left-10 h-56 w-56 rounded-full bg-[#FCFAEF]/10 blur-3xl" />
-          <div className="absolute bottom-0 right-0 h-72 w-72 rounded-full bg-[#F5C94D]/10 blur-3xl" />
-        </div>
-        <div className="relative site-container mx-auto px-4">
-          <MotionDiv
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true, amount: 0.3 }}
-            className="text-center max-w-4xl mx-auto mb-12 space-y-4"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold">Our Impact</h2>
-            <p className="text-lg text-[#FCFAEF]/85 leading-relaxed">
-              Every classroom conversation is part of a larger movement to build a healthier, more compassionate generation.
-            </p>
-          </MotionDiv>
+        <FadeIn>
+          <div className="max-w-3xl">
+            <EditorialEyebrow className="text-[#0F4C5C] dark:text-[#66C4DC]">
+              Process
+            </EditorialEyebrow>
+            <EditorialHeading id="ya-how-heading" className="mt-4">
+              How It Works
+            </EditorialHeading>
+            <EditorialLead className="mt-5">
+              A simple, repeatable model ensures every region delivers quality
+              mentorship anchored in community care.
+            </EditorialLead>
+          </div>
+        </FadeIn>
 
+        <ol className="mt-12 grid border-t border-[#1C1F1E]/15 md:grid-cols-2 dark:border-[#FCFAEF]/20">
+          {howItWorks.map((step, index) => (
+            <li
+              key={step.title}
+              className="border-b border-[#1C1F1E]/15 px-1 py-7 md:border-r md:px-6 md:odd:[&:nth-last-child(-n+1)]:border-r-0 md:[&:nth-child(2n)]:border-r-0 dark:border-[#FCFAEF]/20"
+            >
+              <p className="font-subheading text-xs font-bold uppercase tracking-[0.2em] text-[#0097b2] dark:text-[#66C4DC]">
+                {step.eyebrow}
+              </p>
+              <span className="sr-only">
+                Step {String(index + 1).padStart(2, "0")}
+              </span>
+              <h3 className="mt-4 font-heading text-xl font-semibold text-[#1C1F1E] dark:text-[#FCFAEF]">
+                {step.title}
+              </h3>
+              <p className="mt-3 text-sm leading-relaxed text-[#2F3332]/80 dark:text-[#E6E7E7]/80 md:text-base">
+                {step.description}
+              </p>
+            </li>
+          ))}
+        </ol>
+      </EditorialBand>
+
+      <EditorialBand
+        tone="teal"
+        marker="06"
+        id="ya-impact"
+        data-testid="young-advocates-impact-section"
+        aria-labelledby="ya-impact-heading"
+        className="bg-[#0F4C5C]"
+      >
+        <FadeIn>
+          <div className="max-w-3xl">
+            <EditorialEyebrow tone="gold" className="text-[#F5C94D]">
+              Results
+            </EditorialEyebrow>
+            <EditorialHeading
+              id="ya-impact-heading"
+              className="mt-4 text-[#FCFAEF]"
+            >
+              Our Impact
+            </EditorialHeading>
+            <EditorialLead className="mt-5 text-[#FCFAEF]/85 dark:text-[#FCFAEF]/85">
+              Every classroom conversation is part of a larger movement to build
+              a healthier, more compassionate generation.
+            </EditorialLead>
+          </div>
+        </FadeIn>
+
+        <FadeInStagger className="mt-12">
           <div
             data-testid="young-advocates-impact-grid"
-            className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 md:gap-8 xl:gap-10 items-stretch w-full max-w-[90rem] mx-auto"
+            className="grid w-full max-w-[90rem] grid-cols-1 items-stretch gap-6 md:grid-cols-2 md:gap-8 xl:grid-cols-4 xl:gap-10"
           >
-            {impactMetrics.map((metric, index) => (
-              <MotionDiv
-                key={metric.id}
-                data-testid="young-advocates-impact-card"
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true, amount: 0.3 }}
-                className="group relative h-full min-w-0 rounded-[28px] border border-white/35 bg-[#FCFAEF]/95 p-7 sm:p-8 md:p-9 xl:p-10 text-[#1C1F1E] shadow-xl backdrop-blur-[2px] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_10px_20px_rgba(0,0,0,0.08)]"
-              >
-                <div
-                  className="absolute inset-x-0 top-0 h-1.5"
-                  style={{ backgroundColor: metric.color }}
-                />
-                <div className="relative flex h-full flex-col gap-5 md:gap-6 pt-2 md:pt-3">
-                  <p
-                    className="text-xs font-semibold uppercase tracking-[0.28em]"
-                    style={{ color: metric.color }}
-                  >
+            {impactMetrics.map((metric) => (
+              <FadeInStaggerItem key={metric.id} direction="up" className="h-full min-w-0">
+                <article
+                  data-testid="young-advocates-impact-card"
+                  className="flex h-full min-w-0 flex-col border border-[#FCFAEF]/25 bg-[#FCFAEF] px-6 py-7 text-[#1C1F1E] sm:px-7 sm:py-8"
+                >
+                  <p className="font-subheading text-xs font-bold uppercase tracking-[0.2em] text-[#0097b2]">
                     {metric.eyebrow}
                   </p>
-                  <div className="space-y-3">
+                  <div className="mt-4 space-y-3">
                     <AnimatedMetric
                       value={metric.value}
                       suffix={metric.suffix ?? ""}
-                      className="text-5xl md:text-6xl lg:text-7xl font-semibold tracking-tight leading-none"
-                      style={{ color: metric.color }}
+                      className="font-heading text-5xl font-semibold leading-none tracking-tight text-[#0097b2] md:text-6xl"
                     />
-                    <h3 className="text-2xl md:text-[1.75rem] font-semibold leading-tight text-[#1C1F1E]">
+                    <h3 className="font-heading text-2xl font-semibold leading-tight text-[#1C1F1E] md:text-[1.75rem]">
                       {metric.label}
                     </h3>
                   </div>
-                  <p className="text-base text-[#2F3332]/85 leading-relaxed flex-1">
+                  <p className="mt-4 flex-1 text-base leading-relaxed text-[#2F3332]/85">
                     {metric.description}
                   </p>
-                </div>
-              </MotionDiv>
+                </article>
+              </FadeInStaggerItem>
             ))}
           </div>
-        </div>
-      </section>
+        </FadeInStagger>
+      </EditorialBand>
 
-      <section className="py-16 md:py-24 bg-[#F4F1E8] dark:bg-[#1C1F1E]">
-        <div className="site-container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            <MotionDiv
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true, amount: 0.3 }}
-              className="order-2 lg:order-1 space-y-5 text-lg text-[#2F3332] dark:text-[#E6E7E7] leading-relaxed"
-            >
-              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-[#1C1F1E] dark:text-[#FCFAEF]">
-                Powered by Akomapa Clinics
-              </h2>
-              <p>
-                Each local Akomapa clinic leads the Young Advocates Program in its region. The Akomapa UCC Clinic runs the initiative across high schools in Cape Coast and surrounding towns, mentoring students to become youth health ambassadors connected to real community care.
-              </p>
-              <p>
-                Partnerships between clinics, faculty mentors, and education authorities ensure students receive accurate information and compassionate guidance on hypertension, diabetes, and mental health—with real pathways to care that support whole-person well-being.
-              </p>
-            </MotionDiv>
-
-            <MotionDiv
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1, duration: 0.6 }}
-              viewport={{ once: true, amount: 0.3 }}
-              className="order-1 lg:order-2 relative w-full min-h-[320px] h-[320px] sm:h-[380px] md:h-[420px] lg:h-[460px] rounded-3xl overflow-hidden shadow-2xl"
-            >
+      <EditorialBand
+        tone="cream"
+        marker="07"
+        id="ya-clinics"
+        aria-labelledby="ya-clinics-heading"
+      >
+        <div className="grid items-start gap-10 lg:grid-cols-12 lg:gap-16">
+          <FadeIn direction="left" className="relative order-1 lg:order-2 lg:col-span-5">
+            <span
+              aria-hidden="true"
+              className="absolute -top-3 left-0 z-10 h-1 w-24 bg-[#eeba2b]"
+            />
+            <div className="relative aspect-[4/3] overflow-hidden rounded-md border border-[#1C1F1E]/10 bg-[#E6E7E7] dark:border-[#FCFAEF]/15 dark:bg-[#2F3332]">
               <Image
                 src="/highlights/Akomapa-19.jpg"
                 alt="Akomapa clinic mentors supporting youth"
                 fill
-                sizes="(min-width: 1024px) 50vw, 100vw"
+                sizes="(min-width: 1024px) 40vw, 100vw"
                 className="object-cover object-center"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent" />
-            </MotionDiv>
-          </div>
-        </div>
-      </section>
-
-      <section className="py-16 md:py-24 bg-gradient-to-r from-[#0F4C5C] via-[#0097b2] to-[#0B2F3A] text-[#FCFAEF] relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute -top-20 left-10 h-56 w-56 rounded-full bg-[#FCFAEF]/10 blur-3xl" />
-          <div className="absolute bottom-0 right-0 h-72 w-72 rounded-full bg-[#F5C94D]/10 blur-3xl" />
-        </div>
-        <div className="relative site-container mx-auto px-4">
-          <MotionDiv
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true, amount: 0.3 }}
-            className="max-w-3xl mx-auto space-y-8"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold text-center">From the Founders</h2>
-            <div className="relative bg-[#FCFAEF]/10 backdrop-blur-md rounded-2xl p-8 md:p-10 shadow-xl border border-[#FCFAEF]/20">
-              <blockquote className="relative z-10 text-lg md:text-xl text-[#FCFAEF]/90 leading-relaxed italic">
-                “The Akomapa Young Advocates Program believes that leadership begins with empathy. By empowering young people to care for their health and their communities, we are building a generation of changemakers with good hearts.”
-              </blockquote>
             </div>
-            <div className="flex items-center gap-4">
-              <div className="relative h-16 w-16 rounded-full overflow-hidden border-2 border-[#F5C94D]/40 shadow-lg flex-shrink-0 bg-white/90">
-                <Image
-                  src="/images/team/brian-fleischer.jpeg"
-                  alt="Akomapa Health"
-                  fill
-                  sizes="64px"
-                  className="object-contain p-2"
-                />
-              </div>
-              <div className="flex flex-col items-start">
-                <p className="text-base font-semibold text-[#F5C94D]">
-                  Akomapa Executive Team
-                </p>
-                <p className="text-sm text-[#FCFAEF]/80">
-                  Founders of the Young Advocates Program
-                </p>
-              </div>
+          </FadeIn>
+          <FadeIn className="order-2 lg:order-1 lg:col-span-7">
+            <EditorialEyebrow className="text-[#0F4C5C] dark:text-[#66C4DC]">
+              Clinics
+            </EditorialEyebrow>
+            <EditorialHeading id="ya-clinics-heading" className="mt-4">
+              Powered by Akomapa Clinics
+            </EditorialHeading>
+            <div className="mt-6 space-y-5 text-base leading-relaxed text-[#2F3332]/80 dark:text-[#E6E7E7]/80 md:text-lg">
+              <p>
+                Each local Akomapa clinic leads the Young Advocates Program in
+                its region. The Akomapa UCC Clinic runs the initiative across
+                high schools in Cape Coast and surrounding towns, mentoring
+                students to become youth health ambassadors connected to real
+                community care.
+              </p>
+              <p>
+                Partnerships between clinics, faculty mentors, and education
+                authorities ensure students receive accurate information and
+                compassionate guidance on hypertension, diabetes, and mental
+                health—with real pathways to care that support whole-person
+                well-being.
+              </p>
             </div>
-          </MotionDiv>
+          </FadeIn>
         </div>
-      </section>
+      </EditorialBand>
 
-      <section className="py-16 md:py-24 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
-        <div className="site-container mx-auto px-4">
-          <MotionDiv
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true, amount: 0.3 }}
-            className="max-w-3xl mx-auto text-center space-y-6"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold text-[#1C1F1E] dark:text-[#FCFAEF]">
+      <ProgramQuoteBand
+        tone="teal"
+        marker="08"
+        id="ya-quote"
+        className="bg-[#0F4C5C]"
+        quote="The Akomapa Young Advocates Program believes that leadership begins with empathy. By empowering young people to care for their health and their communities, we are building a generation of changemakers with good hearts."
+        attribution="Akomapa Executive Team"
+        role="Founders of the Young Advocates Program"
+        image="/images/team/brian-fleischer.jpeg"
+        imageAlt="Akomapa Health"
+      />
+
+      <EditorialBand
+        tone="cream"
+        marker="09"
+        id="ya-cta"
+        aria-labelledby="ya-cta-heading"
+      >
+        <FadeIn>
+          <div className="mx-auto max-w-3xl text-center">
+            <EditorialEyebrow className="text-[#0F4C5C] dark:text-[#66C4DC]">
+              Get Involved
+            </EditorialEyebrow>
+            <EditorialHeading id="ya-cta-heading" className="mt-4">
               Partner or Get Involved
-            </h2>
-            <p className="text-lg text-[#2F3332] dark:text-[#E6E7E7] leading-relaxed">
-              We welcome partnerships with schools, education authorities, and organizations dedicated to youth development and community health.
-            </p>
-            <div className="flex flex-col sm:flex-row sm:flex-wrap gap-4 justify-center">
-              <Button asChild className={primaryCtaClass}>
-                <Link href="/partnerships" className="flex items-center">
-                  Partner with Us
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Link>
-              </Button>
-              <Button asChild className={secondaryCtaClass}>
-                <Link href="/get-involved" className="flex items-center">
-                  Volunteer as a Student
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Link>
-              </Button>
-              <Button
-                asChild
-                className={`${ctaBaseClass} border-2 border-[#0097b2] text-[#0097b2] bg-transparent hover:bg-[#0097b2]/10 hover:text-[#1C1F1E] shadow-none focus-visible:ring-[#8DD4E6]`}
-              >
-                <Link href="/donate" className="flex items-center">
-                  Support the Program
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Link>
-              </Button>
+            </EditorialHeading>
+            <EditorialLead className="mx-auto mt-5 max-w-2xl">
+              We welcome partnerships with schools, education authorities, and
+              organizations dedicated to youth development and community health.
+            </EditorialLead>
+            <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap sm:gap-4">
+              <EditorialButton href="/partnerships" variant="solid">
+                Partner with Us
+              </EditorialButton>
+              <EditorialButton href="/get-involved" variant="amber">
+                Volunteer as a Student
+              </EditorialButton>
+              <EditorialButton href="/donate" variant="outline">
+                Support the Program
+              </EditorialButton>
             </div>
-          </MotionDiv>
-        </div>
-      </section>
-    </div>
+          </div>
+        </FadeIn>
+      </EditorialBand>
+    </>
   );
 }

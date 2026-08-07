@@ -3,6 +3,12 @@
 This directory captures the before/after measurements for the comprehensive QA,
 performance, and stability pass.
 
+## Image optimization (#99)
+
+See [`image-optimization.md`](./image-optimization.md) for the confirmed
+ImageKit-vs-Next strategy (ImageKit primary for CDN assets; Next for local /
+other remotes).
+
 ## Issue #86 — homepage critical path (2026-07-24)
 
 See [`lighthouse-issue-86.md`](./lighthouse-issue-86.md) for the homepage

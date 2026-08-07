@@ -12,8 +12,7 @@ type BlogFeaturedPostProps = {
 };
 
 /**
- * Prominent, visually-distinct featured card shown at the top of the listing.
- * Larger than a grid card, with a hero image and a two-column layout on desktop.
+ * Prominent editorial lead story with an asymmetric two-column composition.
  */
 export function BlogFeaturedPost({ post }: BlogFeaturedPostProps) {
   const posterSrc = getAnnouncementPosterSrc({
@@ -24,21 +23,17 @@ export function BlogFeaturedPost({ post }: BlogFeaturedPostProps) {
   return (
     <Link
       href={`/blog/${post.slug}`}
-      className="group block rounded-3xl focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0097b2] focus-visible:ring-offset-2 focus-visible:ring-offset-[#FCFAEF] dark:focus-visible:ring-offset-[#1C1F1E]"
+      className="group block focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0097b2] focus-visible:ring-offset-2 focus-visible:ring-offset-[#FCFAEF] dark:focus-visible:ring-offset-[#121514]"
     >
       <article
         className={cn(
-          "grid overflow-hidden rounded-3xl lg:grid-cols-2",
-          "bg-white dark:bg-[#2F3332]",
-          "border border-black/[0.05] dark:border-white/[0.06]",
-          "shadow-[0_8px_30px_rgba(15,76,92,0.10)]",
-          "transition-all duration-300 ease-out",
-          "group-hover:-translate-y-1 group-hover:shadow-[0_20px_50px_rgba(15,76,92,0.18)]",
+          "grid overflow-hidden border-y border-[#B8B5A8] lg:grid-cols-12 dark:border-[#3E555A]",
+          "bg-transparent transition-colors duration-200 group-hover:bg-white/65 dark:group-hover:bg-[#1C1F1E]",
         )}
       >
         {/* Media */}
         {posterSrc && (
-          <div className="relative aspect-[16/10] min-w-0 overflow-hidden lg:aspect-auto lg:min-h-[360px]">
+          <div className="relative aspect-[16/10] min-w-0 overflow-hidden lg:col-span-7 lg:aspect-auto lg:min-h-[390px]">
             <Image
               src={posterSrc}
               alt={post.title}
@@ -47,8 +42,6 @@ export function BlogFeaturedPost({ post }: BlogFeaturedPostProps) {
               sizes="(min-width: 1024px) 50vw, 100vw"
               className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
-
             {post.videoUrl && (
               <span className="absolute inset-0 flex items-center justify-center">
                 <span className="flex h-16 w-16 items-center justify-center rounded-full bg-white/90 shadow-xl transition-transform duration-300 group-hover:scale-110">
@@ -57,7 +50,7 @@ export function BlogFeaturedPost({ post }: BlogFeaturedPostProps) {
               </span>
             )}
 
-            <span className="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-full bg-[#eeba2b] px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-[#1C1F1E] shadow-sm">
+            <span className="absolute left-4 top-4 inline-flex items-center gap-1.5 bg-[#eeba2b] px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-[#1C1F1E]">
               <Star className="h-3 w-3" fill="currentColor" />
               Featured
             </span>
@@ -65,7 +58,7 @@ export function BlogFeaturedPost({ post }: BlogFeaturedPostProps) {
         )}
 
         {/* Content */}
-        <div className="flex min-w-0 flex-col justify-center p-6 sm:p-8 lg:p-10">
+        <div className="flex min-w-0 flex-col justify-center p-6 sm:p-8 lg:col-span-5 lg:border-l lg:border-[#B8B5A8] lg:p-10 dark:lg:border-[#3E555A]">
           <div className="mb-4 flex flex-wrap items-center gap-3">
             <span
               className={cn(
@@ -93,7 +86,7 @@ export function BlogFeaturedPost({ post }: BlogFeaturedPostProps) {
             {post.title}
           </h2>
 
-          <p className="mb-6 text-base leading-relaxed text-[#2F3332]/75 line-clamp-3 sm:text-lg dark:text-[#E6E7E7]/70">
+          <p className="mb-6 text-base leading-relaxed text-[#2F3332]/75 sm:text-lg dark:text-[#E6E7E7]/70">
             {post.excerpt}
           </p>
 
@@ -110,8 +103,8 @@ export function BlogFeaturedPost({ post }: BlogFeaturedPostProps) {
             </div>
           </div>
 
-          <span className="mt-7 inline-flex items-center gap-2 text-sm font-semibold text-[#0097b2] transition-colors duration-200 group-hover:text-[#005A55] dark:text-[#66C4DC] dark:group-hover:text-[#eeba2b]">
-            Read the full story
+          <span className="mt-7 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-[#0097b2] transition-colors duration-200 group-hover:text-[#005A55] dark:text-[#66C4DC] dark:group-hover:text-[#eeba2b]">
+            Step inside this story
             <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
           </span>
         </div>

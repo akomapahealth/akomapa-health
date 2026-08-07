@@ -1,170 +1,110 @@
 "use client";
 
-import NextImage from "next/image";
-import { useState } from "react";
+import dynamic from "next/dynamic";
+import Link from "next/link";
 import {
   FadeIn,
   FadeInStagger,
   FadeInStaggerItem,
 } from "@/components/animations";
 import {
-  PublicSection,
-  PublicSectionHeader,
-} from "@/components/shared/PublicPagePrimitives";
+  EditorialBand,
+  EditorialEyebrow,
+  EditorialHeading,
+  EditorialLead,
+  EditorialArrowLink,
+} from "@/components/shared/EditorialPrimitives";
 import { mapLocations } from "@/data/impact";
 import type { MapLocation } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
-// Projection constants — must match scripts that generated
-// /public/images/world-equirectangular.svg (Natural Earth, public domain).
-const LAT_TOP = 83;
-const LAT_SPAN = 139; // 83°N down to 56°S
-const LNG_SPAN = 360;
-
-function projectToPercent({ lat, lng }: MapLocation["coordinates"]) {
-  return {
-    left: ((lng + 180) / LNG_SPAN) * 100,
-    top: ((LAT_TOP - lat) / LAT_SPAN) * 100,
-  };
-}
-
 type LocationTypeMeta = {
   label: string;
-  dot: string;
-  ring: string;
+  /** Shape cue so type is not color-alone (matches map markers). */
+  shape: "circle-filled" | "square-filled" | "circle-outline";
+  shapeClass: string;
   badge: string;
 };
 
 const typeMeta: Record<MapLocation["type"], LocationTypeMeta> = {
   "active-hub": {
     label: "Active hub",
-    dot: "bg-[#0097b2] border-white",
-    ring: "bg-[#0097b2]/40",
-    badge: "bg-[#0097b2]/10 text-[#0097b2]",
+    shape: "circle-filled",
+    shapeClass: "rounded-full bg-[#0097b2] border-2 border-[#0097b2]",
+    badge:
+      "border border-[#0097b2]/40 text-[#0097b2] dark:border-[#66C4DC]/50 dark:text-[#66C4DC]",
   },
   "planned-hub": {
     label: "Planned hub",
-    dot: "bg-[#eeba2b] border-white",
-    ring: "bg-[#eeba2b]/40",
-    badge: "bg-[#eeba2b]/15 text-[#8a6b12]",
+    shape: "square-filled",
+    shapeClass: "rounded-sm bg-[#eeba2b] border-2 border-[#eeba2b]",
+    badge:
+      "border border-[#C9920F]/40 text-[#8a6b12] dark:border-[#F5C94D]/50 dark:text-[#F5C94D]",
   },
   partner: {
     label: "Partner",
-    dot: "bg-white border-[#0097b2]",
-    ring: "bg-[#0097b2]/20",
-    badge: "bg-[#0F4C5C]/10 text-[#0F4C5C]",
+    shape: "circle-outline",
+    shapeClass: "rounded-full bg-transparent border-2 border-[#0F4C5C] dark:border-[#FCFAEF]",
+    badge:
+      "border border-[#0F4C5C]/35 text-[#0F4C5C] dark:border-[#FCFAEF]/40 dark:text-[#FCFAEF]",
   },
 };
 
-export default function ImpactMap() {
-  const [activeId, setActiveId] = useState<string | null>(null);
-
+function MapCanvasPlaceholder() {
   return (
-    <PublicSection tone="cream" aria-labelledby="impact-map-heading">
+    <div
+      className="flex h-full w-full items-center justify-center bg-[#EAF4F6] text-sm text-[#0F4C5C]/70 dark:bg-[#1C1F1E] dark:text-[#E6E7E7]/70"
+      aria-hidden="true"
+    >
+      Loading map…
+    </div>
+  );
+}
+
+const ImpactMapCanvas = dynamic(() => import("./ImpactMapCanvas"), {
+  ssr: false,
+  loading: () => <MapCanvasPlaceholder />,
+});
+
+export default function ImpactMap() {
+  return (
+    <EditorialBand
+      tone="cream"
+      marker="03"
+      id="impact-map"
+      aria-labelledby="impact-map-heading"
+    >
       <FadeIn>
-        <PublicSectionHeader
-          eyebrow="Global Footprint"
-          eyebrowTone="teal"
-          titleId="impact-map-heading"
-          title="A growing network of hubs"
-          description="Akomapa's Community Learning & Care Hubs and partner institutions span West Africa and North America — with more sites on the way."
-          className="mb-12"
-        />
-      </FadeIn>
-
-      <FadeIn direction="up" delay={0.05}>
-        {/* Map panel — intentionally light in both themes, like a printed map. */}
-        <div
-          className="relative mx-auto aspect-[1000/386] w-full max-w-5xl overflow-hidden rounded-2xl border border-[#0097b2]/20 bg-gradient-to-b from-[#EAF4F6] to-[#DCEEF1] shadow-[0_24px_70px_rgba(15,76,92,0.18)]"
-          onMouseLeave={() => setActiveId(null)}
-        >
-          <NextImage
-            src="/images/world-equirectangular.svg"
-            alt="World map of Akomapa hub and partner locations"
-            fill
-            unoptimized
-            sizes="(min-width: 1024px) 64rem, 100vw"
-            className="pointer-events-none select-none object-contain opacity-90"
-          />
-
-          {mapLocations.map((location) => {
-            const { left, top } = projectToPercent(location.coordinates);
-            const meta = typeMeta[location.type];
-            const isActive = activeId === location.id;
-
-            return (
-              <div
-                key={location.id}
-                className="absolute -translate-x-1/2 -translate-y-1/2"
-                style={{ left: `${left}%`, top: `${top}%` }}
-              >
-                <button
-                  type="button"
-                  aria-label={`${location.name} — ${meta.label}`}
-                  aria-expanded={isActive}
-                  onClick={() =>
-                    setActiveId((current) =>
-                      current === location.id ? null : location.id,
-                    )
-                  }
-                  onMouseEnter={() => setActiveId(location.id)}
-                  onFocus={() => setActiveId(location.id)}
-                  onBlur={() => setActiveId(null)}
-                  className="group relative flex h-6 w-6 items-center justify-center rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0097b2] focus-visible:ring-offset-2"
-                >
-                  {location.type === "active-hub" ? (
-                    <span
-                      aria-hidden="true"
-                      className={cn(
-                        "absolute inline-flex h-4 w-4 animate-ping rounded-full motion-reduce:hidden",
-                        meta.ring,
-                      )}
-                    />
-                  ) : null}
-                  <span
-                    aria-hidden="true"
-                    className={cn(
-                      "relative inline-flex h-3.5 w-3.5 rounded-full border-2 shadow-md transition-transform duration-200 group-hover:scale-125",
-                      meta.dot,
-                    )}
-                  />
-                </button>
-
-                {/* Tooltip */}
-                {isActive ? (
-                  <div
-                    role="tooltip"
-                    className="absolute bottom-full left-1/2 z-20 mb-3 w-56 -translate-x-1/2 rounded-xl border border-[#E6E7E7] bg-white p-3 text-left shadow-xl"
-                  >
-                    <span
-                      className={cn(
-                        "inline-block rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide",
-                        meta.badge,
-                      )}
-                    >
-                      {meta.label}
-                    </span>
-                    <p className="mt-1.5 text-sm font-semibold text-[#1C1F1E]">
-                      {location.name}
-                    </p>
-                    <p className="mt-1 text-xs leading-snug text-[#2F3332]/75">
-                      {location.description}
-                    </p>
-                    <span
-                      aria-hidden="true"
-                      className="absolute left-1/2 top-full h-2 w-2 -translate-x-1/2 -translate-y-1 rotate-45 border-b border-r border-[#E6E7E7] bg-white"
-                    />
-                  </div>
-                ) : null}
-              </div>
-            );
-          })}
+        <div className="max-w-3xl">
+          <EditorialEyebrow>Global Footprint</EditorialEyebrow>
+          <EditorialHeading id="impact-map-heading" className="mt-4">
+            A growing network of hubs
+          </EditorialHeading>
+          <EditorialLead className="mt-5">
+            Akomapa&apos;s Community Learning &amp; Care Hubs and partner
+            institutions span West Africa and North America — with more sites on
+            the way.
+          </EditorialLead>
         </div>
       </FadeIn>
 
-      {/* Legend */}
+      <FadeIn direction="up" delay={0.05}>
+        <div
+          data-testid="impact-map-panel"
+          className="relative mx-auto mt-12 aspect-[1000/386] w-full max-w-5xl overflow-hidden rounded-md border border-[#1C1F1E]/15 bg-[#EAF4F6] dark:border-[#FCFAEF]/20 dark:bg-[#1C1F1E] max-sm:aspect-[4/3] max-sm:min-h-[16rem]"
+        >
+          <ImpactMapCanvas />
+        </div>
+        <p className="mx-auto mt-2 max-w-5xl text-right text-[11px] leading-snug text-[#2F3332]/55 dark:text-[#E6E7E7]/55">
+          Map tiles © Esri
+        </p>
+      </FadeIn>
+
       <FadeIn direction="up" delay={0.1}>
-        <ul className="mx-auto mt-6 flex max-w-5xl flex-wrap items-center justify-center gap-x-6 gap-y-3">
+        <ul
+          data-impact-map-legend
+          className="mx-auto mt-6 flex max-w-5xl flex-wrap items-center justify-center gap-x-6 gap-y-3"
+        >
           {(
             Object.entries(typeMeta) as [MapLocation["type"], LocationTypeMeta][]
           ).map(([type, meta]) => (
@@ -174,46 +114,75 @@ export default function ImpactMap() {
             >
               <span
                 aria-hidden="true"
-                className={cn(
-                  "inline-flex h-3.5 w-3.5 rounded-full border-2",
-                  meta.dot,
-                )}
+                data-legend-shape={meta.shape}
+                className={cn("inline-flex h-3.5 w-3.5 shrink-0", meta.shapeClass)}
               />
-              {meta.label}
+              <span>{meta.label}</span>
             </li>
           ))}
         </ul>
       </FadeIn>
 
-      {/* Location list — accessible, mobile-friendly fallback */}
       <FadeInStagger
-        className="mx-auto mt-12 grid max-w-5xl grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3"
+        className="mx-auto mt-12 grid max-w-5xl grid-cols-1 gap-0 border-y border-[#1C1F1E]/15 sm:grid-cols-2 lg:grid-cols-3 dark:border-[#FCFAEF]/20"
         staggerDelay={0.08}
       >
-        {mapLocations.map((location) => {
+        {mapLocations.map((location, index) => {
           const meta = typeMeta[location.type];
+          const divider =
+            index === 0
+              ? ""
+              : index === 1
+                ? "border-t sm:border-l sm:border-t-0"
+                : index === 2
+                  ? "border-t lg:border-l lg:border-t-0"
+                  : "border-t sm:border-l lg:border-l";
+
           return (
-            <FadeInStaggerItem key={location.id} direction="up" className="h-full">
-              <div className="flex h-full flex-col rounded-xl border border-[#E6E7E7] bg-white/90 p-5 shadow-sm dark:border-[#2F3332] dark:bg-[#2F3332]/70">
-                <span
-                  className={cn(
-                    "inline-block w-fit rounded-full px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wide",
-                    meta.badge,
-                  )}
-                >
-                  {meta.label}
-                </span>
-                <h3 className="mt-2 font-heading text-lg font-semibold text-[#1C1F1E] dark:text-[#FCFAEF]">
-                  {location.name}
-                </h3>
-                <p className="mt-1.5 text-sm leading-relaxed text-[#2F3332]/75 dark:text-[#E6E7E7]/75">
-                  {location.description}
-                </p>
-              </div>
+            <FadeInStaggerItem key={location.id} direction="up">
+              <article
+                data-impact-map-location={location.id}
+                className={cn(
+                  "flex h-full flex-col justify-between border-[#1C1F1E]/15 px-1 py-7 sm:px-6 dark:border-[#FCFAEF]/20",
+                  divider,
+                )}
+              >
+                <div>
+                  <p className="inline-flex items-center gap-2 font-subheading text-xs font-bold uppercase tracking-[0.2em] text-[#2F3332]/70 dark:text-[#E6E7E7]/70">
+                    <span
+                      aria-hidden="true"
+                      className={cn("inline-flex h-3 w-3", meta.shapeClass)}
+                    />
+                    <span className={cn("px-0 py-0", meta.badge)}>
+                      {meta.label}
+                    </span>
+                  </p>
+                  <h3 className="mt-3 font-heading text-lg font-semibold text-[#1C1F1E] dark:text-[#FCFAEF]">
+                    {location.href ? (
+                      <Link
+                        href={location.href}
+                        className="inline-flex min-h-11 items-center transition-colors hover:text-[#0097b2] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eeba2b] focus-visible:ring-offset-2 dark:hover:text-[#66C4DC]"
+                      >
+                        {location.name}
+                      </Link>
+                    ) : (
+                      location.name
+                    )}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-[#2F3332]/75 dark:text-[#E6E7E7]/75">
+                    {location.description}
+                  </p>
+                </div>
+                {location.href ? (
+                  <EditorialArrowLink href={location.href} className="mt-5">
+                    View hub
+                  </EditorialArrowLink>
+                ) : null}
+              </article>
             </FadeInStaggerItem>
           );
         })}
       </FadeInStagger>
-    </PublicSection>
+    </EditorialBand>
   );
 }

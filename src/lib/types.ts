@@ -248,6 +248,8 @@ export interface MapLocation {
   };
   type: "active-hub" | "planned-hub" | "partner";
   description: string;
+  /** Optional detail page for hubs (e.g. `/community-hubs/ucc`). */
+  href?: string;
 }
 
 export interface FutureVisionTarget {

@@ -2,14 +2,12 @@
 
 import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
-import { FileText } from "lucide-react";
-import { Button } from "@/components/ui/button";
 
 const PdfViewer = dynamic(() => import("./PdfViewer"), {
   ssr: false,
   loading: () => (
     <div
-      className="flex min-h-80 items-center justify-center rounded-2xl bg-white shadow-lg dark:bg-[#2F3332]"
+      className="flex min-h-80 items-center justify-center border border-[#1C1F1E]/12 bg-white dark:border-[#FCFAEF]/15 dark:bg-[#1C1F1E]"
       role="status"
     >
       <div className="text-center">
@@ -73,20 +71,21 @@ export default function DeferredPdfViewer({ pdfUrl }: { pdfUrl: string }) {
       {shouldLoad ? (
         <PdfViewer pdfUrl={pdfUrl} />
       ) : (
-        <div className="flex min-h-80 flex-col items-center justify-center rounded-2xl border border-[#E6E7E7] bg-white px-6 py-12 text-center shadow-lg dark:border-[#4F5554] dark:bg-[#2F3332]">
-          <span className="inline-flex h-14 w-14 items-center justify-center rounded-full bg-[#0097b2]/10 text-[#0097b2] dark:bg-[#66C4DC]/15 dark:text-[#66C4DC]">
-            <FileText className="h-7 w-7" aria-hidden="true" />
-          </span>
-          <h3 className="mt-5 text-xl font-semibold text-[#1C1F1E] dark:text-[#FCFAEF]">
+        <div className="flex min-h-80 flex-col items-start justify-center border border-[#1C1F1E]/12 border-l-2 border-l-[#eeba2b] bg-white px-6 py-12 dark:border-[#FCFAEF]/15 dark:border-l-[#eeba2b] dark:bg-[#1C1F1E] sm:px-8">
+          <h3 className="font-heading text-xl font-semibold text-[#1C1F1E] dark:text-[#FCFAEF]">
             Read the full paper
           </h3>
           <p className="mt-2 max-w-xl text-sm leading-relaxed text-[#2F3332]/80 dark:text-[#E6E7E7]/80 sm:text-base">
             The interactive viewer loads only when you need it, keeping the
             paper summary fast and immediately readable.
           </p>
-          <Button className="mt-6" onClick={() => setShouldLoad(true)}>
+          <button
+            type="button"
+            className="mt-6 inline-flex min-h-11 items-center justify-center rounded-md bg-[#0097b2] px-5 py-2.5 text-sm font-semibold text-[#FCFAEF] transition-colors hover:bg-[#eeba2b] hover:text-[#1C1F1E] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eeba2b] focus-visible:ring-offset-2"
+            onClick={() => setShouldLoad(true)}
+          >
             Load PDF viewer
-          </Button>
+          </button>
         </div>
       )}
     </section>

@@ -1,65 +1,59 @@
 "use client";
 
+import { FadeIn } from "@/components/animations";
 import {
-  FlaskConical,
-  GraduationCap,
-  Handshake,
-  Heart,
-  Lightbulb,
-  type LucideIcon,
-} from "lucide-react";
-import { FadeIn, FadeInStagger, FadeInStaggerItem } from "@/components/animations";
-import {
-  IconBadge,
-  PublicSection,
-  PublicSectionHeader,
-} from "@/components/shared/PublicPagePrimitives";
+  EditorialBand,
+  EditorialEyebrow,
+  EditorialHeading,
+  EditorialLead,
+} from "@/components/shared/EditorialPrimitives";
 import { hubMissions } from "@/data/community-hubs";
-
-const missionIcons: LucideIcon[] = [
-  Heart,
-  GraduationCap,
-  Handshake,
-  FlaskConical,
-  Lightbulb,
-];
 
 export default function FiveMissions() {
   return (
-    <PublicSection tone="cream" spacing="normal" withTexture id="five-missions">
+    <EditorialBand
+      tone="cream"
+      marker="01"
+      id="five-missions"
+      aria-labelledby="five-missions-heading"
+    >
       <FadeIn>
-        <PublicSectionHeader
-          eyebrow="Every Hub, Five Missions"
-          title="What Our Hubs Are Built to Do"
-          description="Each Community Learning & Care Hub is a platform for healthcare delivery, leadership development, partnership, research, and innovation."
-          titleId="five-missions-heading"
-        />
+        <div className="max-w-3xl">
+          <EditorialEyebrow className="text-[#0F4C5C] dark:text-[#66C4DC]">
+            Every Hub, Five Missions
+          </EditorialEyebrow>
+          <EditorialHeading id="five-missions-heading" className="mt-4">
+            What Our Hubs Are Built to Do
+          </EditorialHeading>
+          <EditorialLead className="mt-5">
+            Each Community Learning & Care Hub is a platform for healthcare
+            delivery, leadership development, partnership, research, and
+            innovation.
+          </EditorialLead>
+        </div>
       </FadeIn>
 
-      <FadeInStagger className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
-        {hubMissions.map((mission, index) => {
-          const Icon = missionIcons[index] ?? Heart;
-
-          return (
-            <FadeInStaggerItem key={mission.id} direction="up">
-              <div className="flex h-full flex-col items-center rounded-xl border border-[#E6E7E7] bg-white/88 p-6 text-center shadow-sm dark:border-[#2F3332] dark:bg-[#2F3332]/70">
-                <IconBadge className="h-12 w-12">
-                  <Icon className="h-5 w-5" aria-hidden="true" />
-                </IconBadge>
-                <p className="mt-4 text-sm font-semibold uppercase tracking-wide text-[#0097b2] dark:text-[#66C4DC]">
-                  {String(mission.id).padStart(2, "0")}
-                </p>
-                <h3 className="mt-2 text-lg font-semibold text-[#1C1F1E] dark:text-[#FCFAEF]">
-                  {mission.title}
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-[#2F3332]/80 dark:text-[#E6E7E7]/80">
-                  {mission.description}
-                </p>
-              </div>
-            </FadeInStaggerItem>
-          );
-        })}
-      </FadeInStagger>
-    </PublicSection>
+      <ol className="mt-12 grid border-t border-[#1C1F1E]/15 md:grid-cols-2 xl:grid-cols-5 dark:border-[#FCFAEF]/20">
+        {hubMissions.map((mission, index) => (
+          <li
+            key={mission.id}
+            className="border-b border-[#1C1F1E]/15 px-1 py-7 md:odd:border-r md:px-6 xl:border-r xl:px-5 xl:last:border-r-0 dark:border-[#FCFAEF]/20"
+          >
+            <span
+              aria-hidden="true"
+              className="font-heading text-4xl font-semibold tracking-[-0.06em] text-[#0097b2]/55 dark:text-[#66C4DC]/65"
+            >
+              {String(index + 1).padStart(2, "0")}
+            </span>
+            <h3 className="mt-5 font-heading text-xl font-semibold text-[#1C1F1E] dark:text-[#FCFAEF]">
+              {mission.title}
+            </h3>
+            <p className="mt-3 text-sm leading-relaxed text-[#2F3332]/80 dark:text-[#E6E7E7]/80">
+              {mission.description}
+            </p>
+          </li>
+        ))}
+      </ol>
+    </EditorialBand>
   );
 }

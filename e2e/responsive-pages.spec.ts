@@ -12,7 +12,7 @@ import { announcementCampaign } from "../src/data/announcements";
  */
 
 const viewports = [
-  { name: "mobile-375", width: 375, height: 812 },
+  { name: "mobile-390", width: 390, height: 844 },
   { name: "tablet-768", width: 768, height: 1024 },
   { name: "ipad-pro-1024", width: 1024, height: 1366 },
   { name: "laptop-1280", width: 1280, height: 800 },
@@ -21,7 +21,7 @@ const viewports = [
 ] as const;
 
 const expectedGutterByWidth = new Map<number, number>([
-  [375, 16],
+  [390, 16],
   [768, 32],
   [1024, 40],
   [1280, 48],
@@ -45,8 +45,13 @@ const routes: ReadonlyArray<{ path: string; name: string }> = [
   { path: "/resources", name: "resources" },
   { path: "/news", name: "news" },
   { path: "/blog", name: "blog" },
+  { path: "/about", name: "about" },
   { path: "/about/team", name: "team" },
   { path: "/programs", name: "programs" },
+  {
+    path: "/global-health-immersion-program",
+    name: "global-health-immersion-program",
+  },
   { path: "/philosophy", name: "philosophy" },
   { path: "/privacy", name: "privacy" },
   { path: "/terms", name: "terms" },
@@ -112,6 +117,12 @@ test.describe("Responsive pages — header, footer, no horizontal overflow", () 
         });
         await page.goto(route.path, { waitUntil: "domcontentloaded" });
 
+        if (route.path === "/global-health-immersion-program") {
+          await expect(
+            page.locator("[data-immersion-hero-hydrated]"),
+          ).toHaveAttribute("data-immersion-hero-hydrated", "true");
+        }
+
         // Page response was successful.
         expect(responses.some((s) => s >= 500)).toBe(false);
 
@@ -143,21 +154,35 @@ test.describe("Responsive pages — header, footer, no horizontal overflow", () 
   }
 });
 
-test("Our Teams network hero retains its existing layout container", async ({
+test("the Team node network is unique and contained to its editorial band", async ({
   page,
 }) => {
   await preparePage(page, "light");
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto("/about/team", { waitUntil: "domcontentloaded" });
 
-  const hero = page.locator("section").filter({
-    has: page.locator(".hero-portrait"),
-  });
-  await expect(hero).toHaveCount(1);
+  const network = page.locator("[data-team-node-network]");
+  await expect(network).toHaveCount(1);
+  await expect(network).toBeVisible();
+  await expect(network).toHaveAttribute("aria-hidden", "true");
+  await expect(network.locator("[data-team-node-portrait]")).toHaveCount(22);
 
-  const heroContainer = hero.locator(":scope > .container");
-  await expect(heroContainer).toHaveCount(1);
-  await expect(heroContainer).not.toHaveClass(/site-container/);
-  await expect(heroContainer).toHaveClass(/lg:px-10/);
-  await expect(heroContainer).toHaveClass(/2xl:px-6/);
+  const isContained = await network.evaluate((element) => {
+    const networkBox = element.getBoundingClientRect();
+    const bandBox = element.closest("[data-editorial-band]")?.getBoundingClientRect();
+
+    return Boolean(
+      bandBox &&
+        networkBox.left >= bandBox.left - 1 &&
+        networkBox.right <= bandBox.right + 1 &&
+        networkBox.top >= bandBox.top - 1 &&
+        networkBox.bottom <= bandBox.bottom + 1,
+    );
+  });
+  expect(isContained).toBe(true);
+
+  for (const path of ["/about", "/philosophy"]) {
+    await page.goto(path, { waitUntil: "domcontentloaded" });
+    await expect(page.locator("[data-team-node-network]")).toHaveCount(0);
+  }
 });

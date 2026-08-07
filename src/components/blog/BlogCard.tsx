@@ -12,9 +12,7 @@ type BlogCardProps = {
 };
 
 /**
- * Editorial blog card: image, category badge, title, excerpt, author byline,
- * and date. The whole card links to the article. Mirrors the site's card
- * hover/elevation language for visual consistency with the news feed.
+ * Border-led editorial preview with a single, generous link target.
  */
 export function BlogCard({ post }: BlogCardProps) {
   const posterSrc = getAnnouncementPosterSrc({
@@ -25,17 +23,12 @@ export function BlogCard({ post }: BlogCardProps) {
   return (
     <Link
       href={`/blog/${post.slug}`}
-      className="group block h-full rounded-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0097b2] focus-visible:ring-offset-2 focus-visible:ring-offset-[#FCFAEF] dark:focus-visible:ring-offset-[#1C1F1E]"
+      className="group block h-full focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0097b2] focus-visible:ring-offset-2 focus-visible:ring-offset-[#FCFAEF] dark:focus-visible:ring-offset-[#121514]"
     >
       <article
         className={cn(
-          "flex h-full flex-col overflow-hidden rounded-2xl",
-          "bg-white dark:bg-[#2F3332]",
-          "border border-black/[0.04] dark:border-white/[0.06]",
-          "shadow-[0_1px_3px_rgba(0,0,0,0.04)]",
-          "transition-all duration-300 ease-out",
-          "group-hover:-translate-y-1.5 group-hover:shadow-[0_12px_32px_rgba(0,0,0,0.08)]",
-          "dark:group-hover:shadow-[0_12px_32px_rgba(0,0,0,0.3)]",
+          "flex h-full flex-col overflow-hidden border-t-2 border-[#0F4C5C] bg-transparent dark:border-[#66C4DC]",
+          "transition-colors duration-200 group-hover:bg-white/70 dark:group-hover:bg-[#1C1F1E]",
         )}
       >
         {/* Image */}
@@ -48,8 +41,6 @@ export function BlogCard({ post }: BlogCardProps) {
               sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
               className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
             />
-            <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-transparent to-transparent" />
-
             {post.videoUrl && (
               <span className="absolute inset-0 flex items-center justify-center">
                 <span className="flex h-12 w-12 items-center justify-center rounded-full bg-white/90 shadow-lg transition-transform duration-300 group-hover:scale-110">
@@ -60,8 +51,8 @@ export function BlogCard({ post }: BlogCardProps) {
 
             <span
               className={cn(
-                "absolute left-3 top-3 inline-block rounded-full px-3 py-1",
-                "text-[11px] font-bold uppercase tracking-wider backdrop-blur-md shadow-sm",
+                "absolute left-3 top-3 inline-block border border-white/30 px-3 py-1",
+                "text-[11px] font-bold uppercase tracking-wider",
                 getCategoryBadgeClass(post.category),
               )}
             >
@@ -84,11 +75,11 @@ export function BlogCard({ post }: BlogCardProps) {
             </span>
           )}
 
-          <h3 className="mb-2 font-heading text-lg font-bold leading-snug text-[#1C1F1E] line-clamp-2 dark:text-[#FCFAEF]">
+          <h3 className="mb-2 font-heading text-lg font-bold leading-snug text-[#1C1F1E] dark:text-[#FCFAEF]">
             {post.title}
           </h3>
 
-          <p className="mb-5 flex-1 text-sm leading-relaxed text-[#2F3332]/70 line-clamp-3 dark:text-[#E6E7E7]/60">
+          <p className="mb-5 flex-1 text-sm leading-relaxed text-[#2F3332]/70 dark:text-[#E6E7E7]/60">
             {post.excerpt}
           </p>
 
@@ -115,8 +106,8 @@ export function BlogCard({ post }: BlogCardProps) {
             </time>
           </div>
 
-          <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-[#0097b2] transition-colors duration-200 group-hover:text-[#005A55] dark:text-[#66C4DC] dark:group-hover:text-[#eeba2b]">
-            Read article
+          <span className="mt-4 inline-flex min-h-11 items-center gap-1.5 text-sm font-semibold text-[#0097b2] transition-colors duration-200 group-hover:text-[#005A55] dark:text-[#66C4DC] dark:group-hover:text-[#eeba2b]">
+            Explore this perspective
             <ArrowRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
           </span>
         </div>

@@ -10,7 +10,7 @@ const externalAnnouncement: Announcement = {
   title: "External announcement",
   description: "Description text",
   image: "/test/poster.jpg",
-  ctaText: "Read More",
+  ctaText: "Explore the update",
   ctaLink: "https://example.com/news",
   isExternal: true,
 };

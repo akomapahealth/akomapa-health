@@ -50,7 +50,7 @@ export default function PdfViewer({ pdfUrl }: { pdfUrl: string }) {
 
   return (
     <div data-testid="pdf-viewer-loaded">
-      <div className="rounded-t-2xl border-b border-[#E6E7E7] bg-white p-4 shadow-xl dark:border-[#4F5554] dark:bg-[#2F3332] sm:p-6">
+      <div className="border border-b-0 border-[#1C1F1E]/12 bg-white p-4 dark:border-[#FCFAEF]/15 dark:bg-[#1C1F1E] sm:p-5">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div className="flex items-center gap-2">
             <Button
@@ -118,7 +118,7 @@ export default function PdfViewer({ pdfUrl }: { pdfUrl: string }) {
         </div>
       </div>
 
-      <div className="overflow-hidden rounded-b-2xl bg-white shadow-xl dark:bg-[#2F3332]">
+      <div className="overflow-hidden border border-[#1C1F1E]/12 bg-white dark:border-[#FCFAEF]/15 dark:bg-[#1C1F1E]">
         {error && (
           <Alert variant="destructive" className="m-6" role="alert">
             <AlertDescription>{error}</AlertDescription>
@@ -144,7 +144,7 @@ export default function PdfViewer({ pdfUrl }: { pdfUrl: string }) {
             options={pdfOptions}
             loading={null}
             error={null}
-            className="mx-auto w-max border border-[#E6E7E7] shadow-lg dark:border-[#4F5554]"
+            className="mx-auto w-max border border-[#1C1F1E]/12 dark:border-[#FCFAEF]/15"
           >
             <Page
               pageNumber={pageNumber}
@@ -152,7 +152,6 @@ export default function PdfViewer({ pdfUrl }: { pdfUrl: string }) {
               rotate={rotation}
               renderAnnotationLayer
               renderTextLayer
-              className="shadow-lg"
             />
           </Document>
         </div>

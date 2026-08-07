@@ -52,6 +52,20 @@ describe("SEO metadata contract", () => {
     }
   });
 
+  it("describes the Immersion program without implying open enrollment", () => {
+    const route = canonicalSeoRoutes.find(
+      (candidate) =>
+        candidate.path === "/global-health-immersion-program",
+    );
+
+    expect(route).toBeDefined();
+    expect(route?.title).toBe("Global Health Immersion Program");
+    expect(route?.description).toContain("three-week learning experience");
+    expect(route?.description).not.toMatch(
+      /apply now|applications open|enroll now|join the next cohort/i,
+    );
+  });
+
   it("keeps sitemap canonical and excludes redirected routes", async () => {
     const urls = sitemap().map((entry) => entry.url);
     const nextConfig = await createNextConfig();

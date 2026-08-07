@@ -1,6 +1,10 @@
 import type { PhilosophySection as PhilosophySectionType } from "@/lib/types";
 import Image from "@/components/common/Image";
-import { FadeIn } from "@/components/animations";
+import {
+  EditorialBand,
+  EditorialEyebrow,
+  EditorialHeading,
+} from "@/components/shared/EditorialPrimitives";
 import { cn } from "@/lib/utils";
 
 type PhilosophySectionProps = {
@@ -15,135 +19,135 @@ export default function PhilosophySection({
   className,
 }: PhilosophySectionProps) {
   const isImageFirstOnDesktop = index % 2 === 1;
+  const isTeal = index % 2 === 1;
   const paragraphs = section.content.split("\n\n");
   const headingId = `${section.id}-heading`;
 
-  // Alternate: even index = cream, odd index = teal gradient
-  const isTealGradient = index % 2 === 1;
-
-  const sectionBg = isTealGradient
-    ? "relative bg-gradient-to-r from-[#0097b2] to-[#0F4C5C] text-[#FCFAEF]"
-    : "bg-[#FCFAEF] dark:bg-[#1C1F1E]";
-
-  const eyebrowClass = isTealGradient
-    ? "text-xs font-semibold uppercase tracking-[0.3em] text-[#F5C94D] sm:text-sm"
-    : "text-xs font-semibold uppercase tracking-[0.3em] text-[#0097b2] dark:text-[#66C4DC] sm:text-sm";
-
-  const headingClass = isTealGradient
-    ? "mt-4 text-2xl font-bold leading-tight text-[#FCFAEF] sm:text-3xl md:text-4xl"
-    : "mt-4 text-2xl font-bold leading-tight text-[#1C1F1E] dark:text-[#FCFAEF] sm:text-3xl md:text-4xl";
-
-  const bodyClass = isTealGradient
-    ? "mt-6 space-y-5 text-base leading-relaxed text-[#FCFAEF]/85 sm:text-lg"
-    : "mt-6 space-y-5 text-base leading-relaxed text-[#2F3332]/82 dark:text-[#E6E7E7]/82 sm:text-lg";
-
-  const quoteTextClass = isTealGradient
-    ? "relative text-xl font-semibold leading-snug text-[#FCFAEF] sm:text-2xl"
-    : "relative text-xl font-semibold leading-snug text-[#1C1F1E] dark:text-[#FCFAEF] sm:text-2xl";
-
-  const quoteAuthorClass = isTealGradient
-    ? "mt-4 text-sm font-semibold uppercase tracking-[0.16em] text-[#F5C94D]"
-    : "mt-4 text-sm font-semibold uppercase tracking-[0.16em] text-[#0097b2] dark:text-[#66C4DC]";
-
-  const quoteRoleClass = isTealGradient
-    ? "block pt-1 normal-case tracking-normal text-[#FCFAEF]/62"
-    : "block pt-1 normal-case tracking-normal text-[#2F3332]/62 dark:text-[#FCFAEF]/62";
-
   return (
-    <section
+    <EditorialBand
       id={section.id}
+      tone={isTeal ? "teal" : "cream"}
+      marker={String(section.order).padStart(2, "0")}
       aria-labelledby={headingId}
       className={cn(
-        "isolate scroll-mt-28 overflow-hidden py-16 md:py-24",
-        sectionBg,
+        "scroll-mt-28 border-b",
+        isTeal
+          ? "border-[#FCFAEF]/20 bg-[#0F4C5C]"
+          : "border-[#1C1F1E]/10 dark:border-[#FCFAEF]/15",
         className,
       )}
     >
-      {/* Decorative blurs for teal gradient sections */}
-      {isTealGradient && (
-        <div className="pointer-events-none absolute inset-0 overflow-hidden">
-          <div className="absolute -top-24 right-0 h-64 w-64 rounded-full bg-[#FCFAEF]/10 blur-3xl" />
-          <div className="absolute bottom-0 -left-24 h-80 w-80 rounded-full bg-[#F5C94D]/10 blur-3xl" />
-        </div>
-      )}
-
-      <div className={cn("site-container mx-auto max-w-7xl px-4", isTealGradient && "relative z-10")}>
-        <div className="mx-auto grid max-w-6xl items-center justify-items-center gap-10 md:grid-cols-2 md:gap-12 lg:gap-16">
-          <FadeIn
-            direction={isImageFirstOnDesktop ? "right" : "left"}
-            amount="some"
+      <div
+        data-philosophy-principle={section.order}
+        className="grid items-center gap-10 md:grid-cols-2 md:gap-12 lg:gap-16"
+      >
+        <figure
+          className={cn(
+            "w-full",
+            isImageFirstOnDesktop ? "md:order-1" : "md:order-2",
+          )}
+        >
+          <div
             className={cn(
-              "order-1 w-full",
-              isImageFirstOnDesktop ? "md:order-1" : "md:order-2",
+              "relative aspect-[4/3] overflow-hidden rounded-md border",
+              isTeal
+                ? "border-[#FCFAEF]/25 bg-[#0F4C5C]"
+                : "border-[#1C1F1E]/15 bg-[#E6E7E7] dark:border-[#FCFAEF]/20 dark:bg-[#2F3332]",
             )}
           >
-            <div className="relative mx-auto h-[280px] w-full max-w-xl overflow-hidden rounded-3xl shadow-2xl sm:h-[340px] md:h-[400px]">
-              {section.image ? (
-                <Image
-                  src={section.image}
-                  alt={section.imageAlt ?? ""}
-                  fill
-                  sizes="(min-width: 1280px) 560px, (min-width: 768px) 45vw, 100vw"
-                  className="object-cover"
-                  style={{ objectPosition: section.imagePosition ?? "center" }}
-                />
-              ) : (
-                <div
-                  className="h-full w-full bg-[#0097b2]/12"
-                  aria-hidden="true"
-                />
-              )}
-              <div
-                aria-hidden="true"
-                className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent"
+            {section.image ? (
+              <Image
+                src={section.image}
+                alt={section.imageAlt ?? ""}
+                fill
+                sizes="(min-width: 1280px) 42rem, (min-width: 768px) 45vw, 100vw"
+                className="object-cover"
+                style={{ objectPosition: section.imagePosition ?? "center" }}
               />
-            </div>
-          </FadeIn>
+            ) : (
+              <div className="h-full w-full" aria-hidden="true" />
+            )}
+          </div>
+        </figure>
 
-          <FadeIn
-            delay={0.08}
-            amount="some"
+        <article
+          className={cn(
+            "max-w-[40rem]",
+            isImageFirstOnDesktop ? "md:order-2" : "md:order-1",
+          )}
+        >
+          <EditorialEyebrow
+            tone={isTeal ? "gold" : "teal"}
+            className={
+              isTeal
+                ? "text-[#F5C94D]"
+                : "text-[#0F4C5C] dark:text-[#66C4DC]"
+            }
+          >
+            Principle {section.order}
+          </EditorialEyebrow>
+          <EditorialHeading
+            id={headingId}
+            className={cn("mt-4", isTeal && "text-[#FCFAEF]")}
+          >
+            {section.title}
+          </EditorialHeading>
+          <div
             className={cn(
-              "order-2 w-full",
-              isImageFirstOnDesktop ? "md:order-2" : "md:order-1",
+              "mt-6 space-y-5 text-base leading-8 sm:text-lg",
+              isTeal
+                ? "text-[#FCFAEF]/85"
+                : "text-[#2F3332]/85 dark:text-[#E6E7E7]/85",
             )}
           >
-            <article className="mx-auto max-w-xl">
-              <p className={eyebrowClass}>
-                Principle {section.order}
-              </p>
-              <h2 id={headingId} className={headingClass}>
-                {section.title}
-              </h2>
-              <div className={bodyClass}>
-                {paragraphs.map((paragraph) => (
-                  <p key={paragraph}>{paragraph}</p>
-                ))}
-              </div>
+            {paragraphs.map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
+            ))}
+          </div>
 
-              {section.quote ? (
-                <blockquote className="mt-8 border-l-4 border-[#eeba2b] pl-5">
-                  <p className={quoteTextClass}>
-                    <span
-                      aria-hidden="true"
-                      className="absolute -left-4 -top-5 text-6xl leading-none text-[#eeba2b]/45"
-                    >
-                      &ldquo;
-                    </span>
-                    {section.quote.text}
-                  </p>
-                  <footer className={quoteAuthorClass}>
-                    {section.quote.author}
-                    <span className={quoteRoleClass}>
-                      {section.quote.role}
-                    </span>
-                  </footer>
-                </blockquote>
-              ) : null}
-            </article>
-          </FadeIn>
-        </div>
+          {section.quote ? (
+            <blockquote
+              className={cn(
+                "mt-8 border-l-2 pl-5",
+                isTeal
+                  ? "border-[#F5C94D]"
+                  : "border-[#0097b2] dark:border-[#66C4DC]",
+              )}
+            >
+              <p
+                className={cn(
+                  "font-heading text-xl font-semibold leading-snug sm:text-2xl",
+                  isTeal
+                    ? "text-[#FCFAEF]"
+                    : "text-[#1C1F1E] dark:text-[#FCFAEF]",
+                )}
+              >
+                {section.quote.text}
+              </p>
+              <footer
+                className={cn(
+                  "mt-4 text-sm font-semibold",
+                  isTeal
+                    ? "text-[#F5C94D]"
+                    : "text-[#0F4C5C] dark:text-[#66C4DC]",
+                )}
+              >
+                {section.quote.author}
+                <span
+                  className={cn(
+                    "block pt-1 font-normal",
+                    isTeal
+                      ? "text-[#FCFAEF]/75"
+                      : "text-[#2F3332]/75 dark:text-[#E6E7E7]/75",
+                  )}
+                >
+                  {section.quote.role}
+                </span>
+              </footer>
+            </blockquote>
+          ) : null}
+        </article>
       </div>
-    </section>
+    </EditorialBand>
   );
 }

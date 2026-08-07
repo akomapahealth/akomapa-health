@@ -1,48 +1,46 @@
 import { FadeIn } from "@/components/animations";
-import { PublicCta } from "@/components/shared/PublicPagePrimitives";
+import {
+  EditorialBand,
+  EditorialButton,
+  EditorialEyebrow,
+  EditorialHeading,
+  EditorialLead,
+} from "@/components/shared/EditorialPrimitives";
 
 export default function ImpactCTA() {
   return (
-    <section
-      className="relative overflow-hidden bg-gradient-to-r from-[#0097b2] to-[#0F4C5C] py-16 text-[#FCFAEF] sm:py-20 md:py-28"
+    <EditorialBand
+      tone="teal"
+      id="impact-cta"
       aria-labelledby="impact-cta-heading"
     >
-      {/* Decorative blurs */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute -top-24 -left-24 h-64 w-64 rounded-full bg-[#FCFAEF]/10 blur-3xl" />
-        <div className="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-[#F5C94D]/10 blur-3xl" />
-      </div>
-
-      <div className="site-container relative z-10 mx-auto px-4 sm:px-6">
-        <FadeIn
-          direction="up"
-          className="mx-auto max-w-3xl space-y-6 text-center"
-        >
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#F5C94D]">
+      <FadeIn direction="up">
+        <div className="mx-auto max-w-3xl text-center">
+          <EditorialEyebrow tone="gold" className="text-[#F5C94D]">
             Join the Movement
-          </p>
-          <h2
+          </EditorialEyebrow>
+          <EditorialHeading
             id="impact-cta-heading"
-            className="font-heading text-3xl font-bold leading-tight sm:text-4xl md:text-5xl"
+            className="mt-4 text-[#FCFAEF]"
           >
             Help us reach our 2028 goals
-          </h2>
-          <p className="text-base leading-relaxed text-[#FCFAEF]/85 sm:text-lg">
+          </EditorialHeading>
+          <EditorialLead className="mx-auto mt-6 max-w-2xl text-[#FCFAEF]/85 dark:text-[#FCFAEF]/85">
             Every partnership, every gift, and every student leader moves us
             closer to healthier communities and a new model for global health.
             Add your strength to the movement.
-          </p>
+          </EditorialLead>
 
-          <div className="flex flex-col items-center justify-center gap-3 pt-2 sm:flex-row sm:gap-4">
-            <PublicCta href="/get-involved" variant="gold">
+          <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
+            <EditorialButton href="/get-involved" variant="amber">
               Get Involved
-            </PublicCta>
-            <PublicCta href="/donate" variant="outline-light">
+            </EditorialButton>
+            <EditorialButton href="/donate" variant="outline-light">
               Donate
-            </PublicCta>
+            </EditorialButton>
           </div>
-        </FadeIn>
-      </div>
-    </section>
+        </div>
+      </FadeIn>
+    </EditorialBand>
   );
 }

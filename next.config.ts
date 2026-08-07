@@ -69,8 +69,18 @@ const nextConfig: NextConfig = {
         statusCode: 301,
       },
       {
+        source: "/donate/corporate-sponsorship",
+        destination: "/partnerships/corporate-sponsorship",
+        statusCode: 301,
+      },
+      {
         source: "/faculty",
         destination: "/about/team",
+        statusCode: 301,
+      },
+      {
+        source: "/programs/akomapa-ghip",
+        destination: "/global-health-immersion-program",
         statusCode: 301,
       },
     ];
@@ -84,8 +94,11 @@ const nextConfig: NextConfig = {
   },
   images: {
     qualities: [75, 85, 100],
-    // Configure ImageKit as a remote pattern for Next.js Image optimization
-    // This enables future use of Next.js Image component with ImageKit URLs
+    // ImageKit CDN assets are optimized via the custom imageKitLoader on
+    // @/components/common/Image (browser fetches ik.imagekit.io directly).
+    // remotePatterns keep ImageKit/YouTube allowlisted if the default
+    // /_next/image optimizer is used; local/public assets use Next optimization.
+    // See docs/performance/image-optimization.md.
     remotePatterns: [
       {
         protocol: 'https',

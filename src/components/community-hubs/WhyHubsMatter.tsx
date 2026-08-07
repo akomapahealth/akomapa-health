@@ -1,40 +1,61 @@
 "use client";
 
-import { FadeIn, FadeInStagger, FadeInStaggerItem } from "@/components/animations";
+import { FadeIn } from "@/components/animations";
 import {
-  PublicSection,
-  PublicSectionHeader,
-  SurfaceCard,
-} from "@/components/shared/PublicPagePrimitives";
+  EditorialBand,
+  EditorialEyebrow,
+  EditorialHeading,
+  EditorialLead,
+} from "@/components/shared/EditorialPrimitives";
 import { whyHubsMatter } from "@/data/community-hubs";
 
 export default function WhyHubsMatter() {
   return (
-    <PublicSection tone="teal" spacing="normal" id="why-hubs-matter">
+    <EditorialBand
+      tone="teal"
+      marker="04"
+      id="why-hubs-matter"
+      aria-labelledby="why-hubs-matter-heading"
+    >
       <FadeIn>
-        <PublicSectionHeader
-          eyebrow="Why Our Hubs Matter"
-          title="More Than a Place to Receive Care"
-          description="Our hubs strengthen communities, develop ethical leaders, generate evidence, and pilot innovations that can scale."
-          titleId="why-hubs-matter-heading"
-          eyebrowTone="gold"
-          titleClassName="text-[#FCFAEF]"
-          descriptionClassName="text-[#FCFAEF]/85"
-        />
+        <div className="max-w-3xl">
+          <EditorialEyebrow tone="gold" className="text-[#F5C94D]">
+            Why Our Hubs Matter
+          </EditorialEyebrow>
+          <EditorialHeading
+            id="why-hubs-matter-heading"
+            className="mt-4 text-[#FCFAEF]"
+          >
+            More Than a Place to Receive Care
+          </EditorialHeading>
+          <EditorialLead className="mt-5 text-[#FCFAEF]/85 dark:text-[#FCFAEF]/85">
+            Our hubs strengthen communities, develop ethical leaders, generate
+            evidence, and pilot innovations that can scale.
+          </EditorialLead>
+        </div>
       </FadeIn>
 
-      <FadeInStagger className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
-        {whyHubsMatter.map((item) => (
-          <FadeInStaggerItem key={item.id} direction="up">
-            <SurfaceCard className="h-full border-[#FCFAEF]/15 bg-[#FCFAEF]/10 p-6 text-[#FCFAEF] backdrop-blur-sm">
-              <h3 className="text-lg font-semibold">{item.title}</h3>
-              <p className="mt-3 text-sm leading-relaxed text-[#FCFAEF]/85">
-                {item.description}
-              </p>
-            </SurfaceCard>
-          </FadeInStaggerItem>
+      <ol className="mt-12 grid border-t border-[#FCFAEF]/25 md:grid-cols-2 xl:grid-cols-5">
+        {whyHubsMatter.map((item, index) => (
+          <li
+            key={item.id}
+            className="border-b border-[#FCFAEF]/25 px-1 py-7 md:odd:border-r md:px-6 xl:border-r xl:px-5 xl:last:border-r-0"
+          >
+            <span
+              aria-hidden="true"
+              className="font-heading text-4xl font-semibold tracking-[-0.06em] text-[#FCFAEF]/45"
+            >
+              {String(index + 1).padStart(2, "0")}
+            </span>
+            <h3 className="mt-5 font-heading text-lg font-semibold text-[#FCFAEF]">
+              {item.title}
+            </h3>
+            <p className="mt-3 text-sm leading-relaxed text-[#FCFAEF]/85">
+              {item.description}
+            </p>
+          </li>
         ))}
-      </FadeInStagger>
-    </PublicSection>
+      </ol>
+    </EditorialBand>
   );
 }

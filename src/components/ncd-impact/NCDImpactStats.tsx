@@ -1,126 +1,123 @@
 "use client";
 
 import {
-  MapPinned,
-  HeartPulse,
-  Hospital,
-  Presentation,
-  GraduationCap,
-  UserRoundCheck,
-  Award,
-  Microscope,
-  Activity,
-} from "lucide-react";
+  FadeIn,
+  FadeInStagger,
+  FadeInStaggerItem,
+} from "@/components/animations";
 import { AnimatedMetric } from "@/components/motion/AnimatedMetric";
-import { FadeIn, FadeInStagger, FadeInStaggerItem } from "@/components/animations";
-import { parsedHealthMetrics, parsedLeadershipMetrics } from "@/data/ncd-impact";
-import type { LucideIcon } from "lucide-react";
+import {
+  EditorialBand,
+  EditorialEyebrow,
+  EditorialHeading,
+  EditorialLead,
+} from "@/components/shared/EditorialPrimitives";
+import {
+  parsedHealthMetrics,
+  parsedLeadershipMetrics,
+} from "@/data/ncd-impact";
 
-const iconMap: Record<string, LucideIcon> = {
-  MapPinned,
-  HeartPulse,
-  Hospital,
-  Presentation,
-  GraduationCap,
-  UserRoundCheck,
-  Award,
-  Microscope,
-  Activity,
-};
+const healthDividerClasses = [
+  "",
+  "border-t sm:border-l sm:border-t-0",
+  "border-t lg:border-l lg:border-t-0",
+  "border-t sm:border-l lg:border-l",
+  "border-t lg:border-l",
+] as const;
+
+const leadershipDividerClasses = healthDividerClasses;
 
 export default function NCDImpactStats() {
   return (
-    <section
-      className="bg-[#F4F1E8] py-16 dark:bg-[#1C1F1E] md:py-24"
+    <EditorialBand
+      tone="cream"
+      marker="05"
+      id="ncd-impact-stats"
       aria-labelledby="ncd-impact-stats-heading"
     >
-      <div className="site-container mx-auto px-4 sm:px-6">
-        {/* Section header */}
-        <FadeIn
-          direction="up"
-          className="mx-auto mb-12 max-w-3xl space-y-4 text-center"
-        >
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#0097b2] dark:text-[#66C4DC] sm:text-sm">
-            Community Impact
+      <FadeIn>
+        <div className="max-w-3xl">
+          <EditorialEyebrow>Community Impact</EditorialEyebrow>
+          <p className="mt-3 font-subheading text-xs font-bold uppercase tracking-[0.2em] text-[#0F4C5C]/70 dark:text-[#66C4DC]/80">
+            Akomapa current results
           </p>
-          <h2
-            id="ncd-impact-stats-heading"
-            className="text-2xl font-bold text-[#1C1F1E] dark:text-[#FCFAEF] sm:text-3xl md:text-4xl"
-          >
+          <EditorialHeading id="ncd-impact-stats-heading" className="mt-4">
             Our Impact So Far
-          </h2>
-          <p className="text-base leading-relaxed text-[#2F3332]/80 dark:text-[#E6E7E7]/80 sm:text-lg">
+          </EditorialHeading>
+          <EditorialLead className="mt-5">
             Through community partnership and student leadership, Akomapa is
             making measurable progress in the fight against NCDs.
-          </p>
-        </FadeIn>
+          </EditorialLead>
+        </div>
+      </FadeIn>
 
-        {/* Health Impact */}
-        <div className="mx-auto max-w-5xl">
-          <FadeIn direction="up" delay={0.05}>
-            <h3 className="mb-6 text-center text-xs font-bold uppercase tracking-widest text-[#0097b2] dark:text-[#66C4DC]">
-              Health Impact
-            </h3>
-          </FadeIn>
-          <FadeInStagger
-            className="grid grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-4"
-            staggerDelay={0.08}
+      <div className="mt-12">
+        <FadeIn>
+          <h3 className="font-subheading text-xs font-bold uppercase tracking-[0.2em] text-[#0097b2] dark:text-[#66C4DC]">
+            Health Impact
+          </h3>
+        </FadeIn>
+        <FadeInStagger className="mt-6" staggerDelay={0.08}>
+          <dl
+            data-ncd-current-metrics="health"
+            className="grid border-y border-[#1C1F1E]/15 sm:grid-cols-2 lg:grid-cols-3 dark:border-[#FCFAEF]/20"
           >
-            {parsedHealthMetrics.map((metric) => {
-              const Icon = iconMap[metric.icon] ?? Activity;
-              return (
-                <FadeInStaggerItem key={metric.id} direction="up">
-                  <div className="rounded-2xl border border-[#E6E7E7]/80 bg-white p-5 text-center shadow-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-xl dark:border-[#2E3433] dark:bg-[#1C1F1E]/95 sm:p-6">
-                    <Icon className="mx-auto h-6 w-6 text-[#0097b2] dark:text-[#66C4DC]" />
+            {parsedHealthMetrics.map((metric, index) => (
+              <FadeInStaggerItem key={metric.id} direction="up">
+                <div
+                  className={`flex min-h-40 flex-col justify-between border-[#1C1F1E]/15 px-1 py-7 sm:px-6 dark:border-[#FCFAEF]/20 ${healthDividerClasses[index]}`}
+                >
+                  <dt className="font-subheading text-xs font-bold uppercase tracking-[0.2em] text-[#2F3332]/70 dark:text-[#E6E7E7]/70">
+                    {metric.label}
+                  </dt>
+                  <dd className="mt-4">
                     <AnimatedMetric
                       value={metric.numericValue}
                       suffix={metric.suffix}
-                      className="mt-3 text-2xl font-bold text-[#1C1F1E] dark:text-[#FCFAEF] sm:text-3xl"
+                      className="font-heading text-3xl font-semibold tracking-tight text-[#0097b2] md:text-4xl dark:text-[#66C4DC]"
                       durationMs={2000}
                     />
-                    <p className="mt-2 text-xs leading-snug text-[#2F3332]/70 dark:text-[#E6E7E7]/70 sm:text-sm">
-                      {metric.label}
-                    </p>
-                  </div>
-                </FadeInStaggerItem>
-              );
-            })}
-          </FadeInStagger>
-        </div>
+                  </dd>
+                </div>
+              </FadeInStaggerItem>
+            ))}
+          </dl>
+        </FadeInStagger>
+      </div>
 
-        {/* Leadership Impact */}
-        <div className="mx-auto mt-12 max-w-5xl">
-          <FadeIn direction="up" delay={0.05}>
-            <h3 className="mb-6 text-center text-xs font-bold uppercase tracking-widest text-[#eeba2b]">
-              Leadership Impact
-            </h3>
-          </FadeIn>
-          <FadeInStagger
-            className="grid grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-4"
-            staggerDelay={0.08}
+      <div className="mt-14">
+        <FadeIn>
+          <h3 className="font-subheading text-xs font-bold uppercase tracking-[0.2em] text-[#C9920F] dark:text-[#F5C94D]">
+            Leadership Impact
+          </h3>
+        </FadeIn>
+        <FadeInStagger className="mt-6" staggerDelay={0.08}>
+          <dl
+            data-ncd-current-metrics="leadership"
+            className="grid border-y border-[#1C1F1E]/15 sm:grid-cols-2 lg:grid-cols-3 dark:border-[#FCFAEF]/20"
           >
-            {parsedLeadershipMetrics.map((metric) => {
-              const Icon = iconMap[metric.icon] ?? Activity;
-              return (
-                <FadeInStaggerItem key={metric.id} direction="up">
-                  <div className="rounded-2xl border border-[#E6E7E7]/80 bg-white p-5 text-center shadow-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-xl dark:border-[#2E3433] dark:bg-[#1C1F1E]/95 sm:p-6">
-                    <Icon className="mx-auto h-6 w-6 text-[#eeba2b]" />
+            {parsedLeadershipMetrics.map((metric, index) => (
+              <FadeInStaggerItem key={metric.id} direction="up">
+                <div
+                  className={`flex min-h-40 flex-col justify-between border-[#1C1F1E]/15 px-1 py-7 sm:px-6 dark:border-[#FCFAEF]/20 ${leadershipDividerClasses[index]}`}
+                >
+                  <dt className="font-subheading text-xs font-bold uppercase tracking-[0.2em] text-[#2F3332]/70 dark:text-[#E6E7E7]/70">
+                    {metric.label}
+                  </dt>
+                  <dd className="mt-4">
                     <AnimatedMetric
                       value={metric.numericValue}
                       suffix={metric.suffix}
-                      className="mt-3 text-2xl font-bold text-[#1C1F1E] dark:text-[#FCFAEF] sm:text-3xl"
+                      className="font-heading text-3xl font-semibold tracking-tight text-[#C9920F] md:text-4xl dark:text-[#F5C94D]"
                       durationMs={2200}
                     />
-                    <p className="mt-2 text-xs leading-snug text-[#2F3332]/70 dark:text-[#E6E7E7]/70 sm:text-sm">
-                      {metric.label}
-                    </p>
-                  </div>
-                </FadeInStaggerItem>
-              );
-            })}
-          </FadeInStagger>
-        </div>
+                  </dd>
+                </div>
+              </FadeInStaggerItem>
+            ))}
+          </dl>
+        </FadeInStagger>
       </div>
-    </section>
+    </EditorialBand>
   );
 }

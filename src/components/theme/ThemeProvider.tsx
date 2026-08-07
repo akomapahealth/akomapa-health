@@ -22,6 +22,31 @@ const initialState: ThemeProviderState = {
 
 const ThemeProviderContext = createContext<ThemeProviderState>(initialState)
 
+function resolveTheme(theme: Theme): "dark" | "light" {
+  if (theme === "system") {
+    return window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? "dark"
+      : "light"
+  }
+  return theme
+}
+
+function applyThemeClass(theme: Theme) {
+  const root = window.document.documentElement
+  const resolved = resolveTheme(theme)
+
+  // Avoid remove-then-add flashes. Stripping `dark`/`light` even briefly
+  // retriggers global color transitions and can make contrast checks read
+  // intermediate computed colors (e.g. rgb(103, 104, 100)).
+  if (root.classList.contains(resolved)) {
+    root.classList.remove(resolved === "dark" ? "light" : "dark")
+    return
+  }
+
+  root.classList.remove("light", "dark")
+  root.classList.add(resolved)
+}
+
 export function ThemeProvider({
   children,
   defaultTheme = "system",
@@ -40,29 +65,16 @@ export function ThemeProvider({
   })
 
   useEffect(() => {
-    const root = window.document.documentElement
-    
-    // Remove the class first
-    root.classList.remove("light", "dark")
-
-    if (theme === "system") {
-      const systemTheme = window.matchMedia("(prefers-color-scheme: dark)")
-        .matches
-        ? "dark"
-        : "light"
-        
-      root.classList.add(systemTheme)
-      return
-    }
-
-    root.classList.add(theme)
+    applyThemeClass(theme)
   }, [theme])
 
   const value = {
     theme,
-    setTheme: (theme: Theme) => {
-      localStorage.setItem(storageKey, theme)
-      setTheme(theme)
+    setTheme: (nextTheme: Theme) => {
+      localStorage.setItem(storageKey, nextTheme)
+      // Apply immediately so the class is correct before paint, then sync state.
+      applyThemeClass(nextTheme)
+      setTheme(nextTheme)
     },
   }
 
@@ -75,9 +87,9 @@ export function ThemeProvider({
 
 export const useTheme = () => {
   const context = useContext(ThemeProviderContext)
-  
+
   if (context === undefined)
     throw new Error("useTheme must be used within a ThemeProvider")
-  
+
   return context
 }

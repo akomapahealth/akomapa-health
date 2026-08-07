@@ -117,7 +117,7 @@ export const canonicalSeoRoutes = [
     path: "/partnerships/corporate-sponsorship",
     title: "Corporate Sponsorship",
     description:
-      "Explore corporate sponsorship opportunities supporting Akomapa community health hubs, training grants, research, and sustainable care.",
+      "Explore corporate sponsorship opportunities supporting Akomapa community health hubs, training grants, clinic care, pharmacy access, and sustainable programs.",
     changeFrequency: "monthly",
     priority: 0.7,
   },
@@ -154,14 +154,6 @@ export const canonicalSeoRoutes = [
     priority: 0.9,
   },
   {
-    path: "/donate/corporate-sponsorship",
-    title: "Corporate Giving",
-    description:
-      "Sponsor Akomapa medical supplies, community hub operations, training, pharmacy access, food security, and long-term health impact.",
-    changeFrequency: "monthly",
-    priority: 0.7,
-  },
-  {
     path: "/contact",
     title: "Contact Us",
     description:
@@ -186,10 +178,10 @@ export const canonicalSeoRoutes = [
     priority: 0.7,
   },
   {
-    path: "/programs/akomapa-ghip",
+    path: "/global-health-immersion-program",
     title: "Global Health Immersion Program",
     description:
-      "Join Akomapa's immersion experience in Ghana for hands-on community health service, research, leadership, and cultural learning.",
+      "Explore Akomapa's three-week learning experience in Ghana centered on supervised community health practice, research, ethical leadership, and cultural learning.",
     changeFrequency: "monthly",
     priority: 0.7,
   },

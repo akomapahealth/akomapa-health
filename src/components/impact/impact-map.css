@@ -1,0 +1,36 @@
+/* Reset Leaflet default icon chrome for our divIcons. */
+.impact-map-marker {
+  background: transparent !important;
+  border: none !important;
+}
+
+.leaflet-container {
+  z-index: 0;
+  font: inherit;
+  background: #eaf4f6;
+}
+
+.leaflet-popup-content-wrapper {
+  border-radius: 0.75rem;
+  box-shadow: 0 12px 32px rgba(15, 76, 92, 0.18);
+}
+
+.leaflet-popup-content {
+  margin: 0.75rem 0.9rem;
+}
+
+/* Mobile-only compacting — do not override Leaflet content width on desktop. */
+@media (max-width: 639px) {
+  .impact-map-popup-description {
+    display: none;
+  }
+
+  .impact-map-popup-root .leaflet-popup-content-wrapper {
+    max-width: min(200px, 58vw);
+  }
+
+  .impact-map-popup-root .leaflet-popup-content {
+    margin: 0.65rem 0.8rem;
+    width: auto !important;
+  }
+}

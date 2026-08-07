@@ -11,6 +11,10 @@ const pages = [
   { path: '/about/team', title: 'Team' },
   { path: '/philosophy', title: 'Our Philosophy' },
   { path: '/academy', title: 'Academy' },
+  {
+    path: '/global-health-immersion-program',
+    title: 'Global Health Immersion Program',
+  },
   { path: '/programs', title: 'Programs' },
   { path: '/programs/akomapa-young-advocates', title: 'Young Advocates' },
   { path: '/community-hubs', title: 'Community Health Hubs' },

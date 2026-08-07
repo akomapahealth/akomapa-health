@@ -1,6 +1,10 @@
 /**
- * ImageKit URL generation utility
- * Generates optimized ImageKit URLs with transformations for better caching
+ * ImageKit URL generation utility.
+ * Generates ImageKit CDN URLs with `tr=` transformations for responsive sizing.
+ *
+ * Strategy (see docs/performance/image-optimization.md): ImageKit is the primary
+ * optimizer for CDN assets. The custom `next/image` loader returns ImageKit URLs
+ * that the browser fetches directly — Next does not re-proxy them through `/_next/image`.
  */
 
 interface ImageKitTransformations {
@@ -11,62 +15,100 @@ interface ImageKitTransformations {
   minHeight?: number;
 }
 
+function isImageKitHostname(hostname: string): boolean {
+  return hostname === "imagekit.io" || hostname.endsWith(".imagekit.io");
+}
+
+/**
+ * Whether `src` should use the ImageKit custom loader.
+ * Relative paths are treated as ImageKit CDN paths (app convention for
+ * `@/components/common/Image`). Absolute URLs use ImageKit only when hosted
+ * on `*.imagekit.io`.
+ */
+export function isImageKitSrc(src: string): boolean {
+  if (!src.startsWith("http://") && !src.startsWith("https://")) {
+    return true;
+  }
+
+  try {
+    return isImageKitHostname(new URL(src).hostname);
+  } catch {
+    return false;
+  }
+}
+
+function buildTransformParams(
+  transformations?: ImageKitTransformations,
+): string[] {
+  if (!transformations) return [];
+
+  const transformParams: string[] = [];
+  const width = transformations.minWidth || transformations.width;
+  const height = transformations.minHeight || transformations.height;
+
+  if (transformations.quality !== undefined) {
+    transformParams.push(`q-${transformations.quality}`);
+  }
+  if (width !== undefined) {
+    transformParams.push(`w-${width}`);
+  }
+  if (height !== undefined) {
+    transformParams.push(`h-${height}`);
+  }
+
+  return transformParams;
+}
+
 /**
  * Generates an ImageKit URL with optional transformations
- * @param path - The image path in ImageKit (e.g., "/gallery/image.jpg")
+ * @param path - The image path in ImageKit (e.g., "/gallery/image.jpg") or a full ImageKit URL
  * @param transformations - Optional transformation parameters
  * @returns The complete ImageKit URL
  */
 export function getImageKitUrl(
   path: string,
-  transformations?: ImageKitTransformations
+  transformations?: ImageKitTransformations,
 ): string {
-  // If path is already a full URL (http/https), return it as-is
-  // This handles cases where images might come from other sources
-  if (path.startsWith('http://') || path.startsWith('https://')) {
-    return path;
+  const transformParams = buildTransformParams(transformations);
+
+  if (path.startsWith("http://") || path.startsWith("https://")) {
+    // Non-ImageKit remotes: pass through unchanged.
+    if (!isImageKitSrc(path)) {
+      return path;
+    }
+
+    // Absolute ImageKit URLs: apply/replace `tr=` so loader width/quality stick.
+    try {
+      const url = new URL(path);
+      if (transformParams.length > 0) {
+        url.searchParams.set("tr", transformParams.join(","));
+      }
+      return url.href;
+    } catch {
+      return path;
+    }
   }
 
   const urlEndpoint = process.env.NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT;
-  
+
   if (!urlEndpoint) {
-    console.warn('NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT is not set');
+    console.warn("NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT is not set");
     return path;
   }
 
   // Remove leading slash from path if present (ImageKit handles it)
-  const cleanPath = path.startsWith('/') ? path.slice(1) : path;
+  const cleanPath = path.startsWith("/") ? path.slice(1) : path;
 
-  // Build transformation query string
-  const transformParams: string[] = [];
-
-  if (transformations) {
-    // Use minWidth/minHeight if provided, otherwise use width/height
-    const width = transformations.minWidth || transformations.width;
-    const height = transformations.minHeight || transformations.height;
-    
-    if (transformations.quality !== undefined) {
-      transformParams.push(`q-${transformations.quality}`);
-    }
-    if (width !== undefined) {
-      transformParams.push(`w-${width}`);
-    }
-    if (height !== undefined) {
-      transformParams.push(`h-${height}`);
-    }
-  }
-
-  // Construct URL
   // Ensure urlEndpoint doesn't have trailing slash
-  const baseUrl = urlEndpoint.endsWith('/') 
-    ? urlEndpoint.slice(0, -1) 
+  const baseUrl = urlEndpoint.endsWith("/")
+    ? urlEndpoint.slice(0, -1)
     : urlEndpoint;
-  
+
   // ImageKit URL format: {urlEndpoint}/{path}?tr={transformations}
   const imageUrl = `${baseUrl}/${cleanPath}`;
-  
+
   if (transformParams.length > 0) {
-    return `${imageUrl}?tr=${transformParams.join(',')}`;
+    return `${imageUrl}?tr=${transformParams.join(",")}`;
   }
 
   return imageUrl;
@@ -82,14 +124,14 @@ export function getImageKitUrl(
 export function getImageKitSrcSet(
   path: string,
   sizes: number[],
-  transformations?: Omit<ImageKitTransformations, 'width' | 'minWidth'>
+  transformations?: Omit<ImageKitTransformations, "width" | "minWidth">,
 ): string {
   return sizes
     .map((width) => {
       const url = getImageKitUrl(path, { ...transformations, width });
       return `${url} ${width}w`;
     })
-    .join(', ');
+    .join(", ");
 }
 
 /** Parameters passed by `next/image` to a custom loader (see Next.js Image docs). */
@@ -100,10 +142,12 @@ export type ImageKitLoaderParams = {
 };
 
 /**
- * `next/image` loader for ImageKit asset paths (e.g. `/highlights/photo.jpg`).
- * Applies `tr=w-` and `tr=q-` so ImageKit serves appropriately sized bytes; `src` may be a full HTTPS URL (passed through by `getImageKitUrl`).
+ * `next/image` loader for ImageKit asset paths (e.g. `/highlights/photo.jpg`)
+ * and absolute `*.imagekit.io` URLs.
  *
- * **Optimization chain:** With the default Next.js Image pipeline, the URL returned here is fetched and may be further optimized by Next (`remotePatterns` must allow the host). To rely on ImageKit transformations only, render `next/image` with `unoptimized` (not used by our wrapper).
+ * Applies `tr=w-` and `tr=q-` so ImageKit serves appropriately sized bytes.
+ * With a custom loader, Next emits these URLs directly on `<img>` — the browser
+ * fetches ImageKit; Next does not re-optimize through `/_next/image`.
  */
 export function imageKitLoader({
   src,
@@ -113,4 +157,3 @@ export function imageKitLoader({
   const q = quality ?? 75;
   return getImageKitUrl(src, { width, quality: q });
 }
-

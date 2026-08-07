@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { AnimatePresence, MotionDiv } from "@/components/motion/framer";
-import { ArrowLeft, ArrowRight, Quote } from "lucide-react";
+import { useReducedMotion } from "framer-motion";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "@/components/common/Image";
 
 const testimonials = [
@@ -26,115 +27,136 @@ const testimonials = [
 
 export default function GhltpTestimonialsCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isHovered, setIsHovered] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
-    if (isHovered) {
+    if (isPaused || shouldReduceMotion) {
       return;
     }
 
     const timer = setInterval(() => {
       setCurrentIndex((prev) =>
-        prev === testimonials.length - 1 ? 0 : prev + 1
+        prev === testimonials.length - 1 ? 0 : prev + 1,
       );
     }, 5000);
 
     return () => clearInterval(timer);
-  }, [isHovered]);
+  }, [isPaused, shouldReduceMotion]);
 
   const handlePrevious = () => {
     setCurrentIndex((prev) =>
-      prev === 0 ? testimonials.length - 1 : prev - 1
+      prev === 0 ? testimonials.length - 1 : prev - 1,
     );
   };
 
   const handleNext = () => {
     setCurrentIndex((prev) =>
-      prev === testimonials.length - 1 ? 0 : prev + 1
+      prev === testimonials.length - 1 ? 0 : prev + 1,
     );
   };
 
+  const testimonial = testimonials[currentIndex];
+
   return (
     <div
-      className="relative max-w-4xl mx-auto"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      className="relative mx-auto max-w-4xl"
+      role="region"
+      aria-roledescription="carousel"
+      aria-label="Participant testimonial carousel"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+      onFocusCapture={() => setIsPaused(true)}
+      onBlurCapture={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
+          setIsPaused(false);
+        }
+      }}
     >
-      <AnimatePresence mode="wait">
-        <MotionDiv
-          key={currentIndex}
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: -20 }}
-          transition={{ duration: 0.3 }}
-          className="bg-white/90 dark:bg-[#2F3332] rounded-2xl shadow-xl p-8 md:p-12 min-h-[300px] flex flex-col"
-        >
-          <div className="absolute top-8 left-8 text-[#0097b2] dark:text-[#66C4DC] opacity-20">
-            <Quote size={64} />
-          </div>
+      <div
+        className="border border-[#FCFAEF]/25 bg-[#0B2F3A] px-6 py-8 md:px-10 md:py-10"
+        aria-live="polite"
+        aria-atomic="true"
+      >
+        <AnimatePresence mode="wait">
+          <MotionDiv
+            key={currentIndex}
+            initial={shouldReduceMotion ? false : { opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: shouldReduceMotion ? 1 : 0 }}
+            transition={{ duration: shouldReduceMotion ? 0 : 0.25 }}
+          >
+            <blockquote className="font-heading text-xl leading-relaxed text-[#FCFAEF] md:text-2xl">
+              <span className="sr-only">Quote from {testimonial.name}: </span>
+              &quot;{testimonial.quote}&quot;
+            </blockquote>
 
-          <div className="relative z-10 flex flex-col h-full">
-            <div className="flex-1 flex flex-col justify-center">
-              <blockquote className="text-xl md:text-2xl leading-relaxed text-[#2F3332] dark:text-[#E6E7E7]">
-                &quot;{testimonials[currentIndex].quote}&quot;
-              </blockquote>
-            </div>
-
-            <div className="flex items-center mt-8">
-              <div className="rounded-full overflow-hidden h-16 w-16 mr-4">
+            <footer className="mt-8 flex items-center gap-4 border-t border-[#FCFAEF]/20 pt-6">
+              <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-md bg-[#2F3332]">
                 <Image
-                  src={testimonials[currentIndex].image}
-                  alt={`Headshot of ${testimonials[currentIndex].name}, ${testimonials[currentIndex].title}`}
-                  width={64}
-                  height={64}
-                  className="object-cover h-full w-full"
+                  src={testimonial.image}
+                  alt=""
+                  width={56}
+                  height={56}
+                  className="h-full w-full object-cover"
                 />
               </div>
               <div>
-                <div className="font-bold text-lg text-[#1C1F1E] dark:text-[#FCFAEF]">
-                  {testimonials[currentIndex].name}
-                </div>
-                <div className="text-[#eeba2b] dark:text-[#F5C94D]">
-                  {testimonials[currentIndex].title}
-                </div>
+                <cite className="not-italic font-heading text-lg font-semibold text-[#FCFAEF]">
+                  {testimonial.name}
+                </cite>
+                <p className="text-sm text-[#F5C94D]">{testimonial.title}</p>
               </div>
-            </div>
-          </div>
-        </MotionDiv>
-      </AnimatePresence>
-
-      <div className="flex justify-center mt-8 gap-2">
-        {testimonials.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => setCurrentIndex(index)}
-            className={`h-3 w-3 rounded-full ${
-              index === currentIndex ? "bg-[#F5C94D]" : "bg-[#FCFAEF]/30"
-            }`}
-            aria-label={`Go to testimonial ${index + 1}`}
-          />
-        ))}
+            </footer>
+          </MotionDiv>
+        </AnimatePresence>
       </div>
 
-      {testimonials.length > 1 && (
-        <>
-          <button
-            onClick={handlePrevious}
-            className="absolute top-1/2 -left-4 md:-left-8 transform -translate-y-1/2 bg-white/90 dark:bg-[#2F3332] rounded-full p-2 shadow-md hover:bg-white dark:hover:bg-gray-700 transition"
-            aria-label="Previous testimonial"
-          >
-            <ArrowLeft className="h-6 w-6 text-[#0097b2]" />
-          </button>
+      <div className="mt-6 flex flex-wrap items-center justify-between gap-4">
+        <div className="flex gap-2" role="tablist" aria-label="Participant quotes">
+          {testimonials.map((item, index) => (
+            <button
+              key={item.id}
+              type="button"
+              role="tab"
+              aria-selected={index === currentIndex}
+              onClick={() => setCurrentIndex(index)}
+              className={`inline-flex h-11 min-w-11 items-center justify-center rounded-md px-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eeba2b] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0F4C5C] ${
+                index === currentIndex ? "text-[#F5C94D]" : "text-[#FCFAEF]/40"
+              }`}
+              aria-label={`Show testimonial ${index + 1} from ${item.name}`}
+            >
+              <span
+                aria-hidden="true"
+                className={`block h-2.5 w-2.5 rounded-full ${
+                  index === currentIndex ? "bg-current" : "bg-current opacity-50"
+                }`}
+              />
+            </button>
+          ))}
+        </div>
 
-          <button
-            onClick={handleNext}
-            className="absolute top-1/2 -right-4 md:-right-8 transform -translate-y-1/2 bg-white/90 dark:bg-[#2F3332] rounded-full p-2 shadow-md hover:bg-white dark:hover:bg-gray-700 transition"
-            aria-label="Next testimonial"
-          >
-            <ArrowRight className="h-6 w-6 text-[#0097b2]" />
-          </button>
-        </>
-      )}
+        {testimonials.length > 1 ? (
+          <div className="flex gap-2">
+            <button
+              type="button"
+              onClick={handlePrevious}
+              className="inline-flex h-11 w-11 items-center justify-center rounded-md border border-[#FCFAEF]/40 text-[#FCFAEF] transition-colors hover:border-[#eeba2b] hover:text-[#eeba2b] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eeba2b] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0F4C5C]"
+              aria-label="Previous testimonial"
+            >
+              <ChevronLeft className="h-5 w-5" aria-hidden="true" />
+            </button>
+            <button
+              type="button"
+              onClick={handleNext}
+              className="inline-flex h-11 w-11 items-center justify-center rounded-md border border-[#FCFAEF]/40 text-[#FCFAEF] transition-colors hover:border-[#eeba2b] hover:text-[#eeba2b] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eeba2b] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0F4C5C]"
+              aria-label="Next testimonial"
+            >
+              <ChevronRight className="h-5 w-5" aria-hidden="true" />
+            </button>
+          </div>
+        ) : null}
+      </div>
     </div>
   );
 }

@@ -1,60 +1,48 @@
-"use client";
-
-import { motion } from "framer-motion";
-import { PenLine } from "lucide-react";
+import {
+  EditorialBand,
+  EditorialEyebrow,
+  EditorialHeading,
+  EditorialLead,
+} from "@/components/shared/EditorialPrimitives";
 
 type BlogHeroProps = {
   postCount: number;
 };
 
-/**
- * Gradient hero for the Thought Leadership listing page. Mirrors the news
- * hero's decorative-blur treatment while keeping an editorial, text-led layout.
- */
 export function BlogHero({ postCount }: BlogHeroProps) {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-[#0097b2] via-[#0A6B7A] to-[#0F4C5C] py-16 sm:py-20 md:py-28">
-      <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
-        <div className="absolute -top-24 right-0 h-64 w-64 rounded-full bg-[#FCFAEF]/10 blur-3xl" />
-        <div className="absolute -left-24 bottom-0 h-96 w-96 rounded-full bg-[#eeba2b]/15 blur-3xl" />
-        <div className="absolute right-1/4 top-1/2 h-40 w-40 rounded-full bg-[#F5C94D]/15 blur-2xl" />
-      </div>
-
-      <div className="site-container relative z-10 mx-auto px-4 sm:px-6">
-        <div className="mx-auto max-w-3xl text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#eeba2b]/30 bg-[#eeba2b]/20 px-4 py-2"
+    <EditorialBand
+      tone="teal"
+      aria-labelledby="thought-leadership-heading"
+      className="border-b border-[#FCFAEF]/20 bg-[#0F4C5C]"
+    >
+      <div className="grid gap-10 lg:grid-cols-12 lg:items-end lg:gap-16">
+        <div className="lg:col-span-8">
+          <EditorialEyebrow tone="gold" className="text-[#F5C94D]">
+            Ideas grounded in practice
+          </EditorialEyebrow>
+          <EditorialHeading
+            as="h1"
+            id="thought-leadership-heading"
+            className="mt-5 max-w-4xl text-[#FCFAEF]"
           >
-            <PenLine className="h-4 w-4 text-[#eeba2b]" />
-            <span className="text-sm font-medium text-[#eeba2b]">
-              {postCount} {postCount === 1 ? "story" : "stories"} and counting
-            </span>
-          </motion.div>
-
-          <motion.h1
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="mb-6 font-heading text-4xl font-bold leading-tight text-[#FCFAEF] sm:text-5xl md:text-6xl"
-          >
-            Thought{" "}
-            <span className="text-[#eeba2b]">Leadership</span>
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.15, duration: 0.8, ease: "easeOut" }}
-            className="mx-auto max-w-2xl text-base font-light leading-relaxed text-[#FCFAEF]/85 sm:text-lg md:text-xl"
-          >
+            Thought Leadership
+          </EditorialHeading>
+          <EditorialLead className="mt-6 max-w-3xl text-[#FCFAEF]/85 dark:text-[#FCFAEF]/85">
             Student essays, faculty reflections, and community voices on ethical
             global health, community partnership, and the future of care.
-          </motion.p>
+          </EditorialLead>
+        </div>
+        <div className="border-t border-[#66C4DC]/55 pt-6 lg:col-span-4 lg:border-l lg:border-t-0 lg:pl-8 lg:pt-0">
+          <p className="font-heading text-5xl font-semibold text-[#F5C94D] md:text-6xl">
+            {postCount}
+          </p>
+          <p className="mt-2 max-w-xs text-sm font-semibold uppercase tracking-[0.16em] text-[#FCFAEF]/75">
+            {postCount === 1 ? "Perspective" : "Perspectives"} from across the
+            Akomapa network
+          </p>
         </div>
       </div>
-    </section>
+    </EditorialBand>
   );
 }

@@ -1,30 +1,30 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
-import { motion } from "framer-motion";
-import {
-  ArrowLeft,
-  ArrowRight,
-  Calendar,
-  ExternalLink,
-  Play,
-  Tag,
-} from "lucide-react";
-import Image from "@/components/common/Image";
-import Breadcrumb from "@/components/layout/Breadcrumb";
-import { Button } from "@/components/ui/button";
-import { AnnouncementCard } from "@/components/common/AnnouncementCard";
 import {
   FadeIn,
   FadeInStagger,
   FadeInStaggerItem,
   motionDurations,
 } from "@/components/animations";
-import { TAG_COLORS } from "@/data/announcement-colors";
-import { newsItemToAnnouncement } from "@/data/unified-news";
-import { cn } from "@/lib/utils";
+import Image from "@/components/common/Image";
+import Breadcrumb from "@/components/layout/Breadcrumb";
+import {
+  PublicationArticleMeasure,
+  PublicationBackLink,
+  PublicationEntry,
+  PublicationMeta,
+} from "@/components/publication";
+import {
+  EditorialBand,
+  EditorialButton,
+  EditorialEyebrow,
+  EditorialHeading,
+  EditorialLead,
+  EditorialPlay,
+} from "@/components/shared/EditorialPrimitives";
 import { getAnnouncementPosterSrc, parseVideoUrl } from "@/lib/video-utils";
+import { cn } from "@/lib/utils";
 import type { NewsItem } from "@/lib/types";
 
 function formatDate(dateStr: string): string {
@@ -46,275 +46,205 @@ export function NewsDetailContent({ item, relatedItems }: Props) {
   const detailPoster = getAnnouncementPosterSrc(item);
 
   return (
-    <>
+    <div data-rebrand-page className="bg-background text-foreground">
       <div className="site-container mx-auto">
         <Breadcrumb />
       </div>
 
-      <div className="flex flex-col">
-        {/* Hero Section */}
-        <section className="relative py-16 sm:py-20 md:py-28 bg-gradient-to-br from-[#0097b2] via-[#0A6B7A] to-[#0F4C5C] overflow-hidden">
-          {/* Decorative blobs */}
-          <div className="absolute top-0 right-0 w-72 h-72 bg-[#FCFAEF]/8 rounded-full -translate-y-1/3 translate-x-1/3 blur-3xl" />
-          <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#eeba2b]/10 rounded-full translate-y-1/2 -translate-x-1/3 blur-3xl" />
-          <div className="absolute top-1/2 right-1/3 w-40 h-40 bg-[#F5C94D]/15 rounded-full blur-2xl" />
+      <EditorialBand
+        tone="teal"
+        aria-labelledby="news-detail-heading"
+        className="border-b border-[#FCFAEF]/20 bg-[#0F4C5C]"
+        containerClassName="py-14 sm:py-16 md:py-20 lg:py-24"
+      >
+        <PublicationBackLink href="/news" tone="light">
+          Back to News
+        </PublicationBackLink>
 
-          <div className="site-container mx-auto px-4 sm:px-6 relative z-10">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              <Link
-                href="/news"
-                className="inline-flex items-center gap-2 text-[#FCFAEF]/70 hover:text-[#FCFAEF] transition-colors mb-8 text-sm font-medium"
-              >
-                <ArrowLeft className="h-4 w-4" />
-                Back to News
-              </Link>
-            </motion.div>
+        <EditorialEyebrow tone="gold" className="text-[#F5C94D]">
+          {item.category}
+        </EditorialEyebrow>
+        <EditorialHeading
+          as="h1"
+          id="news-detail-heading"
+          className="mt-5 max-w-4xl text-[1.85rem] text-[#FCFAEF] sm:text-[2.35rem] md:text-[2.85rem] lg:text-[3.25rem]"
+        >
+          {item.title}
+        </EditorialHeading>
 
-            <div className="max-w-3xl">
-              {/* Category badge */}
-              <motion.div
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.05 }}
-              >
-                <span
-                  className={cn(
-                    "inline-block rounded-full px-3.5 py-1.5 mb-5",
-                    "text-xs font-bold uppercase tracking-wider",
-                    "backdrop-blur-md shadow-sm",
-                    TAG_COLORS[item.categoryColor]
-                  )}
-                >
-                  {item.category}
-                </span>
-              </motion.div>
+        <PublicationMeta
+          className="mt-5 text-[#FCFAEF]/85 [&_dd]:text-[#FCFAEF]"
+          items={[
+            ...(item.date
+              ? [
+                  {
+                    label: "Published",
+                    value: formatDate(item.date),
+                    dateTime: item.date,
+                  },
+                ]
+              : []),
+            ...item.tags.map((tag) => ({
+              label: "Tag",
+              value: tag,
+            })),
+          ]}
+        />
+      </EditorialBand>
 
-              {/* Title */}
-              <motion.h1
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.1, ease: "easeOut" }}
-                className="font-heading text-3xl sm:text-4xl md:text-5xl font-bold text-[#FCFAEF] leading-tight mb-6"
-              >
-                {item.title}
-              </motion.h1>
-
-              {/* Meta row */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="flex flex-wrap items-center gap-4 text-sm text-[#FCFAEF]/70"
-              >
-                {item.date && (
-                  <span className="inline-flex items-center gap-1.5">
-                    <Calendar className="h-3.5 w-3.5" />
-                    {formatDate(item.date)}
-                  </span>
-                )}
-                {item.tags.length > 0 && (
-                  <div className="flex flex-wrap items-center gap-2">
-                    <Tag className="h-3.5 w-3.5" />
-                    {item.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="rounded-full bg-[#FCFAEF]/10 px-2.5 py-0.5 text-xs font-medium text-[#FCFAEF]/80"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                )}
-              </motion.div>
-            </div>
-          </div>
-        </section>
-
-        {/* Hero Media — overlaps hero by pulling up */}
-        {(detailPoster || item.videoUrl) && (
-          <section className="relative z-10 -mt-8 sm:-mt-12 md:-mt-16 mb-12 md:mb-16">
-            <div className="site-container mx-auto px-4 sm:px-6">
-              <motion.div
-                initial={{ opacity: 0, y: 30, scale: 0.98 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                transition={{ duration: 0.7, delay: 0.3, ease: "easeOut" }}
-                className="max-w-4xl mx-auto"
-              >
-                <div className="relative aspect-[16/9] rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl ring-1 ring-black/5 dark:ring-white/5">
-                  {item.videoUrl && videoPlaying ? (
-                    <iframe
-                      src={parseVideoUrl(item.videoUrl)?.embedUrl}
-                      className="absolute inset-0 w-full h-full"
-                      allow="autoplay; encrypted-media; picture-in-picture"
-                      allowFullScreen
-                      title={item.title}
+      {(detailPoster || item.videoUrl) && (
+        <EditorialBand
+          tone="cream"
+          aria-label="Story media"
+          containerClassName="py-10 md:py-12"
+        >
+          <FadeIn className="mx-auto max-w-4xl">
+            <div className="relative aspect-[16/9] overflow-hidden rounded-md border border-[#1C1F1E]/10 dark:border-[#FCFAEF]/15">
+              {item.videoUrl && videoPlaying ? (
+                <iframe
+                  src={parseVideoUrl(item.videoUrl)?.embedUrl}
+                  className="absolute inset-0 h-full w-full"
+                  allow="autoplay; encrypted-media; picture-in-picture"
+                  allowFullScreen
+                  title={item.title}
+                />
+              ) : (
+                <>
+                  {detailPoster ? (
+                    <Image
+                      src={detailPoster}
+                      alt={item.title}
+                      fill
+                      priority
+                      sizes="(min-width: 1024px) 56rem, 100vw"
+                      className="object-cover"
                     />
                   ) : (
-                    <>
-                      {detailPoster ? (
-                        <Image
-                          src={detailPoster}
-                          alt={item.title}
-                          fill
-                          priority
-                          sizes="(min-width: 1024px) 56rem, 100vw"
-                          className="object-cover"
-                        />
-                      ) : (
-                        <div className="absolute inset-0 bg-[#2F3332]" aria-hidden />
-                      )}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
-                      {item.videoUrl && (
-                        <button
-                          onClick={() => setVideoPlaying(true)}
-                          className="absolute inset-0 flex items-center justify-center group/play"
-                          aria-label="Play video"
-                        >
-                          <span className="flex items-center justify-center w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-white/90 shadow-xl group-hover/play:scale-110 transition-transform duration-200">
-                            <Play className="w-9 h-9 sm:w-10 sm:h-10 text-[#0097b2] ml-1" fill="currentColor" />
-                          </span>
-                        </button>
-                      )}
-                    </>
-                  )}
-                </div>
-              </motion.div>
-            </div>
-          </section>
-        )}
-
-        {/* Content Body */}
-        <section className="py-8 md:py-12 bg-[#FCFAEF] dark:bg-[#1C1F1E]">
-          <div className="site-container mx-auto px-4 sm:px-6">
-            <div className="max-w-3xl mx-auto">
-              {isRichContent ? (
-                <FadeIn duration={motionDurations.enter}>
-                  <div className="space-y-6">
-                    {item.content.map((paragraph, idx) => (
-                      <p
-                        key={idx}
-                        className={cn(
-                          "text-base sm:text-lg leading-relaxed text-[#2F3332] dark:text-[#E6E7E7]/90",
-                          idx === 0 &&
-                            "text-lg sm:text-xl font-medium text-[#1C1F1E] dark:text-[#FCFAEF]"
-                        )}
-                      >
-                        {paragraph}
-                      </p>
-                    ))}
-                  </div>
-                </FadeIn>
-              ) : (
-                <FadeIn duration={motionDurations.enter}>
-                  <div className="relative rounded-2xl bg-gradient-to-br from-[#0097b2]/5 to-[#eeba2b]/5 dark:from-[#0097b2]/10 dark:to-[#eeba2b]/10 p-8 sm:p-10 border border-[#0097b2]/10 dark:border-[#0097b2]/20">
-                    <div className="absolute top-6 left-6 text-[#0097b2]/20 dark:text-[#0097b2]/30 text-6xl font-serif leading-none select-none">
-                      &ldquo;
-                    </div>
-                    <p className="relative text-lg sm:text-xl md:text-2xl leading-relaxed text-[#1C1F1E] dark:text-[#FCFAEF] font-light pl-4 sm:pl-6">
-                      {item.content[0]}
-                    </p>
-                  </div>
-                </FadeIn>
-              )}
-
-              {/* CTA */}
-              {item.ctaLink && item.ctaText && (
-                <FadeIn
-                  className="mt-10 sm:mt-12"
-                  duration={motionDurations.enter}
-                >
-                  <div className="flex flex-col sm:flex-row gap-4">
-                    {item.isExternalCta ? (
-                      <Button
-                        asChild
-                        className="group bg-[#eeba2b] hover:bg-[#eeba2b]/90 text-[#1C1F1E] font-medium px-6"
-                      >
-                        <a
-                          href={item.ctaLink}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center"
-                        >
-                          {item.ctaText}
-                          <ExternalLink className="ml-2 h-4 w-4" />
-                        </a>
-                      </Button>
-                    ) : (
-                      <Button
-                        asChild
-                        className="group bg-[#0097b2] hover:bg-[#0097b2]/90 text-[#FCFAEF] font-medium px-6"
-                      >
-                        <Link
-                          href={item.ctaLink}
-                          className="flex items-center"
-                        >
-                          {item.ctaText}
-                          <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                        </Link>
-                      </Button>
-                    )}
-                  </div>
-                </FadeIn>
-              )}
-            </div>
-          </div>
-        </section>
-
-        {/* Related Items */}
-        {relatedItems.length > 0 && (
-          <section className="py-16 md:py-24 bg-white dark:bg-[#2F3332]/30 border-t border-black/[0.04] dark:border-white/[0.04]">
-            <div className="site-container mx-auto px-4 sm:px-6">
-              <FadeIn
-                className="text-center max-w-3xl mx-auto mb-12"
-                duration={motionDurations.enter}
-              >
-                <h2 className="text-[#F5C94D] font-bold text-base sm:text-lg mb-2">
-                  MORE UPDATES
-                </h2>
-                <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#1C1F1E] dark:text-[#FCFAEF]">
-                  Continue Reading
-                </h3>
-              </FadeIn>
-
-              <FadeInStagger
-                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto"
-                staggerDelay={motionDurations.staggerContainer}
-              >
-                {relatedItems.map((related) => (
-                  <FadeInStaggerItem key={related.id} direction="up">
-                    <AnnouncementCard
-                      item={newsItemToAnnouncement(related)}
+                    <div
+                      className="absolute inset-0 bg-[#2F3332]"
+                      aria-hidden
                     />
-                  </FadeInStaggerItem>
-                ))}
-              </FadeInStagger>
-
-              <FadeIn
-                className="mt-12 text-center"
-                duration={motionDurations.enter}
-              >
-                <Button
-                  asChild
-                  variant="outline"
-                  className="group border-[#0097b2]/30 text-[#0097b2] hover:bg-[#0097b2] hover:text-white dark:border-[#66C4DC]/30 dark:text-[#66C4DC] dark:hover:bg-[#66C4DC] dark:hover:text-[#1C1F1E] px-8 py-3 rounded-full font-semibold transition-all duration-300"
-                >
-                  <Link
-                    href="/news"
-                    className="inline-flex items-center gap-2"
-                  >
-                    View All Updates
-                    <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
-                  </Link>
-                </Button>
-              </FadeIn>
+                  )}
+                  {item.videoUrl ? (
+                    <button
+                      type="button"
+                      onClick={() => setVideoPlaying(true)}
+                      className="absolute inset-0 flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eeba2b] focus-visible:ring-offset-2"
+                      aria-label="Play video"
+                    >
+                      <span className="inline-flex h-16 w-16 items-center justify-center rounded-full border border-[#FCFAEF]/40 bg-[#0F4C5C]/90 text-[#FCFAEF] sm:h-20 sm:w-20">
+                        <EditorialPlay className="h-5 w-5 sm:h-6 sm:w-6" />
+                      </span>
+                    </button>
+                  ) : null}
+                </>
+              )}
             </div>
-          </section>
-        )}
-      </div>
-    </>
+          </FadeIn>
+        </EditorialBand>
+      )}
+
+      <EditorialBand
+        tone="cream"
+        aria-labelledby="news-detail-body-heading"
+        containerClassName="py-10 md:py-14 lg:py-16"
+      >
+        <h2 id="news-detail-body-heading" className="sr-only">
+          Article body
+        </h2>
+        <PublicationArticleMeasure className="max-w-3xl">
+          {isRichContent ? (
+            <FadeIn duration={motionDurations.enter}>
+              <div className="space-y-6">
+                {item.content.map((paragraph, idx) => (
+                  <p
+                    key={idx}
+                    className={cn(
+                      "text-base leading-relaxed text-[#2F3332] dark:text-[#E6E7E7]/90 sm:text-lg",
+                      idx === 0 &&
+                        "text-lg font-medium text-[#1C1F1E] dark:text-[#FCFAEF] sm:text-xl",
+                    )}
+                  >
+                    {paragraph}
+                  </p>
+                ))}
+              </div>
+            </FadeIn>
+          ) : (
+            <FadeIn duration={motionDurations.enter}>
+              <blockquote className="border-l-2 border-[#eeba2b] pl-6 sm:pl-8">
+                <p className="font-heading text-lg leading-relaxed text-[#1C1F1E] dark:text-[#FCFAEF] sm:text-xl md:text-2xl">
+                  {item.content[0]}
+                </p>
+              </blockquote>
+            </FadeIn>
+          )}
+
+          {item.ctaLink && item.ctaText ? (
+            <FadeIn className="mt-10" duration={motionDurations.enter}>
+              <EditorialButton
+                href={item.ctaLink}
+                variant="amber"
+                external={item.isExternalCta}
+              >
+                {item.ctaText}
+              </EditorialButton>
+            </FadeIn>
+          ) : null}
+        </PublicationArticleMeasure>
+      </EditorialBand>
+
+      {relatedItems.length > 0 ? (
+        <EditorialBand
+          tone="white"
+          aria-labelledby="news-related-heading"
+          className="border-t border-[#1C1F1E]/8 dark:border-[#FCFAEF]/10"
+        >
+          <FadeIn duration={motionDurations.enter}>
+            <EditorialEyebrow className="text-[#0F4C5C] dark:text-[#66C4DC]">
+              More Updates
+            </EditorialEyebrow>
+            <EditorialHeading
+              as="h3"
+              id="news-related-heading"
+              className="mt-4"
+            >
+              Continue Reading
+            </EditorialHeading>
+            <EditorialLead className="mt-4 max-w-2xl">
+              More news from across the Akomapa network.
+            </EditorialLead>
+          </FadeIn>
+
+          <FadeInStagger
+            className="mt-10 flex max-w-5xl flex-col"
+            staggerDelay={motionDurations.staggerContainer}
+          >
+            {relatedItems.map((related) => {
+              const poster = getAnnouncementPosterSrc(related);
+              return (
+                <FadeInStaggerItem key={related.id} direction="up">
+                  <PublicationEntry
+                    href={`/news/${related.id}`}
+                    title={related.title}
+                    description={related.excerpt}
+                    image={poster}
+                    imageAlt={related.title}
+                    ctaLabel="Explore the update"
+                    eyebrow={related.category}
+                  />
+                </FadeInStaggerItem>
+              );
+            })}
+          </FadeInStagger>
+
+          <FadeIn className="mt-10" duration={motionDurations.enter}>
+            <EditorialButton href="/news" variant="outline">
+              View All Updates
+            </EditorialButton>
+          </FadeIn>
+        </EditorialBand>
+      ) : null}
+    </div>
   );
 }

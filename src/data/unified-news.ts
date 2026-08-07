@@ -87,7 +87,7 @@ export function newsItemToAnnouncement(item: NewsItem): Announcement {
     image: item.image || undefined,
     videoUrl: item.videoUrl ?? undefined,
     thumbnail: item.thumbnail ?? undefined,
-    ctaText: item.isExternalCta ? (item.ctaText ?? undefined) : "Read More",
+    ctaText: item.isExternalCta ? (item.ctaText ?? undefined) : "Explore the update",
     ctaLink: item.isExternalCta ? (item.ctaLink ?? undefined) : `/news/${item.id}`,
     isExternal: item.isExternalCta,
   };

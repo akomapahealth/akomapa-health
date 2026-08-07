@@ -1,9 +1,18 @@
 "use client";
 
 import Image from "@/components/common/Image";
-import { FadeIn } from "@/components/animations";
+import {
+  FadeIn,
+  FadeInStagger,
+  FadeInStaggerItem,
+} from "@/components/animations";
 import { AnimatedMetric } from "@/components/motion/AnimatedMetric";
-import { HeroEntranceH1, HeroEntranceP } from "@/components/motion/HeroEntrance";
+import {
+  EditorialBand,
+  EditorialEyebrow,
+  EditorialHeading,
+  EditorialLead,
+} from "@/components/shared/EditorialPrimitives";
 import { parseMetricDisplayValue } from "@/lib/impact/parseMetricValue";
 
 const heroStats = [
@@ -12,92 +21,87 @@ const heroStats = [
   { id: "hubs", value: "3", label: "Community health hubs" },
 ] as const;
 
+const metricDividerClasses = [
+  "",
+  "border-t sm:border-l sm:border-t-0",
+  "border-t sm:border-l sm:border-t-0",
+] as const;
+
 export default function ImpactHero() {
   return (
-    <section
-      className="relative overflow-hidden bg-gradient-to-br from-[#1C1F1E] via-[#0F4C5C] to-[#0097b2] py-16 sm:py-20 md:py-28"
+    <EditorialBand
+      tone="teal"
       aria-labelledby="impact-hero-heading"
+      className="border-b border-[#FCFAEF]/15 bg-[#0F4C5C]"
+      containerClassName="py-14 sm:py-16 md:py-20 lg:py-24"
     >
-      {/* Decorative blurs */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute -top-24 right-0 h-64 w-64 rounded-full bg-[#FCFAEF]/10 blur-3xl" />
-        <div className="absolute bottom-0 -left-24 h-96 w-96 rounded-full bg-[#FCFAEF]/10 blur-3xl" />
-        <div className="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-[#F5C94D]/10 blur-3xl" />
-      </div>
+      <div className="grid gap-12 lg:grid-cols-12 lg:items-end lg:gap-16">
+        <FadeIn className="lg:col-span-7 lg:pb-4">
+          <EditorialEyebrow tone="gold" className="text-[#F5C94D]">
+            Measuring Progress
+          </EditorialEyebrow>
+          <EditorialHeading
+            as="h1"
+            id="impact-hero-heading"
+            className="mt-5 max-w-4xl text-[2.35rem] text-[#FCFAEF] sm:text-[3rem] md:text-[3.7rem] lg:text-[4.35rem]"
+          >
+            Our Impact
+          </EditorialHeading>
+          <EditorialLead className="mt-5 max-w-2xl text-[#FCFAEF]/85 dark:text-[#FCFAEF]/85">
+            Measured in communities strengthened, leaders developed, and systems
+            transformed.
+          </EditorialLead>
 
-      <div className="site-container relative z-10 mx-auto px-4 sm:px-6">
-        <div className="flex flex-col gap-12 lg:flex-row lg:items-center lg:gap-16">
-          {/* Content */}
-          <div className="max-w-3xl flex-1">
-            <HeroEntranceP className="text-xs font-semibold uppercase tracking-[0.3em] text-[#F5C94D] sm:text-sm">
-              Measuring Progress
-            </HeroEntranceP>
-            <HeroEntranceH1
-              id="impact-hero-heading"
-              delay={0.05}
-              className="mt-4 font-heading text-4xl font-bold leading-tight text-[#FCFAEF] sm:text-5xl md:text-6xl lg:text-7xl"
+          <FadeInStagger className="mt-10" staggerDelay={0.08}>
+            <dl
+              data-impact-hero-metrics
+              className="grid max-w-2xl border-y border-[#FCFAEF]/25 sm:grid-cols-3"
             >
-              Our Impact
-            </HeroEntranceH1>
-            <HeroEntranceP
-              delay={0.1}
-              className="mt-5 max-w-2xl text-lg leading-relaxed text-[#FCFAEF]/85 sm:text-xl"
-            >
-              Measured in communities strengthened, leaders developed, and
-              systems transformed.
-            </HeroEntranceP>
-
-            {/* Lead stats */}
-            <FadeIn direction="up" delay={0.25}>
-              <dl className="mt-10 grid max-w-xl grid-cols-3 gap-4 sm:gap-6">
-                {heroStats.map((stat) => {
-                  const { value, prefix, suffix } = parseMetricDisplayValue(
-                    stat.value,
-                  );
-                  return (
+              {heroStats.map((stat, index) => {
+                const { value, prefix, suffix } = parseMetricDisplayValue(
+                  stat.value,
+                );
+                return (
+                  <FadeInStaggerItem key={stat.id} direction="up">
                     <div
-                      key={stat.id}
-                      className="rounded-xl border border-white/15 bg-white/5 p-4 backdrop-blur-sm sm:p-5"
+                      className={`flex min-h-28 flex-col justify-between border-[#FCFAEF]/25 px-1 py-6 sm:px-5 ${metricDividerClasses[index]}`}
                     >
-                      <dd>
+                      <dt className="font-subheading text-xs font-bold uppercase tracking-[0.2em] text-[#FCFAEF]/70">
+                        {stat.label}
+                      </dt>
+                      <dd className="mt-4">
                         <AnimatedMetric
                           value={value}
                           prefix={prefix}
                           suffix={suffix}
-                          className="font-heading text-2xl font-bold tracking-tight text-[#F5C94D] sm:text-3xl md:text-4xl"
+                          className="font-heading text-2xl font-semibold tracking-tight text-[#F5C94D] sm:text-3xl"
                         />
                       </dd>
-                      <dt className="mt-1.5 text-xs leading-snug text-[#FCFAEF]/75 sm:text-sm">
-                        {stat.label}
-                      </dt>
                     </div>
-                  );
-                })}
-              </dl>
-            </FadeIn>
-          </div>
+                  </FadeInStaggerItem>
+                );
+              })}
+            </dl>
+          </FadeInStagger>
+        </FadeIn>
 
-          {/* Hero image */}
-          <FadeIn
-            direction="left"
-            delay={0.2}
-            className="w-full lg:max-w-md xl:max-w-lg"
-          >
-            <div className="relative h-[280px] w-full overflow-hidden rounded-3xl border border-white/10 shadow-2xl sm:h-[360px] md:h-[420px] lg:h-[480px]">
-              <Image
-                src="/highlights/Akomapa-20.jpg"
-                alt="Akomapa community health outreach in progress"
-                fill
-                priority
-                sizes="(min-width: 1024px) 40vw, 100vw"
-                className="object-cover"
-                style={{ objectPosition: "center" }}
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-            </div>
-          </FadeIn>
-        </div>
+        <FadeIn direction="left" delay={0.15} className="relative lg:col-span-5">
+          <span
+            aria-hidden="true"
+            className="absolute -top-3 left-0 z-10 h-1 w-24 bg-[#eeba2b] md:w-36"
+          />
+          <div className="relative aspect-[4/3] overflow-hidden rounded-md border border-[#FCFAEF]/25 bg-[#0F4C5C] lg:aspect-[4/5]">
+            <Image
+              src="/highlights/Akomapa-20.jpg"
+              alt="Akomapa community health outreach in progress"
+              fill
+              priority
+              sizes="(min-width: 1024px) 38vw, 100vw"
+              className="object-cover object-center"
+            />
+          </div>
+        </FadeIn>
       </div>
-    </section>
+    </EditorialBand>
   );
 }

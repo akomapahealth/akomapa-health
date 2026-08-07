@@ -2,7 +2,7 @@
 
 import NextImage from "next/image";
 import type { ComponentProps } from "react";
-import { imageKitLoader } from "@/lib/imagekit";
+import { imageKitLoader, isImageKitSrc } from "@/lib/imagekit";
 
 type Props = Omit<ComponentProps<typeof NextImage>, "src" | "loader"> & {
   src: string;
@@ -11,9 +11,14 @@ type Props = Omit<ComponentProps<typeof NextImage>, "src" | "loader"> & {
 };
 
 /**
- * ImageKit-backed image using `next/image` with a custom loader (`imageKitLoader`).
- * Use for remote paths served via `NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT` (e.g. `/highlights/...`).
- * Local-only assets under `public/` should use `next/image` directly without this wrapper.
+ * App image wrapper with a split optimization strategy:
+ *
+ * - **ImageKit CDN** (relative paths, or absolute `*.imagekit.io` URLs): custom
+ *   `imageKitLoader` — browser fetches ImageKit directly with `tr=w-,q-`.
+ * - **Local / other remotes**: Next.js default `/_next/image` optimizer.
+ *
+ * Do not pass local `public/` paths here; use `next/image` directly for those.
+ * See `docs/performance/image-optimization.md`.
  */
 export default function Image({
   src,
@@ -34,6 +39,7 @@ export default function Image({
   const resolvedWidth = minWidth ?? width;
   const resolvedHeight = minHeight ?? height;
   const resolvedSizes = fill ? (sizes ?? "100vw") : sizes;
+  const useImageKitLoader = isImageKitSrc(src);
 
   const resolvedLoading =
     loading !== undefined
@@ -45,7 +51,7 @@ export default function Image({
   return (
     <NextImage
       {...rest}
-      loader={imageKitLoader}
+      loader={useImageKitLoader ? imageKitLoader : undefined}
       src={src}
       alt={alt}
       width={fill ? undefined : resolvedWidth}

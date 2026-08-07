@@ -1,19 +1,25 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import { ChevronLeft, ChevronRight, Quote } from "lucide-react";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "@/components/common/Image";
 import { FadeIn } from "@/components/animations";
+import {
+  EditorialBand,
+  EditorialEyebrow,
+  EditorialHeading,
+  EditorialLead,
+} from "@/components/shared/EditorialPrimitives";
 import { academyTestimonials } from "@/data/academy";
 
 export default function AcademyTestimonials() {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isHovered, setIsHovered] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
   const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
-    if (isHovered || shouldReduceMotion) {
+    if (isPaused || shouldReduceMotion) {
       return;
     }
 
@@ -24,7 +30,7 @@ export default function AcademyTestimonials() {
     }, 30000);
 
     return () => clearInterval(timer);
-  }, [isHovered, shouldReduceMotion]);
+  }, [isPaused, shouldReduceMotion]);
 
   const handlePrevious = () => {
     setCurrentIndex((prev) =>
@@ -41,103 +47,128 @@ export default function AcademyTestimonials() {
   const testimonial = academyTestimonials[currentIndex];
 
   return (
-    <section className="overflow-x-hidden bg-[#F4F1E8] py-16 dark:bg-[#1C1F1E] md:py-24">
-      <div className="site-container mx-auto px-4 sm:px-6">
-        <FadeIn direction="up" className="mx-auto mb-10 max-w-3xl space-y-3 text-center sm:space-y-4">
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#0097b2] dark:text-[#66C4DC] sm:text-sm">
+    <EditorialBand
+      tone="cream"
+      marker="05"
+      id="academy-testimonials"
+      aria-labelledby="academy-testimonials-heading"
+      className="bg-[#F4F1E8] dark:bg-[#1C1F1E]"
+    >
+      <FadeIn>
+        <div className="max-w-3xl">
+          <EditorialEyebrow className="text-[#0F4C5C] dark:text-[#66C4DC]">
             Testimonials
-          </p>
-          <h2 className="text-2xl font-bold text-[#0B2F3A] dark:text-[#FCFAEF] sm:text-3xl md:text-4xl">
+          </EditorialEyebrow>
+          <EditorialHeading id="academy-testimonials-heading" className="mt-4">
             Voices From Our Scholars
-          </h2>
-          <p className="text-base leading-relaxed text-[#2F3332]/80 dark:text-[#E6E7E7]/80 sm:text-lg">
+          </EditorialHeading>
+          <EditorialLead className="mt-5">
             Hear from students and professionals whose leadership journeys were
             shaped by the Akomapa Academy experience.
-          </p>
-        </FadeIn>
+          </EditorialLead>
+        </div>
+      </FadeIn>
 
+      <div
+        className="relative mx-auto mt-12 max-w-4xl"
+        onMouseEnter={() => setIsPaused(true)}
+        onMouseLeave={() => setIsPaused(false)}
+        onFocusCapture={() => setIsPaused(true)}
+        onBlurCapture={(event) => {
+          if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
+            setIsPaused(false);
+          }
+        }}
+      >
         <div
-          className="relative mx-auto max-w-4xl"
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
+          className="border border-[#1C1F1E]/15 bg-[#FCFAEF] px-6 py-8 dark:border-[#FCFAEF]/20 dark:bg-[#121514] md:px-10 md:py-10"
+          aria-live="polite"
+          aria-atomic="true"
         >
           <AnimatePresence mode="wait">
             <motion.div
               key={currentIndex}
-              initial={shouldReduceMotion ? false : { opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={
-                shouldReduceMotion ? { opacity: 0 } : { opacity: 0, x: -20 }
-              }
-              transition={{ duration: shouldReduceMotion ? 0.01 : 0.3 }}
-              className="flex min-h-[380px] flex-col rounded-2xl border border-[#E6E7E7]/80 bg-white/95 p-8 shadow-xl dark:border-[#2E3433] dark:bg-[#2F3332] md:min-h-[340px] md:p-12"
+              initial={shouldReduceMotion ? false : { opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: shouldReduceMotion ? 1 : 0 }}
+              transition={{ duration: shouldReduceMotion ? 0 : 0.25 }}
             >
-              <div className="absolute left-8 top-8 text-[#0097b2] opacity-20 dark:text-[#66C4DC]">
-                <Quote size={64} />
-              </div>
+              <blockquote className="font-heading text-xl leading-relaxed text-[#1C1F1E] dark:text-[#FCFAEF] md:text-2xl">
+                <span className="sr-only">Quote from {testimonial.name}: </span>
+                &quot;{testimonial.quote}&quot;
+              </blockquote>
 
-              <div className="relative z-10 flex h-full flex-col">
-                <div className="flex flex-1 flex-col justify-center">
-                  <blockquote className="text-xl leading-relaxed text-[#2F3332] dark:text-[#E6E7E7] md:text-2xl">
-                    &quot;{testimonial.quote}&quot;
-                  </blockquote>
+              <footer className="mt-8 flex items-center gap-4 border-t border-[#1C1F1E]/15 pt-6 dark:border-[#FCFAEF]/20">
+                <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-md bg-[#E6E7E7] dark:bg-[#2F3332]">
+                  <Image
+                    src={testimonial.image}
+                    alt=""
+                    width={56}
+                    height={56}
+                    className="h-full w-full object-cover"
+                  />
                 </div>
-
-                <div className="flex items-center">
-                  <div className="mr-4 h-16 w-16 overflow-hidden rounded-full">
-                    <Image
-                      src={testimonial.image}
-                      alt={testimonial.name}
-                      width={64}
-                      height={64}
-                      className="h-full w-full object-cover"
-                    />
-                  </div>
-                  <div>
-                    <div className="text-lg font-bold text-[#1C1F1E] dark:text-[#FCFAEF]">
-                      {testimonial.name}
-                    </div>
-                    <div className="text-[#0097b2] dark:text-[#66C4DC]">
-                      {testimonial.title}
-                    </div>
-                  </div>
+                <div>
+                  <cite className="not-italic font-heading text-lg font-semibold text-[#1C1F1E] dark:text-[#FCFAEF]">
+                    {testimonial.name}
+                  </cite>
+                  <p className="text-sm text-[#0097b2] dark:text-[#66C4DC]">
+                    {testimonial.title}
+                  </p>
                 </div>
-              </div>
+              </footer>
             </motion.div>
           </AnimatePresence>
+        </div>
 
-          <div className="mt-8 flex justify-center gap-2">
-            {academyTestimonials.map((_, index) => (
+        <div className="mt-6 flex flex-wrap items-center justify-between gap-4">
+          <div className="flex gap-2" role="tablist" aria-label="Testimonials">
+            {academyTestimonials.map((item, index) => (
               <button
-                key={academyTestimonials[index].id}
+                key={item.id}
+                type="button"
+                role="tab"
+                aria-selected={index === currentIndex}
                 onClick={() => setCurrentIndex(index)}
-                className={`h-3 w-3 rounded-full transition-colors ${
+                className={`inline-flex h-11 min-w-11 items-center justify-center rounded-md px-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eeba2b] focus-visible:ring-offset-2 ${
                   index === currentIndex
-                    ? "bg-[#0097b2] dark:bg-[#66C4DC]"
-                    : "bg-[#0097b2]/30 dark:bg-[#66C4DC]/30"
+                    ? "text-[#0097b2] dark:text-[#66C4DC]"
+                    : "text-[#0097b2]/40 dark:text-[#66C4DC]/40"
                 }`}
-                aria-label={`Go to testimonial ${index + 1}`}
-              />
+                aria-label={`Show testimonial ${index + 1} from ${item.name}`}
+              >
+                <span
+                  aria-hidden="true"
+                  className={`block h-2.5 w-2.5 rounded-full ${
+                    index === currentIndex
+                      ? "bg-current"
+                      : "bg-current opacity-50"
+                  }`}
+                />
+              </button>
             ))}
           </div>
 
-          <button
-            onClick={handlePrevious}
-            className="absolute -left-1 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-[#E6E7E7] bg-white text-[#0097b2] shadow-md transition hover:bg-[#FCFAEF] focus:outline-none focus:ring-2 focus:ring-[#0097b2] dark:border-[#2E3433] dark:bg-[#2F3332] dark:text-[#66C4DC] md:-left-5"
-            aria-label="Previous testimonial"
-          >
-            <ChevronLeft className="h-6 w-6" />
-          </button>
-
-          <button
-            onClick={handleNext}
-            className="absolute -right-1 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-[#E6E7E7] bg-white text-[#0097b2] shadow-md transition hover:bg-[#FCFAEF] focus:outline-none focus:ring-2 focus:ring-[#0097b2] dark:border-[#2E3433] dark:bg-[#2F3332] dark:text-[#66C4DC] md:-right-5"
-            aria-label="Next testimonial"
-          >
-            <ChevronRight className="h-6 w-6" />
-          </button>
+          <div className="flex gap-2">
+            <button
+              type="button"
+              onClick={handlePrevious}
+              className="inline-flex h-11 w-11 items-center justify-center rounded-md border border-[#1C1F1E]/15 text-[#0097b2] transition-colors hover:border-[#0097b2] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eeba2b] focus-visible:ring-offset-2 dark:border-[#FCFAEF]/25 dark:text-[#66C4DC]"
+              aria-label="Previous testimonial"
+            >
+              <ChevronLeft className="h-5 w-5" aria-hidden="true" />
+            </button>
+            <button
+              type="button"
+              onClick={handleNext}
+              className="inline-flex h-11 w-11 items-center justify-center rounded-md border border-[#1C1F1E]/15 text-[#0097b2] transition-colors hover:border-[#0097b2] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eeba2b] focus-visible:ring-offset-2 dark:border-[#FCFAEF]/25 dark:text-[#66C4DC]"
+              aria-label="Next testimonial"
+            >
+              <ChevronRight className="h-5 w-5" aria-hidden="true" />
+            </button>
+          </div>
         </div>
       </div>
-    </section>
+    </EditorialBand>
   );
 }
