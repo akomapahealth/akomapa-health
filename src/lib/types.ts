@@ -137,7 +137,35 @@ export interface CommunityHub {
   facultyMentorship?: MentorshipInfo;
   research?: ResearchItem[];
   innovations?: InnovationItem[];
+  roster?: HubRoster;
   metrics: HubMetrics;
+}
+
+export interface HubRoster {
+  leadership: HubLeader[];
+  volunteers: HubVolunteerPortrait[];
+}
+
+export interface HubLeader {
+  id: string;
+  name: string;
+  role: string;
+  affiliation: string;
+  image: string;
+  featured?: boolean;
+  bio?: string;
+  contact?: {
+    email?: string;
+    linkedin?: string;
+  };
+}
+
+export interface HubVolunteerPortrait {
+  id: string;
+  image: string;
+  alt: string;
+  caption?: string;
+  objectPosition?: string;
 }
 
 export interface HubMission {

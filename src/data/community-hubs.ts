@@ -1,6 +1,7 @@
 import type {
   CommunityHub,
   HubMission,
+  HubRoster,
   HubRouteSlug,
 } from "@/lib/types";
 
@@ -186,6 +187,279 @@ export const hubEmptyStates = {
   },
 } as const;
 
+export const uccHubRoster: HubRoster = {
+  leadership: [
+    {
+      id: "david-ofosu",
+      name: "David Ofosu",
+      role: "Co-Director",
+      affiliation: "Medical Student",
+      image: "/ucc-team/david_kojo_ofosu.JPG",
+      featured: true,
+    },
+    {
+      id: "hafiz-shaban",
+      name: "Hafiz Shaban",
+      role: "Co-Director",
+      affiliation: "Nursing Student",
+      image: "/ucc-team/hafiz_shaban.JPG",
+      featured: true,
+    },
+    {
+      id: "getwell-essuman",
+      name: "Getwell Essuman",
+      role: "Volunteer Recruitment Co-Lead",
+      affiliation: "Medical Laboratory Science Student",
+      image: "/ucc-team/getwell_ebiram_essuman.JPG",
+    },
+    {
+      id: "david-konadu-kombate",
+      name: "David Konadu Kombate",
+      role: "Volunteer Recruitment Co-Lead",
+      affiliation: "Medical Laboratory Science Student",
+      image: "/ucc-team/david_konadu_kombate.JPG",
+    },
+    {
+      id: "wilfred-obeng",
+      name: "Wilfred Obeng",
+      role: "Training & Standards Coordinator",
+      affiliation: "Medical Student",
+      image: "/ucc-team/wilfred_obeng.JPG",
+    },
+    {
+      id: "belinda-odoom",
+      name: "Belinda Odoom",
+      role: "Training & Standards Coordinator",
+      affiliation: "Nursing Student",
+      image: "/ucc-team/belinda_odoom.JPG",
+    },
+    {
+      id: "geraldine-cristal-apeadua-agyapong",
+      name: "Geraldine-Cristal Apeadua Agyapong",
+      role: "Finance Officer",
+      affiliation: "Medical Student",
+      image: "/ucc-team/geraldine_cristal_apeadua_agyepong.JPG",
+    },
+    {
+      id: "frederick-baffour",
+      name: "Frederick Baffour",
+      role: "Finance Officer",
+      affiliation: "Optometry Student",
+      image: "/ucc-team/frederick_baffour.JPG",
+    },
+    {
+      id: "gloria-tawiah-blay",
+      name: "Gloria Tawiah Blay",
+      role: "Community Engagement Liaison",
+      affiliation: "Pharmacy Student",
+      image: "/ucc-team/gloria_tawia_blay.JPG",
+    },
+    {
+      id: "prince-nyarko",
+      name: "Prince Nyarko",
+      role: "Community Engagement Liaison",
+      affiliation: "Optometry Student",
+      image: "/ucc-team/prince_nyarkoh.JPG",
+    },
+    {
+      id: "queenstar-aduse-opoku",
+      name: "Queenstar Aduse Opoku",
+      role: "Supplies & Logistics Manager",
+      affiliation: "Pharmacy Student",
+      image: "/ucc-team/queenster_aduse_opoku.JPG",
+    },
+    {
+      id: "martha-bawa",
+      name: "Martha Bawa",
+      role: "Supplies & Logistics Manager",
+      affiliation: "Nursing Student",
+      image: "/ucc-team/martha_bawa.JPG",
+    },
+  ],
+  volunteers: [
+    {
+      id: "ucc-volunteer-103",
+      image: "/ucc-team/volunteers/Akomapa-103.jpg",
+      alt: "UCC community hub volunteer in a teal Akomapa shirt standing outdoors",
+    },
+    {
+      id: "ucc-volunteer-105",
+      image: "/ucc-team/volunteers/Akomapa-105.jpg",
+      alt: "UCC community hub volunteer in a navy Akomapa shirt with hands clasped",
+    },
+    {
+      id: "ucc-volunteer-104",
+      image: "/ucc-team/volunteers/Akomapa-104.jpg",
+      alt: "UCC community hub volunteer wearing glasses and a teal Akomapa shirt",
+    },
+    {
+      id: "ucc-volunteer-106",
+      image: "/ucc-team/volunteers/Akomapa-106.jpg",
+      alt: "UCC community hub volunteer in a teal Akomapa shirt with arms folded",
+    },
+    {
+      id: "ucc-volunteer-67",
+      image: "/ucc-team/volunteers/Akomapa-67.jpg",
+      alt: "Smiling UCC community hub volunteer in a teal Akomapa shirt",
+    },
+    {
+      id: "ucc-volunteer-69",
+      image: "/ucc-team/volunteers/Akomapa-69.jpg",
+      alt: "UCC community hub volunteer wearing red glasses and a teal shirt",
+    },
+    {
+      id: "ucc-volunteer-65",
+      image: "/ucc-team/volunteers/Akomapa-65.jpg",
+      alt: "UCC community hub volunteer in a navy shirt and colorful patterned skirt",
+    },
+    {
+      id: "ucc-volunteer-48",
+      image: "/ucc-team/volunteers/Akomapa-48.jpg",
+      alt: "UCC community hub volunteer in a teal Akomapa shirt with arms folded",
+    },
+    {
+      id: "ucc-volunteer-64",
+      image: "/ucc-team/volunteers/Akomapa-64.jpg",
+      alt: "Smiling UCC community hub volunteer in a navy shirt and light blue jeans",
+    },
+    {
+      id: "ucc-volunteer-47",
+      image: "/ucc-team/volunteers/Akomapa-47.jpg",
+      alt: "UCC community hub volunteer in a navy Akomapa shirt standing outdoors",
+    },
+    {
+      id: "ucc-volunteer-46",
+      image: "/ucc-team/volunteers/Akomapa-46.jpg",
+      alt: "Smiling UCC community hub volunteer in a navy Akomapa shirt",
+    },
+    {
+      id: "ucc-volunteer-63",
+      image: "/ucc-team/volunteers/Akomapa-63.jpg",
+      alt: "UCC community hub volunteer in a teal shirt standing on a garden path",
+    },
+    {
+      id: "ucc-volunteer-62",
+      image: "/ucc-team/volunteers/Akomapa-62.jpg",
+      alt: "UCC community hub volunteer in a teal Akomapa shirt with hands clasped",
+    },
+    {
+      id: "ucc-volunteer-45",
+      image: "/ucc-team/volunteers/Akomapa-45.jpg",
+      alt: "Smiling UCC community hub volunteer in a navy shirt on a shaded walkway",
+    },
+    {
+      id: "ucc-volunteer-66",
+      image: "/ucc-team/volunteers/Akomapa-66.jpg",
+      alt: "UCC community hub volunteer in a teal shirt wearing glasses outdoors",
+    },
+    {
+      id: "ucc-volunteer-50",
+      image: "/ucc-team/volunteers/Akomapa-50.jpg",
+      alt: "UCC community hub volunteer in a teal Akomapa shirt standing in a garden",
+    },
+    {
+      id: "ucc-volunteer-49",
+      image: "/ucc-team/volunteers/Akomapa-49.jpg",
+      alt: "UCC community hub volunteer in a navy shirt and tan trousers",
+    },
+    {
+      id: "ucc-volunteer-71",
+      image: "/ucc-team/volunteers/Akomapa-71.jpg",
+      alt: "UCC community hub volunteer in a navy Akomapa shirt standing outdoors",
+    },
+    {
+      id: "ucc-volunteer-51",
+      image: "/ucc-team/volunteers/Akomapa-51.jpg",
+      alt: "UCC community hub volunteer in a navy shirt with hands folded",
+    },
+    {
+      id: "ucc-volunteer-55",
+      image: "/ucc-team/volunteers/Akomapa-55.jpg",
+      alt: "UCC community hub volunteer with long braids wearing a teal shirt",
+    },
+    {
+      id: "ucc-volunteer-56",
+      image: "/ucc-team/volunteers/Akomapa-56.jpg",
+      alt: "UCC community hub volunteer in a teal Akomapa shirt with arms crossed",
+    },
+    {
+      id: "ucc-volunteer-101",
+      image: "/ucc-team/volunteers/Akomapa-101.jpg",
+      alt: "Smiling UCC community hub volunteer in a navy shirt with arms crossed",
+    },
+    {
+      id: "ucc-volunteer-72",
+      image: "/ucc-team/volunteers/Akomapa-72.jpg",
+      alt: "UCC community hub volunteer in a teal shirt standing before a garden",
+    },
+    {
+      id: "ucc-volunteer-54",
+      image: "/ucc-team/volunteers/Akomapa-54.jpg",
+      alt: "Smiling UCC community hub volunteer in a teal shirt and pink skirt",
+    },
+    {
+      id: "ucc-volunteer-59",
+      image: "/ucc-team/volunteers/Akomapa-59.jpg",
+      alt: "UCC community hub volunteer with braids wearing a navy Akomapa shirt",
+    },
+    {
+      id: "ucc-volunteer-100",
+      image: "/ucc-team/volunteers/Akomapa-100.jpg",
+      alt: "UCC community hub volunteer in a navy shirt standing on a garden path",
+    },
+    {
+      id: "ucc-volunteer-97",
+      image: "/ucc-team/volunteers/Akomapa-97.jpg",
+      alt: "UCC community hub volunteer in a teal Akomapa shirt outdoors",
+    },
+    {
+      id: "ucc-volunteer-52",
+      image: "/ucc-team/volunteers/Akomapa-52.jpg",
+      alt: "Smiling UCC community hub volunteer in a teal shirt wearing a watch",
+    },
+    {
+      id: "ucc-volunteer-53",
+      image: "/ucc-team/volunteers/Akomapa-53.jpg",
+      alt: "UCC community hub volunteer in a navy Akomapa shirt standing in a garden",
+    },
+    {
+      id: "ucc-volunteer-95",
+      image: "/ucc-team/volunteers/Akomapa-95.jpg",
+      alt: "UCC community hub volunteer in a teal shirt on a paved campus path",
+    },
+    {
+      id: "ucc-volunteer-70",
+      image: "/ucc-team/volunteers/Akomapa-70.jpg",
+      alt: "UCC community hub volunteer in a teal shirt with long braids",
+    },
+    {
+      id: "ucc-volunteer-58",
+      image: "/ucc-team/volunteers/Akomapa-58.jpg",
+      alt: "UCC community hub volunteer in a navy shirt with hands clasped",
+    },
+    {
+      id: "ucc-volunteer-61",
+      image: "/ucc-team/volunteers/Akomapa-61.jpg",
+      alt: "UCC community hub volunteer in a navy Akomapa shirt with arms folded",
+    },
+    {
+      id: "ucc-volunteer-98",
+      image: "/ucc-team/volunteers/Akomapa-98.jpg",
+      alt: "UCC community hub volunteer in a navy shirt speaking with hands together",
+    },
+    {
+      id: "ucc-volunteer-73",
+      image: "/ucc-team/volunteers/Akomapa-73.jpg",
+      alt: "UCC community hub volunteer in a teal shirt with arms crossed",
+    },
+    {
+      id: "ucc-volunteer-75",
+      image: "/ucc-team/volunteers/Akomapa-75.jpg",
+      alt: "UCC community hub volunteer with braids wearing a navy shirt",
+    },
+  ],
+};
+
 export const communityHubs: CommunityHub[] = [
   {
     id: "ucc-hub",
@@ -215,6 +489,7 @@ export const communityHubs: CommunityHub[] = [
     },
     research: [],
     innovations: [],
+    roster: uccHubRoster,
   },
   {
     id: "ug-hub",
