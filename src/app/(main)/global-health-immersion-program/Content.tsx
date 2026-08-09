@@ -69,6 +69,7 @@ function EditorialLinkArrow() {
 export default function Content() {
   const {
     eyebrow,
+    applicationStatus,
     title,
     introduction,
     overview,
@@ -91,7 +92,7 @@ export default function Content() {
 
       <section
         aria-labelledby="immersion-title"
-        className="relative isolate flex min-h-[620px] items-center overflow-hidden border-y border-[#FCFAEF]/12 bg-[#0F4C5C] text-[#FCFAEF] sm:min-h-[680px] lg:min-h-[720px]"
+        className="relative isolate flex min-h-[560px] items-center overflow-hidden border-y border-[#FCFAEF]/12 bg-[#0F4C5C] text-[#FCFAEF] sm:min-h-[600px] lg:min-h-[640px]"
       >
         <ImmersionHeroMedia
           videoSrc={images.hero.videoSrc}
@@ -100,25 +101,25 @@ export default function Content() {
           posterPosition={images.hero.position}
         />
 
-        <div className="site-container relative z-10 mx-auto w-full px-4 py-16 md:py-24 lg:py-28">
+        <div className="site-container relative z-10 mx-auto w-full px-4 py-12 md:py-16 lg:py-20">
           <div
             data-immersion-hero-panel
-            className="max-w-4xl border border-[#FCFAEF]/22 bg-[#07191d]/32 p-6 shadow-2xl shadow-black/20 backdrop-blur-sm sm:p-8 lg:p-10"
+            className="max-w-2xl border border-[#FCFAEF]/22 bg-[#07191d]/32 p-5 shadow-2xl shadow-black/20 backdrop-blur-sm sm:p-6 lg:p-7"
           >
             <SectionEyebrow tone="light">{eyebrow}</SectionEyebrow>
-            <p className="mt-5 inline-flex border border-[#F5C94D]/55 bg-[#F5C94D]/12 px-3 py-2 text-xs font-bold uppercase tracking-[0.2em] text-[#F5C94D] sm:text-sm">
-              Coming 2027
+            <p className="mt-4 inline-flex border border-[#F5C94D]/55 bg-[#F5C94D]/12 px-3 py-2 text-xs font-bold uppercase tracking-[0.18em] text-[#F5C94D]">
+              {applicationStatus}
             </p>
             <h1
               id="immersion-title"
-              className="mt-5 max-w-4xl font-heading text-[2.35rem] font-semibold leading-[1.04] tracking-[-0.025em] text-[#FCFAEF] sm:text-[3.1rem] lg:text-[4.35rem]"
+              className="mt-4 max-w-3xl font-heading text-[2.15rem] font-semibold leading-[1.06] tracking-[-0.025em] text-[#FCFAEF] sm:text-[2.75rem] lg:text-[3.5rem]"
             >
               {title}
             </h1>
-            <p className="mt-6 max-w-2xl text-base leading-7 text-[#FCFAEF]/82 sm:text-lg sm:leading-8">
+            <p className="mt-4 max-w-xl text-sm leading-6 text-[#FCFAEF]/82 sm:text-base sm:leading-7">
               {introduction}
             </p>
-            <div className="mt-8 flex max-w-xl flex-col items-stretch gap-3 sm:flex-row sm:items-center">
+            <div className="mt-6 flex max-w-xl flex-col items-stretch gap-3 sm:flex-row sm:items-center">
               <ImmersionRegisterInterestButton
                 variant="gold"
                 className="min-h-12 justify-center"

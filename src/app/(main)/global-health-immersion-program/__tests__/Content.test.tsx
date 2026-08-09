@@ -24,6 +24,8 @@ describe("Global Health Immersion Program top-level page", () => {
       }),
     ).toBeInTheDocument();
     expect(screen.getAllByRole("heading", { level: 1 })).toHaveLength(1);
+    expect(screen.getByText(immersionProgram.applicationStatus)).toBeVisible();
+    expect(screen.queryByText("Applications Currently Closed")).toBeNull();
 
     [
       "At a glance",

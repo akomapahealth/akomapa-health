@@ -21,6 +21,7 @@ export type ImmersionProgramVisualItem = ImmersionProgramItem & {
 
 export type ImmersionProgramContent = {
   eyebrow: string;
+  applicationStatus: string;
   title: string;
   introduction: string;
   overview: readonly string[];
@@ -45,6 +46,7 @@ export type ImmersionProgramContent = {
 
 export const immersionProgram: ImmersionProgramContent = {
   eyebrow: "Global Health Immersion Program",
+  applicationStatus: "Applications Opening Soon",
   title: "Learn through partnership. Lead with understanding.",
   introduction:
     "A two-week global health experience in Ghana connecting emerging health leaders with community learning, primary care, ethical leadership, and cultural exchange.",
