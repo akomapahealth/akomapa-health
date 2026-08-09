@@ -109,9 +109,10 @@ export default function HubPeopleSection({
     <>
       {roster.leadership.length > 0 ? (
         <EditorialBand
-          tone="white"
+          tone="cream"
           id="hub-leadership"
           aria-labelledby="hub-leadership-heading"
+          className="border-y border-[#1C1F1E]/10 dark:border-[#FCFAEF]/10"
         >
           <div className="max-w-3xl">
             <EditorialEyebrow>Student Leadership</EditorialEyebrow>
@@ -148,7 +149,7 @@ export default function HubPeopleSection({
           tone="teal"
           id="hub-volunteers"
           aria-labelledby="hub-volunteers-heading"
-          className="border-y border-[#FCFAEF]/15 bg-[#0F4C5C]"
+          className="border-b border-[#FCFAEF]/15 bg-[#0F4C5C]"
         >
           <div className="grid gap-6 lg:grid-cols-12 lg:items-end">
             <div className="lg:col-span-7">
@@ -168,7 +169,7 @@ export default function HubPeopleSection({
             </p>
           </div>
 
-          <VolunteerPortraitGrid portraits={roster.volunteers} />
+          <VolunteerPortraitGrid hubName={hubName} portraits={roster.volunteers} />
         </EditorialBand>
       ) : null}
     </>

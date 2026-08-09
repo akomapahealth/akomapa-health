@@ -32,7 +32,7 @@ for (const scenario of [
   { name: "tablet light", width: 768, height: 1024, theme: "light" },
   { name: "desktop dark", width: 1440, height: 900, theme: "dark" },
 ] as const) {
-  test(`${scenario.name} renders the complete UCC people feature without overflow`, async ({
+  test(`${scenario.name} renders the compact UCC people feature without overflow`, async ({
     page,
   }) => {
     await preparePage(page, scenario.theme);
@@ -57,7 +57,10 @@ for (const scenario of [
     await expect(leadership.locator("[data-hub-leader]")).toHaveCount(12);
     await expect(
       volunteers.locator("[data-volunteer-portrait-trigger]"),
-    ).toHaveCount(36);
+    ).toHaveCount(8);
+    await expect(
+      volunteers.getByRole("button", { name: "Load more volunteers" }),
+    ).toBeVisible();
 
     await expectNoOverflow(page);
 
@@ -85,11 +88,12 @@ test("volunteer dialog supports keyboard focus, Escape, backdrop close, and scro
   await trigger.focus();
   await page.keyboard.press("Enter");
 
-  const dialog = page.getByRole("dialog", { name: "Volunteer portrait" });
+  const dialog = page.getByRole("dialog");
   const closeButton = dialog.getByRole("button", {
     name: "Close volunteer portrait",
   });
   await expect(dialog).toBeVisible();
+  await expect(dialog).toHaveAccessibleName("Volunteer portrait 1 of 36");
   await expect(closeButton).toBeFocused();
   await expect
     .poll(() =>
@@ -99,8 +103,17 @@ test("volunteer dialog supports keyboard focus, Escape, backdrop close, and scro
     )
     .toBe("hidden");
 
+  await page.keyboard.press("ArrowRight");
+  await expect(
+    dialog.getByRole("heading", { name: "Volunteer portrait 2 of 36" }),
+  ).toBeVisible();
+  await expect(dialog).toHaveAccessibleName("Volunteer portrait 2 of 36");
+  await page.keyboard.press("ArrowLeft");
+  await expect(
+    dialog.getByRole("heading", { name: "Volunteer portrait 1 of 36" }),
+  ).toBeVisible();
   await page.keyboard.press("Tab");
-  await expect(closeButton).toBeFocused();
+  await expect(dialog.locator(":focus")).toHaveCount(1);
   await page.keyboard.press("Escape");
   await expect(dialog).toBeHidden();
   await expect(trigger).toBeFocused();
@@ -170,6 +183,16 @@ test("UCC volunteer triggers preserve the supplied ImageKit order", async ({
 }) => {
   await preparePage(page);
   await page.goto(route, { waitUntil: "domcontentloaded" });
+  await page.waitForLoadState("networkidle");
+
+  const loadMore = page.getByRole("button", { name: "Load more volunteers" });
+  for (const expectedCount of [16, 24, 32, 36]) {
+    await loadMore.click();
+    await expect(
+      page.locator("[data-volunteer-portrait-trigger]"),
+    ).toHaveCount(expectedCount);
+  }
+  await expect(loadMore).toHaveCount(0);
 
   const ids = await page
     .locator("[data-volunteer-portrait-trigger]")

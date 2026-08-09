@@ -4,13 +4,14 @@ import { Fragment, useState } from "react";
 import {
   Dialog,
   DialogBackdrop,
+  DialogDescription,
   DialogPanel,
   DialogTitle,
   Transition,
   TransitionChild,
 } from "@headlessui/react";
 import { motion, useReducedMotion } from "framer-motion";
-import { X } from "lucide-react";
+import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import Image from "@/components/common/Image";
 import { cn } from "@/lib/utils";
 import { MOTION_EASE } from "@/lib/motion/tokens";
@@ -18,6 +19,8 @@ import type { HubVolunteerPortrait } from "@/lib/types";
 
 const featurePortraitIndexes = new Set([0, 11, 24, 35]);
 const landscapePortraitIndexes = new Set([5, 18, 29]);
+const initialPortraitCount = 8;
+const portraitBatchSize = 8;
 
 function getPortraitLayout(index: number): string {
   if (featurePortraitIndexes.has(index)) {
@@ -32,16 +35,43 @@ function getPortraitLayout(index: number): string {
 }
 
 type VolunteerPortraitGridProps = {
+  hubName: string;
   portraits: HubVolunteerPortrait[];
 };
 
 export default function VolunteerPortraitGrid({
+  hubName,
   portraits,
 }: VolunteerPortraitGridProps) {
-  const [selectedPortrait, setSelectedPortrait] =
-    useState<HubVolunteerPortrait | null>(null);
+  const [visibleCount, setVisibleCount] = useState(initialPortraitCount);
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const shouldReduceMotion = useReducedMotion();
+  const displayedPortraits = portraits.slice(0, visibleCount);
+  const selectedPortrait =
+    selectedIndex === null ? null : portraits[selectedIndex];
+  const selectedPosition = selectedIndex === null ? 0 : selectedIndex + 1;
+  const hasMultiplePortraits = portraits.length > 1;
+  const remainingCount = Math.max(portraits.length - visibleCount, 0);
+
+  function openPortrait(index: number) {
+    setSelectedIndex(index);
+    setIsDialogOpen(true);
+  }
+
+  function selectPreviousPortrait() {
+    setSelectedIndex((currentIndex) => {
+      if (currentIndex === null) return null;
+      return (currentIndex - 1 + portraits.length) % portraits.length;
+    });
+  }
+
+  function selectNextPortrait() {
+    setSelectedIndex((currentIndex) => {
+      if (currentIndex === null) return null;
+      return (currentIndex + 1) % portraits.length;
+    });
+  }
 
   return (
     <>
@@ -53,7 +83,7 @@ export default function VolunteerPortraitGrid({
         transition={{ duration: 0.45, ease: [...MOTION_EASE] }}
         viewport={{ once: true, amount: 0.04 }}
       >
-        {portraits.map((portrait, index) => {
+        {displayedPortraits.map((portrait, index) => {
           const isFeatured = featurePortraitIndexes.has(index);
 
           return (
@@ -64,11 +94,8 @@ export default function VolunteerPortraitGrid({
               <button
                 type="button"
                 data-volunteer-portrait-trigger={portrait.id}
-                aria-label={`View portrait: ${portrait.alt}`}
-                onClick={() => {
-                  setSelectedPortrait(portrait);
-                  setIsDialogOpen(true);
-                }}
+                aria-label={`View volunteer portrait ${index + 1} of ${portraits.length}`}
+                onClick={() => openPortrait(index)}
                 className="group relative h-full w-full overflow-hidden rounded-md border border-[#FCFAEF]/20 bg-[#0F4C5C] text-left shadow-sm transition-[border-color,box-shadow,transform] duration-300 hover:-translate-y-1 hover:border-[#F5C94D]/80 hover:shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F5C94D] focus-visible:ring-offset-4 focus-visible:ring-offset-[#0F4C5C] motion-reduce:hover:translate-y-0 motion-reduce:transition-none"
               >
                 <Image
@@ -94,9 +121,43 @@ export default function VolunteerPortraitGrid({
         })}
       </motion.ul>
 
+      {remainingCount > 0 ? (
+        <div className="mt-10 flex flex-col items-center gap-3">
+          <button
+            type="button"
+            onClick={() =>
+              setVisibleCount((currentCount) =>
+                Math.min(currentCount + portraitBatchSize, portraits.length),
+              )
+            }
+            className="inline-flex min-h-12 items-center justify-center rounded-md border border-[#FCFAEF]/60 px-6 text-sm font-semibold text-[#FCFAEF] transition-colors hover:border-[#F5C94D] hover:bg-[#F5C94D] hover:text-[#1C1F1E] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F5C94D] focus-visible:ring-offset-4 focus-visible:ring-offset-[#0F4C5C] motion-reduce:transition-none"
+          >
+            Load more volunteers
+          </button>
+          <p className="text-sm text-[#FCFAEF]/70" aria-live="polite">
+            Showing {displayedPortraits.length} of {portraits.length} portraits
+          </p>
+        </div>
+      ) : (
+        <p className="mt-8 text-center text-sm text-[#FCFAEF]/70" aria-live="polite">
+          Showing all {portraits.length} portraits
+        </p>
+      )}
+
       <Transition show={isDialogOpen} as={Fragment}>
         <Dialog
           onClose={() => setIsDialogOpen(false)}
+          onKeyDown={(event) => {
+            if (!hasMultiplePortraits) return;
+            if (event.key === "ArrowLeft") {
+              event.preventDefault();
+              selectPreviousPortrait();
+            }
+            if (event.key === "ArrowRight") {
+              event.preventDefault();
+              selectNextPortrait();
+            }
+          }}
           className="fixed inset-0 z-[70]"
         >
           <TransitionChild
@@ -153,18 +214,45 @@ export default function VolunteerPortraitGrid({
                                 selectedPortrait.objectPosition ?? "center",
                             }}
                           />
+
+                          {hasMultiplePortraits ? (
+                            <div className="absolute inset-x-3 top-1/2 z-10 flex -translate-y-1/2 justify-between">
+                              <button
+                                type="button"
+                                onClick={selectPreviousPortrait}
+                                aria-label="View previous volunteer portrait"
+                                className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-[#121514]/75 text-[#FCFAEF] shadow-lg backdrop-blur-sm transition-colors hover:bg-[#F5C94D] hover:text-[#1C1F1E] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F5C94D] focus-visible:ring-offset-2 focus-visible:ring-offset-[#121514] motion-reduce:transition-none"
+                              >
+                                <ChevronLeft className="h-6 w-6" aria-hidden="true" />
+                              </button>
+                              <button
+                                type="button"
+                                onClick={selectNextPortrait}
+                                aria-label="View next volunteer portrait"
+                                className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-[#121514]/75 text-[#FCFAEF] shadow-lg backdrop-blur-sm transition-colors hover:bg-[#F5C94D] hover:text-[#1C1F1E] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F5C94D] focus-visible:ring-offset-2 focus-visible:ring-offset-[#121514] motion-reduce:transition-none"
+                              >
+                                <ChevronRight className="h-6 w-6" aria-hidden="true" />
+                              </button>
+                            </div>
+                          ) : null}
                         </div>
 
                         <div className="flex flex-col justify-end p-6 sm:p-8 md:p-9">
                           <p className="font-subheading text-xs font-bold uppercase tracking-[0.2em] text-[#0097b2] dark:text-[#66C4DC]">
-                            UCC Community Hub
+                            {hubName}
                           </p>
                           <DialogTitle className="mt-3 pr-10 font-heading text-2xl font-semibold leading-tight">
-                            Volunteer portrait
+                            Volunteer portrait {selectedPosition} of {portraits.length}
                           </DialogTitle>
-                          <p className="mt-4 text-sm leading-relaxed text-[#2F3332]/80 dark:text-[#E6E7E7]/80">
-                            {selectedPortrait.caption ?? selectedPortrait.alt}
-                          </p>
+                          <DialogDescription className="mt-4 text-sm leading-relaxed text-[#2F3332]/80 dark:text-[#E6E7E7]/80">
+                            {selectedPortrait.caption ??
+                              `A member of the ${hubName} volunteer team.`}
+                          </DialogDescription>
+                          {hasMultiplePortraits ? (
+                            <p className="mt-6 border-t border-[#1C1F1E]/15 pt-4 text-xs leading-relaxed text-[#2F3332]/65 dark:border-[#FCFAEF]/20 dark:text-[#E6E7E7]/65">
+                              Use the previous and next buttons or the Left and Right arrow keys to browse.
+                            </p>
+                          ) : null}
                         </div>
                       </div>
                     </>

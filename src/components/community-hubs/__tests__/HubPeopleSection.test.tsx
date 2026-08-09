@@ -31,7 +31,7 @@ const smallRoster: HubRoster = {
     {
       id: "volunteer-one",
       image: "/ucc-team/volunteers/volunteer-one.jpg",
-      alt: "UCC community hub volunteer in a teal Akomapa shirt outdoors",
+      alt: "UCC Community Hub volunteer portrait 1 of 1",
     },
   ],
 };
@@ -57,7 +57,7 @@ describe("HubPeopleSection", () => {
     ).toHaveLength(12);
     expect(
       volunteers.querySelectorAll("[data-volunteer-portrait-trigger]"),
-    ).toHaveLength(36);
+    ).toHaveLength(8);
     expect(
       within(leadership).getByRole("heading", {
         level: 3,
@@ -66,9 +66,14 @@ describe("HubPeopleSection", () => {
     ).toBeVisible();
     expect(
       within(volunteers).getAllByRole("button", {
-        name: /view portrait:/i,
+        name: /view volunteer portrait/i,
       }),
-    ).toHaveLength(36);
+    ).toHaveLength(8);
+    expect(
+      within(volunteers).getByRole("button", {
+        name: "Load more volunteers",
+      }),
+    ).toBeVisible();
   });
 
   it("omits people markup for an absent or empty roster", () => {
@@ -148,15 +153,19 @@ describe("HubPeopleSection", () => {
     render(<HubPeopleSection hubName="Test Hub" roster={smallRoster} />);
 
     const trigger = screen.getByRole("button", {
-      name: `View portrait: ${smallRoster.volunteers[0].alt}`,
+      name: "View volunteer portrait 1 of 1",
     });
     trigger.focus();
     await user.keyboard("{Enter}");
 
     const dialog = await screen.findByRole("dialog", {
-      name: "Volunteer portrait",
+      name: "Volunteer portrait 1 of 1",
     });
-    expect(within(dialog).getByText(smallRoster.volunteers[0].alt)).toBeVisible();
+    expect(
+      within(dialog).getByText(
+        "A member of the Test Hub volunteer team.",
+      ),
+    ).toBeVisible();
 
     const closeButton = within(dialog).getByRole("button", {
       name: "Close volunteer portrait",
@@ -178,7 +187,7 @@ describe("HubPeopleSection", () => {
 
     await user.click(
       screen.getByRole("button", {
-        name: `View portrait: ${smallRoster.volunteers[0].alt}`,
+        name: "View volunteer portrait 1 of 1",
       }),
     );
     expect(await screen.findByRole("dialog")).toBeInTheDocument();
@@ -187,5 +196,68 @@ describe("HubPeopleSection", () => {
     await waitFor(() =>
       expect(screen.queryByRole("dialog")).not.toBeInTheDocument(),
     );
+  });
+
+  it("loads volunteers in batches and browses the complete gallery in either direction", async () => {
+    const user = userEvent.setup();
+    render(
+      <HubPeopleSection
+        hubName="Akomapa–UCC Community Health Hub"
+        roster={uccHubRoster}
+      />,
+    );
+
+    const volunteers = screen.getByRole("region", {
+      name: "The People Who Make Service Possible",
+    });
+    const loadMore = within(volunteers).getByRole("button", {
+      name: "Load more volunteers",
+    });
+
+    expect(
+      volunteers.querySelectorAll("[data-volunteer-portrait-trigger]"),
+    ).toHaveLength(8);
+    await user.click(loadMore);
+    expect(
+      volunteers.querySelectorAll("[data-volunteer-portrait-trigger]"),
+    ).toHaveLength(16);
+
+    await user.click(
+      within(volunteers).getByRole("button", {
+        name: "View volunteer portrait 1 of 36",
+      }),
+    );
+    const dialog = await screen.findByRole("dialog", {
+      name: "Volunteer portrait 1 of 36",
+    });
+
+    await user.click(
+      within(dialog).getByRole("button", {
+        name: "View next volunteer portrait",
+      }),
+    );
+    expect(
+      within(dialog).getByRole("heading", {
+        name: "Volunteer portrait 2 of 36",
+      }),
+    ).toBeVisible();
+
+    await user.keyboard("{ArrowLeft}");
+    expect(
+      within(dialog).getByRole("heading", {
+        name: "Volunteer portrait 1 of 36",
+      }),
+    ).toBeVisible();
+
+    await user.click(
+      within(dialog).getByRole("button", {
+        name: "View previous volunteer portrait",
+      }),
+    );
+    expect(
+      within(dialog).getByRole("heading", {
+        name: "Volunteer portrait 36 of 36",
+      }),
+    ).toBeVisible();
   });
 });

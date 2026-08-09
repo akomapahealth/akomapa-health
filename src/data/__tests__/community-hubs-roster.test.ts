@@ -42,6 +42,7 @@ describe("UCC community hub roster", () => {
     for (const volunteer of uccHubRoster.volunteers) {
       expect(volunteer.alt.trim().length).toBeGreaterThan(30);
       expect(volunteer.alt).toMatch(/UCC community hub volunteer/i);
+      expect(volunteer.alt).not.toMatch(/shirt|teal|navy|clothing|wearing/i);
     }
   });
 
