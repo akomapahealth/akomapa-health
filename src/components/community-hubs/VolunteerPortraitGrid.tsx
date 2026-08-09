@@ -1,11 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import {
   Dialog,
   DialogBackdrop,
   DialogPanel,
   DialogTitle,
+  Transition,
+  TransitionChild,
 } from "@headlessui/react";
 import { motion, useReducedMotion } from "framer-motion";
 import { X } from "lucide-react";
@@ -38,17 +40,16 @@ export default function VolunteerPortraitGrid({
 }: VolunteerPortraitGridProps) {
   const [selectedPortrait, setSelectedPortrait] =
     useState<HubVolunteerPortrait | null>(null);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const shouldReduceMotion = useReducedMotion();
 
   return (
     <>
       <motion.ul
         data-hub-volunteer-grid
-        className="mt-12 grid auto-rows-[7.5rem] grid-cols-2 grid-flow-dense gap-3 sm:auto-rows-[9rem] sm:grid-cols-3 sm:gap-4 lg:auto-rows-[10.5rem] lg:grid-cols-4"
+        className="mt-12 grid auto-rows-[7.5rem] grid-cols-2 grid-flow-dense gap-3 motion-reduce:!transform-none motion-reduce:!opacity-100 sm:auto-rows-[9rem] sm:grid-cols-3 sm:gap-4 lg:auto-rows-[10.5rem] lg:grid-cols-4"
         initial={shouldReduceMotion ? false : { opacity: 0, y: 18 }}
-        whileInView={
-          shouldReduceMotion ? undefined : { opacity: 1, y: 0 }
-        }
+        whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.45, ease: [...MOTION_EASE] }}
         viewport={{ once: true, amount: 0.04 }}
       >
@@ -64,7 +65,10 @@ export default function VolunteerPortraitGrid({
                 type="button"
                 data-volunteer-portrait-trigger={portrait.id}
                 aria-label={`View portrait: ${portrait.alt}`}
-                onClick={() => setSelectedPortrait(portrait)}
+                onClick={() => {
+                  setSelectedPortrait(portrait);
+                  setIsDialogOpen(true);
+                }}
                 className="group relative h-full w-full overflow-hidden rounded-md border border-[#FCFAEF]/20 bg-[#0F4C5C] text-left shadow-sm transition-[border-color,box-shadow,transform] duration-300 hover:-translate-y-1 hover:border-[#F5C94D]/80 hover:shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F5C94D] focus-visible:ring-offset-4 focus-visible:ring-offset-[#0F4C5C] motion-reduce:hover:translate-y-0 motion-reduce:transition-none"
               >
                 <Image
@@ -90,68 +94,87 @@ export default function VolunteerPortraitGrid({
         })}
       </motion.ul>
 
-      <Dialog
-        open={selectedPortrait !== null}
-        onClose={() => setSelectedPortrait(null)}
-        className="relative z-[70]"
-      >
-        <DialogBackdrop
-          data-testid="volunteer-dialog-backdrop"
-          transition={!shouldReduceMotion}
-          className="fixed inset-0 bg-[#121514]/85 backdrop-blur-sm transition duration-200 ease-out data-closed:opacity-0 motion-reduce:transition-none"
-        />
+      <Transition show={isDialogOpen} as={Fragment}>
+        <Dialog
+          onClose={() => setIsDialogOpen(false)}
+          className="fixed inset-0 z-[70]"
+        >
+          <TransitionChild
+            as={Fragment}
+            enter="ease-out duration-200 motion-reduce:transition-none"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-150 motion-reduce:transition-none"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <DialogBackdrop
+              data-testid="volunteer-dialog-backdrop"
+              className="fixed inset-0 bg-[#121514]/85 backdrop-blur-sm"
+            />
+          </TransitionChild>
 
-        <div className="fixed inset-0 z-[70] w-screen overflow-y-auto p-4 sm:p-6">
-          <div className="flex min-h-full items-center justify-center">
-            <DialogPanel
-              transition={!shouldReduceMotion}
-              className="relative w-full max-w-3xl overflow-hidden rounded-md bg-[#FCFAEF] text-[#1C1F1E] shadow-2xl transition duration-200 ease-out data-closed:translate-y-2 data-closed:opacity-0 dark:bg-[#1C1F1E] dark:text-[#FCFAEF] motion-reduce:transform-none motion-reduce:transition-none"
-            >
-              {selectedPortrait ? (
-                <>
-                  <button
-                    type="button"
-                    data-autofocus
-                    onClick={() => setSelectedPortrait(null)}
-                    aria-label="Close volunteer portrait"
-                    className="absolute right-3 top-3 z-10 inline-flex h-11 w-11 items-center justify-center rounded-md bg-[#FCFAEF] text-[#1C1F1E] shadow-md transition-colors hover:bg-[#eeba2b] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0F4C5C] focus-visible:ring-offset-2 dark:bg-[#1C1F1E] dark:text-[#FCFAEF] dark:hover:bg-[#0F4C5C] dark:focus-visible:ring-[#F5C94D]"
-                  >
-                    <X className="h-5 w-5" aria-hidden="true" />
-                  </button>
+          <div className="fixed inset-0 z-[70] w-screen overflow-y-auto p-4 sm:p-6">
+            <div className="flex min-h-full items-center justify-center">
+              <TransitionChild
+                as={Fragment}
+                enter="ease-out duration-200 motion-reduce:transition-none motion-reduce:transform-none"
+                enterFrom="opacity-0 translate-y-2"
+                enterTo="opacity-100 translate-y-0"
+                leave="ease-in duration-150 motion-reduce:transition-none motion-reduce:transform-none"
+                leaveFrom="opacity-100 translate-y-0"
+                leaveTo="opacity-0 translate-y-2"
+              >
+                <DialogPanel
+                  className="relative w-full max-w-3xl overflow-hidden rounded-md bg-[#FCFAEF] text-[#1C1F1E] shadow-2xl dark:bg-[#1C1F1E] dark:text-[#FCFAEF]"
+                >
+                  {selectedPortrait ? (
+                    <>
+                      <button
+                        type="button"
+                        data-autofocus
+                        onClick={() => setIsDialogOpen(false)}
+                        aria-label="Close volunteer portrait"
+                        className="absolute right-3 top-3 z-10 inline-flex h-11 w-11 items-center justify-center rounded-md bg-[#FCFAEF] text-[#1C1F1E] shadow-md transition-colors hover:bg-[#eeba2b] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0F4C5C] focus-visible:ring-offset-2 dark:bg-[#1C1F1E] dark:text-[#FCFAEF] dark:hover:bg-[#0F4C5C] dark:focus-visible:ring-[#F5C94D]"
+                      >
+                        <X className="h-5 w-5" aria-hidden="true" />
+                      </button>
 
-                  <div className="grid md:grid-cols-[minmax(0,1.35fr)_minmax(16rem,0.65fr)]">
-                    <div className="relative aspect-[4/5] min-h-0 bg-[#0F4C5C] md:aspect-auto md:min-h-[34rem]">
-                      <Image
-                        src={selectedPortrait.image}
-                        alt={selectedPortrait.alt}
-                        fill
-                        sizes="(min-width: 768px) 60vw, 100vw"
-                        className="object-cover"
-                        style={{
-                          objectPosition:
-                            selectedPortrait.objectPosition ?? "center",
-                        }}
-                      />
-                    </div>
+                      <div className="grid md:grid-cols-[minmax(0,1.35fr)_minmax(16rem,0.65fr)]">
+                        <div className="relative aspect-[4/5] min-h-0 bg-[#0F4C5C] md:aspect-auto md:min-h-[34rem]">
+                          <Image
+                            src={selectedPortrait.image}
+                            alt={selectedPortrait.alt}
+                            fill
+                            sizes="(min-width: 768px) 60vw, 100vw"
+                            className="object-cover"
+                            style={{
+                              objectPosition:
+                                selectedPortrait.objectPosition ?? "center",
+                            }}
+                          />
+                        </div>
 
-                    <div className="flex flex-col justify-end p-6 sm:p-8 md:p-9">
-                      <p className="font-subheading text-xs font-bold uppercase tracking-[0.2em] text-[#0097b2] dark:text-[#66C4DC]">
-                        UCC Community Hub
-                      </p>
-                      <DialogTitle className="mt-3 pr-10 font-heading text-2xl font-semibold leading-tight">
-                        Volunteer portrait
-                      </DialogTitle>
-                      <p className="mt-4 text-sm leading-relaxed text-[#2F3332]/80 dark:text-[#E6E7E7]/80">
-                        {selectedPortrait.caption ?? selectedPortrait.alt}
-                      </p>
-                    </div>
-                  </div>
-                </>
-              ) : null}
-            </DialogPanel>
+                        <div className="flex flex-col justify-end p-6 sm:p-8 md:p-9">
+                          <p className="font-subheading text-xs font-bold uppercase tracking-[0.2em] text-[#0097b2] dark:text-[#66C4DC]">
+                            UCC Community Hub
+                          </p>
+                          <DialogTitle className="mt-3 pr-10 font-heading text-2xl font-semibold leading-tight">
+                            Volunteer portrait
+                          </DialogTitle>
+                          <p className="mt-4 text-sm leading-relaxed text-[#2F3332]/80 dark:text-[#E6E7E7]/80">
+                            {selectedPortrait.caption ?? selectedPortrait.alt}
+                          </p>
+                        </div>
+                      </div>
+                    </>
+                  ) : null}
+                </DialogPanel>
+              </TransitionChild>
+            </div>
           </div>
-        </div>
-      </Dialog>
+        </Dialog>
+      </Transition>
     </>
   );
 }

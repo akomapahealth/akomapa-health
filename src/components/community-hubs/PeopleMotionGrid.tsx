@@ -36,7 +36,7 @@ export default function PeopleMotionGrid({
 
   return (
     <motion.ul
-      className={className}
+      className={`${className} motion-reduce:!transform-none motion-reduce:!opacity-100`}
       initial={shouldReduceMotion ? false : "hidden"}
       whileInView={shouldReduceMotion ? undefined : "visible"}
       variants={shouldReduceMotion ? undefined : gridVariants}
@@ -45,7 +45,7 @@ export default function PeopleMotionGrid({
       {Children.map(children, (child) => (
         <motion.li
           variants={shouldReduceMotion ? undefined : itemVariants}
-          className="min-w-0"
+          className="min-w-0 motion-reduce:!transform-none motion-reduce:!opacity-100"
         >
           {child}
         </motion.li>
