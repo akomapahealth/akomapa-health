@@ -65,6 +65,16 @@ test.describe("Immersion program responsive editorial layout", () => {
         await expect(page.locator("[data-immersion-hero-hydrated]"))
           .toHaveAttribute("data-immersion-hero-hydrated", "true");
         await expect(page.locator("[data-immersion-hero-video]")).toHaveCount(1);
+        const hero = page.locator("[data-immersion-hero]");
+        const heroHeight = await hero.evaluate((element) =>
+          element.getBoundingClientRect().height,
+        );
+        expect(heroHeight).toBeGreaterThanOrEqual(
+          Math.max(700, viewport.height - 124) - 1,
+        );
+        await expect(
+          hero.getByRole("link", { name: "Scroll to the program overview" }),
+        ).toHaveAttribute("href", "#program-overview");
         await page.evaluate(async () => document.fonts.ready);
 
         const pageShell = page.locator("[data-immersion-page]");

@@ -109,6 +109,33 @@ describe("Community hubs listing editorial sections", () => {
 });
 
 describe("Community hub detail editorial system", () => {
+  it("uses the UCC hub image as a full-bleed hero background", () => {
+    const uccHub = communityHubs.find(({ routeSlug }) => routeSlug === "ucc")!;
+    const ugHub = communityHubs.find(({ routeSlug }) => routeSlug === "ug")!;
+    const { rerender } = render(<CommunityHubDetailPage hub={uccHub} />);
+
+    const uccHero = screen
+      .getByRole("heading", { level: 1, name: uccHub.name })
+      .closest("section");
+    expect(uccHero).toHaveAttribute("data-hub-hero-presentation", "background");
+    expect(uccHero?.querySelector("[data-hub-hero-background]")).toHaveAttribute(
+      "src",
+      uccHub.image,
+    );
+    expect(uccHero?.querySelector("[data-hub-hero-background]")).toHaveAttribute(
+      "alt",
+      "",
+    );
+    expect(uccHero?.querySelector("[data-hub-hero-panel]")).toHaveClass(
+      "bg-[#07191d]/30",
+    );
+
+    rerender(<CommunityHubDetailPage hub={ugHub} />);
+    expect(
+      screen.getByRole("heading", { level: 1, name: ugHub.name }).closest("section"),
+    ).toHaveAttribute("data-hub-hero-presentation", "split");
+  });
+
   it.each(communityHubs)(
     "preserves approved data and semantic metrics for $name",
     (hub) => {

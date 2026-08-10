@@ -471,6 +471,7 @@ export const communityHubs: CommunityHub[] = [
     description:
       "Akomapa's first community learning and care hub partners with the University of Cape Coast, Ghana Health Service, and local leaders to provide NCD screening, education, referrals, and supervised student learning.",
     image: "/highlights/ucc.jpg",
+    heroPresentation: "background",
     color: "#0097b2",
     status: "active",
     missions: hubMissions,

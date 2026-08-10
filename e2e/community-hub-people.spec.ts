@@ -38,9 +38,18 @@ for (const scenario of [
     await preparePage(page, scenario.theme);
     await page.setViewportSize({ width: scenario.width, height: scenario.height });
     await page.goto(route, { waitUntil: "domcontentloaded" });
+    await expect(page.locator("html")).toHaveClass(new RegExp(`(^|\\s)${scenario.theme}(\\s|$)`));
 
     const leadership = page.locator("#hub-leadership");
     const volunteers = page.locator("#hub-volunteers");
+    const hero = page.locator('[data-hub-id="ucc-hub"]');
+
+    await expect(hero).toHaveAttribute("data-hub-hero-presentation", "background");
+    await expect(hero.locator("[data-hub-hero-background]")).toHaveAttribute(
+      "sizes",
+      "100vw",
+    );
+    await expect(hero.locator("[data-hub-hero-panel]")).toBeVisible();
 
     await expect(
       leadership.getByRole("heading", {

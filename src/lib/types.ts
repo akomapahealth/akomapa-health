@@ -129,6 +129,7 @@ export interface CommunityHub {
   country: string;
   description: string;
   image: string;
+  heroPresentation?: "split" | "background";
   color: string;
   status: "active" | "in-development" | "planned" | "future";
   missions: HubMission[];

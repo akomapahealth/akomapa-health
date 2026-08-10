@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ChevronDown } from "lucide-react";
 import Breadcrumb from "@/components/layout/Breadcrumb";
 import Image from "@/components/common/Image";
 import { FadeIn } from "@/components/animations";
@@ -93,7 +94,7 @@ export default function Content() {
       <section
         data-immersion-hero
         aria-labelledby="immersion-title"
-        className="relative isolate flex min-h-[620px] items-center overflow-hidden border-y border-[#FCFAEF]/12 bg-[#0F4C5C] text-[#FCFAEF] sm:min-h-[680px] lg:min-h-[720px]"
+        className="relative isolate flex min-h-[max(700px,calc(100svh-7.75rem))] items-center overflow-hidden border-y border-[#FCFAEF]/12 bg-[#0F4C5C] text-[#FCFAEF]"
       >
         <ImmersionHeroMedia
           videoSrc={images.hero.videoSrc}
@@ -135,9 +136,22 @@ export default function Content() {
             </div>
           </div>
         </div>
+
+        <Link
+          href="#program-overview"
+          aria-label="Scroll to the program overview"
+          className="absolute bottom-5 right-20 z-20 inline-flex min-h-11 items-center gap-2 rounded-full border border-[#FCFAEF]/45 bg-[#07191d]/45 px-4 py-2 text-xs font-bold uppercase tracking-[0.16em] text-[#FCFAEF] backdrop-blur-sm transition-colors hover:border-[#F5C94D] hover:text-[#F5C94D] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F5C94D] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0F4C5C] motion-reduce:transition-none sm:bottom-7 sm:right-24"
+        >
+          <span className="hidden sm:inline">Scroll to explore</span>
+          <ChevronDown
+            aria-hidden="true"
+            className="h-5 w-5 motion-safe:animate-bounce"
+          />
+        </Link>
       </section>
 
       <section
+        id="program-overview"
         aria-labelledby="program-facts-title"
         className="border-b border-[#1C1F1E]/12 bg-white dark:border-[#FCFAEF]/12 dark:bg-[#1C1F1E]"
       >
