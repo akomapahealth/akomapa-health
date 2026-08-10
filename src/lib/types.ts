@@ -45,10 +45,12 @@ export interface TeamMember {
   slug?: string;
   name: string;
   title: string;
+  affiliation: string;
   bio: string;
   image: string;
   roleCategory:
     | "executive"
+    | "member"
     | "faculty"
     | "advisor"
     | "community-leader"

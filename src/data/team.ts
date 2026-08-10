@@ -1,464 +1,409 @@
 import type { TeamMember } from "@/lib/types";
 
+/**
+ * Canonical organization-wide team directory.
+ *
+ * Community hub rosters remain route-specific because a person can hold a
+ * different chapter role from their organization-wide title. The public team
+ * page must consume the categorized exports below rather than defining a
+ * second roster.
+ */
 export const teamMembers: TeamMember[] = [
-  // Global Executive Team Members
   {
-    id: "1",
+    id: "executive-brian-fleischer",
+    slug: "brian-fleischer",
     roleCategory: "executive",
-    name: "Brian Fleischer, MD",
-    title: "Founder and President",
-    bio: "Brian Fleischer is the Founder and President of Akomapa Health Foundation. He holds an MD from Yale University and has extensive experience in global health initiatives across Africa.",
+    name: "Brian Amu Fleischer, MD",
+    title: "Founder & President",
+    affiliation: "Yale University",
     image: "/images/team/brian-fleischer.jpeg",
     socialLinks: {
-      linkedin: "https://linkedin.com/in/brian-fleischer",
-      email: "brian.fleischer@akomapa.org"
-    }
+      email: "brian.fleischer@yale.edu",
+      linkedin: "https://www.linkedin.com/in/brian-fleischer-md-37011010b/",
+    },
+    bio: "Dr. Brian Fleischer is a physician and global health leader dedicated to advancing equitable care for non-communicable diseases in underserved communities. A graduate of Yale School of Medicine and Stanford University, he founded Akomapa Health Foundation to help students and communities build sustainable approaches to hypertension, diabetes, and mental health care across Ghana and beyond.",
   },
   {
-    id: "2",
+    id: "executive-esi-berkoh",
     slug: "esi-berkoh",
     roleCategory: "executive",
     name: "Esi Bon Berkoh",
-    title: "Co-founder and Vice President",
-    bio: "Esi Bon Berkoh is the Co-founder and Vice President of Akomapa Health Foundation. She brings her expertise from the University of Cape Coast to drive our mission forward.",
+    title: "Vice President",
+    affiliation: "Medical Doctor, University of Cape Coast",
     image: "/images/team/esi-bon-berkoh.jpg",
     socialLinks: {
-      linkedin: "https://linkedin.com/in/esi-bon-berkoh",
-      email: "esi.berkoh@akomapa.org"
-    }
+      email: "esibberkoh@gmail.com",
+      linkedin: "https://linkedin.com/in/esiberkoh",
+    },
+    bio: "Esi Bon Berkoh studied medicine at the University of Cape Coast School of Medical Sciences after earning a BSc in Biology from Mount Holyoke College and an MSc in Infection, Immunity & Human Disease from the University of Leeds. As Vice President and co-founder of Akomapa Health, she coordinates clinic operations, supports organizational leadership, and helps organize community engagement programs.",
   },
   {
-    id: "3",
+    id: "executive-afriyie-badu",
     roleCategory: "executive",
     name: "Afriyie Badu, MD",
-    title: "Co-founder and Chief Financial Officer",
-    bio: "Afriyie Badu serves as Co-founder and Chief Financial Officer. He holds an MD from the University of Ghana and oversees our financial operations and strategic planning.",
+    title: "Chief Operations Officer",
+    affiliation: "Primary Care Physician, University of Ghana",
     image: "/images/team/afriyie-badu.jpg",
     socialLinks: {
+      email: "nanabadu59@gmail.com",
       linkedin: "https://linkedin.com/in/afriyie-badu",
-      email: "afriyie.badu@akomapa.org"
-    }
+    },
+    bio: "Dr. Nana Yaw Afriyie Badu is a medical doctor and co-founder of Akomapa. He helps guide the organization’s operations and sustainable use of resources so programs can make a lasting community impact. He co-founded Akomapa to help shift non-communicable disease care toward prevention through early detection, education, and lifestyle interventions.",
   },
   {
-    id: "4",
-    roleCategory: "executive",
-    name: "Bismark Amoh",
-    title: "Co-founder and Head of Research",
-    bio: "Bismark Amoh is Co-founder and Head of Research at Akomapa Health Foundation. He brings his expertise from DGSOM UCLA to lead our research initiatives and evidence-based programs.",
-    image: "/images/team/placeholder.jpg",
-    socialLinks: {
-      linkedin: "https://linkedin.com/in/bismark-amoh",
-      email: "bismark.amoh@akomapa.org"
-    }
-  },
-  {
-    id: "5",
-    roleCategory: "executive",
-    name: "Dzifianu Ai Edoh-Torgah",
-    title: "Head of Branding and Public Relations",
-    bio: "Dzifianu Ai Edoh-Torgah leads our branding and public relations efforts, ensuring Akomapa Health Foundation maintains a strong presence and positive reputation in the global health community.",
-    image: "/images/team/placeholder.jpg",
-    socialLinks: {
-      linkedin: "https://linkedin.com/in/dzifianu-edoh-torgah",
-      email: "dzifianu.edoh-torgah@akomapa.org"
-    }
-  },
-  {
-    id: "6",
+    id: "executive-prince-tuffour",
     roleCategory: "executive",
     name: "Prince Agyei Tuffour",
-    title: "Head of IT Services",
-    bio: "Prince Agyei Tuffour oversees our technology infrastructure and digital solutions, ensuring our IT systems support our mission effectively and securely.",
+    title: "Chief Technology Officer",
+    affiliation: "Software Engineer, dynaConnections Corporation",
     image: "/images/team/prince-tuffour.jpg",
     socialLinks: {
+      email: "prince.agyei.tuffour@gmail.com",
       linkedin: "https://linkedin.com/in/prince-agyei-tuffour",
-      email: "prince.tuffour@akomapa.org"
-    }
+    },
+    bio: "Prince Agyei Tuffour leads Akomapa’s technology strategy and infrastructure. He develops and maintains digital systems that support secure operations, responsible data management, and the organization’s continued growth.",
   },
   {
-    id: "7",
-    roleCategory: "executive",
-    name: "Mighty Doffoe",
-    title: "Asst Head of IT Services",
-    bio: "Mighty Doffoe serves as Assistant Head of IT Services, supporting our technology initiatives and ensuring smooth digital operations across all our programs.",
-    image: "/images/team/mighty-doffoe.jpg",
-    socialLinks: {
-      linkedin: "https://linkedin.com/in/mighty-doffoe",
-      email: "mighty.doffoe@akomapa.org"
-    }
-  },
-  {
-    id: "8",
-    roleCategory: "executive",
-    name: "Samuel Kumi",
-    title: "Head of Legal Services",
-    bio: "Samuel Kumi leads our legal services, ensuring compliance with international regulations and providing legal guidance for our global health initiatives.",
-    image: "/images/team/samuel-kumi.JPG",
-    socialLinks: {
-      linkedin: "https://linkedin.com/in/samuel-kumi",
-      email: "samuel.kumi@akomapa.org"
-    }
-  },
-  {
-    id: "9",
-    roleCategory: "executive",
-    name: "Sedem Dankwa",
-    title: "Team Lead, Akomapa Health Foundation U.S",
-    bio: "Sedem Dankwa serves as Team Lead for Akomapa Health Foundation U.S, coordinating our operations and partnerships in the United States.",
-    image: "/images/team/placeholder.jpg",
-    socialLinks: {
-      linkedin: "https://linkedin.com/in/sedem-dankwa",
-      email: "sedem.dankwa@akomapa.org"
-    }
-  },
-  
-  // USA Team Members
-  {
-    id: "10",
-    roleCategory: "executive",
-    name: "Sedem Dankwa",
-    title: "Team Lead/ Head of International Partnerships",
-    bio: "Sedem Dankwa from Yale University serves as Team Lead and Head of International Partnerships, driving our global collaborations and strategic partnerships.",
-    image: "/images/team/placeholder.jpg",
-    socialLinks: {
-      linkedin: "https://linkedin.com/in/sedem-dankwa-usa",
-      email: "sedem.dankwa@akomapa.org"
-    }
-  },
-  {
-    id: "11",
-    roleCategory: "executive",
-    name: "Brian Fleischer",
-    title: "Team Lead",
-    bio: "Brian Fleischer serves as Team Lead for our USA operations, bringing his leadership and expertise to drive our mission forward in the United States.",
-    image: "/images/team/brian-fleischer.jpeg",
-    socialLinks: {
-      linkedin: "https://linkedin.com/in/brian-fleischer-usa",
-      email: "brian.fleischer@akomapa.org"
-    }
-  },
-  {
-    id: "12",
+    id: "executive-adwoa-danso-dodoo",
     roleCategory: "executive",
     name: "Adwoa Danso-Dodoo",
-    title: "Finance and Compliance Officer",
-    bio: "Adwoa Danso-Dodoo from Yale University serves as Finance and Compliance Officer, ensuring financial integrity and regulatory compliance across our operations.",
+    title: "Chief Finance Officer",
+    affiliation: "Business Analyst, McKinsey & Company",
     image: "/images/team/adwoa-danso-dodoo.jpg",
     socialLinks: {
-      linkedin: "https://linkedin.com/in/adwoa-danso-dodoo",
-      email: "adwoa.danso-dodoo@akomapa.org"
-    }
+      email: "adansododoo@gmail.com",
+      linkedin: "https://www.linkedin.com/in/adwoadanso-dodoo/",
+    },
+    bio: "Adwoa Danso-Dodoo is a Business Analyst at McKinsey & Company and a graduate of Yale College and the Yale School of Management, where she studied Chemical Engineering and Technology Management. She helps manage Akomapa’s budget and supports development of the Akomapa Summer Immersion Program.",
   },
   {
-    id: "13",
+    id: "executive-hafiz-shaban",
+    roleCategory: "executive",
+    name: "Hafiz Shaban",
+    title: "Co-Director, Akomapa UCC",
+    affiliation: "Nursing Student, University of Cape Coast",
+    image: "/ucc-team/hafiz_shaban.JPG",
+    socialLinks: { email: "hafiz.shaban@stu.ucc.edu.gh" },
+    bio: "Hafiz Shaban is a nursing student at the University of Cape Coast and Co-Director of Akomapa’s UCC chapter. Passionate about global health and community-based medicine, he helps lead local healthcare initiatives and student programs that expand access to community-centered care.",
+  },
+  {
+    id: "executive-sedem-dankwa",
+    roleCategory: "executive",
+    name: "Sedem Dankwa",
+    title: "Global Partnerships Lead",
+    affiliation: "Doctor-in-Training, Yale University",
+    image: "/images/team/placeholder.jpg",
+    socialLinks: {
+      email: "sedem.dankwa@yale.edu",
+      linkedin: "https://www.linkedin.com/in/sedem-dankwa-b651401b7/",
+    },
+    bio: "Sedem Dankwa builds strategic partnerships that extend Akomapa’s impact. She connects the foundation with institutions, organizations, and collaborators who share its commitment to equitable healthcare access.",
+  },
+  {
+    id: "executive-nana-ama-ocran",
     roleCategory: "executive",
     name: "Nana Ama Ocran",
-    title: "Head of the Akomapa Global Health Leadership Training program",
-    bio: "Nana Ama Ocran from Yale University leads our Global Health Leadership Training program, developing the next generation of healthcare leaders.",
+    title: "Education Programming Lead",
+    affiliation: "History of Science, Medicine & Public Health, Yale University",
     image: "/images/team/nana-ama-ocran.jpeg",
     socialLinks: {
-      linkedin: "https://linkedin.com/in/nana-ama-ocran",
-      email: "nana.ocran@akomapa.org"
-    }
+      email: "naamaocran@gmail.com",
+      linkedin: "https://www.linkedin.com/in/nana-ama-nhyira-ocran-16957626b/",
+    },
+    bio: "Nana Ama Ocran studies History of Science, Medicine & Public Health and French at Yale University. She designs leadership-training opportunities grounded in equity, collaboration, and bidirectional learning, strengthening pathways for young people to lead community-rooted health work.",
   },
   {
-    id: "14",
+    id: "executive-wilfred-obeng",
     roleCategory: "executive",
-    name: "Amma Buckman",
-    title: "Team Member",
-    bio: "Amma Buckman from David Geffen School of Medicine at UCLA contributes her expertise to our USA team, supporting our mission to improve global health outcomes.",
-    image: "/images/team/placeholder.jpg",
-    socialLinks: {
-      linkedin: "https://linkedin.com/in/amma-buckman",
-      email: "amma.buckman@akomapa.org"
-    }
+    name: "Wilfred Obeng",
+    title: "Clinical Standards Lead",
+    affiliation: "Medical Student, University of Cape Coast",
+    image: "/ucc-team/wilfred_obeng.JPG",
+    socialLinks: { email: "wilfred.obeng7@gmail.com" },
+    bio: "Wilfred Obeng studies medicine at the University of Cape Coast. He develops training resources for volunteers and helps monitor, evaluate, and improve clinical standards across Akomapa’s community health work.",
   },
   {
-    id: "15",
+    id: "executive-gabrielle-nartey",
     roleCategory: "executive",
-    name: "Bismark Amoh",
-    title: "Team Member",
-    bio: "Bismark Amoh from David Geffen School of Medicine at UCLA brings his research expertise to our USA operations, supporting evidence-based healthcare initiatives.",
-    image: "/images/team/placeholder.jpg",
+    name: "Gabrielle Nartey",
+    title: "Lead Social Media Manager",
+    affiliation: "Akomapa Health Foundation",
+    image: "/images/team/gabrielle-nartey.JPG",
     socialLinks: {
-      linkedin: "https://linkedin.com/in/bismark-amoh-usa",
-      email: "bismark.amoh@akomapa.org"
-    }
+      email: "info@akomapa.org",
+      linkedin: "https://www.linkedin.com/in/gabrielle-nartey-a2456128b/",
+    },
+    bio: "Gabrielle Nartey studies Neuroscience at Yale University on the pre-medical track. She oversees Akomapa’s social media presence and helps ensure that people who need care can discover and understand the foundation’s services.",
   },
-  
-  // UCC Chapter Leadership Team
   {
-    id: "16",
-    roleCategory: "community-leader",
+    id: "executive-patrick-ampofo",
+    slug: "patrick-ampofo",
+    roleCategory: "executive",
+    name: "Dr. Patrick Ampofo",
+    title: "UG Expansion Lead",
+    affiliation: "Yale School of Public Health",
+    image: "/images/team/patrick-ampofo.jpg",
+    socialLinks: { linkedin: "https://linkedin.com/in/patrick-ampofo" },
+    bio: "Dr. Patrick Ampofo is an alumnus of the University of Ghana Medical School and studies public health at Yale. He leads Akomapa’s University of Ghana expansion, engaging institutional partners and mobilizing medical students around evidence-based, community-centered health interventions.",
+  },
+  {
+    id: "executive-kelvin-ocran",
+    roleCategory: "executive",
+    name: "Kelvin Fiifi Ocran",
+    title: "Branding and Public Relations Lead",
+    affiliation: "Akomapa Health Foundation",
+    image: "/images/team/kelvin-fiifi.jpeg",
+    socialLinks: {
+      email: "kelvinocran17@gmail.com",
+      linkedin: "https://linkedin.com/in/kelvin-ocran",
+    },
+    bio: "Kelvin Fiifi Ocran leads Akomapa’s branding and public relations work. He brings an interest in design, technology, and creative problem-solving to the foundation’s visual identity and public communications.",
+  },
+  {
+    id: "executive-samuel-kumi",
+    roleCategory: "executive",
+    name: "Samuel Kumi",
+    title: "Legal Affairs Lead",
+    affiliation: "Private Legal Practitioner and Lecturer",
+    image: "/images/team/samuel-kumi.JPG",
+    socialLinks: {
+      email: "samuelkumik@gmail.com",
+      linkedin: "https://www.linkedin.com/in/samuel-k-kumi-41627a161/",
+    },
+    bio: "Samuel Kwame Kumi is a private legal practitioner and lecturer with experience in litigation and alternative dispute resolution. His interests include medical, information technology, intellectual property, and energy law. At Akomapa, he advises on corporate affairs, risk, and compliance.",
+  },
+  {
+    id: "executive-jeanelle-forson",
+    roleCategory: "executive",
+    name: "Jeanelle Forson",
+    title: "Immersion Program Lead",
+    affiliation: "Akomapa Health Foundation",
+    image: "/images/team/jeanelle-forson.jpg",
+    socialLinks: {
+      email: "jeanelledonkoh@gmail.com",
+      linkedin: "https://www.linkedin.com/in/jeanelle-forson-rn-bn-b5680a162",
+    },
+    bio: "Jeanelle Forson leads planning and participant experience for Akomapa’s immersion program, coordinating the program’s learning activities and operational details.",
+  },
+  {
+    id: "executive-bernard-mensah",
+    roleCategory: "executive",
+    name: "Bernard Mensah",
+    title: "Research Lead",
+    affiliation: "Akomapa Health Foundation",
+    image: "/images/team/bernard-mensah.jpg",
+    bio: "Bernard Mensah leads Akomapa’s research work, coordinating evidence generation and evaluation that help the foundation understand and strengthen its community health programs.",
+  },
+  {
+    id: "executive-divina-afenyo",
+    roleCategory: "executive",
+    name: "Divina Selase Afenyo",
+    title: "UG Hub Co-Lead",
+    affiliation: "Akomapa Health Foundation",
+    image: "/images/team/divina-selase-afenyo.jpg",
+    bio: "Divina Selase Afenyo co-leads planning and coordination for Akomapa’s University of Ghana hub, supporting the local team as it develops student-led community health activities.",
+  },
+  {
+    id: "executive-jade-kissi",
+    roleCategory: "executive",
+    name: "Jade Kissi",
+    title: "Head of Internal Affairs",
+    affiliation: "Akomapa Health Foundation",
+    image: "/images/team/jade-kissi.jpg",
+    bio: "Jade Kissi leads Akomapa’s internal affairs work, supporting team coordination, organizational communication, and the day-to-day systems that keep colleagues aligned.",
+  },
+
+  {
+    id: "member-david-ofosu",
+    roleCategory: "member",
     name: "David Ofosu",
     title: "Co-Director",
-    bio: "David Ofosu serves as Co-Director of our UCC Chapter, leading local initiatives and coordinating student engagement in healthcare programs.",
+    affiliation: "Medical Student, University of Cape Coast",
     image: "/ucc-team/david_kojo_ofosu.JPG",
-    socialLinks: {
-      linkedin: "https://linkedin.com/in/david-ofosu",
-      email: "david.ofosu@akomapa.org"
-    }
+    bio: "David Ofosu helps guide Akomapa’s UCC Community Hub, coordinating student-led programs and local operations in support of the hub’s community health mission.",
   },
   {
-    id: "17",
-    roleCategory: "community-leader",
-    name: "Hafiz Shaban",
-    title: "Co-Director",
-    bio: "Hafiz Shaban serves as Co-Director of our UCC Chapter, working alongside David to lead our local healthcare initiatives and student programs.",
-    image: "/ucc-team/hafiz_shaban.JPG",
-    socialLinks: {
-      linkedin: "https://linkedin.com/in/hafiz-shaban",
-      email: "hafiz.shaban@akomapa.org"
-    }
-  },
-  {
-    id: "18",
-    roleCategory: "community-leader",
+    id: "member-getwell-essuman",
+    roleCategory: "member",
     name: "Getwell Essuman",
-    title: "Volunteer Recruitment Lead",
-    bio: "Getwell Essuman leads our volunteer recruitment efforts, ensuring we have dedicated volunteers to support our healthcare programs and community initiatives.",
+    title: "Volunteer Recruitment Co-Lead",
+    affiliation: "Medical Laboratory Science Student, University of Cape Coast",
     image: "/ucc-team/getwell_ebiram_essuman.JPG",
-    socialLinks: {
-      linkedin: "https://linkedin.com/in/getwell-essuman",
-      email: "getwell.essuman@akomapa.org"
-    }
+    bio: "Getwell Essuman co-leads volunteer recruitment for Akomapa’s UCC Community Hub, helping students find clear ways to contribute to community health programs.",
   },
   {
-    id: "19",
-    roleCategory: "community-leader",
+    id: "member-david-konadu-kombate",
+    roleCategory: "member",
     name: "David Konadu Kombate",
-    title: "Volunteer Recruitment Lead",
-    bio: "David Konadu Kombate serves as Volunteer Recruitment Lead, working to expand our volunteer network and support our mission through community engagement.",
+    title: "Volunteer Recruitment Co-Lead",
+    affiliation: "Medical Laboratory Science Student, University of Cape Coast",
     image: "/ucc-team/david_konadu_kombate.JPG",
-    socialLinks: {
-      linkedin: "https://linkedin.com/in/david-konadu-kombate",
-      email: "david.kombate@akomapa.org"
-    }
+    bio: "David Konadu Kombate co-leads volunteer recruitment for Akomapa’s UCC Community Hub, supporting outreach and coordination for students who serve through the hub.",
   },
   {
-    id: "20",
-    roleCategory: "community-leader",
-    name: "Wilfred Obeng",
-    title: "Training and Standards Co-ordinator",
-    bio: "Wilfred Obeng coordinates our training programs and maintains high standards across all our healthcare initiatives and educational programs.",
-    image: "/ucc-team/wilfred_obeng.JPG",
-    socialLinks: {
-      linkedin: "https://linkedin.com/in/wilfred-obeng",
-      email: "wilfred.obeng@akomapa.org"
-    }
-  },
-  {
-    id: "21",
-    roleCategory: "community-leader",
+    id: "member-belinda-odoom",
+    roleCategory: "member",
     name: "Belinda Odoom",
-    title: "Training and Standards Co-ordinator",
-    bio: "Belinda Odoom serves as Training and Standards Co-ordinator, ensuring quality training programs and maintaining high standards in our healthcare delivery.",
+    title: "Training & Standards Coordinator",
+    affiliation: "Nursing Student, University of Cape Coast",
     image: "/ucc-team/belinda_odoom.JPG",
-    socialLinks: {
-      linkedin: "https://linkedin.com/in/belinda-odoom",
-      email: "belinda.odoom@akomapa.org"
-    }
+    bio: "Belinda Odoom coordinates training and standards for Akomapa’s UCC Community Hub, helping volunteers prepare for consistent, responsible community health service.",
   },
   {
-    id: "22",
-    roleCategory: "community-leader",
+    id: "member-geraldine-agyapong",
+    roleCategory: "member",
     name: "Geraldine-Cristal Apeadua Agyapong",
-    title: "Financial Officer",
-    bio: "Geraldine-Cristal Apeadua Agyapong manages our financial operations, ensuring transparency and accountability in all our financial activities.",
+    title: "Finance Officer",
+    affiliation: "Medical Student, University of Cape Coast",
     image: "/ucc-team/geraldine_cristal_apeadua_agyepong.JPG",
-    socialLinks: {
-      linkedin: "https://linkedin.com/in/geraldine-cristal-agyapong",
-      email: "geraldine.agyapong@akomapa.org"
-    }
+    bio: "Geraldine-Cristal Apeadua Agyapong supports financial administration for Akomapa’s UCC Community Hub, helping the team manage resources with care and accountability.",
   },
   {
-    id: "23",
-    roleCategory: "community-leader",
+    id: "member-frederick-baffour",
+    roleCategory: "member",
     name: "Frederick Baffour",
-    title: "Financial Officer",
-    bio: "Frederick Baffour serves as Financial Officer, supporting our financial management and ensuring proper allocation of resources for our programs.",
+    title: "Finance Officer",
+    affiliation: "Optometry Student, University of Cape Coast",
     image: "/ucc-team/frederick_baffour.JPG",
-    socialLinks: {
-      linkedin: "https://linkedin.com/in/frederick-baffour",
-      email: "frederick.baffour@akomapa.org"
-    }
+    bio: "Frederick Baffour supports financial administration for Akomapa’s UCC Community Hub, helping maintain clear records and responsible stewardship of program resources.",
   },
   {
-    id: "24",
-    roleCategory: "community-leader",
+    id: "member-gloria-tawiah-blay",
+    roleCategory: "member",
     name: "Gloria Tawiah Blay",
     title: "Community Engagement Liaison",
-    bio: "Gloria Tawiah Blay serves as Community Engagement Liaison, building strong relationships with local communities and stakeholders.",
+    affiliation: "Pharmacy Student, University of Cape Coast",
     image: "/ucc-team/gloria_tawia_blay.JPG",
-    socialLinks: {
-      linkedin: "https://linkedin.com/in/gloria-tawiah-blay",
-      email: "gloria.blay@akomapa.org"
-    }
+    bio: "Gloria Tawiah Blay serves as a community engagement liaison for Akomapa’s UCC Community Hub, helping the student team listen to and coordinate with community partners.",
   },
   {
-    id: "25",
-    roleCategory: "community-leader",
-    name: "Prince Nyarkoh",
+    id: "member-prince-nyarko",
+    roleCategory: "member",
+    name: "Prince Nyarko",
     title: "Community Engagement Liaison",
-    bio: "Prince Nyarkoh serves as Community Engagement Liaison, working to strengthen our community partnerships and local healthcare initiatives.",
+    affiliation: "Optometry Student, University of Cape Coast",
     image: "/ucc-team/prince_nyarkoh.JPG",
-    socialLinks: {
-      linkedin: "https://linkedin.com/in/prince-nyarkoh",
-      email: "prince.nyarkoh@akomapa.org"
-    }
+    bio: "Prince Nyarko serves as a community engagement liaison for Akomapa’s UCC Community Hub, strengthening communication between the student team and the communities it serves.",
   },
   {
-    id: "26",
-    roleCategory: "community-leader",
+    id: "member-queenstar-opoku",
+    roleCategory: "member",
     name: "Queenstar Aduse Opoku",
-    title: "Supplies and Logistics Manager",
-    bio: "Queenstar Aduse Opoku manages our supplies and logistics, ensuring efficient distribution of medical supplies and resources to support our programs.",
+    title: "Supplies & Logistics Manager",
+    affiliation: "Pharmacy Student, University of Cape Coast",
     image: "/ucc-team/queenster_aduse_opoku.JPG",
-    socialLinks: {
-      linkedin: "https://linkedin.com/in/queenstar-aduse-opoku",
-      email: "queenstar.aduse-opoku@akomapa.org"
-    }
+    bio: "Queenstar Aduse Opoku manages supplies and logistics for Akomapa’s UCC Community Hub, coordinating the materials and practical details needed for hub activities.",
   },
   {
-    id: "27",
-    roleCategory: "community-leader",
+    id: "member-martha-bawa",
+    roleCategory: "member",
     name: "Martha Bawa",
-    title: "Supplies and Logistics Manager",
-    bio: "Martha Bawa serves as Supplies and Logistics Manager, coordinating the distribution of medical supplies and ensuring proper resource management.",
+    title: "Supplies & Logistics Manager",
+    affiliation: "Nursing Student, University of Cape Coast",
     image: "/ucc-team/martha_bawa.JPG",
-    socialLinks: {
-      linkedin: "https://linkedin.com/in/martha-bawa",
-      email: "martha.bawa@akomapa.org"
-    }
+    bio: "Martha Bawa manages supplies and logistics for Akomapa’s UCC Community Hub, helping ensure that teams have the resources needed to carry out community health activities.",
   },
-  
-  // Advisory Board Members
+
   {
     id: "28",
     slug: "derek-tuoyire",
     roleCategory: "advisor",
-    name: "Dr. Derek Anamaale Tuoyire",
-    title: "Head of Community Medicine - University of Cape Coast",
-    bio: "Dr. Derek Anamaale Tuoyire serves on our Advisory Board, bringing his expertise in community medicine from the University of Cape Coast to guide our community health initiatives.",
+    name: "Prof. Derek Anamaale Tuoyire",
+    title: "Head of Community Medicine",
+    affiliation: "University of Cape Coast",
     image: "/images/team/dr-tuoyire.jpeg",
-    socialLinks: {
-      linkedin: "https://ca.linkedin.com/in/derek-anamaale-tuoyire-phd-mph-72823887",
-      email: "#"
-    }
+    bio: "Prof. Derek Anamaale Tuoyire guides Akomapa’s community health work through his expertise in community medicine, population health, and community-based research at the University of Cape Coast.",
   },
   {
     id: "29",
     slug: "martins-ekor",
     roleCategory: "advisor",
     name: "Prof. Martins Ekor",
-    title: "Provost, College of Health and Allied Sciences, University of Cape Coast",
-    bio: "Prof. Martins Ekor serves on our Advisory Board, providing strategic guidance from his position as Provost of the College of Health and Allied Sciences at the University of Cape Coast.",
+    title: "Provost, College of Health and Allied Sciences",
+    affiliation: "University of Cape Coast",
     image: "/images/team/prof-martin-ekor.jpg",
-    socialLinks: {
-      linkedin: "#",
-      email: "#"
-    }
+    bio: "Prof. Martins Ekor provides strategic guidance to Akomapa from his leadership role in the College of Health and Allied Sciences at the University of Cape Coast.",
   },
   {
     id: "30",
     roleCategory: "advisor",
     name: "Emily Sheldon",
-    title: "Co-Founder, African Health Innovation Center",
-    bio: "Emily Sheldon serves on our Advisory Board, bringing her expertise in public health and healthcare leadership to support our healthcare programs and initiatives.",
+    title: "Co-Founder",
+    affiliation: "African Health Innovation Center",
     image: "/images/team/emily-sheldon.png",
-    socialLinks: {
-      linkedin: "https://gh.linkedin.com/in/emilyksheldon",
-      email: "emily.sheldon@akomapa.org"
-    }
+    bio: "Emily Sheldon advises Akomapa on public health innovation and organizational leadership, drawing on her work as Co-Founder of the African Health Innovation Center.",
   },
   {
     id: "31",
     slug: "jeremy-schwartz",
     roleCategory: "advisor",
     name: "Dr. Jeremy Schwartz",
-    title: "Head of Chronic Care Access Lab - Yale University",
-    bio: "Dr. Jeremy Schwartz serves on our Advisory Board, providing expertise in chronic care access and healthcare delivery from his position at Yale University.",
+    title: "Associate Professor of Medicine",
+    affiliation: "Yale University",
     image: "/images/team/jeremy-schwartz.jpeg",
-    socialLinks: {
-      linkedin: "https://www.linkedin.com/in/jeremy-schwartz-ba7ab056",
-      email: "#"
-    }
+    bio: "Dr. Jeremy Schwartz advises Akomapa on chronic care access, health systems, and implementation science through his work at Yale University.",
   },
   {
     id: "32",
     roleCategory: "advisor",
     name: "Dr. Adrian Mayo",
-    title: "Assistant Clinical Professor - David Geffen School of Medicine, UCLA",
-    bio: "Dr. Adrian Mayo serves on our Advisory Board, bringing clinical expertise and research insights from his position at the David Geffen School of Medicine at UCLA.",
+    title: "Assistant Clinical Professor",
+    affiliation: "David Geffen School of Medicine at UCLA",
     image: "/images/team/placeholder.jpg",
-    socialLinks: {
-      linkedin: "https://www.linkedin.com/in/adrian-mayo-936790193",
-      email: "#"
-    }
+    bio: "Dr. Adrian Mayo supports Akomapa with expertise in clinical education, ethical leadership, and interprofessional collaboration at the David Geffen School of Medicine at UCLA.",
   },
   {
     id: "33",
     roleCategory: "advisor",
     name: "Dr. Elijah Paintsil",
-    title: "Chief and Chair of Pediatrics, Boston Medical Center",
-    bio: "Dr. Elijah Paintsil serves on our Advisory Board, providing pediatric expertise and healthcare leadership from his position as Chief and Chair of Pediatrics at Boston Medical Center.",
-    image: "/images/team/placeholder.jpg",
-    socialLinks: {
-      linkedin: "https://www.linkedin.com/posts/boston-medical-center_on-with-elijah-paintsil-md-activity-7115446772906237952-ECfN",
-      email: "#"
-    }
+    title: "Chief & Chair of Pediatrics",
+    affiliation: "Boston Medical Center",
+    image: "/images/team/elijah-paintsil.avif",
+    bio: "Dr. Elijah Paintsil provides pediatric and healthcare leadership expertise to Akomapa through his work as Chief and Chair of Pediatrics at Boston Medical Center.",
   },
   {
     id: "34",
     slug: "alfred-yawson",
     roleCategory: "advisor",
     name: "Prof. Alfred Yawson",
-    title: "Provost, University of Ghana College of Health Sciences",
-    bio: "Prof. Alfred Yamoah serves on our Advisory Board, providing public health expertise and healthcare leadership from his position as Provost of the University of Ghana College of Health Sciences.",
+    title: "Provost, College of Health Sciences",
+    affiliation: "University of Ghana",
     image: "/images/team/prof-alfred-yawson.png",
-    socialLinks: {
-      linkedin: "https://chs.ug.edu.gh/profile-professor-alfred-edwin-yawson-professor-alfred-edwin-yawson-mbchb-dlshtm-msc-lse-london",
-      email: "#"
-    }
+    bio: "Prof. Alfred Yawson advises Akomapa on public health, health professions education, and health systems leadership through his work at the University of Ghana.",
   },
   {
     id: "35",
     roleCategory: "advisor",
     name: "Freda Yawson",
-    title: "Founder, Innovate Ghana and Innovate Labs",
-    bio: "Freda Yawson serves on our Advisory Board, providing public health expertise and healthcare leadership from her position as Founder of Innovate Ghana and Innovate Labs.",
+    title: "Founder",
+    affiliation: "Innovate Ghana and Innovate Labs",
     image: "/images/team/freda-yawson.jpg",
-    socialLinks: {
-      linkedin: "https://www.linkedin.com/in/freda-yawson-aminu-3601868",
-      email: "#"
-    }
+    bio: "Freda Yawson advises Akomapa on innovation, entrepreneurship, and organizational growth through her leadership of Innovate Ghana and Innovate Labs.",
   },
-  {
-    id: "36",
-    slug: "patrick-ampofo",
-    roleCategory: "advisor",
-    name: "Dr. Patrick Ampofo",
-    title: "UG Expansion Lead, Akomapa Health",
-    bio: "Dr. Patrick Ampofo leads the strategy and partnerships guiding Akomapa's University of Ghana hub development, bridging evidence-based approaches with community-based interventions.",
-    image: "/images/team/patrick-ampofo.jpg",
-    socialLinks: {
-      linkedin: "https://linkedin.com/in/patrick-ampofo",
-      email: "#"
-    }
-  },
+
   {
     id: "37",
     slug: "stacy-uchendu",
     roleCategory: "community-leader",
     name: "Stacy Uchendu",
     title: "Co-Director, Neighborhood Health Project",
-    bio: "Stacy Uchendu co-directs the Neighborhood Health Project, facilitating community partnerships and sustainable care delivery at the Akomapa–NHP Yale hub.",
+    affiliation: "Neighborhood Health Project, Yale University",
     image: "/images/team/placeholder.jpg",
-    socialLinks: {
-      email: "#"
-    }
+    bio: "Stacy Uchendu co-directs the Neighborhood Health Project, facilitating community partnerships and sustainable care delivery at the Akomapa–NHP Yale hub.",
   },
 ];
+
+export const executiveTeamMembers = teamMembers.filter(
+  (member) => member.roleCategory === "executive",
+);
+
+export const nonExecutiveTeamMembers = teamMembers.filter(
+  (member) => member.roleCategory === "member",
+);
+
+export const advisoryBoardMembers = teamMembers.filter(
+  (member) => member.roleCategory === "advisor",
+);
 
 export function getTeamMemberBySlug(slug: string): TeamMember | undefined {
   return teamMembers.find((member) => member.slug === slug);

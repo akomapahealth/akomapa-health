@@ -261,6 +261,7 @@ describe("rebrand data model contracts", () => {
   it("requires a supported role category for every team member", () => {
     expectTypeOf<TeamMember["roleCategory"]>().toEqualTypeOf<
       | "executive"
+      | "member"
       | "faculty"
       | "advisor"
       | "community-leader"
@@ -275,6 +276,7 @@ describe("rebrand data model contracts", () => {
       },
       {
         executive: 0,
+        member: 0,
         faculty: 0,
         advisor: 0,
         "community-leader": 0,
@@ -284,10 +286,11 @@ describe("rebrand data model contracts", () => {
     );
 
     expect(roleCounts).toEqual({
-      executive: 15,
+      executive: 17,
+      member: 10,
       faculty: 0,
-      advisor: 9,
-      "community-leader": 13,
+      advisor: 8,
+      "community-leader": 1,
       "government-leader": 0,
       "partner-institution": 0,
     });
