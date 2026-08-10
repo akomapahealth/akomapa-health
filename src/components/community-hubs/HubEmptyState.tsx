@@ -9,6 +9,7 @@ type HubEmptyStateProps = {
   description: string;
   cta: { label: string; href: string };
   headingId?: string;
+  tone?: "light" | "dark";
 };
 
 export default function HubEmptyState({
@@ -16,6 +17,7 @@ export default function HubEmptyState({
   description,
   cta,
   headingId,
+  tone = "light",
 }: HubEmptyStateProps) {
   return (
     <div
@@ -29,8 +31,16 @@ export default function HubEmptyState({
       >
         {title}
       </EditorialHeading>
-      <EditorialLead className="mt-3">{description}</EditorialLead>
-      <EditorialButton href={cta.href} variant="solid" className="mt-6">
+      <EditorialLead
+        className={tone === "dark" ? "mt-3 text-[#FCFAEF]/80 dark:text-[#FCFAEF]/80" : "mt-3"}
+      >
+        {description}
+      </EditorialLead>
+      <EditorialButton
+        href={cta.href}
+        variant={tone === "dark" ? "light" : "solid"}
+        className="mt-6"
+      >
         {cta.label}
       </EditorialButton>
     </div>

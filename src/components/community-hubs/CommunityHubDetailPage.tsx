@@ -1,6 +1,7 @@
 import HubDetailHero from "@/components/community-hubs/HubDetailHero";
 import HubInnovation from "@/components/community-hubs/HubInnovation";
 import HubMetrics from "@/components/community-hubs/HubMetrics";
+import HubPeopleSection from "@/components/community-hubs/HubPeopleSection";
 import HubResearch from "@/components/community-hubs/HubResearch";
 import MentorshipSection from "@/components/community-hubs/MentorshipSection";
 import StoriesSection from "@/components/community-hubs/StoriesSection";
@@ -16,6 +17,7 @@ export default function CommunityHubDetailPage({ hub }: CommunityHubDetailPagePr
     <>
       <HubDetailHero hub={hub} />
       <HubMetrics hub={hub} />
+      <HubPeopleSection hubName={hub.name} roster={hub.roster} />
       <StoriesSection
         title="Community Stories"
         stories={hub.communityStories}
@@ -27,6 +29,7 @@ export default function CommunityHubDetailPage({ hub }: CommunityHubDetailPagePr
         stories={hub.studentStories}
         emptyState={hubEmptyStates.studentStories}
         sectionId="student-stories"
+        tone="teal"
       />
       <MentorshipSection mentorship={hub.facultyMentorship} />
       <HubResearch items={hub.research} emptyState={hubEmptyStates.research} />

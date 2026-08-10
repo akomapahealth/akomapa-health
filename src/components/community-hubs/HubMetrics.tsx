@@ -36,38 +36,40 @@ export default function HubMetrics({ hub }: HubMetricsProps) {
 
   return (
     <EditorialBand
-      tone="cream"
+      tone="onyx"
       marker="01"
       id="hub-metrics"
       aria-labelledby="hub-metrics-heading"
+      className="bg-[#0F4C5C]"
     >
       <FadeIn>
         <div className="max-w-3xl">
-          <EditorialEyebrow className="text-[#0F4C5C] dark:text-[#66C4DC]">
+          <EditorialEyebrow tone="gold" className="text-[#F5C94D]">
             Impact at a Glance
           </EditorialEyebrow>
           <EditorialHeading id="hub-metrics-heading" className="mt-4">
             Hub Metrics
           </EditorialHeading>
-          <EditorialLead className="mt-5">{description}</EditorialLead>
+          <EditorialLead className="mt-5 text-[#FCFAEF]/80 dark:text-[#FCFAEF]/80">
+            {description}
+          </EditorialLead>
         </div>
       </FadeIn>
 
       <dl
         data-hub-metrics
-        className="mt-12 grid border-y border-[#1C1F1E]/15 sm:grid-cols-2 lg:grid-cols-4 dark:border-[#FCFAEF]/20"
+        className="mt-12 grid border-y border-[#FCFAEF]/20 sm:grid-cols-2 lg:grid-cols-4"
       >
         {metricConfig.map(({ key, label }, index) => (
           <div
             key={key}
-            className={`flex min-h-36 flex-col justify-between border-[#1C1F1E]/15 px-1 py-7 sm:px-6 dark:border-[#FCFAEF]/20 ${metricDividerClasses[index]}`}
+            className={`flex min-h-36 flex-col justify-between border-[#FCFAEF]/20 px-1 py-7 sm:px-6 ${metricDividerClasses[index]}`}
           >
-            <dt className="font-subheading text-xs font-bold uppercase tracking-[0.2em] text-[#2F3332]/70 dark:text-[#E6E7E7]/70">
+            <dt className="font-subheading text-xs font-bold uppercase tracking-[0.2em] text-[#FCFAEF]/70">
               {label}
             </dt>
             <dd
-              className="mt-6 font-heading text-4xl font-semibold tracking-tight md:text-5xl"
-              style={{ color: hub.color }}
+              className="mt-6 font-heading text-4xl font-semibold tracking-tight text-[#F5C94D] md:text-5xl"
             >
               <AnimatedMetric value={hub.metrics[key]} />
             </dd>
