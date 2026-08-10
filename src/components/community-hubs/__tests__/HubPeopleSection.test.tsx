@@ -159,11 +159,11 @@ describe("HubPeopleSection", () => {
     await user.keyboard("{Enter}");
 
     const dialog = await screen.findByRole("dialog", {
-      name: "Volunteer portrait 1 of 1",
+      name: "Our Volunteer Community",
     });
     expect(
       within(dialog).getByText(
-        "A member of the Test Hub volunteer team.",
+        "We honor every volunteer whose hard work and care keep our community hub running.",
       ),
     ).toBeVisible();
 
@@ -228,7 +228,7 @@ describe("HubPeopleSection", () => {
       }),
     );
     const dialog = await screen.findByRole("dialog", {
-      name: "Volunteer portrait 1 of 36",
+      name: "Our Volunteer Community",
     });
 
     await user.click(
@@ -236,28 +236,16 @@ describe("HubPeopleSection", () => {
         name: "View next volunteer portrait",
       }),
     );
-    expect(
-      within(dialog).getByRole("heading", {
-        name: "Volunteer portrait 2 of 36",
-      }),
-    ).toBeVisible();
+    expect(within(dialog).getByText("Portrait 2 of 36")).toBeVisible();
 
     await user.keyboard("{ArrowLeft}");
-    expect(
-      within(dialog).getByRole("heading", {
-        name: "Volunteer portrait 1 of 36",
-      }),
-    ).toBeVisible();
+    expect(within(dialog).getByText("Portrait 1 of 36")).toBeVisible();
 
     await user.click(
       within(dialog).getByRole("button", {
         name: "View previous volunteer portrait",
       }),
     );
-    expect(
-      within(dialog).getByRole("heading", {
-        name: "Volunteer portrait 36 of 36",
-      }),
-    ).toBeVisible();
+    expect(within(dialog).getByText("Portrait 36 of 36")).toBeVisible();
   });
 });

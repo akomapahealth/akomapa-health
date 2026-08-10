@@ -91,8 +91,9 @@ export default function Content() {
       </div>
 
       <section
+        data-immersion-hero
         aria-labelledby="immersion-title"
-        className="relative isolate flex min-h-[560px] items-center overflow-hidden border-y border-[#FCFAEF]/12 bg-[#0F4C5C] text-[#FCFAEF] sm:min-h-[600px] lg:min-h-[640px]"
+        className="relative isolate flex min-h-[620px] items-center overflow-hidden border-y border-[#FCFAEF]/12 bg-[#0F4C5C] text-[#FCFAEF] sm:min-h-[680px] lg:min-h-[720px]"
       >
         <ImmersionHeroMedia
           videoSrc={images.hero.videoSrc}

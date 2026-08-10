@@ -21,6 +21,8 @@ const featurePortraitIndexes = new Set([0, 11, 24, 35]);
 const landscapePortraitIndexes = new Set([5, 18, 29]);
 const initialPortraitCount = 8;
 const portraitBatchSize = 8;
+const volunteerTribute =
+  "We honor every volunteer whose hard work and care keep our community hub running.";
 
 function getPortraitLayout(index: number): string {
   if (featurePortraitIndexes.has(index)) {
@@ -242,12 +244,14 @@ export default function VolunteerPortraitGrid({
                             {hubName}
                           </p>
                           <DialogTitle className="mt-3 pr-10 font-heading text-2xl font-semibold leading-tight">
-                            Volunteer portrait {selectedPosition} of {portraits.length}
+                            Our Volunteer Community
                           </DialogTitle>
                           <DialogDescription className="mt-4 text-sm leading-relaxed text-[#2F3332]/80 dark:text-[#E6E7E7]/80">
-                            {selectedPortrait.caption ??
-                              `A member of the ${hubName} volunteer team.`}
+                            {volunteerTribute}
                           </DialogDescription>
+                          <p className="sr-only" aria-live="polite">
+                            Portrait {selectedPosition} of {portraits.length}
+                          </p>
                           {hasMultiplePortraits ? (
                             <p className="mt-6 border-t border-[#1C1F1E]/15 pt-4 text-xs leading-relaxed text-[#2F3332]/65 dark:border-[#FCFAEF]/20 dark:text-[#E6E7E7]/65">
                               Use the previous and next buttons or the Left and Right arrow keys to browse.

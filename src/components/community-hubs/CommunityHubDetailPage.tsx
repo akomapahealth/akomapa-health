@@ -29,6 +29,7 @@ export default function CommunityHubDetailPage({ hub }: CommunityHubDetailPagePr
         stories={hub.studentStories}
         emptyState={hubEmptyStates.studentStories}
         sectionId="student-stories"
+        tone="teal"
       />
       <MentorshipSection mentorship={hub.facultyMentorship} />
       <HubResearch items={hub.research} emptyState={hubEmptyStates.research} />

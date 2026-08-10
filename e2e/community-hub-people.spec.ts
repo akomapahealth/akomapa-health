@@ -62,6 +62,34 @@ for (const scenario of [
       volunteers.getByRole("button", { name: "Load more volunteers" }),
     ).toBeVisible();
 
+    const alternatingSectionIds = [
+      "hub-metrics",
+      "hub-leadership",
+      "hub-volunteers",
+      "community-stories",
+      "student-stories",
+      "faculty-mentorship",
+      "hub-research",
+      "hub-innovation",
+    ];
+    const backgrounds = await page.evaluate((sectionIds) => {
+      return sectionIds.map((id) =>
+        getComputedStyle(document.getElementById(id)!).backgroundColor,
+      );
+    }, alternatingSectionIds);
+    const lightBackground =
+      scenario.theme === "dark" ? "rgb(18, 21, 20)" : "rgb(252, 250, 239)";
+    expect(backgrounds).toEqual([
+      "rgb(15, 76, 92)",
+      lightBackground,
+      "rgb(15, 76, 92)",
+      lightBackground,
+      "rgb(15, 76, 92)",
+      lightBackground,
+      "rgb(15, 76, 92)",
+      lightBackground,
+    ]);
+
     await expectNoOverflow(page);
 
     const firstLeaderImage = leadership.locator("img").first();
@@ -93,7 +121,12 @@ test("volunteer dialog supports keyboard focus, Escape, backdrop close, and scro
     name: "Close volunteer portrait",
   });
   await expect(dialog).toBeVisible();
-  await expect(dialog).toHaveAccessibleName("Volunteer portrait 1 of 36");
+  await expect(dialog).toHaveAccessibleName("Our Volunteer Community");
+  await expect(
+    dialog.getByText(
+      "We honor every volunteer whose hard work and care keep our community hub running.",
+    ),
+  ).toBeVisible();
   await expect(closeButton).toBeFocused();
   await expect
     .poll(() =>
@@ -104,14 +137,10 @@ test("volunteer dialog supports keyboard focus, Escape, backdrop close, and scro
     .toBe("hidden");
 
   await page.keyboard.press("ArrowRight");
-  await expect(
-    dialog.getByRole("heading", { name: "Volunteer portrait 2 of 36" }),
-  ).toBeVisible();
-  await expect(dialog).toHaveAccessibleName("Volunteer portrait 2 of 36");
+  await expect(dialog.getByText("Portrait 2 of 36")).toBeAttached();
+  await expect(dialog).toHaveAccessibleName("Our Volunteer Community");
   await page.keyboard.press("ArrowLeft");
-  await expect(
-    dialog.getByRole("heading", { name: "Volunteer portrait 1 of 36" }),
-  ).toBeVisible();
+  await expect(dialog.getByText("Portrait 1 of 36")).toBeAttached();
   await page.keyboard.press("Tab");
   await expect(dialog.locator(":focus")).toHaveCount(1);
   await page.keyboard.press("Escape");

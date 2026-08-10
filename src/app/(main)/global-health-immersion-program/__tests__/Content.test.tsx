@@ -15,7 +15,7 @@ function renderContent() {
 
 describe("Global Health Immersion Program top-level page", () => {
   it("renders one page heading and a logical editorial section hierarchy", () => {
-    renderContent();
+    const { container } = renderContent();
 
     expect(
       screen.getByRole("heading", {
@@ -26,6 +26,11 @@ describe("Global Health Immersion Program top-level page", () => {
     expect(screen.getAllByRole("heading", { level: 1 })).toHaveLength(1);
     expect(screen.getByText(immersionProgram.applicationStatus)).toBeVisible();
     expect(screen.queryByText("Applications Currently Closed")).toBeNull();
+    expect(container.querySelector("[data-immersion-hero]")).toHaveClass(
+      "min-h-[620px]",
+      "sm:min-h-[680px]",
+      "lg:min-h-[720px]",
+    );
 
     [
       "At a glance",

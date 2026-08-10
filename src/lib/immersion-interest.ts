@@ -82,9 +82,9 @@ export const IMMERSION_CONTACT_FALLBACK_HREF = "/contact?type=immersion";
 
 export const IMMERSION_INTEREST_COPY = {
   section: {
-    eyebrow: "Applications currently closed",
-    heading: "Be first to know when the next cohort opens.",
-    body: "Dates, fees, and application details are still being finalized. Join the Immersion Program alert list and we’ll let you know when applications open and important cohort updates are published.",
+    eyebrow: "Applications opening soon",
+    heading: "Be first to know when applications open.",
+    body: "Join the Immersion Program alert list and we’ll let you know when applications open and important cohort updates are published.",
     cta: "Notify me when applications open",
     reassurance: "Program-specific updates only. Unsubscribe at any time.",
   },

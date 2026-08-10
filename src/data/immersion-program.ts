@@ -108,8 +108,8 @@ export const immersionProgram: ImmersionProgramContent = {
       description:
         "Experience Ghana's history and culture while building genuine relationships across perspectives.",
       image: {
-        src: "/akomapa-hangout/Akomapa_hangout-107.jpg",
-        alt: "A diverse group of Akomapa participants gathering in Ghana",
+        src: "/kakum-national-park.jpg",
+        alt: "Kakum National Park in Ghana",
         position: "center",
       },
     },
@@ -153,8 +153,8 @@ export const immersionProgram: ImmersionProgramContent = {
     description:
       "Experience the energy of Accra and the history of Cape Coast through community learning, health systems exploration, cultural exchange, and time to reflect.",
     image: {
-      src: "/akomapa-hangout/Akomapa_hangout-6.jpg",
-      alt: "Akomapa participants exchanging ideas around a table in Ghana",
+      src: "/elimina-castle.webp",
+      alt: "Elmina Castle on Ghana's Cape Coast",
       position: "center",
     },
   },

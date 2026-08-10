@@ -353,7 +353,7 @@ export const teamMembers: TeamMember[] = [
     name: "Prof. Martins Ekor",
     title: "Provost, College of Health and Allied Sciences, University of Cape Coast",
     bio: "Prof. Martins Ekor serves on our Advisory Board, providing strategic guidance from his position as Provost of the College of Health and Allied Sciences at the University of Cape Coast.",
-    image: "/images/team/martins-ekor.jpg",
+    image: "/images/team/prof-martin-ekor.jpg",
     socialLinks: {
       linkedin: "#",
       email: "#"
