@@ -1,28 +1,36 @@
 import { render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
-import TeamMemberDialog, {
-  type TeamSpotlightMember,
-} from "@/components/about/TeamMemberDialog";
+import TeamMemberDialog from "@/components/about/TeamMemberDialog";
+import type { TeamMember } from "@/lib/types";
 
-const member: TeamSpotlightMember = {
+const member: TeamMember = {
+  id: "member-ama-mensah",
+  roleCategory: "member",
   name: "Ama Mensah",
-  role: "Clinical Lead",
-  org: "Akomapa Health Foundation",
+  title: "Clinical Lead",
+  affiliation: "Akomapa Health Foundation",
   image: "/images/team/placeholder.jpg",
-  email: "ama@example.com",
-  linkedin: "https://www.linkedin.com/in/ama-mensah",
-  bio: "Ama supports community-rooted clinical care.",
+  socialLinks: {
+    email: "ama@example.com",
+    linkedin: "https://www.linkedin.com/in/ama-mensah",
+  },
+  bio: "Ama supports community-rooted clinical care and helps volunteers prepare to serve with consistency and respect.",
 };
 
 describe("TeamMemberDialog", () => {
-  it("uses an explicit control and returns focus after Escape closes the biography", async () => {
+  it("renders a complete member profile and restores focus after Escape", async () => {
     const user = userEvent.setup();
-    render(<TeamMemberDialog member={member} />);
+    render(<TeamMemberDialog member={member} appearance="member" />);
 
     const article = screen.getByRole("article");
     expect(article).toHaveAttribute("data-team-member", member.name);
-    expect(article).not.toHaveClass("h-[32rem]", "cursor-pointer");
+    expect(article).toHaveAttribute("data-team-role-category", "member");
+    expect(screen.getByText(member.affiliation)).toBeInTheDocument();
+    expect(screen.getByText(member.title)).toBeInTheDocument();
+    expect(
+      screen.getByAltText(`Headshot of ${member.name}, ${member.title}`),
+    ).toBeInTheDocument();
 
     const trigger = screen.getByRole("button", { name: "Read bio" });
     expect(trigger).toHaveAttribute("data-team-bio-trigger", member.name);
@@ -34,7 +42,7 @@ describe("TeamMemberDialog", () => {
     expect(
       within(dialog).getByRole("heading", { name: member.name }),
     ).toBeInTheDocument();
-    expect(within(dialog).getByText(member.bio!)).toBeInTheDocument();
+    expect(within(dialog).getByText(member.bio)).toBeInTheDocument();
     expect(
       within(dialog).getByRole("button", {
         name: `Close ${member.name} biography`,
@@ -48,19 +56,30 @@ describe("TeamMemberDialog", () => {
     expect(trigger).toHaveFocus();
   });
 
-  it("suppresses placeholder contacts and omits a bio trigger without a bio", () => {
-    render(
+  it("renders valid contacts and suppresses placeholders or malformed values", () => {
+    const { rerender } = render(<TeamMemberDialog member={member} />);
+
+    expect(screen.getByRole("link", { name: `Email ${member.name}` })).toHaveAttribute(
+      "href",
+      "mailto:ama@example.com",
+    );
+    expect(
+      screen.getByRole("link", { name: `View ${member.name} on LinkedIn` }),
+    ).toHaveAttribute("href", "https://www.linkedin.com/in/ama-mensah");
+
+    rerender(
       <TeamMemberDialog
         member={{
           ...member,
-          bio: undefined,
-          email: "#",
-          linkedin: "#",
+          socialLinks: {
+            email: "not-an-email",
+            linkedin: "http://example.com/profile",
+          },
         }}
       />,
     );
 
-    expect(screen.queryByRole("button")).not.toBeInTheDocument();
     expect(screen.queryByRole("link")).not.toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Read bio" })).toBeInTheDocument();
   });
 });
