@@ -78,7 +78,7 @@ export const teamMembers: TeamMember[] = [
   },
   {
     id: "executive-hafiz-shaban",
-    roleCategory: "executive",
+    roleCategory: "member",
     name: "Hafiz Shaban",
     title: "Co-Director, Akomapa UCC",
     affiliation: "Nursing Student, University of Cape Coast",
@@ -114,7 +114,7 @@ export const teamMembers: TeamMember[] = [
   },
   {
     id: "executive-wilfred-obeng",
-    roleCategory: "executive",
+    roleCategory: "member",
     name: "Wilfred Obeng",
     title: "Clinical Standards Lead",
     affiliation: "Medical Student, University of Cape Coast",
@@ -124,7 +124,7 @@ export const teamMembers: TeamMember[] = [
   },
   {
     id: "executive-gabrielle-nartey",
-    roleCategory: "executive",
+    roleCategory: "member",
     name: "Gabrielle Nartey",
     title: "Lead Social Media Manager",
     affiliation: "Akomapa Health Foundation",
@@ -148,7 +148,7 @@ export const teamMembers: TeamMember[] = [
   },
   {
     id: "executive-kelvin-ocran",
-    roleCategory: "executive",
+    roleCategory: "member",
     name: "Kelvin Fiifi Ocran",
     title: "Branding and Public Relations Lead",
     affiliation: "Akomapa Health Foundation",
@@ -196,7 +196,7 @@ export const teamMembers: TeamMember[] = [
   },
   {
     id: "executive-divina-afenyo",
-    roleCategory: "executive",
+    roleCategory: "member",
     name: "Divina Selase Afenyo",
     title: "UG Hub Co-Lead",
     affiliation: "Akomapa Health Foundation",
@@ -212,7 +212,45 @@ export const teamMembers: TeamMember[] = [
     image: "/images/team/jade-kissi.jpg",
     bio: "Jade Kissi leads Akomapa’s internal affairs work, supporting team coordination, organizational communication, and the day-to-day systems that keep colleagues aligned.",
   },
-
+  {
+    id: "member-erinda-aidoo",
+    roleCategory: "member",
+    name: "Erinda Aidoo",
+    title: "Research Team Member",
+    affiliation: "University of Illinois Chicago College of Medicine",
+    image: "/ug-team/erinda-aidoo.PNG",
+    socialLinks: {
+      email: "erindaaid0038@gmail.com",
+      linkedin: "https://www.linkedin.com/in/erinda-aidoo-8149871b6",
+    },
+    bio: "Erinda Aidoo is a medical student at the University of Illinois Chicago College of Medicine pursuing a concentration in Global Health. She is passionate about translational research, precision medicine, and advancing equitable healthcare through scientific innovation. Through the Akomapa Foundation, she hopes to deepen her understanding of global health systems, contribute to impactful research, and explore strategies that improve healthcare delivery in underserved communities.",
+  },
+  {
+    id: "member-sylvester-bempong",
+    roleCategory: "member",
+    name: "Sylvester Bempong",
+    title: "Software Engineer",
+    affiliation: "University of Cape Coast",
+    image: "/images/team/sylvester-bempong.jpeg",
+    socialLinks: {
+      email: "sylvesterobese6665@gmail.com",
+      linkedin: "https://www.linkedin.com/in/sylvester-bempong/",
+    },
+    bio: "Sylvester Bempong is a Software Engineer at Akomapa Health Foundation and a Research Fellow at Normatech Ghana Limited. He is passionate about artificial intelligence, software engineering, and applying technology to improve healthcare and agriculture. He is currently pursuing a Bachelor’s degree in Agricultural Engineering at the University of Cape Coast.",
+  },
+  {
+    id: "member-mighty-doffoe",
+    roleCategory: "member",
+    name: "Mighty Doffoe",
+    title: "Software Engineer",
+    affiliation: "Akomapa Health Foundation",
+    image: "/images/team/mighty-doffoe.jpg",
+    socialLinks: {
+      email: "doffoemighty@gmail.com",
+      linkedin: "https://linkedin.com/in/mighty-doffoe",
+    },
+    bio: "Mighty Doffoe is a Software Engineer at Akomapa Health Foundation. He is passionate about artificial intelligence, software engineering, and applying technology to improve healthcare.",
+  },
   {
     id: "member-david-ofosu",
     roleCategory: "member",
