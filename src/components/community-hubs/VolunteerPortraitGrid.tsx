@@ -12,6 +12,7 @@ import {
 } from "@headlessui/react";
 import { motion, useReducedMotion } from "framer-motion";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
+import HubPortrait from "@/components/community-hubs/HubPortrait";
 import Image from "@/components/common/Image";
 import { cn } from "@/lib/utils";
 import { MOTION_EASE } from "@/lib/motion/tokens";
@@ -54,6 +55,7 @@ export default function VolunteerPortraitGrid({
     selectedIndex === null ? null : portraits[selectedIndex];
   const selectedPosition = selectedIndex === null ? 0 : selectedIndex + 1;
   const hasMultiplePortraits = portraits.length > 1;
+  const selectedHasImage = Boolean(selectedPortrait?.image?.trim());
   const remainingCount = Math.max(portraits.length - visibleCount, 0);
 
   function openPortrait(index: number) {
@@ -87,37 +89,52 @@ export default function VolunteerPortraitGrid({
       >
         {displayedPortraits.map((portrait, index) => {
           const isFeatured = featurePortraitIndexes.has(index);
+          const hasImage = Boolean(portrait.image?.trim());
+          const sizes = isFeatured
+            ? "(min-width: 1280px) 584px, (min-width: 1024px) 50vw, (min-width: 640px) 66vw, 100vw"
+            : "(min-width: 1280px) 288px, (min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw";
 
           return (
             <li
               key={portrait.id}
               className={cn("min-w-0", getPortraitLayout(index))}
             >
-              <button
-                type="button"
-                data-volunteer-portrait-trigger={portrait.id}
-                aria-label={`View volunteer portrait ${index + 1} of ${portraits.length}`}
-                onClick={() => openPortrait(index)}
-                className="group relative h-full w-full overflow-hidden rounded-md border border-[#FCFAEF]/20 bg-[#0F4C5C] text-left shadow-sm transition-[border-color,box-shadow,transform] duration-300 hover:-translate-y-1 hover:border-[#F5C94D]/80 hover:shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F5C94D] focus-visible:ring-offset-4 focus-visible:ring-offset-[#0F4C5C] motion-reduce:hover:translate-y-0 motion-reduce:transition-none"
-              >
-                <Image
-                  src={portrait.image}
-                  alt={portrait.alt}
-                  fill
-                  sizes={
-                    isFeatured
-                      ? "(min-width: 1280px) 584px, (min-width: 1024px) 50vw, (min-width: 640px) 66vw, 100vw"
-                      : "(min-width: 1280px) 288px, (min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
-                  }
-                  className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.035] motion-reduce:group-hover:scale-100 motion-reduce:transition-none"
-                  style={{ objectPosition: portrait.objectPosition ?? "center" }}
-                />
-                <span
-                  aria-hidden="true"
-                  className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#121514]/60 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100 motion-reduce:transition-none"
-                />
-                <span className="sr-only">Open volunteer portrait</span>
-              </button>
+              {hasImage ? (
+                <button
+                  type="button"
+                  data-volunteer-portrait-trigger={portrait.id}
+                  aria-label={`View volunteer portrait ${index + 1} of ${portraits.length}`}
+                  onClick={() => openPortrait(index)}
+                  className="group relative h-full w-full overflow-hidden rounded-md border border-[#FCFAEF]/20 bg-[#0F4C5C] text-left shadow-sm transition-[border-color,box-shadow,transform] duration-300 hover:-translate-y-1 hover:border-[#F5C94D]/80 hover:shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F5C94D] focus-visible:ring-offset-4 focus-visible:ring-offset-[#0F4C5C] motion-reduce:hover:translate-y-0 motion-reduce:transition-none"
+                >
+                  <Image
+                    src={portrait.image!}
+                    alt={portrait.alt}
+                    fill
+                    sizes={sizes}
+                    className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.035] motion-reduce:group-hover:scale-100 motion-reduce:transition-none"
+                    style={{ objectPosition: portrait.objectPosition ?? "center" }}
+                  />
+                  <span
+                    aria-hidden="true"
+                    className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#121514]/60 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100 motion-reduce:transition-none"
+                  />
+                  <span className="sr-only">Open volunteer portrait</span>
+                </button>
+              ) : (
+                <div
+                  data-volunteer-portrait-pending={portrait.id}
+                  className="h-full min-h-[7.5rem] overflow-hidden rounded-md border border-[#FCFAEF]/20"
+                >
+                  <HubPortrait
+                    name={portrait.name}
+                    alt={portrait.alt}
+                    monogram="AH"
+                    sizes={sizes}
+                    className="h-full rounded-md bg-[color-mix(in_srgb,#F5C94D_18%,#0F4C5C)] ring-[#F5C94D]/35 aspect-auto"
+                  />
+                </div>
+              )}
             </li>
           );
         })}
@@ -205,17 +222,25 @@ export default function VolunteerPortraitGrid({
 
                       <div className="grid md:grid-cols-[minmax(0,1.35fr)_minmax(16rem,0.65fr)]">
                         <div className="relative aspect-[4/5] min-h-0 bg-[#0F4C5C] md:aspect-auto md:min-h-[34rem]">
-                          <Image
-                            src={selectedPortrait.image}
-                            alt={selectedPortrait.alt}
-                            fill
-                            sizes="(min-width: 768px) 60vw, 100vw"
-                            className="object-cover"
-                            style={{
-                              objectPosition:
-                                selectedPortrait.objectPosition ?? "center",
-                            }}
-                          />
+                          {selectedHasImage && selectedPortrait.image ? (
+                            <Image
+                              src={selectedPortrait.image}
+                              alt={selectedPortrait.alt}
+                              fill
+                              sizes="(min-width: 768px) 60vw, 100vw"
+                              className="object-cover"
+                              style={{
+                                objectPosition:
+                                  selectedPortrait.objectPosition ?? "center",
+                              }}
+                            />
+                          ) : (
+                            <HubPortrait
+                              name={selectedPortrait.name}
+                              alt={selectedPortrait.alt}
+                              className="h-full rounded-none aspect-auto md:min-h-[34rem]"
+                            />
+                          )}
 
                           {hasMultiplePortraits ? (
                             <div className="absolute inset-x-3 top-1/2 z-10 flex -translate-y-1/2 justify-between">

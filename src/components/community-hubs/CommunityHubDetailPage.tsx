@@ -17,7 +17,11 @@ export default function CommunityHubDetailPage({ hub }: CommunityHubDetailPagePr
     <>
       <HubDetailHero hub={hub} />
       <HubMetrics hub={hub} />
-      <HubPeopleSection hubName={hub.name} roster={hub.roster} />
+      <HubPeopleSection
+        hubName={hub.name}
+        roster={hub.roster}
+        accentColor={hub.color}
+      />
       <StoriesSection
         title="Community Stories"
         stories={hub.communityStories}

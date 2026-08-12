@@ -35,7 +35,9 @@ describe("UCC community hub roster", () => {
     expect(uccHubRoster.volunteers).toHaveLength(36);
     expect(new Set(people.map(({ id }) => id))).toHaveProperty("size", people.length);
     expect(new Set(people.map(({ image }) => image))).toHaveProperty("size", people.length);
-    expect(people.every(({ image }) => image.startsWith("/ucc-team/"))).toBe(true);
+    expect(
+      people.every(({ image }) => typeof image === "string" && image.startsWith("/ucc-team/")),
+    ).toBe(true);
   });
 
   it("requires meaningful alternative text for every volunteer portrait", () => {

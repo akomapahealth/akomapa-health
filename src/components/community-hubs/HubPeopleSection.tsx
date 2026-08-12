@@ -1,18 +1,22 @@
+import type { CSSProperties } from "react";
 import Link from "next/link";
-import Image from "@/components/common/Image";
+import HubPortrait from "@/components/community-hubs/HubPortrait";
 import PeopleMotionGrid from "@/components/community-hubs/PeopleMotionGrid";
 import VolunteerPortraitGrid from "@/components/community-hubs/VolunteerPortraitGrid";
 import {
   EditorialBand,
+  EditorialButton,
   EditorialEyebrow,
   EditorialHeading,
   EditorialLead,
 } from "@/components/shared/EditorialPrimitives";
-import type { HubLeader, HubRoster } from "@/lib/types";
+import type { HubLeader, HubRoster, HubRosterPendingSection } from "@/lib/types";
 
 type HubPeopleSectionProps = {
   hubName: string;
   roster?: HubRoster;
+  /** Hub brand accent for card edges and pending surfaces. */
+  accentColor?: string;
 };
 
 function LeaderContactLinks({ leader }: { leader: HubLeader }) {
@@ -57,21 +61,18 @@ function LeaderCard({
   return (
     <article
       data-hub-leader={leader.id}
-      className="group flex h-full flex-col border-t border-[#1C1F1E]/20 pt-4 dark:border-[#FCFAEF]/25"
+      className="group flex h-full flex-col border-t-[3px] border-t-[var(--hub-people-accent,#0097b2)] pt-4"
     >
-      <div className="relative aspect-[4/5] overflow-hidden rounded-md bg-[#E6E7E7] dark:bg-[#2F3332]">
-        <Image
-          src={leader.image}
-          alt={`Portrait of ${leader.name}, ${leader.role} at ${hubName}`}
-          fill
-          sizes={
-            leader.featured
-              ? "(min-width: 1280px) 584px, (min-width: 640px) 50vw, 100vw"
-              : "(min-width: 1280px) 378px, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-          }
-          className="object-cover object-top transition-transform duration-500 ease-out group-hover:scale-[1.025] motion-reduce:group-hover:scale-100 motion-reduce:transition-none"
-        />
-      </div>
+      <HubPortrait
+        name={leader.name}
+        image={leader.image}
+        alt={`Portrait of ${leader.name}, ${leader.role} at ${hubName}`}
+        sizes={
+          leader.featured
+            ? "(min-width: 1280px) 584px, (min-width: 640px) 50vw, 100vw"
+            : "(min-width: 1280px) 378px, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+        }
+      />
 
       <div className="flex flex-1 flex-col pt-5">
         <p className="font-subheading text-xs font-bold uppercase tracking-[0.18em] text-[#0F4C5C] dark:text-[#66C4DC]">
@@ -94,20 +95,83 @@ function LeaderCard({
   );
 }
 
+function PendingPortraitSurfaces({
+  hubName,
+  pending,
+  tone,
+}: {
+  hubName: string;
+  pending: HubRosterPendingSection;
+  tone: "light" | "dark";
+}) {
+  const monogram = pending.monogram ?? "AH";
+
+  return (
+    <div className="mt-12">
+      <div className="grid max-w-2xl gap-6 sm:grid-cols-2">
+        {[0, 1].map((index) => (
+          <HubPortrait
+            key={`${monogram}-pending-${index}`}
+            alt={`Reserved portrait for ${hubName}`}
+            monogram={monogram}
+            className={
+              tone === "dark"
+                ? "bg-[color-mix(in_srgb,#F5C94D_18%,#0F4C5C)] ring-[#F5C94D]/35"
+                : undefined
+            }
+          />
+        ))}
+      </div>
+      <p
+        className={
+          tone === "dark"
+            ? "mt-8 max-w-2xl text-base leading-relaxed text-[#FCFAEF]/80"
+            : "mt-8 max-w-2xl text-base leading-relaxed text-[#2F3332]/80 dark:text-[#E6E7E7]/80"
+        }
+      >
+        {pending.description}
+      </p>
+      {pending.cta ? (
+        <EditorialButton
+          href={pending.cta.href}
+          external={pending.cta.external}
+          variant={tone === "dark" ? "amber" : "solid"}
+          className="mt-6"
+        >
+          {pending.cta.label}
+        </EditorialButton>
+      ) : null}
+    </div>
+  );
+}
+
 export default function HubPeopleSection({
   hubName,
   roster,
+  accentColor = "#0097b2",
 }: HubPeopleSectionProps) {
-  if (!roster || (roster.leadership.length === 0 && roster.volunteers.length === 0)) {
+  if (!roster) {
+    return null;
+  }
+
+  const showLeadership =
+    roster.leadership.length > 0 || Boolean(roster.pending?.leadership);
+  const showVolunteers =
+    roster.volunteers.length > 0 || Boolean(roster.pending?.volunteers);
+
+  if (!showLeadership && !showVolunteers) {
     return null;
   }
 
   const featuredLeaders = roster.leadership.filter(({ featured }) => featured);
   const otherLeaders = roster.leadership.filter(({ featured }) => !featured);
+  const accentStyle = {
+    "--hub-people-accent": accentColor,
+  } as CSSProperties;
 
   return (
-    <>
-      {roster.leadership.length > 0 ? (
+    <div style={accentStyle}>
+      {showLeadership ? (
         <EditorialBand
           tone="cream"
           id="hub-leadership"
@@ -126,25 +190,35 @@ export default function HubPeopleSection({
             </EditorialLead>
           </div>
 
-          {featuredLeaders.length > 0 ? (
-            <PeopleMotionGrid className="mt-12 grid gap-8 sm:grid-cols-2 lg:gap-10">
-              {featuredLeaders.map((leader) => (
-                <LeaderCard key={leader.id} leader={leader} hubName={hubName} />
-              ))}
-            </PeopleMotionGrid>
-          ) : null}
+          {roster.leadership.length > 0 ? (
+            <>
+              {featuredLeaders.length > 0 ? (
+                <PeopleMotionGrid className="mt-12 grid gap-8 sm:grid-cols-2 lg:gap-10">
+                  {featuredLeaders.map((leader) => (
+                    <LeaderCard key={leader.id} leader={leader} hubName={hubName} />
+                  ))}
+                </PeopleMotionGrid>
+              ) : null}
 
-          {otherLeaders.length > 0 ? (
-            <PeopleMotionGrid className="mt-14 grid gap-x-7 gap-y-12 sm:grid-cols-2 lg:grid-cols-3 lg:gap-x-8">
-              {otherLeaders.map((leader) => (
-                <LeaderCard key={leader.id} leader={leader} hubName={hubName} />
-              ))}
-            </PeopleMotionGrid>
+              {otherLeaders.length > 0 ? (
+                <PeopleMotionGrid className="mt-14 grid gap-x-7 gap-y-12 sm:grid-cols-2 lg:grid-cols-3 lg:gap-x-8">
+                  {otherLeaders.map((leader) => (
+                    <LeaderCard key={leader.id} leader={leader} hubName={hubName} />
+                  ))}
+                </PeopleMotionGrid>
+              ) : null}
+            </>
+          ) : roster.pending?.leadership ? (
+            <PendingPortraitSurfaces
+              hubName={hubName}
+              pending={roster.pending.leadership}
+              tone="light"
+            />
           ) : null}
         </EditorialBand>
       ) : null}
 
-      {roster.volunteers.length > 0 ? (
+      {showVolunteers ? (
         <EditorialBand
           tone="teal"
           id="hub-volunteers"
@@ -169,9 +243,17 @@ export default function HubPeopleSection({
             </p>
           </div>
 
-          <VolunteerPortraitGrid hubName={hubName} portraits={roster.volunteers} />
+          {roster.volunteers.length > 0 ? (
+            <VolunteerPortraitGrid hubName={hubName} portraits={roster.volunteers} />
+          ) : roster.pending?.volunteers ? (
+            <PendingPortraitSurfaces
+              hubName={hubName}
+              pending={roster.pending.volunteers}
+              tone="dark"
+            />
+          ) : null}
         </EditorialBand>
       ) : null}
-    </>
+    </div>
   );
 }
