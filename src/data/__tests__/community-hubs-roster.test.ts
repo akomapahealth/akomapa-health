@@ -1,5 +1,9 @@
 import { describe, expect, it } from "vitest";
-import { communityHubs, uccHubRoster } from "@/data/community-hubs";
+import {
+  communityHubs,
+  uccHubRoster,
+  ugHubRoster,
+} from "@/data/community-hubs";
 
 const expectedLeadership = [
   ["David Ofosu", "Co-Director", "Medical Student"],
@@ -48,11 +52,30 @@ describe("UCC community hub roster", () => {
     }
   });
 
-  it("attaches the roster only to UCC", () => {
+  it("attaches the roster to UCC", () => {
     const ucc = communityHubs.find(({ routeSlug }) => routeSlug === "ucc");
-    const hubsWithoutRosters = communityHubs.filter(({ routeSlug }) => routeSlug !== "ucc");
-
     expect(ucc?.roster).toBe(uccHubRoster);
-    expect(hubsWithoutRosters.every(({ roster }) => roster === undefined)).toBe(true);
+  });
+});
+
+describe("UG community hub roster", () => {
+  it("ships an image-ready pending roster without fabricated people", () => {
+    expect(ugHubRoster.leadership).toEqual([]);
+    expect(ugHubRoster.volunteers).toEqual([]);
+    expect(ugHubRoster.pending?.leadership?.monogram).toBe("UG");
+    expect(ugHubRoster.pending?.volunteers?.monogram).toBe("UG");
+    expect(ugHubRoster.pending?.leadership?.description.length).toBeGreaterThan(40);
+    expect(ugHubRoster.pending?.volunteers?.description.length).toBeGreaterThan(40);
+    expect(ugHubRoster.pending?.volunteers?.cta?.href).toMatch(/^https:\/\/forms\.gle\//);
+  });
+
+  it("attaches the pending roster only to the active UG hub", () => {
+    const ug = communityHubs.find(({ routeSlug }) => routeSlug === "ug");
+    const nhp = communityHubs.find(({ routeSlug }) => routeSlug === "nhp");
+
+    expect(ug?.status).toBe("active");
+    expect(ug?.roster).toBe(ugHubRoster);
+    expect(ug?.cta?.href).toBe(ugHubRoster.pending?.volunteers?.cta?.href);
+    expect(nhp?.roster).toBeUndefined();
   });
 });

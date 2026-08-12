@@ -1,3 +1,4 @@
+import { UG_TRAINING_FORM_URL } from "@/config/links";
 import type {
   CommunityHub,
   HubMission,
@@ -460,6 +461,33 @@ export const uccHubRoster: HubRoster = {
   ],
 };
 
+/**
+ * UG roster is image-ready: leadership and volunteer names/portraits can be
+ * added later as a data-only change. Until then, labeled pending surfaces keep
+ * the people sections mounted without broken images or placeholder people.
+ */
+export const ugHubRoster: HubRoster = {
+  leadership: [],
+  volunteers: [],
+  pending: {
+    leadership: {
+      monogram: "UG",
+      description:
+        "Student leadership names and portraits will appear here as the University of Ghana hub team is published. Profiles will include role, discipline, and optional contact details.",
+    },
+    volunteers: {
+      monogram: "UG",
+      description:
+        "Volunteer portraits will appear here as the UG cohort grows. Students from the University of Ghana across all campuses are invited to apply for the General Training Programme.",
+      cta: {
+        label: "Apply now",
+        href: UG_TRAINING_FORM_URL,
+        external: true,
+      },
+    },
+  },
+};
+
 export const communityHubs: CommunityHub[] = [
   {
     id: "ucc-hub",
@@ -500,10 +528,10 @@ export const communityHubs: CommunityHub[] = [
     location: "Greater Accra Region",
     country: "Ghana",
     description:
-      "An in-development partnership with the University of Ghana College of Health Sciences and national health partners, designed to expand community-based NCD prevention and interprofessional learning.",
+      "Akomapa's University of Ghana Community Health Hub is officially open. Students across all UG campuses can apply for the General Training Programme and join supervised community-based NCD prevention, education, and interprofessional learning.",
     image: "/highlights/ug.jpg",
     color: "#eeba2b",
-    status: "in-development",
+    status: "active",
     missions: hubMissions,
     metrics: {
       communityMembersServed: 0,
@@ -515,11 +543,17 @@ export const communityHubs: CommunityHub[] = [
     studentStories: [],
     facultyMentorship: {
       model:
-        "Faculty, university leaders, health-system partners, and Akomapa mentors are establishing the governance and supervision model before launch.",
+        "Faculty, university leaders, health-system partners, and Akomapa mentors supervise interprofessional student teams as the UG hub delivers community health activities and leadership training.",
       mentors: ["alfred-yawson", "esi-berkoh", "patrick-ampofo"],
     },
     research: [],
     innovations: [],
+    roster: ugHubRoster,
+    cta: {
+      label: "Apply now",
+      href: UG_TRAINING_FORM_URL,
+      external: true,
+    },
   },
   {
     id: "nhp-yale-hub",

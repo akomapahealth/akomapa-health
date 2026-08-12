@@ -160,9 +160,9 @@ export const mapLocations: MapLocation[] = [
     id: "ug-hub",
     name: "Akomapa–UG Community Health Hub",
     coordinates: { lat: 5.6505, lng: -0.1862 },
-    type: "planned-hub",
+    type: "active-hub",
     description:
-      "An in-development community health and interprofessional learning hub in the Greater Accra Region.",
+      "An active community health and interprofessional learning hub at the University of Ghana, now open and accepting General Training Programme applications.",
     href: "/community-hubs/ug",
   },
   {

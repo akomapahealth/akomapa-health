@@ -27,8 +27,8 @@ export default function HubCardGrid() {
             Three Platforms, One Movement
           </EditorialHeading>
           <EditorialLead className="mt-5">
-            Explore Akomapa&apos;s active and in-development community health hubs
-            across Ghana and the United States.
+            Explore Akomapa&apos;s community health hubs across Ghana and the
+            United States — from active chapters to hubs preparing to launch.
           </EditorialLead>
         </div>
       </FadeIn>
