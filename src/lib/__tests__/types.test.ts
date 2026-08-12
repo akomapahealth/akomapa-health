@@ -286,8 +286,8 @@ describe("rebrand data model contracts", () => {
     );
 
     expect(roleCounts).toEqual({
-      executive: 17,
-      member: 10,
+      executive: 12,
+      member: 18,
       faculty: 0,
       advisor: 8,
       "community-leader": 1,

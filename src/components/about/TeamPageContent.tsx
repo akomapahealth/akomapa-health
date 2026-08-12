@@ -80,7 +80,7 @@ const heroRows: Array<{ offset: string; faces: string[] }> = [
 ];
 
 const heroStats = [
-  { value: "17", label: "Executive Leads" },
+  { value: "12", label: "Executive Leads" },
   { value: "6", label: "Academic Partners" },
   { value: "100+", label: "Volunteers Inspired" },
 ];
