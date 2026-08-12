@@ -4,7 +4,7 @@ import type {
   Pathway,
 } from "@/lib/types";
 import { CONTACT } from "@/config/contact";
-import { LEADERSHIP_APP_FORM_URL } from "@/config/links";
+import { LEADERSHIP_APP_FORM_URL, UG_TRAINING_FORM_URL } from "@/config/links";
 
 // ---------------------------------------------------------------------------
 // Hero copy
@@ -104,6 +104,16 @@ export const getInvolvedPathways: Pathway[] = [
 // ---------------------------------------------------------------------------
 
 export const getInvolvedOpportunities: GetInvolvedOpportunity[] = [
+  {
+    id: "ug-general-training",
+    title: "UG General Training Programme",
+    description:
+      "The Akomapa–UG Community Health Hub is officially open. Students from the University of Ghana across all campuses can apply for the General Training Programme and join this student-powered healthcare initiative.",
+    status: "Open",
+    ctaLabel: "Apply now",
+    ctaHref: UG_TRAINING_FORM_URL,
+    external: true,
+  },
   {
     id: "student-leader-cohort",
     title: "Student Leader Applications",

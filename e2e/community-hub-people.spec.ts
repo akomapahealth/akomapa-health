@@ -205,15 +205,47 @@ test("reduced-motion users receive static people content and interactions", asyn
   await context.close();
 });
 
-test("UG and NHP continue without empty roster sections", async ({ page }) => {
+test("UG renders pending people sections while NHP stays roster-free", async ({
+  page,
+}) => {
   await preparePage(page);
 
-  for (const hubRoute of ["/community-hubs/ug", "/community-hubs/nhp"]) {
-    await page.goto(hubRoute, { waitUntil: "domcontentloaded" });
-    await expect(page.locator("#hub-leadership")).toHaveCount(0);
-    await expect(page.locator("#hub-volunteers")).toHaveCount(0);
-    await expectNoOverflow(page);
-  }
+  await page.goto("/community-hubs/ug", { waitUntil: "domcontentloaded" });
+  const ugLeadership = page.locator("#hub-leadership");
+  const ugVolunteers = page.locator("#hub-volunteers");
+
+  await expect(
+    ugLeadership.getByRole("heading", {
+      level: 2,
+      name: "Meet the People Leading the Work",
+    }),
+  ).toBeVisible();
+  await expect(
+    ugVolunteers.getByRole("heading", {
+      level: 2,
+      name: "The People Who Make Service Possible",
+    }),
+  ).toBeVisible();
+  await expect(ugLeadership.locator("[data-hub-leader]")).toHaveCount(0);
+  await expect(
+    ugVolunteers.locator("[data-volunteer-portrait-trigger]"),
+  ).toHaveCount(0);
+  await expect(
+    ugLeadership.locator("[data-hub-portrait-fallback]").first(),
+  ).toBeVisible();
+  await expect(
+    ugVolunteers.getByRole("link", { name: /Apply now/i }),
+  ).toHaveAttribute("href", /forms\.gle/);
+  await expect(
+    page.getByRole("link", { name: /Apply now/i }).first(),
+  ).toBeVisible();
+  await expect(page.getByText("Active", { exact: true }).first()).toBeVisible();
+  await expectNoOverflow(page);
+
+  await page.goto("/community-hubs/nhp", { waitUntil: "domcontentloaded" });
+  await expect(page.locator("#hub-leadership")).toHaveCount(0);
+  await expect(page.locator("#hub-volunteers")).toHaveCount(0);
+  await expectNoOverflow(page);
 });
 
 test("UCC volunteer triggers preserve the supplied ImageKit order", async ({

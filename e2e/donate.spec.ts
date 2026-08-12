@@ -1,4 +1,5 @@
 import { expect, test, type Locator, type Page } from "@playwright/test";
+import { announcementCampaign } from "../src/data/announcements";
 
 const forbiddenPaymentValues = [
   ["+233", "54", "111", "1111"].join(" "),
@@ -7,9 +8,9 @@ const forbiddenPaymentValues = [
 ];
 
 async function dismissAnnouncements(page: Page) {
-  await page.addInitScript(() => {
-    localStorage.setItem("akomapa-announcements-dismissed", "2026-04-v2");
-  });
+  await page.addInitScript((version) => {
+    localStorage.setItem("akomapa-announcements-dismissed", version);
+  }, announcementCampaign.version);
 }
 
 async function verifySafePaymentPanel(panel: Locator) {

@@ -1,8 +1,22 @@
+import { UG_TRAINING_FORM_URL } from "@/config/links";
 import { AnnouncementCampaign } from "@/lib/types";
 
 export const announcementCampaign: AnnouncementCampaign = {
-  version: "2026-04-v2",
+  version: "2026-08-v1",
   slides: [
+    {
+      id: "ug-hub-launch",
+      tag: "Now Open",
+      tagColor: "amber",
+      title: "The wait is finally over!",
+      titleHighlights: ["wait is finally over"],
+      description:
+        "Akomapa Health University of Ghana Community Health Hub is officially open and now accepting applications for the General Training Programme. Students from the University of Ghana across all campuses are invited to apply and be part of this impactful healthcare initiative. Ready to serve, learn, and make a difference?",
+      image: "/highlights/ug.jpg",
+      ctaText: "Apply now",
+      ctaLink: UG_TRAINING_FORM_URL,
+      isExternal: true,
+    },
     {
       id: "yale-khanal-award",
       tag: "Award",
@@ -69,19 +83,6 @@ export const announcementCampaign: AnnouncementCampaign = {
       ctaText: "Discover the initiative",
       ctaLink: "https://www.africanimpact.ca/our-initiatives",
       isExternal: true,
-    },
-    {
-      id: "ug-clinic-launch",
-      tag: "Milestone",
-      tagColor: "lapis",
-      title: "Akomapa UG Clinic Launch",
-      titleHighlights: ["UG", "Clinic Launch"],
-      description:
-        "Our University of Ghana clinic is now open, bringing NCD screening, education, and preventive care directly to the Legon campus community.",
-      image: "/highlights/ug.jpg",
-      ctaText: "Visit Clinic",
-      ctaLink: "/community-hubs/ug",
-      isExternal: false,
     },
     {
       id: "ucc-expansion",

@@ -1,11 +1,12 @@
 import { test, expect } from "@playwright/test";
+import { announcementCampaign } from "../src/data/announcements";
 
 test.describe("News Detail Pages", () => {
   test.beforeEach(async ({ page }) => {
     // Dismiss the announcement modal if it appears
-    await page.addInitScript(() => {
-      localStorage.setItem("akomapa-announcements-dismissed", "2026-04-v2");
-    });
+    await page.addInitScript((version) => {
+      localStorage.setItem("akomapa-announcements-dismissed", version);
+    }, announcementCampaign.version);
   });
 
   test("news article detail page renders with full content", async ({
@@ -143,13 +144,6 @@ test.describe("News Detail Pages", () => {
 });
 
 test.describe("Announcement modal", () => {
-  const dismissedStorageScript = () => {
-    localStorage.setItem(
-      "akomapa-announcements-dismissed",
-      "2026-04-v2"
-    );
-  };
-
   test("auto-opens for first-time visitors", async ({ page }) => {
     await page.addInitScript(() => {
       localStorage.removeItem("akomapa-announcements-dismissed");
@@ -163,7 +157,9 @@ test.describe("Announcement modal", () => {
   test("does not auto-open after the campaign was dismissed", async ({
     page,
   }) => {
-    await page.addInitScript(dismissedStorageScript);
+    await page.addInitScript((version) => {
+      localStorage.setItem("akomapa-announcements-dismissed", version);
+    }, announcementCampaign.version);
     await page.goto("/donate", { waitUntil: "load" });
 
     const modal = page.locator('[role="dialog"][aria-label="Announcements"]');
@@ -174,11 +170,11 @@ test.describe("Announcement modal", () => {
   test("floating announcement button opens and closes the modal", async ({
     page,
   }) => {
-    await page.addInitScript(() => {
-      localStorage.setItem("akomapa-announcements-dismissed", "2026-04-v2");
+    await page.addInitScript((version) => {
+      localStorage.setItem("akomapa-announcements-dismissed", version);
       // Silence the session tip so this test stays focused on the bell.
       sessionStorage.setItem("akomapa-announcement-tip-dismissed", "1");
-    });
+    }, announcementCampaign.version);
     await page.goto("/donate", { waitUntil: "load" });
 
     const modal = page.locator('[role="dialog"][aria-label="Announcements"]');
@@ -226,11 +222,11 @@ test.describe("Announcement modal", () => {
   test("tip resurfaces for returning visitors and dismiss hides it for the session", async ({
     page,
   }) => {
-    await page.addInitScript(() => {
+    await page.addInitScript((version) => {
       // Returning visitor: campaign already seen, but a fresh session.
-      localStorage.setItem("akomapa-announcements-dismissed", "2026-04-v2");
+      localStorage.setItem("akomapa-announcements-dismissed", version);
       sessionStorage.removeItem("akomapa-announcement-tip-dismissed");
-    });
+    }, announcementCampaign.version);
     await page.goto("/donate", { waitUntil: "domcontentloaded" });
 
     const modal = page.locator('[role="dialog"][aria-label="Announcements"]');

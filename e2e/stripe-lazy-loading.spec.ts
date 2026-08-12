@@ -1,4 +1,5 @@
 import { expect, test, type Page } from "@playwright/test";
+import { announcementCampaign } from "../src/data/announcements";
 
 function trackStripeRequests(page: Page) {
   const stripeRequests: string[] = [];
@@ -14,9 +15,9 @@ function trackStripeRequests(page: Page) {
 
 test.describe("disabled Stripe donation flow", () => {
   test.beforeEach(async ({ page }) => {
-    await page.addInitScript(() => {
-      localStorage.setItem("akomapa-announcements-dismissed", "2026-04-v2");
-    });
+    await page.addInitScript((version) => {
+      localStorage.setItem("akomapa-announcements-dismissed", version);
+    }, announcementCampaign.version);
   });
 
   test("does not load Stripe.js anywhere on the donate page", async ({ page }) => {
