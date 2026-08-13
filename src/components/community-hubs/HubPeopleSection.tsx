@@ -1,5 +1,6 @@
 import type { CSSProperties } from "react";
 import Link from "next/link";
+import HubLeaderDialog from "@/components/community-hubs/HubLeaderDialog";
 import HubPortrait from "@/components/community-hubs/HubPortrait";
 import PeopleMotionGrid from "@/components/community-hubs/PeopleMotionGrid";
 import VolunteerPortraitGrid from "@/components/community-hubs/VolunteerPortraitGrid";
@@ -163,6 +164,7 @@ export default function HubPeopleSection({
     return null;
   }
 
+  const leadershipPresentation = roster.leadershipPresentation ?? "editorial";
   const featuredLeaders = roster.leadership.filter(({ featured }) => featured);
   const otherLeaders = roster.leadership.filter(({ featured }) => !featured);
   const accentStyle = {
@@ -177,6 +179,7 @@ export default function HubPeopleSection({
           id="hub-leadership"
           aria-labelledby="hub-leadership-heading"
           className="border-y border-[#1C1F1E]/10 dark:border-[#FCFAEF]/10"
+          data-hub-leadership-presentation={leadershipPresentation}
         >
           <div className="max-w-3xl">
             <EditorialEyebrow>Student Leadership</EditorialEyebrow>
@@ -191,23 +194,43 @@ export default function HubPeopleSection({
           </div>
 
           {roster.leadership.length > 0 ? (
-            <>
-              {featuredLeaders.length > 0 ? (
-                <PeopleMotionGrid className="mt-12 grid gap-8 sm:grid-cols-2 lg:gap-10">
-                  {featuredLeaders.map((leader) => (
-                    <LeaderCard key={leader.id} leader={leader} hubName={hubName} />
-                  ))}
-                </PeopleMotionGrid>
-              ) : null}
+            leadershipPresentation === "compact-modal" ? (
+              <PeopleMotionGrid className="mt-12 grid gap-x-5 gap-y-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 lg:gap-x-6">
+                {roster.leadership.map((leader) => (
+                  <HubLeaderDialog
+                    key={leader.id}
+                    leader={leader}
+                    hubName={hubName}
+                  />
+                ))}
+              </PeopleMotionGrid>
+            ) : (
+              <>
+                {featuredLeaders.length > 0 ? (
+                  <PeopleMotionGrid className="mt-12 grid gap-8 sm:grid-cols-2 lg:gap-10">
+                    {featuredLeaders.map((leader) => (
+                      <LeaderCard
+                        key={leader.id}
+                        leader={leader}
+                        hubName={hubName}
+                      />
+                    ))}
+                  </PeopleMotionGrid>
+                ) : null}
 
-              {otherLeaders.length > 0 ? (
-                <PeopleMotionGrid className="mt-14 grid gap-x-7 gap-y-12 sm:grid-cols-2 lg:grid-cols-3 lg:gap-x-8">
-                  {otherLeaders.map((leader) => (
-                    <LeaderCard key={leader.id} leader={leader} hubName={hubName} />
-                  ))}
-                </PeopleMotionGrid>
-              ) : null}
-            </>
+                {otherLeaders.length > 0 ? (
+                  <PeopleMotionGrid className="mt-14 grid gap-x-7 gap-y-12 sm:grid-cols-2 lg:grid-cols-3 lg:gap-x-8">
+                    {otherLeaders.map((leader) => (
+                      <LeaderCard
+                        key={leader.id}
+                        leader={leader}
+                        hubName={hubName}
+                      />
+                    ))}
+                  </PeopleMotionGrid>
+                ) : null}
+              </>
+            )
           ) : roster.pending?.leadership ? (
             <PendingPortraitSurfaces
               hubName={hubName}

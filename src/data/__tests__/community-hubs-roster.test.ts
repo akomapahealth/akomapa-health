@@ -66,7 +66,8 @@ describe("UCC community hub roster", () => {
 });
 
 describe("UG community hub roster", () => {
-  it("contains the confirmed leadership roster with optional portraits", () => {
+  it("contains the confirmed leadership roster with compact modal presentation", () => {
+    expect(ugHubRoster.leadershipPresentation).toBe("compact-modal");
     expect(
       ugHubRoster.leadership.map(({ name, role, affiliation }) => [
         name,
@@ -74,17 +75,15 @@ describe("UG community hub roster", () => {
         affiliation,
       ]),
     ).toEqual(expectedUgLeadership);
-    expect(ugHubRoster.leadership.filter(({ featured }) => featured)).toHaveLength(2);
-
-    const withImages = ugHubRoster.leadership.filter(({ image }) => Boolean(image));
-    const withoutImages = ugHubRoster.leadership.filter(({ image }) => !image);
-    expect(withImages).toHaveLength(2);
-    expect(withoutImages.map(({ id }) => id)).toEqual(["rachael-akusika-adu"]);
     expect(
-      withImages.every(
+      ugHubRoster.leadership.every(
         ({ image }) => typeof image === "string" && image.startsWith("/ug-team/"),
       ),
     ).toBe(true);
+    expect(new Set(ugHubRoster.leadership.map(({ image }) => image))).toHaveProperty(
+      "size",
+      ugHubRoster.leadership.length,
+    );
   });
 
   it("keeps the volunteer section omitted until portraits arrive", () => {

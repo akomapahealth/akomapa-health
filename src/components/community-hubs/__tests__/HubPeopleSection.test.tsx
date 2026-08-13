@@ -2,7 +2,7 @@ import { render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
 import HubPeopleSection from "@/components/community-hubs/HubPeopleSection";
-import { uccHubRoster } from "@/data/community-hubs";
+import { uccHubRoster, ugHubRoster } from "@/data/community-hubs";
 import type { HubRoster } from "@/lib/types";
 
 const smallRoster: HubRoster = {
@@ -146,6 +146,59 @@ describe("HubPeopleSection", () => {
     expect(
       within(leaderWithoutDetails as HTMLElement).queryByRole("link"),
     ).toBeNull();
+  });
+
+  it("renders UG leaders as compact modal cards without inline bios", async () => {
+    const user = userEvent.setup();
+    render(
+      <HubPeopleSection
+        hubName="Akomapa–UG Community Health Hub"
+        roster={ugHubRoster}
+        accentColor="#eeba2b"
+      />,
+    );
+
+    const leadership = screen.getByRole("region", {
+      name: "Meet the People Leading the Work",
+    });
+    expect(leadership).toHaveAttribute(
+      "data-hub-leadership-presentation",
+      "compact-modal",
+    );
+    expect(leadership.querySelectorAll("[data-hub-leader]")).toHaveLength(3);
+    expect(
+      within(leadership).queryByText(/results-driven Pharmacy candidate/i),
+    ).toBeNull();
+
+    await user.click(
+      within(leadership).getByRole("button", {
+        name: "Open biography for Kelvin Akoto Boateng",
+      }),
+    );
+
+    const dialog = await screen.findByRole("dialog", {
+      name: "Kelvin Akoto Boateng",
+    });
+    expect(
+      within(dialog).getByText(/results-driven Pharmacy candidate/i),
+    ).toBeVisible();
+    expect(
+      within(dialog).getByRole("link", {
+        name: "View Kelvin Akoto Boateng on LinkedIn",
+      }),
+    ).toHaveAttribute(
+      "href",
+      "https://www.linkedin.com/in/kelvin-boateng-5b75492b5",
+    );
+
+    await user.click(
+      within(dialog).getByRole("button", {
+        name: "Close Kelvin Akoto Boateng biography",
+      }),
+    );
+    await waitFor(() =>
+      expect(screen.queryByRole("dialog")).not.toBeInTheDocument(),
+    );
   });
 
   it("renders an accessible initials fallback when a leader has no portrait", () => {

@@ -468,6 +468,7 @@ export const uccHubRoster: HubRoster = {
  * page until that data ships.
  */
 export const ugHubRoster: HubRoster = {
+  leadershipPresentation: "compact-modal",
   leadership: [
     {
       id: "kelvin-akoto-boateng",
@@ -475,7 +476,6 @@ export const ugHubRoster: HubRoster = {
       role: "Financial Officer",
       affiliation: "Pharmacy Student",
       image: "/ug-team/kelvin-akoto-boateng.jpg",
-      featured: true,
       bio: "A results-driven Pharmacy candidate combining rigorous pharmaceutical training with extensive leadership experience across musical settings, student associations, community organizing, and youth empowerment.",
       contact: {
         linkedin:
@@ -488,7 +488,6 @@ export const ugHubRoster: HubRoster = {
       role: "Follow-up Lead",
       affiliation: "General Nursing Student",
       image: "/ug-team/nana-ekow-moses.jpg",
-      featured: true,
       bio: "Nana-Ekow Moses is a general nursing student at the University of Ghana with a strong interest in healthcare leadership, community health, and patient-centered care. He serves as the Follow-Up Lead at the Akomapa UG Clinic, supporting patient continuity of care and follow-up after clinical encounters. He is also passionate about student leadership, health advocacy, and initiatives that improve access to quality healthcare within communities.",
       contact: {
         email: "ekowmoses29@gmail.com",
@@ -500,7 +499,7 @@ export const ugHubRoster: HubRoster = {
       name: "Rachael Akusika Adu",
       role: "Follow-up Lead",
       affiliation: "Final Year BSc Physiotherapy Student",
-      // Portrait pending — HubPortrait renders accessible initials until the image path is supplied.
+      image: "/ug-team/rachael-akusika-adu.jpg",
       bio: "Rachael Akusika Adu is a final-year BSc Physiotherapy student at the University of Ghana and serves as a Follow-up Lead at the Akomapa UG Clinic, supporting continuity of care after clinical encounters.",
       contact: {
         email: "rachaeladu19@gmail.com",

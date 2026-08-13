@@ -165,6 +165,11 @@ export interface HubRoster {
   leadership: HubLeader[];
   volunteers: HubVolunteerPortrait[];
   /**
+   * `editorial` (default): featured + multi-column cards with inline bios.
+   * `compact-modal`: denser 3–4 column cards; bio/contact open in a dialog.
+   */
+  leadershipPresentation?: "editorial" | "compact-modal";
+  /**
    * When a leadership/volunteer array is empty, optional pending copy keeps the
    * labeled section mounted so portraits can be added as a data-only change later.
    */

@@ -220,6 +220,10 @@ test("UG renders leadership cards without a volunteer band; NHP stays roster-fre
     }),
   ).toBeVisible();
   await expect(page.locator("#hub-volunteers")).toHaveCount(0);
+  await expect(ugLeadership).toHaveAttribute(
+    "data-hub-leadership-presentation",
+    "compact-modal",
+  );
   await expect(ugLeadership.locator("[data-hub-leader]")).toHaveCount(3);
   await expect(
     ugLeadership.getByRole("heading", { level: 3, name: "Kelvin Akoto Boateng" }),
@@ -229,7 +233,22 @@ test("UG renders leadership cards without a volunteer band; NHP stays roster-fre
   ).toBeVisible();
   await expect(
     ugLeadership.locator("[data-hub-portrait-fallback]"),
-  ).toHaveCount(1);
+  ).toHaveCount(0);
+
+  const bioTrigger = ugLeadership.getByRole("button", {
+    name: "Bio",
+  }).first();
+  await bioTrigger.click();
+  const dialog = page.getByRole("dialog", { name: "Kelvin Akoto Boateng" });
+  await expect(dialog).toBeVisible();
+  await expect(
+    dialog.getByText(/results-driven Pharmacy candidate/i),
+  ).toBeVisible();
+  await dialog
+    .getByRole("button", { name: "Close Kelvin Akoto Boateng biography" })
+    .click();
+  await expect(dialog).toBeHidden();
+
   await expect(
     page.getByRole("link", { name: /Apply now/i }).first(),
   ).toHaveAttribute("href", /forms\.gle/);
