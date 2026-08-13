@@ -205,14 +205,13 @@ test("reduced-motion users receive static people content and interactions", asyn
   await context.close();
 });
 
-test("UG renders pending people sections while NHP stays roster-free", async ({
+test("UG renders leadership cards without a volunteer band; NHP stays roster-free", async ({
   page,
 }) => {
   await preparePage(page);
 
   await page.goto("/community-hubs/ug", { waitUntil: "domcontentloaded" });
   const ugLeadership = page.locator("#hub-leadership");
-  const ugVolunteers = page.locator("#hub-volunteers");
 
   await expect(
     ugLeadership.getByRole("heading", {
@@ -220,25 +219,20 @@ test("UG renders pending people sections while NHP stays roster-free", async ({
       name: "Meet the People Leading the Work",
     }),
   ).toBeVisible();
+  await expect(page.locator("#hub-volunteers")).toHaveCount(0);
+  await expect(ugLeadership.locator("[data-hub-leader]")).toHaveCount(3);
   await expect(
-    ugVolunteers.getByRole("heading", {
-      level: 2,
-      name: "The People Who Make Service Possible",
-    }),
-  ).toBeVisible();
-  await expect(ugLeadership.locator("[data-hub-leader]")).toHaveCount(0);
-  await expect(
-    ugVolunteers.locator("[data-volunteer-portrait-trigger]"),
-  ).toHaveCount(0);
-  await expect(
-    ugLeadership.locator("[data-hub-portrait-fallback]").first(),
+    ugLeadership.getByRole("heading", { level: 3, name: "Kelvin Akoto Boateng" }),
   ).toBeVisible();
   await expect(
-    ugVolunteers.getByRole("link", { name: /Apply now/i }),
-  ).toHaveAttribute("href", /forms\.gle/);
+    ugLeadership.getByRole("heading", { level: 3, name: "Rachael Akusika Adu" }),
+  ).toBeVisible();
+  await expect(
+    ugLeadership.locator("[data-hub-portrait-fallback]"),
+  ).toHaveCount(1);
   await expect(
     page.getByRole("link", { name: /Apply now/i }).first(),
-  ).toBeVisible();
+  ).toHaveAttribute("href", /forms\.gle/);
   await expect(page.getByText("Active", { exact: true }).first()).toBeVisible();
   await expectNoOverflow(page);
 

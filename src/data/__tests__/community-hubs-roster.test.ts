@@ -4,6 +4,7 @@ import {
   uccHubRoster,
   ugHubRoster,
 } from "@/data/community-hubs";
+import { UG_TRAINING_FORM_URL } from "@/config/links";
 
 const expectedLeadership = [
   ["David Ofosu", "Co-Director", "Medical Student"],
@@ -18,6 +19,12 @@ const expectedLeadership = [
   ["Prince Nyarko", "Community Engagement Liaison", "Optometry Student"],
   ["Queenstar Aduse Opoku", "Supplies & Logistics Manager", "Pharmacy Student"],
   ["Martha Bawa", "Supplies & Logistics Manager", "Nursing Student"],
+] as const;
+
+const expectedUgLeadership = [
+  ["Kelvin Akoto Boateng", "Financial Officer", "Pharmacy Student"],
+  ["Nana-Ekow Moses", "Follow-up Lead", "General Nursing Student"],
+  ["Rachael Akusika Adu", "Follow-up Lead", "Final Year BSc Physiotherapy Student"],
 ] as const;
 
 describe("UCC community hub roster", () => {
@@ -59,23 +66,39 @@ describe("UCC community hub roster", () => {
 });
 
 describe("UG community hub roster", () => {
-  it("ships an image-ready pending roster without fabricated people", () => {
-    expect(ugHubRoster.leadership).toEqual([]);
-    expect(ugHubRoster.volunteers).toEqual([]);
-    expect(ugHubRoster.pending?.leadership?.monogram).toBe("UG");
-    expect(ugHubRoster.pending?.volunteers?.monogram).toBe("UG");
-    expect(ugHubRoster.pending?.leadership?.description.length).toBeGreaterThan(40);
-    expect(ugHubRoster.pending?.volunteers?.description.length).toBeGreaterThan(40);
-    expect(ugHubRoster.pending?.volunteers?.cta?.href).toMatch(/^https:\/\/forms\.gle\//);
+  it("contains the confirmed leadership roster with optional portraits", () => {
+    expect(
+      ugHubRoster.leadership.map(({ name, role, affiliation }) => [
+        name,
+        role,
+        affiliation,
+      ]),
+    ).toEqual(expectedUgLeadership);
+    expect(ugHubRoster.leadership.filter(({ featured }) => featured)).toHaveLength(2);
+
+    const withImages = ugHubRoster.leadership.filter(({ image }) => Boolean(image));
+    const withoutImages = ugHubRoster.leadership.filter(({ image }) => !image);
+    expect(withImages).toHaveLength(2);
+    expect(withoutImages.map(({ id }) => id)).toEqual(["rachael-akusika-adu"]);
+    expect(
+      withImages.every(
+        ({ image }) => typeof image === "string" && image.startsWith("/ug-team/"),
+      ),
+    ).toBe(true);
   });
 
-  it("attaches the pending roster only to the active UG hub", () => {
+  it("keeps the volunteer section omitted until portraits arrive", () => {
+    expect(ugHubRoster.volunteers).toEqual([]);
+    expect(ugHubRoster.pending?.volunteers).toBeUndefined();
+  });
+
+  it("attaches the roster to the active UG hub with Apply CTA", () => {
     const ug = communityHubs.find(({ routeSlug }) => routeSlug === "ug");
     const nhp = communityHubs.find(({ routeSlug }) => routeSlug === "nhp");
 
     expect(ug?.status).toBe("active");
     expect(ug?.roster).toBe(ugHubRoster);
-    expect(ug?.cta?.href).toBe(ugHubRoster.pending?.volunteers?.cta?.href);
+    expect(ug?.cta?.href).toBe(UG_TRAINING_FORM_URL);
     expect(nhp?.roster).toBeUndefined();
   });
 });

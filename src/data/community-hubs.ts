@@ -462,30 +462,67 @@ export const uccHubRoster: HubRoster = {
 };
 
 /**
- * UG roster is image-ready: leadership and volunteer names/portraits can be
- * added later as a data-only change. Until then, labeled pending surfaces keep
- * the people sections mounted without broken images or placeholder people.
+ * UG student leadership roster. Volunteer/non-executive portraits are withheld
+ * until names and images are confirmed — keep `volunteers` empty (and do not
+ * attach `pending.volunteers`) so the volunteer band stays commented out of the
+ * page until that data ships.
  */
 export const ugHubRoster: HubRoster = {
-  leadership: [],
-  volunteers: [],
-  pending: {
-    leadership: {
-      monogram: "UG",
-      description:
-        "Student leadership names and portraits will appear here as the University of Ghana hub team is published. Profiles will include role, discipline, and optional contact details.",
-    },
-    volunteers: {
-      monogram: "UG",
-      description:
-        "Volunteer portraits will appear here as the UG cohort grows. Students from the University of Ghana across all campuses are invited to apply for the General Training Programme.",
-      cta: {
-        label: "Apply now",
-        href: UG_TRAINING_FORM_URL,
-        external: true,
+  leadership: [
+    {
+      id: "kelvin-akoto-boateng",
+      name: "Kelvin Akoto Boateng",
+      role: "Financial Officer",
+      affiliation: "Pharmacy Student",
+      image: "/ug-team/kelvin-akoto-boateng.jpg",
+      featured: true,
+      bio: "A results-driven Pharmacy candidate combining rigorous pharmaceutical training with extensive leadership experience across musical settings, student associations, community organizing, and youth empowerment.",
+      contact: {
+        linkedin:
+          "https://www.linkedin.com/in/kelvin-boateng-5b75492b5",
       },
     },
-  },
+    {
+      id: "nana-ekow-moses",
+      name: "Nana-Ekow Moses",
+      role: "Follow-up Lead",
+      affiliation: "General Nursing Student",
+      image: "/ug-team/nana-ekow-moses.jpg",
+      featured: true,
+      bio: "Nana-Ekow Moses is a general nursing student at the University of Ghana with a strong interest in healthcare leadership, community health, and patient-centered care. He serves as the Follow-Up Lead at the Akomapa UG Clinic, supporting patient continuity of care and follow-up after clinical encounters. He is also passionate about student leadership, health advocacy, and initiatives that improve access to quality healthcare within communities.",
+      contact: {
+        email: "ekowmoses29@gmail.com",
+        linkedin: "https://www.linkedin.com/in/nana-ekow-moses-405a9b291",
+      },
+    },
+    {
+      id: "rachael-akusika-adu",
+      name: "Rachael Akusika Adu",
+      role: "Follow-up Lead",
+      affiliation: "Final Year BSc Physiotherapy Student",
+      // Portrait pending — HubPortrait renders accessible initials until the image path is supplied.
+      bio: "Rachael Akusika Adu is a final-year BSc Physiotherapy student at the University of Ghana and serves as a Follow-up Lead at the Akomapa UG Clinic, supporting continuity of care after clinical encounters.",
+      contact: {
+        email: "rachaeladu19@gmail.com",
+        linkedin: "https://www.linkedin.com/in/rachael-adu",
+      },
+    },
+  ],
+  // Volunteers section intentionally omitted until portraits and bios are ready.
+  volunteers: [],
+  // pending.volunteers commented out until the non-executive portrait grid ships:
+  // pending: {
+  //   volunteers: {
+  //     monogram: "UG",
+  //     description:
+  //       "Volunteer portraits will appear here as the UG cohort grows...",
+  //     cta: {
+  //       label: "Apply now",
+  //       href: UG_TRAINING_FORM_URL,
+  //       external: true,
+  //     },
+  //   },
+  // },
 };
 
 export const communityHubs: CommunityHub[] = [
