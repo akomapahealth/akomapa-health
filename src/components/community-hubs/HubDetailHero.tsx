@@ -5,6 +5,7 @@ import { FadeIn } from "@/components/animations";
 import { getHubStatusLabel } from "@/components/community-hubs/hub-status";
 import {
   EditorialBand,
+  EditorialButton,
   EditorialEyebrow,
   EditorialHeading,
   EditorialLead,
@@ -69,6 +70,16 @@ export default function HubDetailHero({ hub }: HubDetailHeroProps) {
               <EditorialLead className="mt-6 max-w-2xl text-[#FCFAEF]/88 dark:text-[#FCFAEF]/88">
                 {hub.description}
               </EditorialLead>
+              {hub.cta ? (
+                <EditorialButton
+                  href={hub.cta.href}
+                  external={hub.cta.external}
+                  variant="amber"
+                  className="mt-8"
+                >
+                  {hub.cta.label}
+                </EditorialButton>
+              ) : null}
             </div>
           </FadeIn>
         </div>
@@ -104,6 +115,16 @@ export default function HubDetailHero({ hub }: HubDetailHeroProps) {
           <EditorialLead className="mt-6 max-w-2xl text-[#FCFAEF]/88 dark:text-[#FCFAEF]/88">
             {hub.description}
           </EditorialLead>
+          {hub.cta ? (
+            <EditorialButton
+              href={hub.cta.href}
+              external={hub.cta.external}
+              variant="amber"
+              className="mt-8"
+            >
+              {hub.cta.label}
+            </EditorialButton>
+          ) : null}
         </FadeIn>
 
         <FadeIn direction="left" delay={0.15} className="relative lg:col-span-5">

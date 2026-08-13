@@ -124,7 +124,7 @@ export default function ResourceFilter({
               Category
             </Label>
             <Select value={filters.category} onValueChange={handleCategoryChange}>
-              <SelectTrigger id="category" className="min-h-11">
+              <SelectTrigger id="category" className="h-11 min-h-11 w-full">
                 <SelectValue placeholder="All Categories" />
               </SelectTrigger>
               <SelectContent>
@@ -144,7 +144,7 @@ export default function ResourceFilter({
               Resource Type
             </Label>
             <Select value={filters.type} onValueChange={handleTypeChange}>
-              <SelectTrigger id="type" className="min-h-11">
+              <SelectTrigger id="type" className="h-11 min-h-11 w-full">
                 <SelectValue placeholder="All Types" />
               </SelectTrigger>
               <SelectContent>
@@ -166,7 +166,7 @@ export default function ResourceFilter({
               Related Program
             </Label>
             <Select value={filters.program} onValueChange={handleProgramChange}>
-              <SelectTrigger id="program" className="min-h-11">
+              <SelectTrigger id="program" className="h-11 min-h-11 w-full">
                 <SelectValue placeholder="All Programs" />
               </SelectTrigger>
               <SelectContent>

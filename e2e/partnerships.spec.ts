@@ -1,9 +1,10 @@
 import { expect, test, type Page } from "@playwright/test";
+import { announcementCampaign } from "../src/data/announcements";
 
 async function dismissAnnouncements(page: Page) {
-  await page.addInitScript(() => {
-    localStorage.setItem("akomapa-announcements-dismissed", "2026-04-v2");
-  });
+  await page.addInitScript((version) => {
+    localStorage.setItem("akomapa-announcements-dismissed", version);
+  }, announcementCampaign.version);
 }
 
 test.describe("Partnerships presentation", () => {

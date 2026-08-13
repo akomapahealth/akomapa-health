@@ -142,11 +142,41 @@ export interface CommunityHub {
   innovations?: InnovationItem[];
   roster?: HubRoster;
   metrics: HubMetrics;
+  /** Optional hero CTA (e.g. Apply now). Omitted hubs render no button. */
+  cta?: {
+    label: string;
+    href: string;
+    external?: boolean;
+  };
+}
+
+export interface HubRosterPendingSection {
+  description: string;
+  /** Short brand mark shown on reserved portrait surfaces, e.g. "UG". */
+  monogram?: string;
+  cta?: {
+    label: string;
+    href: string;
+    external?: boolean;
+  };
 }
 
 export interface HubRoster {
   leadership: HubLeader[];
   volunteers: HubVolunteerPortrait[];
+  /**
+   * `editorial` (default): featured + multi-column cards with inline bios.
+   * `compact-modal`: denser 3–4 column cards; bio/contact open in a dialog.
+   */
+  leadershipPresentation?: "editorial" | "compact-modal";
+  /**
+   * When a leadership/volunteer array is empty, optional pending copy keeps the
+   * labeled section mounted so portraits can be added as a data-only change later.
+   */
+  pending?: {
+    leadership?: HubRosterPendingSection;
+    volunteers?: HubRosterPendingSection;
+  };
 }
 
 export interface HubLeader {
@@ -154,7 +184,8 @@ export interface HubLeader {
   name: string;
   role: string;
   affiliation: string;
-  image: string;
+  /** When omitted, the UI renders an accessible initials/neutral portrait surface. */
+  image?: string;
   featured?: boolean;
   bio?: string;
   contact?: {
@@ -165,8 +196,11 @@ export interface HubLeader {
 
 export interface HubVolunteerPortrait {
   id: string;
-  image: string;
+  /** When omitted, the UI renders an accessible initials/neutral portrait surface. */
+  image?: string;
   alt: string;
+  /** Optional name for initials fallback when a portrait is not yet available. */
+  name?: string;
   caption?: string;
   objectPosition?: string;
 }
@@ -378,9 +412,18 @@ export interface Pathway {
   /** The audience served, e.g. "Health professional students". */
   audience: string;
   ctaLabel: string;
-  ctaHref: string;
+  /**
+   * Destination when `opensImmersionInterest` is unset/false.
+   * Optional when the CTA opens the shared interest modal instead.
+   */
+  ctaHref?: string;
   /** When true the CTA opens in a new tab (external form/site). */
   external?: boolean;
+  /**
+   * When true, the CTA opens the Immersion/student interest modal instead of
+   * navigating to `ctaHref` (used while the leadership Google Form is closed).
+   */
+  opensImmersionInterest?: boolean;
   accent: string;
   /** Primary audiences receive extra visual emphasis in the grid. */
   featured?: boolean;
@@ -394,8 +437,11 @@ export interface GetInvolvedOpportunity {
   /** Short status label, e.g. "Rolling admissions" or "Open". */
   status: string;
   ctaLabel: string;
-  ctaHref: string;
+  /** Destination when `opensImmersionInterest` is unset/false. */
+  ctaHref?: string;
   external?: boolean;
+  /** Opens the shared Immersion/student interest modal instead of a link. */
+  opensImmersionInterest?: boolean;
 }
 
 /** A single expandable question/answer on the Get Involved page. */

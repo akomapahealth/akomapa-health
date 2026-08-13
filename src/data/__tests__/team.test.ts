@@ -9,8 +9,8 @@ import {
 
 describe("canonical team directory", () => {
   it("defines the approved public directory groups without overlap", () => {
-    expect(executiveTeamMembers).toHaveLength(17);
-    expect(nonExecutiveTeamMembers).toHaveLength(10);
+    expect(executiveTeamMembers).toHaveLength(12);
+    expect(nonExecutiveTeamMembers).toHaveLength(18);
     expect(advisoryBoardMembers).toHaveLength(8);
 
     const publicDirectory = [

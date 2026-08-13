@@ -109,7 +109,7 @@ describe("Community hubs listing editorial sections", () => {
 });
 
 describe("Community hub detail editorial system", () => {
-  it("uses the UCC hub image as a full-bleed hero background", () => {
+  it("uses UCC and UG hub images as full-bleed hero backgrounds", () => {
     const uccHub = communityHubs.find(({ routeSlug }) => routeSlug === "ucc")!;
     const ugHub = communityHubs.find(({ routeSlug }) => routeSlug === "ug")!;
     const { rerender } = render(<CommunityHubDetailPage hub={uccHub} />);
@@ -131,9 +131,15 @@ describe("Community hub detail editorial system", () => {
     );
 
     rerender(<CommunityHubDetailPage hub={ugHub} />);
-    expect(
-      screen.getByRole("heading", { level: 1, name: ugHub.name }).closest("section"),
-    ).toHaveAttribute("data-hub-hero-presentation", "split");
+    const ugHero = screen
+      .getByRole("heading", { level: 1, name: ugHub.name })
+      .closest("section");
+    expect(ugHero).toHaveAttribute("data-hub-hero-presentation", "background");
+    expect(ugHero?.querySelector("[data-hub-hero-background]")).toHaveAttribute(
+      "src",
+      ugHub.image,
+    );
+    expect(ugHero?.querySelector("[data-hub-hero-panel]")).toBeTruthy();
   });
 
   it.each(communityHubs)(

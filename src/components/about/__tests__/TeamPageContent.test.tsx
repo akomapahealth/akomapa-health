@@ -26,10 +26,10 @@ describe("TeamPageContent", () => {
     ).toEqual(["executive", "member", "advisor"]);
     expect(
       container.querySelectorAll('[data-team-role-category="executive"]'),
-    ).toHaveLength(17);
+    ).toHaveLength(12);
     expect(
       container.querySelectorAll('[data-team-role-category="member"]'),
-    ).toHaveLength(10);
+    ).toHaveLength(18);
     expect(
       container.querySelectorAll('[data-team-role-category="advisor"]'),
     ).toHaveLength(8);

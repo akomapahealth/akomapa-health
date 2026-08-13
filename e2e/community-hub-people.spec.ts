@@ -205,15 +205,83 @@ test("reduced-motion users receive static people content and interactions", asyn
   await context.close();
 });
 
-test("UG and NHP continue without empty roster sections", async ({ page }) => {
+test("UG renders leadership cards without a volunteer band; NHP stays roster-free", async ({
+  page,
+}) => {
   await preparePage(page);
 
-  for (const hubRoute of ["/community-hubs/ug", "/community-hubs/nhp"]) {
-    await page.goto(hubRoute, { waitUntil: "domcontentloaded" });
-    await expect(page.locator("#hub-leadership")).toHaveCount(0);
-    await expect(page.locator("#hub-volunteers")).toHaveCount(0);
-    await expectNoOverflow(page);
-  }
+  await page.goto("/community-hubs/ug", { waitUntil: "domcontentloaded" });
+  const ugHero = page.locator('[data-hub-id="ug-hub"]');
+  await expect(ugHero).toHaveAttribute(
+    "data-hub-hero-presentation",
+    "background",
+  );
+  await expect(ugHero.locator("[data-hub-hero-background]")).toHaveAttribute(
+    "sizes",
+    "100vw",
+  );
+  await expect(ugHero.locator("[data-hub-hero-panel]")).toBeVisible();
+
+  const ugLeadership = page.locator("#hub-leadership");
+
+  await expect(
+    ugLeadership.getByRole("heading", {
+      level: 2,
+      name: "Meet the People Leading the Work",
+    }),
+  ).toBeVisible();
+  await expect(page.locator("#hub-volunteers")).toHaveCount(0);
+  await expect(ugLeadership).toHaveAttribute(
+    "data-hub-leadership-presentation",
+    "compact-modal",
+  );
+  await expect(ugLeadership.locator("[data-hub-leader]")).toHaveCount(4);
+  await expect(
+    ugLeadership.getByRole("heading", {
+      level: 3,
+      name: "Divina Selase Afenyo",
+    }),
+  ).toBeVisible();
+  await expect(
+    ugLeadership.getByRole("heading", { level: 3, name: "Kelvin Akoto Boateng" }),
+  ).toBeVisible();
+  await expect(
+    ugLeadership.getByRole("heading", { level: 3, name: "Rachael Akusika Adu" }),
+  ).toBeVisible();
+  await expect(
+    ugLeadership.locator("[data-hub-portrait-fallback]"),
+  ).toHaveCount(0);
+
+  const kelvinPortrait = ugLeadership.getByRole("button", {
+    name: "Open biography for Kelvin Akoto Boateng",
+  });
+  await kelvinPortrait.scrollIntoViewIfNeeded();
+  // Compact-modal cards hydrate as client islands; retry until the dialog mounts.
+  await expect(async () => {
+    await kelvinPortrait.click();
+    await expect(
+      page.getByRole("dialog", { name: "Kelvin Akoto Boateng" }),
+    ).toBeVisible({ timeout: 2000 });
+  }).toPass({ timeout: 15_000 });
+  const dialog = page.getByRole("dialog", { name: "Kelvin Akoto Boateng" });
+  await expect(
+    dialog.getByText(/results-driven Pharmacy candidate/i),
+  ).toBeVisible();
+  await dialog
+    .getByRole("button", { name: "Close Kelvin Akoto Boateng biography" })
+    .click();
+  await expect(dialog).toBeHidden();
+
+  await expect(
+    page.getByRole("link", { name: /Apply now/i }).first(),
+  ).toHaveAttribute("href", /forms\.gle/);
+  await expect(page.getByText("Active", { exact: true }).first()).toBeVisible();
+  await expectNoOverflow(page);
+
+  await page.goto("/community-hubs/nhp", { waitUntil: "domcontentloaded" });
+  await expect(page.locator("#hub-leadership")).toHaveCount(0);
+  await expect(page.locator("#hub-volunteers")).toHaveCount(0);
+  await expectNoOverflow(page);
 });
 
 test("UCC volunteer triggers preserve the supplied ImageKit order", async ({

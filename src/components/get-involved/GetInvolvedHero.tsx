@@ -1,5 +1,8 @@
+"use client";
+
 import Image from "@/components/common/Image";
 import { FadeIn } from "@/components/animations";
+import OpenImmersionInterestCta from "@/components/immersion/OpenImmersionInterestCta";
 import {
   EditorialBand,
   EditorialButton,
@@ -8,7 +11,6 @@ import {
   EditorialLead,
 } from "@/components/shared/EditorialPrimitives";
 import { getInvolvedHero, getInvolvedPathways } from "@/data/get-involved";
-import { LEADERSHIP_APP_FORM_URL } from "@/config/links";
 
 export default function GetInvolvedHero() {
   return (
@@ -34,13 +36,9 @@ export default function GetInvolvedHero() {
             {getInvolvedHero.subtitle}
           </EditorialLead>
           <div className="mt-8 flex flex-wrap gap-3 sm:gap-4">
-            <EditorialButton
-              href={LEADERSHIP_APP_FORM_URL}
-              variant="amber"
-              external
-            >
+            <OpenImmersionInterestCta variant="amber">
               Become a Student Leader
-            </EditorialButton>
+            </OpenImmersionInterestCta>
             <EditorialButton href="#pathways" variant="outline-light">
               Explore Pathways
             </EditorialButton>

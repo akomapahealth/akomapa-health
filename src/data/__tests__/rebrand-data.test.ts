@@ -333,12 +333,16 @@ describe("get involved content", () => {
       expect(pathway.description.length).toBeGreaterThan(40);
       expect(pathway.audience).toBeTruthy();
       expect(pathway.ctaLabel).toBeTruthy();
-      expect(pathway.ctaHref).toMatch(HREF_PATTERN);
       expect(pathway.icon in LucideIcons).toBe(true);
       expect(pathway.accent).toMatch(/^#[0-9a-fA-F]{6}$/);
-      // External CTAs must point to an absolute URL.
-      if (pathway.external) {
-        expect(pathway.ctaHref).toMatch(/^https?:\/\//);
+      if (pathway.opensImmersionInterest) {
+        expect(pathway.ctaHref).toBeUndefined();
+      } else {
+        expect(pathway.ctaHref).toMatch(HREF_PATTERN);
+        // External CTAs must point to an absolute URL.
+        if (pathway.external) {
+          expect(pathway.ctaHref).toMatch(/^https?:\/\//);
+        }
       }
     }
   });
@@ -357,7 +361,11 @@ describe("get involved content", () => {
       expect(opportunity.description).toBeTruthy();
       expect(opportunity.status).toBeTruthy();
       expect(opportunity.ctaLabel).toBeTruthy();
-      expect(opportunity.ctaHref).toMatch(HREF_PATTERN);
+      if (opportunity.opensImmersionInterest) {
+        expect(opportunity.ctaHref).toBeUndefined();
+      } else {
+        expect(opportunity.ctaHref).toMatch(HREF_PATTERN);
+      }
     }
   });
 

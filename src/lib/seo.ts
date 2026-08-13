@@ -77,7 +77,7 @@ export const canonicalSeoRoutes = [
     path: "/community-hubs/ug",
     title: "UG Community Health Hub",
     description:
-      "Expanding community-centered NCD care to the Greater Accra Region through the University of Ghana and local health partners.",
+      "Akomapa's University of Ghana Community Health Hub is open and accepting General Training Programme applications from students across all UG campuses.",
     changeFrequency: "monthly",
     priority: 0.8,
   },

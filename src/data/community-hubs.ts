@@ -1,3 +1,4 @@
+import { UG_TRAINING_FORM_URL } from "@/config/links";
 import type {
   CommunityHub,
   HubMission,
@@ -460,6 +461,77 @@ export const uccHubRoster: HubRoster = {
   ],
 };
 
+/**
+ * UG student leadership roster. Volunteer/non-executive portraits are withheld
+ * until names and images are confirmed — keep `volunteers` empty (and do not
+ * attach `pending.volunteers`) so the volunteer band stays commented out of the
+ * page until that data ships.
+ */
+export const ugHubRoster: HubRoster = {
+  leadershipPresentation: "compact-modal",
+  leadership: [
+    {
+      id: "divina-selase-afenyo",
+      name: "Divina Selase Afenyo",
+      role: "UG Hub Co-Lead",
+      affiliation: "Akomapa Health Foundation",
+      image: "/images/team/divina-selase-afenyo.jpg",
+      bio: "Divina Selase Afenyo co-leads planning and coordination for Akomapa’s University of Ghana hub, supporting the local team as it develops student-led community health activities.",
+    },
+    {
+      id: "kelvin-akoto-boateng",
+      name: "Kelvin Akoto Boateng",
+      role: "Financial Officer",
+      affiliation: "Pharmacy Student",
+      image: "/ug-team/kelvin-akoto-boateng.jpg",
+      bio: "A results-driven Pharmacy candidate combining rigorous pharmaceutical training with extensive leadership experience across musical settings, student associations, community organizing, and youth empowerment.",
+      contact: {
+        linkedin:
+          "https://www.linkedin.com/in/kelvin-boateng-5b75492b5",
+      },
+    },
+    {
+      id: "nana-ekow-moses",
+      name: "Nana-Ekow Moses",
+      role: "Follow-up Lead",
+      affiliation: "General Nursing Student",
+      image: "/ug-team/nana-ekow-moses.jpg",
+      bio: "Nana-Ekow Moses is a general nursing student at the University of Ghana with a strong interest in healthcare leadership, community health, and patient-centered care. He serves as the Follow-Up Lead at the Akomapa UG Clinic, supporting patient continuity of care and follow-up after clinical encounters. He is also passionate about student leadership, health advocacy, and initiatives that improve access to quality healthcare within communities.",
+      contact: {
+        email: "ekowmoses29@gmail.com",
+        linkedin: "https://www.linkedin.com/in/nana-ekow-moses-405a9b291",
+      },
+    },
+    {
+      id: "rachael-akusika-adu",
+      name: "Rachael Akusika Adu",
+      role: "Follow-up Lead",
+      affiliation: "Final Year BSc Physiotherapy Student",
+      image: "/ug-team/rachael-akusika-adu.jpg",
+      bio: "Rachael Akusika Adu is a final-year BSc Physiotherapy student at the University of Ghana and serves as a Follow-up Lead at the Akomapa UG Clinic, supporting continuity of care after clinical encounters.",
+      contact: {
+        email: "rachaeladu19@gmail.com",
+        linkedin: "https://www.linkedin.com/in/rachael-adu",
+      },
+    },
+  ],
+  // Volunteers section intentionally omitted until portraits and bios are ready.
+  volunteers: [],
+  // pending.volunteers commented out until the non-executive portrait grid ships:
+  // pending: {
+  //   volunteers: {
+  //     monogram: "UG",
+  //     description:
+  //       "Volunteer portraits will appear here as the UG cohort grows...",
+  //     cta: {
+  //       label: "Apply now",
+  //       href: UG_TRAINING_FORM_URL,
+  //       external: true,
+  //     },
+  //   },
+  // },
+};
+
 export const communityHubs: CommunityHub[] = [
   {
     id: "ucc-hub",
@@ -500,10 +572,11 @@ export const communityHubs: CommunityHub[] = [
     location: "Greater Accra Region",
     country: "Ghana",
     description:
-      "An in-development partnership with the University of Ghana College of Health Sciences and national health partners, designed to expand community-based NCD prevention and interprofessional learning.",
+      "Akomapa's University of Ghana Community Health Hub is officially open. Students across all UG campuses can apply for the General Training Programme and join supervised community-based NCD prevention, education, and interprofessional learning.",
     image: "/highlights/ug.jpg",
+    heroPresentation: "background",
     color: "#eeba2b",
-    status: "in-development",
+    status: "active",
     missions: hubMissions,
     metrics: {
       communityMembersServed: 0,
@@ -515,11 +588,17 @@ export const communityHubs: CommunityHub[] = [
     studentStories: [],
     facultyMentorship: {
       model:
-        "Faculty, university leaders, health-system partners, and Akomapa mentors are establishing the governance and supervision model before launch.",
+        "Faculty, university leaders, health-system partners, and Akomapa mentors supervise interprofessional student teams as the UG hub delivers community health activities and leadership training.",
       mentors: ["alfred-yawson", "esi-berkoh", "patrick-ampofo"],
     },
     research: [],
     innovations: [],
+    roster: ugHubRoster,
+    cta: {
+      label: "Apply now",
+      href: UG_TRAINING_FORM_URL,
+      external: true,
+    },
   },
   {
     id: "nhp-yale-hub",

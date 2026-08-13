@@ -120,7 +120,7 @@ export const immersionProgram: ImmersionProgramContent = {
       description:
         "Students exploring medicine, public health, global health, or service.",
       image: {
-        src: "/gallery/gallery-pic-10.jpg",
+        src: "/gallery/undergrads.webp",
         alt: "Undergraduate students learning together in a classroom",
         position: "center",
       },
@@ -140,7 +140,7 @@ export const immersionProgram: ImmersionProgramContent = {
       description:
         "Graduate learners and emerging professionals ready to deepen ethical, community-centered practice.",
       image: {
-        src: "/akomapa-hangout/Akomapa_hangout-31.jpg",
+        src: "/gallery/culture-engagement.jpg",
         alt: "An early-career professional connecting with peers at an Akomapa gathering",
         position: "center",
       },
