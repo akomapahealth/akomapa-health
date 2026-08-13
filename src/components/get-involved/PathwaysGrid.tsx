@@ -49,6 +49,7 @@ export default function PathwaysGrid() {
               ctaLabel={pathway.ctaLabel}
               ctaHref={pathway.ctaHref}
               external={pathway.external}
+              opensImmersionInterest={pathway.opensImmersionInterest}
               accent={pathway.accent}
               featured={pathway.featured}
             />

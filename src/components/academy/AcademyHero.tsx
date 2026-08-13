@@ -1,5 +1,8 @@
+"use client";
+
 import Image from "@/components/common/Image";
 import { FadeIn, FadeInStagger, FadeInStaggerItem } from "@/components/animations";
+import OpenImmersionInterestCta from "@/components/immersion/OpenImmersionInterestCta";
 import {
   EditorialBand,
   EditorialButton,
@@ -12,7 +15,6 @@ import {
   academyCurriculum,
   academyFaculty,
 } from "@/data/academy";
-import { LEADERSHIP_APP_FORM_URL } from "@/config/links";
 
 const heroStats = [
   {
@@ -82,13 +84,9 @@ export default function AcademyHero() {
           </FadeInStagger>
 
           <div className="mt-8 flex flex-wrap gap-3 sm:gap-4">
-            <EditorialButton
-              href={LEADERSHIP_APP_FORM_URL}
-              variant="amber"
-              external
-            >
+            <OpenImmersionInterestCta variant="amber">
               Become a Scholar
-            </EditorialButton>
+            </OpenImmersionInterestCta>
             <EditorialButton href="#curriculum" variant="outline-light">
               Explore Curriculum
             </EditorialButton>

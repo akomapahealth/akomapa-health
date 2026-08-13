@@ -4,7 +4,7 @@ import type {
   Pathway,
 } from "@/lib/types";
 import { CONTACT } from "@/config/contact";
-import { LEADERSHIP_APP_FORM_URL, UG_TRAINING_FORM_URL } from "@/config/links";
+import { UG_TRAINING_FORM_URL } from "@/config/links";
 
 // ---------------------------------------------------------------------------
 // Hero copy
@@ -34,9 +34,8 @@ export const getInvolvedPathways: Pathway[] = [
       "Join a Community Health Hub as a student leader. Gain hands-on experience in community-centered care while developing ethical leadership skills.",
     audience:
       "Health professional students (medical, nursing, pharmacy, public health, nutrition)",
-    ctaLabel: "Apply Now",
-    ctaHref: LEADERSHIP_APP_FORM_URL,
-    external: true,
+    ctaLabel: "Register Interest",
+    opensImmersionInterest: true,
     accent: "#0097b2",
     featured: true,
   },
@@ -118,11 +117,10 @@ export const getInvolvedOpportunities: GetInvolvedOpportunity[] = [
     id: "student-leader-cohort",
     title: "Student Leader Applications",
     description:
-      "We welcome health professional students to join a Community Health Hub cohort and lead alongside faculty mentors.",
-    status: "Rolling admissions",
-    ctaLabel: "Apply Now",
-    ctaHref: LEADERSHIP_APP_FORM_URL,
-    external: true,
+      "We welcome health professional students to join a Community Health Hub cohort and lead alongside faculty mentors. Register your interest while the next cohort application window opens.",
+    status: "Register interest",
+    ctaLabel: "Register Interest",
+    opensImmersionInterest: true,
   },
   {
     id: "academy-enrollment",

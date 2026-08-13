@@ -5,16 +5,22 @@ import ApplySection from "@/components/academy/ApplySection";
 import CurriculumSection from "@/components/academy/CurriculumSection";
 import FacultyGrid from "@/components/academy/FacultyGrid";
 import WhyEthicalLeadership from "@/components/academy/WhyEthicalLeadership";
-import { LEADERSHIP_APP_FORM_URL } from "@/config/links";
+import ImmersionInterestProvider from "@/components/immersion/ImmersionInterestProvider";
 import {
   academyCurriculum,
   academyFaculty,
   academyOverview,
 } from "@/data/academy";
 
+function renderWithProvider(ui: React.ReactElement) {
+  return render(
+    <ImmersionInterestProvider>{ui}</ImmersionInterestProvider>,
+  );
+}
+
 describe("Academy editorial sections", () => {
-  it("renders a single flat hero with approved copy, metrics, and apply destination", () => {
-    render(<AcademyHero />);
+  it("renders a single flat hero with approved copy, metrics, and interest modal CTA", () => {
+    renderWithProvider(<AcademyHero />);
 
     const heading = screen.getByRole("heading", {
       level: 1,
@@ -30,9 +36,9 @@ describe("Academy editorial sections", () => {
     expect(screen.getByText("Core Modules")).toBeVisible();
     expect(screen.getByText("Expert Faculty")).toBeVisible();
 
-    const apply = screen.getByRole("link", { name: /Become a Scholar/i });
-    expect(apply).toHaveAttribute("href", LEADERSHIP_APP_FORM_URL);
-    expect(apply).toHaveAttribute("target", "_blank");
+    expect(
+      screen.getByRole("button", { name: /Become a Scholar/i }),
+    ).toBeVisible();
 
     expect(
       screen.getByRole("link", { name: /Explore Curriculum/i }),
@@ -101,11 +107,11 @@ describe("Academy editorial sections", () => {
   });
 
   it("keeps the apply journey destinations intact", () => {
-    render(<ApplySection />);
+    renderWithProvider(<ApplySection />);
 
     expect(
-      screen.getByRole("link", { name: /Apply to the Academy/i }),
-    ).toHaveAttribute("href", LEADERSHIP_APP_FORM_URL);
+      screen.getByRole("button", { name: /Apply to the Academy/i }),
+    ).toBeVisible();
     expect(
       screen.getByRole("link", { name: /Other Ways to Get Involved/i }),
     ).toHaveAttribute("href", "/get-involved");

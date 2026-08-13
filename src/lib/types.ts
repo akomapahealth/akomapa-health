@@ -407,9 +407,18 @@ export interface Pathway {
   /** The audience served, e.g. "Health professional students". */
   audience: string;
   ctaLabel: string;
-  ctaHref: string;
+  /**
+   * Destination when `opensImmersionInterest` is unset/false.
+   * Optional when the CTA opens the shared interest modal instead.
+   */
+  ctaHref?: string;
   /** When true the CTA opens in a new tab (external form/site). */
   external?: boolean;
+  /**
+   * When true, the CTA opens the Immersion/student interest modal instead of
+   * navigating to `ctaHref` (used while the leadership Google Form is closed).
+   */
+  opensImmersionInterest?: boolean;
   accent: string;
   /** Primary audiences receive extra visual emphasis in the grid. */
   featured?: boolean;
@@ -423,8 +432,11 @@ export interface GetInvolvedOpportunity {
   /** Short status label, e.g. "Rolling admissions" or "Open". */
   status: string;
   ctaLabel: string;
-  ctaHref: string;
+  /** Destination when `opensImmersionInterest` is unset/false. */
+  ctaHref?: string;
   external?: boolean;
+  /** Opens the shared Immersion/student interest modal instead of a link. */
+  opensImmersionInterest?: boolean;
 }
 
 /** A single expandable question/answer on the Get Involved page. */
