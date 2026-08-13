@@ -19,7 +19,7 @@ export const healthImpact: ImpactCategory = {
     {
       id: "community-members-screened",
       label: "Community Members Screened",
-      currentValue: "2,000+",
+      currentValue: "3,000+",
       futureValue: "150,000+",
       futureYear: 2028,
       icon: "HeartPulse",
@@ -113,7 +113,7 @@ export const futureVision: FutureVisionTarget[] = [
     id: "community-members-served",
     label: "Community Members Served",
     value: "150,000+",
-    currentValue: "2,000+",
+    currentValue: "3,000+",
     icon: "HeartPulse",
   },
   {
