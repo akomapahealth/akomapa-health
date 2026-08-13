@@ -32,6 +32,9 @@ describe("Global Health Immersion Program top-level page", () => {
     expect(
       screen.getByRole("link", { name: "Scroll to the program overview" }),
     ).toHaveAttribute("href", "#program-overview");
+    expect(
+      container.querySelector("[data-immersion-hero-credit]"),
+    ).toHaveTextContent("*Video courtesy Ghana Tourism Authority");
     expect(container.querySelector("#program-overview")).not.toBeNull();
 
     [

@@ -137,10 +137,17 @@ export default function Content() {
           </div>
         </div>
 
+        <p
+          data-immersion-hero-credit
+          className="pointer-events-none absolute bottom-5 left-4 z-20 max-w-[14rem] text-[11px] font-medium leading-snug tracking-wide text-[#FCFAEF]/75 sm:bottom-7 sm:left-6 sm:max-w-none sm:text-xs md:left-8 lg:left-10"
+        >
+          *Video courtesy Ghana Tourism Authority
+        </p>
+
         <Link
           href="#program-overview"
           aria-label="Scroll to the program overview"
-          className="absolute bottom-5 right-20 z-20 inline-flex min-h-11 items-center gap-2 rounded-full border border-[#FCFAEF]/45 bg-[#07191d]/45 px-4 py-2 text-xs font-bold uppercase tracking-[0.16em] text-[#FCFAEF] backdrop-blur-sm transition-colors hover:border-[#F5C94D] hover:text-[#F5C94D] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F5C94D] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0F4C5C] motion-reduce:transition-none sm:bottom-7 sm:right-24"
+          className="absolute bottom-5 right-4 z-20 inline-flex min-h-11 items-center gap-2 rounded-full border border-[#FCFAEF]/45 bg-[#07191d]/45 px-4 py-2 text-xs font-bold uppercase tracking-[0.16em] text-[#FCFAEF] backdrop-blur-sm transition-colors hover:border-[#F5C94D] hover:text-[#F5C94D] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F5C94D] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0F4C5C] motion-reduce:transition-none sm:bottom-7 sm:right-6 md:right-8 lg:right-10"
         >
           <span className="hidden sm:inline">Scroll to explore</span>
           <ChevronDown

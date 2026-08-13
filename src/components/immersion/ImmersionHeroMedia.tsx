@@ -46,7 +46,7 @@ export default function ImmersionHeroMedia({
           fill
           priority
           sizes="100vw"
-          className="object-cover opacity-70"
+          className="object-cover"
           style={{ objectPosition: posterPosition }}
         />
       ) : null}
@@ -55,7 +55,7 @@ export default function ImmersionHeroMedia({
         <video
           aria-hidden="true"
           autoPlay
-          className="absolute inset-0 h-full w-full object-cover opacity-70 motion-reduce:hidden"
+          className="absolute inset-0 h-full w-full object-cover motion-reduce:hidden"
           data-immersion-hero-video
           disablePictureInPicture
           loop
@@ -72,12 +72,12 @@ export default function ImmersionHeroMedia({
       <div
         aria-hidden="true"
         data-immersion-hero-overlay="horizontal"
-        className="absolute inset-0 bg-gradient-to-r from-[#07191d]/78 via-[#07191d]/48 to-[#07191d]/22"
+        className="absolute inset-0 bg-gradient-to-r from-[#07191d]/55 via-[#07191d]/28 to-[#07191d]/12"
       />
       <div
         aria-hidden="true"
         data-immersion-hero-overlay="vertical"
-        className="absolute inset-0 bg-gradient-to-t from-[#07191d]/48 via-transparent to-[#07191d]/20"
+        className="absolute inset-0 bg-gradient-to-t from-[#07191d]/40 via-transparent to-[#07191d]/16"
       />
     </div>
   );
