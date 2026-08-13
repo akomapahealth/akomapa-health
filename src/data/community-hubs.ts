@@ -471,6 +471,14 @@ export const ugHubRoster: HubRoster = {
   leadershipPresentation: "compact-modal",
   leadership: [
     {
+      id: "divina-selase-afenyo",
+      name: "Divina Selase Afenyo",
+      role: "UG Hub Co-Lead",
+      affiliation: "Akomapa Health Foundation",
+      image: "/images/team/divina-selase-afenyo.jpg",
+      bio: "Divina Selase Afenyo co-leads planning and coordination for Akomapa’s University of Ghana hub, supporting the local team as it develops student-led community health activities.",
+    },
+    {
       id: "kelvin-akoto-boateng",
       name: "Kelvin Akoto Boateng",
       role: "Financial Officer",

@@ -22,6 +22,7 @@ const expectedLeadership = [
 ] as const;
 
 const expectedUgLeadership = [
+  ["Divina Selase Afenyo", "UG Hub Co-Lead", "Akomapa Health Foundation"],
   ["Kelvin Akoto Boateng", "Financial Officer", "Pharmacy Student"],
   ["Nana-Ekow Moses", "Follow-up Lead", "General Nursing Student"],
   ["Rachael Akusika Adu", "Follow-up Lead", "Final Year BSc Physiotherapy Student"],
@@ -77,7 +78,9 @@ describe("UG community hub roster", () => {
     ).toEqual(expectedUgLeadership);
     expect(
       ugHubRoster.leadership.every(
-        ({ image }) => typeof image === "string" && image.startsWith("/ug-team/"),
+        ({ image }) =>
+          typeof image === "string" &&
+          (image.startsWith("/ug-team/") || image.startsWith("/images/team/")),
       ),
     ).toBe(true);
     expect(new Set(ugHubRoster.leadership.map(({ image }) => image))).toHaveProperty(

@@ -224,7 +224,13 @@ test("UG renders leadership cards without a volunteer band; NHP stays roster-fre
     "data-hub-leadership-presentation",
     "compact-modal",
   );
-  await expect(ugLeadership.locator("[data-hub-leader]")).toHaveCount(3);
+  await expect(ugLeadership.locator("[data-hub-leader]")).toHaveCount(4);
+  await expect(
+    ugLeadership.getByRole("heading", {
+      level: 3,
+      name: "Divina Selase Afenyo",
+    }),
+  ).toBeVisible();
   await expect(
     ugLeadership.getByRole("heading", { level: 3, name: "Kelvin Akoto Boateng" }),
   ).toBeVisible();

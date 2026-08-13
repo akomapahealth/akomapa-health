@@ -165,7 +165,7 @@ describe("HubPeopleSection", () => {
       "data-hub-leadership-presentation",
       "compact-modal",
     );
-    expect(leadership.querySelectorAll("[data-hub-leader]")).toHaveLength(3);
+    expect(leadership.querySelectorAll("[data-hub-leader]")).toHaveLength(4);
     expect(
       within(leadership).queryByText(/results-driven Pharmacy candidate/i),
     ).toBeNull();
