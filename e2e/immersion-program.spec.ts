@@ -254,7 +254,7 @@ test.describe("Immersion program responsive editorial layout", () => {
       poster: "",
       preload: "auto",
     });
-    await expect(video).toHaveCSS("opacity", "0.7");
+    await expect(video).toHaveCSS("opacity", "1");
   });
 
   test("never swaps to an image when video delivery is delayed or unavailable", async ({

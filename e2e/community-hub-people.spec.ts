@@ -241,12 +241,18 @@ test("UG renders leadership cards without a volunteer band; NHP stays roster-fre
     ugLeadership.locator("[data-hub-portrait-fallback]"),
   ).toHaveCount(0);
 
-  const bioTrigger = ugLeadership.getByRole("button", {
-    name: "Bio",
-  }).first();
-  await bioTrigger.click();
+  const kelvinPortrait = ugLeadership.getByRole("button", {
+    name: "Open biography for Kelvin Akoto Boateng",
+  });
+  await kelvinPortrait.scrollIntoViewIfNeeded();
+  // Compact-modal cards hydrate as client islands; retry until the dialog mounts.
+  await expect(async () => {
+    await kelvinPortrait.click();
+    await expect(
+      page.getByRole("dialog", { name: "Kelvin Akoto Boateng" }),
+    ).toBeVisible({ timeout: 2000 });
+  }).toPass({ timeout: 15_000 });
   const dialog = page.getByRole("dialog", { name: "Kelvin Akoto Boateng" });
-  await expect(dialog).toBeVisible();
   await expect(
     dialog.getByText(/results-driven Pharmacy candidate/i),
   ).toBeVisible();
