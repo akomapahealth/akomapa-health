@@ -574,6 +574,7 @@ export const communityHubs: CommunityHub[] = [
     description:
       "Akomapa's University of Ghana Community Health Hub is officially open. Students across all UG campuses can apply for the General Training Programme and join supervised community-based NCD prevention, education, and interprofessional learning.",
     image: "/highlights/ug.jpg",
+    heroPresentation: "background",
     color: "#eeba2b",
     status: "active",
     missions: hubMissions,

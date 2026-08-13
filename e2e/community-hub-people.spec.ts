@@ -211,6 +211,17 @@ test("UG renders leadership cards without a volunteer band; NHP stays roster-fre
   await preparePage(page);
 
   await page.goto("/community-hubs/ug", { waitUntil: "domcontentloaded" });
+  const ugHero = page.locator('[data-hub-id="ug-hub"]');
+  await expect(ugHero).toHaveAttribute(
+    "data-hub-hero-presentation",
+    "background",
+  );
+  await expect(ugHero.locator("[data-hub-hero-background]")).toHaveAttribute(
+    "sizes",
+    "100vw",
+  );
+  await expect(ugHero.locator("[data-hub-hero-panel]")).toBeVisible();
+
   const ugLeadership = page.locator("#hub-leadership");
 
   await expect(
