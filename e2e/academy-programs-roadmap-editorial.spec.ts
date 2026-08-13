@@ -133,9 +133,13 @@ test("academy preserves curriculum order, certification, and apply destination",
   const becomeScholar = page
     .getByRole("button", { name: /Become a Scholar/i })
     .first();
-  await becomeScholar.click();
+  await becomeScholar.scrollIntoViewIfNeeded();
+  // OpenImmersionInterestCta hydrates as a client island; retry until the modal mounts.
+  await expect(async () => {
+    await becomeScholar.click();
+    await expect(page.getByRole("dialog")).toBeVisible({ timeout: 2000 });
+  }).toPass({ timeout: 15_000 });
   const interestDialog = page.getByRole("dialog");
-  await expect(interestDialog).toBeVisible();
   await expect(
     interestDialog.getByRole("heading", {
       name: IMMERSION_INTEREST_COPY.modal.title,
