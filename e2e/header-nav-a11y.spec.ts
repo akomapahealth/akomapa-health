@@ -178,9 +178,16 @@ test.describe("desktop header dropdown keyboard accessibility", () => {
     const partnershipsLink = page.getByRole("menuitem", {
       name: "Partnerships",
     });
+    const contactLink = page.getByRole("menuitem", {
+      name: "Contact Us",
+    });
 
     await expect(involvementLink).toBeFocused();
     await page.keyboard.press("ArrowDown");
+    await expect(partnershipsLink).toBeFocused();
+    await page.keyboard.press("ArrowDown");
+    await expect(contactLink).toBeFocused();
+    await page.keyboard.press("ArrowUp");
     await expect(partnershipsLink).toBeFocused();
     await page.keyboard.press("Enter");
 
@@ -275,6 +282,9 @@ test.describe("mobile grouped navigation", () => {
     ).toBeVisible();
     await expect(
       drawer.getByRole("link", { name: "Partnerships" }),
+    ).toBeVisible();
+    await expect(
+      drawer.getByRole("link", { name: "Contact Us" }),
     ).toBeVisible();
     await expect(
       drawer.getByRole("link", { name: "Akomapa Academy" }),

@@ -42,6 +42,9 @@ describe("Footer", () => {
       within(footer).getByRole("link", { name: CONTACT.email.display }),
     ).toHaveAttribute("href", CONTACT.email.href);
     expect(
+      within(footer).getByRole("link", { name: "Send us a message" }),
+    ).toHaveAttribute("href", "/contact");
+    expect(
       within(footer).getByRole("link", { name: "Privacy Policy" }),
     ).toHaveAttribute("href", "/privacy");
     expect(
