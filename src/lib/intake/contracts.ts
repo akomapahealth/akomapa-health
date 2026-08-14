@@ -17,9 +17,9 @@ const emailSchema = z.string().trim().toLowerCase().email().max(254);
 const phoneSchema = z.string().trim().max(40).default("");
 const sourcePathSchema = z.string().trim().max(240).default("");
 const honeypotSchema = z.string().max(200).default("");
-const consentSchema = z.literal(true, {
-  errorMap: () => ({ message: "Consent is required." }),
-});
+const consentSchema = z
+  .boolean()
+  .refine((value) => value, { message: "Consent is required." });
 
 const commonFields = {
   name: nameSchema,
