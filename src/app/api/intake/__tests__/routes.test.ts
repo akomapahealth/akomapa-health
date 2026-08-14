@@ -3,6 +3,8 @@ import { NextRequest } from "next/server";
 import { POST as getInvolvedPost } from "@/app/api/intake/get-involved/route";
 import { POST as partnershipPost } from "@/app/api/intake/partnership/route";
 import { POST as programPost } from "@/app/api/intake/program-interest/route";
+import { POST as contactPost } from "@/app/api/contact/route";
+import { POST as donationPost } from "@/app/api/donation-follow-up/route";
 import { resetIntakeRateLimitForTests } from "@/lib/intake/server/handler";
 
 const common = {
@@ -15,6 +17,11 @@ const common = {
 };
 
 const validBodies = {
+  contact: {
+    ...common,
+    subject: "General question",
+    message: "Please share more information about Akomapa.",
+  },
   program: {
     ...common,
     programId: "global-health-immersion-program",
@@ -31,6 +38,11 @@ const validBodies = {
     ...common,
     pathway: "volunteer",
     message: "I can support community outreach activities.",
+  },
+  donation: {
+    ...common,
+    flow: "oneTime",
+    selectedGivingLevel: "$25 one time",
   },
 };
 
@@ -57,8 +69,13 @@ function formConfig() {
     "timeline",
     "pathway",
     "availability",
+    "subject",
+    "flow",
+    "selectedGivingLevel",
   ];
-  const fields = Object.fromEntries(fieldNames.map((name) => [name, `q-${name}`]));
+  const fields = Object.fromEntries(
+    fieldNames.map((name) => [name, `q-${name}`]),
+  );
   return JSON.stringify(
     Object.fromEntries(
       [
@@ -72,7 +89,11 @@ function formConfig() {
   );
 }
 
-function request(path: string, body: unknown, headers: Record<string, string> = {}) {
+function request(
+  path: string,
+  body: unknown,
+  headers: Record<string, string> = {},
+) {
   return new NextRequest(`http://localhost${path}`, {
     method: "POST",
     headers: {
@@ -119,9 +140,11 @@ describe("purpose-specific intake routes", () => {
   });
 
   it.each([
+    ["/api/contact", contactPost, validBodies.contact],
     ["/api/intake/program-interest", programPost, validBodies.program],
     ["/api/intake/partnership", partnershipPost, validBodies.partnership],
     ["/api/intake/get-involved", getInvolvedPost, validBodies.getInvolved],
+    ["/api/donation-follow-up", donationPost, validBodies.donation],
   ] as const)("accepts a valid %s submission", async (path, post, body) => {
     const fetchMock = successfulFetch();
     vi.stubGlobal("fetch", fetchMock);
@@ -192,7 +215,9 @@ describe("purpose-specific intake routes", () => {
   });
 
   it("does not notify when Fillout rejects storage", async () => {
-    const logSpy = vi.spyOn(console, "error").mockImplementation(() => undefined);
+    const logSpy = vi
+      .spyOn(console, "error")
+      .mockImplementation(() => undefined);
     const fetchMock = vi
       .fn()
       .mockResolvedValueOnce(new Response(null, { status: 503 }));
@@ -234,9 +259,9 @@ describe("purpose-specific intake routes", () => {
       );
     }
 
-    expect(responses.slice(0, 5).every((response) => response.status === 200)).toBe(
-      true,
-    );
+    expect(
+      responses.slice(0, 5).every((response) => response.status === 200),
+    ).toBe(true);
     expect(responses[5].status).toBe(429);
     expect(responses[5].headers.get("retry-after")).toBe("600");
   });

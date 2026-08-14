@@ -19,8 +19,9 @@ test.describe("Program CTA links", () => {
     await page.goto("/global-health-immersion-program", {
       waitUntil: "domcontentloaded",
     });
-    await expect(page.locator("[data-immersion-hero-hydrated]"))
-      .toHaveAttribute("data-immersion-hero-hydrated", "true");
+    await expect(
+      page.locator("[data-immersion-hero-hydrated]"),
+    ).toHaveAttribute("data-immersion-hero-hydrated", "true");
 
     const experienceLink = page.getByRole("link", {
       name: "Explore the Experience",
@@ -46,7 +47,9 @@ test.describe("Program CTA links", () => {
     const dialog = page.getByRole("dialog");
     await expect(dialog).toBeVisible();
     await expect(
-      dialog.getByRole("heading", { name: "Get Immersion Program alerts" }),
+      dialog.getByRole("heading", {
+        name: "Tell us what you are interested in",
+      }),
     ).toBeVisible();
   });
 

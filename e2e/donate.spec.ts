@@ -13,7 +13,7 @@ async function dismissAnnouncements(page: Page) {
   }, announcementCampaign.version);
 }
 
-async function verifySafePaymentPanel(panel: Locator) {
+async function verifySafePaymentPanel(page: Page, panel: Locator) {
   await expect(
     panel.getByRole("radio", { name: /MTN Mobile Money/i }),
   ).toBeChecked();
@@ -51,11 +51,15 @@ async function verifySafePaymentPanel(panel: Locator) {
   await expect(
     panel.getByRole("heading", { name: "Let us thank you" }),
   ).toBeVisible();
-  await expect(panel.getByLabel("Full name")).toBeVisible();
-  await expect(panel.getByLabel("Email address")).toBeVisible();
   await expect(
-    panel.getByText(/does not verify or confirm that a transfer was completed/i),
+    panel.getByText(/does not verify or confirm payment/i),
   ).toBeVisible();
+  await panel.getByRole("button", { name: "Share contact details" }).click();
+  const dialog = page.getByRole("dialog", { name: "Let us thank you" });
+  await expect(dialog).toBeVisible();
+  await expect(dialog.getByLabel("Full name")).toBeVisible();
+  await expect(dialog.getByLabel("Email address")).toBeVisible();
+  await expect(dialog.getByText(/does not confirm payment/i)).toBeVisible();
 }
 
 test.describe("Donate page flow", () => {
@@ -63,7 +67,9 @@ test.describe("Donate page flow", () => {
     await dismissAnnouncements(page);
   });
 
-  test("renders the verified partner manual-transfer flow", async ({ page }) => {
+  test("renders the verified partner manual-transfer flow", async ({
+    page,
+  }) => {
     await page.goto("/donate");
 
     await expect(
@@ -80,9 +86,11 @@ test.describe("Donate page flow", () => {
       panel.getByText(/Complete a new manual transfer for each month/i),
     ).toBeVisible();
     await expect(
-      panel.getByText(/does not calculate or display a Mobile Money currency conversion/i),
+      panel.getByText(
+        /does not calculate or display a Mobile Money currency conversion/i,
+      ),
     ).toBeVisible();
-    await verifySafePaymentPanel(panel);
+    await verifySafePaymentPanel(page, panel);
   });
 
   test("reuses the safe payment configuration for one-time gifts", async ({
@@ -100,7 +108,7 @@ test.describe("Donate page flow", () => {
         "This is a one-time manual transfer. No recurring payment will be created.",
       ),
     ).toBeVisible();
-    await verifySafePaymentPanel(panel);
+    await verifySafePaymentPanel(page, panel);
     await expect(page.getByRole("button", { name: /annual/i })).toHaveCount(0);
   });
 

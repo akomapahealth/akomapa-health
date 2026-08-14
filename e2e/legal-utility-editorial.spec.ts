@@ -5,7 +5,7 @@ const legalRoutes = [
   {
     path: "/privacy",
     heading: "Privacy Policy",
-    lastUpdated: "Last updated: May 9, 2026",
+    lastUpdated: "Last updated: August 14, 2026",
     sectionHeading: "Who we are and what this policy covers",
   },
   {
@@ -74,7 +74,9 @@ test.describe("legal utility editorial contracts", () => {
       page.getByRole("heading", { level: 1, name: "Privacy Policy" }),
     ).toBeVisible();
     await expect(page.locator("main h1")).toHaveCount(1);
-    await expect(page.getByText("Last updated: May 9, 2026").first()).toBeVisible();
+    await expect(
+      page.getByText("Last updated: August 14, 2026").first(),
+    ).toBeVisible();
     await expect(
       page.getByRole("heading", {
         level: 2,
@@ -94,7 +96,9 @@ test.describe("legal utility editorial contracts", () => {
       page.locator('[data-editorial-band][data-editorial-tone="teal"]').first(),
     ).toBeVisible();
     await expect(
-      page.locator('[data-editorial-band][data-editorial-tone="cream"]').first(),
+      page
+        .locator('[data-editorial-band][data-editorial-tone="cream"]')
+        .first(),
     ).toBeVisible();
     await expect(page.locator("[data-legal-prose-article]")).toBeVisible();
     await expect(page.locator("[data-legal-section]").first()).toBeVisible();
@@ -104,8 +108,9 @@ test.describe("legal utility editorial contracts", () => {
 
     const privacyGradientBands = await page
       .locator("[data-editorial-band]")
-      .evaluateAll((nodes) =>
-        nodes.filter((node) => node.className.includes("gradient")).length,
+      .evaluateAll(
+        (nodes) =>
+          nodes.filter((node) => node.className.includes("gradient")).length,
       );
     expect(privacyGradientBands).toBe(0);
 
@@ -113,7 +118,9 @@ test.describe("legal utility editorial contracts", () => {
     await expect(
       page.getByRole("heading", { level: 1, name: "Terms of Service" }),
     ).toBeVisible();
-    await expect(page.getByText("Last updated: May 9, 2026").first()).toBeVisible();
+    await expect(
+      page.getByText("Last updated: May 9, 2026").first(),
+    ).toBeVisible();
     await expect(
       page.getByRole("heading", {
         level: 2,
@@ -147,10 +154,9 @@ test.describe("legal utility editorial contracts", () => {
     await expect(
       page.getByRole("link", { name: "Back to Homepage" }),
     ).toHaveAttribute("href", "/");
-    await expect(page.getByRole("link", { name: "Contact us" })).toHaveAttribute(
-      "href",
-      "/contact",
-    );
+    await expect(
+      page.getByRole("link", { name: "Contact us" }),
+    ).toHaveAttribute("href", "/contact");
     await expect(page.locator("[data-route-not-found-state]")).toBeVisible();
 
     const recovery = page.getByRole("navigation", { name: "Helpful links" });
@@ -273,7 +279,9 @@ test.describe("legal utility editorial contracts", () => {
         expect(
           motionState.every(
             ({ opacity, transform }) =>
-              opacity === "1" && (transform === "none" || transform === "matrix(1, 0, 0, 1, 0, 0)"),
+              opacity === "1" &&
+              (transform === "none" ||
+                transform === "matrix(1, 0, 0, 1, 0, 0)"),
           ),
         ).toBe(true);
       }
@@ -317,8 +325,10 @@ test.describe("legal utility editorial contracts", () => {
 
           const bands = page.locator("[data-editorial-band]");
           await expect(bands.first()).toBeVisible();
-          const gradientBands = await bands.evaluateAll((nodes) =>
-            nodes.filter((node) => node.className.includes("gradient")).length,
+          const gradientBands = await bands.evaluateAll(
+            (nodes) =>
+              nodes.filter((node) => node.className.includes("gradient"))
+                .length,
           );
           expect(gradientBands).toBe(0);
         }

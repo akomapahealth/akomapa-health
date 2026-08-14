@@ -1,7 +1,6 @@
 import { expect, test, type Locator, type Page } from "@playwright/test";
 import { announcementCampaign } from "../src/data/announcements";
 import { academyCurriculum, academyOverview } from "../src/data/academy";
-import { IMMERSION_INTEREST_COPY } from "../src/lib/immersion-interest";
 import { phases } from "../src/components/roadmap/phases";
 
 const routes = [
@@ -142,7 +141,7 @@ test("academy preserves curriculum order, certification, and apply destination",
   const interestDialog = page.getByRole("dialog");
   await expect(
     interestDialog.getByRole("heading", {
-      name: IMMERSION_INTEREST_COPY.modal.title,
+      name: "Tell us what you are interested in",
     }),
   ).toBeVisible();
   await page.keyboard.press("Escape");
