@@ -388,6 +388,7 @@ export default function DonatePageContent() {
 
                 <div className="mt-8">
                   <DonationPaymentMethods
+                    key="partner"
                     flow="partner"
                     selectedGivingLevel={selectedPartnerGivingLevel}
                   />
@@ -474,6 +475,7 @@ export default function DonatePageContent() {
 
                 <div className="mt-8">
                   <DonationPaymentMethods
+                    key="one-time"
                     flow="oneTime"
                     selectedGivingLevel={selectedOneTimeGivingLevel}
                   />
