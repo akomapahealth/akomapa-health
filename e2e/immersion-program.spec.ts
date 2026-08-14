@@ -184,6 +184,9 @@ test.describe("Immersion program responsive editorial layout", () => {
         () => window.matchMedia("(prefers-reduced-motion: reduce)").matches,
       ),
     ).toBe(true);
+    await expect(
+      page.locator("[data-immersion-hero-hydrated]"),
+    ).toHaveAttribute("data-immersion-hero-hydrated", "true");
 
     const section = page.getByRole("region", {
       name: "What participants experience",
@@ -195,8 +198,10 @@ test.describe("Immersion program responsive editorial layout", () => {
     });
     const reveal = heading.locator("xpath=../..");
 
+    await section.evaluate((element) =>
+      element.scrollIntoView({ block: "start" }),
+    );
     await expect(reveal).toHaveCount(1);
-    await reveal.scrollIntoViewIfNeeded();
     await expect
       .poll(() =>
         reveal.evaluate((element) => {
@@ -206,9 +211,6 @@ test.describe("Immersion program responsive editorial layout", () => {
       )
       .toEqual({ opacity: "1", transform: "none" });
 
-    await expect(
-      page.locator("[data-immersion-hero-hydrated]"),
-    ).toHaveAttribute("data-immersion-hero-hydrated", "true");
     await expect(page.locator("[data-immersion-hero-video]")).toHaveCount(0);
     await expect(page.locator("[data-immersion-hero-media] img")).toBeVisible();
   });
