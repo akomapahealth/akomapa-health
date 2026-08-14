@@ -7,6 +7,7 @@ import {
   EditorialLead,
 } from "@/components/shared/EditorialPrimitives";
 import { CONTACT } from "@/config/contact";
+import OpenIntakeCta from "@/components/intake/OpenIntakeCta";
 
 export default function GetInvolvedCTA() {
   return (
@@ -31,9 +32,16 @@ export default function GetInvolvedCTA() {
         </EditorialLead>
 
         <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
-          <EditorialButton href="/contact" variant="amber">
+          <OpenIntakeCta
+            request={{
+              formType: "get_involved",
+              pathway: "other",
+              contextId: "undecided",
+            }}
+            variant="amber"
+          >
             Contact Us
-          </EditorialButton>
+          </OpenIntakeCta>
           <EditorialButton
             href={CONTACT.email.href}
             variant="outline-light"

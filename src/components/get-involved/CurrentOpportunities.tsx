@@ -7,7 +7,7 @@ import {
   FadeInStagger,
   FadeInStaggerItem,
 } from "@/components/animations";
-import OpenImmersionInterestCta from "@/components/immersion/OpenImmersionInterestCta";
+import OpenIntakeCta from "@/components/intake/OpenIntakeCta";
 import {
   EditorialBand,
   EditorialEyebrow,
@@ -58,10 +58,40 @@ export default function CurrentOpportunities() {
               </p>
 
               <div className="mt-auto pt-6">
-                {opportunity.opensImmersionInterest ? (
-                  <OpenImmersionInterestCta appearance="text-link">
+                {opportunity.id === "student-leader-cohort" ||
+                opportunity.opensImmersionInterest ? (
+                  <OpenIntakeCta
+                    request={{
+                      formType: "get_involved",
+                      pathway: "student_leadership",
+                      contextId: opportunity.id,
+                    }}
+                    appearance="text-link"
+                  >
                     {opportunity.ctaLabel}
-                  </OpenImmersionInterestCta>
+                  </OpenIntakeCta>
+                ) : opportunity.id === "faculty-mentorship" ? (
+                  <OpenIntakeCta
+                    request={{
+                      formType: "get_involved",
+                      pathway: "faculty_mentorship",
+                      contextId: opportunity.id,
+                    }}
+                    appearance="text-link"
+                  >
+                    {opportunity.ctaLabel}
+                  </OpenIntakeCta>
+                ) : opportunity.id === "partnership-inquiries" ? (
+                  <OpenIntakeCta
+                    request={{
+                      formType: "partnership_request",
+                      category: "research",
+                      contextId: opportunity.id,
+                    }}
+                    appearance="text-link"
+                  >
+                    {opportunity.ctaLabel}
+                  </OpenIntakeCta>
                 ) : opportunity.external && opportunity.ctaHref ? (
                   <a
                     href={opportunity.ctaHref}
