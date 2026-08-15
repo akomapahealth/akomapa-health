@@ -1,7 +1,7 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { useImmersionInterest } from "@/components/immersion/ImmersionInterestProvider";
+import { useIntakeDialog } from "@/components/intake/IntakeDialogProvider";
 import {
   EditorialArrow,
   type EditorialButtonVariant,
@@ -28,7 +28,7 @@ type OpenImmersionInterestCtaProps = {
 };
 
 /**
- * Opens the shared Immersion / student interest modal (Web3Forms-backed signup).
+ * Opens the shared program-interest intake dialog.
  * Use this for closed Google Form CTAs that ask students to join or register interest.
  */
 export default function OpenImmersionInterestCta({
@@ -38,7 +38,16 @@ export default function OpenImmersionInterestCta({
   className,
   appearance = "button",
 }: OpenImmersionInterestCtaProps) {
-  const { open } = useImmersionInterest();
+  const { openIntake } = useIntakeDialog();
+  const open = (trigger: HTMLElement) =>
+    openIntake(
+      {
+        formType: "program_interest",
+        programId: "global-health-immersion-program",
+        contextId: "immersion",
+      },
+      trigger,
+    );
 
   if (appearance === "text-link") {
     return (

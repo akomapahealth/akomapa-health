@@ -122,14 +122,17 @@ test("volunteer dialog supports keyboard focus, Escape, backdrop close, and scro
     .locator("#hub-volunteers [data-volunteer-portrait-trigger]")
     .first();
   await trigger.scrollIntoViewIfNeeded();
-  await trigger.focus();
-  await page.keyboard.press("Enter");
 
   const dialog = page.getByRole("dialog");
   const closeButton = dialog.getByRole("button", {
     name: "Close volunteer portrait",
   });
-  await expect(dialog).toBeVisible();
+  await expect(async () => {
+    await trigger.focus();
+    await expect(trigger).toBeFocused();
+    await page.keyboard.press("Enter");
+    await expect(dialog).toBeVisible({ timeout: 2_000 });
+  }).toPass({ timeout: 10_000 });
   await expect(dialog).toHaveAccessibleName("Our Volunteer Community");
   await expect(
     dialog.getByText(

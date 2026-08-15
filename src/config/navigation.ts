@@ -56,6 +56,7 @@ export const mainNavigation: readonly NavigationItem[] = [
     children: [
       { name: "Get Involved", href: "/get-involved" },
       { name: "Partnerships", href: "/partnerships" },
+      { name: "Contact Us", href: "/contact" },
     ],
   },
 ] as const;

@@ -21,7 +21,7 @@ import {
 import { CONTACT } from "@/config/contact";
 import Link from "next/link";
 
-const LAST_UPDATED = "May 9, 2026";
+const LAST_UPDATED = "August 14, 2026";
 
 const contents: readonly LegalContentsItem[] = [
   { href: "#scope", label: "Who we are and what this policy covers" },
@@ -34,6 +34,7 @@ const contents: readonly LegalContentsItem[] = [
   },
   { href: "#analytics", label: "Analytics and performance" },
   { href: "#sharing", label: "How we share information" },
+  { href: "#retention", label: "How long we keep intake records" },
   { href: "#international", label: "International transfers" },
   { href: "#security", label: "Data security" },
   { href: "#rights", label: "Your rights and choices" },
@@ -94,12 +95,12 @@ export default function Content() {
                 title="Who we are and what this policy covers"
               >
                 <p className={body}>
-                  Akomapa Health Foundation (&quot;we,&quot; &quot;our,&quot;
-                  or &quot;us&quot;) runs community health programs, volunteer
-                  pathways, education initiatives, and this website. This Privacy
-                  Policy describes how we handle personal information when you
-                  browse our site, contact us, apply to volunteer, subscribe to
-                  updates, or make a donation.
+                  Akomapa Health Foundation (&quot;we,&quot; &quot;our,&quot; or
+                  &quot;us&quot;) runs community health programs, volunteer
+                  pathways, education initiatives, and this website. This
+                  Privacy Policy describes how we handle personal information
+                  when you browse our site, contact us, apply to volunteer,
+                  subscribe to updates, or make a donation.
                 </p>
                 <p className={body}>
                   <strong>Nkwapa and clinical records:</strong> We are
@@ -118,7 +119,9 @@ export default function Content() {
                 ruleVariant="amber"
                 title="Information we collect"
               >
-                <p className={body}>Depending on how you engage with us, we may collect:</p>
+                <p className={body}>
+                  Depending on how you engage with us, we may collect:
+                </p>
                 <ul className={list}>
                   <li>
                     <strong>Identifiers and contact details:</strong> Name,
@@ -126,12 +129,13 @@ export default function Content() {
                     on forms or applications.
                   </li>
                   <li>
-                    <strong>Volunteer and education-related application
-                    information:</strong> School and level, motivation and
-                    expectations, screening or counseling experience where you
-                    choose to share it, availability and team preferences,
-                    backup volunteer status, and related notes needed to review
-                    your application.
+                    <strong>
+                      Volunteer and education-related application information:
+                    </strong>{" "}
+                    School and level, motivation and expectations, screening or
+                    counseling experience where you choose to share it,
+                    availability and team preferences, backup volunteer status,
+                    and related notes needed to review your application.
                   </li>
                   <li>
                     <strong>Messages and inquiries:</strong> Subject lines,
@@ -198,23 +202,27 @@ export default function Content() {
               >
                 <h3 className={h3}>Contact and partnership messages</h3>
                 <p className={body}>
-                  When you use our contact flow, your submission is transmitted
-                  through a secure form delivery service so our team can reply.
-                  We keep message content only as long as needed to respond,
-                  maintain records where required, and protect our community.
+                  Our website sends completed contact and purpose-specific
+                  intake forms to protected server endpoints. Fillout stores the
+                  structured record, and Resend delivers a notification to
+                  authorized Akomapa staff. A submission is treated as
+                  successful once Fillout safely stores it, even if the staff
+                  notification must be retried separately.
                 </p>
 
                 <h3 className={h3}>Volunteer applications</h3>
                 <p className={body}>
-                  Volunteer applications are stored in a secure database tool
-                  our staff uses for recruiting and placement. Access is limited
-                  to people who need it for operations, compliance, or partner
-                  coordination. Retention follows operational needs and legal
-                  requirements; we remove or archive data when it is no longer
-                  necessary.
+                  Volunteer, student leadership, faculty mentorship, and
+                  research-interest requests use the same protected intake
+                  system. The active University of Ghana application is hosted
+                  separately in Google Forms and is governed by the notice shown
+                  with that application. Access is limited to people who need it
+                  for operations, compliance, or partner coordination.
                 </p>
 
-                <h3 className={h3}>Educational programs and future platforms</h3>
+                <h3 className={h3}>
+                  Educational programs and future platforms
+                </h3>
                 <p className={body}>
                   If you register for trainings, mentorship, or future online
                   learning experiences we offer, we may collect enrollment
@@ -236,8 +244,13 @@ export default function Content() {
                   parts of our site store small amounts of information in your
                   browser&apos;s <strong>local storage</strong>—for example, to
                   remember light or dark theme choices and whether you have
-                  dismissed an announcement. These values stay on your device
-                  unless you clear site data in your browser settings.
+                  dismissed an announcement. Incomplete intake forms may also
+                  save a schema-validated draft on your device for up to 30
+                  days. Drafts can include ordinary contact and request details,
+                  but never the consent choice, anti-spam field, API keys,
+                  request IDs, Fillout configuration, attachments, or dedicated
+                  medical or payment fields. A draft is removed after successful
+                  submission, explicit discard, expiry, or clearing site data.
                 </p>
                 <p className={body}>
                   If we introduce optional marketing or analytics cookies, we
@@ -278,6 +291,11 @@ export default function Content() {
                     similar operational functions.
                   </li>
                   <li>
+                    <strong>Fillout and Resend</strong> to store structured
+                    website intake records and deliver staff notifications.
+                    Provider access is restricted to authorized operators.
+                  </li>
+                  <li>
                     <strong>Partner institutions</strong> when coordination is
                     necessary for volunteer placements, education programs, or
                     clinic operations—and only with appropriate safeguards.
@@ -294,8 +312,32 @@ export default function Content() {
                   </li>
                 </ul>
                 <p className={body}>
-                  We require vendors to use information only to provide
-                  services to us and to apply reasonable security measures.
+                  We require vendors to use information only to provide services
+                  to us and to apply reasonable security measures.
+                </p>
+              </LegalSection>
+
+              <LegalSection
+                id="retention"
+                ruleVariant="amber"
+                title="How long we keep intake records"
+              >
+                <p className={body}>
+                  We generally retain general inquiries for 12 months after the
+                  most recent meaningful activity. Program interest,
+                  partnership, get-involved, and donation follow-up records are
+                  generally retained for 24 months after the most recent
+                  meaningful activity. We may delete a record earlier after a
+                  valid request, or keep it longer where law, safeguarding,
+                  dispute resolution, or another documented operational need
+                  requires it.
+                </p>
+                <p className={body}>
+                  Retention review is performed with a dry-run-first operator
+                  process. Proposed deletions are reviewed before permanent
+                  removal. Fillout deletion is permanent, so authorized staff
+                  should confirm any required export or backup before applying a
+                  deletion batch.
                 </p>
               </LegalSection>
 
@@ -306,10 +348,10 @@ export default function Content() {
               >
                 <p className={body}>
                   Akomapa works across regions. Information may be processed in
-                  the United States or other countries where our vendors operate.
-                  When data moves across borders, we rely on contractual and
-                  organizational safeguards appropriate to the sensitivity of
-                  the information involved.
+                  the United States or other countries where our vendors
+                  operate. When data moves across borders, we rely on
+                  contractual and organizational safeguards appropriate to the
+                  sensitivity of the information involved.
                 </p>
               </LegalSection>
 
@@ -333,7 +375,9 @@ export default function Content() {
                 ruleVariant="amber"
                 title="Your rights and choices"
               >
-                <p className={body}>Depending on where you live, you may have rights to:</p>
+                <p className={body}>
+                  Depending on where you live, you may have rights to:
+                </p>
                 <ul className={list}>
                   <li>Access the personal information we maintain about you</li>
                   <li>Request corrections to inaccurate information</li>
@@ -345,17 +389,15 @@ export default function Content() {
                     Opt out of marketing emails via unsubscribe links or by
                     emailing us
                   </li>
-                  <li>
-                    Withdraw consent where processing is based on consent
-                  </li>
+                  <li>Withdraw consent where processing is based on consent</li>
                 </ul>
                 <p className={body}>
                   To exercise these rights, email{" "}
                   <a href={CONTACT.email.href} className={link}>
                     {CONTACT.email.display}
                   </a>
-                  . We may need to verify your identity before fulfilling certain
-                  requests.
+                  . We may need to verify your identity before fulfilling
+                  certain requests.
                 </p>
               </LegalSection>
 
@@ -383,16 +425,12 @@ export default function Content() {
                 <p className={body}>
                   We may update this Policy as our programs evolve. When we make
                   material changes, we will revise the &quot;Last updated&quot;
-                  date below and, where appropriate, provide additional notice on
-                  the site or by email.
+                  date below and, where appropriate, provide additional notice
+                  on the site or by email.
                 </p>
               </LegalSection>
 
-              <LegalSection
-                id="contact"
-                ruleVariant="teal"
-                title="Contact us"
-              >
+              <LegalSection id="contact" ruleVariant="teal" title="Contact us">
                 <p className={body}>
                   Questions about privacy? Email{" "}
                   <a href={CONTACT.email.href} className={link}>

@@ -1,7 +1,7 @@
 "use client";
 
 import type { ComponentType } from "react";
-import { useId, useState } from "react";
+import { useId, useRef, useState } from "react";
 import { Info, Landmark, Smartphone } from "lucide-react";
 import {
   SiCashapp,
@@ -10,8 +10,12 @@ import {
   SiVenmo,
   SiZelle,
 } from "react-icons/si";
-import DonationFollowUpForm from "@/components/donate/DonationFollowUpForm";
-import { editorialAmberButtonClassName } from "@/components/shared/editorialFormStyles";
+import DonationFollowUpDialog from "@/components/donate/DonationFollowUpDialog";
+import {
+  editorialAmberButtonClassName,
+  editorialLabelClassName,
+  editorialPrimaryButtonClassName,
+} from "@/components/shared/editorialFormStyles";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -69,6 +73,8 @@ export default function DonationPaymentMethods({
   const [selectedMethodId, setSelectedMethodId] =
     useState<DonationPaymentMethodId>(availableMethods[0]?.id ?? "mobileMoney");
   const [showInstructions, setShowInstructions] = useState(false);
+  const [isFollowUpOpen, setIsFollowUpOpen] = useState(false);
+  const followUpTriggerRef = useRef<HTMLButtonElement | null>(null);
   const instructionsId = useId();
   const methodGroupId = useId();
   const selectedMethod = availableMethods.find(
@@ -162,7 +168,9 @@ export default function DonationPaymentMethods({
                         {method.label}
                       </span>
                       <span className="mt-1 block text-xs font-normal text-[#0097b2] dark:text-[#66C4DC]">
-                        {isSelected ? "Selected · Available now" : "Available now"}
+                        {isSelected
+                          ? "Selected · Available now"
+                          : "Available now"}
                       </span>
                     </span>
                   </Label>
@@ -267,14 +275,33 @@ export default function DonationPaymentMethods({
                     </dd>
                   </div>
                 </dl>
-                <p className="font-medium">
-                  {selectedMethod.verificationNote}
-                </p>
+                <p className="font-medium">{selectedMethod.verificationNote}</p>
               </div>
             </AlertDescription>
           </Alert>
 
-          <DonationFollowUpForm
+          <div className="border border-[#0097b2]/25 bg-[#FCFAEF]/70 p-5 dark:border-[#66C4DC]/30 dark:bg-[#121514]/80">
+            <p className={editorialLabelClassName}>Optional follow-up</p>
+            <h3 className="mt-2 font-heading text-lg font-semibold">
+              Let us thank you
+            </h3>
+            <p className="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground">
+              After making your transfer, you may share your contact details.
+              This does not verify or confirm payment.
+            </p>
+            <Button
+              ref={followUpTriggerRef}
+              type="button"
+              onClick={() => setIsFollowUpOpen(true)}
+              className={cn(editorialPrimaryButtonClassName, "mt-4")}
+            >
+              Share contact details
+            </Button>
+          </div>
+          <DonationFollowUpDialog
+            open={isFollowUpOpen}
+            onClose={() => setIsFollowUpOpen(false)}
+            onAfterLeave={() => followUpTriggerRef.current?.focus()}
             flow={flow}
             selectedGivingLevel={selectedGivingLevel}
           />

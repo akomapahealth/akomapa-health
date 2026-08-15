@@ -9,6 +9,7 @@ import {
 } from "@/components/shared/EditorialPrimitives";
 import { CONTACT } from "@/config/contact";
 import Link from "next/link";
+import OpenIntakeCta from "@/components/intake/OpenIntakeCta";
 
 const programPillars = [
   {
@@ -176,10 +177,21 @@ export default function CorporateSponsorshipContent() {
             Africa.
           </EditorialLead>
           <div className="mt-8 flex flex-wrap gap-3 sm:gap-4">
-            <EditorialButton href="/contact?type=partnership" variant="amber">
+            <OpenIntakeCta
+              request={{
+                formType: "partnership_request",
+                category: "corporate",
+                contextId: "corporate-sponsorship",
+              }}
+              variant="amber"
+            >
               Discuss Sponsorship
-            </EditorialButton>
-            <EditorialButton href={CONTACT.email.href} variant="outline-light" external>
+            </OpenIntakeCta>
+            <EditorialButton
+              href={CONTACT.email.href}
+              variant="outline-light"
+              external
+            >
               Email Us
             </EditorialButton>
           </div>
@@ -228,7 +240,9 @@ export default function CorporateSponsorshipContent() {
         aria-labelledby="sponsorship-options-heading"
       >
         <FadeIn>
-          <EditorialEyebrow tone="gold">Ways to Sponsor Akomapa</EditorialEyebrow>
+          <EditorialEyebrow tone="gold">
+            Ways to Sponsor Akomapa
+          </EditorialEyebrow>
           <EditorialHeading id="sponsorship-options-heading" className="mt-4">
             Transform Lives Through Strategic Partnership
           </EditorialHeading>
@@ -385,7 +399,9 @@ export default function CorporateSponsorshipContent() {
                       {item.step}
                     </span>
                     <div>
-                      <p className="font-semibold text-[#FCFAEF]">{item.title}</p>
+                      <p className="font-semibold text-[#FCFAEF]">
+                        {item.title}
+                      </p>
                       <p className="mt-1 text-sm text-[#FCFAEF]/75">
                         {item.description}
                       </p>
@@ -394,13 +410,17 @@ export default function CorporateSponsorshipContent() {
                 ))}
               </ol>
               <div className="mt-8 flex flex-col gap-3">
-                <EditorialButton
-                  href="/contact?type=partnership"
+                <OpenIntakeCta
+                  request={{
+                    formType: "partnership_request",
+                    category: "corporate",
+                    contextId: "corporate-sponsorship",
+                  }}
                   variant="amber"
                   className="min-h-14 w-full justify-between"
                 >
                   Become a Sponsor
-                </EditorialButton>
+                </OpenIntakeCta>
                 <EditorialButton
                   href="/donate"
                   variant="outline-light"

@@ -85,13 +85,6 @@ const nextConfig: NextConfig = {
       },
     ];
   },
-  experimental: {
-    // Disable the segment explorer devtool due to a dev-runtime manifest bug.
-    devtoolSegmentExplorer: false,
-    // The worker process can hang indefinitely on this project during production
-    // compilation; keep builds in-process until the dependency graph is lighter.
-    webpackBuildWorker: false,
-  },
   images: {
     qualities: [75, 85, 100],
     // ImageKit CDN assets are optimized via the custom imageKitLoader on

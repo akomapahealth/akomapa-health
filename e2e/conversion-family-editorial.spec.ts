@@ -95,8 +95,8 @@ test.describe("conversion family editorial contracts", () => {
       waitUntil: "domcontentloaded",
     });
     await expect(
-      page.getByRole("link", { name: /Become a Sponsor/i }).first(),
-    ).toHaveAttribute("href", "/contact?type=partnership");
+      page.getByRole("button", { name: /Become a Sponsor/i }).first(),
+    ).toBeVisible();
     await expect(
       page.getByRole("link", { name: /Individual Donations/i }).first(),
     ).toHaveAttribute("href", "/donate");
@@ -109,8 +109,8 @@ test.describe("conversion family editorial contracts", () => {
       page.getByRole("link", { name: /Explore Pathways/i }).first(),
     ).toHaveAttribute("href", "#pathways");
     await expect(
-      page.getByRole("link", { name: /Contact Us/i }).first(),
-    ).toHaveAttribute("href", "/contact");
+      page.getByRole("button", { name: /Contact Us/i }).first(),
+    ).toBeVisible();
 
     await page.goto("/donate", { waitUntil: "domcontentloaded" });
     await expect(
@@ -175,22 +175,24 @@ test.describe("conversion family editorial contracts", () => {
         status: 500,
         contentType: "application/json",
         body: JSON.stringify({
-          message: "Something went wrong on our side. Please try again in a few minutes.",
+          message:
+            "Something went wrong on our side. Please try again in a few minutes.",
         }),
       });
     });
     await page.goto("/contact", { waitUntil: "domcontentloaded" });
-    await page.getByLabel("Full Name *").fill("Ama Mensah");
-    await page.getByLabel("Email Address *").fill("ama@example.com");
-    await page.getByLabel("Subject *").fill("Partnership inquiry");
-    await page
-      .getByLabel("Message *")
+    const contactForm = page.getByRole("region", { name: "Send us a message" });
+    await contactForm.getByLabel("Full name").fill("Ama Mensah");
+    await contactForm.getByLabel("Email address").fill("ama@example.com");
+    await contactForm.getByLabel("Subject").fill("Partnership inquiry");
+    await contactForm
+      .getByLabel("Message")
       .fill("I would like to discuss a corporate partnership.");
-    await page.getByRole("button", { name: "Send Message" }).click();
+    await contactForm.getByRole("checkbox").check();
+    await contactForm.getByRole("button", { name: "Send message" }).click();
     const contactError = page.getByTestId("contact-form-error");
-    await expect(contactError).toContainText("We couldn't send your message");
     await expect(contactError).toContainText(
-      "Something went wrong on our side. Please try again in a few minutes.",
+      "We could not submit your inquiry",
     );
 
     await page.unroute("**/api/contact");
@@ -201,9 +203,9 @@ test.describe("conversion family editorial contracts", () => {
         body: JSON.stringify({ ok: true }),
       });
     });
-    await page.getByRole("button", { name: "Send Message" }).click();
+    await contactForm.getByRole("button", { name: "Send message" }).click();
     await expect(
-      page.getByRole("status").getByText("Message Sent Successfully!"),
+      page.getByRole("status").getByText("Message received"),
     ).toBeVisible();
 
     // Clear contact mocks before donate so they cannot interfere with navigation.
@@ -243,11 +245,18 @@ test.describe("conversion family editorial contracts", () => {
     await expect(
       paymentPanel.getByRole("heading", { name: "Let us thank you" }),
     ).toBeVisible();
-    await paymentPanel.getByPlaceholder("Your full name").fill("Kojo Mensah");
-    await paymentPanel.getByPlaceholder("you@example.com").fill("kojo@example.com");
-    await paymentPanel.getByRole("button", { name: "Share my details" }).click();
+    await paymentPanel
+      .getByRole("button", { name: "Share contact details" })
+      .click();
+    const followUpDialog = page.getByRole("dialog");
+    await followUpDialog.getByLabel("Full name").fill("Kojo Mensah");
+    await followUpDialog.getByLabel("Email address").fill("kojo@example.com");
+    await followUpDialog.getByRole("checkbox").check();
+    await followUpDialog
+      .getByRole("button", { name: "Share my details" })
+      .click();
     await expect(
-      paymentPanel.getByText(/couldn't share your details/i),
+      followUpDialog.getByText(/could not share your details/i),
     ).toBeVisible();
 
     await page.unroute("**/api/donation-follow-up");
@@ -258,9 +267,11 @@ test.describe("conversion family editorial contracts", () => {
         body: JSON.stringify({ ok: true }),
       });
     });
-    await paymentPanel.getByRole("button", { name: "Share my details" }).click();
+    await followUpDialog
+      .getByRole("button", { name: "Share my details" })
+      .click();
     await expect(
-      paymentPanel.getByText(/Thank you for sharing your details/i),
+      followUpDialog.getByText(/Your details were safely stored/i),
     ).toBeVisible();
   });
 

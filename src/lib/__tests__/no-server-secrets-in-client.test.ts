@@ -13,6 +13,11 @@ const FORBIDDEN_TOKENS = [
   "MAILERLITE_API_KEY",
   "MAILERLITE_IMMERSION_GROUP_ID",
   "AIRTABLE_API_KEY",
+  "FILLOUT_API_KEY",
+  "FILLOUT_FORM_CONFIG",
+  "RESEND_API_KEY",
+  "FORM_NOTIFICATION_FROM",
+  "FORM_NOTIFICATION_TO",
 ];
 
 function walk(dir: string, files: string[] = []): string[] {

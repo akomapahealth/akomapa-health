@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, type Variants } from "framer-motion";
-import { ReactNode, type ElementType } from "react";
+import { ReactNode } from "react";
 import {
   defaultScrollViewport,
   fadeUpStaggerContainerVariants,
@@ -24,7 +24,12 @@ type FadeInProps = {
   duration?: number;
   once?: boolean;
   amount?: ViewportAmount;
-  as?: ElementType;
+  as?: keyof typeof motionElements;
+};
+
+const motionElements = {
+  div: motion.div,
+  li: motion.li,
 };
 
 export function FadeIn({
@@ -39,7 +44,7 @@ export function FadeIn({
 }: FadeInProps) {
   const variants: Variants = fadeUpVariants({ direction, duration, delay });
 
-  const MotionComponent = motion.create(as);
+  const MotionComponent = motionElements[as];
 
   return (
     <MotionComponent

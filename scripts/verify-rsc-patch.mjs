@@ -5,9 +5,11 @@ import process from "node:process";
 const REQUIRED_PACKAGES = [
   {
     name: "next",
-    lowerBound: "15.5.10",
-    upperBound: "15.6.0",
-    requirement: ">=15.5.10 <15.6.0",
+    ranges: [
+      { lowerBound: "15.5.10", upperBound: "15.6.0" },
+      { lowerBound: "16.0.7", upperBound: "17.0.0" },
+    ],
+    requirement: ">=15.5.10 <15.6.0 or >=16.0.7 <17.0.0",
   },
   {
     name: "react",
@@ -44,18 +46,13 @@ function compareVersions(left, right) {
 }
 
 function satisfiesRequirement(version, requirement) {
-  if (compareVersions(version, requirement.lowerBound) < 0) {
-    return false;
-  }
+  const ranges = requirement.ranges ?? [requirement];
 
-  if (
-    requirement.upperBound &&
-    compareVersions(version, requirement.upperBound) >= 0
-  ) {
-    return false;
-  }
-
-  return true;
+  return ranges.some(
+    (range) =>
+      compareVersions(version, range.lowerBound) >= 0 &&
+      (!range.upperBound || compareVersions(version, range.upperBound) < 0),
+  );
 }
 
 function getResolvedVersion(lockfile, packageName) {

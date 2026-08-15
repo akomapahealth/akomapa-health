@@ -1,7 +1,7 @@
 "use client";
 
 import { FadeIn } from "@/components/animations";
-import { useImmersionInterest } from "@/components/immersion/ImmersionInterestProvider";
+import { useIntakeDialog } from "@/components/intake/IntakeDialogProvider";
 import {
   PublicCta,
   SectionEyebrow,
@@ -9,7 +9,7 @@ import {
 import { IMMERSION_INTEREST_COPY } from "@/lib/immersion-interest";
 
 export default function ImmersionAlertSection() {
-  const { open } = useImmersionInterest();
+  const { openIntake } = useIntakeDialog();
 
   return (
     <section
@@ -42,7 +42,16 @@ export default function ImmersionAlertSection() {
                   type="button"
                   variant="teal"
                   className="min-h-12 justify-center !text-[#1C1F1E]"
-                  onClick={(event) => open(event.currentTarget)}
+                  onClick={(event) =>
+                    openIntake(
+                      {
+                        formType: "program_interest",
+                        programId: "global-health-immersion-program",
+                        contextId: "immersion",
+                      },
+                      event.currentTarget,
+                    )
+                  }
                   data-immersion-alert-cta
                 >
                   {IMMERSION_INTEREST_COPY.section.cta}

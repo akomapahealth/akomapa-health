@@ -12,7 +12,7 @@ import {
   User,
   type LucideIcon,
 } from "lucide-react";
-import OpenImmersionInterestCta from "@/components/immersion/OpenImmersionInterestCta";
+import OpenIntakeCta from "@/components/intake/OpenIntakeCta";
 import { cn } from "@/lib/utils";
 
 const iconMap: Record<string, LucideIcon> = {
@@ -25,6 +25,7 @@ const iconMap: Record<string, LucideIcon> = {
 };
 
 export interface PathwayCardProps {
+  id: string;
   icon: string;
   title: string;
   description: string;
@@ -38,6 +39,7 @@ export interface PathwayCardProps {
 }
 
 export default function PathwayCard({
+  id,
   icon,
   title,
   description,
@@ -92,13 +94,30 @@ export default function PathwayCard({
       </p>
 
       <div className="mt-auto">
-        {opensImmersionInterest ? (
-          <OpenImmersionInterestCta
+        {id === "student-leader" || opensImmersionInterest ? (
+          <OpenIntakeCta
+            request={{
+              formType: "get_involved",
+              pathway: "student_leadership",
+              contextId: "student-leader",
+            }}
             appearance="text-link"
             className="mt-6"
           >
             {ctaLabel}
-          </OpenImmersionInterestCta>
+          </OpenIntakeCta>
+        ) : id === "faculty-mentor" ? (
+          <OpenIntakeCta
+            request={{
+              formType: "get_involved",
+              pathway: "faculty_mentorship",
+              contextId: "faculty-mentor",
+            }}
+            appearance="text-link"
+            className="mt-6"
+          >
+            {ctaLabel}
+          </OpenIntakeCta>
         ) : external && ctaHref ? (
           <a
             href={ctaHref}

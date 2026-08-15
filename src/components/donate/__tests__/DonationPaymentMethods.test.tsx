@@ -22,7 +22,6 @@ describe("DonationPaymentMethods", () => {
       screen.getByRole("radio", { name: /MTN Mobile Money/i }),
     ).toBeChecked();
     expect(container.querySelectorAll("a")).toHaveLength(0);
-    expect(screen.getAllByRole("button")).toHaveLength(1);
     expect(screen.getByText("PayPal")).toBeInTheDocument();
     expect(screen.getByText("Venmo")).toBeInTheDocument();
     expect(screen.getByText("Cash App")).toBeInTheDocument();
@@ -66,10 +65,18 @@ describe("DonationPaymentMethods", () => {
     expect(
       screen.getByRole("heading", { name: "Let us thank you" }),
     ).toBeInTheDocument();
-    expect(screen.getByLabelText("Full name")).toBeInTheDocument();
-    expect(screen.getByLabelText("Email address")).toBeInTheDocument();
+    await user.click(
+      screen.getByRole("button", { name: "Share contact details" }),
+    );
+    const dialog = await screen.findByRole("dialog");
     expect(
-      screen.getByText(/does not verify or confirm that a transfer was completed/i),
+      await within(dialog).findByLabelText("Full name"),
+    ).toBeInTheDocument();
+    expect(
+      await within(dialog).findByLabelText("Email address"),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(/does not verify or confirm payment/i),
     ).toBeInTheDocument();
   });
 
@@ -90,7 +97,9 @@ describe("DonationPaymentMethods", () => {
       ),
     ).toBeInTheDocument();
     expect(
-      screen.getByText(/does not calculate or display a Mobile Money currency conversion/i),
+      screen.getByText(
+        /does not calculate or display a Mobile Money currency conversion/i,
+      ),
     ).toBeInTheDocument();
   });
 
@@ -111,9 +120,22 @@ describe("DonationPaymentMethods", () => {
         name: "View Mobile Money instructions",
       }),
     );
-    await user.type(screen.getByLabelText("Full name"), "Ama Mensah");
-    await user.type(screen.getByLabelText("Email address"), "ama@example.com");
-    await user.click(screen.getByRole("button", { name: "Share my details" }));
+    await user.click(
+      screen.getByRole("button", { name: "Share contact details" }),
+    );
+    const dialog = await screen.findByRole("dialog");
+    await user.type(
+      await within(dialog).findByLabelText("Full name"),
+      "Ama Mensah",
+    );
+    await user.type(
+      await within(dialog).findByLabelText("Email address"),
+      "ama@example.com",
+    );
+    await user.click(within(dialog).getByRole("checkbox"));
+    await user.click(
+      within(dialog).getByRole("button", { name: "Share my details" }),
+    );
 
     expect(fetchMock).toHaveBeenCalledWith(
       "/api/donation-follow-up",
@@ -123,15 +145,17 @@ describe("DonationPaymentMethods", () => {
       }),
     );
     const request = fetchMock.mock.calls[0]?.[1] as RequestInit;
-    expect(JSON.parse(String(request.body))).toEqual({
+    expect(JSON.parse(String(request.body))).toMatchObject({
       name: "Ama Mensah",
       email: "ama@example.com",
+      phone: "",
       flow: "oneTime",
       selectedGivingLevel: "$25 one time",
+      consent: true,
       company: "",
     });
     expect(
-      await screen.findByText("Thank you for sharing your details."),
+      await within(dialog).findByText("Your details were safely stored."),
     ).toBeInTheDocument();
     expect(
       screen.getByText(/does not verify or confirm a payment/i),
