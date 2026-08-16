@@ -1,10 +1,10 @@
 import { describe, expect, it } from "vitest";
 import {
   GIVEBUTTER_ENABLE_ENV,
+  ghanaMobileMoneyDonation,
   getDonationEntryPoint,
   getDonationProviderConfig,
   isGivebutterDonationsEnabled,
-  isSupportedDonationAmount,
 } from "@/config/donation-provider";
 
 describe("donation provider configuration", () => {
@@ -54,16 +54,28 @@ describe("donation provider configuration", () => {
     );
   });
 
-  it("uses the same approved presets for monthly and one-time entry points", () => {
+  it("uses one campaign with distinct monthly and one-time defaults", () => {
     const provider = getDonationProviderConfig({});
     const partner = getDonationEntryPoint("partner", provider);
     const oneTime = getDonationEntryPoint("oneTime", provider);
 
     expect(partner.frequency).toBe("monthly");
     expect(oneTime.frequency).toBeUndefined();
-    expect(partner.suggestedAmounts).toEqual([25, 50, 100, 250]);
-    expect(oneTime.suggestedAmounts).toEqual(partner.suggestedAmounts);
-    expect(isSupportedDonationAmount(50, partner)).toBe(true);
-    expect(isSupportedDonationAmount(20, partner)).toBe(false);
+  });
+
+  it("exposes only the verified Ghana Mobile Money destination", () => {
+    expect(ghanaMobileMoneyDonation).toMatchObject({
+      id: "mtnMobileMoney",
+      type: "manualTransfer",
+      status: "available",
+      enabled: true,
+      verified: true,
+      accountName: "Akomapa Health Foundation",
+      network: "MTN",
+      phone: "0249292898",
+      supportsRecurring: false,
+    });
+    expect(ghanaMobileMoneyDonation).not.toHaveProperty("url");
+    expect(ghanaMobileMoneyDonation).not.toHaveProperty("handle");
   });
 });

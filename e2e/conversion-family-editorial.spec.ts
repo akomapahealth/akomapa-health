@@ -232,7 +232,7 @@ test.describe("conversion family editorial contracts", () => {
     await page.goto("/donate", { waitUntil: "domcontentloaded" });
     await expect(
       page.getByRole("heading", {
-        name: "Choose Your Monthly Partnership Amount",
+        name: "Every act of generosity saves a life.",
       }),
     ).toBeVisible();
     if (givebutterEnabled) {
@@ -244,7 +244,8 @@ test.describe("conversion family editorial contracts", () => {
         page.getByTestId("donation-provider-unavailable"),
       ).toBeVisible();
     }
-    await expect(page.getByText(/Mobile Money/i)).toHaveCount(0);
+    await expect(page.getByTestId("ghana-mobile-money")).toBeVisible();
+    await expect(page.getByText("0249292898")).toBeVisible();
   });
 
   for (const viewport of viewports) {

@@ -35,7 +35,7 @@ function loadInjectedScript() {
 
 describe("GivebutterCheckout", () => {
   it("fails closed without the explicit rollout flag", () => {
-    render(<GivebutterCheckout entryPointId="partner" amount={25} />);
+    render(<GivebutterCheckout entryPointId="partner" />);
 
     expect(
       screen.getByTestId("donation-provider-unavailable"),
@@ -50,8 +50,8 @@ describe("GivebutterCheckout", () => {
     enableGivebutter();
     render(
       <>
-        <GivebutterCheckout entryPointId="partner" amount={50} />
-        <GivebutterCheckout entryPointId="partner" amount={50} />
+        <GivebutterCheckout entryPointId="partner" />
+        <GivebutterCheckout entryPointId="partner" />
       </>,
     );
 
@@ -66,28 +66,28 @@ describe("GivebutterCheckout", () => {
     );
     for (const form of screen.getAllByTestId("givebutter-giving-form")) {
       expect(form).toHaveAttribute("campaign", "HE1MLG");
-      expect(form).toHaveAttribute("max-width", "560px");
+      expect(form).toHaveAttribute("max-width", "760px");
     }
-    expect(window.location.search).toBe("?amount=50&frequency=monthly");
+    expect(window.location.search).toBe("?frequency=monthly");
   });
 
-  it("uses one-time defaults and clears the local amount for Other", async () => {
+  it("uses one-time defaults without overwriting an external amount prefill", async () => {
     enableGivebutter();
     window.history.replaceState(
       {},
       "",
       "/donate?amount=100&frequency=monthly",
     );
-    render(<GivebutterCheckout entryPointId="oneTime" amount={null} />);
+    render(<GivebutterCheckout entryPointId="oneTime" />);
     loadInjectedScript();
 
     await screen.findByTestId("givebutter-giving-form");
-    expect(window.location.search).toBe("");
+    expect(window.location.search).toBe("?amount=100");
   });
 
   it("announces a load error and retries with a fresh script", async () => {
     enableGivebutter();
-    render(<GivebutterCheckout entryPointId="partner" amount={25} />);
+    render(<GivebutterCheckout entryPointId="partner" />);
 
     const firstScript = document.querySelector<HTMLScriptElement>(scriptSelector);
     firstScript?.dispatchEvent(new Event("error"));
@@ -108,7 +108,7 @@ describe("GivebutterCheckout", () => {
 
   it("provides a safe direct-campaign fallback without claiming success", async () => {
     enableGivebutter();
-    render(<GivebutterCheckout entryPointId="oneTime" amount={25} />);
+    render(<GivebutterCheckout entryPointId="oneTime" />);
     loadInjectedScript();
     await screen.findByTestId("givebutter-giving-form");
 

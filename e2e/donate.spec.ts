@@ -10,7 +10,6 @@ const forbiddenPaymentValues = [
   ["+233", "54", "111", "1111"].join(" "),
   ["054", "111", "1111"].join(" "),
   ["123", "456", "7890"].join(""),
-  ["024", "929", "2898"].join(""),
 ];
 
 const mockGivebutterLibrary = `
@@ -63,6 +62,7 @@ test.describe("Donate page flow", () => {
     await expect(
       page.getByRole("link", { name: /Givebutter campaign/i }),
     ).toHaveCount(0);
+    await expect(page.getByTestId("ghana-mobile-money")).toBeVisible();
     expect(widgetRequests).toEqual([]);
   });
 
@@ -111,28 +111,28 @@ test.describe("Donate page flow", () => {
     await expect(
       page.getByRole("group", { name: "Mock secure Givebutter form" }),
     ).toBeVisible();
-    await expect(page).toHaveURL(/amount=25/);
     await expect(page).toHaveURL(/frequency=monthly/);
     await expect(
       page.locator('givebutter-giving-form[campaign="HE1MLG"]'),
     ).toHaveCount(1);
 
-    await page.getByRole("button", { name: "$100 Monthly" }).click();
-    await expect(page).toHaveURL(/amount=100/);
-    await expect(page).toHaveURL(/frequency=monthly/);
+    await expect(
+      page.getByRole("heading", {
+        name: "Choose Your Monthly Partnership Amount",
+      }),
+    ).toHaveCount(0);
 
     await page.getByRole("link", { name: "One-Time Gift" }).click();
     await expect(
       page.getByRole("heading", { name: "Make a One-Time Gift" }),
     ).toBeVisible();
     await expect(page).not.toHaveURL(/frequency=/);
-    await expect(page).toHaveURL(/amount=25/);
     await expect(
       page.locator('givebutter-giving-form[campaign="HE1MLG"]'),
     ).toHaveCount(1);
-
-    await page.getByRole("button", { name: "Other" }).click();
-    await expect(page).not.toHaveURL(/amount=/);
+    await expect(
+      page.getByRole("heading", { name: "Choose Your Gift Amount" }),
+    ).toHaveCount(0);
     expect(widgetRequests).toHaveLength(2);
     expect(prohibitedRequests).toEqual([]);
   });
@@ -183,7 +183,9 @@ test.describe("Donate page flow", () => {
     }
   });
 
-  test("never renders manual or placeholder payment values", async ({ page }) => {
+  test("renders verified manual MTN instructions without unsafe completion controls", async ({
+    page,
+  }) => {
     if (givebutterEnabled) await mockGivebutter(page);
     await page.goto("/donate");
     const pageText = await page.locator("body").innerText();
@@ -191,7 +193,16 @@ test.describe("Donate page flow", () => {
     for (const value of forbiddenPaymentValues) {
       expect(pageText).not.toContain(value);
     }
-    await expect(page.getByText(/Mobile Money/i)).toHaveCount(0);
+    const mobileMoney = page.getByTestId("ghana-mobile-money");
+    await expect(mobileMoney).toBeVisible();
+    await expect(mobileMoney.getByText("Akomapa Health Foundation")).toBeVisible();
+    await expect(mobileMoney.getByText("MTN", { exact: true })).toBeVisible();
+    await expect(mobileMoney.getByText("0249292898")).toBeVisible();
+    await expect(
+      mobileMoney.getByText(/confirm the account name appears/i),
+    ).toBeVisible();
+    await expect(mobileMoney.getByRole("button")).toHaveCount(0);
+    await expect(mobileMoney.getByRole("link")).toHaveCount(0);
     await expect(page.getByText(/payment complete/i)).toHaveCount(0);
   });
 });

@@ -27,7 +27,6 @@ describe("donation payment content safety", () => {
       ["054", "111", "1111"].join(" "),
       ["123", "456", "7890"].join(""),
       ["https://paypal.me/", "akomapahealth"].join(""),
-      ["024", "929", "2898"].join(""),
     ];
     const trackedFiles = execFileSync("git", ["ls-files", "-z"], {
       cwd: process.cwd(),
