@@ -13,6 +13,10 @@ const brandSlide: HeroSlideContent = {
 describe("HeroSlide", () => {
   it("renders the headline and the two primary CTAs", () => {
     render(<HeroSlide content={brandSlide} isPrimary />);
+    expect(screen.getByAltText(brandSlide.backgroundAlt)).toHaveAttribute(
+      "loading",
+      "eager",
+    );
     expect(
       screen.getByRole("heading", { level: 1, name: BRAND.heroHeadline }),
     ).toBeInTheDocument();

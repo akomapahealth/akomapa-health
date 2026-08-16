@@ -1,17 +1,11 @@
 "use client";
 
-import { useState } from "react";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import {
-  DollarSign,
-  Heart,
-  Smartphone,
-} from "lucide-react";
+import { DollarSign, Heart, ShieldCheck } from "lucide-react";
 import Image from "@/components/common/Image";
 import Breadcrumb from "@/components/layout/Breadcrumb";
 import { FadeIn } from "@/components/animations";
-import DonationPaymentMethods from "@/components/donate/DonationPaymentMethods";
+import GhanaMobileMoney from "@/components/donate/GhanaMobileMoney";
+import GivebutterCheckout from "@/components/donate/GivebutterCheckout";
 import {
   EditorialBand,
   EditorialButton,
@@ -19,26 +13,7 @@ import {
   EditorialHeading,
   EditorialLead,
 } from "@/components/shared/EditorialPrimitives";
-import {
-  editorialFieldClassName,
-  editorialLabelClassName,
-} from "@/components/shared/editorialFormStyles";
 import { cn } from "@/lib/utils";
-
-const partnerAmounts = [
-  { value: "20", label: "$20", description: "Monthly" },
-  { value: "50", label: "$50", description: "Monthly" },
-  { value: "100", label: "$100", description: "Monthly" },
-  { value: "custom", label: "Other", description: "Custom amount" },
-];
-
-const oneTimeAmounts = [
-  { value: "10", label: "$10" },
-  { value: "25", label: "$25" },
-  { value: "50", label: "$50" },
-  { value: "100", label: "$100" },
-  { value: "custom", label: "Custom" },
-];
 
 const partnerBenefits = [
   {
@@ -88,86 +63,30 @@ const oneTimeBenefits = [
     title: "Choose any amount",
     icon: DollarSign,
     description:
-      "Give what feels right for you, whether it's $10 or $1,000",
+      "Select a suggested amount here or choose another amount in the secure form",
   },
   {
-    title: "Manual Mobile Money transfer",
-    icon: Smartphone,
+    title: "Secure processor checkout",
+    icon: ShieldCheck,
     description:
-      "Review the verified MTN recipient details before completing a one-time transfer",
+      "Givebutter handles payment details, confirmation, and your receipt",
   },
   {
-    title: "100% supports care",
+    title: "Support where it matters",
     icon: Heart,
     description:
-      "Every dollar goes directly to patient care and clinic operations",
+      "Your gift strengthens patient care, community programs, and clinic operations",
   },
 ] as const;
 
-function AmountButton({
-  selected,
-  onClick,
-  label,
-  description,
-}: {
-  selected: boolean;
-  onClick: () => void;
-  label: string;
-  description?: string;
-}) {
-  return (
-    <button
-      type="button"
-      aria-pressed={selected}
-      onClick={onClick}
-      className={cn(
-        "min-h-14 rounded-md border-2 bg-white p-3 text-left shadow-[0_1px_0_rgba(28,31,30,0.03)] transition-[border-color,background-color,box-shadow] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eeba2b] focus-visible:ring-offset-2 md:p-4 dark:bg-[#121514] dark:shadow-none",
-        selected
-          ? "border-[#eeba2b] bg-[#FCFAEF] ring-1 ring-[#eeba2b]/35 dark:bg-[#1C1F1E]"
-          : "border-[#1C1F1E]/12 hover:border-[#0097b2]/55 hover:bg-[#FCFAEF]/80 dark:border-[#FCFAEF]/20 dark:hover:bg-[#1C1F1E]",
-      )}
-    >
-      <div className="flex items-start justify-between gap-2">
-        <div className="font-heading text-lg font-bold text-[#1C1F1E] dark:text-[#FCFAEF] md:text-xl">
-          {label}
-        </div>
-        {selected ? (
-          <span className="font-subheading text-[10px] font-bold uppercase tracking-[0.14em] text-[#C9920F] dark:text-[#F5C94D]">
-            Selected
-          </span>
-        ) : null}
-      </div>
-      {description ? (
-        <div className="mt-1 text-xs text-[#2F3332]/75 dark:text-[#E6E7E7]/75 md:text-sm">
-          {description}
-        </div>
-      ) : null}
-    </button>
-  );
-}
+type DonatePageContentProps = {
+  initialSection?: "partner" | "one-time";
+};
 
-export default function DonatePageContent() {
-  const [selectedPartnerAmount, setSelectedPartnerAmount] = useState("20");
-  const [selectedOneTimeAmount, setSelectedOneTimeAmount] = useState("25");
-  const [customPartnerAmount, setCustomPartnerAmount] = useState("");
-  const [customOneTimeAmount, setCustomOneTimeAmount] = useState("");
-  const [activeSection, setActiveSection] = useState<"partner" | "one-time">(
-    "partner",
-  );
-
-  const selectedPartnerGivingLevel =
-    selectedPartnerAmount === "custom"
-      ? customPartnerAmount
-        ? `$${customPartnerAmount} monthly`
-        : "a custom monthly amount"
-      : `$${selectedPartnerAmount} monthly`;
-
-  const selectedOneTimeGivingLevel =
-    selectedOneTimeAmount === "custom"
-      ? customOneTimeAmount
-        ? `$${customOneTimeAmount} one time`
-        : "a custom one-time amount"
-      : `$${selectedOneTimeAmount} one time`;
+export default function DonatePageContent({
+  initialSection = "partner",
+}: DonatePageContentProps) {
+  const activeSection = initialSection;
 
   return (
     <div data-rebrand-page className="bg-background text-foreground">
@@ -219,12 +138,11 @@ export default function DonatePageContent() {
           aria-label="Donation options"
           className="mx-auto grid max-w-2xl grid-cols-1 gap-3 sm:grid-cols-2"
         >
-          <button
-            type="button"
-            aria-pressed={activeSection === "partner"}
-            onClick={() => setActiveSection("partner")}
+          <a
+            href="/donate?entry=partner&frequency=monthly"
+            aria-current={activeSection === "partner" ? "page" : undefined}
             className={cn(
-              "min-h-14 border-2 px-4 py-4 text-left transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eeba2b] focus-visible:ring-offset-2",
+              "min-h-14 cursor-pointer border-2 px-4 py-4 text-left transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eeba2b] focus-visible:ring-offset-2",
               activeSection === "partner"
                 ? "border-[#eeba2b] bg-white dark:bg-[#1C1F1E]"
                 : "border-[#1C1F1E]/12 bg-transparent hover:border-[#0097b2]/40 dark:border-[#FCFAEF]/15",
@@ -243,13 +161,15 @@ export default function DonatePageContent() {
                 Currently viewing
               </span>
             ) : null}
-          </button>
-          <button
-            type="button"
-            aria-pressed={activeSection === "one-time"}
-            onClick={() => setActiveSection("one-time")}
+          </a>
+          {/* A native document navigation intentionally resets Givebutter's
+              iframe. Givebutter documents recurring frequency values only;
+              a fresh form is the safe way to restore its one-time default. */}
+          <a
+            href="/donate?entry=one-time"
+            aria-current={activeSection === "one-time" ? "page" : undefined}
             className={cn(
-              "min-h-14 border-2 px-4 py-4 text-left transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eeba2b] focus-visible:ring-offset-2",
+              "min-h-14 cursor-pointer border-2 px-4 py-4 text-left transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eeba2b] focus-visible:ring-offset-2",
               activeSection === "one-time"
                 ? "border-[#0097b2] bg-white dark:bg-[#1C1F1E]"
                 : "border-[#1C1F1E]/12 bg-transparent hover:border-[#0097b2]/40 dark:border-[#FCFAEF]/15",
@@ -263,7 +183,7 @@ export default function DonatePageContent() {
                 Currently viewing
               </span>
             ) : null}
-          </button>
+          </a>
         </div>
 
         {activeSection === "partner" ? (
@@ -278,7 +198,7 @@ export default function DonatePageContent() {
                     But we cannot do it alone. The Akomapa Partners Program is a
                     growing community of monthly donors who believe in our
                     mission and walk with us—month by month, life by life.
-                    Whether you give $20, $50, $100, or more, your partnership
+                    Whether you give $25, $50, $100, or more, your partnership
                     sustains free care, medication, NHIS enrollment, and student
                     training in some of Ghana&apos;s most underserved
                     communities.
@@ -299,7 +219,7 @@ export default function DonatePageContent() {
                       Monthly Impact Starts
                     </dt>
                     <dd className="mt-2 font-heading text-4xl font-bold text-[#1C1F1E] dark:text-[#FCFAEF]">
-                      $20
+                      $25
                     </dd>
                   </div>
                 </dl>
@@ -350,50 +270,9 @@ export default function DonatePageContent() {
               </div>
             </FadeIn>
 
-            <FadeIn delay={0.08}>
-              <div className="border border-[#1C1F1E]/10 bg-white px-6 py-8 dark:border-[#FCFAEF]/15 dark:bg-[#1C1F1E] sm:px-8 sm:py-10">
-                <h3 className="text-center font-heading text-xl font-semibold text-[#1C1F1E] dark:text-[#FCFAEF] sm:text-2xl md:text-3xl">
-                  Choose Your Monthly Partnership Amount
-                </h3>
-                <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4 md:gap-4">
-                  {partnerAmounts.map((amount) => (
-                    <AmountButton
-                      key={amount.value}
-                      selected={selectedPartnerAmount === amount.value}
-                      onClick={() => setSelectedPartnerAmount(amount.value)}
-                      label={amount.label}
-                      description={amount.description}
-                    />
-                  ))}
-                </div>
-
-                {selectedPartnerAmount === "custom" ? (
-                  <div className="mt-6 space-y-2 sm:mt-8">
-                    <Label
-                      htmlFor="custom-partner-amount"
-                      className={editorialLabelClassName}
-                    >
-                      Enter your monthly amount
-                    </Label>
-                    <Input
-                      id="custom-partner-amount"
-                      type="number"
-                      placeholder="Enter amount"
-                      value={customPartnerAmount}
-                      onChange={(e) => setCustomPartnerAmount(e.target.value)}
-                      className={cn(editorialFieldClassName, "md:text-lg")}
-                    />
-                  </div>
-                ) : null}
-
-                <div className="mt-8">
-                  <DonationPaymentMethods
-                    key="partner"
-                    flow="partner"
-                    selectedGivingLevel={selectedPartnerGivingLevel}
-                  />
-                </div>
-              </div>
+            <FadeIn delay={0.08} className="space-y-6">
+              <GivebutterCheckout entryPointId="partner" />
+              <GhanaMobileMoney journey="partner" />
             </FadeIn>
           </div>
         ) : (
@@ -405,9 +284,9 @@ export default function DonatePageContent() {
                     Make a One-Time Gift
                   </h2>
                   <p className="mt-5 text-base leading-relaxed text-[#2F3332]/80 dark:text-[#E6E7E7]/80 sm:text-lg">
-                    Give at your own pace using verified MTN Mobile Money
-                    instructions. Every one-time contribution, large or small,
-                    fuels medications, labs, and care at our clinic sites.
+                    Give at your own pace through Givebutter&apos;s secure checkout.
+                    Every one-time contribution, large or small, fuels
+                    medications, labs, and care at our clinic sites.
                   </p>
                 </div>
 
@@ -438,49 +317,9 @@ export default function DonatePageContent() {
               </div>
             </FadeIn>
 
-            <FadeIn delay={0.08}>
-              <div className="border border-[#1C1F1E]/10 bg-white px-6 py-8 dark:border-[#FCFAEF]/15 dark:bg-[#1C1F1E] sm:px-8 sm:py-10">
-                <h3 className="text-center font-heading text-xl font-semibold text-[#1C1F1E] dark:text-[#FCFAEF] sm:text-2xl md:text-3xl">
-                  Choose Your Gift Amount
-                </h3>
-                <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5 md:gap-4">
-                  {oneTimeAmounts.map((amount) => (
-                    <AmountButton
-                      key={amount.value}
-                      selected={selectedOneTimeAmount === amount.value}
-                      onClick={() => setSelectedOneTimeAmount(amount.value)}
-                      label={amount.label}
-                    />
-                  ))}
-                </div>
-
-                {selectedOneTimeAmount === "custom" ? (
-                  <div className="mt-6 space-y-2 sm:mt-8">
-                    <Label
-                      htmlFor="custom-one-time-amount"
-                      className={editorialLabelClassName}
-                    >
-                      Enter your gift amount
-                    </Label>
-                    <Input
-                      id="custom-one-time-amount"
-                      type="number"
-                      placeholder="Enter amount"
-                      value={customOneTimeAmount}
-                      onChange={(e) => setCustomOneTimeAmount(e.target.value)}
-                      className={cn(editorialFieldClassName, "md:text-lg")}
-                    />
-                  </div>
-                ) : null}
-
-                <div className="mt-8">
-                  <DonationPaymentMethods
-                    key="one-time"
-                    flow="oneTime"
-                    selectedGivingLevel={selectedOneTimeGivingLevel}
-                  />
-                </div>
-              </div>
+            <FadeIn delay={0.08} className="space-y-6">
+              <GivebutterCheckout entryPointId="oneTime" />
+              <GhanaMobileMoney journey="oneTime" />
             </FadeIn>
           </div>
         )}

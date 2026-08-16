@@ -14,6 +14,14 @@ function textLength(value: string) {
 }
 
 describe("SEO metadata contract", () => {
+  it("keeps third-party browser warnings out of the development terminal", async () => {
+    const nextConfig = await createNextConfig();
+
+    expect(nextConfig.logging).toMatchObject({
+      browserToTerminal: "error",
+    });
+  });
+
   it("defines unique static route titles and descriptions in the accepted length range", () => {
     const routes = [...canonicalSeoRoutes, ...noindexRoutes];
     const titles = new Set(routes.map((route) => route.title));

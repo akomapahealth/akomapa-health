@@ -15,7 +15,7 @@ A modern, responsive website for Akomapa Health Foundation - a student-powered h
 
 ### 💳 **Payments & Forms**
 
-![Stripe](https://img.shields.io/badge/Stripe-008CDD?style=for-the-badge&logo=stripe&logoColor=white)
+![Givebutter](https://img.shields.io/badge/Givebutter-FDBA2D?style=for-the-badge)
 ![Web3Forms](https://img.shields.io/badge/Web3Forms-00C4CC?style=for-the-badge&logo=web3forms&logoColor=white)
 ![Airtable](https://img.shields.io/badge/Airtable-18BFFF?style=for-the-badge&logo=airtable&logoColor=white)
 
@@ -35,7 +35,7 @@ A modern, responsive website for Akomapa Health Foundation - a student-powered h
 Akomapa Health Foundation is a student-powered initiative focused on improving access to preventive healthcare services in underserved communities across Ghana. Our comprehensive website serves as the digital platform for the organization, featuring:
 
 - **Healthcare Programs**: Detailed descriptions of 8 current programs and 2 future initiatives
-- **Donation & Partnership System**: Secure payment processing with Stripe integration
+- **Donation & Partnership System**: Config-gated Givebutter checkout plus verified MTN Mobile Money giving in Ghana
 - **Volunteer Recruitment**: Student volunteer application system with Airtable integration
 - **Newsletter Signup**: Email subscription for updates and opportunities
 - **Contact System**: Web3Forms integration for inquiries and notifications
@@ -55,13 +55,13 @@ Akomapa Health Foundation is a student-powered initiative focused on improving a
 
 ### 💰 **Donation & Partnership System**
 
-- **Verified MTN Mobile Money instructions** for manual donations
-- **Typed payment-method configuration** that keeps unverified methods unavailable
-- **One-time gifts** with clear recipient-verification guidance
-- **Partner program** with monthly giving context and explicit manual-transfer expectations
-- **Future processor support** without exposing card or recurring checkout before production verification
+- **Givebutter-hosted checkout** for processor-confirmed online donations
+- **Typed provider configuration** with an explicit verification and rollout gate
+- **One-time gifts and monthly giving** through one shared Form campaign
+- **Processor-managed receipts, thank-you messages, and recurring plans**
+- **Verified MTN Mobile Money instructions** for manual donations in Ghana
+- **No custom card-data collection or donor-attested completion flow**
 - **Corporate sponsorship** opportunities
-- **Web3Forms integration** for donation notifications
 
 ### 📝 **Content Management**
 
@@ -83,8 +83,8 @@ Akomapa Health Foundation is a student-powered initiative focused on improving a
 
 - **Newsletter signup** with MailerLite integration
 - **Contact form** with Web3Forms for reliable delivery
-- **Email notifications** for donations and inquiries
-- **Donation notification system** to team email
+- **Email notifications** for website inquiries
+- **Givebutter-managed donation receipts and thank-you emails** for online gifts
 - **Multi-channel communication** options
 
 ### 🗺️ **Strategic Roadmap**
@@ -170,7 +170,7 @@ npm run test:e2e:content
 - **Form validation** and input sanitization
 - **CORS protection** for API endpoints
 - **Rate limiting** for form submissions
-- **Secure payment processing** with Stripe
+- **Hosted payment entry** so raw card and bank data are handled by Givebutter
 - **GDPR compliance** with data handling practices
 - **Sentry privacy controls** documented in [`docs/observability/sentry.md`](docs/observability/sentry.md)
 
@@ -188,7 +188,7 @@ For questions about Akomapa Health Foundation:
 - **Next.js team** for the amazing framework and App Router
 - **Vercel** for hosting and deployment infrastructure
 - **Shadcn/ui** for the comprehensive component library
-- **Stripe** for secure payment processing
+- **Givebutter** for hosted donation checkout and processor-confirmed receipts
 - **Web3Forms** for reliable form handling
 - **Framer Motion** for smooth animations
 - **All volunteers and contributors** to Akomapa Health Foundation
@@ -198,12 +198,11 @@ For questions about Akomapa Health Foundation:
 
 ### Version 2.0 (Current)
 
-- ✅ **Complete donation system** with Stripe integration
+- ✅ **Config-gated Givebutter donation integration** pending organizational verification
 - ✅ **Interactive roadmap page** with 3-year strategic vision
 - ✅ **Enhanced partner page** with comprehensive partnership options
 - ✅ **Improved programs page** with card-based layout
-- ✅ **Donor notification system** with Web3Forms
-- ✅ **Mobile money payment** support
+- ✅ **Givebutter-managed receipts and recurring-plan support**
 - ✅ **Enhanced UI/UX** with better animations and interactions
 - ✅ **Responsive design** improvements across all pages
 - ✅ **Accessibility enhancements** for better user experience

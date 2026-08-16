@@ -4,7 +4,6 @@ import { POST as getInvolvedPost } from "@/app/api/intake/get-involved/route";
 import { POST as partnershipPost } from "@/app/api/intake/partnership/route";
 import { POST as programPost } from "@/app/api/intake/program-interest/route";
 import { POST as contactPost } from "@/app/api/contact/route";
-import { POST as donationPost } from "@/app/api/donation-follow-up/route";
 import { resetIntakeRateLimitForTests } from "@/lib/intake/server/handler";
 
 const common = {
@@ -38,11 +37,6 @@ const validBodies = {
     ...common,
     pathway: "volunteer",
     message: "I can support community outreach activities.",
-  },
-  donation: {
-    ...common,
-    flow: "oneTime",
-    selectedGivingLevel: "$25 one time",
   },
 };
 
@@ -144,7 +138,6 @@ describe("purpose-specific intake routes", () => {
     ["/api/intake/program-interest", programPost, validBodies.program],
     ["/api/intake/partnership", partnershipPost, validBodies.partnership],
     ["/api/intake/get-involved", getInvolvedPost, validBodies.getInvolved],
-    ["/api/donation-follow-up", donationPost, validBodies.donation],
   ] as const)("accepts a valid %s submission", async (path, post, body) => {
     const fetchMock = successfulFetch();
     vi.stubGlobal("fetch", fetchMock);

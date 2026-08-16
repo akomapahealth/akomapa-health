@@ -13,17 +13,30 @@ const conversionRoutes = [
 ] as const;
 
 const viewports = [
-  { name: "mobile-390", width: 390, height: 844 },
+  { name: "mobile-375", width: 375, height: 812 },
   { name: "tablet-768", width: 768, height: 1024 },
   { name: "ipad-pro-1024", width: 1024, height: 1366 },
   { name: "laptop-1280", width: 1280, height: 800 },
   { name: "desktop-1440", width: 1440, height: 900 },
   { name: "wide-1536", width: 1536, height: 960 },
+  { name: "wide-1728", width: 1728, height: 1080 },
 ] as const;
 
 const themes = ["light", "dark"] as const;
+const mockGivebutterLibrary = `
+  if (!customElements.get("givebutter-giving-form")) {
+    customElements.define("givebutter-giving-form", class extends HTMLElement {});
+  }
+`;
 
 async function preparePage(page: Page, theme: (typeof themes)[number]) {
+  await page.route("https://widgets.givebutter.com/**", async (route) => {
+    await route.fulfill({
+      status: 200,
+      contentType: "application/javascript",
+      body: mockGivebutterLibrary,
+    });
+  });
   await page.addInitScript(
     ({ version, storedTheme }) => {
       localStorage.setItem("akomapa-announcements-dismissed", version);
@@ -148,23 +161,25 @@ test.describe("conversion family editorial contracts", () => {
     await expect(firstFaq).toHaveAttribute("aria-expanded", "false");
 
     await page.goto("/donate", { waitUntil: "domcontentloaded" });
-    await page.waitForLoadState("networkidle");
-    const oneTimeTab = page.getByRole("button", { name: /One-Time Gift/i });
+    const oneTimeTab = page.getByRole("link", { name: /One-Time Gift/i });
+    await expect(oneTimeTab).toBeVisible();
     await oneTimeTab.scrollIntoViewIfNeeded();
     await oneTimeTab.focus();
     await expect(oneTimeTab).toBeFocused();
     await expect(async () => {
-      if ((await oneTimeTab.getAttribute("aria-pressed")) !== "true") {
+      if ((await oneTimeTab.getAttribute("aria-current")) !== "page") {
         await oneTimeTab.click();
       }
-      await expect(oneTimeTab).toHaveAttribute("aria-pressed", "true");
+      await expect(
+        page.getByRole("link", { name: /One-Time Gift/i }),
+      ).toHaveAttribute("aria-current", "page");
     }).toPass({ timeout: 10_000 });
     await expect(
       page.getByRole("heading", { name: "Make a One-Time Gift" }),
     ).toBeVisible();
   });
 
-  test("exercises contact and donation follow-up states without real submissions", async ({
+  test("exercises contact and donation checkout states without real submissions", async ({
     page,
   }) => {
     test.setTimeout(90_000);
@@ -210,69 +225,19 @@ test.describe("conversion family editorial contracts", () => {
 
     // Clear contact mocks before donate so they cannot interfere with navigation.
     await page.unroute("**/api/contact");
-    await page.route("**/api/donation-follow-up", async (route) => {
-      await route.fulfill({
-        status: 500,
-        contentType: "application/json",
-        body: JSON.stringify({ message: "Server error" }),
-      });
-    });
     await page.goto("/donate", { waitUntil: "domcontentloaded" });
-    const paymentPanel = page.getByTestId("donation-payment-methods-partner");
     await expect(
-      paymentPanel.getByText(/Complete a new manual transfer for each month/i),
+      page.getByRole("heading", {
+        name: "Every act of generosity saves a life.",
+      }),
     ).toBeVisible();
-
-    // Match both View/Hide labels so the locator survives the toggle rename.
-    const instructionsToggle = paymentPanel.getByRole("button", {
-      name: /Mobile Money instructions/i,
-    });
-    await instructionsToggle.scrollIntoViewIfNeeded();
-    await expect(instructionsToggle).toBeVisible();
-    await expect(instructionsToggle).toHaveAttribute("aria-expanded", "false");
-
-    // Retry until expanded — FadeIn/layout can swallow the first pointer event
-    // under full-suite load.
-    await expect(async () => {
-      if ((await instructionsToggle.getAttribute("aria-expanded")) !== "true") {
-        await instructionsToggle.click({ force: true });
-      }
-      await expect(instructionsToggle).toHaveAttribute("aria-expanded", "true");
-      await expect(paymentPanel.getByText("0249292898")).toBeVisible();
-    }).toPass({ timeout: 15_000 });
-
-    await expect(paymentPanel.getByRole("alert")).toBeVisible();
     await expect(
-      paymentPanel.getByRole("heading", { name: "Let us thank you" }),
+      page
+        .getByRole("heading", { name: "Complete your gift securely" })
+        .or(page.getByTestId("donation-provider-unavailable")),
     ).toBeVisible();
-    await paymentPanel
-      .getByRole("button", { name: "Share contact details" })
-      .click();
-    const followUpDialog = page.getByRole("dialog");
-    await followUpDialog.getByLabel("Full name").fill("Kojo Mensah");
-    await followUpDialog.getByLabel("Email address").fill("kojo@example.com");
-    await followUpDialog.getByRole("checkbox").check();
-    await followUpDialog
-      .getByRole("button", { name: "Share my details" })
-      .click();
-    await expect(
-      followUpDialog.getByText(/could not share your details/i),
-    ).toBeVisible();
-
-    await page.unroute("**/api/donation-follow-up");
-    await page.route("**/api/donation-follow-up", async (route) => {
-      await route.fulfill({
-        status: 200,
-        contentType: "application/json",
-        body: JSON.stringify({ ok: true }),
-      });
-    });
-    await followUpDialog
-      .getByRole("button", { name: "Share my details" })
-      .click();
-    await expect(
-      followUpDialog.getByText(/Your details were safely stored/i),
-    ).toBeVisible();
+    await expect(page.getByTestId("ghana-mobile-money")).toBeVisible();
+    await expect(page.getByText("0249292898")).toBeVisible();
   });
 
   for (const viewport of viewports) {
@@ -310,11 +275,23 @@ test.describe("conversion family editorial contracts", () => {
                 ) {
                   return false;
                 }
-                // Native/Radix radios are intentionally compact indicators.
+                // Native/Radix selection controls are compact indicators with
+                // larger associated labels as their interaction targets.
                 if (
                   control.getAttribute("role") === "radio" ||
+                  control.getAttribute("role") === "checkbox" ||
                   control.getAttribute("type") === "radio" ||
+                  control.getAttribute("type") === "checkbox" ||
                   control.closest('[role="radiogroup"]')
+                ) {
+                  return false;
+                }
+                // Inline prose links are covered by WCAG's inline target
+                // exception, and compact checkbox indicators inherit the
+                // larger clickable target of their wrapping label.
+                if (
+                  style.display === "inline" ||
+                  control.closest("label")
                 ) {
                   return false;
                 }
