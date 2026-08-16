@@ -13,15 +13,18 @@ const conversionRoutes = [
 ] as const;
 
 const viewports = [
-  { name: "mobile-390", width: 390, height: 844 },
+  { name: "mobile-375", width: 375, height: 812 },
   { name: "tablet-768", width: 768, height: 1024 },
   { name: "ipad-pro-1024", width: 1024, height: 1366 },
   { name: "laptop-1280", width: 1280, height: 800 },
   { name: "desktop-1440", width: 1440, height: 900 },
   { name: "wide-1536", width: 1536, height: 960 },
+  { name: "wide-1728", width: 1728, height: 1080 },
 ] as const;
 
 const themes = ["light", "dark"] as const;
+const givebutterEnabled =
+  process.env.NEXT_PUBLIC_GIVEBUTTER_DONATIONS_ENABLED === "true";
 
 async function preparePage(page: Page, theme: (typeof themes)[number]) {
   await page.addInitScript(
@@ -210,69 +213,31 @@ test.describe("conversion family editorial contracts", () => {
 
     // Clear contact mocks before donate so they cannot interfere with navigation.
     await page.unroute("**/api/contact");
-    await page.route("**/api/donation-follow-up", async (route) => {
-      await route.fulfill({
-        status: 500,
-        contentType: "application/json",
-        body: JSON.stringify({ message: "Server error" }),
+    if (givebutterEnabled) {
+      await page.route("https://widgets.givebutter.com/**", async (route) => {
+        await route.fulfill({
+          status: 200,
+          contentType: "application/javascript",
+          body: `customElements.define("givebutter-giving-form", class extends HTMLElement {});`,
+        });
       });
-    });
+    }
     await page.goto("/donate", { waitUntil: "domcontentloaded" });
-    const paymentPanel = page.getByTestId("donation-payment-methods-partner");
     await expect(
-      paymentPanel.getByText(/Complete a new manual transfer for each month/i),
+      page.getByRole("heading", {
+        name: "Choose Your Monthly Partnership Amount",
+      }),
     ).toBeVisible();
-
-    // Match both View/Hide labels so the locator survives the toggle rename.
-    const instructionsToggle = paymentPanel.getByRole("button", {
-      name: /Mobile Money instructions/i,
-    });
-    await instructionsToggle.scrollIntoViewIfNeeded();
-    await expect(instructionsToggle).toBeVisible();
-    await expect(instructionsToggle).toHaveAttribute("aria-expanded", "false");
-
-    // Retry until expanded — FadeIn/layout can swallow the first pointer event
-    // under full-suite load.
-    await expect(async () => {
-      if ((await instructionsToggle.getAttribute("aria-expanded")) !== "true") {
-        await instructionsToggle.click({ force: true });
-      }
-      await expect(instructionsToggle).toHaveAttribute("aria-expanded", "true");
-      await expect(paymentPanel.getByText("0249292898")).toBeVisible();
-    }).toPass({ timeout: 15_000 });
-
-    await expect(paymentPanel.getByRole("alert")).toBeVisible();
-    await expect(
-      paymentPanel.getByRole("heading", { name: "Let us thank you" }),
-    ).toBeVisible();
-    await paymentPanel
-      .getByRole("button", { name: "Share contact details" })
-      .click();
-    const followUpDialog = page.getByRole("dialog");
-    await followUpDialog.getByLabel("Full name").fill("Kojo Mensah");
-    await followUpDialog.getByLabel("Email address").fill("kojo@example.com");
-    await followUpDialog.getByRole("checkbox").check();
-    await followUpDialog
-      .getByRole("button", { name: "Share my details" })
-      .click();
-    await expect(
-      followUpDialog.getByText(/could not share your details/i),
-    ).toBeVisible();
-
-    await page.unroute("**/api/donation-follow-up");
-    await page.route("**/api/donation-follow-up", async (route) => {
-      await route.fulfill({
-        status: 200,
-        contentType: "application/json",
-        body: JSON.stringify({ ok: true }),
-      });
-    });
-    await followUpDialog
-      .getByRole("button", { name: "Share my details" })
-      .click();
-    await expect(
-      followUpDialog.getByText(/Your details were safely stored/i),
-    ).toBeVisible();
+    if (givebutterEnabled) {
+      await expect(
+        page.getByRole("heading", { name: "Complete your gift securely" }),
+      ).toBeVisible();
+    } else {
+      await expect(
+        page.getByTestId("donation-provider-unavailable"),
+      ).toBeVisible();
+    }
+    await expect(page.getByText(/Mobile Money/i)).toHaveCount(0);
   });
 
   for (const viewport of viewports) {

@@ -1,11 +1,27 @@
-import { expect, test, type Locator, type Page } from "@playwright/test";
+import { expect, test, type Page } from "@playwright/test";
 import { announcementCampaign } from "../src/data/announcements";
+
+const givebutterEnabled =
+  process.env.NEXT_PUBLIC_GIVEBUTTER_DONATIONS_ENABLED === "true";
+const givebutterScriptPattern = "https://widgets.givebutter.com/**";
+const requiredWidths = [375, 768, 1024, 1280, 1440, 1536, 1728] as const;
 
 const forbiddenPaymentValues = [
   ["+233", "54", "111", "1111"].join(" "),
   ["054", "111", "1111"].join(" "),
   ["123", "456", "7890"].join(""),
+  ["024", "929", "2898"].join(""),
 ];
+
+const mockGivebutterLibrary = `
+  if (!customElements.get("givebutter-giving-form")) {
+    customElements.define("givebutter-giving-form", class extends HTMLElement {
+      connectedCallback() {
+        this.innerHTML = '<div role="group" aria-label="Mock secure Givebutter form"><p>Secure Givebutter checkout</p><button type="button">Continue in test form</button></div>';
+      }
+    });
+  }
+`;
 
 async function dismissAnnouncements(page: Page) {
   await page.addInitScript((version) => {
@@ -13,53 +29,14 @@ async function dismissAnnouncements(page: Page) {
   }, announcementCampaign.version);
 }
 
-async function verifySafePaymentPanel(page: Page, panel: Locator) {
-  await expect(
-    panel.getByRole("radio", { name: /MTN Mobile Money/i }),
-  ).toBeChecked();
-  await expect(
-    panel.getByText(
-      "Bank transfer instructions are being verified and will be available soon.",
-    ),
-  ).toBeVisible();
-  await expect(panel.getByText("PayPal", { exact: true })).toBeVisible();
-  await expect(panel.getByText("Coming soon").first()).toBeVisible();
-  await expect(panel.getByRole("link")).toHaveCount(0);
-  await expect(panel.getByRole("radio")).toHaveCount(1);
-  await expect(panel.getByTestId("payment-method-paypal")).toHaveAttribute(
-    "aria-disabled",
-    "true",
-  );
-  await expect(panel.getByTestId("payment-method-venmo")).toHaveCSS(
-    "cursor",
-    "not-allowed",
-  );
-
-  await panel
-    .getByRole("button", { name: "View Mobile Money instructions" })
-    .click();
-  await expect(panel.getByText("0249292898")).toBeVisible();
-  await expect(panel.getByText("MTN", { exact: true })).toBeVisible();
-  await expect(
-    panel.getByText("Akomapa Health Foundation", { exact: true }),
-  ).toBeVisible();
-  await expect(
-    panel.getByText(
-      "Before completing your transfer, please confirm the account name appears as Akomapa Health Foundation.",
-    ),
-  ).toBeVisible();
-  await expect(
-    panel.getByRole("heading", { name: "Let us thank you" }),
-  ).toBeVisible();
-  await expect(
-    panel.getByText(/does not verify or confirm payment/i),
-  ).toBeVisible();
-  await panel.getByRole("button", { name: "Share contact details" }).click();
-  const dialog = page.getByRole("dialog", { name: "Let us thank you" });
-  await expect(dialog).toBeVisible();
-  await expect(dialog.getByLabel("Full name")).toBeVisible();
-  await expect(dialog.getByLabel("Email address")).toBeVisible();
-  await expect(dialog.getByText(/does not confirm payment/i)).toBeVisible();
+async function mockGivebutter(page: Page) {
+  await page.route(givebutterScriptPattern, async (route) => {
+    await route.fulfill({
+      status: 200,
+      contentType: "application/javascript",
+      body: mockGivebutterLibrary,
+    });
+  });
 }
 
 test.describe("Donate page flow", () => {
@@ -67,9 +44,63 @@ test.describe("Donate page flow", () => {
     await dismissAnnouncements(page);
   });
 
-  test("renders the verified partner manual-transfer flow", async ({
+  test("fails closed while the Givebutter rollout gate is disabled", async ({
     page,
   }) => {
+    test.skip(givebutterEnabled, "This build explicitly enables Givebutter QA");
+    const widgetRequests: string[] = [];
+    page.on("request", (request) => {
+      if (request.url().startsWith("https://widgets.givebutter.com/")) {
+        widgetRequests.push(request.url());
+      }
+    });
+
+    await page.goto("/donate");
+
+    await expect(
+      page.getByTestId("donation-provider-unavailable"),
+    ).toBeVisible();
+    await expect(
+      page.getByRole("link", { name: /Givebutter campaign/i }),
+    ).toHaveCount(0);
+    expect(widgetRequests).toEqual([]);
+  });
+
+  test("retired local payment and follow-up APIs are unavailable", async ({
+    request,
+  }) => {
+    const paymentIntent = await request.post("/api/create-payment-intent", {
+      data: { amount: 25 },
+    });
+    const donationFollowUp = await request.post("/api/donation-follow-up", {
+      data: { name: "Test donor" },
+    });
+
+    expect(paymentIntent.status()).toBe(404);
+    expect(donationFollowUp.status()).toBe(404);
+  });
+
+  test("uses one campaign for monthly and one-time entry points", async ({
+    page,
+  }) => {
+    test.skip(!givebutterEnabled, "Givebutter is disabled in this build");
+    await mockGivebutter(page);
+    const widgetRequests: string[] = [];
+    const prohibitedRequests: string[] = [];
+    page.on("request", (request) => {
+      const url = request.url();
+      if (url.startsWith("https://widgets.givebutter.com/")) {
+        widgetRequests.push(url);
+      }
+      if (
+        url.includes("/api/create-payment-intent") ||
+        url.includes("/api/donation-follow-up") ||
+        url.startsWith("https://js.stripe.com/")
+      ) {
+        prohibitedRequests.push(url);
+      }
+    });
+
     await page.goto("/donate");
 
     await expect(
@@ -78,46 +109,87 @@ test.describe("Donate page flow", () => {
       }),
     ).toBeVisible();
     await expect(
-      page.getByRole("heading", { name: "The Akomapa Partners Program" }),
+      page.getByRole("group", { name: "Mock secure Givebutter form" }),
     ).toBeVisible();
-
-    const panel = page.getByTestId("donation-payment-methods-partner");
+    await expect(page).toHaveURL(/amount=25/);
+    await expect(page).toHaveURL(/frequency=monthly/);
     await expect(
-      panel.getByText(/Complete a new manual transfer for each month/i),
-    ).toBeVisible();
-    await expect(
-      panel.getByText(
-        /does not calculate or display a Mobile Money currency conversion/i,
-      ),
-    ).toBeVisible();
-    await verifySafePaymentPanel(page, panel);
-  });
+      page.locator('givebutter-giving-form[campaign="HE1MLG"]'),
+    ).toHaveCount(1);
 
-  test("reuses the safe payment configuration for one-time gifts", async ({
-    page,
-  }) => {
-    await page.goto("/donate");
+    await page.getByRole("button", { name: "$100 Monthly" }).click();
+    await expect(page).toHaveURL(/amount=100/);
+    await expect(page).toHaveURL(/frequency=monthly/);
+
     await page.getByRole("button", { name: "One-Time Gift" }).click();
-
     await expect(
       page.getByRole("heading", { name: "Make a One-Time Gift" }),
     ).toBeVisible();
-    const panel = page.getByTestId("donation-payment-methods-oneTime");
+    await expect(page).toHaveURL(/amount=25/);
+    await expect(page).not.toHaveURL(/frequency=/);
     await expect(
-      panel.getByText(
-        "This is a one-time manual transfer. No recurring payment will be created.",
-      ),
-    ).toBeVisible();
-    await verifySafePaymentPanel(page, panel);
-    await expect(page.getByRole("button", { name: /annual/i })).toHaveCount(0);
+      page.locator('givebutter-giving-form[campaign="HE1MLG"]'),
+    ).toHaveCount(1);
+
+    await page.getByRole("button", { name: "Other" }).click();
+    await expect(page).not.toHaveURL(/amount=/);
+    expect(widgetRequests).toHaveLength(1);
+    expect(prohibitedRequests).toEqual([]);
   });
 
-  test("never renders forbidden payment values", async ({ page }) => {
+  test("recovers from a blocked widget script and keeps a safe fallback", async ({
+    page,
+  }) => {
+    test.skip(!givebutterEnabled, "Givebutter is disabled in this build");
+    await page.route(givebutterScriptPattern, (route) =>
+      route.abort("blockedbyclient"),
+    );
+    await page.goto("/donate");
+
+    await expect(page.getByRole("alert")).toContainText(/could not be loaded/i);
+    const fallback = page.getByRole("link", {
+      name: /Open the secure Givebutter campaign/i,
+    });
+    await expect(fallback).toHaveAttribute("target", "_blank");
+    await expect(fallback).toHaveAttribute("rel", "noopener noreferrer");
+
+    await page.unroute(givebutterScriptPattern);
+    await mockGivebutter(page);
+    await page.getByRole("button", { name: "Retry secure form" }).click();
+    await expect(
+      page.getByRole("group", { name: "Mock secure Givebutter form" }),
+    ).toBeVisible();
+  });
+
+  test("keeps the secure checkout within every required viewport", async ({
+    page,
+  }) => {
+    test.skip(!givebutterEnabled, "Givebutter is disabled in this build");
+    await mockGivebutter(page);
+
+    for (const width of requiredWidths) {
+      await page.setViewportSize({ width, height: 900 });
+      await page.goto("/donate");
+      await expect(
+        page.getByRole("group", { name: "Mock secure Givebutter form" }),
+      ).toBeVisible();
+      expect(
+        await page.evaluate(
+          () => document.documentElement.scrollWidth <= window.innerWidth + 1,
+        ),
+      ).toBe(true);
+    }
+  });
+
+  test("never renders manual or placeholder payment values", async ({ page }) => {
+    if (givebutterEnabled) await mockGivebutter(page);
     await page.goto("/donate");
     const pageText = await page.locator("body").innerText();
 
     for (const value of forbiddenPaymentValues) {
       expect(pageText).not.toContain(value);
     }
+    await expect(page.getByText(/Mobile Money/i)).toHaveCount(0);
+    await expect(page.getByText(/payment complete/i)).toHaveCount(0);
   });
 });

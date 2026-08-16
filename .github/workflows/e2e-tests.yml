@@ -53,6 +53,7 @@ jobs:
         run: npm run build
         env:
           CI: true
+          NEXT_PUBLIC_GIVEBUTTER_DONATIONS_ENABLED: "true"
           NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT: ${{ secrets.NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT }}
           NEXT_PUBLIC_IMAGEKIT_PUBLIC_KEY: ${{ secrets.NEXT_PUBLIC_IMAGEKIT_PUBLIC_KEY }}
 
@@ -60,6 +61,7 @@ jobs:
         run: npm run test:e2e
         env:
           CI: true
+          NEXT_PUBLIC_GIVEBUTTER_DONATIONS_ENABLED: "true"
           PLAYWRIGHT_TEST_BASE_URL: http://localhost:3000
         continue-on-error: false
         timeout-minutes: 20

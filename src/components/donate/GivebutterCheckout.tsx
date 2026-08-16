@@ -31,15 +31,17 @@ function waitForGivebutterElement(): Promise<void> {
     return Promise.resolve();
   }
 
-  return Promise.race([
-    customElements.whenDefined(GIVEBUTTER_ELEMENT_NAME).then(() => undefined),
-    new Promise<never>((_, reject) => {
-      window.setTimeout(
-        () => reject(new Error("Givebutter widget registration timed out")),
-        GIVEBUTTER_LOAD_TIMEOUT_MS,
-      );
-    }),
-  ]);
+  return new Promise<void>((resolve, reject) => {
+    const timeoutId = window.setTimeout(
+      () => reject(new Error("Givebutter widget registration timed out")),
+      GIVEBUTTER_LOAD_TIMEOUT_MS,
+    );
+
+    void customElements.whenDefined(GIVEBUTTER_ELEMENT_NAME).then(() => {
+      window.clearTimeout(timeoutId);
+      resolve();
+    });
+  });
 }
 
 export function loadGivebutterWidgetLibrary(
