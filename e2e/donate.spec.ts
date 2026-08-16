@@ -195,7 +195,9 @@ test.describe("Donate page flow", () => {
     }
     const mobileMoney = page.getByTestId("ghana-mobile-money");
     await expect(mobileMoney).toBeVisible();
-    await expect(mobileMoney.getByText("Akomapa Health Foundation")).toBeVisible();
+    await expect(
+      mobileMoney.getByText("Akomapa Health Foundation", { exact: true }),
+    ).toBeVisible();
     await expect(mobileMoney.getByText("MTN", { exact: true })).toBeVisible();
     await expect(mobileMoney.getByText("0249292898")).toBeVisible();
     await expect(
