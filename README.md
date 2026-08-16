@@ -35,7 +35,7 @@ A modern, responsive website for Akomapa Health Foundation - a student-powered h
 Akomapa Health Foundation is a student-powered initiative focused on improving access to preventive healthcare services in underserved communities across Ghana. Our comprehensive website serves as the digital platform for the organization, featuring:
 
 - **Healthcare Programs**: Detailed descriptions of 8 current programs and 2 future initiatives
-- **Donation & Partnership System**: Config-gated Givebutter checkout for secure online donations
+- **Donation & Partnership System**: Config-gated Givebutter checkout plus verified MTN Mobile Money giving in Ghana
 - **Volunteer Recruitment**: Student volunteer application system with Airtable integration
 - **Newsletter Signup**: Email subscription for updates and opportunities
 - **Contact System**: Web3Forms integration for inquiries and notifications
@@ -59,7 +59,8 @@ Akomapa Health Foundation is a student-powered initiative focused on improving a
 - **Typed provider configuration** with an explicit verification and rollout gate
 - **One-time gifts and monthly giving** through one shared Form campaign
 - **Processor-managed receipts, thank-you messages, and recurring plans**
-- **No manual transfer instructions or custom card-data collection**
+- **Verified MTN Mobile Money instructions** for manual donations in Ghana
+- **No custom card-data collection or donor-attested completion flow**
 - **Corporate sponsorship** opportunities
 
 ### 📝 **Content Management**
@@ -82,8 +83,8 @@ Akomapa Health Foundation is a student-powered initiative focused on improving a
 
 - **Newsletter signup** with MailerLite integration
 - **Contact form** with Web3Forms for reliable delivery
-- **Email notifications** for donations and inquiries
-- **Donation notification system** to team email
+- **Email notifications** for website inquiries
+- **Givebutter-managed donation receipts and thank-you emails** for online gifts
 - **Multi-channel communication** options
 
 ### 🗺️ **Strategic Roadmap**

@@ -154,7 +154,12 @@ export default function Content() {
                     checkout information needed to process contributions, send
                     receipts, prevent fraud, and manage recurring plans. Akomapa
                     does not collect or store raw card numbers or bank-account
-                    credentials on its servers.
+                    credentials on its servers. For a direct MTN Mobile Money
+                    transfer, the mobile network processes the transaction and
+                    Akomapa may receive transaction-record details such as the
+                    sender name or phone number, amount, and reference. This
+                    website does not collect those details or receive a donor&apos;s
+                    Mobile Money PIN.
                   </li>
                   <li>
                     <strong>Technical data:</strong> Information such as IP
@@ -307,6 +312,13 @@ export default function Content() {
                     security terms.
                   </li>
                   <li>
+                    <strong>MTN Mobile Money</strong> to process optional direct
+                    donations in Ghana. MTN handles the transfer under its own
+                    privacy and security terms; Akomapa receives only the
+                    resulting account or transaction records made available to
+                    the recipient.
+                  </li>
+                  <li>
                     <strong>Partner institutions</strong> when coordination is
                     necessary for volunteer placements, education programs, or
                     clinic operations—and only with appropriate safeguards.
@@ -341,12 +353,12 @@ export default function Content() {
                   Legacy donation follow-up records collected before August 16,
                   2026 may remain subject to that same 24-month schedule, but the
                   website no longer collects a separate donation follow-up form.
-                  Givebutter donation and transaction records follow the
-                  retention requirements applicable to payment, tax, fraud,
-                  dispute, and nonprofit accounting records. We may delete a
-                  record earlier after a valid request, or keep it longer where
-                  law, safeguarding, dispute resolution, or another documented
-                  operational need requires it.
+                  Givebutter and Mobile Money donation and transaction records
+                  follow the retention requirements applicable to payment, tax,
+                  fraud, dispute, and nonprofit accounting records. We may
+                  delete a record earlier after a valid request, or keep it
+                  longer where law, safeguarding, dispute resolution, or another
+                  documented operational need requires it.
                 </p>
                 <p className={body}>
                   Retention review is performed with a dry-run-first operator

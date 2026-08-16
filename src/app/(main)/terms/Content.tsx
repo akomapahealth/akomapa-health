@@ -248,6 +248,15 @@ export default function Content() {
                   treatment before completing checkout.
                 </p>
                 <p className={body}>
+                  Donors in Ghana may instead use the separately displayed,
+                  verified MTN Mobile Money instructions. This is a manual
+                  transfer: it is not processed or confirmed by Givebutter or
+                  this website, does not create a recurring plan, and does not
+                  automatically generate a receipt or thank-you email. Before
+                  confirming a transfer, donors must verify that the recipient
+                  name appears as Akomapa Health Foundation.
+                </p>
+                <p className={body}>
                   Recurring donations continue until changed, paused, or
                   canceled. Donors can manage a recurring plan through the
                   management link included in Givebutter receipts. Canceling a
@@ -260,11 +269,14 @@ export default function Content() {
                   <a href={CONTACT.email.href} className={link}>
                     {CONTACT.email.display}
                   </a>
-                  . Requests are reviewed case by case and remain subject to
-                  Givebutter&apos;s payment-processing policies, available campaign
-                  funds, and applicable banking timelines. Please include enough
-                  information for our team to locate the transaction, but never
-                  send complete card or bank-account details by email.
+                  . Requests are reviewed case by case. Givebutter transaction
+                  refunds remain subject to Givebutter&apos;s payment-processing
+                  policies; manual Mobile Money refunds remain subject to
+                  available funds and the mobile network&apos;s processing
+                  limitations. All refunds may be affected by applicable banking
+                  timelines. Please include enough information for our team to
+                  locate the transaction, but never send complete card,
+                  bank-account, or Mobile Money PIN details by email.
                 </p>
                 <p className={body}>
                   A receipt or description of a donation does not guarantee the

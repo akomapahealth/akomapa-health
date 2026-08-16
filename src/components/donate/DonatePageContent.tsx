@@ -1,10 +1,10 @@
 "use client";
 
-import { useState } from "react";
 import { DollarSign, Heart, ShieldCheck } from "lucide-react";
 import Image from "@/components/common/Image";
 import Breadcrumb from "@/components/layout/Breadcrumb";
 import { FadeIn } from "@/components/animations";
+import GhanaMobileMoney from "@/components/donate/GhanaMobileMoney";
 import GivebutterCheckout from "@/components/donate/GivebutterCheckout";
 import {
   EditorialBand,
@@ -13,24 +13,7 @@ import {
   EditorialHeading,
   EditorialLead,
 } from "@/components/shared/EditorialPrimitives";
-import type { DonationAmount } from "@/config/donation-provider";
 import { cn } from "@/lib/utils";
-
-const partnerAmounts = [
-  { value: 25, label: "$25", description: "Monthly" },
-  { value: 50, label: "$50", description: "Monthly" },
-  { value: 100, label: "$100", description: "Monthly" },
-  { value: 250, label: "$250", description: "Monthly" },
-  { value: "other", label: "Other", description: "Choose in secure form" },
-] as const;
-
-const oneTimeAmounts = [
-  { value: 25, label: "$25" },
-  { value: 50, label: "$50" },
-  { value: 100, label: "$100" },
-  { value: 250, label: "$250" },
-  { value: "other", label: "Other" },
-] as const;
 
 const partnerBenefits = [
   {
@@ -96,48 +79,6 @@ const oneTimeBenefits = [
   },
 ] as const;
 
-function AmountButton({
-  selected,
-  onClick,
-  label,
-  description,
-}: {
-  selected: boolean;
-  onClick: () => void;
-  label: string;
-  description?: string;
-}) {
-  return (
-    <button
-      type="button"
-      aria-pressed={selected}
-      onClick={onClick}
-      className={cn(
-        "min-h-14 rounded-md border-2 bg-white p-3 text-left shadow-[0_1px_0_rgba(28,31,30,0.03)] transition-[border-color,background-color,box-shadow] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eeba2b] focus-visible:ring-offset-2 md:p-4 dark:bg-[#121514] dark:shadow-none",
-        selected
-          ? "border-[#eeba2b] bg-[#FCFAEF] ring-1 ring-[#eeba2b]/35 dark:bg-[#1C1F1E]"
-          : "border-[#1C1F1E]/12 hover:border-[#0097b2]/55 hover:bg-[#FCFAEF]/80 dark:border-[#FCFAEF]/20 dark:hover:bg-[#1C1F1E]",
-      )}
-    >
-      <div className="flex items-start justify-between gap-2">
-        <div className="font-heading text-lg font-bold text-[#1C1F1E] dark:text-[#FCFAEF] md:text-xl">
-          {label}
-        </div>
-        {selected ? (
-          <span className="font-subheading text-[10px] font-bold uppercase tracking-[0.14em] text-[#C9920F] dark:text-[#F5C94D]">
-            Selected
-          </span>
-        ) : null}
-      </div>
-      {description ? (
-        <div className="mt-1 text-xs text-[#2F3332]/75 dark:text-[#E6E7E7]/75 md:text-sm">
-          {description}
-        </div>
-      ) : null}
-    </button>
-  );
-}
-
 type DonatePageContentProps = {
   initialSection?: "partner" | "one-time";
 };
@@ -145,12 +86,6 @@ type DonatePageContentProps = {
 export default function DonatePageContent({
   initialSection = "partner",
 }: DonatePageContentProps) {
-  const [selectedPartnerAmount, setSelectedPartnerAmount] = useState<
-    DonationAmount | "other"
-  >(25);
-  const [selectedOneTimeAmount, setSelectedOneTimeAmount] = useState<
-    DonationAmount | "other"
-  >(25);
   const activeSection = initialSection;
 
   return (
@@ -204,7 +139,7 @@ export default function DonatePageContent({
           className="mx-auto grid max-w-2xl grid-cols-1 gap-3 sm:grid-cols-2"
         >
           <a
-            href="/donate?entry=partner&amount=25&frequency=monthly"
+            href="/donate?entry=partner&frequency=monthly"
             aria-current={activeSection === "partner" ? "page" : undefined}
             className={cn(
               "min-h-14 cursor-pointer border-2 px-4 py-4 text-left transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eeba2b] focus-visible:ring-offset-2",
@@ -231,7 +166,7 @@ export default function DonatePageContent({
               iframe. Givebutter documents recurring frequency values only;
               a fresh form is the safe way to restore its one-time default. */}
           <a
-            href="/donate?entry=one-time&amount=25"
+            href="/donate?entry=one-time"
             aria-current={activeSection === "one-time" ? "page" : undefined}
             className={cn(
               "min-h-14 cursor-pointer border-2 px-4 py-4 text-left transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eeba2b] focus-visible:ring-offset-2",
@@ -335,34 +270,9 @@ export default function DonatePageContent({
               </div>
             </FadeIn>
 
-            <FadeIn delay={0.08}>
-              <div className="border border-[#1C1F1E]/10 bg-white px-6 py-8 dark:border-[#FCFAEF]/15 dark:bg-[#1C1F1E] sm:px-8 sm:py-10">
-                <h3 className="text-center font-heading text-xl font-semibold text-[#1C1F1E] dark:text-[#FCFAEF] sm:text-2xl md:text-3xl">
-                  Choose Your Monthly Partnership Amount
-                </h3>
-                <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-5 md:gap-4">
-                  {partnerAmounts.map((amount) => (
-                    <AmountButton
-                      key={amount.value}
-                      selected={selectedPartnerAmount === amount.value}
-                      onClick={() => setSelectedPartnerAmount(amount.value)}
-                      label={amount.label}
-                      description={amount.description}
-                    />
-                  ))}
-                </div>
-
-                <div className="mt-8">
-                  <GivebutterCheckout
-                    entryPointId="partner"
-                    amount={
-                      selectedPartnerAmount === "other"
-                        ? null
-                        : selectedPartnerAmount
-                    }
-                  />
-                </div>
-              </div>
+            <FadeIn delay={0.08} className="space-y-6">
+              <GivebutterCheckout entryPointId="partner" />
+              <GhanaMobileMoney journey="partner" />
             </FadeIn>
           </div>
         ) : (
@@ -407,33 +317,9 @@ export default function DonatePageContent({
               </div>
             </FadeIn>
 
-            <FadeIn delay={0.08}>
-              <div className="border border-[#1C1F1E]/10 bg-white px-6 py-8 dark:border-[#FCFAEF]/15 dark:bg-[#1C1F1E] sm:px-8 sm:py-10">
-                <h3 className="text-center font-heading text-xl font-semibold text-[#1C1F1E] dark:text-[#FCFAEF] sm:text-2xl md:text-3xl">
-                  Choose Your Gift Amount
-                </h3>
-                <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5 md:gap-4">
-                  {oneTimeAmounts.map((amount) => (
-                    <AmountButton
-                      key={amount.value}
-                      selected={selectedOneTimeAmount === amount.value}
-                      onClick={() => setSelectedOneTimeAmount(amount.value)}
-                      label={amount.label}
-                    />
-                  ))}
-                </div>
-
-                <div className="mt-8">
-                  <GivebutterCheckout
-                    entryPointId="oneTime"
-                    amount={
-                      selectedOneTimeAmount === "other"
-                        ? null
-                        : selectedOneTimeAmount
-                    }
-                  />
-                </div>
-              </div>
+            <FadeIn delay={0.08} className="space-y-6">
+              <GivebutterCheckout entryPointId="oneTime" />
+              <GhanaMobileMoney journey="oneTime" />
             </FadeIn>
           </div>
         )}

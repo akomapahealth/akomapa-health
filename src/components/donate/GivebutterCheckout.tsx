@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button";
 import {
   getDonationEntryPoint,
   getDonationProviderConfig,
-  type DonationAmount,
   type DonationEntryPointId,
 } from "@/config/donation-provider";
 import { trackEvent } from "@/lib/analytics";
@@ -19,7 +18,6 @@ const GIVEBUTTER_LOAD_TIMEOUT_MS = 12_000;
 
 type GivebutterCheckoutProps = {
   entryPointId: DonationEntryPointId;
-  amount: DonationAmount | null;
 };
 
 type LoadState = "idle" | "loading" | "ready" | "error";
@@ -109,17 +107,8 @@ export function resetGivebutterWidgetLibraryForRetry(): void {
   document.getElementById(GIVEBUTTER_SCRIPT_ID)?.remove();
 }
 
-function syncDonationDefaults(
-  amount: DonationAmount | null,
-  frequency?: "monthly",
-): void {
+function syncDonationDefaults(frequency?: "monthly"): void {
   const url = new URL(window.location.href);
-
-  if (amount === null) {
-    url.searchParams.delete("amount");
-  } else {
-    url.searchParams.set("amount", String(amount));
-  }
 
   if (frequency) {
     url.searchParams.set("frequency", frequency);
@@ -132,15 +121,14 @@ function syncDonationDefaults(
 
 export default function GivebutterCheckout({
   entryPointId,
-  amount,
 }: GivebutterCheckoutProps) {
   const provider = useMemo(() => getDonationProviderConfig(), []);
   const entryPoint = getDonationEntryPoint(entryPointId, provider);
   const [loadState, setLoadState] = useState<LoadState>("idle");
   const [attempt, setAttempt] = useState(0);
   const widgetKey = useMemo(
-    () => `${entryPoint.id}-${entryPoint.frequency ?? "once"}-${amount ?? "other"}`,
-    [amount, entryPoint.frequency, entryPoint.id],
+    () => `${entryPoint.id}-${entryPoint.frequency ?? "once"}`,
+    [entryPoint.frequency, entryPoint.id],
   );
 
   useEffect(() => {
@@ -149,7 +137,7 @@ export default function GivebutterCheckout({
     }
 
     let cancelled = false;
-    syncDonationDefaults(amount, entryPoint.frequency);
+    syncDonationDefaults(entryPoint.frequency);
     setLoadState("loading");
 
     void loadGivebutterWidgetLibrary(provider.widgetLibraryUrl)
@@ -175,7 +163,7 @@ export default function GivebutterCheckout({
     return () => {
       cancelled = true;
     };
-  }, [amount, attempt, entryPoint.frequency, entryPoint.id, provider]);
+  }, [attempt, entryPoint.frequency, entryPoint.id, provider]);
 
   if (!provider.enabled) {
     return (
@@ -201,7 +189,7 @@ export default function GivebutterCheckout({
   return (
     <section
       aria-labelledby={`givebutter-checkout-${entryPoint.id}`}
-      className="border border-[#0097b2]/25 bg-[#FCFAEF] px-4 py-6 dark:border-[#66C4DC]/30 dark:bg-[#121514] sm:px-6 sm:py-8"
+      className="border border-[#0097b2]/25 bg-[#FCFAEF] px-4 py-6 dark:border-[#66C4DC]/30 dark:bg-[#121514] sm:px-6 sm:py-8 lg:px-10 lg:py-10"
       data-testid={`givebutter-checkout-${entryPoint.id}`}
     >
       <div className="mx-auto max-w-2xl text-center">
@@ -222,7 +210,7 @@ export default function GivebutterCheckout({
         </p>
       </div>
 
-      <div className="mx-auto mt-6 min-h-44 w-full max-w-[35rem]">
+      <div className="mx-auto mt-6 min-h-44 w-full max-w-[47.5rem]">
         {loadState === "loading" || loadState === "idle" ? (
           <div
             role="status"
@@ -238,7 +226,7 @@ export default function GivebutterCheckout({
           <givebutter-giving-form
             key={widgetKey}
             campaign={provider.campaignCode}
-            max-width="560px"
+            max-width="760px"
             data-testid="givebutter-giving-form"
           />
         ) : null}
