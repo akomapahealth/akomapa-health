@@ -21,7 +21,7 @@ import {
 import { CONTACT } from "@/config/contact";
 import Link from "next/link";
 
-const LAST_UPDATED = "August 14, 2026";
+const LAST_UPDATED = "August 16, 2026";
 
 const contents: readonly LegalContentsItem[] = [
   { href: "#scope", label: "Who we are and what this policy covers" },
@@ -149,10 +149,12 @@ export default function Content() {
                   </li>
                   <li>
                     <strong>Donation and payment-related information:</strong>{" "}
-                    Billing details needed to process contributions or partner
-                    payments. Card numbers and other sensitive payment data are
-                    handled by our payment processor—we do not store full card
-                    data on our servers.
+                    Givebutter collects the name, email address, billing details,
+                    payment details, donation amount, frequency, and other
+                    checkout information needed to process contributions, send
+                    receipts, prevent fraud, and manage recurring plans. Akomapa
+                    does not collect or store raw card numbers or bank-account
+                    credentials on its servers.
                   </li>
                   <li>
                     <strong>Technical data:</strong> Information such as IP
@@ -267,10 +269,12 @@ export default function Content() {
                 <p className={body}>
                   Like most hosted websites, our infrastructure automatically
                   logs technical activity needed to deliver pages securely and
-                  reliably. We do not currently run dedicated marketing
-                  analytics packages on this site; if that changes, we will
-                  describe the tools we use, what data they collect, and any
-                  choices you have.
+                  reliably. When configured, we also use Google Analytics to
+                  understand non-sensitive page and interaction trends. Donation
+                  widget analytics are limited to events such as load success,
+                  load failure, or use of the campaign fallback. We do not send
+                  donor names, email addresses, payment details, or processor
+                  transaction references to general website analytics.
                 </p>
               </LegalSection>
 
@@ -294,6 +298,13 @@ export default function Content() {
                     <strong>Fillout and Resend</strong> to store structured
                     website intake records and deliver staff notifications.
                     Provider access is restricted to authorized operators.
+                  </li>
+                  <li>
+                    <strong>Givebutter</strong> to host the donation checkout,
+                    process payments, manage recurring plans, prevent fraud, and
+                    provide donor receipts and transaction records. Givebutter
+                    handles payment information under its own privacy and
+                    security terms.
                   </li>
                   <li>
                     <strong>Partner institutions</strong> when coordination is
@@ -325,12 +336,17 @@ export default function Content() {
                 <p className={body}>
                   We generally retain general inquiries for 12 months after the
                   most recent meaningful activity. Program interest,
-                  partnership, get-involved, and donation follow-up records are
-                  generally retained for 24 months after the most recent
-                  meaningful activity. We may delete a record earlier after a
-                  valid request, or keep it longer where law, safeguarding,
-                  dispute resolution, or another documented operational need
-                  requires it.
+                  partnership, and get-involved records are generally retained
+                  for 24 months after the most recent meaningful activity.
+                  Legacy donation follow-up records collected before August 16,
+                  2026 may remain subject to that same 24-month schedule, but the
+                  website no longer collects a separate donation follow-up form.
+                  Givebutter donation and transaction records follow the
+                  retention requirements applicable to payment, tax, fraud,
+                  dispute, and nonprofit accounting records. We may delete a
+                  record earlier after a valid request, or keep it longer where
+                  law, safeguarding, dispute resolution, or another documented
+                  operational need requires it.
                 </p>
                 <p className={body}>
                   Retention review is performed with a dry-run-first operator

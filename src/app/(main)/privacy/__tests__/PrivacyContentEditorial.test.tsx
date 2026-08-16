@@ -75,7 +75,7 @@ describe("Privacy Content editorial contracts", () => {
     }
 
     expect(
-      screen.getAllByText("Last updated: August 14, 2026").length,
+      screen.getAllByText("Last updated: August 16, 2026").length,
     ).toBeGreaterThanOrEqual(1);
 
     const mailLinks = screen.getAllByRole("link", {
@@ -105,6 +105,10 @@ describe("Privacy Content editorial contracts", () => {
         level: 3,
         name: "Contact and partnership messages",
       }),
+    ).toBeInTheDocument();
+    expect(screen.getByText(/Givebutter collects the name/i)).toBeInTheDocument();
+    expect(
+      screen.getByText(/does not collect or store raw card numbers/i),
     ).toBeInTheDocument();
     expect(
       screen.getByRole("heading", {

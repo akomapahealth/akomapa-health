@@ -7,8 +7,8 @@
 
 ## Context
 
-The website currently sends contact and donation follow-up submissions through
-Web3Forms, sends immersion interest to MailerLite, and contains an unused
+The website previously sent contact and donation follow-up submissions through
+Web3Forms, sends immersion interest to MailerLite, and contained an unused
 Airtable volunteer endpoint. These integrations have different contracts,
 failure modes, and storage locations. Web3Forms also documents its public API
 as a client-side integration and requires a paid plan plus an allowlisted IP for
@@ -76,8 +76,11 @@ documented Resend path also prevents duplicate notifications.
 - The forms do not accept files, protected health information, government IDs,
   payment details, or urgent medical requests.
 - General inquiries are retained for 12 months after meaningful activity.
-  Program, partnership, get-involved, and donation follow-up records are
-  retained for 24 months. Valid deletion requests take precedence.
+  Program, partnership, and get-involved records are retained for 24 months.
+  Legacy donation follow-up records retain the same historical schedule, but
+  Issue #89 retired the public donation follow-up route when Givebutter became
+  responsible for donor receipts and acknowledgments. Valid deletion requests
+  take precedence.
 
 ## Consequences
 
