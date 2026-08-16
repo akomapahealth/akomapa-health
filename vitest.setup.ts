@@ -20,7 +20,6 @@ const NEXT_IMAGE_OWN_PROPS = new Set([
   "loader",
   "placeholder",
   "blurDataURL",
-  "loading",
   "unoptimized",
   "onLoadingComplete",
   "minWidth",

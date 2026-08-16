@@ -20,6 +20,11 @@ const sentryPublicEnv = getSentryPublicEnv();
 const nextConfig: NextConfig = {
   env: sentryPublicEnv,
   outputFileTracingRoot: process.cwd(),
+  // Keep actionable browser errors visible in the development terminal while
+  // avoiding vendor warning floods (for example, hosted widget internals).
+  logging: {
+    browserToTerminal: "error",
+  },
   async redirects() {
     return [
       {
