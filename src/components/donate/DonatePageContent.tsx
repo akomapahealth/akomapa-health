@@ -138,16 +138,20 @@ function AmountButton({
   );
 }
 
-export default function DonatePageContent() {
+type DonatePageContentProps = {
+  initialSection?: "partner" | "one-time";
+};
+
+export default function DonatePageContent({
+  initialSection = "partner",
+}: DonatePageContentProps) {
   const [selectedPartnerAmount, setSelectedPartnerAmount] = useState<
     DonationAmount | "other"
   >(25);
   const [selectedOneTimeAmount, setSelectedOneTimeAmount] = useState<
     DonationAmount | "other"
   >(25);
-  const [activeSection, setActiveSection] = useState<"partner" | "one-time">(
-    "partner",
-  );
+  const activeSection = initialSection;
 
   return (
     <div data-rebrand-page className="bg-background text-foreground">
@@ -199,12 +203,11 @@ export default function DonatePageContent() {
           aria-label="Donation options"
           className="mx-auto grid max-w-2xl grid-cols-1 gap-3 sm:grid-cols-2"
         >
-          <button
-            type="button"
-            aria-pressed={activeSection === "partner"}
-            onClick={() => setActiveSection("partner")}
+          <a
+            href="/donate?entry=partner&amount=25&frequency=monthly"
+            aria-current={activeSection === "partner" ? "page" : undefined}
             className={cn(
-              "min-h-14 border-2 px-4 py-4 text-left transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eeba2b] focus-visible:ring-offset-2",
+              "min-h-14 cursor-pointer border-2 px-4 py-4 text-left transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eeba2b] focus-visible:ring-offset-2",
               activeSection === "partner"
                 ? "border-[#eeba2b] bg-white dark:bg-[#1C1F1E]"
                 : "border-[#1C1F1E]/12 bg-transparent hover:border-[#0097b2]/40 dark:border-[#FCFAEF]/15",
@@ -223,13 +226,15 @@ export default function DonatePageContent() {
                 Currently viewing
               </span>
             ) : null}
-          </button>
-          <button
-            type="button"
-            aria-pressed={activeSection === "one-time"}
-            onClick={() => setActiveSection("one-time")}
+          </a>
+          {/* A native document navigation intentionally resets Givebutter's
+              iframe. Givebutter documents recurring frequency values only;
+              a fresh form is the safe way to restore its one-time default. */}
+          <a
+            href="/donate?entry=one-time&amount=25"
+            aria-current={activeSection === "one-time" ? "page" : undefined}
             className={cn(
-              "min-h-14 border-2 px-4 py-4 text-left transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eeba2b] focus-visible:ring-offset-2",
+              "min-h-14 cursor-pointer border-2 px-4 py-4 text-left transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eeba2b] focus-visible:ring-offset-2",
               activeSection === "one-time"
                 ? "border-[#0097b2] bg-white dark:bg-[#1C1F1E]"
                 : "border-[#1C1F1E]/12 bg-transparent hover:border-[#0097b2]/40 dark:border-[#FCFAEF]/15",
@@ -243,7 +248,7 @@ export default function DonatePageContent() {
                 Currently viewing
               </span>
             ) : null}
-          </button>
+          </a>
         </div>
 
         {activeSection === "partner" ? (

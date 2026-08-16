@@ -121,19 +121,19 @@ test.describe("Donate page flow", () => {
     await expect(page).toHaveURL(/amount=100/);
     await expect(page).toHaveURL(/frequency=monthly/);
 
-    await page.getByRole("button", { name: "One-Time Gift" }).click();
+    await page.getByRole("link", { name: "One-Time Gift" }).click();
     await expect(
       page.getByRole("heading", { name: "Make a One-Time Gift" }),
     ).toBeVisible();
-    await expect(page).toHaveURL(/amount=25/);
     await expect(page).not.toHaveURL(/frequency=/);
+    await expect(page).toHaveURL(/amount=25/);
     await expect(
       page.locator('givebutter-giving-form[campaign="HE1MLG"]'),
     ).toHaveCount(1);
 
     await page.getByRole("button", { name: "Other" }).click();
     await expect(page).not.toHaveURL(/amount=/);
-    expect(widgetRequests).toHaveLength(1);
+    expect(widgetRequests).toHaveLength(2);
     expect(prohibitedRequests).toEqual([]);
   });
 
@@ -146,7 +146,9 @@ test.describe("Donate page flow", () => {
     );
     await page.goto("/donate");
 
-    await expect(page.getByRole("alert")).toContainText(/could not be loaded/i);
+    await expect(
+      page.getByTestId("givebutter-checkout-partner").getByRole("alert"),
+    ).toContainText(/could not be loaded/i);
     const fallback = page.getByRole("link", {
       name: /Open the secure Givebutter campaign/i,
     });

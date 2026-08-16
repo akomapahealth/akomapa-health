@@ -69,13 +69,17 @@ const givebutterProviderBase = {
 } as const satisfies DonationProviderBase;
 
 export function isGivebutterDonationsEnabled(
-  env: Readonly<Record<string, string | undefined>> = process.env,
+  env?: Readonly<Record<string, string | undefined>>,
 ): boolean {
-  return env[GIVEBUTTER_ENABLE_ENV] === "true";
+  const configuredValue = env
+    ? env[GIVEBUTTER_ENABLE_ENV]
+    : process.env.NEXT_PUBLIC_GIVEBUTTER_DONATIONS_ENABLED;
+
+  return configuredValue === "true";
 }
 
 export function getDonationProviderConfig(
-  env: Readonly<Record<string, string | undefined>> = process.env,
+  env?: Readonly<Record<string, string | undefined>>,
 ): DonationProviderConfig {
   if (isGivebutterDonationsEnabled(env)) {
     return {

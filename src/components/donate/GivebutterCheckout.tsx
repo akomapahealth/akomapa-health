@@ -273,7 +273,7 @@ export default function GivebutterCheckout({
           target="_blank"
           rel="noopener noreferrer"
           className={cn(
-            "inline-flex cursor-pointer items-center gap-2 font-semibold text-[#007f96] underline decoration-[#007f96]/35 underline-offset-4 transition-colors hover:text-[#005f70] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eeba2b] focus-visible:ring-offset-4 dark:text-[#66C4DC] dark:hover:text-[#9ADCEB]",
+            "inline-flex min-h-11 cursor-pointer items-center gap-2 px-1 font-semibold text-[#007f96] underline decoration-[#007f96]/35 underline-offset-4 transition-colors hover:text-[#005f70] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eeba2b] focus-visible:ring-offset-4 dark:text-[#66C4DC] dark:hover:text-[#9ADCEB]",
           )}
           onClick={() =>
             trackEvent({
@@ -288,8 +288,21 @@ export default function GivebutterCheckout({
         </a>
         <p className="mt-3 text-xs leading-5 text-[#2F3332]/70 dark:text-[#E6E7E7]/70">
           By donating, you also agree to Givebutter&apos;s checkout terms. Read
-          Akomapa&apos;s <Link href="/terms#donations">donation and refund terms</Link>{" "}
-          and <Link href="/privacy">Privacy Policy</Link>.
+          Akomapa&apos;s{" "}
+          <Link
+            href="/terms#donations"
+            className="inline-flex min-h-11 cursor-pointer items-center px-1 underline underline-offset-2"
+          >
+            donation and refund terms
+          </Link>{" "}
+          and{" "}
+          <Link
+            href="/privacy"
+            className="inline-flex min-h-11 cursor-pointer items-center px-1 underline underline-offset-2"
+          >
+            Privacy Policy
+          </Link>
+          .
         </p>
       </div>
     </section>

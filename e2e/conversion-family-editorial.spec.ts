@@ -25,8 +25,22 @@ const viewports = [
 const themes = ["light", "dark"] as const;
 const givebutterEnabled =
   process.env.NEXT_PUBLIC_GIVEBUTTER_DONATIONS_ENABLED === "true";
+const mockGivebutterLibrary = `
+  if (!customElements.get("givebutter-giving-form")) {
+    customElements.define("givebutter-giving-form", class extends HTMLElement {});
+  }
+`;
 
 async function preparePage(page: Page, theme: (typeof themes)[number]) {
+  if (givebutterEnabled) {
+    await page.route("https://widgets.givebutter.com/**", async (route) => {
+      await route.fulfill({
+        status: 200,
+        contentType: "application/javascript",
+        body: mockGivebutterLibrary,
+      });
+    });
+  }
   await page.addInitScript(
     ({ version, storedTheme }) => {
       localStorage.setItem("akomapa-announcements-dismissed", version);
@@ -152,22 +166,24 @@ test.describe("conversion family editorial contracts", () => {
 
     await page.goto("/donate", { waitUntil: "domcontentloaded" });
     await page.waitForLoadState("networkidle");
-    const oneTimeTab = page.getByRole("button", { name: /One-Time Gift/i });
+    const oneTimeTab = page.getByRole("link", { name: /One-Time Gift/i });
     await oneTimeTab.scrollIntoViewIfNeeded();
     await oneTimeTab.focus();
     await expect(oneTimeTab).toBeFocused();
     await expect(async () => {
-      if ((await oneTimeTab.getAttribute("aria-pressed")) !== "true") {
+      if ((await oneTimeTab.getAttribute("aria-current")) !== "page") {
         await oneTimeTab.click();
       }
-      await expect(oneTimeTab).toHaveAttribute("aria-pressed", "true");
+      await expect(
+        page.getByRole("link", { name: /One-Time Gift/i }),
+      ).toHaveAttribute("aria-current", "page");
     }).toPass({ timeout: 10_000 });
     await expect(
       page.getByRole("heading", { name: "Make a One-Time Gift" }),
     ).toBeVisible();
   });
 
-  test("exercises contact and donation follow-up states without real submissions", async ({
+  test("exercises contact and donation checkout states without real submissions", async ({
     page,
   }) => {
     test.setTimeout(90_000);
@@ -213,15 +229,6 @@ test.describe("conversion family editorial contracts", () => {
 
     // Clear contact mocks before donate so they cannot interfere with navigation.
     await page.unroute("**/api/contact");
-    if (givebutterEnabled) {
-      await page.route("https://widgets.givebutter.com/**", async (route) => {
-        await route.fulfill({
-          status: 200,
-          contentType: "application/javascript",
-          body: `customElements.define("givebutter-giving-form", class extends HTMLElement {});`,
-        });
-      });
-    }
     await page.goto("/donate", { waitUntil: "domcontentloaded" });
     await expect(
       page.getByRole("heading", {
