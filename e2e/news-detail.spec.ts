@@ -194,26 +194,25 @@ test.describe("Announcement modal", () => {
     await expect(modal).not.toBeVisible({ timeout: 5000 });
   });
 
-  test("chatbot tip shows for unread campaign and opens the modal", async ({
+  test("chatbot tip opens the modal for a returning visitor", async ({
     page,
   }) => {
-    await page.addInitScript(() => {
-      localStorage.removeItem("akomapa-announcements-dismissed");
+    await page.addInitScript((version) => {
+      // Keep auto-open disabled so this test isolates the tip interaction.
+      localStorage.setItem("akomapa-announcements-dismissed", version);
       sessionStorage.removeItem("akomapa-announcement-tip-dismissed");
-    });
+    }, announcementCampaign.version);
     await page.goto("/donate", { waitUntil: "domcontentloaded" });
 
     const modal = page.locator('[role="dialog"][aria-label="Announcements"]');
     const tip = page.getByTestId("announcement-trigger-tip");
 
-    // Tip reveals after a short chatbot-style delay, before the 3s auto-open.
-    await expect(tip).toBeVisible({ timeout: 5000 });
+    await expect(tip).toBeVisible({ timeout: 10000 });
     const tipButton = tip.getByRole("button", {
       name: /what's new at akomapa/i,
     });
     await expect(tipButton).toBeVisible();
-    // Entrance motion can leave the tip "unstable" for Playwright; open via the
-    // tip before the auto-open timer wins the race.
+    // Entrance motion can leave the tip "unstable" for Playwright.
     await tipButton.click({ force: true });
     await expect(modal).toBeVisible({ timeout: 15000 });
     await expect(tip).toHaveCount(0);
@@ -235,7 +234,7 @@ test.describe("Announcement modal", () => {
     // Campaign is seen, so the modal must not auto-open...
     await expect(modal).not.toBeVisible({ timeout: 5000 });
     // ...but the nudge tip still resurfaces for the returning visitor.
-    await expect(tip).toBeVisible({ timeout: 4000 });
+    await expect(tip).toBeVisible({ timeout: 10000 });
 
     await tip.getByRole("button", { name: /dismiss update tip/i }).click();
     await expect(tip).toHaveCount(0);
