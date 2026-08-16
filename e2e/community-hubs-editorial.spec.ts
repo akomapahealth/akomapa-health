@@ -260,6 +260,9 @@ for (const theme of themes) {
     const creamBand = page
       .locator("[data-editorial-band][data-editorial-tone='cream']")
       .first();
+    const hubLink = page
+      .locator("#our-hubs [data-testid='community-hub-card'] a")
+      .first();
     const expectedCreamHeading =
       theme === "dark" ? "rgb(252, 250, 239)" : "rgb(28, 31, 30)";
     const expectedCreamBandBg =
@@ -276,6 +279,11 @@ for (const theme of themes) {
         ),
       )
       .toBe(expectedCreamBandBg);
+    await expect
+      .poll(() =>
+        hubLink.evaluate((element) => getComputedStyle(element).color),
+      )
+      .toBe(theme === "dark" ? "rgb(102, 196, 220)" : "rgb(15, 76, 92)");
 
     await page.addStyleTag({
       content:

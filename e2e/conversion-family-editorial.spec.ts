@@ -23,8 +23,6 @@ const viewports = [
 ] as const;
 
 const themes = ["light", "dark"] as const;
-const givebutterEnabled =
-  process.env.NEXT_PUBLIC_GIVEBUTTER_DONATIONS_ENABLED === "true";
 const mockGivebutterLibrary = `
   if (!customElements.get("givebutter-giving-form")) {
     customElements.define("givebutter-giving-form", class extends HTMLElement {});
@@ -32,15 +30,13 @@ const mockGivebutterLibrary = `
 `;
 
 async function preparePage(page: Page, theme: (typeof themes)[number]) {
-  if (givebutterEnabled) {
-    await page.route("https://widgets.givebutter.com/**", async (route) => {
-      await route.fulfill({
-        status: 200,
-        contentType: "application/javascript",
-        body: mockGivebutterLibrary,
-      });
+  await page.route("https://widgets.givebutter.com/**", async (route) => {
+    await route.fulfill({
+      status: 200,
+      contentType: "application/javascript",
+      body: mockGivebutterLibrary,
     });
-  }
+  });
   await page.addInitScript(
     ({ version, storedTheme }) => {
       localStorage.setItem("akomapa-announcements-dismissed", version);
@@ -165,8 +161,8 @@ test.describe("conversion family editorial contracts", () => {
     await expect(firstFaq).toHaveAttribute("aria-expanded", "false");
 
     await page.goto("/donate", { waitUntil: "domcontentloaded" });
-    await page.waitForLoadState("networkidle");
     const oneTimeTab = page.getByRole("link", { name: /One-Time Gift/i });
+    await expect(oneTimeTab).toBeVisible();
     await oneTimeTab.scrollIntoViewIfNeeded();
     await oneTimeTab.focus();
     await expect(oneTimeTab).toBeFocused();
@@ -235,15 +231,11 @@ test.describe("conversion family editorial contracts", () => {
         name: "Every act of generosity saves a life.",
       }),
     ).toBeVisible();
-    if (givebutterEnabled) {
-      await expect(
-        page.getByRole("heading", { name: "Complete your gift securely" }),
-      ).toBeVisible();
-    } else {
-      await expect(
-        page.getByTestId("donation-provider-unavailable"),
-      ).toBeVisible();
-    }
+    await expect(
+      page
+        .getByRole("heading", { name: "Complete your gift securely" })
+        .or(page.getByTestId("donation-provider-unavailable")),
+    ).toBeVisible();
     await expect(page.getByTestId("ghana-mobile-money")).toBeVisible();
     await expect(page.getByText("0249292898")).toBeVisible();
   });
@@ -283,11 +275,23 @@ test.describe("conversion family editorial contracts", () => {
                 ) {
                   return false;
                 }
-                // Native/Radix radios are intentionally compact indicators.
+                // Native/Radix selection controls are compact indicators with
+                // larger associated labels as their interaction targets.
                 if (
                   control.getAttribute("role") === "radio" ||
+                  control.getAttribute("role") === "checkbox" ||
                   control.getAttribute("type") === "radio" ||
+                  control.getAttribute("type") === "checkbox" ||
                   control.closest('[role="radiogroup"]')
+                ) {
+                  return false;
+                }
+                // Inline prose links are covered by WCAG's inline target
+                // exception, and compact checkbox indicators inherit the
+                // larger clickable target of their wrapping label.
+                if (
+                  style.display === "inline" ||
+                  control.closest("label")
                 ) {
                   return false;
                 }

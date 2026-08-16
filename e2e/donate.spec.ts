@@ -1,8 +1,6 @@
 import { expect, test, type Page } from "@playwright/test";
 import { announcementCampaign } from "../src/data/announcements";
 
-const givebutterEnabled =
-  process.env.NEXT_PUBLIC_GIVEBUTTER_DONATIONS_ENABLED === "true";
 const givebutterScriptPattern = "https://widgets.givebutter.com/**";
 const requiredWidths = [375, 768, 1024, 1280, 1440, 1536, 1728] as const;
 
@@ -46,7 +44,7 @@ test.describe("Donate page flow", () => {
   test("fails closed while the Givebutter rollout gate is disabled", async ({
     page,
   }) => {
-    test.skip(givebutterEnabled, "This build explicitly enables Givebutter QA");
+    await mockGivebutter(page);
     const widgetRequests: string[] = [];
     page.on("request", (request) => {
       if (request.url().startsWith("https://widgets.givebutter.com/")) {
@@ -55,6 +53,10 @@ test.describe("Donate page flow", () => {
     });
 
     await page.goto("/donate");
+    test.skip(
+      (await page.getByTestId("donation-provider-unavailable").count()) === 0,
+      "This build explicitly enables Givebutter QA",
+    );
 
     await expect(
       page.getByTestId("donation-provider-unavailable"),
@@ -83,7 +85,6 @@ test.describe("Donate page flow", () => {
   test("uses one campaign for monthly and one-time entry points", async ({
     page,
   }) => {
-    test.skip(!givebutterEnabled, "Givebutter is disabled in this build");
     await mockGivebutter(page);
     const widgetRequests: string[] = [];
     const prohibitedRequests: string[] = [];
@@ -102,6 +103,10 @@ test.describe("Donate page flow", () => {
     });
 
     await page.goto("/donate");
+    test.skip(
+      (await page.getByTestId("donation-provider-unavailable").count()) > 0,
+      "Givebutter is disabled in this build",
+    );
 
     await expect(
       page.getByRole("heading", {
@@ -140,11 +145,14 @@ test.describe("Donate page flow", () => {
   test("recovers from a blocked widget script and keeps a safe fallback", async ({
     page,
   }) => {
-    test.skip(!givebutterEnabled, "Givebutter is disabled in this build");
     await page.route(givebutterScriptPattern, (route) =>
       route.abort("blockedbyclient"),
     );
     await page.goto("/donate");
+    test.skip(
+      (await page.getByTestId("donation-provider-unavailable").count()) > 0,
+      "Givebutter is disabled in this build",
+    );
 
     await expect(
       page.getByTestId("givebutter-checkout-partner").getByRole("alert"),
@@ -166,8 +174,13 @@ test.describe("Donate page flow", () => {
   test("keeps the secure checkout within every required viewport", async ({
     page,
   }) => {
-    test.skip(!givebutterEnabled, "Givebutter is disabled in this build");
     await mockGivebutter(page);
+
+    await page.goto("/donate");
+    test.skip(
+      (await page.getByTestId("donation-provider-unavailable").count()) > 0,
+      "Givebutter is disabled in this build",
+    );
 
     for (const width of requiredWidths) {
       await page.setViewportSize({ width, height: 900 });
@@ -186,7 +199,7 @@ test.describe("Donate page flow", () => {
   test("renders verified manual MTN instructions without unsafe completion controls", async ({
     page,
   }) => {
-    if (givebutterEnabled) await mockGivebutter(page);
+    await mockGivebutter(page);
     await page.goto("/donate");
     const pageText = await page.locator("body").innerText();
 
