@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ChevronDown } from "lucide-react";
 import Breadcrumb from "@/components/layout/Breadcrumb";
 import Image from "@/components/common/Image";
 import { FadeIn } from "@/components/animations";
@@ -69,6 +70,7 @@ function EditorialLinkArrow() {
 export default function Content() {
   const {
     eyebrow,
+    applicationStatus,
     title,
     introduction,
     overview,
@@ -90,8 +92,9 @@ export default function Content() {
       </div>
 
       <section
+        data-immersion-hero
         aria-labelledby="immersion-title"
-        className="relative isolate flex min-h-[620px] items-center overflow-hidden border-y border-[#FCFAEF]/12 bg-[#0F4C5C] text-[#FCFAEF] sm:min-h-[680px] lg:min-h-[720px]"
+        className="relative isolate flex min-h-[max(700px,calc(100svh-7.75rem))] items-center overflow-hidden border-y border-[#FCFAEF]/12 bg-[#0F4C5C] text-[#FCFAEF]"
       >
         <ImmersionHeroMedia
           videoSrc={images.hero.videoSrc}
@@ -100,25 +103,25 @@ export default function Content() {
           posterPosition={images.hero.position}
         />
 
-        <div className="site-container relative z-10 mx-auto w-full px-4 py-16 md:py-24 lg:py-28">
+        <div className="site-container relative z-10 mx-auto w-full px-4 py-12 md:py-16 lg:py-20">
           <div
             data-immersion-hero-panel
-            className="max-w-4xl border border-[#FCFAEF]/22 bg-[#07191d]/32 p-6 shadow-2xl shadow-black/20 backdrop-blur-sm sm:p-8 lg:p-10"
+            className="max-w-2xl border border-[#FCFAEF]/22 bg-[#07191d]/32 p-5 shadow-2xl shadow-black/20 backdrop-blur-sm sm:p-6 lg:p-7"
           >
             <SectionEyebrow tone="light">{eyebrow}</SectionEyebrow>
-            <p className="mt-5 inline-flex border border-[#F5C94D]/55 bg-[#F5C94D]/12 px-3 py-2 text-xs font-bold uppercase tracking-[0.2em] text-[#F5C94D] sm:text-sm">
-              Coming 2027
+            <p className="mt-4 inline-flex border border-[#F5C94D]/55 bg-[#F5C94D]/12 px-3 py-2 text-xs font-bold uppercase tracking-[0.18em] text-[#F5C94D]">
+              {applicationStatus}
             </p>
             <h1
               id="immersion-title"
-              className="mt-5 max-w-4xl font-heading text-[2.35rem] font-semibold leading-[1.04] tracking-[-0.025em] text-[#FCFAEF] sm:text-[3.1rem] lg:text-[4.35rem]"
+              className="mt-4 max-w-3xl font-heading text-[2.15rem] font-semibold leading-[1.06] tracking-[-0.025em] text-[#FCFAEF] sm:text-[2.75rem] lg:text-[3.5rem]"
             >
               {title}
             </h1>
-            <p className="mt-6 max-w-2xl text-base leading-7 text-[#FCFAEF]/82 sm:text-lg sm:leading-8">
+            <p className="mt-4 max-w-xl text-sm leading-6 text-[#FCFAEF]/82 sm:text-base sm:leading-7">
               {introduction}
             </p>
-            <div className="mt-8 flex max-w-xl flex-col items-stretch gap-3 sm:flex-row sm:items-center">
+            <div className="mt-6 flex max-w-xl flex-col items-stretch gap-3 sm:flex-row sm:items-center">
               <ImmersionRegisterInterestButton
                 variant="gold"
                 className="min-h-12 justify-center"
@@ -133,9 +136,29 @@ export default function Content() {
             </div>
           </div>
         </div>
+
+        <p
+          data-immersion-hero-credit
+          className="pointer-events-none absolute bottom-5 left-4 z-20 max-w-[14rem] text-[11px] font-medium leading-snug tracking-wide text-[#FCFAEF]/75 sm:bottom-7 sm:left-6 sm:max-w-none sm:text-xs md:left-8 lg:left-10"
+        >
+          *Video courtesy Ghana Tourism Authority
+        </p>
+
+        <Link
+          href="#program-overview"
+          aria-label="Scroll to the program overview"
+          className="absolute bottom-5 right-4 z-20 inline-flex min-h-11 items-center gap-2 rounded-full border border-[#FCFAEF]/45 bg-[#07191d]/45 px-4 py-2 text-xs font-bold uppercase tracking-[0.16em] text-[#FCFAEF] backdrop-blur-sm transition-colors hover:border-[#F5C94D] hover:text-[#F5C94D] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F5C94D] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0F4C5C] motion-reduce:transition-none sm:bottom-7 sm:right-6 md:right-8 lg:right-10"
+        >
+          <span className="hidden sm:inline">Scroll to explore</span>
+          <ChevronDown
+            aria-hidden="true"
+            className="h-5 w-5 motion-safe:animate-bounce"
+          />
+        </Link>
       </section>
 
       <section
+        id="program-overview"
         aria-labelledby="program-facts-title"
         className="border-b border-[#1C1F1E]/12 bg-white dark:border-[#FCFAEF]/12 dark:bg-[#1C1F1E]"
       >

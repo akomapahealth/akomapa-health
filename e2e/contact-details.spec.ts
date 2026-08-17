@@ -32,43 +32,67 @@ test.describe("canonical contact details", () => {
       });
     });
     await page.goto("/contact");
-
-    await page.getByLabel("Full Name *").fill("Ama Mensah");
-    await page.getByLabel("Email Address *").fill("ama@example.com");
-    await page.getByLabel("Subject *").fill("Volunteer inquiry");
-    await page
-      .getByLabel("Message *")
+    const contactForm = page.getByRole("region", { name: "Send us a message" });
+    await contactForm.getByLabel("Full name").fill("Ama Mensah");
+    await contactForm.getByLabel("Email address").fill("ama@example.com");
+    await contactForm.getByLabel("Subject").fill("Volunteer inquiry");
+    await contactForm
+      .getByLabel("Message")
       .fill("I would like to learn more about volunteering.");
-    await page.getByRole("button", { name: "Send Message" }).click();
+    await contactForm.getByRole("checkbox").check();
+    await contactForm.getByRole("button", { name: "Send message" }).click();
 
     const alert = page.getByTestId("contact-form-error");
-    await expect(alert).toContainText("We couldn't send your message");
-    await expect(alert).toContainText(
-      "Something went wrong on our side. Please try again in a few minutes.",
-    );
+    await expect(alert).toContainText("We could not submit your inquiry");
     await expect(
       alert.getByRole("link", { name: "info@akomapa.org" }),
     ).toHaveAttribute("href", canonical.emailHref);
   });
 
-  test("shows matching contact details and the Ghana office map", async ({ page }) => {
+  test("shows matching contact details and the Ghana office map", async ({
+    page,
+  }) => {
     await page.goto("/contact");
 
     const main = page.locator("main");
-    await expect(main.getByRole("heading", { name: "Ghana Office", exact: true }).first()).toBeVisible();
-    await expect(main.getByText("43 Yam Street", { exact: true }).first()).toBeVisible();
-    await expect(main.getByRole("heading", { name: "USA Office", exact: true }).first()).toBeVisible();
-    await expect(main.getByText("100 York Street, New Haven, CT 06511", { exact: true }).first()).toBeVisible();
+    await expect(
+      main.getByRole("heading", { name: "Ghana Office", exact: true }).first(),
+    ).toBeVisible();
+    await expect(
+      main.getByText("43 Yam Street", { exact: true }).first(),
+    ).toBeVisible();
+    await expect(
+      main.getByRole("heading", { name: "USA Office", exact: true }).first(),
+    ).toBeVisible();
+    await expect(
+      main
+        .getByText("100 York Street, New Haven, CT 06511", { exact: true })
+        .first(),
+    ).toBeVisible();
 
-    await expect(page.locator(`a[href="${canonical.ghanaPhone.href}"]`).first()).toHaveText(canonical.ghanaPhone.display);
-    await expect(page.locator(`a[href="${canonical.usaPhone.href}"]`).first()).toHaveText(canonical.usaPhone.display);
-    await expect(page.locator(`a[href="${canonical.emailHref}"]`).first()).toBeVisible();
+    await expect(
+      page.locator(`a[href="${canonical.ghanaPhone.href}"]`).first(),
+    ).toHaveText(canonical.ghanaPhone.display);
+    await expect(
+      page.locator(`a[href="${canonical.usaPhone.href}"]`).first(),
+    ).toHaveText(canonical.usaPhone.display);
+    await expect(
+      page.locator(`a[href="${canonical.emailHref}"]`).first(),
+    ).toBeVisible();
 
-    await expect(main.getByText("Ghana Office map", { exact: true })).toBeVisible();
+    await expect(
+      main.getByText("Ghana Office map", { exact: true }),
+    ).toBeVisible();
     const map = main.getByTitle(canonical.mapTitle);
     await expect(map).toBeVisible();
-    await expect(map).toHaveAttribute("src", /43%20Yam%20Street.*Accra%2C%20Ghana.*output=embed/);
-    await expect(map).not.toHaveAttribute("src", /UCC|School%20of%20Medical%20Sciences/);
+    await expect(map).toHaveAttribute(
+      "src",
+      /43%20Yam%20Street.*Accra%2C%20Ghana.*output=embed/,
+    );
+    await expect(map).not.toHaveAttribute(
+      "src",
+      /UCC|School%20of%20Medical%20Sciences/,
+    );
   });
 
   for (const viewport of [
@@ -76,8 +100,13 @@ test.describe("canonical contact details", () => {
     { name: "tablet", width: 768, height: 1024 },
     { name: "desktop", width: 1440, height: 900 },
   ]) {
-    test(`remains readable without horizontal overflow on ${viewport.name}`, async ({ page }) => {
-      await page.setViewportSize({ width: viewport.width, height: viewport.height });
+    test(`remains readable without horizontal overflow on ${viewport.name}`, async ({
+      page,
+    }) => {
+      await page.setViewportSize({
+        width: viewport.width,
+        height: viewport.height,
+      });
       await page.goto("/contact");
 
       await expect(
@@ -88,7 +117,9 @@ test.describe("canonical contact details", () => {
         scrollWidth: document.documentElement.scrollWidth,
       }));
 
-      expect(dimensions.scrollWidth).toBeLessThanOrEqual(dimensions.clientWidth + 1);
+      expect(dimensions.scrollWidth).toBeLessThanOrEqual(
+        dimensions.clientWidth + 1,
+      );
     });
   }
 });

@@ -21,6 +21,7 @@ import {
 } from "@/components/shared/EditorialPrimitives";
 import { becomePartnerContent } from "@/data/partnerships";
 import type { LucideIcon } from "lucide-react";
+import OpenIntakeCta from "@/components/intake/OpenIntakeCta";
 
 const iconMap: Record<string, LucideIcon> = {
   GraduationCap,
@@ -79,15 +80,28 @@ export default function BecomePartnerCTA() {
 
       <FadeIn delay={0.2}>
         <div className="mt-10 flex flex-wrap justify-center gap-3 sm:gap-4">
-          {becomePartnerContent.ctas.map((cta) => (
-            <EditorialButton
-              key={cta.label}
-              href={cta.href}
-              variant={ctaVariantMap[cta.variant]}
-            >
-              {cta.label}
-            </EditorialButton>
-          ))}
+          {becomePartnerContent.ctas.map((cta) =>
+            cta.label === "Get in Touch" ? (
+              <OpenIntakeCta
+                key={cta.label}
+                request={{
+                  formType: "partnership_request",
+                  contextId: "partnerships-page",
+                }}
+                variant="amber"
+              >
+                {cta.label}
+              </OpenIntakeCta>
+            ) : (
+              <EditorialButton
+                key={cta.label}
+                href={cta.href}
+                variant={ctaVariantMap[cta.variant]}
+              >
+                {cta.label}
+              </EditorialButton>
+            ),
+          )}
         </div>
       </FadeIn>
     </EditorialBand>

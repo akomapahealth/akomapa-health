@@ -16,7 +16,7 @@ import {
 import { parseMetricDisplayValue } from "@/lib/impact/parseMetricValue";
 
 const heroStats = [
-  { id: "screened", value: "2,000+", label: "Community members screened" },
+  { id: "screened", value: "3,000+", label: "Community members screened" },
   { id: "leaders", value: "300+", label: "Student leaders trained" },
   { id: "hubs", value: "3", label: "Community health hubs" },
 ] as const;

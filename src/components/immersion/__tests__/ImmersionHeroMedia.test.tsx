@@ -47,15 +47,16 @@ describe("ImmersionHeroMedia", () => {
     expect(video).toHaveAttribute("aria-hidden", "true");
     expect(video).toHaveAttribute("preload", "auto");
     expect(video).not.toHaveAttribute("poster");
-    expect(video).toHaveClass("opacity-70", "motion-reduce:hidden");
+    expect(video).toHaveClass("motion-reduce:hidden");
+    expect(video).not.toHaveClass("opacity-70");
     expect(
       container.querySelector(
         '[data-immersion-hero-overlay="horizontal"]',
       ),
-    ).toHaveClass("from-[#07191d]/78", "via-[#07191d]/48");
+    ).toHaveClass("from-[#07191d]/55", "via-[#07191d]/28");
     expect(
       container.querySelector('[data-immersion-hero-overlay="vertical"]'),
-    ).toHaveClass("from-[#07191d]/48", "to-[#07191d]/20");
+    ).toHaveClass("from-[#07191d]/40", "to-[#07191d]/16");
 
     const sources = container.querySelectorAll("source");
     expect(sources).toHaveLength(2);

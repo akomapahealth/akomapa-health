@@ -31,6 +31,15 @@ export type AnalyticsEvent =
       source: "feed" | "featured" | "detail";
     }
   | { name: "donation_cta_click"; location: string; amount?: number }
+  | {
+      name: "donation_widget_load";
+      entry_point: "partner" | "oneTime";
+      success: boolean;
+    }
+  | {
+      name: "donation_fallback_click";
+      entry_point: "partner" | "oneTime";
+    }
   | { name: "application_cta_click"; location: string; program?: string }
   // Site-wide auto-instrumented events fired by GlobalClickTracker.
   | {

@@ -7,6 +7,7 @@ import {
   FadeInStagger,
   FadeInStaggerItem,
 } from "@/components/animations";
+import OpenIntakeCta from "@/components/intake/OpenIntakeCta";
 import {
   EditorialBand,
   EditorialEyebrow,
@@ -14,6 +15,9 @@ import {
   EditorialLead,
 } from "@/components/shared/EditorialPrimitives";
 import { getInvolvedOpportunities } from "@/data/get-involved";
+
+const opportunityCtaClassName =
+  "group inline-flex min-h-11 items-center font-subheading text-sm font-bold uppercase tracking-[0.14em] text-[#0097b2] transition-colors hover:text-[#0F4C5C] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eeba2b] focus-visible:ring-offset-2 dark:text-[#66C4DC] dark:hover:text-[#F5C94D]";
 
 export default function CurrentOpportunities() {
   return (
@@ -54,12 +58,46 @@ export default function CurrentOpportunities() {
               </p>
 
               <div className="mt-auto pt-6">
-                {opportunity.external ? (
+                {opportunity.id === "student-leader-cohort" ||
+                opportunity.opensImmersionInterest ? (
+                  <OpenIntakeCta
+                    request={{
+                      formType: "get_involved",
+                      pathway: "student_leadership",
+                      contextId: opportunity.id,
+                    }}
+                    appearance="text-link"
+                  >
+                    {opportunity.ctaLabel}
+                  </OpenIntakeCta>
+                ) : opportunity.id === "faculty-mentorship" ? (
+                  <OpenIntakeCta
+                    request={{
+                      formType: "get_involved",
+                      pathway: "faculty_mentorship",
+                      contextId: opportunity.id,
+                    }}
+                    appearance="text-link"
+                  >
+                    {opportunity.ctaLabel}
+                  </OpenIntakeCta>
+                ) : opportunity.id === "partnership-inquiries" ? (
+                  <OpenIntakeCta
+                    request={{
+                      formType: "partnership_request",
+                      category: "research",
+                      contextId: opportunity.id,
+                    }}
+                    appearance="text-link"
+                  >
+                    {opportunity.ctaLabel}
+                  </OpenIntakeCta>
+                ) : opportunity.external && opportunity.ctaHref ? (
                   <a
                     href={opportunity.ctaHref}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group inline-flex min-h-11 items-center font-subheading text-sm font-bold uppercase tracking-[0.14em] text-[#0097b2] transition-colors hover:text-[#0F4C5C] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eeba2b] focus-visible:ring-offset-2 dark:text-[#66C4DC] dark:hover:text-[#F5C94D]"
+                    className={opportunityCtaClassName}
                   >
                     {opportunity.ctaLabel}
                     <ArrowUpRight
@@ -67,10 +105,10 @@ export default function CurrentOpportunities() {
                       aria-hidden="true"
                     />
                   </a>
-                ) : (
+                ) : opportunity.ctaHref ? (
                   <Link
                     href={opportunity.ctaHref}
-                    className="group inline-flex min-h-11 items-center font-subheading text-sm font-bold uppercase tracking-[0.14em] text-[#0097b2] transition-colors hover:text-[#0F4C5C] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eeba2b] focus-visible:ring-offset-2 dark:text-[#66C4DC] dark:hover:text-[#F5C94D]"
+                    className={opportunityCtaClassName}
                   >
                     {opportunity.ctaLabel}
                     <ArrowRight
@@ -78,7 +116,7 @@ export default function CurrentOpportunities() {
                       aria-hidden="true"
                     />
                   </Link>
-                )}
+                ) : null}
               </div>
             </article>
           </FadeInStaggerItem>

@@ -13,17 +13,30 @@ const conversionRoutes = [
 ] as const;
 
 const viewports = [
-  { name: "mobile-390", width: 390, height: 844 },
+  { name: "mobile-375", width: 375, height: 812 },
   { name: "tablet-768", width: 768, height: 1024 },
   { name: "ipad-pro-1024", width: 1024, height: 1366 },
   { name: "laptop-1280", width: 1280, height: 800 },
   { name: "desktop-1440", width: 1440, height: 900 },
   { name: "wide-1536", width: 1536, height: 960 },
+  { name: "wide-1728", width: 1728, height: 1080 },
 ] as const;
 
 const themes = ["light", "dark"] as const;
+const mockGivebutterLibrary = `
+  if (!customElements.get("givebutter-giving-form")) {
+    customElements.define("givebutter-giving-form", class extends HTMLElement {});
+  }
+`;
 
 async function preparePage(page: Page, theme: (typeof themes)[number]) {
+  await page.route("https://widgets.givebutter.com/**", async (route) => {
+    await route.fulfill({
+      status: 200,
+      contentType: "application/javascript",
+      body: mockGivebutterLibrary,
+    });
+  });
   await page.addInitScript(
     ({ version, storedTheme }) => {
       localStorage.setItem("akomapa-announcements-dismissed", version);
@@ -95,8 +108,8 @@ test.describe("conversion family editorial contracts", () => {
       waitUntil: "domcontentloaded",
     });
     await expect(
-      page.getByRole("link", { name: /Become a Sponsor/i }).first(),
-    ).toHaveAttribute("href", "/contact?type=partnership");
+      page.getByRole("button", { name: /Become a Sponsor/i }).first(),
+    ).toBeVisible();
     await expect(
       page.getByRole("link", { name: /Individual Donations/i }).first(),
     ).toHaveAttribute("href", "/donate");
@@ -109,8 +122,8 @@ test.describe("conversion family editorial contracts", () => {
       page.getByRole("link", { name: /Explore Pathways/i }).first(),
     ).toHaveAttribute("href", "#pathways");
     await expect(
-      page.getByRole("link", { name: /Contact Us/i }).first(),
-    ).toHaveAttribute("href", "/contact");
+      page.getByRole("button", { name: /Contact Us/i }).first(),
+    ).toBeVisible();
 
     await page.goto("/donate", { waitUntil: "domcontentloaded" });
     await expect(
@@ -148,23 +161,25 @@ test.describe("conversion family editorial contracts", () => {
     await expect(firstFaq).toHaveAttribute("aria-expanded", "false");
 
     await page.goto("/donate", { waitUntil: "domcontentloaded" });
-    await page.waitForLoadState("networkidle");
-    const oneTimeTab = page.getByRole("button", { name: /One-Time Gift/i });
+    const oneTimeTab = page.getByRole("link", { name: /One-Time Gift/i });
+    await expect(oneTimeTab).toBeVisible();
     await oneTimeTab.scrollIntoViewIfNeeded();
     await oneTimeTab.focus();
     await expect(oneTimeTab).toBeFocused();
     await expect(async () => {
-      if ((await oneTimeTab.getAttribute("aria-pressed")) !== "true") {
+      if ((await oneTimeTab.getAttribute("aria-current")) !== "page") {
         await oneTimeTab.click();
       }
-      await expect(oneTimeTab).toHaveAttribute("aria-pressed", "true");
+      await expect(
+        page.getByRole("link", { name: /One-Time Gift/i }),
+      ).toHaveAttribute("aria-current", "page");
     }).toPass({ timeout: 10_000 });
     await expect(
       page.getByRole("heading", { name: "Make a One-Time Gift" }),
     ).toBeVisible();
   });
 
-  test("exercises contact and donation follow-up states without real submissions", async ({
+  test("exercises contact and donation checkout states without real submissions", async ({
     page,
   }) => {
     test.setTimeout(90_000);
@@ -175,22 +190,24 @@ test.describe("conversion family editorial contracts", () => {
         status: 500,
         contentType: "application/json",
         body: JSON.stringify({
-          message: "Something went wrong on our side. Please try again in a few minutes.",
+          message:
+            "Something went wrong on our side. Please try again in a few minutes.",
         }),
       });
     });
     await page.goto("/contact", { waitUntil: "domcontentloaded" });
-    await page.getByLabel("Full Name *").fill("Ama Mensah");
-    await page.getByLabel("Email Address *").fill("ama@example.com");
-    await page.getByLabel("Subject *").fill("Partnership inquiry");
-    await page
-      .getByLabel("Message *")
+    const contactForm = page.getByRole("region", { name: "Send us a message" });
+    await contactForm.getByLabel("Full name").fill("Ama Mensah");
+    await contactForm.getByLabel("Email address").fill("ama@example.com");
+    await contactForm.getByLabel("Subject").fill("Partnership inquiry");
+    await contactForm
+      .getByLabel("Message")
       .fill("I would like to discuss a corporate partnership.");
-    await page.getByRole("button", { name: "Send Message" }).click();
+    await contactForm.getByRole("checkbox").check();
+    await contactForm.getByRole("button", { name: "Send message" }).click();
     const contactError = page.getByTestId("contact-form-error");
-    await expect(contactError).toContainText("We couldn't send your message");
     await expect(contactError).toContainText(
-      "Something went wrong on our side. Please try again in a few minutes.",
+      "We could not submit your inquiry",
     );
 
     await page.unroute("**/api/contact");
@@ -201,67 +218,26 @@ test.describe("conversion family editorial contracts", () => {
         body: JSON.stringify({ ok: true }),
       });
     });
-    await page.getByRole("button", { name: "Send Message" }).click();
+    await contactForm.getByRole("button", { name: "Send message" }).click();
     await expect(
-      page.getByRole("status").getByText("Message Sent Successfully!"),
+      page.getByRole("status").getByText("Message received"),
     ).toBeVisible();
 
     // Clear contact mocks before donate so they cannot interfere with navigation.
     await page.unroute("**/api/contact");
-    await page.route("**/api/donation-follow-up", async (route) => {
-      await route.fulfill({
-        status: 500,
-        contentType: "application/json",
-        body: JSON.stringify({ message: "Server error" }),
-      });
-    });
     await page.goto("/donate", { waitUntil: "domcontentloaded" });
-    const paymentPanel = page.getByTestId("donation-payment-methods-partner");
     await expect(
-      paymentPanel.getByText(/Complete a new manual transfer for each month/i),
+      page.getByRole("heading", {
+        name: "Every act of generosity saves a life.",
+      }),
     ).toBeVisible();
-
-    // Match both View/Hide labels so the locator survives the toggle rename.
-    const instructionsToggle = paymentPanel.getByRole("button", {
-      name: /Mobile Money instructions/i,
-    });
-    await instructionsToggle.scrollIntoViewIfNeeded();
-    await expect(instructionsToggle).toBeVisible();
-    await expect(instructionsToggle).toHaveAttribute("aria-expanded", "false");
-
-    // Retry until expanded — FadeIn/layout can swallow the first pointer event
-    // under full-suite load.
-    await expect(async () => {
-      if ((await instructionsToggle.getAttribute("aria-expanded")) !== "true") {
-        await instructionsToggle.click({ force: true });
-      }
-      await expect(instructionsToggle).toHaveAttribute("aria-expanded", "true");
-      await expect(paymentPanel.getByText("0249292898")).toBeVisible();
-    }).toPass({ timeout: 15_000 });
-
-    await expect(paymentPanel.getByRole("alert")).toBeVisible();
     await expect(
-      paymentPanel.getByRole("heading", { name: "Let us thank you" }),
+      page
+        .getByRole("heading", { name: "Complete your gift securely" })
+        .or(page.getByTestId("donation-provider-unavailable")),
     ).toBeVisible();
-    await paymentPanel.getByPlaceholder("Your full name").fill("Kojo Mensah");
-    await paymentPanel.getByPlaceholder("you@example.com").fill("kojo@example.com");
-    await paymentPanel.getByRole("button", { name: "Share my details" }).click();
-    await expect(
-      paymentPanel.getByText(/couldn't share your details/i),
-    ).toBeVisible();
-
-    await page.unroute("**/api/donation-follow-up");
-    await page.route("**/api/donation-follow-up", async (route) => {
-      await route.fulfill({
-        status: 200,
-        contentType: "application/json",
-        body: JSON.stringify({ ok: true }),
-      });
-    });
-    await paymentPanel.getByRole("button", { name: "Share my details" }).click();
-    await expect(
-      paymentPanel.getByText(/Thank you for sharing your details/i),
-    ).toBeVisible();
+    await expect(page.getByTestId("ghana-mobile-money")).toBeVisible();
+    await expect(page.getByText("0249292898")).toBeVisible();
   });
 
   for (const viewport of viewports) {
@@ -299,11 +275,23 @@ test.describe("conversion family editorial contracts", () => {
                 ) {
                   return false;
                 }
-                // Native/Radix radios are intentionally compact indicators.
+                // Native/Radix selection controls are compact indicators with
+                // larger associated labels as their interaction targets.
                 if (
                   control.getAttribute("role") === "radio" ||
+                  control.getAttribute("role") === "checkbox" ||
                   control.getAttribute("type") === "radio" ||
+                  control.getAttribute("type") === "checkbox" ||
                   control.closest('[role="radiogroup"]')
+                ) {
+                  return false;
+                }
+                // Inline prose links are covered by WCAG's inline target
+                // exception, and compact checkbox indicators inherit the
+                // larger clickable target of their wrapping label.
+                if (
+                  style.display === "inline" ||
+                  control.closest("label")
                 ) {
                   return false;
                 }

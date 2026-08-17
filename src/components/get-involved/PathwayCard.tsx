@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import {
   ArrowRight,
@@ -10,6 +12,7 @@ import {
   User,
   type LucideIcon,
 } from "lucide-react";
+import OpenIntakeCta from "@/components/intake/OpenIntakeCta";
 import { cn } from "@/lib/utils";
 
 const iconMap: Record<string, LucideIcon> = {
@@ -22,18 +25,21 @@ const iconMap: Record<string, LucideIcon> = {
 };
 
 export interface PathwayCardProps {
+  id: string;
   icon: string;
   title: string;
   description: string;
   audience: string;
   ctaLabel: string;
-  ctaHref: string;
+  ctaHref?: string;
   external?: boolean;
+  opensImmersionInterest?: boolean;
   accent: string;
   featured?: boolean;
 }
 
 export default function PathwayCard({
+  id,
   icon,
   title,
   description,
@@ -41,23 +47,10 @@ export default function PathwayCard({
   ctaLabel,
   ctaHref,
   external = false,
+  opensImmersionInterest = false,
   featured = false,
 }: PathwayCardProps) {
   const Icon = iconMap[icon];
-
-  const ctaContent = (
-    <>
-      {ctaLabel}
-      {external ? (
-        <ArrowUpRight className="ml-1.5 h-4 w-4" aria-hidden="true" />
-      ) : (
-        <ArrowRight
-          className="ml-1.5 h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5"
-          aria-hidden="true"
-        />
-      )}
-    </>
-  );
 
   const ctaClassName =
     "mt-6 inline-flex min-h-11 items-center font-subheading text-sm font-bold uppercase tracking-[0.14em] text-[#0097b2] transition-colors hover:text-[#0F4C5C] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eeba2b] focus-visible:ring-offset-2 dark:text-[#66C4DC] dark:hover:text-[#F5C94D]";
@@ -101,20 +94,49 @@ export default function PathwayCard({
       </p>
 
       <div className="mt-auto">
-        {external ? (
+        {id === "student-leader" || opensImmersionInterest ? (
+          <OpenIntakeCta
+            request={{
+              formType: "get_involved",
+              pathway: "student_leadership",
+              contextId: "student-leader",
+            }}
+            appearance="text-link"
+            className="mt-6"
+          >
+            {ctaLabel}
+          </OpenIntakeCta>
+        ) : id === "faculty-mentor" ? (
+          <OpenIntakeCta
+            request={{
+              formType: "get_involved",
+              pathway: "faculty_mentorship",
+              contextId: "faculty-mentor",
+            }}
+            appearance="text-link"
+            className="mt-6"
+          >
+            {ctaLabel}
+          </OpenIntakeCta>
+        ) : external && ctaHref ? (
           <a
             href={ctaHref}
             target="_blank"
             rel="noopener noreferrer"
             className={ctaClassName}
           >
-            {ctaContent}
+            {ctaLabel}
+            <ArrowUpRight className="ml-1.5 h-4 w-4" aria-hidden="true" />
           </a>
-        ) : (
+        ) : ctaHref ? (
           <Link href={ctaHref} className={ctaClassName}>
-            {ctaContent}
+            {ctaLabel}
+            <ArrowRight
+              className="ml-1.5 h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5"
+              aria-hidden="true"
+            />
           </Link>
-        )}
+        ) : null}
       </div>
     </article>
   );

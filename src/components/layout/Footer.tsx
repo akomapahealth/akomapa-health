@@ -216,6 +216,9 @@ export default function Footer() {
               Contact Us
             </h3>
             <div className="space-y-6 font-body text-[#2F3332]/75 dark:text-[#FCFAEF]/85">
+              <Link href="/contact" className={footerLinkClass}>
+                Send us a message
+              </Link>
               {CONTACT.offices.map((office) => (
                 <div key={office.id}>
                   <h4 className="mb-1 font-semibold text-[#1C1F1E] dark:text-[#FCFAEF]">

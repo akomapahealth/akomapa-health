@@ -20,9 +20,11 @@ async function preparePage(page: Page) {
   );
 }
 
-async function openAlertModal(page: Page) {
-  await expect(page.locator("[data-immersion-hero-hydrated]"))
-    .toHaveAttribute("data-immersion-hero-hydrated", "true");
+async function openProgramInterestDialog(page: Page) {
+  await expect(page.locator("[data-immersion-hero-hydrated]")).toHaveAttribute(
+    "data-immersion-hero-hydrated",
+    "true",
+  );
   const cta = page.getByRole("button", {
     name: IMMERSION_INTEREST_COPY.section.cta,
     exact: true,
@@ -32,7 +34,7 @@ async function openAlertModal(page: Page) {
   return page.getByRole("dialog");
 }
 
-test.describe("Immersion alert signup modal", () => {
+test.describe("Immersion program-interest dialog", () => {
   test("opens and closes by keyboard with focus restoration", async ({
     page,
   }) => {
@@ -41,8 +43,9 @@ test.describe("Immersion alert signup modal", () => {
     await page.goto("/global-health-immersion-program", {
       waitUntil: "domcontentloaded",
     });
-    await expect(page.locator("[data-immersion-hero-hydrated]"))
-      .toHaveAttribute("data-immersion-hero-hydrated", "true");
+    await expect(
+      page.locator("[data-immersion-hero-hydrated]"),
+    ).toHaveAttribute("data-immersion-hero-hydrated", "true");
 
     const hero = page.getByRole("region", {
       name: immersionProgram.title,
@@ -59,7 +62,7 @@ test.describe("Immersion alert signup modal", () => {
     await expect(dialog).toBeVisible();
     await expect(
       dialog.getByRole("heading", {
-        name: IMMERSION_INTEREST_COPY.modal.title,
+        name: "Tell us what you are interested in",
       }),
     ).toBeVisible();
 
@@ -76,14 +79,14 @@ test.describe("Immersion alert signup modal", () => {
     page,
   }) => {
     let attempt = 0;
-    await page.route("**/api/immersion-interest", async (route) => {
+    await page.route("**/api/intake/program-interest", async (route) => {
       attempt += 1;
       if (attempt === 1) {
         await route.fulfill({
           status: 503,
           contentType: "application/json",
           body: JSON.stringify({
-            error: "Immersion alert service is currently unavailable",
+            error: "Program interest service is currently unavailable",
           }),
         });
         return;
@@ -94,7 +97,7 @@ test.describe("Immersion alert signup modal", () => {
         contentType: "application/json",
         body: JSON.stringify({
           success: true,
-          outcome: "pending_confirmation",
+          requestId: "00000000-0000-4000-8000-000000000000",
         }),
       });
     });
@@ -105,42 +108,35 @@ test.describe("Immersion alert signup modal", () => {
       waitUntil: "domcontentloaded",
     });
 
-    const dialog = await openAlertModal(page);
+    const dialog = await openProgramInterestDialog(page);
     await expect(dialog).toBeVisible();
 
-    await dialog.getByLabel("First name").fill("Ama");
+    await dialog.getByLabel("Full name").fill("Ama Mensah");
     await dialog.getByLabel("Email address").fill("ama@example.com");
     await dialog.getByRole("checkbox").check();
-    await dialog
-      .getByRole("button", { name: IMMERSION_INTEREST_COPY.modal.submit })
-      .click();
+    await dialog.getByRole("button", { name: "Submit request" }).click();
 
     await expect(
-      dialog.getByText(IMMERSION_INTEREST_COPY.errors.serviceUnavailable),
+      dialog.getByText(/could not submit this request/i),
     ).toBeVisible();
-    await expect(dialog.getByLabel("First name")).toHaveValue("Ama");
+    await expect(dialog.getByLabel("Full name")).toHaveValue("Ama Mensah");
 
-    await dialog
-      .getByRole("button", { name: IMMERSION_INTEREST_COPY.modal.submit })
-      .click();
+    await dialog.getByRole("button", { name: "Submit request" }).click();
 
     await expect(
-      dialog.getByRole("heading", {
-        name: IMMERSION_INTEREST_COPY.success.heading,
-      }),
+      dialog.getByText("Your request was safely stored."),
     ).toBeVisible();
-    await expect(dialog.getByText("ama@example.com")).toBeVisible();
     expect(attempt).toBe(2);
   });
 
   test("stays usable without overflow at 320px width", async ({ page }) => {
-    await page.route("**/api/immersion-interest", async (route) => {
+    await page.route("**/api/intake/program-interest", async (route) => {
       await route.fulfill({
         status: 200,
         contentType: "application/json",
         body: JSON.stringify({
           success: true,
-          outcome: "pending_confirmation",
+          requestId: "00000000-0000-4000-8000-000000000000",
         }),
       });
     });
@@ -151,7 +147,7 @@ test.describe("Immersion alert signup modal", () => {
       waitUntil: "domcontentloaded",
     });
 
-    const dialog = await openAlertModal(page);
+    const dialog = await openProgramInterestDialog(page);
     await expect(dialog).toBeVisible();
 
     const overflow = await page.evaluate(() => ({
@@ -169,17 +165,13 @@ test.describe("Immersion alert signup modal", () => {
       overflow.viewportWidth + 1,
     );
 
-    await dialog.getByLabel("First name").fill("Ama");
+    await dialog.getByLabel("Full name").fill("Ama Mensah");
     await dialog.getByLabel("Email address").fill("ama@example.com");
     await dialog.getByRole("checkbox").check();
-    await dialog
-      .getByRole("button", { name: IMMERSION_INTEREST_COPY.modal.submit })
-      .click();
+    await dialog.getByRole("button", { name: "Submit request" }).click();
 
     await expect(
-      dialog.getByRole("heading", {
-        name: IMMERSION_INTEREST_COPY.success.heading,
-      }),
+      dialog.getByText("Your request was safely stored."),
     ).toBeVisible();
   });
 });

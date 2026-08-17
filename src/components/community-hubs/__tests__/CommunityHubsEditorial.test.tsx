@@ -109,6 +109,39 @@ describe("Community hubs listing editorial sections", () => {
 });
 
 describe("Community hub detail editorial system", () => {
+  it("uses UCC and UG hub images as full-bleed hero backgrounds", () => {
+    const uccHub = communityHubs.find(({ routeSlug }) => routeSlug === "ucc")!;
+    const ugHub = communityHubs.find(({ routeSlug }) => routeSlug === "ug")!;
+    const { rerender } = render(<CommunityHubDetailPage hub={uccHub} />);
+
+    const uccHero = screen
+      .getByRole("heading", { level: 1, name: uccHub.name })
+      .closest("section");
+    expect(uccHero).toHaveAttribute("data-hub-hero-presentation", "background");
+    expect(uccHero?.querySelector("[data-hub-hero-background]")).toHaveAttribute(
+      "src",
+      uccHub.image,
+    );
+    expect(uccHero?.querySelector("[data-hub-hero-background]")).toHaveAttribute(
+      "alt",
+      "",
+    );
+    expect(uccHero?.querySelector("[data-hub-hero-panel]")).toHaveClass(
+      "bg-[#07191d]/30",
+    );
+
+    rerender(<CommunityHubDetailPage hub={ugHub} />);
+    const ugHero = screen
+      .getByRole("heading", { level: 1, name: ugHub.name })
+      .closest("section");
+    expect(ugHero).toHaveAttribute("data-hub-hero-presentation", "background");
+    expect(ugHero?.querySelector("[data-hub-hero-background]")).toHaveAttribute(
+      "src",
+      ugHub.image,
+    );
+    expect(ugHero?.querySelector("[data-hub-hero-panel]")).toBeTruthy();
+  });
+
   it.each(communityHubs)(
     "preserves approved data and semantic metrics for $name",
     (hub) => {
@@ -176,15 +209,49 @@ describe("Community hub detail editorial system", () => {
     },
   );
 
-  it("keeps hub accent color on metric values only", () => {
+  it("uses the gold accent for metrics on the dark teal band", () => {
     const hub = communityHubs[0];
     render(<HubMetrics hub={hub} />);
 
+    expect(screen.getByRole("region", { name: "Hub Metrics" })).toHaveAttribute(
+      "data-editorial-tone",
+      "onyx",
+    );
     const values = document.querySelectorAll("[data-hub-metrics] dd");
     expect(values).toHaveLength(4);
     for (const value of values) {
-      expect(value).toHaveStyle({ color: hub.color });
+      expect(value).toHaveClass("text-[#F5C94D]");
     }
+  });
+
+  it("alternates non-hero UCC bands between dark teal and cream", () => {
+    const hub = communityHubs.find(({ routeSlug }) => routeSlug === "ucc")!;
+    render(<CommunityHubDetailPage hub={hub} />);
+
+    const sectionIds = [
+      "hub-metrics",
+      "hub-leadership",
+      "hub-volunteers",
+      "community-stories",
+      "student-stories",
+      "faculty-mentorship",
+      "hub-research",
+      "hub-innovation",
+    ];
+    const tones = sectionIds.map((id) =>
+      document.getElementById(id)?.getAttribute("data-editorial-tone"),
+    );
+
+    expect(tones).toEqual([
+      "onyx",
+      "cream",
+      "teal",
+      "cream",
+      "onyx",
+      "cream",
+      "onyx",
+      "cream",
+    ]);
   });
 
   it("renders a single hub card with navigational accessible name", () => {

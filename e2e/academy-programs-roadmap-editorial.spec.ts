@@ -1,7 +1,6 @@
 import { expect, test, type Locator, type Page } from "@playwright/test";
 import { announcementCampaign } from "../src/data/announcements";
 import { academyCurriculum, academyOverview } from "../src/data/academy";
-import { LEADERSHIP_APP_FORM_URL } from "../src/config/links";
 import { phases } from "../src/components/roadmap/phases";
 
 const routes = [
@@ -130,9 +129,23 @@ test("academy preserves curriculum order, certification, and apply destination",
     }),
   ).toBeVisible();
 
+  const becomeScholar = page
+    .getByRole("button", { name: /Become a Scholar/i })
+    .first();
+  await becomeScholar.scrollIntoViewIfNeeded();
+  // OpenImmersionInterestCta hydrates as a client island; retry until the modal mounts.
+  await expect(async () => {
+    await becomeScholar.click();
+    await expect(page.getByRole("dialog")).toBeVisible({ timeout: 2000 });
+  }).toPass({ timeout: 15_000 });
+  const interestDialog = page.getByRole("dialog");
   await expect(
-    page.getByRole("link", { name: /Become a Scholar/i }).first(),
-  ).toHaveAttribute("href", LEADERSHIP_APP_FORM_URL);
+    interestDialog.getByRole("heading", {
+      name: "Tell us what you are interested in",
+    }),
+  ).toBeVisible();
+  await page.keyboard.press("Escape");
+  await expect(interestDialog).toBeHidden();
 });
 
 test("programs listing preserves destinations and impact labels", async ({

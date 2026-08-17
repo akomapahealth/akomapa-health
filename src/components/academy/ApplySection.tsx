@@ -1,4 +1,7 @@
+"use client";
+
 import { FadeIn } from "@/components/animations";
+import OpenImmersionInterestCta from "@/components/immersion/OpenImmersionInterestCta";
 import {
   EditorialBand,
   EditorialButton,
@@ -6,7 +9,6 @@ import {
   EditorialHeading,
   EditorialLead,
 } from "@/components/shared/EditorialPrimitives";
-import { LEADERSHIP_APP_FORM_URL } from "@/config/links";
 
 export default function ApplySection() {
   return (
@@ -34,13 +36,9 @@ export default function ApplySection() {
             partnership, and creating lasting change in global health.
           </EditorialLead>
           <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
-            <EditorialButton
-              href={LEADERSHIP_APP_FORM_URL}
-              variant="amber"
-              external
-            >
+            <OpenImmersionInterestCta variant="amber">
               Apply to the Academy
-            </EditorialButton>
+            </OpenImmersionInterestCta>
             <EditorialButton href="/get-involved" variant="outline-light">
               Other Ways to Get Involved
             </EditorialButton>

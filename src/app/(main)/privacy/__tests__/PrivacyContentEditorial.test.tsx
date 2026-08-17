@@ -11,6 +11,7 @@ const privacyHeadings = [
   "Cookies, local storage, and similar technologies",
   "Analytics and performance",
   "How we share information",
+  "How long we keep intake records",
   "International transfers",
   "Data security",
   "Your rights and choices",
@@ -27,6 +28,7 @@ const privacySectionIds = [
   "cookies-local-storage",
   "analytics",
   "sharing",
+  "retention",
   "international",
   "security",
   "rights",
@@ -53,7 +55,9 @@ describe("Privacy Content editorial contracts", () => {
 
     expect(container.innerHTML).not.toContain("shadow-xl");
     expect(container.innerHTML).not.toContain("rounded-2xl shadow");
-    expect(container.querySelector("[data-publication-article-measure]")).toBeTruthy();
+    expect(
+      container.querySelector("[data-publication-article-measure]"),
+    ).toBeTruthy();
     expect(container.querySelector("[data-legal-prose-article]")).toBeTruthy();
   });
 
@@ -71,7 +75,7 @@ describe("Privacy Content editorial contracts", () => {
     }
 
     expect(
-      screen.getAllByText("Last updated: May 9, 2026").length,
+      screen.getAllByText("Last updated: August 16, 2026").length,
     ).toBeGreaterThanOrEqual(1);
 
     const mailLinks = screen.getAllByRole("link", {
@@ -82,9 +86,10 @@ describe("Privacy Content editorial contracts", () => {
       expect(link).toHaveAttribute("href", CONTACT.email.href);
     }
 
-    expect(
-      screen.getByRole("link", { name: "contact page" }),
-    ).toHaveAttribute("href", "/contact");
+    expect(screen.getByRole("link", { name: "contact page" })).toHaveAttribute(
+      "href",
+      "/contact",
+    );
 
     expect(
       screen.getByRole("navigation", { name: "On this page" }),
@@ -100,6 +105,10 @@ describe("Privacy Content editorial contracts", () => {
         level: 3,
         name: "Contact and partnership messages",
       }),
+    ).toBeInTheDocument();
+    expect(screen.getByText(/Givebutter collects the name/i)).toBeInTheDocument();
+    expect(
+      screen.getByText(/does not collect or store raw card numbers/i),
     ).toBeInTheDocument();
     expect(
       screen.getByRole("heading", {

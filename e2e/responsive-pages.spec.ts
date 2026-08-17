@@ -12,21 +12,23 @@ import { announcementCampaign } from "../src/data/announcements";
  */
 
 const viewports = [
-  { name: "mobile-390", width: 390, height: 844 },
+  { name: "mobile-375", width: 375, height: 812 },
   { name: "tablet-768", width: 768, height: 1024 },
   { name: "ipad-pro-1024", width: 1024, height: 1366 },
   { name: "laptop-1280", width: 1280, height: 800 },
   { name: "desktop-1440", width: 1440, height: 900 },
   { name: "wide-1536", width: 1536, height: 960 },
+  { name: "wide-1728", width: 1728, height: 1080 },
 ] as const;
 
 const expectedGutterByWidth = new Map<number, number>([
-  [390, 16],
+  [375, 16],
   [768, 32],
   [1024, 40],
   [1280, 48],
   [1440, 48],
   [1536, 64],
+  [1728, 64],
 ]);
 
 const themes = ["light", "dark"] as const;

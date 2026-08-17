@@ -1,6 +1,8 @@
+import { UG_TRAINING_FORM_URL } from "@/config/links";
 import type {
   CommunityHub,
   HubMission,
+  HubRoster,
   HubRouteSlug,
 } from "@/lib/types";
 
@@ -186,6 +188,350 @@ export const hubEmptyStates = {
   },
 } as const;
 
+export const uccHubRoster: HubRoster = {
+  leadership: [
+    {
+      id: "david-ofosu",
+      name: "David Ofosu",
+      role: "Co-Director",
+      affiliation: "Medical Student",
+      image: "/ucc-team/david_kojo_ofosu.JPG",
+      featured: true,
+    },
+    {
+      id: "hafiz-shaban",
+      name: "Hafiz Shaban",
+      role: "Co-Director",
+      affiliation: "Nursing Student",
+      image: "/ucc-team/hafiz_shaban.JPG",
+      featured: true,
+    },
+    {
+      id: "getwell-essuman",
+      name: "Getwell Essuman",
+      role: "Volunteer Recruitment Co-Lead",
+      affiliation: "Medical Laboratory Science Student",
+      image: "/ucc-team/getwell_ebiram_essuman.JPG",
+    },
+    {
+      id: "david-konadu-kombate",
+      name: "David Konadu Kombate",
+      role: "Volunteer Recruitment Co-Lead",
+      affiliation: "Medical Laboratory Science Student",
+      image: "/ucc-team/david_konadu_kombate.JPG",
+    },
+    {
+      id: "wilfred-obeng",
+      name: "Wilfred Obeng",
+      role: "Training & Standards Coordinator",
+      affiliation: "Medical Student",
+      image: "/ucc-team/wilfred_obeng.JPG",
+    },
+    {
+      id: "belinda-odoom",
+      name: "Belinda Odoom",
+      role: "Training & Standards Coordinator",
+      affiliation: "Nursing Student",
+      image: "/ucc-team/belinda_odoom.JPG",
+    },
+    {
+      id: "geraldine-cristal-apeadua-agyapong",
+      name: "Geraldine-Cristal Apeadua Agyapong",
+      role: "Finance Officer",
+      affiliation: "Medical Student",
+      image: "/ucc-team/geraldine_cristal_apeadua_agyepong.JPG",
+    },
+    {
+      id: "frederick-baffour",
+      name: "Frederick Baffour",
+      role: "Finance Officer",
+      affiliation: "Optometry Student",
+      image: "/ucc-team/frederick_baffour.JPG",
+    },
+    {
+      id: "gloria-tawiah-blay",
+      name: "Gloria Tawiah Blay",
+      role: "Community Engagement Liaison",
+      affiliation: "Pharmacy Student",
+      image: "/ucc-team/gloria_tawia_blay.JPG",
+    },
+    {
+      id: "prince-nyarko",
+      name: "Prince Nyarko",
+      role: "Community Engagement Liaison",
+      affiliation: "Optometry Student",
+      image: "/ucc-team/prince_nyarkoh.JPG",
+    },
+    {
+      id: "queenstar-aduse-opoku",
+      name: "Queenstar Aduse Opoku",
+      role: "Supplies & Logistics Manager",
+      affiliation: "Pharmacy Student",
+      image: "/ucc-team/queenster_aduse_opoku.JPG",
+    },
+    {
+      id: "martha-bawa",
+      name: "Martha Bawa",
+      role: "Supplies & Logistics Manager",
+      affiliation: "Nursing Student",
+      image: "/ucc-team/martha_bawa.JPG",
+    },
+  ],
+  volunteers: [
+    {
+      id: "ucc-volunteer-103",
+      image: "/ucc-team/volunteers/Akomapa-103.jpg",
+      alt: "UCC Community Hub volunteer portrait 1 of 36",
+    },
+    {
+      id: "ucc-volunteer-105",
+      image: "/ucc-team/volunteers/Akomapa-105.jpg",
+      alt: "UCC Community Hub volunteer portrait 2 of 36",
+    },
+    {
+      id: "ucc-volunteer-104",
+      image: "/ucc-team/volunteers/Akomapa-104.jpg",
+      alt: "UCC Community Hub volunteer portrait 3 of 36",
+    },
+    {
+      id: "ucc-volunteer-106",
+      image: "/ucc-team/volunteers/Akomapa-106.jpg",
+      alt: "UCC Community Hub volunteer portrait 4 of 36",
+    },
+    {
+      id: "ucc-volunteer-67",
+      image: "/ucc-team/volunteers/Akomapa-67.jpg",
+      alt: "UCC Community Hub volunteer portrait 5 of 36",
+    },
+    {
+      id: "ucc-volunteer-69",
+      image: "/ucc-team/volunteers/Akomapa-69.jpg",
+      alt: "UCC Community Hub volunteer portrait 6 of 36",
+    },
+    {
+      id: "ucc-volunteer-65",
+      image: "/ucc-team/volunteers/Akomapa-65.jpg",
+      alt: "UCC Community Hub volunteer portrait 7 of 36",
+    },
+    {
+      id: "ucc-volunteer-48",
+      image: "/ucc-team/volunteers/Akomapa-48.jpg",
+      alt: "UCC Community Hub volunteer portrait 8 of 36",
+    },
+    {
+      id: "ucc-volunteer-64",
+      image: "/ucc-team/volunteers/Akomapa-64.jpg",
+      alt: "UCC Community Hub volunteer portrait 9 of 36",
+    },
+    {
+      id: "ucc-volunteer-47",
+      image: "/ucc-team/volunteers/Akomapa-47.jpg",
+      alt: "UCC Community Hub volunteer portrait 10 of 36",
+    },
+    {
+      id: "ucc-volunteer-46",
+      image: "/ucc-team/volunteers/Akomapa-46.jpg",
+      alt: "UCC Community Hub volunteer portrait 11 of 36",
+    },
+    {
+      id: "ucc-volunteer-63",
+      image: "/ucc-team/volunteers/Akomapa-63.jpg",
+      alt: "UCC Community Hub volunteer portrait 12 of 36",
+    },
+    {
+      id: "ucc-volunteer-62",
+      image: "/ucc-team/volunteers/Akomapa-62.jpg",
+      alt: "UCC Community Hub volunteer portrait 13 of 36",
+    },
+    {
+      id: "ucc-volunteer-45",
+      image: "/ucc-team/volunteers/Akomapa-45.jpg",
+      alt: "UCC Community Hub volunteer portrait 14 of 36",
+    },
+    {
+      id: "ucc-volunteer-66",
+      image: "/ucc-team/volunteers/Akomapa-66.jpg",
+      alt: "UCC Community Hub volunteer portrait 15 of 36",
+    },
+    {
+      id: "ucc-volunteer-50",
+      image: "/ucc-team/volunteers/Akomapa-50.jpg",
+      alt: "UCC Community Hub volunteer portrait 16 of 36",
+    },
+    {
+      id: "ucc-volunteer-49",
+      image: "/ucc-team/volunteers/Akomapa-49.jpg",
+      alt: "UCC Community Hub volunteer portrait 17 of 36",
+    },
+    {
+      id: "ucc-volunteer-71",
+      image: "/ucc-team/volunteers/Akomapa-71.jpg",
+      alt: "UCC Community Hub volunteer portrait 18 of 36",
+    },
+    {
+      id: "ucc-volunteer-51",
+      image: "/ucc-team/volunteers/Akomapa-51.jpg",
+      alt: "UCC Community Hub volunteer portrait 19 of 36",
+    },
+    {
+      id: "ucc-volunteer-55",
+      image: "/ucc-team/volunteers/Akomapa-55.jpg",
+      alt: "UCC Community Hub volunteer portrait 20 of 36",
+    },
+    {
+      id: "ucc-volunteer-56",
+      image: "/ucc-team/volunteers/Akomapa-56.jpg",
+      alt: "UCC Community Hub volunteer portrait 21 of 36",
+    },
+    {
+      id: "ucc-volunteer-101",
+      image: "/ucc-team/volunteers/Akomapa-101.jpg",
+      alt: "UCC Community Hub volunteer portrait 22 of 36",
+    },
+    {
+      id: "ucc-volunteer-72",
+      image: "/ucc-team/volunteers/Akomapa-72.jpg",
+      alt: "UCC Community Hub volunteer portrait 23 of 36",
+    },
+    {
+      id: "ucc-volunteer-54",
+      image: "/ucc-team/volunteers/Akomapa-54.jpg",
+      alt: "UCC Community Hub volunteer portrait 24 of 36",
+    },
+    {
+      id: "ucc-volunteer-59",
+      image: "/ucc-team/volunteers/Akomapa-59.jpg",
+      alt: "UCC Community Hub volunteer portrait 25 of 36",
+    },
+    {
+      id: "ucc-volunteer-100",
+      image: "/ucc-team/volunteers/Akomapa-100.jpg",
+      alt: "UCC Community Hub volunteer portrait 26 of 36",
+    },
+    {
+      id: "ucc-volunteer-97",
+      image: "/ucc-team/volunteers/Akomapa-97.jpg",
+      alt: "UCC Community Hub volunteer portrait 27 of 36",
+    },
+    {
+      id: "ucc-volunteer-52",
+      image: "/ucc-team/volunteers/Akomapa-52.jpg",
+      alt: "UCC Community Hub volunteer portrait 28 of 36",
+    },
+    {
+      id: "ucc-volunteer-53",
+      image: "/ucc-team/volunteers/Akomapa-53.jpg",
+      alt: "UCC Community Hub volunteer portrait 29 of 36",
+    },
+    {
+      id: "ucc-volunteer-95",
+      image: "/ucc-team/volunteers/Akomapa-95.jpg",
+      alt: "UCC Community Hub volunteer portrait 30 of 36",
+    },
+    {
+      id: "ucc-volunteer-70",
+      image: "/ucc-team/volunteers/Akomapa-70.jpg",
+      alt: "UCC Community Hub volunteer portrait 31 of 36",
+    },
+    {
+      id: "ucc-volunteer-58",
+      image: "/ucc-team/volunteers/Akomapa-58.jpg",
+      alt: "UCC Community Hub volunteer portrait 32 of 36",
+    },
+    {
+      id: "ucc-volunteer-61",
+      image: "/ucc-team/volunteers/Akomapa-61.jpg",
+      alt: "UCC Community Hub volunteer portrait 33 of 36",
+    },
+    {
+      id: "ucc-volunteer-98",
+      image: "/ucc-team/volunteers/Akomapa-98.jpg",
+      alt: "UCC Community Hub volunteer portrait 34 of 36",
+    },
+    {
+      id: "ucc-volunteer-73",
+      image: "/ucc-team/volunteers/Akomapa-73.jpg",
+      alt: "UCC Community Hub volunteer portrait 35 of 36",
+    },
+    {
+      id: "ucc-volunteer-75",
+      image: "/ucc-team/volunteers/Akomapa-75.jpg",
+      alt: "UCC Community Hub volunteer portrait 36 of 36",
+    },
+  ],
+};
+
+/**
+ * UG student leadership roster. Volunteer/non-executive portraits are withheld
+ * until names and images are confirmed — keep `volunteers` empty (and do not
+ * attach `pending.volunteers`) so the volunteer band stays commented out of the
+ * page until that data ships.
+ */
+export const ugHubRoster: HubRoster = {
+  leadershipPresentation: "compact-modal",
+  leadership: [
+    {
+      id: "divina-selase-afenyo",
+      name: "Divina Selase Afenyo",
+      role: "UG Hub Co-Lead",
+      affiliation: "Akomapa Health Foundation",
+      image: "/images/team/divina-selase-afenyo.jpg",
+      bio: "Divina Selase Afenyo co-leads planning and coordination for Akomapa’s University of Ghana hub, supporting the local team as it develops student-led community health activities.",
+    },
+    {
+      id: "kelvin-akoto-boateng",
+      name: "Kelvin Akoto Boateng",
+      role: "Financial Officer",
+      affiliation: "Pharmacy Student",
+      image: "/ug-team/kelvin-akoto-boateng.jpg",
+      bio: "A results-driven Pharmacy candidate combining rigorous pharmaceutical training with extensive leadership experience across musical settings, student associations, community organizing, and youth empowerment.",
+      contact: {
+        linkedin:
+          "https://www.linkedin.com/in/kelvin-boateng-5b75492b5",
+      },
+    },
+    {
+      id: "nana-ekow-moses",
+      name: "Nana-Ekow Moses",
+      role: "Follow-up Lead",
+      affiliation: "General Nursing Student",
+      image: "/ug-team/nana-ekow-moses.jpg",
+      bio: "Nana-Ekow Moses is a general nursing student at the University of Ghana with a strong interest in healthcare leadership, community health, and patient-centered care. He serves as the Follow-Up Lead at the Akomapa UG Clinic, supporting patient continuity of care and follow-up after clinical encounters. He is also passionate about student leadership, health advocacy, and initiatives that improve access to quality healthcare within communities.",
+      contact: {
+        email: "ekowmoses29@gmail.com",
+        linkedin: "https://www.linkedin.com/in/nana-ekow-moses-405a9b291",
+      },
+    },
+    {
+      id: "rachael-akusika-adu",
+      name: "Rachael Akusika Adu",
+      role: "Follow-up Lead",
+      affiliation: "Final Year BSc Physiotherapy Student",
+      image: "/ug-team/rachael-akusika-adu.jpg",
+      bio: "Rachael Akusika Adu is a final-year BSc Physiotherapy student at the University of Ghana and serves as a Follow-up Lead at the Akomapa UG Clinic, supporting continuity of care after clinical encounters.",
+      contact: {
+        email: "rachaeladu19@gmail.com",
+        linkedin: "https://www.linkedin.com/in/rachael-adu",
+      },
+    },
+  ],
+  // Volunteers section intentionally omitted until portraits and bios are ready.
+  volunteers: [],
+  // pending.volunteers commented out until the non-executive portrait grid ships:
+  // pending: {
+  //   volunteers: {
+  //     monogram: "UG",
+  //     description:
+  //       "Volunteer portraits will appear here as the UG cohort grows...",
+  //     cta: {
+  //       label: "Apply now",
+  //       href: UG_TRAINING_FORM_URL,
+  //       external: true,
+  //     },
+  //   },
+  // },
+};
+
 export const communityHubs: CommunityHub[] = [
   {
     id: "ucc-hub",
@@ -197,6 +543,7 @@ export const communityHubs: CommunityHub[] = [
     description:
       "Akomapa's first community learning and care hub partners with the University of Cape Coast, Ghana Health Service, and local leaders to provide NCD screening, education, referrals, and supervised student learning.",
     image: "/highlights/ucc.jpg",
+    heroPresentation: "background",
     color: "#0097b2",
     status: "active",
     missions: hubMissions,
@@ -215,6 +562,7 @@ export const communityHubs: CommunityHub[] = [
     },
     research: [],
     innovations: [],
+    roster: uccHubRoster,
   },
   {
     id: "ug-hub",
@@ -224,10 +572,11 @@ export const communityHubs: CommunityHub[] = [
     location: "Greater Accra Region",
     country: "Ghana",
     description:
-      "An in-development partnership with the University of Ghana College of Health Sciences and national health partners, designed to expand community-based NCD prevention and interprofessional learning.",
+      "Akomapa's University of Ghana Community Health Hub is officially open. Students across all UG campuses can apply for the General Training Programme and join supervised community-based NCD prevention, education, and interprofessional learning.",
     image: "/highlights/ug.jpg",
+    heroPresentation: "background",
     color: "#eeba2b",
-    status: "in-development",
+    status: "active",
     missions: hubMissions,
     metrics: {
       communityMembersServed: 0,
@@ -239,11 +588,17 @@ export const communityHubs: CommunityHub[] = [
     studentStories: [],
     facultyMentorship: {
       model:
-        "Faculty, university leaders, health-system partners, and Akomapa mentors are establishing the governance and supervision model before launch.",
+        "Faculty, university leaders, health-system partners, and Akomapa mentors supervise interprofessional student teams as the UG hub delivers community health activities and leadership training.",
       mentors: ["alfred-yawson", "esi-berkoh", "patrick-ampofo"],
     },
     research: [],
     innovations: [],
+    roster: ugHubRoster,
+    cta: {
+      label: "Apply now",
+      href: UG_TRAINING_FORM_URL,
+      external: true,
+    },
   },
   {
     id: "nhp-yale-hub",

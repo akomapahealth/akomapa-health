@@ -42,6 +42,7 @@ export default function PathwaysGrid() {
         {getInvolvedPathways.map((pathway) => (
           <FadeInStaggerItem key={pathway.id} className="h-full">
             <PathwayCard
+              id={pathway.id}
               icon={pathway.icon}
               title={pathway.title}
               description={pathway.description}
@@ -49,6 +50,7 @@ export default function PathwaysGrid() {
               ctaLabel={pathway.ctaLabel}
               ctaHref={pathway.ctaHref}
               external={pathway.external}
+              opensImmersionInterest={pathway.opensImmersionInterest}
               accent={pathway.accent}
               featured={pathway.featured}
             />

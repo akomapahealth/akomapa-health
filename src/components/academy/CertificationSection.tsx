@@ -1,14 +1,15 @@
+"use client";
+
 import Image from "@/components/common/Image";
 import { FadeIn } from "@/components/animations";
+import OpenImmersionInterestCta from "@/components/immersion/OpenImmersionInterestCta";
 import {
   EditorialBand,
-  EditorialButton,
   EditorialEyebrow,
   EditorialHeading,
   EditorialLead,
 } from "@/components/shared/EditorialPrimitives";
 import { academyCurriculum } from "@/data/academy";
-import { LEADERSHIP_APP_FORM_URL } from "@/config/links";
 
 const certificationRequirements = [
   "Complete all 8 core modules",
@@ -68,13 +69,9 @@ export default function CertificationSection() {
           </ul>
 
           <div className="mt-8">
-            <EditorialButton
-              href={LEADERSHIP_APP_FORM_URL}
-              variant="amber"
-              external
-            >
+            <OpenImmersionInterestCta variant="amber">
               Apply Now
-            </EditorialButton>
+            </OpenImmersionInterestCta>
           </div>
         </FadeIn>
       </div>

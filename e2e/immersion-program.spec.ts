@@ -62,9 +62,22 @@ test.describe("Immersion program responsive editorial layout", () => {
         await page.goto("/global-health-immersion-program", {
           waitUntil: "domcontentloaded",
         });
-        await expect(page.locator("[data-immersion-hero-hydrated]"))
-          .toHaveAttribute("data-immersion-hero-hydrated", "true");
-        await expect(page.locator("[data-immersion-hero-video]")).toHaveCount(1);
+        await expect(
+          page.locator("[data-immersion-hero-hydrated]"),
+        ).toHaveAttribute("data-immersion-hero-hydrated", "true");
+        await expect(page.locator("[data-immersion-hero-video]")).toHaveCount(
+          1,
+        );
+        const hero = page.locator("[data-immersion-hero]");
+        const heroHeight = await hero.evaluate(
+          (element) => element.getBoundingClientRect().height,
+        );
+        expect(heroHeight).toBeGreaterThanOrEqual(
+          Math.max(700, viewport.height - 124) - 1,
+        );
+        await expect(
+          hero.getByRole("link", { name: "Scroll to the program overview" }),
+        ).toHaveAttribute("href", "#program-overview");
         await page.evaluate(async () => document.fonts.ready);
 
         const pageShell = page.locator("[data-immersion-page]");
@@ -76,6 +89,9 @@ test.describe("Immersion program responsive editorial layout", () => {
           }),
         ).toBeVisible();
         await expect(page.locator("main h1")).toHaveCount(1);
+        await expect(
+          page.getByText(immersionProgram.applicationStatus, { exact: true }),
+        ).toBeVisible();
         await expect(pageShell.locator("section")).toHaveCount(7);
         await expect(
           pageShell.locator('[data-section-tone="teal"]'),
@@ -88,9 +104,7 @@ test.describe("Immersion program responsive editorial layout", () => {
             element.querySelectorAll<HTMLElement>("h1, h2, h3"),
           );
           const experienceLinks = Array.from(
-            element.querySelectorAll<HTMLElement>(
-              'a[href="#experience"]',
-            ),
+            element.querySelectorAll<HTMLElement>('a[href="#experience"]'),
           );
           const interestButtons = Array.from(
             element.querySelectorAll<HTMLElement>(
@@ -107,8 +121,7 @@ test.describe("Immersion program responsive editorial layout", () => {
               return {
                 text: link.textContent?.trim(),
                 height: rect.height,
-                clipped:
-                  rect.left < -1 || rect.right > window.innerWidth + 1,
+                clipped: rect.left < -1 || rect.right > window.innerWidth + 1,
                 labelOverflow: link.scrollWidth > link.clientWidth + 1,
               };
             }),
@@ -117,8 +130,7 @@ test.describe("Immersion program responsive editorial layout", () => {
               return {
                 text: button.textContent?.trim(),
                 height: rect.height,
-                clipped:
-                  rect.left < -1 || rect.right > window.innerWidth + 1,
+                clipped: rect.left < -1 || rect.right > window.innerWidth + 1,
                 labelOverflow: button.scrollWidth > button.clientWidth + 1,
               };
             }),
@@ -168,10 +180,13 @@ test.describe("Immersion program responsive editorial layout", () => {
     });
 
     expect(
-      await page.evaluate(() =>
-        window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+      await page.evaluate(
+        () => window.matchMedia("(prefers-reduced-motion: reduce)").matches,
       ),
     ).toBe(true);
+    await expect(
+      page.locator("[data-immersion-hero-hydrated]"),
+    ).toHaveAttribute("data-immersion-hero-hydrated", "true");
 
     const section = page.getByRole("region", {
       name: "What participants experience",
@@ -183,8 +198,10 @@ test.describe("Immersion program responsive editorial layout", () => {
     });
     const reveal = heading.locator("xpath=../..");
 
+    await section.evaluate((element) =>
+      element.scrollIntoView({ block: "start" }),
+    );
     await expect(reveal).toHaveCount(1);
-    await reveal.scrollIntoViewIfNeeded();
     await expect
       .poll(() =>
         reveal.evaluate((element) => {
@@ -194,12 +211,8 @@ test.describe("Immersion program responsive editorial layout", () => {
       )
       .toEqual({ opacity: "1", transform: "none" });
 
-    await expect(page.locator("[data-immersion-hero-hydrated]"))
-      .toHaveAttribute("data-immersion-hero-hydrated", "true");
     await expect(page.locator("[data-immersion-hero-video]")).toHaveCount(0);
-    await expect(
-      page.locator("[data-immersion-hero-media] img"),
-    ).toBeVisible();
+    await expect(page.locator("[data-immersion-hero-media] img")).toBeVisible();
   });
 
   test("hero video is decorative, immediate, muted, and optimized", async ({
@@ -212,8 +225,9 @@ test.describe("Immersion program responsive editorial layout", () => {
     });
 
     const video = page.locator("[data-immersion-hero-video]");
-    await expect(page.locator("[data-immersion-hero-hydrated]"))
-      .toHaveAttribute("data-immersion-hero-hydrated", "true");
+    await expect(
+      page.locator("[data-immersion-hero-hydrated]"),
+    ).toHaveAttribute("data-immersion-hero-hydrated", "true");
     await expect(video).toHaveCount(1);
     await expect(page.locator("[data-immersion-hero-media] img")).toHaveCount(
       0,
@@ -241,7 +255,7 @@ test.describe("Immersion program responsive editorial layout", () => {
       poster: "",
       preload: "auto",
     });
-    await expect(video).toHaveCSS("opacity", "0.7");
+    await expect(video).toHaveCSS("opacity", "1");
   });
 
   test("never swaps to an image when video delivery is delayed or unavailable", async ({
@@ -256,8 +270,9 @@ test.describe("Immersion program responsive editorial layout", () => {
       waitUntil: "domcontentloaded",
     });
 
-    await expect(page.locator("[data-immersion-hero-hydrated]"))
-      .toHaveAttribute("data-immersion-hero-hydrated", "true");
+    await expect(
+      page.locator("[data-immersion-hero-hydrated]"),
+    ).toHaveAttribute("data-immersion-hero-hydrated", "true");
     await expect(page.locator("[data-immersion-hero-video]")).toHaveCount(1);
     await expect(page.locator("[data-immersion-hero-media] img")).toHaveCount(
       0,
@@ -278,8 +293,9 @@ test.describe("Immersion program responsive editorial layout", () => {
     await page.goto("/global-health-immersion-program", {
       waitUntil: "domcontentloaded",
     });
-    await expect(page.locator("[data-immersion-hero-hydrated]"))
-      .toHaveAttribute("data-immersion-hero-hydrated", "true");
+    await expect(
+      page.locator("[data-immersion-hero-hydrated]"),
+    ).toHaveAttribute("data-immersion-hero-hydrated", "true");
 
     await page
       .getByRole("link", { name: "Explore the Experience", exact: true })
@@ -302,8 +318,9 @@ test.describe("Immersion program responsive editorial layout", () => {
     await page.goto("/global-health-immersion-program", {
       waitUntil: "domcontentloaded",
     });
-    await expect(page.locator("[data-immersion-hero-hydrated]"))
-      .toHaveAttribute("data-immersion-hero-hydrated", "true");
+    await expect(
+      page.locator("[data-immersion-hero-hydrated]"),
+    ).toHaveAttribute("data-immersion-hero-hydrated", "true");
 
     const hero = page.getByRole("region", {
       name: immersionProgram.title,
@@ -321,16 +338,18 @@ test.describe("Immersion program responsive editorial layout", () => {
 });
 
 test.describe("Immersion contact intents", () => {
-  test("register-interest intent pre-fills the contact form", async ({ page }) => {
+  test("register-interest intent pre-fills the contact form", async ({
+    page,
+  }) => {
     await preparePage(page, "light");
     await page.goto("/contact?type=immersion", {
       waitUntil: "domcontentloaded",
     });
 
-    await expect(page.getByLabel("Subject *", { exact: true })).toHaveValue(
+    await expect(page.getByLabel("Subject", { exact: true })).toHaveValue(
       "Global Health Immersion Program Interest",
     );
-    await expect(page.getByLabel("Message *", { exact: true })).toHaveValue(
+    await expect(page.getByLabel("Message", { exact: true })).toHaveValue(
       /notify me when the next cohort details are available/,
     );
   });
@@ -341,10 +360,10 @@ test.describe("Immersion contact intents", () => {
       waitUntil: "domcontentloaded",
     });
 
-    await expect(page.getByLabel("Subject *", { exact: true })).toHaveValue(
+    await expect(page.getByLabel("Subject", { exact: true })).toHaveValue(
       "Global Health Immersion Program Brochure Request",
     );
-    await expect(page.getByLabel("Message *", { exact: true })).toHaveValue(
+    await expect(page.getByLabel("Message", { exact: true })).toHaveValue(
       /latest available information/,
     );
   });
@@ -357,8 +376,8 @@ test.describe("Immersion contact intents", () => {
       waitUntil: "domcontentloaded",
     });
 
-    await expect(page.getByLabel("Subject *", { exact: true })).toHaveValue("");
-    await expect(page.getByLabel("Message *", { exact: true })).toHaveValue("");
+    await expect(page.getByLabel("Subject", { exact: true })).toHaveValue("");
+    await expect(page.getByLabel("Message", { exact: true })).toHaveValue("");
   });
 });
 

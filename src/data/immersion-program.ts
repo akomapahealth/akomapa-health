@@ -21,6 +21,7 @@ export type ImmersionProgramVisualItem = ImmersionProgramItem & {
 
 export type ImmersionProgramContent = {
   eyebrow: string;
+  applicationStatus: string;
   title: string;
   introduction: string;
   overview: readonly string[];
@@ -45,9 +46,10 @@ export type ImmersionProgramContent = {
 
 export const immersionProgram: ImmersionProgramContent = {
   eyebrow: "Global Health Immersion Program",
+  applicationStatus: "Applications Opening Soon",
   title: "Learn through partnership. Lead with understanding.",
   introduction:
-    "A two-week global health experience in Ghana connecting emerging health leaders with community learning, primary care, ethical leadership, and cultural exchange.",
+    "Akomapa is inviting learners from around the world to participate in a two-week global health experience in Ghana connecting emerging health leaders with community learning, primary care, ethical leadership, and cultural exchange.",
   overview: [
     "Move between health systems and community settings while learning through partnership, reflection, and Ghana's living history. Every experience is designed to build cultural humility and a deeper understanding of locally led health work.",
   ],
@@ -76,7 +78,7 @@ export const immersionProgram: ImmersionProgramContent = {
       description:
         "Work alongside local teams on priorities shaped by the communities they serve.",
       image: {
-        src: "/highlights/Akomapa-66.jpg",
+        src: "/highlights/Akomapa-40.jpg",
         alt: "Akomapa volunteers gathered together in a Ghanaian community",
         position: "center",
       },
@@ -86,7 +88,7 @@ export const immersionProgram: ImmersionProgramContent = {
       description:
         "See how prevention, screening, health education, and follow-up connect across care settings.",
       image: {
-        src: "/highlights/Akomapa-40.jpg",
+        src: "/highlights/Akomapa.jpg",
         alt: "A community member participating in a primary care eye screening",
         position: "center",
       },
@@ -96,7 +98,7 @@ export const immersionProgram: ImmersionProgramContent = {
       description:
         "Explore trust, power, sustainability, and responsibility through mentored discussion and reflection.",
       image: {
-        src: "/gallery/gallery-pic-14.jpg",
+        src: "/gallery/gallery-pic-2.jpg",
         alt: "Students participating in a facilitated leadership discussion",
         position: "center",
       },
@@ -106,8 +108,8 @@ export const immersionProgram: ImmersionProgramContent = {
       description:
         "Experience Ghana's history and culture while building genuine relationships across perspectives.",
       image: {
-        src: "/akomapa-hangout/Akomapa_hangout-107.jpg",
-        alt: "A diverse group of Akomapa participants gathering in Ghana",
+        src: "/highlights/immersion-culture.jpg",
+        alt: "Kakum National Park in Ghana",
         position: "center",
       },
     },
@@ -118,7 +120,7 @@ export const immersionProgram: ImmersionProgramContent = {
       description:
         "Students exploring medicine, public health, global health, or service.",
       image: {
-        src: "/gallery/gallery-pic-10.jpg",
+        src: "/gallery/undergrads.webp",
         alt: "Undergraduate students learning together in a classroom",
         position: "center",
       },
@@ -128,7 +130,7 @@ export const immersionProgram: ImmersionProgramContent = {
       description:
         "Medical, nursing, pharmacy, public health, and allied health learners.",
       image: {
-        src: "/highlights/Akomapa-12.jpg",
+        src: "/highlights/health-professionals.jpg",
         alt: "Health professional students supporting community care in Ghana",
         position: "center",
       },
@@ -138,7 +140,7 @@ export const immersionProgram: ImmersionProgramContent = {
       description:
         "Graduate learners and emerging professionals ready to deepen ethical, community-centered practice.",
       image: {
-        src: "/akomapa-hangout/Akomapa_hangout-31.jpg",
+        src: "/gallery/culture-engagement.jpg",
         alt: "An early-career professional connecting with peers at an Akomapa gathering",
         position: "center",
       },
@@ -151,8 +153,8 @@ export const immersionProgram: ImmersionProgramContent = {
     description:
       "Experience the energy of Accra and the history of Cape Coast through community learning, health systems exploration, cultural exchange, and time to reflect.",
     image: {
-      src: "/akomapa-hangout/Akomapa_hangout-6.jpg",
-      alt: "Akomapa participants exchanging ideas around a table in Ghana",
+      src: "/elimina-castle.webp",
+      alt: "Elmina Castle on Ghana's Cape Coast",
       position: "center",
     },
   },
@@ -164,8 +166,8 @@ export const immersionProgram: ImmersionProgramContent = {
       position: "center",
     },
     overview: {
-      src: "/highlights/Akomapa-66.jpg",
-      alt: "Students taking part in a supervised community health learning experience",
+      src: "/highlights/Akomapa-17.jpg",
+      alt: "Students examining and screening a patient",
       position: "center",
     },
   },

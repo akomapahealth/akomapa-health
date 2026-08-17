@@ -15,7 +15,7 @@ function renderContent() {
 
 describe("Global Health Immersion Program top-level page", () => {
   it("renders one page heading and a logical editorial section hierarchy", () => {
-    renderContent();
+    const { container } = renderContent();
 
     expect(
       screen.getByRole("heading", {
@@ -24,6 +24,18 @@ describe("Global Health Immersion Program top-level page", () => {
       }),
     ).toBeInTheDocument();
     expect(screen.getAllByRole("heading", { level: 1 })).toHaveLength(1);
+    expect(screen.getByText(immersionProgram.applicationStatus)).toBeVisible();
+    expect(screen.queryByText("Applications Currently Closed")).toBeNull();
+    expect(container.querySelector("[data-immersion-hero]")).toHaveClass(
+      "min-h-[max(700px,calc(100svh-7.75rem))]",
+    );
+    expect(
+      screen.getByRole("link", { name: "Scroll to the program overview" }),
+    ).toHaveAttribute("href", "#program-overview");
+    expect(
+      container.querySelector("[data-immersion-hero-credit]"),
+    ).toHaveTextContent("*Video courtesy Ghana Tourism Authority");
+    expect(container.querySelector("#program-overview")).not.toBeNull();
 
     [
       "At a glance",

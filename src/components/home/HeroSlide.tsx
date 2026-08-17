@@ -41,7 +41,7 @@ export default function HeroSlide({ content, isPrimary = false }: Props) {
           src={content.backgroundImage}
           alt={content.backgroundAlt}
           fill
-          priority={isPrimary}
+          loading={isPrimary ? "eager" : "lazy"}
           sizes="100vw"
           className="object-cover"
         />

@@ -20,6 +20,11 @@ const sentryPublicEnv = getSentryPublicEnv();
 const nextConfig: NextConfig = {
   env: sentryPublicEnv,
   outputFileTracingRoot: process.cwd(),
+  // Keep actionable browser errors visible in the development terminal while
+  // avoiding vendor warning floods (for example, hosted widget internals).
+  logging: {
+    browserToTerminal: "error",
+  },
   async redirects() {
     return [
       {
@@ -84,13 +89,6 @@ const nextConfig: NextConfig = {
         statusCode: 301,
       },
     ];
-  },
-  experimental: {
-    // Disable the segment explorer devtool due to a dev-runtime manifest bug.
-    devtoolSegmentExplorer: false,
-    // The worker process can hang indefinitely on this project during production
-    // compilation; keep builds in-process until the dependency graph is lighter.
-    webpackBuildWorker: false,
   },
   images: {
     qualities: [75, 85, 100],

@@ -20,7 +20,7 @@ import {
 import { CONTACT } from "@/config/contact";
 import Link from "next/link";
 
-const LAST_UPDATED = "May 9, 2026";
+const LAST_UPDATED = "August 16, 2026";
 
 const contents: readonly LegalContentsItem[] = [
   { href: "#acceptance", label: "Agreement to these terms" },
@@ -240,19 +240,50 @@ export default function Content() {
                 title="Donations and payments"
               >
                 <p className={body}>
-                  Donations and certain partnership payments are processed
-                  through a certified payment processor. You authorize charges you
-                  initiate and agree to provide accurate billing information.
-                  Recurring donations continue until canceled according to the
-                  flow presented at checkout or by contacting us.
+                  Online donations are processed through Givebutter. Givebutter
+                  collects the donor and billing information required for its
+                  checkout, confirms completed transactions, and sends donation
+                  receipts. You authorize the charges you submit and agree to
+                  review the final amount, frequency, optional tip, and fee
+                  treatment before completing checkout.
                 </p>
                 <p className={body}>
-                  If you believe a charge is incorrect, reach out to{" "}
+                  Donors in Ghana may instead use the separately displayed,
+                  verified MTN Mobile Money instructions. This is a manual
+                  transfer: it is not processed or confirmed by Givebutter or
+                  this website, does not create a recurring plan, and does not
+                  automatically generate a receipt or thank-you email. Before
+                  confirming a transfer, donors must verify that the recipient
+                  name appears as Akomapa Health Foundation.
+                </p>
+                <p className={body}>
+                  Recurring donations continue until changed, paused, or
+                  canceled. Donors can manage a recurring plan through the
+                  management link included in Givebutter receipts. Canceling a
+                  recurring donation prevents future charges but does not
+                  automatically refund donations that have already been
+                  processed.
+                </p>
+                <p className={body}>
+                  Refund requests must be submitted promptly to{" "}
                   <a href={CONTACT.email.href} className={link}>
                     {CONTACT.email.display}
-                  </a>{" "}
-                  promptly. Refunds, if any, are handled case by case and may
-                  depend on processor policies and banking timelines.
+                  </a>
+                  . Requests are reviewed case by case. Givebutter transaction
+                  refunds remain subject to Givebutter&apos;s payment-processing
+                  policies; manual Mobile Money refunds remain subject to
+                  available funds and the mobile network&apos;s processing
+                  limitations. All refunds may be affected by applicable banking
+                  timelines. Please include enough information for our team to
+                  locate the transaction, but never send complete card,
+                  bank-account, or Mobile Money PIN details by email.
+                </p>
+                <p className={body}>
+                  A receipt or description of a donation does not guarantee the
+                  same tax treatment in every jurisdiction. Donors should rely
+                  on the approved receipt language and consult a qualified tax
+                  adviser when needed. Akomapa does not provide individual tax
+                  advice.
                 </p>
               </LegalSection>
 

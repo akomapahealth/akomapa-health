@@ -72,7 +72,7 @@ describe("Terms Content editorial contracts", () => {
     }
 
     expect(
-      screen.getAllByText("Last updated: May 9, 2026").length,
+      screen.getAllByText("Last updated: August 16, 2026").length,
     ).toBeGreaterThanOrEqual(1);
 
     expect(
@@ -95,6 +95,11 @@ describe("Terms Content editorial contracts", () => {
     ).toHaveAttribute("href", "/contact");
 
     expect(screen.getByText("www.akomapahealth.org")).toBeInTheDocument();
+    expect(screen.getByText(/processed through Givebutter/i)).toBeInTheDocument();
+    expect(
+      screen.getByText(/Canceling a recurring donation prevents future charges/i),
+    ).toBeInTheDocument();
+    expect(screen.getByText(/Refund requests must be submitted/i)).toBeInTheDocument();
     expect(
       screen.getByRole("navigation", { name: "On this page" }),
     ).toBeInTheDocument();
