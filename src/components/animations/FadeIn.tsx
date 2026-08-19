@@ -4,7 +4,6 @@ import { motion, type Variants } from "framer-motion";
 import { ReactNode } from "react";
 import {
   defaultScrollViewport,
-  defaultStaggerScrollViewport,
   fadeUpStaggerContainerVariants,
   fadeUpStaggerItemVariants,
   fadeUpVariants,
@@ -76,7 +75,7 @@ export function FadeInStagger({
   className = "",
   staggerDelay = motionDurations.staggerContainer,
   once = true,
-  amount = defaultStaggerScrollViewport.amount,
+  amount = defaultScrollViewport.amount,
 }: FadeInStaggerProps) {
   const containerVariants: Variants =
     fadeUpStaggerContainerVariants(staggerDelay);
