@@ -90,7 +90,7 @@ for (const viewport of viewports) {
 
       const networkLayout = await network.evaluate((element) => {
         const box = element.getBoundingClientRect();
-        const grid = element.parentElement;
+        const grid = element.closest("[data-team-hero]");
         const copy = grid?.firstElementChild?.getBoundingClientRect();
         const portraits = Array.from(
           element.querySelectorAll<HTMLElement>("[data-team-node-portrait]"),
@@ -140,6 +140,7 @@ for (const viewport of viewports) {
       if (viewport.width < 1024) {
         expect(networkLayout.visiblePortraitCount).toBeGreaterThanOrEqual(1);
         expect(networkLayout.canScroll).toBe(true);
+        await expect(page.locator("[data-team-node-scroll-hint]")).toBeVisible();
 
         await network.evaluate((element) => {
           element.scrollTo({ left: element.scrollWidth });
@@ -167,6 +168,7 @@ for (const viewport of viewports) {
         expect(lastPortraitIntersectsClip).toBe(true);
       } else {
         expect(networkLayout.allPortraitsInNetwork).toBe(true);
+        await expect(page.locator("[data-team-node-scroll-hint]")).toBeHidden();
       }
 
       if (viewport.width >= 1536) {

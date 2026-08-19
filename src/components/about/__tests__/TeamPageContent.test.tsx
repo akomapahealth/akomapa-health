@@ -17,8 +17,13 @@ describe("TeamPageContent", () => {
       "min-w-0",
       "overflow-x-auto",
       "lg:flex-col",
-      "lg:col-span-7",
     );
+    expect(
+      container.querySelector("[data-team-node-network]")?.parentElement,
+    ).toHaveClass("lg:col-span-7");
+    expect(
+      container.querySelector("[data-team-node-scroll-hint]"),
+    ).toHaveClass("pointer-events-none", "lg:hidden");
     expect(screen.getByText("Executive Team")).toBeInTheDocument();
     expect(screen.getByText("Team Members")).toBeInTheDocument();
     expect(screen.getByText("Advisory Board")).toBeInTheDocument();
