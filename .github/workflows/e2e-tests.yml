@@ -32,7 +32,12 @@ jobs:
         run: npm ci
 
       - name: Install Playwright browsers
-        run: npx playwright install --with-deps
+        run: |
+          if timeout 8m npx playwright install --with-deps; then
+            exit 0
+          fi
+          echo "Playwright OS dependency install timed out or failed; installing browsers only"
+          npx playwright install
 
       - name: ESLint
         run: npm run lint
