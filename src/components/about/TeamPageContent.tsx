@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import Breadcrumb from "@/components/layout/Breadcrumb";
 import Image from "@/components/common/Image";
 import TeamMemberDialog from "@/components/about/TeamMemberDialog";
@@ -79,6 +80,9 @@ const heroRows: Array<{ offset: string; faces: string[] }> = [
   },
 ];
 
+const heroConnectorClassName =
+  "h-px w-3 shrink-0 border-t border-dotted border-[#FCFAEF]/40 sm:w-5 lg:w-6 xl:w-9 2xl:w-12";
+
 const heroStats = [
   { value: "12", label: "Executive Leads" },
   { value: "6", label: "Academic Partners" },
@@ -97,7 +101,10 @@ export default function TeamPageContent() {
         aria-labelledby="team-hero-heading"
         className="border-b border-[#FCFAEF]/20 bg-[#0F4C5C]"
       >
-        <div className="grid gap-12 lg:grid-cols-12 lg:items-center lg:gap-6 xl:gap-8 2xl:gap-12">
+        <div
+          data-team-hero
+          className="grid gap-12 lg:grid-cols-12 lg:items-center lg:gap-6 xl:gap-8 2xl:gap-12"
+        >
           <div className="lg:col-span-5">
             <EditorialEyebrow tone="light">
               A team of young leaders for young people
@@ -155,41 +162,52 @@ export default function TeamPageContent() {
             </div>
           </div>
 
-          <div
-            data-team-node-network
-            aria-hidden="true"
-            className="mx-auto flex w-full max-w-md flex-col gap-2 overflow-hidden border-y border-[#FCFAEF]/20 py-5 sm:gap-3 sm:py-7 lg:col-span-7 lg:max-w-none lg:gap-3 lg:border-y-0 lg:border-l lg:py-4 lg:pl-6 xl:gap-4 xl:pl-8 2xl:gap-5 2xl:pl-10"
-          >
-            {heroRows.map((row, rowIndex) => (
-              <div
-                key={`row-${rowIndex}`}
-                className={`flex min-w-0 items-center justify-end gap-1.5 sm:gap-2 ${row.offset}`}
-              >
-                {row.faces.map((face, faceIndex) => (
+          <div className="relative mx-auto min-w-0 w-full lg:col-span-7">
+            <div
+              data-team-node-network
+              aria-hidden="true"
+              className="flex min-w-0 w-full flex-row flex-nowrap items-center gap-1.5 overflow-x-auto overflow-y-hidden overscroll-x-contain border-y border-[#FCFAEF]/20 py-5 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden sm:gap-2 sm:py-7 lg:flex-col lg:gap-3 lg:overflow-hidden lg:border-y-0 lg:border-l lg:py-4 lg:pl-6 xl:gap-4 xl:pl-8 2xl:gap-5 2xl:pl-10"
+            >
+              {heroRows.map((row, rowIndex) => (
+                <Fragment key={`row-${rowIndex}`}>
                   <div
-                    key={`${face}-${faceIndex}`}
-                    className="flex min-w-0 items-center gap-1.5 sm:gap-2"
+                    className={`flex shrink-0 items-center justify-start gap-1.5 sm:gap-2 lg:min-w-0 lg:w-full lg:justify-end ${row.offset}`}
                   >
-                    <div
-                      data-team-node-portrait
-                      className="relative size-7 shrink-0 overflow-hidden rounded-full border border-[#FCFAEF]/35 bg-[#0F4C5C] sm:size-9 lg:size-10 xl:size-12 2xl:size-16"
-                    >
-                      <Image
-                        src={face}
-                        alt=""
-                        width={64}
-                        height={64}
-                        className="h-full w-full object-cover object-center"
-                        sizes="(max-width: 639px) 28px, (max-width: 1023px) 36px, (max-width: 1279px) 40px, (max-width: 1535px) 48px, 64px"
-                      />
-                    </div>
-                    {faceIndex !== row.faces.length - 1 ? (
-                      <span className="h-px w-3 shrink-0 border-t border-dotted border-[#FCFAEF]/40 sm:w-5 lg:w-6 xl:w-9 2xl:w-12" />
-                    ) : null}
+                    {row.faces.map((face, faceIndex) => (
+                      <div
+                        key={`${face}-${faceIndex}`}
+                        className="flex shrink-0 items-center gap-1.5 sm:gap-2"
+                      >
+                        <div
+                          data-team-node-portrait
+                          className="relative size-12 shrink-0 overflow-hidden rounded-full border border-[#FCFAEF]/35 bg-[#0F4C5C] sm:size-14 lg:size-10 xl:size-12 2xl:size-16"
+                        >
+                          <Image
+                            src={face}
+                            alt=""
+                            width={64}
+                            height={64}
+                            className="h-full w-full object-cover object-center"
+                            sizes="(max-width: 639px) 48px, (max-width: 1023px) 56px, (max-width: 1279px) 40px, (max-width: 1535px) 48px, 64px"
+                          />
+                        </div>
+                        {faceIndex !== row.faces.length - 1 ? (
+                          <span className={heroConnectorClassName} />
+                        ) : null}
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
-            ))}
+                  {rowIndex !== heroRows.length - 1 ? (
+                    <span className={`${heroConnectorClassName} lg:hidden`} />
+                  ) : null}
+                </Fragment>
+              ))}
+            </div>
+            <span
+              data-team-node-scroll-hint
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-y-0 right-0 z-10 w-9 bg-gradient-to-l from-[#0F4C5C] via-[#0F4C5C]/50 to-transparent sm:w-11 lg:hidden"
+            />
           </div>
         </div>
       </EditorialBand>
