@@ -34,6 +34,12 @@ export const defaultScrollViewport = {
   amount: 0.2,
 } as const;
 
+/** Tall stagger grids never reach 20% visibility on mobile; any intersection must trigger. */
+export const defaultStaggerScrollViewport = {
+  once: true,
+  amount: "some",
+} as const;
+
 export type FadeUpOptions = {
   direction?: FadeDirection;
   duration?: number;
@@ -71,9 +77,8 @@ export function fadeUpStaggerContainerVariants(
   staggerDelay: number = motionDurations.staggerContainer
 ): Variants {
   return {
-    hidden: { opacity: 0 },
+    hidden: {},
     visible: {
-      opacity: 1,
       transition: {
         staggerChildren: staggerDelay,
       },
