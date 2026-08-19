@@ -101,6 +101,47 @@ test.describe("team directory hierarchy", () => {
     }
   });
 
+  test("reveals the first card in each directory on a phone-width viewport", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 375, height: 812 });
+    await page.goto("/about/team", { waitUntil: "domcontentloaded" });
+
+    const samples = [
+      ["executive", executiveTeamMembers[0].name],
+      ["member", nonExecutiveTeamMembers[0].name],
+      ["advisor", advisoryBoardMembers[0].name],
+    ] as const;
+
+    for (const [category, name] of samples) {
+      const card = page.locator(
+        `[data-team-section="${category}"] [data-team-member="${name}"]`,
+      );
+      await card.scrollIntoViewIfNeeded();
+      await expect
+        .poll(
+          () =>
+            card.evaluate((element) => {
+              for (
+                let node: Element | null = element;
+                node && !node.hasAttribute("data-team-section");
+                node = node.parentElement
+              ) {
+                const opacity = Number(getComputedStyle(node).opacity);
+                if (opacity < 0.99) {
+                  return opacity;
+                }
+              }
+
+              return 1;
+            }),
+          { timeout: 15_000 },
+        )
+        .toBe(1);
+      await expect(card.getByRole("button", { name: "Read bio" })).toBeVisible();
+    }
+  });
+
   test("has no horizontal overflow at mobile, tablet, and desktop widths", async ({
     page,
   }) => {

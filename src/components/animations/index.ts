@@ -7,4 +7,5 @@ export {
   motionDurations,
   MOTION_EASE,
   defaultScrollViewport,
+  defaultStaggerScrollViewport,
 } from "@/lib/motion/tokens";
