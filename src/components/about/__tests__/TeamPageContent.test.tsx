@@ -14,6 +14,9 @@ describe("TeamPageContent", () => {
       container.querySelector("[data-team-node-network]"),
     ).toHaveAttribute("aria-hidden", "true");
     expect(container.querySelector("[data-team-node-network]")).toHaveClass(
+      "min-w-0",
+      "overflow-x-auto",
+      "lg:flex-col",
       "lg:col-span-7",
     );
     expect(screen.getByText("Executive Team")).toBeInTheDocument();
