@@ -18,6 +18,7 @@
     "analyze": "ANALYZE=true next build --webpack",
     "lighthouse": "node scripts/lighthouse.mjs",
     "security:verify-rsc-patch": "node scripts/verify-rsc-patch.mjs",
+    "security:verify-intake-client-bundle": "node scripts/verify-intake-client-bundle.mjs",
     "intake:retention": "node scripts/intake-retention.mjs",
     "validate": "npm run lint && npm run typecheck && npm run build && npm run test && npm run test:e2e",
     "postinstall": "node scripts/ensure-husky-hooks.mjs",

@@ -56,6 +56,18 @@ test.describe("Immersion Fillout pilot", () => {
     );
   });
 
+  test("serves an exact route-scoped frame and permissions policy", async ({
+    request,
+  }) => {
+    const response = await request.get("/global-health-immersion-program");
+    expect(response.headers()["content-security-policy"]).toBe(
+      "frame-src 'self' https://embed.fillout.com;",
+    );
+    expect(response.headers()["permissions-policy"]).toBe(
+      "camera=(), microphone=(), geolocation=()",
+    );
+  });
+
   test("maps both CTA intents to one allow-listed provider context", async ({
     page,
   }) => {

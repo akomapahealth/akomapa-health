@@ -22,6 +22,15 @@ export const immersionIntents = [
   "request_brochure",
 ] as const;
 
+const approvedFieldKeys = [
+  "fullName",
+  "email",
+  "phone",
+  "affiliation",
+  "message",
+  "consent",
+] as const;
+
 export type IntakeFormKey = typeof IMMERSION_FORM_KEY;
 export type ImmersionIntent = (typeof immersionIntents)[number];
 export type IntakeFeatureStatus = "pilot";
@@ -204,6 +213,12 @@ export function defineIntakeRegistry(
       }
       intentKeys.add(intent.intent);
     }
+    if (
+      intentKeys.size !== immersionIntents.length ||
+      immersionIntents.some((intent) => !intentKeys.has(intent))
+    ) {
+      throw new Error(`Incomplete intake intents for ${definition.key}`);
+    }
 
     const fieldKeys = new Set<string>();
     for (const field of definition.fields) {
@@ -213,6 +228,24 @@ export function defineIntakeRegistry(
         );
       }
       fieldKeys.add(field.key);
+    }
+    if (
+      fieldKeys.size !== approvedFieldKeys.length ||
+      approvedFieldKeys.some((field) => !fieldKeys.has(field))
+    ) {
+      throw new Error(`Incomplete intake fields for ${definition.key}`);
+    }
+
+    const requiredFields = new Set(
+      definition.fields.filter(({ required }) => required).map(({ key }) => key),
+    );
+    if (
+      requiredFields.size !== 3 ||
+      !requiredFields.has("fullName") ||
+      !requiredFields.has("email") ||
+      !requiredFields.has("consent")
+    ) {
+      throw new Error(`Invalid required fields for ${definition.key}`);
     }
 
     registry.set(definition.key, definition as ImmersionIntakeDefinition);
@@ -325,12 +358,15 @@ export function getImmersionProviderConfiguration(
   }
 
   if (flag !== "true") {
+    const hasMatchingHostedFallback =
+      isValidFilloutId(filloutId) && parsedHostedUrl?.filloutId === filloutId;
     return {
       state: "disabled",
       filloutId: isValidFilloutId(filloutId) ? filloutId : null,
-      hostedFormUrl: parsedHostedUrl?.url ?? null,
+      hostedFormUrl: hasMatchingHostedFallback ? parsedHostedUrl.url : null,
       fallbackUrl:
-        parsedHostedUrl?.url ?? IMMERSION_DEFAULT_FALLBACK_URL,
+        (hasMatchingHostedFallback && parsedHostedUrl.url) ||
+        IMMERSION_DEFAULT_FALLBACK_URL,
     };
   }
 
@@ -338,16 +374,14 @@ export function getImmersionProviderConfiguration(
     return {
       state: "missing_configuration",
       category: "missing_form_id",
-      fallbackUrl:
-        parsedHostedUrl?.url ?? IMMERSION_DEFAULT_FALLBACK_URL,
+      fallbackUrl: IMMERSION_DEFAULT_FALLBACK_URL,
     };
   }
   if (!isValidFilloutId(filloutId)) {
     return {
       state: "missing_configuration",
       category: "invalid_form_id",
-      fallbackUrl:
-        parsedHostedUrl?.url ?? IMMERSION_DEFAULT_FALLBACK_URL,
+      fallbackUrl: IMMERSION_DEFAULT_FALLBACK_URL,
     };
   }
   if (!hostedFormUrl) {
@@ -368,7 +402,7 @@ export function getImmersionProviderConfiguration(
     return {
       state: "missing_configuration",
       category: "form_url_mismatch",
-      fallbackUrl: parsedHostedUrl.url,
+      fallbackUrl: IMMERSION_DEFAULT_FALLBACK_URL,
     };
   }
 

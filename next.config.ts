@@ -1,5 +1,9 @@
 import type { NextConfig } from "next";
 import {
+  IMMERSION_ROUTE,
+  IMMERSION_SECURITY_HEADERS,
+} from "./src/config/immersion-security";
+import {
   getSentryPublicEnv,
   resolveSentryEnvironment,
   resolveSentryRelease,
@@ -24,6 +28,14 @@ const nextConfig: NextConfig = {
   // avoiding vendor warning floods (for example, hosted widget internals).
   logging: {
     browserToTerminal: "error",
+  },
+  async headers() {
+    return [
+      {
+        source: IMMERSION_ROUTE,
+        headers: [...IMMERSION_SECURITY_HEADERS],
+      },
+    ];
   },
   async redirects() {
     return [

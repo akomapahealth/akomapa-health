@@ -81,6 +81,37 @@ describe("Immersion intake registry", () => {
     ).toThrow("Duplicate intake field");
   });
 
+  it("rejects incomplete intent, field, and required-field contracts", () => {
+    expect(() =>
+      defineIntakeRegistry([
+        {
+          ...immersionIntakeDefinition,
+          intents: immersionIntakeDefinition.intents.slice(0, 1),
+        },
+      ]),
+    ).toThrow("Incomplete intake intents");
+
+    expect(() =>
+      defineIntakeRegistry([
+        {
+          ...immersionIntakeDefinition,
+          fields: immersionIntakeDefinition.fields.slice(0, -1),
+        },
+      ]),
+    ).toThrow("Incomplete intake fields");
+
+    expect(() =>
+      defineIntakeRegistry([
+        {
+          ...immersionIntakeDefinition,
+          fields: immersionIntakeDefinition.fields.map((field) =>
+            field.key === "consent" ? { ...field, required: false } : field,
+          ),
+        },
+      ]),
+    ).toThrow("Invalid required fields");
+  });
+
   it("fails safely for unknown form and intent values", () => {
     expect(resolveImmersionIntake({ formKey: "unknown", intent: "x" })).toEqual(
       { ok: false, reason: "unknown_form" },
@@ -134,6 +165,21 @@ describe("Immersion provider configuration", () => {
     });
   });
 
+  it("uses contact when a disabled hosted fallback is incomplete or mismatched", () => {
+    expect(
+      getImmersionProviderConfiguration({
+        ...enabledEnv,
+        [IMMERSION_INTAKE_ENABLE_ENV]: "false",
+        [IMMERSION_FILLOUT_FORM_URL_ENV]:
+          "https://forms.fillout.com/t/different123",
+      }),
+    ).toMatchObject({
+      state: "disabled",
+      hostedFormUrl: null,
+      fallbackUrl: "/contact",
+    });
+  });
+
   it("enables only an exact matching Fillout ID and hosted URL", () => {
     expect(getImmersionProviderConfiguration(enabledEnv)).toEqual({
       state: "enabled",
@@ -177,9 +223,10 @@ describe("Immersion provider configuration", () => {
       "form_url_mismatch",
     ],
   ])("fails closed for invalid public configuration %#", (env, category) => {
-    expect(getImmersionProviderConfiguration(env)).toMatchObject({
+    expect(getImmersionProviderConfiguration(env)).toEqual({
       state: "missing_configuration",
       category,
+      fallbackUrl: "/contact",
     });
   });
 });
