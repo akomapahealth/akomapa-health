@@ -13,7 +13,7 @@ test.describe("Program CTA links", () => {
     await preparePage(page);
   });
 
-  test("GHIP CTAs use the alert modal and experience anchor", async ({
+  test("GHIP CTAs use the typed pilot launcher and experience anchor", async ({
     page,
   }) => {
     await page.goto("/global-health-immersion-program", {
@@ -31,8 +31,8 @@ test.describe("Program CTA links", () => {
     await expect(experienceLink).toBeVisible();
     await expect(experienceLink).toHaveAttribute("href", "#experience");
     await expect(
-      page.getByRole("link", { name: "Request Program Brochure" }),
-    ).toHaveCount(0);
+      page.locator('[data-intake-intent="request_brochure"]'),
+    ).toHaveCount(2);
 
     // Register Interest is a modal trigger, not a competing contact-form path.
     await expect(
@@ -48,7 +48,7 @@ test.describe("Program CTA links", () => {
     await expect(dialog).toBeVisible();
     await expect(
       dialog.getByRole("heading", {
-        name: "Tell us what you are interested in",
+        name: "Register your interest",
       }),
     ).toBeVisible();
   });
