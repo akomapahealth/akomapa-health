@@ -141,7 +141,7 @@ test("academy preserves curriculum order, certification, and apply destination",
   const interestDialog = page.getByRole("dialog");
   await expect(
     interestDialog.getByRole("heading", {
-      name: "Register your interest",
+      name: "Tell us what you are interested in",
     }),
   ).toBeVisible();
   await page.keyboard.press("Escape");
