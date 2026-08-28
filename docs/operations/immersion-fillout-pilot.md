@@ -77,6 +77,27 @@ The ID and hosted URL must refer to the same published form. Keep the
 production enable flag false until the launch checklist is approved. These are
 public identifiers, not credentials.
 
+## Provisioned Forms
+
+The organization-controlled Fillout workspace contains two dedicated forms:
+
+| Environment | Form name | Public form ID | Hosted URL | Embed status |
+| --- | --- | --- | --- | --- |
+| Staging | Immersion Pilot — Staging | `r1uiga7abYus` | `https://forms.fillout.com/t/r1uiga7abYus` | Acceptance only |
+| Production | Immersion Pilot — Production | `vD2dqA3Skkus` | `https://forms.fillout.com/t/vD2dqA3Skkus` | Disabled |
+
+Both forms were published on 2026-08-28 with the approved fields, safety and
+consent copy, hidden context parameters, and owner notification automation.
+Publishing a hosted form does not authorize the production website embed. Keep
+`NEXT_PUBLIC_IMMERSION_INTAKE_ENABLED=false` until every staging and workspace
+recovery gate below has been signed off.
+
+As of 2026-08-28, the workspace recovery gate is not satisfied: the workspace
+has one administrator and that account does not have two-factor authentication
+enabled. Add and verify a second recoverable administrator and enable MFA for
+both administrators before production launch. Record identities and recovery
+details only in the private access register, never in this repository.
+
 ## Staging Verification
 
 Use synthetic test data that is clearly marked as a test and contains no real
