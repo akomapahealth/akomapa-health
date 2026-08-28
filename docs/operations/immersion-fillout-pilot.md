@@ -125,6 +125,34 @@ Ordinary CI must mock or block Fillout and must never complete a real
 submission. The live Playwright smoke test is opt-in, staging-only, and must
 refuse a production form URL.
 
+### Acceptance Record — 2026-08-28
+
+The following staging checks were completed with clearly marked synthetic data:
+
+- the published form exposed accessible names for every approved input, marked
+  required fields and consent, displayed the safety notice, and contained no
+  prohibited questions;
+- a partial response restored its name, organization, and message after the
+  hosted form was closed and reopened in the same browser session;
+- one `register_interest` response and one `request_brochure` response reached
+  the configured completion screen and appeared as two finished submissions;
+- the exported CSV contained stable `formType`, `intent`, `schemaVersion`,
+  `sourcePath`, and `programId` columns with the expected value for each row;
+  and
+- after completion, the synthetic submitted values were absent from the hosted
+  URL, accessible cookies, exposed local/session storage, and browser diagnostic
+  logs.
+
+The following launch checks remain open and must be recorded in the private
+operations register before production embedding is enabled:
+
+- confirm both notification emails arrived exactly once in the private mailbox;
+- repeat the resume check in a non-private browser and confirm a private window
+  makes no persistence promise;
+- complete the manual screen-reader, keyboard, 320px reflow, 200 percent zoom,
+  theme, and reduced-motion review of the hosted staging form; and
+- satisfy the second-administrator and administrator-MFA recovery gate above.
+
 ## Launch and Monitoring
 
 Operations and Engineering must jointly approve the staging checklist before
