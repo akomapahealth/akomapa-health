@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import IntakeDialogProvider from "@/components/intake/IntakeDialogProvider";
+import IntakeFormDialogProvider from "@/components/intake/IntakeFormDialogProvider";
 
 /** @deprecated Use IntakeDialogProvider. Kept temporarily for isolated test consumers. */
 export default function ImmersionInterestProvider({
@@ -7,5 +8,9 @@ export default function ImmersionInterestProvider({
 }: {
   children: ReactNode;
 }) {
-  return <IntakeDialogProvider>{children}</IntakeDialogProvider>;
+  return (
+    <IntakeDialogProvider>
+      <IntakeFormDialogProvider>{children}</IntakeFormDialogProvider>
+    </IntakeDialogProvider>
+  );
 }
