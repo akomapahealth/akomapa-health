@@ -47,7 +47,7 @@ test.describe("Donate page flow", () => {
     await page.goto("/");
     await page.locator("header").getByRole("link", { name: "Donate" }).click();
 
-    await expect(page).toHaveURL(/\/donate$/);
+    await expect(page).toHaveURL((url) => url.pathname === "/donate");
     await expect(
       page.getByRole("heading", {
         name: "Every act of generosity saves a life.",
