@@ -53,15 +53,50 @@ export function parseVercelDeploymentUrl(rawUrl) {
   return url;
 }
 
+export function hasCspDirectiveValue(policy, directive, expectedValue) {
+  const normalizedDirective = directive.toLowerCase();
+  return policy.split(";").some((rawDirective) => {
+    const [name = "", ...values] = rawDirective.trim().split(/\s+/);
+    return name.toLowerCase() === normalizedDirective && values.includes(expectedValue);
+  });
+}
+
+export function isVercelAuthenticationRedirect(rawLocation, requestUrl) {
+  if (!rawLocation) return false;
+
+  let redirectUrl;
+  try {
+    redirectUrl = new URL(rawLocation, requestUrl);
+  } catch {
+    return false;
+  }
+
+  return (
+    redirectUrl.protocol === "https:" &&
+    redirectUrl.hostname === "vercel.com" &&
+    redirectUrl.port === "" &&
+    redirectUrl.pathname === "/sso-api"
+  );
+}
+
 async function request(url, init = {}) {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
   try {
     const response = await fetch(url, {
-      redirect: "error",
+      redirect: "manual",
       ...init,
       signal: controller.signal,
     });
+    if (response.status >= 300 && response.status < 400) {
+      const location = response.headers.get("location");
+      if (isVercelAuthenticationRedirect(location, url)) {
+        throw new Error(
+          "Deployment is protected by Vercel Authentication. Preview Security Smoke requires an anonymously reachable preview because it intentionally uses no deployment credentials.",
+        );
+      }
+      throw new Error(`Request returned an unexpected redirect (${response.status}).`);
+    }
     const finalUrl = new URL(response.url);
     if (!finalUrl.hostname.endsWith(".vercel.app")) {
       throw new Error(`Request escaped the approved Vercel boundary: ${response.url}`);
@@ -129,12 +164,23 @@ export async function verifyDeployment(rawUrl) {
   const enforcedCsp = headerResponse.headers.get("content-security-policy") ?? "";
   const reportOnlyCsp =
     headerResponse.headers.get("content-security-policy-report-only") ?? "";
-  for (const directive of ["object-src 'none'", "base-uri 'self'", "frame-ancestors 'none'"]) {
-    if (!enforcedCsp.includes(directive)) {
-      throw new Error(`Enforced CSP is missing ${directive}.`);
+  for (const [directive, expectedValue] of [
+    ["object-src", "'none'"],
+    ["base-uri", "'self'"],
+    ["frame-ancestors", "'none'"],
+  ]) {
+    if (!hasCspDirectiveValue(enforcedCsp, directive, expectedValue)) {
+      throw new Error(`Enforced CSP is missing ${directive} ${expectedValue}.`);
     }
   }
-  if (!reportOnlyCsp.includes("default-src 'self'") || !reportOnlyCsp.includes("https://forms.fillout.com")) {
+  if (
+    !hasCspDirectiveValue(reportOnlyCsp, "default-src", "'self'") ||
+    !hasCspDirectiveValue(
+      reportOnlyCsp,
+      "frame-src",
+      "https://forms.fillout.com",
+    )
+  ) {
     throw new Error("Report-only CSP is missing the approved broad policy or Fillout frame origin.");
   }
 

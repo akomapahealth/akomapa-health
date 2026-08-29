@@ -27,6 +27,10 @@ remains the only deployment owner.
 - Pull requests receive Vercel previews and GitHub validation checks.
 - Actions jobs do not receive Vercel deployment credentials or production
   secrets.
+- Preview deployments exercised by Actions are anonymously reachable. Preview
+  builds must therefore contain no sensitive data or production-only access.
+  Enabling Vercel Authentication later requires revisiting this decision and
+  introducing a separately approved automation-bypass design.
 - The existing workflow remains active while the replacement runs in parallel.
 
 The replacement workflow may become required and the legacy workflow may be

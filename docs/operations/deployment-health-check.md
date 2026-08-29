@@ -7,6 +7,12 @@ Applies to: Vercel preview, staging (`dev`), and production (`main`) deployments
 
 `Preview Security Smoke` runs from successful non-production Vercel deployment-status events and requires no deployment credentials. It accepts only a root HTTPS URL on an exact `*.vercel.app` subdomain.
 
+The Vercel project must leave the Preview environment anonymously reachable.
+In **Project → Settings → Deployment Protection**, turn off Vercel
+Authentication for Preview deployments. Do not add a Vercel automation-bypass
+secret to GitHub without first revisiting ADR 003 and receiving explicit
+approval for the new credential path.
+
 For an authorized public preview, run the same verifier locally with Node 22:
 
 ```sh
@@ -15,6 +21,11 @@ npm run security:verify-deployment -- https://DEPLOYMENT.vercel.app/
 ```
 
 The verifier checks representative pages, critical navigation, security headers, enforced and report-only CSP behavior, client bundles, public source maps, API method/origin/content-type/body-size handling, bounded validation, rate limiting, and safe errors. It uses invalid newsletter payloads and does not create a subscriber.
+
+If the verifier reports that the deployment is protected by Vercel
+Authentication, confirm the protection setting above, then redeploy or rerun
+the workflow against the current Preview URL. A `302` response whose location
+is Vercel's `/sso-api` is the protection layer, not an application response.
 
 ## Manual confirmation
 
