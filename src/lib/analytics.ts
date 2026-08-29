@@ -62,7 +62,37 @@ export type AnalyticsEvent =
       success: boolean;
     }
   | { name: "immersion_alert_modal_open" }
-  | { name: "immersion_alert_signup"; success: boolean };
+  | { name: "immersion_alert_signup"; success: boolean }
+  | {
+      name: "intake_form_open";
+      form_key: "immersion";
+      intent: "register_interest" | "request_brochure";
+    }
+  | {
+      name: "intake_provider_loaded";
+      form_key: "immersion";
+      intent: "register_interest" | "request_brochure";
+    }
+  | {
+      name: "intake_provider_failed";
+      form_key: "immersion";
+      intent: "register_interest" | "request_brochure";
+      error_category:
+        | "offline"
+        | "load_timeout"
+        | "provider_error"
+        | "missing_configuration";
+    }
+  | {
+      name: "intake_fallback_selected";
+      form_key: "immersion";
+      intent: "register_interest" | "request_brochure";
+    }
+  | {
+      name: "intake_submission_completed";
+      form_key: "immersion";
+      intent: "register_interest" | "request_brochure";
+    };
 
 type GtagFn = (
   command: "event" | "config" | "set" | "js" | "consent",

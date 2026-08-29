@@ -101,22 +101,39 @@ describe("Global Health Immersion Program top-level page", () => {
     const registerButtons = screen.getAllByRole("button", {
       name: "Register Interest",
     });
-    expect(registerButtons).toHaveLength(2);
+    expect(registerButtons).toHaveLength(3);
     registerButtons.forEach((button) => {
       expect(button).toHaveAttribute("data-immersion-register-interest");
+      expect(button).toHaveAttribute("data-intake-form-key", "immersion");
+      expect(button).toHaveAttribute(
+        "data-intake-intent",
+        "register_interest",
+      );
+    });
+
+    const brochureButtons = screen.getAllByRole("button", {
+      name: "Request Brochure",
+    });
+    expect(brochureButtons).toHaveLength(2);
+    brochureButtons.forEach((button) => {
+      expect(button).toHaveAttribute("data-immersion-request-brochure");
+      expect(button).toHaveAttribute("data-intake-form-key", "immersion");
+      expect(button).toHaveAttribute(
+        "data-intake-intent",
+        "request_brochure",
+      );
     });
 
     expect(
       screen.getByRole("link", { name: "Explore the Experience" }),
     ).toHaveAttribute("href", "#experience");
     expect(
-      screen.queryByRole("link", { name: "Request Program Brochure" }),
-    ).not.toBeInTheDocument();
-    expect(
       screen.getByRole("link", { name: /Partner as a faculty mentor/ }),
     ).toHaveAttribute("href", "/partnerships");
     expect(
-      screen.getByRole("button", {
+      within(
+        container.querySelector("[data-immersion-alert-section]") as HTMLElement,
+      ).getByRole("button", {
         name: IMMERSION_INTEREST_COPY.section.cta,
       }),
     ).toBeInTheDocument();

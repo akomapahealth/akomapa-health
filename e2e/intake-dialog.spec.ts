@@ -44,9 +44,12 @@ for (const viewport of viewports) {
     }).toPass({ timeout: 10_000 });
     const dialog = page.getByRole("dialog");
     await expect(dialog).toBeVisible();
-    await expect(dialog.getByLabel("Program")).toHaveValue(
-      "global-health-immersion-program",
-    );
+    await expect(dialog).toContainText("Do not submit medical details");
+    await expect(
+      dialog.getByRole("link", {
+        name: /Open the secure hosted form|Contact Akomapa instead/,
+      }),
+    ).toBeVisible();
     const dimensions = await page.evaluate(() => ({
       viewport: innerWidth,
       document: document.documentElement.scrollWidth,

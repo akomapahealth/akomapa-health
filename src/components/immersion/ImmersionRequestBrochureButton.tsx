@@ -1,23 +1,21 @@
 import IntakeFormLauncher from "@/components/intake/IntakeFormLauncher";
 import { cn } from "@/lib/utils";
 
-type ImmersionRegisterInterestButtonProps = {
-  variant?: "gold" | "teal";
-  className?: string;
-};
-
-export default function ImmersionRegisterInterestButton({
-  variant = "teal",
+export default function ImmersionRequestBrochureButton({
+  variant = "outline",
   className,
-}: ImmersionRegisterInterestButtonProps) {
+}: {
+  variant?: "outline" | "outline-light" | "teal" | "gold";
+  className?: string;
+}) {
   return (
     <IntakeFormLauncher
       formKey="immersion"
-      intent="register_interest"
+      intent="request_brochure"
       variant={variant}
       className={cn("min-h-12 justify-center", className)}
     >
-      Register Interest
+      Request Brochure
     </IntakeFormLauncher>
   );
 }

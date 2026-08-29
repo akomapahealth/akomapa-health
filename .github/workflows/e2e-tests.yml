@@ -58,9 +58,19 @@ jobs:
         run: npm run build
         env:
           CI: true
+          FILLOUT_API_KEY: "ci-intake-secret-must-not-leak"
+          RESEND_API_KEY: "ci-notification-secret-must-not-leak"
+          NEXT_PUBLIC_IMMERSION_INTAKE_ENABLED: "true"
+          NEXT_PUBLIC_IMMERSION_FILLOUT_FORM_ID: "ciTestForm193"
+          NEXT_PUBLIC_IMMERSION_FILLOUT_FORM_URL: "https://forms.fillout.com/t/ciTestForm193"
           NEXT_PUBLIC_GIVEBUTTER_DONATIONS_ENABLED: "true"
           NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT: ${{ secrets.NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT }}
           NEXT_PUBLIC_IMAGEKIT_PUBLIC_KEY: ${{ secrets.NEXT_PUBLIC_IMAGEKIT_PUBLIC_KEY }}
+
+      - name: Verify intake secrets are absent from client bundles
+        run: npm run security:verify-intake-client-bundle
+        env:
+          INTAKE_CLIENT_SECRET_SENTINELS: "ci-intake-secret-must-not-leak,ci-notification-secret-must-not-leak"
 
       - name: Run E2E tests
         run: npm run test:e2e
