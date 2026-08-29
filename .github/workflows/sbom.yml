@@ -1,0 +1,43 @@
+name: Supply Chain
+
+on:
+  push:
+    branches: [main, dev]
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sbom-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  sbom:
+    name: SBOM
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Set up Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate CycloneDX SBOM
+        run: npm run security:sbom > akomapa-health.cdx.json
+
+      - name: Upload CycloneDX SBOM
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: akomapa-health-sbom-${{ github.run_id }}
+          path: akomapa-health.cdx.json
+          if-no-files-found: error
+          retention-days: 7
