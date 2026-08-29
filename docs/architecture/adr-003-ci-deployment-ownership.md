@@ -22,9 +22,12 @@ GitHub Actions owns source validation, dependency review, code scanning, SBOM
 generation, and verification of resulting deployments. Vercel Git integration
 remains the only deployment owner.
 
-- `main` is the production branch.
-- `dev` is the staging and integration branch.
-- Pull requests receive Vercel previews and GitHub validation checks.
+- `main` is the production branch deployed by the `akomapa-health` Vercel
+  project.
+- `dev` is the staging and integration branch deployed by the
+  `akomapa-staging` Vercel project.
+- Pull requests receive previews from `akomapa-staging` and GitHub validation
+  checks. The production project does not own pull-request previews.
 - Actions jobs do not receive Vercel deployment credentials or production
   secrets.
 - Preview deployments exercised by Actions are anonymously reachable. Preview

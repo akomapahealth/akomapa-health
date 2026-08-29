@@ -6,13 +6,16 @@ The Vercel Git integration is the only deployment owner.
 
 | Branch | Purpose | Vercel target |
 | --- | --- | --- |
-| `main` | production | Production |
-| `dev` | staging/integration | Preview or dedicated staging target |
-| pull-request branches | review | Preview |
+| `main` | production | `akomapa-health` / Production |
+| `dev` | staging/integration | `akomapa-staging` / Preview |
+| pull-request branches | review | `akomapa-staging` / Preview |
 
 Required controls:
 
 - Keep preview/staging and production variables separate; scope each variable to the minimum environment that needs it.
+- Configure the `akomapa-health` project to build `main` only. Configure the
+  `akomapa-staging` project to build `dev` and pull-request branches, but not
+  `main`. This prevents duplicate deployments and deployment-status events.
 - Production changes require review by `@nanaagyei`. Self-review prevention remains off while there is only one owner, preventing permanent lockout.
 - Do not store a Vercel deploy token in GitHub or add an Actions deploy workflow.
 - Keep Preview deployments anonymous while `Preview Security Smoke` is designed

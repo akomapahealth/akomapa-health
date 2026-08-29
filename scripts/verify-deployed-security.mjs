@@ -1,4 +1,5 @@
 import { pathToFileURL } from "node:url";
+import { FILLOUT_EMBED_ORIGIN } from "../src/config/external-service-origins.mjs";
 
 const REQUEST_TIMEOUT_MS = 15_000;
 const REPRESENTATIVE_ROUTES = [
@@ -137,6 +138,55 @@ function extractFirstPartyScripts(html, baseUrl) {
   return [...scripts];
 }
 
+export function assertApprovedCspHeaders(enforcedCsp, reportOnlyCsp) {
+  for (const [directive, expectedValue] of [
+    ["object-src", "'none'"],
+    ["base-uri", "'self'"],
+    ["frame-ancestors", "'none'"],
+  ]) {
+    if (!hasCspDirectiveValue(enforcedCsp, directive, expectedValue)) {
+      throw new Error(`Enforced CSP is missing ${directive} ${expectedValue}.`);
+    }
+  }
+  if (
+    !hasCspDirectiveValue(reportOnlyCsp, "default-src", "'self'") ||
+    !hasCspDirectiveValue(
+      reportOnlyCsp,
+      "frame-src",
+      FILLOUT_EMBED_ORIGIN,
+    )
+  ) {
+    throw new Error(
+      "Report-only CSP is missing the approved broad policy or Fillout frame origin.",
+    );
+  }
+}
+
+export function assertSourceMapNotPublic(response, mapUrl) {
+  if (![403, 404, 410].includes(response.status)) {
+    throw new Error(
+      `Unexpected public source map response (${response.status}) for ${mapUrl}.`,
+    );
+  }
+}
+
+export function assertRateLimitStatusSequence(statuses) {
+  if (!Array.isArray(statuses) || statuses.length === 0) {
+    throw new Error("Newsletter rate-limit verification produced no responses.");
+  }
+  const rateLimitIndex = statuses.indexOf(429);
+  if (rateLimitIndex === -1 || rateLimitIndex !== statuses.length - 1) {
+    throw new Error(
+      `Newsletter rate-limit verification expected a terminal 429; received ${statuses.join(", ")}.`,
+    );
+  }
+  if (statuses.slice(0, rateLimitIndex).some((status) => status !== 400)) {
+    throw new Error(
+      `Newsletter rate-limit verification received an unexpected status sequence: ${statuses.join(", ")}.`,
+    );
+  }
+}
+
 export async function verifyDeployment(rawUrl) {
   const baseUrl = parseVercelDeploymentUrl(rawUrl);
   let homeHtml = "";
@@ -164,25 +214,7 @@ export async function verifyDeployment(rawUrl) {
   const enforcedCsp = headerResponse.headers.get("content-security-policy") ?? "";
   const reportOnlyCsp =
     headerResponse.headers.get("content-security-policy-report-only") ?? "";
-  for (const [directive, expectedValue] of [
-    ["object-src", "'none'"],
-    ["base-uri", "'self'"],
-    ["frame-ancestors", "'none'"],
-  ]) {
-    if (!hasCspDirectiveValue(enforcedCsp, directive, expectedValue)) {
-      throw new Error(`Enforced CSP is missing ${directive} ${expectedValue}.`);
-    }
-  }
-  if (
-    !hasCspDirectiveValue(reportOnlyCsp, "default-src", "'self'") ||
-    !hasCspDirectiveValue(
-      reportOnlyCsp,
-      "frame-src",
-      "https://forms.fillout.com",
-    )
-  ) {
-    throw new Error("Report-only CSP is missing the approved broad policy or Fillout frame origin.");
-  }
+  assertApprovedCspHeaders(enforcedCsp, reportOnlyCsp);
 
   const scripts = extractFirstPartyScripts(homeHtml, baseUrl);
   if (scripts.length === 0) throw new Error("No first-party client scripts were discovered.");
@@ -201,10 +233,8 @@ export async function verifyDeployment(rawUrl) {
 
     const mapUrl = new URL(scriptUrl);
     mapUrl.pathname += ".map";
-    const mapResponse = await request(mapUrl, { headers: { Range: "bytes=0-128" } });
-    if (mapResponse.status !== 404) {
-      throw new Error(`Unexpected public source map response (${mapResponse.status}) for ${mapUrl}.`);
-    }
+    const mapResponse = await request(mapUrl, { method: "HEAD" });
+    assertSourceMapNotPublic(mapResponse, mapUrl);
   }
 
   const apiUrl = new URL("/api/newsletter", baseUrl);
@@ -232,24 +262,38 @@ export async function verifyDeployment(rawUrl) {
   });
   assertStatus(oversized, 413, "newsletter oversized request");
 
+  const malformedJson = await request(apiUrl, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", Origin: baseUrl.origin },
+    body: "{",
+  });
+  assertStatus(malformedJson, 400, "newsletter malformed JSON request");
+  assertSafeErrorBody(await malformedJson.text(), "newsletter malformed JSON request");
+
   const rateResponses = [];
   for (let attempt = 0; attempt < 6; attempt += 1) {
-    rateResponses.push(
-      await request(apiUrl, {
-        method: "POST",
-        headers: { "Content-Type": "application/json", Origin: baseUrl.origin },
-        body: "{}",
-      }),
+    const response = await request(apiUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Origin: baseUrl.origin },
+      body: "{}",
+    });
+    rateResponses.push(response);
+    if (response.status === 400) {
+      assertSafeErrorBody(await response.text(), "newsletter bounded validation request");
+      continue;
+    }
+    if (response.status === 429) {
+      assertSafeErrorBody(await response.text(), "newsletter rate-limit request");
+      if (!response.headers.get("retry-after")) {
+        throw new Error("Newsletter rate-limit response is missing Retry-After.");
+      }
+      break;
+    }
+    throw new Error(
+      `Newsletter rate-limit verification returned unexpected status ${response.status}.`,
     );
   }
-  for (const response of rateResponses.slice(0, 5)) {
-    assertStatus(response, 400, "newsletter bounded validation request");
-    assertSafeErrorBody(await response.text(), "newsletter bounded validation request");
-  }
-  assertStatus(rateResponses[5], 429, "newsletter rate-limit request");
-  if (!rateResponses[5].headers.get("retry-after")) {
-    throw new Error("Newsletter rate-limit response is missing Retry-After.");
-  }
+  assertRateLimitStatusSequence(rateResponses.map((response) => response.status));
 
   console.log(`Deployment security verification passed for ${baseUrl.origin}.`);
 }

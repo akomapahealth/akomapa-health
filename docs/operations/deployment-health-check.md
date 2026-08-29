@@ -7,6 +7,11 @@ Applies to: Vercel preview, staging (`dev`), and production (`main`) deployments
 
 `Preview Security Smoke` runs from successful non-production Vercel deployment-status events and requires no deployment credentials. It accepts only a root HTTPS URL on an exact `*.vercel.app` subdomain.
 
+Automated deployment-status runs accept only the GitHub environment named
+`Preview – akomapa-staging`. This prevents the production `akomapa-health`
+project from creating a duplicate preview-security check. Manual dispatches
+remain available for an explicitly supplied Vercel URL.
+
 The Vercel project must leave the Preview environment anonymously reachable.
 In **Project → Settings → Deployment Protection**, turn off Vercel
 Authentication for Preview deployments. Do not add a Vercel automation-bypass

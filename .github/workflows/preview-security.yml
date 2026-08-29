@@ -22,7 +22,7 @@ jobs:
     if: >-
       github.event_name == 'workflow_dispatch' ||
       (github.event.deployment_status.state == 'success' &&
-       github.event.deployment_status.environment != 'Production' &&
+       github.event.deployment_status.environment == 'Preview – akomapa-staging' &&
        contains(github.event.deployment_status.environment_url, '.vercel.app'))
     runs-on: ubuntu-24.04
     timeout-minutes: 15
