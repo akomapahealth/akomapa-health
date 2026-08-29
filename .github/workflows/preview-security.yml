@@ -1,0 +1,41 @@
+name: Preview Security
+
+on:
+  deployment_status:
+  workflow_dispatch:
+    inputs:
+      deployment-url:
+        description: Public Vercel preview URL to verify
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: preview-security-${{ github.event.deployment.sha || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  preview-security-smoke:
+    name: Preview Security Smoke
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.deployment_status.state == 'success' &&
+       github.event.deployment_status.environment != 'Production' &&
+       contains(github.event.deployment_status.environment_url, '.vercel.app'))
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      DEPLOYMENT_URL: ${{ inputs.deployment-url || github.event.deployment_status.environment_url }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Set up Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: .nvmrc
+
+      - name: Verify deployed security controls
+        run: npm run security:verify-deployment

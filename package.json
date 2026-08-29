@@ -21,6 +21,7 @@
     "security:verify-intake-client-bundle": "node scripts/verify-intake-client-bundle.mjs",
     "security:verify-source-maps": "node scripts/verify-public-source-maps.mjs",
     "security:verify-actions-policy": "node scripts/verify-github-actions-policy.mjs",
+    "security:verify-deployment": "node scripts/verify-deployed-security.mjs",
     "security:validate-exceptions": "node scripts/validate-vulnerability-exceptions.mjs",
     "security:audit:prod": "npm audit --omit=dev --audit-level=high",
     "security:sbom": "npm sbom --sbom-format cyclonedx",

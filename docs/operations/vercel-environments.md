@@ -1,0 +1,21 @@
+# Vercel environment controls
+
+Owner: `@nanaagyei`
+
+The Vercel Git integration is the only deployment owner.
+
+| Branch | Purpose | Vercel target |
+| --- | --- | --- |
+| `main` | production | Production |
+| `dev` | staging/integration | Preview or dedicated staging target |
+| pull-request branches | review | Preview |
+
+Required controls:
+
+- Keep preview/staging and production variables separate; scope each variable to the minimum environment that needs it.
+- Production changes require review by `@nanaagyei`. Self-review prevention remains off while there is only one owner, preventing permanent lockout.
+- Do not store a Vercel deploy token in GitHub or add an Actions deploy workflow.
+- Confirm the exact active Vercel-created GitHub environment before changing protection. Similarly named generic environments are not assumed active.
+- A production rollback uses Vercel's retained deployment, followed by the same deployed-security smoke check.
+
+Environment protection and branch mapping are live settings. Capture screenshots or audit events when they are applied and attach that evidence to Issue #194.
