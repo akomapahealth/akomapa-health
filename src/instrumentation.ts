@@ -1,4 +1,7 @@
+import type { Instrumentation } from "next";
+
 import { isSentryEnabled, loadSentry } from "@/lib/sentry";
+import { isKnownDonateRouterStateSkewError } from "@/lib/sentry-config";
 
 export async function register() {
   if (!isSentryEnabled()) return;
@@ -14,7 +17,23 @@ export async function register() {
   }
 }
 
-export const onRequestError = async (...args: unknown[]) => {
+export const onRequestError: Instrumentation.onRequestError = async (
+  error,
+  request,
+  context
+) => {
   const Sentry = await loadSentry();
-  return Sentry?.captureRequestError?.(...args);
+  if (!Sentry) return;
+
+  if (isKnownDonateRouterStateSkewError(error, request, context)) {
+    Sentry.logger?.info("Filtered known Next.js router-state version skew", {
+      "error.category": "next_router_state_version_skew",
+      "next.error_code": "E10",
+      "request.route": "/(main)/donate/page",
+      "telemetry.filtered": true,
+    });
+    return;
+  }
+
+  Sentry.captureRequestError?.(error, request, context);
 };

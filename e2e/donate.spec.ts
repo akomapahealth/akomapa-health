@@ -41,6 +41,20 @@ test.describe("Donate page flow", () => {
     await dismissAnnouncements(page);
   });
 
+  test("supports normal client-side navigation into the donate page", async ({
+    page,
+  }) => {
+    await page.goto("/");
+    await page.locator("header").getByRole("link", { name: "Donate" }).click();
+
+    await expect(page).toHaveURL((url) => url.pathname === "/donate");
+    await expect(
+      page.getByRole("heading", {
+        name: "Every act of generosity saves a life.",
+      })
+    ).toBeVisible();
+  });
+
   test("fails closed while the Givebutter rollout gate is disabled", async ({
     page,
   }) => {

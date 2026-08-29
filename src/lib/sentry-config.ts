@@ -1,3 +1,5 @@
+import type { Instrumentation } from "next";
+
 export const SENTRY_DSN =
   "https://0642fc20ef5cf0282a9b63cfd47ed24e@o4510806105915392.ingest.us.sentry.io/4510806113189888";
 
@@ -12,6 +14,8 @@ export const SENTRY_REPLAY_PRIVACY_OPTIONS = {
 };
 
 type Env = Record<string, string | undefined>;
+
+type RequestErrorArguments = Parameters<Instrumentation.onRequestError>;
 
 type SentryStackFrame = {
   filename?: string;
@@ -109,6 +113,11 @@ const IP_ENV_KEYS = new Set([
   "X_FORWARDED_FOR",
   "X_REAL_IP",
 ]);
+
+const NEXT_ROUTER_STATE_PARSE_ERROR =
+  "The router state header was sent but could not be parsed.";
+
+const DONATE_APP_ROUTE = "/(main)/donate/page";
 
 export function resolveSentryEnvironment(env: Env = process.env): string {
   const explicitEnvironment =
@@ -211,6 +220,38 @@ export function shouldWrapSentryBuild(env: Env = process.env): boolean {
 
 export function shouldUploadSentrySourceMaps(env: Env = process.env): boolean {
   return Boolean(env.CI && env.SENTRY_AUTH_TOKEN);
+}
+
+export function isKnownDonateRouterStateSkewError(
+  error: RequestErrorArguments[0],
+  request: RequestErrorArguments[1],
+  context: RequestErrorArguments[2],
+  env: Env = process.env
+): boolean {
+  if (resolveSentryEnvironment(env) !== "production") {
+    return false;
+  }
+
+  if (
+    !(error instanceof Error) ||
+    error.message !== NEXT_ROUTER_STATE_PARSE_ERROR ||
+    (error as Error & { __NEXT_ERROR_CODE?: unknown }).__NEXT_ERROR_CODE !== "E10"
+  ) {
+    return false;
+  }
+
+  const [pathname, queryString = ""] = request.path.split("?", 2);
+  const isRscRequest = new URLSearchParams(queryString).has("_rsc");
+
+  return (
+    request.method === "GET" &&
+    pathname === "/donate" &&
+    isRscRequest &&
+    context.routerKind === "App Router" &&
+    context.routePath === DONATE_APP_ROUTE &&
+    context.routeType === "render" &&
+    context.renderSource === "react-server-components-payload"
+  );
 }
 
 export function createBeforeSend(env: Env = process.env) {

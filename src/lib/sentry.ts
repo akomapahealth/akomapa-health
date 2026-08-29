@@ -14,7 +14,10 @@ type SentryModule = {
   captureRouterTransitionStart?: (...args: unknown[]) => void;
   diagnoseSdkConnectivity?: () => Promise<string>;
   logger?: {
-    info: (message: string) => void;
+    info: (
+      message: string,
+      attributes?: Record<string, string | number | boolean>
+    ) => void;
   };
   replayIntegration?: (options: {
     maskAllText: boolean;
