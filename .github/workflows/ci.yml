@@ -1,0 +1,208 @@
+name: CI
+
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+    branches: [main, dev]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    name: Quality
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Lint workflow definitions
+        uses: raven-actions/actionlint@3d39aea434753780c3b3d4a1a31c854b4dbf49d7 # v2.2.0
+        with:
+          version: 1.7.7
+          pyflakes: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Verify React Server Components security patch
+        run: npm run security:verify-rsc-patch
+
+      - name: Audit production dependencies
+        run: npm run security:audit:prod
+
+      - name: Validate vulnerability exceptions
+        run: npm run security:validate-exceptions
+
+      - name: Verify immutable action policy
+        run: npm run security:verify-actions-policy
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Unit tests
+        run: npm test
+
+  build:
+    name: Build
+    needs: quality
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Set up Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build application
+        run: npm run build
+        env:
+          CI: true
+          FILLOUT_API_KEY: ci-intake-secret-must-not-leak
+          RESEND_API_KEY: ci-notification-secret-must-not-leak
+          NEXT_PUBLIC_IMMERSION_INTAKE_ENABLED: "true"
+          NEXT_PUBLIC_IMMERSION_FILLOUT_FORM_ID: ciTestForm194
+          NEXT_PUBLIC_IMMERSION_FILLOUT_FORM_URL: https://forms.fillout.com/t/ciTestForm194
+          NEXT_PUBLIC_GIVEBUTTER_DONATIONS_ENABLED: "true"
+          NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT: https://ik.imagekit.io/ci-placeholder
+          NEXT_PUBLIC_IMAGEKIT_PUBLIC_KEY: public_ci_placeholder
+
+      - name: Verify client bundles
+        run: npm run security:verify-intake-client-bundle
+        env:
+          INTAKE_CLIENT_SECRET_SENTINELS: ci-intake-secret-must-not-leak,ci-notification-secret-must-not-leak
+
+      - name: Verify public source-map policy
+        run: npm run security:verify-source-maps
+
+      - name: Package verified E2E runtime
+        run: tar -czf next-build.tgz .next
+
+      - name: Upload verified E2E runtime
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: next-build-${{ github.run_id }}
+          path: next-build.tgz
+          if-no-files-found: error
+          retention-days: 1
+          compression-level: 0
+
+  e2e:
+    name: E2E
+    needs: build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Set up Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Download verified E2E runtime
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: next-build-${{ github.run_id }}
+          path: .artifacts
+
+      - name: Restore verified E2E runtime
+        run: tar -xzf .artifacts/next-build.tgz
+
+      - name: Install supported browsers
+        run: npx playwright install --with-deps chromium firefox webkit
+        timeout-minutes: 10
+
+      - name: Run end-to-end tests
+        run: npm run test:e2e
+        env:
+          CI: true
+          NEXT_PUBLIC_GIVEBUTTER_DONATIONS_ENABLED: "true"
+          PLAYWRIGHT_TEST_BASE_URL: http://127.0.0.1:3000
+        timeout-minutes: 20
+
+      - name: Upload Playwright report
+        if: failure()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: playwright-report-${{ github.run_id }}
+          path: playwright-report/
+          if-no-files-found: ignore
+          retention-days: 3
+
+      - name: Upload failure evidence
+        if: failure()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: test-results-${{ github.run_id }}
+          path: test-results/
+          if-no-files-found: ignore
+          retention-days: 3
+
+  pr-summary:
+    name: PR Summary
+    if: always() && github.event_name == 'pull_request'
+    needs: [quality, build, e2e]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - name: Update stable CI summary comment
+        uses: actions/github-script@d746ffe35508b1917358783b479e04febd2b8f71 # v9.0.0
+        env:
+          QUALITY_RESULT: ${{ needs.quality.result }}
+          BUILD_RESULT: ${{ needs.build.result }}
+          E2E_RESULT: ${{ needs.e2e.result }}
+        with:
+          retries: 3
+          script: |
+            const marker = '<!-- akomapa-ci-summary -->';
+            const isFork = context.payload.pull_request.head.repo.full_name !== context.repo.owner + '/' + context.repo.repo;
+            if (isFork) {
+              core.notice('Skipping PR comment for a fork because the token is intentionally read-only.');
+              return;
+            }
+            const status = (value) => value === 'success' ? 'Passed' : value === 'skipped' ? 'Skipped' : value === 'cancelled' ? 'Cancelled' : 'Failed';
+            const body = `${marker}\n## CI results\n\n| Check | Result |\n| --- | --- |\n| Quality | ${status(process.env.QUALITY_RESULT)} |\n| Build | ${status(process.env.BUILD_RESULT)} |\n| E2E | ${status(process.env.E2E_RESULT)} |\n\n[View workflow run](${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId})`;
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              per_page: 100,
+            });
+            const existing = comments.find((comment) => comment.user.type === 'Bot' && comment.body?.includes(marker));
+            if (existing) {
+              await github.rest.issues.updateComment({ owner: context.repo.owner, repo: context.repo.repo, comment_id: existing.id, body });
+            } else {
+              await github.rest.issues.createComment({ owner: context.repo.owner, repo: context.repo.repo, issue_number: context.issue.number, body });
+            }
