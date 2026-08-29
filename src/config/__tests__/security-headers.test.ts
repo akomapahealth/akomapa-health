@@ -42,6 +42,8 @@ describe("shared security headers", () => {
     expect(enforced).not.toContain("default-src");
     expect(reportOnly).toContain("default-src 'self'");
     expect(reportOnly).toContain(`frame-src 'self' ${FILLOUT_EMBED_ORIGIN}`);
+    expect(reportOnly).toContain("https://www.google.com");
+    expect(reportOnly).toContain("https://givebutter.com");
   });
 
   it("adds the exact Fillout origin only to the immersion enforcement policy", () => {

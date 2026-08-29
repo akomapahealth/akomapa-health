@@ -13,7 +13,7 @@ const CONTENT_SECURITY_POLICY_REPORT_ONLY = [
   "img-src 'self' data: blob: https://*.imagekit.io https://img.youtube.com https://i.ytimg.com",
   "font-src 'self' data:",
   "connect-src 'self' https://*.sentry.io https://*.ingest.sentry.io",
-  `frame-src 'self' ${FILLOUT_EMBED_ORIGIN} https://www.youtube.com https://www.youtube-nocookie.com`,
+  `frame-src 'self' ${FILLOUT_EMBED_ORIGIN} https://www.youtube.com https://www.youtube-nocookie.com https://www.google.com https://givebutter.com`,
   "worker-src 'self' blob:",
 ].join("; ");
 
