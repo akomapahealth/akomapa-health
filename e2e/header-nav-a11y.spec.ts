@@ -69,6 +69,22 @@ test.describe("desktop header dropdown keyboard accessibility", () => {
     await expect(page).toHaveURL(/\/about\/team$/);
   });
 
+  test("Our Team is the only current About leaf on /about/team", async ({
+    page,
+  }) => {
+    await page.goto("/about/team");
+    await page.waitForLoadState("networkidle");
+
+    const aboutTrigger = page.getByRole("button", { name: "About" });
+    await aboutTrigger.click();
+
+    const ourStoryLink = page.getByRole("menuitem", { name: "Our Story" });
+    const ourTeamLink = page.getByRole("menuitem", { name: "Our Team" });
+
+    await expect(ourTeamLink).toHaveAttribute("aria-current", "page");
+    await expect(ourStoryLink).not.toHaveAttribute("aria-current", "page");
+  });
+
   test("About dropdown closes with Escape and returns focus to trigger", async ({
     page,
   }) => {
