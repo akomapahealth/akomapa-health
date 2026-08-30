@@ -103,9 +103,17 @@ for (const scenario of [
 
     const firstLeaderImage = leadership.locator("img").first();
     await expect(firstLeaderImage).toHaveAttribute("loading", "lazy");
-    await expect(firstLeaderImage).toHaveAttribute(
-      "src",
-      /ik\.imagekit\.io\/akomapa\/ucc-team\/.+tr=q-75,w-/,
+    const firstLeaderSrc = await firstLeaderImage.getAttribute("src");
+    expect(firstLeaderSrc).not.toBeNull();
+    const firstLeaderUrl = new URL(firstLeaderSrc!);
+    expect(firstLeaderUrl.protocol).toBe("https:");
+    expect(firstLeaderUrl.hostname).toBe("ik.imagekit.io");
+    expect(firstLeaderUrl.pathname).toMatch(/^\/[^/]+\/ucc-team\/[^/]+$/);
+    expect(firstLeaderUrl.searchParams.get("tr")).toMatch(
+      /(?:^|,)q-75(?:,|$)/,
+    );
+    expect(firstLeaderUrl.searchParams.get("tr")).toMatch(
+      /(?:^|,)w-\d+(?:,|$)/,
     );
     await expect(firstLeaderImage).toHaveAttribute("sizes", /100vw/);
   });

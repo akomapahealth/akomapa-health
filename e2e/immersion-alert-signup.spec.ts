@@ -61,10 +61,10 @@ test.describe("Immersion Fillout pilot", () => {
   }) => {
     const response = await request.get("/global-health-immersion-program");
     expect(response.headers()["content-security-policy"]).toBe(
-      "frame-src 'self' https://embed.fillout.com;",
+      "base-uri 'self'; object-src 'none'; frame-ancestors 'none'; frame-src 'self' https://embed.fillout.com;",
     );
     expect(response.headers()["permissions-policy"]).toBe(
-      "camera=(), microphone=(), geolocation=()",
+      "camera=(), microphone=(), geolocation=(), payment=(), usb=()",
     );
   });
 
