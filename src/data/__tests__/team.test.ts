@@ -53,7 +53,31 @@ describe("canonical people directory", () => {
   });
 
   it("selects only the three pictured executive leaders for the hero", () => {
-    expect(teamHeroPeople.map(({ name }) => name)).toEqual(["Brian Amu Fleischer, MD", "Esi Bon Berkoh", "Afriyie Badu, MD"]);
+    expect(teamHeroPeople).toHaveLength(22);
+    expect(teamHeroPeople.map(({ name }) => name)).toEqual([
+      "Brian Amu Fleischer, MD",
+      "Esi Bon Berkoh",
+      "Afriyie Badu, MD",
+      "Prince Agyei Tuffour",
+      "Adwoa Danso-Dodoo",
+      "Nana Ama Ocran",
+      "Wilfred Obeng",
+      "Gabrielle Nartey",
+      "Dr. Patrick Ampofo",
+      "Kelvin Fiifi Ocran",
+      "Samuel Kumi",
+      "Jeanelle Forson",
+      "Bernard Mensah",
+      "Jade Kissi",
+      "Erinda Aidoo",
+      "Sylvester Bempong",
+      "Mighty Doffoe",
+      "Prof. Derek Anamaale Tuoyire",
+      "Prof. Martins Ekor",
+      "Emily Sheldon",
+      "Dr. Jeremy Schwartz",
+      "Dr. Elijah Paintsil",
+    ]);
     expect(teamHeroPeople.every(({ image }) => image && !image.includes("placeholder"))).toBe(true);
   });
 });

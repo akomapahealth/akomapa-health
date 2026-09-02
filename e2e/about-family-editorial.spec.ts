@@ -140,8 +140,8 @@ for (const viewport of viewports) {
 
       if (viewport.width < 1024) {
         expect(networkLayout.visiblePortraitCount).toBeGreaterThanOrEqual(1);
-        expect(networkLayout.canScroll).toBe(false);
-        await expect(page.locator("[data-team-node-scroll-hint]")).toHaveCount(0);
+        expect(networkLayout.canScroll).toBe(true);
+        await expect(page.locator("[data-team-node-scroll-hint]")).toBeVisible();
 
         await network.evaluate((element) => {
           element.scrollTo({ left: element.scrollWidth });

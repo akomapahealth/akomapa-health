@@ -54,6 +54,7 @@ const canonicalPeople: PersonProfile[] = [
   },
   {
     id: "executive-prince-tuffour",
+    featuredInTeamHero: true,
     name: "Prince Agyei Tuffour",
     affiliation: "Software Engineer, dynaConnections Corporation",
     image: "/images/team/prince-tuffour.jpg",
@@ -65,6 +66,7 @@ const canonicalPeople: PersonProfile[] = [
   },
   {
     id: "executive-adwoa-danso-dodoo",
+    featuredInTeamHero: true,
     name: "Adwoa Danso-Dodoo",
     affiliation: "Business Analyst, McKinsey & Company",
     image: "/images/team/adwoa-danso-dodoo.jpg",
@@ -95,6 +97,7 @@ const canonicalPeople: PersonProfile[] = [
   },
   {
     id: "executive-nana-ama-ocran",
+    featuredInTeamHero: true,
     name: "Nana Ama Ocran",
     affiliation: "History of Science, Medicine & Public Health, Yale University",
     image: "/images/team/nana-ama-ocran.jpeg",
@@ -106,6 +109,7 @@ const canonicalPeople: PersonProfile[] = [
   },
   {
     id: "executive-wilfred-obeng",
+    featuredInTeamHero: true,
     name: "Wilfred Obeng",
     affiliation: "Medical Student, University of Cape Coast",
     image: "/ucc-team/wilfred_obeng.JPG",
@@ -114,6 +118,7 @@ const canonicalPeople: PersonProfile[] = [
   },
   {
     id: "executive-gabrielle-nartey",
+    featuredInTeamHero: true,
     name: "Gabrielle Nartey",
     affiliation: "Akomapa Health Foundation",
     image: "/images/team/gabrielle-nartey.JPG",
@@ -125,6 +130,7 @@ const canonicalPeople: PersonProfile[] = [
   },
   {
     id: "executive-patrick-ampofo",
+    featuredInTeamHero: true,
     slug: "patrick-ampofo",
     name: "Dr. Patrick Ampofo",
     affiliation: "Yale School of Public Health",
@@ -134,6 +140,7 @@ const canonicalPeople: PersonProfile[] = [
   },
   {
     id: "executive-kelvin-ocran",
+    featuredInTeamHero: true,
     name: "Kelvin Fiifi Ocran",
     affiliation: "Akomapa Health Foundation",
     image: "/images/team/kelvin-fiifi.jpeg",
@@ -145,6 +152,7 @@ const canonicalPeople: PersonProfile[] = [
   },
   {
     id: "executive-samuel-kumi",
+    featuredInTeamHero: true,
     name: "Samuel Kumi",
     affiliation: "Private Legal Practitioner and Lecturer",
     image: "/images/team/samuel-kumi.JPG",
@@ -156,6 +164,7 @@ const canonicalPeople: PersonProfile[] = [
   },
   {
     id: "executive-jeanelle-forson",
+    featuredInTeamHero: true,
     name: "Jeanelle Forson",
     affiliation: "Akomapa Health Foundation",
     image: "/images/team/jeanelle-forson.jpg",
@@ -167,6 +176,7 @@ const canonicalPeople: PersonProfile[] = [
   },
   {
     id: "executive-bernard-mensah",
+    featuredInTeamHero: true,
     name: "Bernard Mensah",
     affiliation: "Akomapa Health Foundation",
     image: "/images/team/bernard-mensah.jpg",
@@ -181,6 +191,7 @@ const canonicalPeople: PersonProfile[] = [
   },
   {
     id: "executive-jade-kissi",
+    featuredInTeamHero: true,
     name: "Jade Kissi",
     affiliation: "Akomapa Health Foundation",
     image: "/images/team/jade-kissi.jpg",
@@ -188,6 +199,7 @@ const canonicalPeople: PersonProfile[] = [
   },
   {
     id: "member-erinda-aidoo",
+    featuredInTeamHero: true,
     name: "Erinda Aidoo",
     affiliation: "University of Illinois Chicago College of Medicine",
     image: "/ug-team/erinda-aidoo.PNG",
@@ -199,6 +211,7 @@ const canonicalPeople: PersonProfile[] = [
   },
   {
     id: "member-sylvester-bempong",
+    featuredInTeamHero: true,
     name: "Sylvester Bempong",
     affiliation: "University of Cape Coast",
     image: "/images/team/sylvester-bempong.jpeg",
@@ -210,6 +223,7 @@ const canonicalPeople: PersonProfile[] = [
   },
   {
     id: "member-mighty-doffoe",
+    featuredInTeamHero: true,
     name: "Mighty Doffoe",
     affiliation: "Akomapa Health Foundation",
     image: "/images/team/mighty-doffoe.jpg",
@@ -292,6 +306,7 @@ const canonicalPeople: PersonProfile[] = [
 
   {
     id: "28",
+    featuredInTeamHero: true,
     slug: "derek-tuoyire",
     name: "Prof. Derek Anamaale Tuoyire",
     affiliation: "University of Cape Coast",
@@ -300,6 +315,7 @@ const canonicalPeople: PersonProfile[] = [
   },
   {
     id: "29",
+    featuredInTeamHero: true,
     slug: "martins-ekor",
     name: "Prof. Martins Ekor",
     affiliation: "University of Cape Coast",
@@ -308,6 +324,7 @@ const canonicalPeople: PersonProfile[] = [
   },
   {
     id: "30",
+    featuredInTeamHero: true,
     name: "Emily Sheldon",
     affiliation: "African Health Innovation Center",
     image: "/images/team/emily-sheldon.png",
@@ -315,6 +332,7 @@ const canonicalPeople: PersonProfile[] = [
   },
   {
     id: "31",
+    featuredInTeamHero: true,
     slug: "jeremy-schwartz",
     name: "Dr. Jeremy Schwartz",
     affiliation: "Yale University",
@@ -330,6 +348,7 @@ const canonicalPeople: PersonProfile[] = [
   },
   {
     id: "33",
+    featuredInTeamHero: true,
     name: "Dr. Elijah Paintsil",
     affiliation: "Boston Medical Center",
     image: "/images/team/elijah-paintsil.avif",

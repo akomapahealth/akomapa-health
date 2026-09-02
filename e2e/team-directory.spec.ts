@@ -4,6 +4,7 @@ import {
   advisoryBoardMembers,
   executiveLeadership,
   teamDepartments,
+  teamHeroPeople,
 } from "../src/data/team";
 
 async function preparePage(page: Page) {
@@ -67,7 +68,18 @@ test.describe("team directory hierarchy", () => {
       await expect(page.locator(`[data-team-member="${hubOnlyName}"]`)).toHaveCount(0);
     }
     await expect(page.locator('[data-team-member="Wilfred Obeng"]')).toHaveCount(1);
-    await expect(page.locator("[data-team-node-portrait]")).toHaveCount(3);
+    await expect(page.locator("[data-team-node-portrait]")).toHaveCount(22);
+    await expect
+      .poll(() =>
+        page
+          .locator("[data-team-node-portrait]")
+          .evaluateAll((elements) =>
+            elements.map((element) =>
+              element.getAttribute("data-team-node-portrait"),
+            ),
+          ),
+      )
+      .toEqual(teamHeroPeople.map(({ id }) => id));
   });
 
   test("renders a complete non-executive profile with consistent portrait cropping", async ({

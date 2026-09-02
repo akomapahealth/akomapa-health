@@ -1,17 +1,38 @@
-import { Fragment, type CSSProperties } from "react";
+import { Fragment } from "react";
 import Image from "@/components/common/Image";
 import type { PersonProfile } from "@/lib/types";
 
 const connectorClassName =
   "h-px w-3 shrink-0 border-t border-dotted border-[#FCFAEF]/40 sm:w-5 lg:w-6 xl:w-9 2xl:w-12";
 
+const rowCapacities = [2, 3, 4, 4, 4, 3, 2] as const;
+
+const rowOffsetClassNames = [
+  "lg:pr-1 xl:pr-2 2xl:pr-4",
+  "lg:pr-4 xl:pr-8 2xl:pr-12",
+  "lg:pr-8 xl:pr-14 2xl:pr-20",
+  "lg:pr-12 xl:pr-20 2xl:pr-28",
+  "lg:pr-16 xl:pr-28 2xl:pr-36",
+  "lg:pr-20 xl:pr-36 2xl:pr-44",
+  "lg:pr-24 xl:pr-44 2xl:pr-52",
+] as const;
+
 export function buildTeamHeroRows(people: readonly PersonProfile[]) {
-  if (people.length === 0) return [];
-  const rowCount = Math.ceil(Math.sqrt(people.length));
-  const rowSize = Math.ceil(people.length / rowCount);
-  return Array.from({ length: rowCount }, (_, index) =>
-    people.slice(index * rowSize, (index + 1) * rowSize),
-  ).filter((row) => row.length > 0);
+  const rows: PersonProfile[][] = [];
+  let cursor = 0;
+
+  for (const capacity of rowCapacities) {
+    if (cursor >= people.length) break;
+    rows.push(people.slice(cursor, cursor + capacity));
+    cursor += capacity;
+  }
+
+  while (cursor < people.length) {
+    rows.push(people.slice(cursor, cursor + 4));
+    cursor += 4;
+  }
+
+  return rows;
 }
 
 export default function TeamHeroNetwork({
@@ -31,10 +52,7 @@ export default function TeamHeroNetwork({
         {rows.map((row, rowIndex) => (
           <Fragment key={row.map(({ id }) => id).join("-")}>
             <div
-              className="flex shrink-0 items-center justify-start gap-1.5 sm:gap-2 lg:min-w-0 lg:w-full lg:justify-end lg:pr-[var(--team-row-offset)]"
-              style={{
-                "--team-row-offset": `${rowIndex * 1.75}rem`,
-              } as CSSProperties}
+              className={`flex shrink-0 items-center justify-start gap-1.5 sm:gap-2 lg:min-w-0 lg:w-full lg:justify-end ${rowOffsetClassNames[rowIndex] ?? rowOffsetClassNames.at(-1)}`}
             >
               {row.map((person, faceIndex) => (
                 <div key={person.id} className="flex shrink-0 items-center gap-1.5 sm:gap-2">
