@@ -1,5 +1,6 @@
 import { expect, test, type Page } from "@playwright/test";
 import { announcementCampaign } from "../src/data/announcements";
+import { teamHeroPeople } from "../src/data/team";
 
 /**
  * Cross-page responsive smoke coverage. For each viewport × route we assert:
@@ -167,7 +168,9 @@ test("the Team node network is unique and contained to its editorial band", asyn
   await expect(network).toHaveCount(1);
   await expect(network).toBeVisible();
   await expect(network).toHaveAttribute("aria-hidden", "true");
-  await expect(network.locator("[data-team-node-portrait]")).toHaveCount(22);
+  await expect(network.locator("[data-team-node-portrait]")).toHaveCount(
+    teamHeroPeople.length,
+  );
 
   const isContained = await network.evaluate((element) => {
     const networkBox = element.getBoundingClientRect();
