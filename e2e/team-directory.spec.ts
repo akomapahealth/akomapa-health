@@ -2,8 +2,8 @@ import { expect, test, type Page } from "@playwright/test";
 import { announcementCampaign } from "../src/data/announcements";
 import {
   advisoryBoardMembers,
-  executiveTeamMembers,
-  nonExecutiveTeamMembers,
+  executiveLeadership,
+  teamDepartments,
 } from "../src/data/team";
 
 async function preparePage(page: Page) {
@@ -37,39 +37,54 @@ test.describe("team directory hierarchy", () => {
           elements.map((element) => element.getAttribute("data-team-section")),
         ),
       )
-      .toEqual(["executive", "member", "advisor"]);
+      .toEqual(["executive", "departments", "advisor"]);
 
     const expectedGroups = [
-      ["executive", executiveTeamMembers.length, "Executive Team"],
-      ["member", nonExecutiveTeamMembers.length, "Team Members"],
-      ["advisor", advisoryBoardMembers.length, "Advisory Board"],
+      ["executive", "executive", executiveLeadership.length, "Executive Leadership"],
+      ["departments", "member", teamDepartments.flatMap(({ members }) => members).length, "Our Departments"],
+      ["advisor", "advisor", advisoryBoardMembers.length, "Advisory Board"],
     ] as const;
 
-    for (const [category, count, heading] of expectedGroups) {
-      const section = page.locator(`[data-team-section="${category}"]`);
+    for (const [sectionName, category, count, heading] of expectedGroups) {
+      const section = page.locator(`[data-team-section="${sectionName}"]`);
       await section.scrollIntoViewIfNeeded();
       await expect(section.getByText(heading, { exact: true })).toBeVisible();
       await expect(
         section.locator(`[data-team-role-category="${category}"]`),
       ).toHaveCount(count);
     }
+
+    const departmentSections = page.locator("[data-team-department]");
+    await expect(departmentSections).toHaveCount(teamDepartments.length);
+    await expect.poll(() => departmentSections.evaluateAll((elements) => elements.map((element) => element.getAttribute("data-team-department")))).toEqual(teamDepartments.map(({ id }) => id));
+    for (const department of teamDepartments) {
+      const section = page.locator(`[data-team-department="${department.id}"]`);
+      await expect(section.getByRole("heading", { name: department.name, level: 3 })).toBeVisible();
+      await expect.poll(() => section.locator("[data-team-member]").evaluateAll((elements) => elements.map((element) => element.getAttribute("data-team-member")))).toEqual(department.members.map(({ name }) => name));
+    }
+
+    for (const hubOnlyName of ["David Ofosu", "Hafiz Shaban", "Divina Selase Afenyo"]) {
+      await expect(page.locator(`[data-team-member="${hubOnlyName}"]`)).toHaveCount(0);
+    }
+    await expect(page.locator('[data-team-member="Wilfred Obeng"]')).toHaveCount(1);
+    await expect(page.locator("[data-team-node-portrait]")).toHaveCount(3);
   });
 
   test("renders a complete non-executive profile with consistent portrait cropping", async ({
     page,
   }) => {
-    const card = page.locator('[data-team-member="David Ofosu"]');
+    const card = page.locator('[data-team-member="Wilfred Obeng"]');
     await card.scrollIntoViewIfNeeded();
     await expect(card).toBeVisible();
-    await expect(card.getByRole("heading", { name: "David Ofosu" })).toBeVisible();
-    await expect(card.getByText("Co-Director", { exact: true })).toBeVisible();
+    await expect(card.getByRole("heading", { name: "Wilfred Obeng" })).toBeVisible();
+    await expect(card.getByText("Clinical Standards Lead", { exact: true })).toBeVisible();
     await expect(
       card.getByText("Medical Student, University of Cape Coast", {
         exact: true,
       }),
     ).toBeVisible();
 
-    const portrait = card.getByAltText("Headshot of David Ofosu, Co-Director");
+    const portrait = card.getByAltText("Headshot of Wilfred Obeng, Clinical Standards Lead");
     await expect(portrait).toBeVisible();
     await expect(portrait).toHaveClass(/object-cover/);
     await expect(card.locator("[data-team-portrait]")).toHaveCSS(
@@ -93,7 +108,7 @@ test.describe("team directory hierarchy", () => {
       "https://www.linkedin.com/in/jeanelle-forson-rn-bn-b5680a162",
     );
 
-    for (const name of ["Bernard Mensah", "Divina Selase Afenyo", "Jade Kissi"]) {
+    for (const name of ["Bernard Mensah", "Jade Kissi"]) {
       const card = page.locator(`[data-team-member="${name}"]`);
       await card.scrollIntoViewIfNeeded();
       await expect(card.getByRole("link")).toHaveCount(0);
@@ -108,8 +123,8 @@ test.describe("team directory hierarchy", () => {
     await page.goto("/about/team", { waitUntil: "domcontentloaded" });
 
     const samples = [
-      ["executive", executiveTeamMembers[0].name],
-      ["member", nonExecutiveTeamMembers[0].name],
+      ["executive", executiveLeadership[0].name],
+      ["departments", teamDepartments[0].members[0].name],
       ["advisor", advisoryBoardMembers[0].name],
     ] as const;
 
@@ -153,10 +168,10 @@ test.describe("team directory hierarchy", () => {
       await page.setViewportSize(viewport);
       await page.reload({ waitUntil: "domcontentloaded" });
 
-      const memberSection = page.locator('[data-team-section="member"]');
+      const memberSection = page.locator('[data-team-section="departments"]');
       await memberSection.scrollIntoViewIfNeeded();
       await expect(
-        page.locator('[data-team-member="Martha Bawa"]'),
+        page.locator('[data-team-member="Kelvin Fiifi Ocran"]'),
       ).toBeAttached();
       await expectNoPageOverflow(page);
     }
@@ -165,7 +180,7 @@ test.describe("team directory hierarchy", () => {
   test("opens a non-executive biography by keyboard and restores focus", async ({
     page,
   }) => {
-    const trigger = page.locator('[data-team-bio-trigger="David Ofosu"]');
+    const trigger = page.locator('[data-team-bio-trigger="Wilfred Obeng"]');
     await page.waitForLoadState("networkidle");
     await trigger.scrollIntoViewIfNeeded();
     await trigger.focus();
@@ -175,10 +190,10 @@ test.describe("team directory hierarchy", () => {
     const dialog = page.getByRole("dialog");
     await expect(dialog).toBeVisible();
     await expect(
-      dialog.getByRole("heading", { name: "David Ofosu", level: 2 }),
+      dialog.getByRole("heading", { name: "Wilfred Obeng", level: 2 }),
     ).toBeVisible();
     await expect(
-      dialog.getByText(/helps guide Akomapa’s UCC Community Hub/i),
+      dialog.getByText(/develops training resources for volunteers/i),
     ).toBeVisible();
     await expect
       .poll(() =>
@@ -187,7 +202,7 @@ test.describe("team directory hierarchy", () => {
       .toBe(true);
 
     const close = dialog.getByRole("button", {
-      name: "Close David Ofosu biography",
+      name: "Close Wilfred Obeng biography",
     });
     await close.focus();
     await page.keyboard.press("Tab");
@@ -204,11 +219,11 @@ test.describe("team directory hierarchy", () => {
     await page.emulateMedia({ colorScheme: "dark", reducedMotion: "reduce" });
     await page.reload({ waitUntil: "domcontentloaded" });
 
-    const card = page.locator('[data-team-member="Belinda Odoom"]');
+    const card = page.locator('[data-team-member="Erinda Aidoo"]');
     await card.scrollIntoViewIfNeeded();
     await expect(card).toBeVisible();
     await expect(card.getByRole("button", { name: "Read bio" })).toBeVisible();
-    await expect(card.getByAltText(/Headshot of Belinda Odoom/)).toHaveCSS(
+    await expect(card.getByAltText(/Headshot of Erinda Aidoo/)).toHaveCSS(
       "transform",
       "none",
     );
