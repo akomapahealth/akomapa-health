@@ -61,11 +61,13 @@ export default function TeamHeroNetwork({
           </Fragment>
         ))}
       </div>
-      <span
-        data-team-node-scroll-hint
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-y-0 right-0 z-10 w-9 bg-gradient-to-l from-[#0F4C5C] via-[#0F4C5C]/50 to-transparent sm:w-11 lg:hidden"
-      />
+      {people.length > 6 ? (
+        <span
+          data-team-node-scroll-hint
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-y-0 right-0 z-10 w-9 bg-gradient-to-l from-[#0F4C5C] via-[#0F4C5C]/50 to-transparent sm:w-11 lg:hidden"
+        />
+      ) : null}
     </div>
   );
 }

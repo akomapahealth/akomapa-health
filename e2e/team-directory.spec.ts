@@ -180,7 +180,7 @@ test.describe("team directory hierarchy", () => {
   test("opens a non-executive biography by keyboard and restores focus", async ({
     page,
   }) => {
-    const trigger = page.locator('[data-team-bio-trigger="Wilfred Obeng"]');
+    const trigger = page.locator('[data-team-bio-trigger="Bernard Mensah"]');
     await page.waitForLoadState("networkidle");
     await trigger.scrollIntoViewIfNeeded();
     await trigger.focus();
@@ -190,10 +190,10 @@ test.describe("team directory hierarchy", () => {
     const dialog = page.getByRole("dialog");
     await expect(dialog).toBeVisible();
     await expect(
-      dialog.getByRole("heading", { name: "Wilfred Obeng", level: 2 }),
+      dialog.getByRole("heading", { name: "Bernard Mensah", level: 2 }),
     ).toBeVisible();
     await expect(
-      dialog.getByText(/develops training resources for volunteers/i),
+      dialog.getByText(/leads Akomapa’s research work/i),
     ).toBeVisible();
     await expect
       .poll(() =>
@@ -202,7 +202,7 @@ test.describe("team directory hierarchy", () => {
       .toBe(true);
 
     const close = dialog.getByRole("button", {
-      name: "Close Wilfred Obeng biography",
+      name: "Close Bernard Mensah biography",
     });
     await close.focus();
     await page.keyboard.press("Tab");

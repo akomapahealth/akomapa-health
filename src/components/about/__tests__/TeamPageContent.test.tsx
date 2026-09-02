@@ -28,9 +28,7 @@ describe("TeamPageContent", () => {
     expect(
       container.querySelector("[data-team-node-network]")?.parentElement,
     ).toHaveClass("lg:col-span-7");
-    expect(
-      container.querySelector("[data-team-node-scroll-hint]"),
-    ).toHaveClass("pointer-events-none", "lg:hidden");
+    expect(container.querySelector("[data-team-node-scroll-hint]")).toBeNull();
     expect(screen.getByText("Executive Leadership")).toBeInTheDocument();
     expect(screen.getByText("Our Departments")).toBeInTheDocument();
     expect(screen.getByText("Advisory Board")).toBeInTheDocument();
