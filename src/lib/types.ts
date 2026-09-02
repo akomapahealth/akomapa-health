@@ -40,27 +40,28 @@ export interface News {
   tags?: string[];
 }
 
-export interface TeamMember {
+export interface PersonProfile {
   id: string;
   slug?: string;
   name: string;
-  title: string;
   affiliation: string;
   bio: string;
-  image: string;
-  roleCategory:
-    | "executive"
-    | "member"
-    | "faculty"
-    | "advisor"
-    | "community-leader"
-    | "government-leader"
-    | "partner-institution";
+  image?: string;
+  featuredInTeamHero?: boolean;
   socialLinks?: {
     linkedin?: string;
     twitter?: string;
     email?: string;
   };
+}
+
+export interface TeamMember extends Omit<PersonProfile, "image"> {
+  title: string;
+  image: string;
+  roleCategory:
+    | "executive"
+    | "member"
+    | "advisor";
 }
 
 export interface Testimonial {
@@ -192,6 +193,12 @@ export interface HubLeader {
     email?: string;
     linkedin?: string;
   };
+}
+
+export interface HubLeaderReference {
+  personId: string;
+  role: string;
+  featured?: boolean;
 }
 
 export interface HubVolunteerPortrait {

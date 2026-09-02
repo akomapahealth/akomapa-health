@@ -5,20 +5,21 @@ import {
   ugHubRoster,
 } from "@/data/community-hubs";
 import { UG_TRAINING_FORM_URL } from "@/config/links";
+import { getPersonById, resolveHubLeadership } from "@/data/team";
 
 const expectedLeadership = [
-  ["David Ofosu", "Co-Director", "Medical Student"],
-  ["Hafiz Shaban", "Co-Director", "Nursing Student"],
-  ["Getwell Essuman", "Volunteer Recruitment Co-Lead", "Medical Laboratory Science Student"],
-  ["David Konadu Kombate", "Volunteer Recruitment Co-Lead", "Medical Laboratory Science Student"],
-  ["Wilfred Obeng", "Training & Standards Coordinator", "Medical Student"],
-  ["Belinda Odoom", "Training & Standards Coordinator", "Nursing Student"],
-  ["Geraldine-Cristal Apeadua Agyapong", "Finance Officer", "Medical Student"],
-  ["Frederick Baffour", "Finance Officer", "Optometry Student"],
-  ["Gloria Tawiah Blay", "Community Engagement Liaison", "Pharmacy Student"],
-  ["Prince Nyarko", "Community Engagement Liaison", "Optometry Student"],
-  ["Queenstar Aduse Opoku", "Supplies & Logistics Manager", "Pharmacy Student"],
-  ["Martha Bawa", "Supplies & Logistics Manager", "Nursing Student"],
+  ["David Ofosu", "Co-Director", "Medical Student, University of Cape Coast"],
+  ["Hafiz Shaban", "Co-Director", "Nursing Student, University of Cape Coast"],
+  ["Getwell Essuman", "Volunteer Recruitment Co-Lead", "Medical Laboratory Science Student, University of Cape Coast"],
+  ["David Konadu Kombate", "Volunteer Recruitment Co-Lead", "Medical Laboratory Science Student, University of Cape Coast"],
+  ["Wilfred Obeng", "Training & Standards Coordinator", "Medical Student, University of Cape Coast"],
+  ["Belinda Odoom", "Training & Standards Coordinator", "Nursing Student, University of Cape Coast"],
+  ["Geraldine-Cristal Apeadua Agyapong", "Finance Officer", "Medical Student, University of Cape Coast"],
+  ["Frederick Baffour", "Finance Officer", "Optometry Student, University of Cape Coast"],
+  ["Gloria Tawiah Blay", "Community Engagement Liaison", "Pharmacy Student, University of Cape Coast"],
+  ["Prince Nyarko", "Community Engagement Liaison", "Optometry Student, University of Cape Coast"],
+  ["Queenstar Aduse Opoku", "Supplies & Logistics Manager", "Pharmacy Student, University of Cape Coast"],
+  ["Martha Bawa", "Supplies & Logistics Manager", "Nursing Student, University of Cape Coast"],
 ] as const;
 
 const expectedUgLeadership = [
@@ -63,6 +64,22 @@ describe("UCC community hub roster", () => {
   it("attaches the roster to UCC", () => {
     const ucc = communityHubs.find(({ routeSlug }) => routeSlug === "ucc");
     expect(ucc?.roster).toBe(uccHubRoster);
+  });
+
+  it("shares Wilfred's canonical profile while preserving his hub role", () => {
+    const wilfred = uccHubRoster.leadership.find(({ name }) => name === "Wilfred Obeng");
+    expect(wilfred?.id).toBe("executive-wilfred-obeng");
+    expect(wilfred?.bio).toBe(getPersonById("executive-wilfred-obeng")?.bio);
+    expect(wilfred?.contact?.email).toBe("wilfred.obeng7@gmail.com");
+    expect(wilfred?.role).toBe("Training & Standards Coordinator");
+  });
+
+  it("rejects duplicate and missing hub references", () => {
+    expect(() => resolveHubLeadership([
+      { personId: "executive-wilfred-obeng", role: "Lead" },
+      { personId: "executive-wilfred-obeng", role: "Lead" },
+    ])).toThrow(/Duplicate hub leadership placement/);
+    expect(() => resolveHubLeadership([{ personId: "missing", role: "Lead" }])).toThrow(/Unknown hub person reference/);
   });
 });
 
