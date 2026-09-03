@@ -411,7 +411,7 @@ export const ugLeadershipConfig = [
   { personId: "denzel-nketia-achiampong", role: "Research Co-Lead" },
   { personId: "austin-afutu", role: "Training & Standards Coordinator" },
   { personId: "nneoma-orji-okoro", role: "Faculty Recruitment Lead" },
-  { personId: "georgina-garbrah", role: "Community Liaison Officer " },
+  { personId: "georgina-garbrah", role: "Community Liaison Officer" },
 ] as const satisfies readonly HubLeaderReference[];
 
 export const ugHubRoster: HubRoster = {

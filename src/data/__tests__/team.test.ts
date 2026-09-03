@@ -18,8 +18,8 @@ const expectedDepartments = [
   ["Research", ["Bernard Mensah", "Erinda Aidoo"]],
   ["Technology", ["Prince Agyei Tuffour", "Sylvester Bempong", "Mighty Doffoe"]],
   ["Onboarding, Training and Standards", ["Wilfred Obeng"]],
-  ["Partnerships", ["Sedem Dankwa", "Dr. Patrick Ampofo", "Gabrielle Nartey", "Kelvin Fiifi Ocran"]],
-  ["Finance", ["Adwoa Danso-Dodoo"]],
+  ["Partnerships", ["Sedem Dankwa", "Dr. Patrick Ampofo", "Gabrielle Nartey", "Kelvin Fiifi Ocran", "Darren Markwei"]],
+  ["Finance", ["Adwoa Danso-Dodoo", "Bernard Kartey Larbi"]],
   ["Legal", ["Samuel Kumi"]],
   ["Internal Affairs", ["Jade Kissi"]],
 ] as const;
@@ -52,7 +52,7 @@ describe("canonical people directory", () => {
     }
   });
 
-  it("selects only the three pictured executive leaders for the hero", () => {
+  it("selects every eligible pictured team member for the hero network", () => {
     expect(teamHeroPeople).toHaveLength(22);
     expect(teamHeroPeople.map(({ name }) => name)).toEqual([
       "Brian Amu Fleischer, MD",

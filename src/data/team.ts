@@ -426,7 +426,6 @@ const canonicalPeople: PersonProfile[] = [
     bio: "Jil Owusu-Ansah is a student at the University of Ghana and serves as a Follow-up Lead at the Akomapa UG Clinic, supporting continuity of care after clinical encounters.",
     socialLinks: {
       email: "jiloan.16@gmail.com",
-      linkedin: "#",
     },
   },
   {
@@ -437,7 +436,6 @@ const canonicalPeople: PersonProfile[] = [
     bio: "Driven by excellence, purpose, and meaningful impact, Esther is passionate about human life most especially pediatrics, personal growth, and becoming someone whose work makes a difference, while staying grounded in faith and the values that shape me.",
     socialLinks: {
       email: "estherbray896@gmail.com",
-      linkedin: "#",
     },
   },
   {
@@ -514,7 +512,6 @@ const canonicalPeople: PersonProfile[] = [
     bio: "Nneoma is a medical student at the University of Ghana Medical School with a strong interest in community health and service. She is passionate about health education, preventive care, and improving access to healthcare. Through Akomapa UG Clinic, she hopes to contribute to meaningful community outreach, promote healthier communities, and develop her skills in leadership, teamwork, advocacy, and patient-centred care.",
     socialLinks: {
       email: "nneorjiokoro@gmail.com",
-      linkedin: "#",
     },
   },
   {
@@ -525,7 +522,6 @@ const canonicalPeople: PersonProfile[] = [
     bio: "Georgina is an undergraduate student at the University of Ghana with a strong academic focus on Dietetics. She is committed to advancing community health through evidence based nutritional guidance and effective liaison between the clinic and the communities it serves .",
     socialLinks: {
       email: "gabrahg@gmail.com",
-      linkedin: "#",
     },
   },
   {
@@ -536,7 +532,6 @@ const canonicalPeople: PersonProfile[] = [
     bio: "Bernard Kartey Larbi believes that great decisions begin with great questions. As a final-year Management student at KNUST and a Research Lead & Finance Assistant, Bernard is passionate about uncovering insights, understanding complex challenges, and translating knowledge into practical action that supports organizational growth and innovation.",
     socialLinks: {
       email: "bklarbi@st.knust.edu.gh",
-      linkedin: "#",
     },
   },
   {
@@ -547,7 +542,6 @@ const canonicalPeople: PersonProfile[] = [
     bio: "Darren Markwei is a private equity investor and a graduate of Yale University , where he earned a double bachelor's in Economics and History. He leads Corporate Partnership and Collaboration efforts at Akomapa Health, building the relationships and alliances that advance the organization's mission. ",
     socialLinks: {
       email: "darren.dynawd@gmail.com",
-      linkedin: "#",
     },
   },
 ];

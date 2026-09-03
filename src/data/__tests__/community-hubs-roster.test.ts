@@ -23,10 +23,20 @@ const expectedLeadership = [
 ] as const;
 
 const expectedUgLeadership = [
-  ["Divina Selase Afenyo", "UG Hub Co-Lead", "Akomapa Health Foundation"],
+  ["Divina Selase Afenyo", "UG Hub Co-Director", "University of Ghana"],
   ["Kelvin Akoto Boateng", "Financial Officer", "Pharmacy Student"],
   ["Nana-Ekow Moses", "Follow-up Lead", "General Nursing Student"],
   ["Rachael Akusika Adu", "Follow-up Lead", "Final Year BSc Physiotherapy Student"],
+  ["Jil Owusu-Ansah", "Community Liaison Officer", "University of Ghana"],
+  ["Esther Bray", "Community Liaison Officer", "University of Ghana"],
+  ["Maxwell Abiam Danso", "Volunteer Recruitment Lead", "University of Ghana"],
+  ["Joseph A.T. Broni", "Volunteer Recruitment Lead", "University of Ghana"],
+  ["Akua Bowaa Essah", "Faculty Recruitment Lead", "University of Ghana"],
+  ["Edugie Osunde", "Financial Officer", "University of Ghana"],
+  ["Denzel Nketia-Achiampong", "Research Co-Lead", "University of Ghana"],
+  ["Austin Afutu", "Training & Standards Coordinator", "University of Ghana"],
+  ["Nneoma Orji-Okoro", "Faculty Recruitment Lead", "University of Ghana"],
+  ["Georgina Garbrah", "Community Liaison Officer", "University of Ghana"],
 ] as const;
 
 describe("UCC community hub roster", () => {
@@ -97,12 +107,17 @@ describe("UG community hub roster", () => {
       ugHubRoster.leadership.every(
         ({ image }) =>
           typeof image === "string" &&
-          (image.startsWith("/ug-team/") || image.startsWith("/images/team/")),
+          (image.startsWith("/ug-team/") ||
+            image.startsWith("/images/team/") ||
+            image === "/placeholder.png"),
       ),
     ).toBe(true);
-    expect(new Set(ugHubRoster.leadership.map(({ image }) => image))).toHaveProperty(
+    const confirmedPortraits = ugHubRoster.leadership
+      .map(({ image }) => image)
+      .filter((image) => image !== "/placeholder.png");
+    expect(new Set(confirmedPortraits)).toHaveProperty(
       "size",
-      ugHubRoster.leadership.length,
+      confirmedPortraits.length,
     );
   });
 
