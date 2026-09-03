@@ -50,6 +50,12 @@ describe("canonical people directory", () => {
     for (const slug of ["derek-tuoyire", "martins-ekor", "alfred-yawson", "esi-berkoh", "patrick-ampofo", "jeremy-schwartz", "stacy-uchendu"]) {
       expect(getPersonBySlug(slug), slug).toBeDefined();
     }
+    expect(getPersonById("executive-jade-kissi")?.image).toBe(
+      "/images/team/jade_kissi.heif",
+    );
+    expect(getPersonById("darren-markwei")?.image).toBe(
+      "/images/team/darren_markwei.HEIC",
+    );
   });
 
   it("selects every eligible pictured team member for the hero network", () => {

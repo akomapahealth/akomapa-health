@@ -80,6 +80,47 @@ test.describe("team directory hierarchy", () => {
           ),
       )
       .toEqual(teamHeroPeople.map(({ id }) => id));
+
+    const jadePortrait = page.locator(
+      '[data-team-node-portrait="executive-jade-kissi"] img',
+    );
+    const jadePortraitUrl = new URL((await jadePortrait.getAttribute("src"))!);
+    expect(jadePortraitUrl.pathname).toMatch(/\/images\/team\/jade_kissi\.heif$/);
+    expect(jadePortraitUrl.searchParams.get("tr")).toMatch(
+      /(?:^|,)f-auto(?:,|$)/,
+    );
+    await expect
+      .poll(() =>
+        jadePortrait.evaluate(
+          (image: HTMLImageElement) => image.naturalWidth,
+        ),
+      )
+      .toBeGreaterThan(0);
+  });
+
+  test("transcodes HEIF and HEIC portraits into browser-renderable images", async ({
+    page,
+  }) => {
+    const darrenCard = page.locator('[data-team-member="Darren Markwei"]');
+    await darrenCard.scrollIntoViewIfNeeded();
+
+    const darrenPortrait = darrenCard.locator("[data-team-portrait] img");
+    const darrenPortraitUrl = new URL(
+      (await darrenPortrait.getAttribute("src"))!,
+    );
+    expect(darrenPortraitUrl.pathname).toMatch(
+      /\/images\/team\/darren_markwei\.heic$/i,
+    );
+    expect(darrenPortraitUrl.searchParams.get("tr")).toMatch(
+      /(?:^|,)f-auto(?:,|$)/,
+    );
+    await expect
+      .poll(() =>
+        darrenPortrait.evaluate(
+          (image: HTMLImageElement) => image.naturalWidth,
+        ),
+      )
+      .toBeGreaterThan(0);
   });
 
   test("renders a complete non-executive profile with consistent portrait cropping", async ({

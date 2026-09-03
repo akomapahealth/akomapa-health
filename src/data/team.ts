@@ -186,7 +186,7 @@ const canonicalPeople: PersonProfile[] = [
     id: "executive-divina-afenyo",
     name: "Divina Selase Afenyo",
     affiliation: "University of Ghana",
-    image: "/images/team/divina-selase-afenyo.jpg",
+    image: "/ug-team/divina_selase_afenyo.jpg",
     bio: "Divina Selase Afenyo is a student nurse, health advocate, and emerging leader passionate about patient-centred care, health promotion, and disease prevention. She is also passionate about health communication, media, student advocacy, women’s leadership, and mentorship. Through Akomapa, she is committed to empowering communities with knowledge, promoting preventive health, and advancing accessible, people-centred healthcare.",
     socialLinks: {
       email: "divinaafenyo1@gmail.com",
@@ -198,7 +198,7 @@ const canonicalPeople: PersonProfile[] = [
     featuredInTeamHero: true,
     name: "Jade Kissi",
     affiliation: "Akomapa Health Foundation",
-    image: "/images/team/jade-kissi.jpg",
+    image: "/images/team/jade_kissi.heif",
     bio: "Jade Kissi, MPH, RN, is a Registered Nurse, Lean and Pediatric Nurse Practitioner in training at Yale School of Nursing. Dedicated to serving under-resourced populations; her background combines bedside clinical care with health policy research, advocacy for under resourced communities, and quality improvement. She leverages expertise in clinical operations and healthcare management to advance health equity and build sustainable, high-quality care systems for underserved groups.",
     socialLinks: {
       email: "kakrakissi@gmail.com",
@@ -432,7 +432,7 @@ const canonicalPeople: PersonProfile[] = [
     id: "esther-bray",
     name: "Esther Bray",
     affiliation: "University of Ghana",
-    image: "/placeholder.png",
+    image: "/ug-team/esther_bray.jpeg",
     bio: "Driven by excellence, purpose, and meaningful impact, Esther is passionate about human life most especially pediatrics, personal growth, and becoming someone whose work makes a difference, while staying grounded in faith and the values that shape me.",
     socialLinks: {
       email: "estherbray896@gmail.com",
@@ -442,7 +442,7 @@ const canonicalPeople: PersonProfile[] = [
     id: "maxwell-abiam-danso",
     name: "Maxwell Abiam Danso",
     affiliation: "University of Ghana",
-    image: "/placeholder.png",
+    image: "/ug-team/maxwell_abiam_danso.jpg",
     bio: "Maxwell Abiam Danso is a student at the University of Ghana and serves as a Volunteer Recruitment Lead at the Akomapa UG Clinic, supporting continuity of care after clinical encounters.",
     socialLinks: {
       email: "dansoabiammaxwell@gmail.com",
@@ -453,7 +453,7 @@ const canonicalPeople: PersonProfile[] = [
     id: "joseph-at-bron",
     name: "Joseph A.T. Broni",
     affiliation: "University of Ghana",
-    image: "/placeholder.png",
+    image: "/ug-team/joseph_broni.jpg",
     bio: "Joseph Amoatey Tettey Broni, a University of Ghana Pharmacy candidate, combines clinical internships (patient care, drug safety) with leadership in student pharma and non-pharma associations. Skilled in brand strategy, media, and public speaking, he is fluent in multiple languages. His advocacy focuses on global health policy, pharmaceutical access, and international diplomacy, aiming to bridge public health and governance.",
     socialLinks: {
       email: "bronijoey@gmail.com",
@@ -464,7 +464,7 @@ const canonicalPeople: PersonProfile[] = [
     id: "akua-bowaa-essah",
     name: "Akua Bowaa Essah",
     affiliation: "University of Ghana",
-    image: "/placeholder.png",
+    image: "/ug-team/akua_bowaa_essah.jpg",
     bio: "Akua Bowaa Essah is a very big advocate for mental health, especially amongst the youth. My life's mission is to eradicate the stigma surrounding those with mental illnesses and reconstruct the perceptions people have about mental illness. I also love anything healthcare related, no matter how grimey it gets.",
     socialLinks: {
       email: "bowsie4u@gmail.com",
@@ -475,7 +475,7 @@ const canonicalPeople: PersonProfile[] = [
     id: "edugie-osunde",
     name: "Edugie Osunde",
     affiliation: "University of Ghana",
-    image: "/placeholder.png",
+    image: "/ug-team/edugie_osunde.jpg",
     bio: "Edugie, currently a medical student at the University of Ghana with a BSc in Biomedical Engineering, is strongly passionate about patient-centered care and serving the underserved. She serves as the financial officer of the Akomapa UG clinic.",
     socialLinks: {
       email: "edugie99@gmail.com",
@@ -486,7 +486,7 @@ const canonicalPeople: PersonProfile[] = [
     id: "denzel-nketia-achiampong",
     name: "Denzel Nketia-Achiampong",
     affiliation: "University of Ghana",
-    image: "/placeholder.png",
+    image: "/ug-team/denzel_nketia_achiampong.jpg",
     bio: "Denzel Nketia-Achiampong is a medical student at the University of Ghana and serves as Research Co-Lead at the Akomapa UG Clinic. He focuses on survey validation, research data infrastructure and quality control across student-led community health initiatives.",
     socialLinks: {
       email: "dnketia-achiampong@st.ug.edu.gh",
@@ -497,7 +497,7 @@ const canonicalPeople: PersonProfile[] = [
     id: "austin-afutu",
     name: "Austin Afutu",
     affiliation: "University of Ghana",
-    image: "/placeholder.png",
+    image: "/ug-team/austin_afutu.jpg",
     bio: "Austin Afutu is a Doctor of Pharmacy candidate at the University of Ghana and Training & Standards Coordinator at the Akomapa Student-Run Free Clinic, where he helps develop volunteer training, clinical protocols, and counselling standards. He also serves as Vice President of the University of Ghana Pharmacy Students' Association. Austin is passionate about AI-driven digital health solutions for African healthcare, and is committed to strengthening community-based NCD screening and care.",
     socialLinks: {
       email: "afutuaustin@gmail.com",
@@ -508,7 +508,7 @@ const canonicalPeople: PersonProfile[] = [
     id: "nneoma-orji-okoro",
     name: "Nneoma Orji-Okoro",
     affiliation: "University of Ghana",
-    image: "/placeholder.png",
+    image: "/ug-team/nneoma_orji-okoro.PNG",
     bio: "Nneoma is a medical student at the University of Ghana Medical School with a strong interest in community health and service. She is passionate about health education, preventive care, and improving access to healthcare. Through Akomapa UG Clinic, she hopes to contribute to meaningful community outreach, promote healthier communities, and develop her skills in leadership, teamwork, advocacy, and patient-centred care.",
     socialLinks: {
       email: "nneorjiokoro@gmail.com",
@@ -518,7 +518,7 @@ const canonicalPeople: PersonProfile[] = [
     id: "georgina-garbrah",
     name: "Georgina Garbrah",
     affiliation: "University of Ghana",
-    image: "/placeholder.png",
+    image: "/ug-team/georgina_gabrah.jpg",
     bio: "Georgina is an undergraduate student at the University of Ghana with a strong academic focus on Dietetics. She is committed to advancing community health through evidence based nutritional guidance and effective liaison between the clinic and the communities it serves .",
     socialLinks: {
       email: "gabrahg@gmail.com",
@@ -528,7 +528,7 @@ const canonicalPeople: PersonProfile[] = [
     id: "bernard-kartey-larbi",
     name: "Bernard Kartey Larbi",
     affiliation: "Kwame Nkrumah University of Science and Technology",
-    image: "/placeholder.png",
+    image: "/ug-team/watt_whiteman.jpeg",
     bio: "Bernard Kartey Larbi believes that great decisions begin with great questions. As a final-year Management student at KNUST and a Research Lead & Finance Assistant, Bernard is passionate about uncovering insights, understanding complex challenges, and translating knowledge into practical action that supports organizational growth and innovation.",
     socialLinks: {
       email: "bklarbi@st.knust.edu.gh",
@@ -538,7 +538,7 @@ const canonicalPeople: PersonProfile[] = [
     id: "darren-markwei",
     name: "Darren Markwei",
     affiliation: "Yale University",
-    image: "/placeholder.png",
+    image: "/images/team/darren_markwei.HEIC",
     bio: "Darren Markwei is a private equity investor and a graduate of Yale University , where he earned a double bachelor's in Economics and History. He leads Corporate Partnership and Collaboration efforts at Akomapa Health, building the relationships and alliances that advance the organization's mission. ",
     socialLinks: {
       email: "darren.dynawd@gmail.com",

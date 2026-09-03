@@ -110,6 +110,9 @@ for (const scenario of [
     expect(firstLeaderUrl.hostname).toBe("ik.imagekit.io");
     expect(firstLeaderUrl.pathname).toMatch(/^\/[^/]+\/ucc-team\/[^/]+$/);
     expect(firstLeaderUrl.searchParams.get("tr")).toMatch(
+      /(?:^|,)f-auto(?:,|$)/,
+    );
+    expect(firstLeaderUrl.searchParams.get("tr")).toMatch(
       /(?:^|,)q-75(?:,|$)/,
     );
     expect(firstLeaderUrl.searchParams.get("tr")).toMatch(

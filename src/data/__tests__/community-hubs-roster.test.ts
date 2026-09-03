@@ -119,6 +119,24 @@ describe("UG community hub roster", () => {
       "size",
       confirmedPortraits.length,
     );
+    expect(
+      ugHubRoster.leadership.map(({ image }) => image),
+    ).toEqual([
+      "/ug-team/divina_selase_afenyo.jpg",
+      "/ug-team/kelvin-akoto-boateng.jpg",
+      "/ug-team/nana-ekow-moses.jpg",
+      "/ug-team/rachael-akusika-adu.jpg",
+      "/placeholder.png",
+      "/ug-team/esther_bray.jpeg",
+      "/ug-team/maxwell_abiam_danso.jpg",
+      "/ug-team/joseph_broni.jpg",
+      "/ug-team/akua_bowaa_essah.jpg",
+      "/ug-team/edugie_osunde.jpg",
+      "/ug-team/denzel_nketia_achiampong.jpg",
+      "/ug-team/austin_afutu.jpg",
+      "/ug-team/nneoma_orji-okoro.PNG",
+      "/ug-team/georgina_gabrah.jpg",
+    ]);
   });
 
   it("keeps the volunteer section omitted until portraits arrive", () => {
