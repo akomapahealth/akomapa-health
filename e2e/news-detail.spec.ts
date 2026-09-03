@@ -168,7 +168,7 @@ test.describe("Announcement modal", () => {
     ).toBeVisible();
     await expect(modal.locator("img")).toHaveAttribute(
       "src",
-      /Akomapa-40\.jpg/,
+      /elimina-castle\.webp/,
     );
   });
 
