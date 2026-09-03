@@ -1,4 +1,4 @@
-import { expect, test, type Page } from "@playwright/test";
+import { expect, test, type Locator, type Page } from "@playwright/test";
 import { announcementCampaign } from "../src/data/announcements";
 
 const heading =
@@ -38,6 +38,36 @@ async function preparePage(
   );
 }
 
+async function getJoinMovementGeometry(section: Locator) {
+  return section.evaluate(async (element) => {
+    // Allow scroll-triggered reveals and responsive styles to settle, then read
+    // every rectangle in one browser frame so a late page reflow cannot mix
+    // coordinates from before and after the layout update.
+    await new Promise<void>((resolve) => {
+      requestAnimationFrame(() => requestAnimationFrame(() => resolve()));
+    });
+
+    const getRect = (selector: string) => {
+      const target = element.querySelector<HTMLElement>(selector);
+
+      if (!target) {
+        throw new Error(`Missing Join the Movement element: ${selector}`);
+      }
+
+      const { x, y, width, height } = target.getBoundingClientRect();
+      return { x, y, width, height };
+    };
+
+    return {
+      copyBox: getRect("[data-join-copy]"),
+      actionsBox: getRect("[data-join-actions]"),
+      supportBox: getRect('[href="/donate"]'),
+      partnershipBox: getRect('[href="/partnerships"]'),
+      participationBox: getRect('[href="/get-involved"]'),
+    };
+  });
+}
+
 test.describe("homepage Join the Movement call to action", () => {
   for (const theme of themes) {
     for (const viewport of viewports) {
@@ -58,8 +88,6 @@ test.describe("homepage Join the Movement call to action", () => {
           name: heading,
           exact: true,
         });
-        const copy = section.locator("[data-join-copy]");
-        const actions = section.locator("[data-join-actions]");
         const supportLink = section.getByRole("link", {
           name: "Support Our Work",
         });
@@ -87,30 +115,13 @@ test.describe("homepage Join the Movement call to action", () => {
           "/get-involved",
         );
 
-        const [copyBox, actionsBox, supportBox, partnershipBox, participationBox] =
-          await Promise.all([
-            copy.boundingBox(),
-            actions.boundingBox(),
-            supportLink.boundingBox(),
-            partnershipLink.boundingBox(),
-            participationLink.boundingBox(),
-          ]);
-
-        expect(copyBox).not.toBeNull();
-        expect(actionsBox).not.toBeNull();
-        expect(supportBox).not.toBeNull();
-        expect(partnershipBox).not.toBeNull();
-        expect(participationBox).not.toBeNull();
-
-        if (
-          !copyBox ||
-          !actionsBox ||
-          !supportBox ||
-          !partnershipBox ||
-          !participationBox
-        ) {
-          throw new Error("Join the Movement geometry was not rendered");
-        }
+        const {
+          copyBox,
+          actionsBox,
+          supportBox,
+          partnershipBox,
+          participationBox,
+        } = await getJoinMovementGeometry(section);
 
         if (viewport.width < 1024) {
           expect(actionsBox.y).toBeGreaterThanOrEqual(
