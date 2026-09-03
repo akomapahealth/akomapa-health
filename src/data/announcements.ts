@@ -31,7 +31,7 @@ export const announcementCampaign: AnnouncementCampaign = {
       titleHighlights: ["applications are open"],
       description:
         "Apply for Akomapa's two-week Global Health Immersion Program in Ghana, or RSVP for the upcoming information session to learn about the experience before submitting your application.",
-      image: "/highlights/Akomapa-40.jpg",
+      image: "/elimina-castle.webp",
       ctaText: "Apply Now",
       ctaLink: IMMERSION_APPLICATION_FORM_URL,
       isExternal: true,
