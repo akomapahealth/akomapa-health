@@ -46,7 +46,7 @@ export type ImmersionProgramContent = {
 
 export const immersionProgram: ImmersionProgramContent = {
   eyebrow: "Global Health Immersion Program",
-  applicationStatus: "Applications Opening Soon",
+  applicationStatus: "Applications Now Open",
   title: "Learn through partnership. Lead with understanding.",
   introduction:
     "Akomapa is inviting learners from around the world to participate in a two-week global health experience in Ghana connecting emerging health leaders with community learning, primary care, ethical leadership, and cultural exchange.",
@@ -69,7 +69,7 @@ export const immersionProgram: ImmersionProgramContent = {
     {
       label: "Next cohort",
       value: "Coming 2027",
-      description: "Applications opening soon.",
+      description: "Applications are now open.",
     },
   ],
   experiences: [

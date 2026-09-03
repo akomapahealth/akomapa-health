@@ -1,8 +1,7 @@
 "use client";
 
 import { FadeIn } from "@/components/animations";
-import ImmersionRegisterInterestButton from "@/components/immersion/ImmersionRegisterInterestButton";
-import ImmersionRequestBrochureButton from "@/components/immersion/ImmersionRequestBrochureButton";
+import ImmersionGoogleFormButton from "@/components/immersion/ImmersionGoogleFormButton";
 import { SectionEyebrow } from "@/components/shared/PublicPagePrimitives";
 import { IMMERSION_INTEREST_COPY } from "@/lib/immersion-interest";
 
@@ -30,11 +29,13 @@ export default function ImmersionAlertSection() {
                 {IMMERSION_INTEREST_COPY.section.body}
               </p>
               <div className="mt-8 grid max-w-xl gap-3 sm:grid-cols-2">
-                <ImmersionRegisterInterestButton
-                  variant="teal"
+                <ImmersionGoogleFormButton
+                  form="application"
+                  variant="solid"
                   className="min-h-12 justify-center !text-[#1C1F1E]"
                 />
-                <ImmersionRequestBrochureButton
+                <ImmersionGoogleFormButton
+                  form="info-session"
                   variant="outline"
                   className="min-h-12 justify-center"
                 />

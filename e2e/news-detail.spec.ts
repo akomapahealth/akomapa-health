@@ -152,6 +152,24 @@ test.describe("Announcement modal", () => {
 
     const modal = page.locator('[role="dialog"][aria-label="Announcements"]');
     await expect(modal).toBeVisible({ timeout: 15000 });
+    await expect(
+      modal.getByRole("heading", {
+        name: "Global Health Immersion Program applications are open",
+      }),
+    ).toBeVisible();
+    await expect(modal.locator("time")).toHaveAttribute(
+      "datetime",
+      "2026-09-03T00:00:00.000Z",
+    );
+    await expect(modal.locator("time")).toHaveText("September 3, 2026");
+    await expect(modal.getByRole("link", { name: "Apply Now" })).toBeVisible();
+    await expect(
+      modal.getByRole("link", { name: "RSVP for the Info Session" }),
+    ).toBeVisible();
+    await expect(modal.locator("img")).toHaveAttribute(
+      "src",
+      /Akomapa-40\.jpg/,
+    );
   });
 
   test("does not auto-open after the campaign was dismissed", async ({

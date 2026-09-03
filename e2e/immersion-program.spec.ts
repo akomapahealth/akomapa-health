@@ -106,9 +106,9 @@ test.describe("Immersion program responsive editorial layout", () => {
           const experienceLinks = Array.from(
             element.querySelectorAll<HTMLElement>('a[href="#experience"]'),
           );
-          const interestButtons = Array.from(
+          const formLinks = Array.from(
             element.querySelectorAll<HTMLElement>(
-              "[data-immersion-register-interest], [data-immersion-alert-cta]",
+              "[data-immersion-google-form] a",
             ),
           );
 
@@ -125,7 +125,7 @@ test.describe("Immersion program responsive editorial layout", () => {
                 labelOverflow: link.scrollWidth > link.clientWidth + 1,
               };
             }),
-            interestButtons: interestButtons.map((button) => {
+            formLinks: formLinks.map((button) => {
               const rect = button.getBoundingClientRect();
               return {
                 text: button.textContent?.trim(),
@@ -139,13 +139,13 @@ test.describe("Immersion program responsive editorial layout", () => {
 
         expect(layoutChecks.headingOverflow).toBe(false);
         expect(layoutChecks.experienceLinks).toHaveLength(1);
-        expect(layoutChecks.interestButtons).toHaveLength(3);
+        expect(layoutChecks.formLinks).toHaveLength(5);
         for (const link of layoutChecks.experienceLinks) {
           expect(link.height, link.text).toBeGreaterThanOrEqual(44);
           expect(link.clipped, link.text).toBe(false);
           expect(link.labelOverflow, link.text).toBe(false);
         }
-        for (const button of layoutChecks.interestButtons) {
+        for (const button of layoutChecks.formLinks) {
           expect(button.height, button.text).toBeGreaterThanOrEqual(44);
           expect(button.clipped, button.text).toBe(false);
           expect(button.labelOverflow, button.text).toBe(false);
@@ -326,14 +326,14 @@ test.describe("Immersion program responsive editorial layout", () => {
       name: immersionProgram.title,
       exact: true,
     });
-    const interestButton = hero.getByRole("button", {
-      name: "Register Interest",
+    const applicationLink = hero.getByRole("link", {
+      name: "Apply Now",
       exact: true,
     });
 
-    await interestButton.focus();
-    await expect(interestButton).toBeFocused();
-    await expect(interestButton).toHaveCSS("outline-style", "solid");
+    await applicationLink.focus();
+    await expect(applicationLink).toBeFocused();
+    await expect(applicationLink).toHaveCSS("outline-style", "solid");
   });
 });
 

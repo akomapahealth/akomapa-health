@@ -4,6 +4,10 @@ import ImmersionInterestProvider from "@/components/immersion/ImmersionInterestP
 import Content from "../Content";
 import { immersionProgram } from "@/data/immersion-program";
 import { IMMERSION_INTEREST_COPY } from "@/lib/immersion-interest";
+import {
+  IMMERSION_APPLICATION_FORM_URL,
+  IMMERSION_INFO_SESSION_FORM_URL,
+} from "@/config/links";
 
 function renderContent() {
   return render(
@@ -95,34 +99,29 @@ describe("Global Health Immersion Program top-level page", () => {
     });
   });
 
-  it("provides accurate inquiry actions without stale cohort language", () => {
+  it("provides the current application and information-session actions", () => {
     const { container } = renderContent();
 
-    const registerButtons = screen.getAllByRole("button", {
-      name: "Register Interest",
+    const applicationLinks = screen.getAllByRole("link", {
+      name: "Apply Now",
     });
-    expect(registerButtons).toHaveLength(3);
-    registerButtons.forEach((button) => {
-      expect(button).toHaveAttribute("data-immersion-register-interest");
-      expect(button).toHaveAttribute("data-intake-form-key", "immersion");
-      expect(button).toHaveAttribute(
-        "data-intake-intent",
-        "register_interest",
-      );
+    expect(applicationLinks).toHaveLength(3);
+    applicationLinks.forEach((link) => {
+      expect(link).toHaveAttribute("href", IMMERSION_APPLICATION_FORM_URL);
+      expect(link).toHaveAttribute("target", "_blank");
+      expect(link).toHaveAttribute("rel", "noopener noreferrer");
     });
 
-    const brochureButtons = screen.getAllByRole("button", {
-      name: "Request Brochure",
+    const infoSessionLinks = screen.getAllByRole("link", {
+      name: "RSVP for the Info Session",
     });
-    expect(brochureButtons).toHaveLength(2);
-    brochureButtons.forEach((button) => {
-      expect(button).toHaveAttribute("data-immersion-request-brochure");
-      expect(button).toHaveAttribute("data-intake-form-key", "immersion");
-      expect(button).toHaveAttribute(
-        "data-intake-intent",
-        "request_brochure",
-      );
+    expect(infoSessionLinks).toHaveLength(2);
+    infoSessionLinks.forEach((link) => {
+      expect(link).toHaveAttribute("href", IMMERSION_INFO_SESSION_FORM_URL);
+      expect(link).toHaveAttribute("target", "_blank");
+      expect(link).toHaveAttribute("rel", "noopener noreferrer");
     });
+    expect(container.querySelectorAll("[data-intake-intent]")).toHaveLength(0);
 
     expect(
       screen.getByRole("link", { name: "Explore the Experience" }),
@@ -133,7 +132,7 @@ describe("Global Health Immersion Program top-level page", () => {
     expect(
       within(
         container.querySelector("[data-immersion-alert-section]") as HTMLElement,
-      ).getByRole("button", {
+      ).getByRole("link", {
         name: IMMERSION_INTEREST_COPY.section.cta,
       }),
     ).toBeInTheDocument();

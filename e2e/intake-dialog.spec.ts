@@ -29,34 +29,22 @@ test.beforeEach(async ({ page }) => {
 });
 
 for (const viewport of viewports) {
-  test(`program intake is responsive at ${viewport.width}px`, async ({
+  test(`program form links are responsive at ${viewport.width}px`, async ({
     page,
   }) => {
     await page.setViewportSize(viewport);
     await page.goto("/global-health-immersion-program", {
       waitUntil: "domcontentloaded",
     });
-    const trigger = page.locator("[data-immersion-register-interest]").first();
-    await trigger.scrollIntoViewIfNeeded();
-    await expect(async () => {
-      await trigger.click({ force: true });
-      await expect(page.getByRole("dialog")).toBeVisible();
-    }).toPass({ timeout: 10_000 });
-    const dialog = page.getByRole("dialog");
-    await expect(dialog).toBeVisible();
-    await expect(dialog).toContainText("Do not submit medical details");
-    await expect(
-      dialog.getByRole("link", {
-        name: /Open the secure hosted form|Contact Akomapa instead/,
-      }),
-    ).toBeVisible();
+    const application = page.getByRole("link", { name: "Apply Now" }).first();
+    await application.scrollIntoViewIfNeeded();
+    await expect(application).toBeVisible();
+    await expect(application).toHaveAttribute("target", "_blank");
     const dimensions = await page.evaluate(() => ({
       viewport: innerWidth,
       document: document.documentElement.scrollWidth,
-      dialog: document.querySelector('[role="dialog"]')?.scrollWidth ?? 0,
     }));
     expect(dimensions.document).toBeLessThanOrEqual(dimensions.viewport + 1);
-    expect(dimensions.dialog).toBeLessThanOrEqual(dimensions.viewport + 1);
   });
 }
 
@@ -88,16 +76,12 @@ test("supports dark mode, reduced motion, keyboard use, and 200% zoom-equivalent
   await page.emulateMedia({ colorScheme: "dark", reducedMotion: "reduce" });
   await page.setViewportSize({ width: 720, height: 900 });
   await page.goto("/global-health-immersion-program");
-  const trigger = page.locator("[data-immersion-register-interest]").first();
-  const dialog = page.getByRole("dialog");
+  const application = page.getByRole("link", { name: "Apply Now" }).first();
   await expect(async () => {
-    await trigger.focus();
-    await expect(trigger).toBeFocused();
-    await trigger.press("Enter");
-    await expect(dialog).toBeVisible({ timeout: 2_000 });
+    await application.focus();
+    await expect(application).toBeFocused();
   }).toPass({ timeout: 10_000 });
-  await page.keyboard.press("Tab");
-  await expect(dialog).toContainText("Do not submit medical details");
+  await expect(application).toHaveCSS("outline-style", "solid");
   const dimensions = await page.evaluate(() => ({
     client: document.documentElement.clientWidth,
     scroll: document.documentElement.scrollWidth,

@@ -1,11 +1,47 @@
-import { UG_TRAINING_FORM_URL } from "@/config/links";
-import { AnnouncementCampaign } from "@/lib/types";
+import {
+  IMMERSION_APPLICATION_FORM_URL,
+  IMMERSION_INFO_SESSION_FORM_URL,
+  UG_TRAINING_FORM_URL,
+} from "@/config/links";
+import type {
+  AnnouncementCampaign,
+  DatedAnnouncement,
+} from "@/lib/types";
+
+export const ANNOUNCEMENT_LIFETIME_DAYS = 14;
+const ANNOUNCEMENT_LIFETIME_MS =
+  ANNOUNCEMENT_LIFETIME_DAYS * 24 * 60 * 60 * 1000;
+
+const announcementDateFormatter = new Intl.DateTimeFormat("en-US", {
+  month: "long",
+  day: "numeric",
+  year: "numeric",
+  timeZone: "UTC",
+});
 
 export const announcementCampaign: AnnouncementCampaign = {
-  version: "2026-08-v1",
+  version: "2026-09-immersion-v1",
   slides: [
     {
+      id: "global-health-immersion-applications",
+      publishedAt: "2026-09-03T00:00:00.000Z",
+      tag: "Applications Open",
+      tagColor: "amber",
+      title: "Global Health Immersion Program applications are open",
+      titleHighlights: ["applications are open"],
+      description:
+        "Apply for Akomapa's two-week Global Health Immersion Program in Ghana, or RSVP for the upcoming information session to learn about the experience before submitting your application.",
+      image: "/highlights/Akomapa-40.jpg",
+      ctaText: "Apply Now",
+      ctaLink: IMMERSION_APPLICATION_FORM_URL,
+      isExternal: true,
+      secondaryCtaText: "RSVP for the Info Session",
+      secondaryCtaLink: IMMERSION_INFO_SESSION_FORM_URL,
+      secondaryCtaIsExternal: true,
+    },
+    {
       id: "ug-hub-launch",
+      publishedAt: "2026-08-12T00:00:00.000Z",
       tag: "Now Open",
       tagColor: "amber",
       title: "The wait is finally over!",
@@ -19,6 +55,7 @@ export const announcementCampaign: AnnouncementCampaign = {
     },
     {
       id: "yale-khanal-award",
+      publishedAt: "2026-04-30T00:00:00.000Z",
       tag: "Award",
       tagColor: "amber",
       title: "Yale Global Health Yogesh Khanal Award",
@@ -32,6 +69,7 @@ export const announcementCampaign: AnnouncementCampaign = {
     },
     {
       id: "startup-yale-finalist",
+      publishedAt: "2026-04-30T00:00:00.000Z",
       tag: "Recognition",
       tagColor: "amber",
       title: "Startup Yale Finalist powered by Tsai City",
@@ -47,6 +85,7 @@ export const announcementCampaign: AnnouncementCampaign = {
     },
     {
       id: "ethical-leadership-launch",
+      publishedAt: "2026-04-29T00:00:00.000Z",
       tag: "New Program",
       tagColor: "lapis",
       title: "Akomapa Ethical Leadership Program",
@@ -60,6 +99,7 @@ export const announcementCampaign: AnnouncementCampaign = {
     },
     {
       id: "nkwapa-emr-launch",
+      publishedAt: "2026-04-28T00:00:00.000Z",
       tag: "New",
       tagColor: "skobeloff",
       title: "Introducing Nkwapa — Our EMR Platform",
@@ -73,6 +113,7 @@ export const announcementCampaign: AnnouncementCampaign = {
     },
     {
       id: "mastercard-momentum",
+      publishedAt: "2026-04-30T00:00:00.000Z",
       tag: "Recognition",
       tagColor: "amber",
       title: "African Impact Initiative - Momentum Track",
@@ -86,6 +127,7 @@ export const announcementCampaign: AnnouncementCampaign = {
     },
     {
       id: "ucc-expansion",
+      publishedAt: "2026-04-26T00:00:00.000Z",
       tag: "Growth",
       tagColor: "skobeloff",
       title: "UCC Expansion to 4 Communities",
@@ -99,6 +141,7 @@ export const announcementCampaign: AnnouncementCampaign = {
     },
     {
       id: "yale-african-symposium",
+      publishedAt: "2026-04-30T00:00:00.000Z",
       tag: "Partnership",
       tagColor: "lapis",
       title: "Yale African Innovation Symposium",
@@ -112,3 +155,36 @@ export const announcementCampaign: AnnouncementCampaign = {
     },
   ],
 };
+
+export function isAnnouncementActive(
+  announcement: DatedAnnouncement,
+  now: Date = new Date(),
+): boolean {
+  const publishedAt = Date.parse(announcement.publishedAt);
+  const nowTime = now.getTime();
+
+  if (!Number.isFinite(publishedAt) || !Number.isFinite(nowTime)) return false;
+
+  return (
+    publishedAt <= nowTime &&
+    nowTime < publishedAt + ANNOUNCEMENT_LIFETIME_MS
+  );
+}
+
+export function getActiveAnnouncementCampaign(
+  now: Date = new Date(),
+): AnnouncementCampaign {
+  return {
+    ...announcementCampaign,
+    slides: announcementCampaign.slides.filter((slide) =>
+      isAnnouncementActive(slide, now),
+    ),
+  };
+}
+
+export function formatAnnouncementDate(publishedAt: string): string {
+  const date = new Date(publishedAt);
+  return Number.isFinite(date.getTime())
+    ? announcementDateFormatter.format(date)
+    : "";
+}

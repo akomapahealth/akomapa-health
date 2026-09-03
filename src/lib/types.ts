@@ -365,6 +365,8 @@ export interface Announcement {
   id: string;
   title: string;
   description: string;
+  /** ISO-8601 publication timestamp used for display and campaign aging. */
+  publishedAt?: string;
   tag?: string;
   tagColor?: "lapis" | "amber" | "skobeloff";
   image?: string;
@@ -374,6 +376,9 @@ export interface Announcement {
   ctaText?: string;
   ctaLink?: string;
   isExternal?: boolean;
+  secondaryCtaText?: string;
+  secondaryCtaLink?: string;
+  secondaryCtaIsExternal?: boolean;
   /**
    * Optional substrings of `title` to highlight with brand accent colors
    * (alternating cyan/amber). Substrings are matched literally, in order.
@@ -382,9 +387,13 @@ export interface Announcement {
   titleHighlights?: string[];
 }
 
+export interface DatedAnnouncement extends Announcement {
+  publishedAt: string;
+}
+
 export interface AnnouncementCampaign {
   version: string;
-  slides: Announcement[];
+  slides: DatedAnnouncement[];
 }
 
 export interface NewsItem {
