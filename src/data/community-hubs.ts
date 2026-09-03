@@ -398,10 +398,20 @@ export const uccHubRoster: HubRoster = {
  * page until that data ships.
  */
 export const ugLeadershipConfig = [
-  { personId: "executive-divina-afenyo", role: "UG Hub Co-Lead" },
+  { personId: "executive-divina-afenyo", role: "UG Hub Co-Director" },
   { personId: "kelvin-akoto-boateng", role: "Financial Officer" },
   { personId: "nana-ekow-moses", role: "Follow-up Lead" },
   { personId: "rachael-akusika-adu", role: "Follow-up Lead" },
+  { personId: "jil-owusu-ansah", role: "Community Liaison Officer" },
+  { personId: "esther-bray", role: "Community Liaison Officer" },
+  { personId: "maxwell-abiam-danso", role: "Volunteer Recruitment Lead" },
+  { personId: "joseph-at-bron", role: "Volunteer Recruitment Lead" },
+  { personId: "akua-bowaa-essah", role: "Faculty Recruitment Lead" },
+  { personId: "edugie-osunde", role: "Financial Officer" },
+  { personId: "denzel-nketia-achiampong", role: "Research Co-Lead" },
+  { personId: "austin-afutu", role: "Training & Standards Coordinator" },
+  { personId: "nneoma-orji-okoro", role: "Faculty Recruitment Lead" },
+  { personId: "georgina-garbrah", role: "Community Liaison Officer " },
 ] as const satisfies readonly HubLeaderReference[];
 
 export const ugHubRoster: HubRoster = {

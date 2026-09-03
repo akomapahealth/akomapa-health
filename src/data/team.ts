@@ -25,7 +25,7 @@ const canonicalPeople: PersonProfile[] = [
       email: "brian.fleischer@yale.edu",
       linkedin: "https://www.linkedin.com/in/brian-fleischer-md-37011010b/",
     },
-    bio: "Dr. Brian Fleischer is a physician and global health leader dedicated to advancing equitable care for non-communicable diseases in underserved communities. A graduate of Yale School of Medicine and Stanford University, he founded Akomapa Health Foundation to help students and communities build sustainable approaches to hypertension, diabetes, and mental health care across Ghana and beyond.",
+    bio: "Dr. Brian Fleischer is a physician and global health leader dedicated to advancing equitable care for non-communicable diseases in underserved communities. A graduate of Yale School of Medicine and Stanford University, he founded Akomapa Health Foundation to help students and communities build sustainable approaches to hypertension, diabetes, and mental health care across Ghana and beyond—building a movement of compassionate health leaders with akomapa, a “good heart”.",
   },
   {
     id: "executive-esi-berkoh",
@@ -50,7 +50,7 @@ const canonicalPeople: PersonProfile[] = [
       email: "nanabadu59@gmail.com",
       linkedin: "https://linkedin.com/in/afriyie-badu",
     },
-    bio: "Dr. Nana Yaw Afriyie Badu is a medical doctor and co-founder of Akomapa. He helps guide the organization’s operations and sustainable use of resources so programs can make a lasting community impact. He co-founded Akomapa to help shift non-communicable disease care toward prevention through early detection, education, and lifestyle interventions.",
+    bio: "Dr. Nana Yaw Afriyie Badu is a medical doctor and a Co-founder of Akomapa. In his role, he oversees the organization’s financial strategy and sustainability, ensuring that programs are effectively resourced to make a lasting community impact. He co-founded Akomapa out of a desire to transform the approach to non-communicable diseases by shifting the focus from treatment to prevention through early detection, education, and lifestyle interventions. Outside Akomapa, Dr. Badu is deeply passionate about orthopaedic surgery, sports medicine, and public health advocacy, and continues to champion initiatives that bridge healthcare access and community wellness.",
   },
   {
     id: "executive-prince-tuffour",
@@ -74,7 +74,7 @@ const canonicalPeople: PersonProfile[] = [
       email: "adansododoo@gmail.com",
       linkedin: "https://www.linkedin.com/in/adwoadanso-dodoo/",
     },
-    bio: "Adwoa Danso-Dodoo is a Business Analyst at McKinsey & Company and a graduate of Yale College and the Yale School of Management, where she studied Chemical Engineering and Technology Management. She helps manage Akomapa’s budget and supports development of the Akomapa Summer Immersion Program.",
+    bio: "Adwoa Danso-Dodoo is a Business Analyst at McKinsey & Company and a graduate of Yale College and the Yale School of Management, where she studied Chemical Engineering and Technology Management, respectively. She serves as the Chief Financial Officer at Akomapa Health Foundation, helping to manage the organization’s budget. In addition, she is helping develop the Akomapa Summer Immersion Program. Adwoa joined the team because she is passionate about Akomapa’s mission to bring care to more communities and to encourage students to lead with empathy and purpose.",
   },
   {
     id: "executive-hafiz-shaban",
@@ -105,7 +105,7 @@ const canonicalPeople: PersonProfile[] = [
       email: "naamaocran@gmail.com",
       linkedin: "https://www.linkedin.com/in/nana-ama-nhyira-ocran-16957626b/",
     },
-    bio: "Nana Ama Ocran studies History of Science, Medicine & Public Health and French at Yale University. She designs leadership-training opportunities grounded in equity, collaboration, and bidirectional learning, strengthening pathways for young people to lead community-rooted health work.",
+    bio: "Nana Ama Ocran graduated with a BA in History of Science, Medicine & Public Health, and French from Yale University. She currently serves as the Leadership Training Program Lead for Akomapa Health Foundation, US. In her role, she designs and organizes opportunities for bidirectional learning that emphasize equity, collaboration, and community-rooted approaches to care. She joined Akomapa to support youth-driven health systems and strengthen cross-continental pathways for learning and leadership.",
   },
   {
     id: "executive-wilfred-obeng",
@@ -114,7 +114,7 @@ const canonicalPeople: PersonProfile[] = [
     affiliation: "Medical Student, University of Cape Coast",
     image: "/ucc-team/wilfred_obeng.JPG",
     socialLinks: { email: "wilfred.obeng7@gmail.com" },
-    bio: "Wilfred Obeng studies medicine at the University of Cape Coast. He develops training resources for volunteers and helps monitor, evaluate, and improve clinical standards across Akomapa’s community health work.",
+    bio: "Wilfred Obeng is currently studying Medicine at the University of Cape Coast, Ghana. He serves as a Training and Standards lead with Akomapa UCC and as Clinical Standards Coordinator with Akomapa Global. He joined the project to learn about and contribute towards addressing the health problems of rural Ghanaian communities and helps with the development of training resources for volunteers and with the monitoring, evaluation, and improvement of the clinic's standards.",
   },
   {
     id: "executive-gabrielle-nartey",
@@ -126,7 +126,7 @@ const canonicalPeople: PersonProfile[] = [
       email: "info@akomapa.org",
       linkedin: "https://www.linkedin.com/in/gabrielle-nartey-a2456128b/",
     },
-    bio: "Gabrielle Nartey studies Neuroscience at Yale University on the pre-medical track. She oversees Akomapa’s social media presence and helps ensure that people who need care can discover and understand the foundation’s services.",
+    bio: "Gabrielle Nartey is a sophomore at Yale University studying Neuroscience on the pre-medical track. She currently serves as Lead Social Media Manager for Akomapa, where she oversees marketing across all social media platforms and works to expand the clinic’s reach and visibility on an international scale. Gabrielle joined the clinic to help bridge the gap between healthcare and access—ensuring that individuals who need care most are aware of and empowered to seek Akomapa’s services.",
   },
   {
     id: "executive-patrick-ampofo",
@@ -136,7 +136,7 @@ const canonicalPeople: PersonProfile[] = [
     affiliation: "Yale School of Public Health",
     image: "/images/team/patrick-ampofo.jpg",
     socialLinks: { linkedin: "https://linkedin.com/in/patrick-ampofo" },
-    bio: "Dr. Patrick Ampofo is an alumnus of the University of Ghana Medical School and studies public health at Yale. He leads Akomapa’s University of Ghana expansion, engaging institutional partners and mobilizing medical students around evidence-based, community-centered health interventions.",
+    bio: "Dr. Patrick Ampofo, an alumnus of UGMS and a first-year MPH student at Yale School of Public Health, currently serves as the UG expansion lead. He has a passion for bridging the gap in healthcare access disparities through evidence-based approaches and community-based interventions. In his current role, Dr. Ampofo is focused on helping establish the UG chapter of Akomapa by actively engaging key personnel and mobilizing medical students.",
   },
   {
     id: "executive-kelvin-ocran",
@@ -148,7 +148,7 @@ const canonicalPeople: PersonProfile[] = [
       email: "kelvinocran17@gmail.com",
       linkedin: "https://linkedin.com/in/kelvin-ocran",
     },
-    bio: "Kelvin Fiifi Ocran leads Akomapa’s branding and public relations work. He brings an interest in design, technology, and creative problem-solving to the foundation’s visual identity and public communications.",
+    bio: "Kelvin is a naturally creative mind who enjoys building ideas, designing brands, and exploring anything that blends art, tech, and problem solving. Calm but unpredictable in the best way, he connects with people easily, yet values trust deeply. Tall, caramel-toned, and openly expressive, he’s someone who loves good music, good food, and any space that lets him create freely. He is always learning, always experimenting, and always ready for the next project or opportunity that challenges him to grow.",
   },
   {
     id: "executive-samuel-kumi",
@@ -160,7 +160,7 @@ const canonicalPeople: PersonProfile[] = [
       email: "samuelkumik@gmail.com",
       linkedin: "https://www.linkedin.com/in/samuel-k-kumi-41627a161/",
     },
-    bio: "Samuel Kwame Kumi is a private legal practitioner and lecturer with experience in litigation and alternative dispute resolution. His interests include medical, information technology, intellectual property, and energy law. At Akomapa, he advises on corporate affairs, risk, and compliance.",
+    bio: "Samuel Kwame Kumi, Esq. is a private legal practitioner and lecturer. Samuel has valuable experience in litigation and Alternative Dispute Resolution, notably acting as lawyer for medical professionals in medical matters. His interests span medical, IT, Intellectual Property and energy law, areas in which he has published. As Akomapa's Head of Legal, Samuel oversees corporate affairs, advises on risk, and ensures compliance. He sees Akomapa's strategic community-focused initiatives establishing it as a trailblazer in community health. ",
   },
   {
     id: "executive-jeanelle-forson",
@@ -185,9 +185,13 @@ const canonicalPeople: PersonProfile[] = [
   {
     id: "executive-divina-afenyo",
     name: "Divina Selase Afenyo",
-    affiliation: "Akomapa Health Foundation",
+    affiliation: "University of Ghana",
     image: "/images/team/divina-selase-afenyo.jpg",
-    bio: "Divina Selase Afenyo co-leads planning and coordination for Akomapa’s University of Ghana hub, supporting the local team as it develops student-led community health activities.",
+    bio: "Divina Selase Afenyo is a student nurse, health advocate, and emerging leader passionate about patient-centred care, health promotion, and disease prevention. She is also passionate about health communication, media, student advocacy, women’s leadership, and mentorship. Through Akomapa, she is committed to empowering communities with knowledge, promoting preventive health, and advancing accessible, people-centred healthcare.",
+    socialLinks: {
+      email: "divinaafenyo1@gmail.com",
+      linkedin: "https://www.linkedin.com/in/divina-afenyo-DSA233507358951",
+    },
   },
   {
     id: "executive-jade-kissi",
@@ -195,7 +199,11 @@ const canonicalPeople: PersonProfile[] = [
     name: "Jade Kissi",
     affiliation: "Akomapa Health Foundation",
     image: "/images/team/jade-kissi.jpg",
-    bio: "Jade Kissi leads Akomapa’s internal affairs work, supporting team coordination, organizational communication, and the day-to-day systems that keep colleagues aligned.",
+    bio: "Jade Kissi, MPH, RN, is a Registered Nurse, Lean and Pediatric Nurse Practitioner in training at Yale School of Nursing. Dedicated to serving under-resourced populations; her background combines bedside clinical care with health policy research, advocacy for under resourced communities, and quality improvement. She leverages expertise in clinical operations and healthcare management to advance health equity and build sustainable, high-quality care systems for underserved groups.",
+    socialLinks: {
+      email: "kakrakissi@gmail.com",
+      linkedin: "https://www.linkedin.com/in/jadekissi/",
+    },
   },
   {
     id: "member-erinda-aidoo",
@@ -231,14 +239,14 @@ const canonicalPeople: PersonProfile[] = [
       email: "doffoemighty@gmail.com",
       linkedin: "https://linkedin.com/in/mighty-doffoe",
     },
-    bio: "Mighty Doffoe is a Software Engineer at Akomapa Health Foundation. He is passionate about artificial intelligence, software engineering, and applying technology to improve healthcare.",
+    bio: "Mighty Doffoe graduated with a BSc in Computer Science at Bridgewater College. He currrently serves as a Software Engineer for Akomapa. In his role, he makes contributions to software related issues at Akomapa, and helps with the development of the Akomapa website. He joined the team to help make quailty healthcare more accessible to communities.",
   },
   {
     id: "member-david-ofosu",
     name: "David Ofosu",
     affiliation: "Medical Student, University of Cape Coast",
     image: "/ucc-team/david_kojo_ofosu.JPG",
-    bio: "David Ofosu helps guide Akomapa’s UCC Community Hub, coordinating student-led programs and local operations in support of the hub’s community health mission.",
+    bio: "David Kojo Ofosu graduated with a medical degree at the University of Cape Coast School (UCC) of Medical Sciences. He currently serves as the Co-Director of the UCC Chapter Akomapa. In his role, he oversees all aspects of the clinic’s operations, ensuring alignment with its mission and goals, he together with his team develop strategic plans to guide the clinic’s growth and impact. He coordinate and chair leadership team meetings, ensuring all roles collaborate effectively. He acts as the primary point of contact for external partners, and funding organizations.he address operational challenges and ensure compliance with relevant guidelines and regulations He also represent the clinic in public forums, presentations, and community events.",
   },
   {
     id: "member-getwell-essuman",
@@ -410,6 +418,138 @@ const canonicalPeople: PersonProfile[] = [
       linkedin: "https://www.linkedin.com/in/rachael-adu",
     },
   },
+  {
+    id: "jil-owusu-ansah",
+    name: "Jil Owusu-Ansah",
+    affiliation: "University of Ghana",
+    image: "/placeholder.png",
+    bio: "Jil Owusu-Ansah is a student at the University of Ghana and serves as a Follow-up Lead at the Akomapa UG Clinic, supporting continuity of care after clinical encounters.",
+    socialLinks: {
+      email: "jiloan.16@gmail.com",
+      linkedin: "#",
+    },
+  },
+  {
+    id: "esther-bray",
+    name: "Esther Bray",
+    affiliation: "University of Ghana",
+    image: "/placeholder.png",
+    bio: "Driven by excellence, purpose, and meaningful impact, Esther is passionate about human life most especially pediatrics, personal growth, and becoming someone whose work makes a difference, while staying grounded in faith and the values that shape me.",
+    socialLinks: {
+      email: "estherbray896@gmail.com",
+      linkedin: "#",
+    },
+  },
+  {
+    id: "maxwell-abiam-danso",
+    name: "Maxwell Abiam Danso",
+    affiliation: "University of Ghana",
+    image: "/placeholder.png",
+    bio: "Maxwell Abiam Danso is a student at the University of Ghana and serves as a Volunteer Recruitment Lead at the Akomapa UG Clinic, supporting continuity of care after clinical encounters.",
+    socialLinks: {
+      email: "dansoabiammaxwell@gmail.com",
+      linkedin: "https://www.linkedin.com/in/maxwellabiam",
+    },
+  },
+  {
+    id: "joseph-at-bron",
+    name: "Joseph A.T. Broni",
+    affiliation: "University of Ghana",
+    image: "/placeholder.png",
+    bio: "Joseph Amoatey Tettey Broni, a University of Ghana Pharmacy candidate, combines clinical internships (patient care, drug safety) with leadership in student pharma and non-pharma associations. Skilled in brand strategy, media, and public speaking, he is fluent in multiple languages. His advocacy focuses on global health policy, pharmaceutical access, and international diplomacy, aiming to bridge public health and governance.",
+    socialLinks: {
+      email: "bronijoey@gmail.com",
+      linkedin: "https://www.linkedin.com/in/josephbroni",
+    },
+  },
+  {
+    id: "akua-bowaa-essah",
+    name: "Akua Bowaa Essah",
+    affiliation: "University of Ghana",
+    image: "/placeholder.png",
+    bio: "Akua Bowaa Essah is a very big advocate for mental health, especially amongst the youth. My life's mission is to eradicate the stigma surrounding those with mental illnesses and reconstruct the perceptions people have about mental illness. I also love anything healthcare related, no matter how grimey it gets.",
+    socialLinks: {
+      email: "bowsie4u@gmail.com",
+      linkedin: "https://www.linkedin.com/in/akua-bowaa-essah-989239332",
+    },
+  },
+  {
+    id: "edugie-osunde",
+    name: "Edugie Osunde",
+    affiliation: "University of Ghana",
+    image: "/placeholder.png",
+    bio: "Edugie, currently a medical student at the University of Ghana with a BSc in Biomedical Engineering, is strongly passionate about patient-centered care and serving the underserved. She serves as the financial officer of the Akomapa UG clinic.",
+    socialLinks: {
+      email: "edugie99@gmail.com",
+      linkedin: "https://www.linkedin.com/in/edugie",
+    },
+  },
+  {
+    id: "denzel-nketia-achiampong",
+    name: "Denzel Nketia-Achiampong",
+    affiliation: "University of Ghana",
+    image: "/placeholder.png",
+    bio: "Denzel Nketia-Achiampong is a medical student at the University of Ghana and serves as Research Co-Lead at the Akomapa UG Clinic. He focuses on survey validation, research data infrastructure and quality control across student-led community health initiatives.",
+    socialLinks: {
+      email: "dnketia-achiampong@st.ug.edu.gh",
+      linkedin: "https://www.linkedin.com/in/denzel-nketia-achiampong-b42a9424a",
+    },
+  },
+  {
+    id: "austin-afutu",
+    name: "Austin Afutu",
+    affiliation: "University of Ghana",
+    image: "/placeholder.png",
+    bio: "Austin Afutu is a Doctor of Pharmacy candidate at the University of Ghana and Training & Standards Coordinator at the Akomapa Student-Run Free Clinic, where he helps develop volunteer training, clinical protocols, and counselling standards. He also serves as Vice President of the University of Ghana Pharmacy Students' Association. Austin is passionate about AI-driven digital health solutions for African healthcare, and is committed to strengthening community-based NCD screening and care.",
+    socialLinks: {
+      email: "afutuaustin@gmail.com",
+      linkedin: "https://www.linkedin.com/in/austin-afutu-0b6298300",
+    },
+  },
+  {
+    id: "nneoma-orji-okoro",
+    name: "Nneoma Orji-Okoro",
+    affiliation: "University of Ghana",
+    image: "/placeholder.png",
+    bio: "Nneoma is a medical student at the University of Ghana Medical School with a strong interest in community health and service. She is passionate about health education, preventive care, and improving access to healthcare. Through Akomapa UG Clinic, she hopes to contribute to meaningful community outreach, promote healthier communities, and develop her skills in leadership, teamwork, advocacy, and patient-centred care.",
+    socialLinks: {
+      email: "nneorjiokoro@gmail.com",
+      linkedin: "#",
+    },
+  },
+  {
+    id: "georgina-garbrah",
+    name: "Georgina Garbrah",
+    affiliation: "University of Ghana",
+    image: "/placeholder.png",
+    bio: "Georgina is an undergraduate student at the University of Ghana with a strong academic focus on Dietetics. She is committed to advancing community health through evidence based nutritional guidance and effective liaison between the clinic and the communities it serves .",
+    socialLinks: {
+      email: "gabrahg@gmail.com",
+      linkedin: "#",
+    },
+  },
+  {
+    id: "bernard-kartey-larbi",
+    name: "Bernard Kartey Larbi",
+    affiliation: "Kwame Nkrumah University of Science and Technology",
+    image: "/placeholder.png",
+    bio: "Bernard Kartey Larbi believes that great decisions begin with great questions. As a final-year Management student at KNUST and a Research Lead & Finance Assistant, Bernard is passionate about uncovering insights, understanding complex challenges, and translating knowledge into practical action that supports organizational growth and innovation.",
+    socialLinks: {
+      email: "bklarbi@st.knust.edu.gh",
+      linkedin: "#",
+    },
+  },
+  {
+    id: "darren-markwei",
+    name: "Darren Markwei",
+    affiliation: "Yale University",
+    image: "/placeholder.png",
+    bio: "Darren Markwei is a private equity investor and a graduate of Yale University , where he earned a double bachelor's in Economics and History. He leads Corporate Partnership and Collaboration efforts at Akomapa Health, building the relationships and alliances that advance the organization's mission. ",
+    socialLinks: {
+      email: "darren.dynawd@gmail.com",
+      linkedin: "#",
+    },
+  },
 ];
 
 export interface PersonPlacement {
@@ -534,9 +674,19 @@ export const departmentMemberships = [
     title: "Branding and Public Relations Lead",
   },
   {
+    departmentId: "partnerships",
+    personId: "darren-markwei",
+    title: "Corporate Partnership Lead",
+  },
+  {
     departmentId: "finance",
     personId: "executive-adwoa-danso-dodoo",
     title: "Chief Finance Officer",
+  },
+  {
+    departmentId: "finance",
+    personId: "bernard-kartey-larbi",
+    title: "Research & Financial Officer",
   },
   {
     departmentId: "legal",
