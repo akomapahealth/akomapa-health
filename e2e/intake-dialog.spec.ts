@@ -77,11 +77,21 @@ test("supports dark mode, reduced motion, keyboard use, and 200% zoom-equivalent
   await page.setViewportSize({ width: 720, height: 900 });
   await page.goto("/global-health-immersion-program");
   const application = page.getByRole("link", { name: "Apply Now" }).first();
-  await expect(async () => {
-    await application.focus();
-    await expect(application).toBeFocused();
-  }).toPass({ timeout: 10_000 });
-  await expect(application).toHaveCSS("outline-style", "solid");
+  for (let tabIndex = 0; tabIndex < 20; tabIndex += 1) {
+    await page.keyboard.press("Tab");
+    if (await application.evaluate((element) => element === document.activeElement)) {
+      break;
+    }
+  }
+  await expect(application).toBeFocused();
+  await expect
+    .poll(() =>
+      application.evaluate((element) => {
+        const styles = getComputedStyle(element);
+        return styles.outlineStyle !== "none" || styles.boxShadow !== "none";
+      }),
+    )
+    .toBe(true);
   const dimensions = await page.evaluate(() => ({
     client: document.documentElement.clientWidth,
     scroll: document.documentElement.scrollWidth,

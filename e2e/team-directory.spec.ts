@@ -120,12 +120,22 @@ test.describe("team directory hierarchy", () => {
       "https://www.linkedin.com/in/jeanelle-forson-rn-bn-b5680a162",
     );
 
-    for (const name of ["Bernard Mensah", "Jade Kissi"]) {
-      const card = page.locator(`[data-team-member="${name}"]`);
-      await card.scrollIntoViewIfNeeded();
-      await expect(card.getByRole("link")).toHaveCount(0);
-      await expect(card.getByRole("button", { name: "Read bio" })).toBeVisible();
-    }
+    const jade = page.locator('[data-team-member="Jade Kissi"]');
+    await jade.scrollIntoViewIfNeeded();
+    await expect(jade.getByRole("link", { name: "Email Jade Kissi" })).toHaveAttribute(
+      "href",
+      "mailto:kakrakissi@gmail.com",
+    );
+    await expect(
+      jade.getByRole("link", { name: "View Jade Kissi on LinkedIn" }),
+    ).toHaveAttribute("href", "https://www.linkedin.com/in/jadekissi/");
+
+    const bernard = page.locator('[data-team-member="Bernard Mensah"]');
+    await bernard.scrollIntoViewIfNeeded();
+    await expect(bernard.getByRole("link")).toHaveCount(0);
+    await expect(
+      bernard.getByRole("button", { name: "Read bio" }),
+    ).toBeVisible();
   });
 
   test("reveals the first card in each directory on a phone-width viewport", async ({

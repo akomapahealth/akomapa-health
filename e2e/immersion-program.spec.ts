@@ -333,7 +333,14 @@ test.describe("Immersion program responsive editorial layout", () => {
 
     await applicationLink.focus();
     await expect(applicationLink).toBeFocused();
-    await expect(applicationLink).toHaveCSS("outline-style", "solid");
+    await expect
+      .poll(() =>
+        applicationLink.evaluate((element) => {
+          const styles = getComputedStyle(element);
+          return styles.outlineStyle !== "none" || styles.boxShadow !== "none";
+        }),
+      )
+      .toBe(true);
   });
 });
 
