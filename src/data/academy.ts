@@ -1,4 +1,4 @@
-import { teamMembers } from "@/data/team";
+import { advisoryBoardMembers } from "@/data/team";
 import type {
   AcademyCurriculum,
   FacultyMember,
@@ -214,10 +214,8 @@ function toFacultyMember(
 }
 
 export const academyFaculty: FacultyMember[] = facultyProfiles.map((profile) => {
-  const member = teamMembers.find(
-    (teamMember) =>
-      teamMember.id === profile.teamMemberId &&
-      teamMember.roleCategory === "advisor",
+  const member = advisoryBoardMembers.find(
+    (teamMember) => teamMember.id === profile.teamMemberId,
   );
 
   if (!member) {

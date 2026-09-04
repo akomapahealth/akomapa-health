@@ -5,7 +5,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { MOTION_EASE, motionDurations } from "@/lib/motion/tokens";
-import { announcementCampaign } from "@/data/announcements";
+import { formatAnnouncementDate } from "@/data/announcements";
+import type { AnnouncementCampaign } from "@/lib/types";
 import Image from "@/components/common/Image";
 import {
   EditorialArrowLink,
@@ -30,12 +31,14 @@ function tagEyebrowTone(
 }
 
 type AnnouncementModalProps = {
+  campaign: AnnouncementCampaign;
   isOpen: boolean;
   onOpenChange: (open: boolean) => void;
   onDismiss: () => void;
 };
 
 export default function AnnouncementModal({
+  campaign,
   isOpen,
   onOpenChange,
   onDismiss,
@@ -52,7 +55,7 @@ export default function AnnouncementModal({
   const previousFocusRef = useRef<HTMLElement | null>(null);
   const viewedSlideIdsRef = useRef<Set<string>>(new Set());
 
-  const { slides, version } = announcementCampaign;
+  const { slides, version } = campaign;
 
   // Reset slide index when the modal opens
   useEffect(() => {
@@ -222,7 +225,6 @@ export default function AnnouncementModal({
           transition={{ duration: motionDurations.enter, ease: [...MOTION_EASE] }}
           className="fixed inset-0 z-50 flex items-end justify-center bg-[#121514]/75 sm:items-center sm:p-4"
           onClick={close}
-          aria-hidden="true"
         >
           <motion.div
             ref={modalRef}
@@ -371,6 +373,13 @@ export default function AnnouncementModal({
                     </EditorialEyebrow>
                   ) : null}
 
+                  <time
+                    dateTime={currentSlide.publishedAt}
+                    className="mb-2 block font-subheading text-xs font-semibold uppercase tracking-[0.14em] text-[#2F3332]/58 dark:text-[#E6E7E7]/58"
+                  >
+                    {formatAnnouncementDate(currentSlide.publishedAt)}
+                  </time>
+
                   <h2 className="mb-2 font-heading text-xl font-semibold leading-tight text-[#1C1F1E] dark:text-[#FCFAEF] sm:mb-3 sm:text-2xl">
                     {currentSlide.title}
                   </h2>
@@ -413,6 +422,26 @@ export default function AnnouncementModal({
                           {currentSlide.ctaText}
                         </EditorialButton>
                       )
+                    ) : null}
+
+                    {currentSlide.secondaryCtaText &&
+                    currentSlide.secondaryCtaLink ? (
+                      <EditorialButton
+                        href={currentSlide.secondaryCtaLink}
+                        variant="outline"
+                        external={currentSlide.secondaryCtaIsExternal}
+                        onClick={() => {
+                          trackEvent({
+                            name: "announcement_cta_click",
+                            slide_id: currentSlide.id,
+                            cta_text: currentSlide.secondaryCtaText ?? "",
+                            cta_link: currentSlide.secondaryCtaLink ?? "",
+                          });
+                          if (!currentSlide.secondaryCtaIsExternal) close();
+                        }}
+                      >
+                        {currentSlide.secondaryCtaText}
+                      </EditorialButton>
                     ) : null}
 
                     <EditorialArrowLink href="/news" onClick={close}>

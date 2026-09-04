@@ -110,6 +110,9 @@ for (const scenario of [
     expect(firstLeaderUrl.hostname).toBe("ik.imagekit.io");
     expect(firstLeaderUrl.pathname).toMatch(/^\/[^/]+\/ucc-team\/[^/]+$/);
     expect(firstLeaderUrl.searchParams.get("tr")).toMatch(
+      /(?:^|,)f-auto(?:,|$)/,
+    );
+    expect(firstLeaderUrl.searchParams.get("tr")).toMatch(
       /(?:^|,)q-75(?:,|$)/,
     );
     expect(firstLeaderUrl.searchParams.get("tr")).toMatch(
@@ -246,7 +249,7 @@ test("UG renders leadership cards without a volunteer band; NHP stays roster-fre
     "data-hub-leadership-presentation",
     "compact-modal",
   );
-  await expect(ugLeadership.locator("[data-hub-leader]")).toHaveCount(4);
+  await expect(ugLeadership.locator("[data-hub-leader]")).toHaveCount(14);
   await expect(
     ugLeadership.getByRole("heading", {
       level: 3,

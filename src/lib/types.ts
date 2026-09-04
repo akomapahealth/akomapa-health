@@ -40,27 +40,28 @@ export interface News {
   tags?: string[];
 }
 
-export interface TeamMember {
+export interface PersonProfile {
   id: string;
   slug?: string;
   name: string;
-  title: string;
   affiliation: string;
   bio: string;
-  image: string;
-  roleCategory:
-    | "executive"
-    | "member"
-    | "faculty"
-    | "advisor"
-    | "community-leader"
-    | "government-leader"
-    | "partner-institution";
+  image?: string;
+  featuredInTeamHero?: boolean;
   socialLinks?: {
     linkedin?: string;
     twitter?: string;
     email?: string;
   };
+}
+
+export interface TeamMember extends Omit<PersonProfile, "image"> {
+  title: string;
+  image: string;
+  roleCategory:
+    | "executive"
+    | "member"
+    | "advisor";
 }
 
 export interface Testimonial {
@@ -192,6 +193,12 @@ export interface HubLeader {
     email?: string;
     linkedin?: string;
   };
+}
+
+export interface HubLeaderReference {
+  personId: string;
+  role: string;
+  featured?: boolean;
 }
 
 export interface HubVolunteerPortrait {
@@ -358,6 +365,8 @@ export interface Announcement {
   id: string;
   title: string;
   description: string;
+  /** ISO-8601 publication timestamp used for display and campaign aging. */
+  publishedAt?: string;
   tag?: string;
   tagColor?: "lapis" | "amber" | "skobeloff";
   image?: string;
@@ -367,6 +376,9 @@ export interface Announcement {
   ctaText?: string;
   ctaLink?: string;
   isExternal?: boolean;
+  secondaryCtaText?: string;
+  secondaryCtaLink?: string;
+  secondaryCtaIsExternal?: boolean;
   /**
    * Optional substrings of `title` to highlight with brand accent colors
    * (alternating cyan/amber). Substrings are matched literally, in order.
@@ -375,9 +387,13 @@ export interface Announcement {
   titleHighlights?: string[];
 }
 
+export interface DatedAnnouncement extends Announcement {
+  publishedAt: string;
+}
+
 export interface AnnouncementCampaign {
   version: string;
-  slides: Announcement[];
+  slides: DatedAnnouncement[];
 }
 
 export interface NewsItem {

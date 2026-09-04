@@ -1,6 +1,7 @@
 import { expect, test, type Locator, type Page } from "@playwright/test";
 import { announcementCampaign } from "../src/data/announcements";
 import { philosophySections } from "../src/data/philosophy";
+import { teamHeroPeople } from "../src/data/team";
 
 const routes = ["/about", "/about/team", "/philosophy"] as const;
 const viewports = [
@@ -133,7 +134,7 @@ for (const viewport of viewports) {
           portraitCount: portraits.length,
         };
       });
-      expect(networkLayout.portraitCount).toBe(22);
+      expect(networkLayout.portraitCount).toBe(teamHeroPeople.length);
       expect(networkLayout.networkInViewport).toBe(true);
       expect(networkLayout.overlapsCopy).toBe(false);
 

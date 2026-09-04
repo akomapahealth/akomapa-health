@@ -1,6 +1,5 @@
-import { Fragment } from "react";
 import Breadcrumb from "@/components/layout/Breadcrumb";
-import Image from "@/components/common/Image";
+import TeamHeroNetwork from "@/components/about/TeamHeroNetwork";
 import TeamMemberDialog from "@/components/about/TeamMemberDialog";
 import {
   FadeIn,
@@ -16,76 +15,14 @@ import {
 } from "@/components/shared/EditorialPrimitives";
 import {
   advisoryBoardMembers,
-  executiveTeamMembers,
-  nonExecutiveTeamMembers,
+  executiveLeadership,
+  teamDepartments,
+  teamHeroPeople,
 } from "@/data/team";
 
-const heroRows: Array<{ offset: string; faces: string[] }> = [
-  {
-    offset: "lg:pr-1 xl:pr-2 2xl:pr-4",
-    faces: [
-      "/images/team/brian-fleischer.jpeg",
-      "/images/team/esi-bon-berkoh.jpg",
-    ],
-  },
-  {
-    offset: "lg:pr-4 xl:pr-8 2xl:pr-12",
-    faces: [
-      "/ucc-team/getwell_ebiram_essuman.JPG",
-      "/ucc-team/david_konadu_kombate.JPG",
-      "/images/team/nana-ama-ocran.jpeg",
-    ],
-  },
-  {
-    offset: "lg:pr-8 xl:pr-14 2xl:pr-20",
-    faces: [
-      "/images/team/afriyie-badu.jpg",
-      "/images/team/prince-agyei.jpg",
-      "/images/team/adwoa-danso-dodoo.jpg",
-      "/ucc-team/queenster_aduse_opoku.JPG",
-    ],
-  },
-  {
-    offset: "lg:pr-12 xl:pr-20 2xl:pr-28",
-    faces: [
-      "/ucc-team/david_kojo_ofosu.JPG",
-      "/images/team/gabrielle-nartey.JPG",
-      "/ucc-team/wilfred_obeng.JPG",
-      "/ucc-team/belinda_odoom.JPG",
-    ],
-  },
-  {
-    offset: "lg:pr-16 xl:pr-28 2xl:pr-36",
-    faces: [
-      "/ucc-team/hafiz_shaban.JPG",
-      "/images/team/mighty-doffoe.jpg",
-      "/images/team/dr-tuoyire.jpeg",
-      "/images/team/kelvin-fiifi.jpeg",
-    ],
-  },
-  {
-    offset: "lg:pr-20 xl:pr-36 2xl:pr-44",
-    faces: [
-      "/ucc-team/martha_bawa.JPG",
-      "/ucc-team/prince_nyarkoh.JPG",
-      "/ucc-team/geraldine_cristal_apeadua_agyepong.JPG",
-    ],
-  },
-  {
-    offset: "lg:pr-24 xl:pr-44 2xl:pr-52",
-    faces: [
-      "/ucc-team/frederick_baffour.JPG",
-      "/ucc-team/gloria_tawia_blay.JPG",
-    ],
-  },
-];
-
-const heroConnectorClassName =
-  "h-px w-3 shrink-0 border-t border-dotted border-[#FCFAEF]/40 sm:w-5 lg:w-6 xl:w-9 2xl:w-12";
-
 const heroStats = [
-  { value: "12", label: "Executive Leads" },
-  { value: "6", label: "Academic Partners" },
+  { value: String(executiveLeadership.length), label: "Executive Leaders" },
+  { value: String(teamDepartments.length), label: "Departments" },
   { value: "100+", label: "Volunteers Inspired" },
 ];
 
@@ -162,53 +99,7 @@ export default function TeamPageContent() {
             </div>
           </div>
 
-          <div className="relative mx-auto min-w-0 w-full lg:col-span-7">
-            <div
-              data-team-node-network
-              aria-hidden="true"
-              className="flex min-w-0 w-full flex-row flex-nowrap items-center gap-1.5 overflow-x-auto overflow-y-hidden overscroll-x-contain border-y border-[#FCFAEF]/20 py-5 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden sm:gap-2 sm:py-7 lg:flex-col lg:gap-3 lg:overflow-hidden lg:border-y-0 lg:border-l lg:py-4 lg:pl-6 xl:gap-4 xl:pl-8 2xl:gap-5 2xl:pl-10"
-            >
-              {heroRows.map((row, rowIndex) => (
-                <Fragment key={`row-${rowIndex}`}>
-                  <div
-                    className={`flex shrink-0 items-center justify-start gap-1.5 sm:gap-2 lg:min-w-0 lg:w-full lg:justify-end ${row.offset}`}
-                  >
-                    {row.faces.map((face, faceIndex) => (
-                      <div
-                        key={`${face}-${faceIndex}`}
-                        className="flex shrink-0 items-center gap-1.5 sm:gap-2"
-                      >
-                        <div
-                          data-team-node-portrait
-                          className="relative size-12 shrink-0 overflow-hidden rounded-full border border-[#FCFAEF]/35 bg-[#0F4C5C] sm:size-14 lg:size-10 xl:size-12 2xl:size-16"
-                        >
-                          <Image
-                            src={face}
-                            alt=""
-                            width={64}
-                            height={64}
-                            className="h-full w-full object-cover object-center"
-                            sizes="(max-width: 639px) 48px, (max-width: 1023px) 56px, (max-width: 1279px) 40px, (max-width: 1535px) 48px, 64px"
-                          />
-                        </div>
-                        {faceIndex !== row.faces.length - 1 ? (
-                          <span className={heroConnectorClassName} />
-                        ) : null}
-                      </div>
-                    ))}
-                  </div>
-                  {rowIndex !== heroRows.length - 1 ? (
-                    <span className={`${heroConnectorClassName} lg:hidden`} />
-                  ) : null}
-                </Fragment>
-              ))}
-            </div>
-            <span
-              data-team-node-scroll-hint
-              aria-hidden="true"
-              className="pointer-events-none absolute inset-y-0 right-0 z-10 w-9 bg-gradient-to-l from-[#0F4C5C] via-[#0F4C5C]/50 to-transparent sm:w-11 lg:hidden"
-            />
-          </div>
+          <TeamHeroNetwork people={teamHeroPeople} />
         </div>
       </EditorialBand>
 
@@ -221,7 +112,7 @@ export default function TeamPageContent() {
         <FadeIn className="grid gap-8 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-5">
             <EditorialEyebrow className="text-[#0F4C5C] dark:text-[#66C4DC]">
-              Executive Team
+              Executive Leadership
             </EditorialEyebrow>
             <EditorialHeading id="executive-team-heading" className="mt-4">
               The builders behind the Akomapa model
@@ -236,7 +127,7 @@ export default function TeamPageContent() {
         </FadeIn>
 
         <FadeInStagger className="mt-12 grid items-stretch gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
-          {executiveTeamMembers.map((member) => (
+          {executiveLeadership.map((member) => (
             <FadeInStaggerItem key={member.id} className="h-full">
               <TeamMemberDialog member={member} />
             </FadeInStaggerItem>
@@ -247,33 +138,52 @@ export default function TeamPageContent() {
       <EditorialBand
         tone="white"
         marker="03"
-        data-team-section="member"
+        data-team-section="departments"
         aria-labelledby="team-members-heading"
         className="border-y border-[#0F4C5C]/15 dark:border-[#66C4DC]/20"
       >
         <FadeIn className="grid gap-8 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-5">
             <EditorialEyebrow className="text-[#0F4C5C] dark:text-[#66C4DC]">
-              Team Members
+              Our Departments
             </EditorialEyebrow>
             <EditorialHeading id="team-members-heading" className="mt-4">
               The people turning shared purpose into daily practice
             </EditorialHeading>
           </div>
           <EditorialLead className="max-w-3xl lg:col-span-7 lg:pt-8">
-            Across recruitment, training, finance, community engagement, and
-            logistics, these student leaders make Akomapa’s UCC Community Hub
-            dependable, welcoming, and ready to serve.
+            Organization-wide teams turn shared purpose into coordinated
+            education, research, technology, partnerships, and responsible
+            operations.
           </EditorialLead>
         </FadeIn>
 
-        <FadeInStagger className="mt-12 grid items-stretch gap-x-8 gap-y-10 lg:grid-cols-2 lg:gap-y-12">
-          {nonExecutiveTeamMembers.map((member) => (
-            <FadeInStaggerItem key={member.id} className="h-full min-w-0">
-              <TeamMemberDialog member={member} appearance="member" />
-            </FadeInStaggerItem>
+        <div className="mt-14 space-y-16 lg:space-y-20">
+          {teamDepartments.map((department, departmentIndex) => (
+            <section
+              key={department.id}
+              data-team-department={department.id}
+              aria-labelledby={`department-${department.id}`}
+              className="border-t border-[#0F4C5C]/20 pt-7 dark:border-[#66C4DC]/25"
+            >
+              <div className="flex items-baseline gap-4">
+                <span className="font-subheading text-xs font-bold tabular-nums tracking-[0.16em] text-[#0097b2] dark:text-[#66C4DC]" aria-hidden="true">
+                  {String(departmentIndex + 1).padStart(2, "0")}
+                </span>
+                <h3 id={`department-${department.id}`} className="font-heading text-2xl font-semibold text-[#1C1F1E] dark:text-[#FCFAEF] sm:text-3xl">
+                  {department.name}
+                </h3>
+              </div>
+              <FadeInStagger className="mt-8 grid items-stretch gap-x-8 gap-y-10 lg:grid-cols-2 lg:gap-y-12">
+                {department.members.map((member) => (
+                  <FadeInStaggerItem key={member.id} className="h-full min-w-0">
+                    <TeamMemberDialog member={member} appearance="member" />
+                  </FadeInStaggerItem>
+                ))}
+              </FadeInStagger>
+            </section>
           ))}
-        </FadeInStagger>
+        </div>
       </EditorialBand>
 
       <EditorialBand

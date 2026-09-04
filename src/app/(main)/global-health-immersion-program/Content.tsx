@@ -4,9 +4,8 @@ import Breadcrumb from "@/components/layout/Breadcrumb";
 import Image from "@/components/common/Image";
 import { FadeIn } from "@/components/animations";
 import ImmersionAlertSection from "@/components/immersion/ImmersionAlertSection";
+import ImmersionGoogleFormButton from "@/components/immersion/ImmersionGoogleFormButton";
 import ImmersionHeroMedia from "@/components/immersion/ImmersionHeroMedia";
-import ImmersionRegisterInterestButton from "@/components/immersion/ImmersionRegisterInterestButton";
-import ImmersionRequestBrochureButton from "@/components/immersion/ImmersionRequestBrochureButton";
 import {
   PublicCta,
   SectionEyebrow,
@@ -123,11 +122,13 @@ export default function Content() {
               {introduction}
             </p>
             <div className="mt-6 grid max-w-xl gap-3 sm:grid-cols-2">
-              <ImmersionRegisterInterestButton
-                variant="gold"
+              <ImmersionGoogleFormButton
+                form="application"
+                variant="amber"
                 className="min-h-12 justify-center"
               />
-              <ImmersionRequestBrochureButton
+              <ImmersionGoogleFormButton
+                form="info-session"
                 variant="outline-light"
                 className="min-h-12 justify-center"
               />
@@ -392,8 +393,9 @@ export default function Content() {
             </p>
 
             <div className="mt-8 flex max-w-xl flex-col gap-3 sm:flex-row lg:flex-col 2xl:flex-row">
-              <ImmersionRegisterInterestButton
-                variant="gold"
+              <ImmersionGoogleFormButton
+                form="application"
+                variant="amber"
                 className="min-h-12 justify-center"
               />
             </div>

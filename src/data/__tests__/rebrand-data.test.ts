@@ -36,7 +36,7 @@ import {
 } from "@/data/partnerships";
 import { philosophySections } from "@/data/philosophy";
 import { pillars } from "@/data/pillars";
-import { teamMembers } from "@/data/team";
+import { advisoryBoardMembers } from "@/data/team";
 import { timeline } from "@/data/timeline";
 import {
   getInvolvedFaqs,
@@ -80,9 +80,7 @@ describe("rebrand content data", () => {
     expect(moduleOrders).toEqual([1, 2, 3, 4, 5, 6, 7, 8]);
 
     const facultyIds = new Set(academyFaculty.map(({ id }) => id));
-    const advisors = teamMembers.filter(
-      ({ roleCategory }) => roleCategory === "advisor",
-    );
+    const advisors = advisoryBoardMembers;
 
     for (const curriculumModule of academyCurriculum.modules) {
       expect(curriculumModule.learningObjectives.length).toBeGreaterThanOrEqual(

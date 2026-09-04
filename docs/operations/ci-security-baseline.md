@@ -40,8 +40,11 @@ production.
 The legacy workflow reads two client-visible ImageKit values from Actions
 secrets. Other repository-level Actions secret names are Stripe-related. No
 workflow deploys with those credentials. The replacement pipeline uses
-deterministic public placeholders and no repository secrets. Removal or
-migration of existing secrets requires a separate usage check and explicit
+the public ImageKit CDN endpoint for real portrait decoding, deterministic
+placeholders for other integrations, and no repository secrets. The ImageKit
+endpoint must be set at build time because E2E reuses the verified Next.js build;
+setting it only when starting the server cannot change the bundled image URLs.
+Removal or migration of existing secrets requires a separate usage check and explicit
 confirmation.
 
 ## Measured baseline

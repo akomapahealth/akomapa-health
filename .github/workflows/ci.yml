@@ -87,7 +87,9 @@ jobs:
           NEXT_PUBLIC_IMMERSION_FILLOUT_FORM_ID: ciTestForm194
           NEXT_PUBLIC_IMMERSION_FILLOUT_FORM_URL: https://forms.fillout.com/t/ciTestForm194
           NEXT_PUBLIC_GIVEBUTTER_DONATIONS_ENABLED: "true"
-          NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT: https://ik.imagekit.io/ci-placeholder
+          # E2E reuses this build and verifies real portrait decoding. This CDN
+          # URL is public; do not require repository secrets for fork PRs.
+          NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT: https://ik.imagekit.io/akomapa
           NEXT_PUBLIC_IMAGEKIT_PUBLIC_KEY: public_ci_placeholder
 
       - name: Verify client bundles
