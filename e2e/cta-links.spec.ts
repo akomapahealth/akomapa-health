@@ -1,5 +1,9 @@
 import { expect, test, type Page } from "@playwright/test";
 import { announcementCampaign } from "../src/data/announcements";
+import {
+  IMMERSION_APPLICATION_FORM_URL,
+  IMMERSION_INFO_SESSION_FORM_URL,
+} from "../src/config/links";
 
 async function preparePage(page: Page) {
   await page.addInitScript((version) => {
@@ -13,7 +17,7 @@ test.describe("Program CTA links", () => {
     await preparePage(page);
   });
 
-  test("GHIP CTAs use the alert modal and experience anchor", async ({
+  test("GHIP CTAs use the current Google Forms and experience anchor", async ({
     page,
   }) => {
     await page.goto("/global-health-immersion-program", {
@@ -30,27 +34,25 @@ test.describe("Program CTA links", () => {
 
     await expect(experienceLink).toBeVisible();
     await expect(experienceLink).toHaveAttribute("href", "#experience");
-    await expect(
-      page.getByRole("link", { name: "Request Program Brochure" }),
-    ).toHaveCount(0);
-
-    // Register Interest is a modal trigger, not a competing contact-form path.
-    await expect(
-      page.getByRole("link", { name: "Register Interest", exact: true }),
-    ).toHaveCount(0);
-
-    const interestButtons = page.locator("[data-immersion-register-interest]");
-    const interestButtonCount = await interestButtons.count();
-    expect(interestButtonCount).toBeGreaterThan(0);
-
-    await interestButtons.first().click();
-    const dialog = page.getByRole("dialog");
-    await expect(dialog).toBeVisible();
-    await expect(
-      dialog.getByRole("heading", {
-        name: "Tell us what you are interested in",
-      }),
-    ).toBeVisible();
+    const applicationLinks = page.getByRole("link", {
+      name: "Apply Now",
+      exact: true,
+    });
+    await expect(applicationLinks).toHaveCount(3);
+    await expect(applicationLinks.first()).toHaveAttribute(
+      "href",
+      IMMERSION_APPLICATION_FORM_URL,
+    );
+    const infoSessionLinks = page.getByRole("link", {
+      name: "RSVP for the Info Session",
+      exact: true,
+    });
+    await expect(infoSessionLinks).toHaveCount(2);
+    await expect(infoSessionLinks.first()).toHaveAttribute(
+      "href",
+      IMMERSION_INFO_SESSION_FORM_URL,
+    );
+    await expect(page.locator("[data-intake-intent]")).toHaveCount(0);
   });
 
   test("GHLTP Become a Mentor CTA points to /contact", async ({ page }) => {

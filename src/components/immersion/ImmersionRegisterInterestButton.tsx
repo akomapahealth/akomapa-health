@@ -1,7 +1,4 @@
-"use client";
-
-import { PublicCta } from "@/components/shared/PublicPagePrimitives";
-import { useIntakeDialog } from "@/components/intake/IntakeDialogProvider";
+import IntakeFormLauncher from "@/components/intake/IntakeFormLauncher";
 import { cn } from "@/lib/utils";
 
 type ImmersionRegisterInterestButtonProps = {
@@ -13,26 +10,14 @@ export default function ImmersionRegisterInterestButton({
   variant = "teal",
   className,
 }: ImmersionRegisterInterestButtonProps) {
-  const { openIntake } = useIntakeDialog();
-
   return (
-    <PublicCta
-      type="button"
+    <IntakeFormLauncher
+      formKey="immersion"
+      intent="register_interest"
       variant={variant}
       className={cn("min-h-12 justify-center", className)}
-      onClick={(event) =>
-        openIntake(
-          {
-            formType: "program_interest",
-            programId: "global-health-immersion-program",
-            contextId: "immersion",
-          },
-          event.currentTarget,
-        )
-      }
-      data-immersion-register-interest
     >
       Register Interest
-    </PublicCta>
+    </IntakeFormLauncher>
   );
 }

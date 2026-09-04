@@ -90,6 +90,65 @@ Hydration errors are not broadly filtered. They are tagged with
 `error.category=hydration`, receive hydration context, and use a stable
 fingerprint so recurrence stays observable.
 
+## Next.js Router-State Version Skew
+
+GitHub issue [#221](https://github.com/akomapahealth/akomapa-health/issues/221)
+tracks a production Next.js App Router failure reported by Sentry issue
+`7676444786` (`JAVASCRIPT-NEXTJS-C`). The evidence was reviewed on August 28,
+2026:
+
+- one production event and zero identified users
+- first and last seen at `2026-08-17T13:34:04Z`, with no recurrence during the
+  following 12 days
+- route `GET /(main)/donate/page` on release
+  `d29782799bc2e4c19f2063a2ef4ec989a6847cae`
+- no application or donation-provider frames in the captured stack
+- no captured HTTP response status or transaction span
+- no correlated Vercel runtime log was available, so visible user impact
+  remains unknown
+
+The installed Next.js parser reproduces the version skew directly: the stale
+Next 15 router-state shape throws the exact E10 error, while the Next 16 shape
+is accepted. The same result remains on Next.js 16.3.3. This corroborates the
+confirmed upstream version-skew reports in
+[vercel/next.js#92907](https://github.com/vercel/next.js/issues/92907) and
+[vercel/next.js#92961](https://github.com/vercel/next.js/issues/92961). The
+proposed graceful fallback in
+[vercel/next.js#92933](https://github.com/vercel/next.js/pull/92933) was still
+open when this mitigation was implemented.
+
+### Temporary Telemetry Filter
+
+`src/instrumentation.ts` suppresses the event from Sentry error reporting only
+when every one of these signals matches:
+
+- production environment
+- exact router-state parse message and Next.js error code `E10`
+- `GET /donate` request with an `_rsc` query parameter
+- App Router route `/(main)/donate/page`
+- render source `react-server-components-payload`
+
+The filter does not modify the request, response, router-state header, or
+Next.js validation. It emits a Sentry info log containing constant diagnostic
+attributes instead of request data, which preserves a recurrence signal without
+retaining the query value or any headers. All near misses and unrelated errors
+continue through `Sentry.captureRequestError` unchanged. Preview and local
+environments remain unfiltered for reproduction work.
+
+### Ownership And Removal
+
+Akomapa engineering and observability maintainers own this workaround. Remove
+it when both conditions are met:
+
+1. The pinned stable Next.js parser no longer throws E10 for the stale Next 15
+   router-state shape. The removal-sentinel unit test will fail with an explicit
+   removal message when this behavior changes.
+2. A preview deployment verifies normal hard loads and client navigation to
+   `/donate` across the version change without an unhandled router-state error.
+
+After removal, keep the normal `/donate` navigation coverage and monitor the
+next production deployment for at least 14 days before closing the incident.
+
 ## Troubleshooting
 
 To intentionally test Sentry locally:

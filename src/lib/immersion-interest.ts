@@ -1,10 +1,10 @@
 export const IMMERSION_INTEREST_COPY = {
   section: {
-    eyebrow: "Planning for the next cohort",
-    heading: "Interested in a future Immersion Program cohort?",
-    body: "Share your interest and a team member can follow up when confirmed dates, fees, and application details are available.",
-    cta: "Share My Interest",
+    eyebrow: "Applications and information session",
+    heading: "Ready to experience global health through partnership?",
+    body: "Apply for the next Global Health Immersion Program cohort or reserve your place at the upcoming information session to learn more before applying.",
+    cta: "Apply Now",
     reassurance:
-      "Submitting interest is not an application and does not reserve a place.",
+      "Both forms open securely in a new tab. Information-session registration is separate from the program application.",
   },
 } as const;

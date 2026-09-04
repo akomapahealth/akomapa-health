@@ -1,7 +1,9 @@
 import { describe, expect, it } from "vitest";
+import type { Instrumentation } from "next";
 
 import {
   createBeforeSend,
+  isKnownDonateRouterStateSkewError,
   isSentryClientEnabled,
   isSentryServerEnabled,
   resolveSentryEnvironment,
@@ -337,5 +339,111 @@ describe("Sentry configuration", () => {
       })
     );
     expect(event?.fingerprint).toEqual(["react-hydration-error"]);
+  });
+
+  describe("Next.js router-state version skew", () => {
+    type RequestErrorArguments = Parameters<Instrumentation.onRequestError>;
+
+    const request: RequestErrorArguments[1] = {
+      path: "/donate?_rsc=opaque-request-id",
+      method: "GET",
+      headers: {},
+    };
+    const context: RequestErrorArguments[2] = {
+      routerKind: "App Router",
+      routePath: "/(main)/donate/page",
+      routeType: "render",
+      renderSource: "react-server-components-payload",
+      revalidateReason: undefined,
+    };
+    const createRouterStateError = (message =
+      "The router state header was sent but could not be parsed.") =>
+      Object.assign(new Error(message), { __NEXT_ERROR_CODE: "E10" });
+
+    it("matches only the exact production donate RSC parser failure", () => {
+      expect(
+        isKnownDonateRouterStateSkewError(
+          createRouterStateError(),
+          request,
+          context,
+          { NODE_ENV: "production" }
+        )
+      ).toBe(true);
+    });
+
+    it.each([
+      {
+        name: "missing E10 code",
+        error: new Error(
+          "The router state header was sent but could not be parsed."
+        ),
+        request,
+        context,
+        env: { NODE_ENV: "production" },
+      },
+      {
+        name: "different message",
+        error: createRouterStateError("Unexpected router failure"),
+        request,
+        context,
+        env: { NODE_ENV: "production" },
+      },
+      {
+        name: "different route",
+        error: createRouterStateError(),
+        request: { ...request, path: "/about?_rsc=opaque-request-id" },
+        context: { ...context, routePath: "/(main)/about/page" },
+        env: { NODE_ENV: "production" },
+      },
+      {
+        name: "hard load without RSC query",
+        error: createRouterStateError(),
+        request: { ...request, path: "/donate" },
+        context,
+        env: { NODE_ENV: "production" },
+      },
+      {
+        name: "non-GET request",
+        error: createRouterStateError(),
+        request: { ...request, method: "POST" },
+        context,
+        env: { NODE_ENV: "production" },
+      },
+      {
+        name: "non-production environment",
+        error: createRouterStateError(),
+        request,
+        context,
+        env: { NODE_ENV: "development" },
+      },
+      {
+        name: "Pages Router request",
+        error: createRouterStateError(),
+        request,
+        context: { ...context, routerKind: "Pages Router" as const },
+        env: { NODE_ENV: "production" },
+      },
+      {
+        name: "non-render request",
+        error: createRouterStateError(),
+        request,
+        context: { ...context, routeType: "action" as const },
+        env: { NODE_ENV: "production" },
+      },
+      {
+        name: "non-RSC-payload render",
+        error: createRouterStateError(),
+        request,
+        context: {
+          ...context,
+          renderSource: "server-rendering" as const,
+        },
+        env: { NODE_ENV: "production" },
+      },
+    ])("keeps $name observable", ({ error, request, context, env }) => {
+      expect(
+        isKnownDonateRouterStateSkewError(error, request, context, env)
+      ).toBe(false);
+    });
   });
 });

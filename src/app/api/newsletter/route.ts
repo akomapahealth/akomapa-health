@@ -1,78 +1,93 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest } from "next/server";
+import { z } from "zod";
 import {
   getMailerLiteClient,
   normalizeMailerLiteError,
   upsertSubscriber,
 } from "@/lib/mailerlite";
+import {
+  getRequestClientAddress,
+  noStoreJson,
+  readSecureJson,
+} from "@/lib/http/public-api-security";
+import {
+  NEWSLETTER_RATE_LIMIT_WINDOW_MS,
+  newsletterRateLimiter,
+} from "@/lib/newsletter/security";
+
+const MAX_BODY_BYTES = 2_048;
+const newsletterSchema = z
+  .object({ email: z.string().trim().email().max(254) })
+  .strict();
 
 export async function POST(request: NextRequest) {
+  const payload = await readSecureJson(request, MAX_BODY_BYTES);
+  if (!payload.ok) return payload.response;
+
+  if (
+    newsletterRateLimiter.isLimited(
+      `newsletter:${getRequestClientAddress(request)}`,
+    )
+  ) {
+    return noStoreJson(
+      { error: "Too many requests. Please try again later." },
+      429,
+      { "Retry-After": String(NEWSLETTER_RATE_LIMIT_WINDOW_MS / 1_000) },
+    );
+  }
+
+  const parsed = newsletterSchema.safeParse(payload.body);
+  if (!parsed.success) {
+    return noStoreJson({ error: "Please enter a valid email address" }, 400);
+  }
+
   try {
-    const { email } = await request.json();
-
-    if (!email) {
-      return NextResponse.json({ error: "Email is required" }, { status: 400 });
-    }
-
-    // Validate email format
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      return NextResponse.json(
-        { error: "Please enter a valid email address" },
-        { status: 400 },
-      );
-    }
+    const { email } = parsed.data;
 
     const mailerlite = await getMailerLiteClient();
     if (!mailerlite) {
-      return NextResponse.json(
+      return noStoreJson(
         { error: "Newsletter service is currently unavailable" },
-        { status: 500 },
+        503,
       );
     }
 
-    const subscriberResponse = await upsertSubscriber(mailerlite, {
+    await upsertSubscriber(mailerlite, {
       email,
       status: "active",
     });
-    const subscriberData = subscriberResponse.data.data;
-
-    return NextResponse.json(
-      {
-        message: "Successfully subscribed to newsletter",
-        subscriber: {
-          email: subscriberData?.email || email,
-          status: subscriberData?.status || "active",
-        },
-      },
-      { status: 200 },
+    return noStoreJson(
+      { message: "Successfully subscribed to newsletter" },
+      200,
     );
   } catch (error: unknown) {
     const normalized = normalizeMailerLiteError(error);
 
     if (normalized.kind === "validation") {
-      return NextResponse.json(
+      return noStoreJson(
         { error: "This email is already subscribed or invalid" },
-        { status: 400 },
+        400,
       );
     }
 
     if (normalized.kind === "rate_limited") {
-      return NextResponse.json(
+      return noStoreJson(
         { error: "Too many requests. Please try again later." },
-        { status: 429 },
+        429,
+        { "Retry-After": "60" },
       );
     }
 
     if (normalized.kind === "unauthorized") {
-      return NextResponse.json(
+      return noStoreJson(
         { error: "Newsletter service is currently unavailable" },
-        { status: 500 },
+        503,
       );
     }
 
-    return NextResponse.json(
+    return noStoreJson(
       { error: "An unexpected error occurred. Please try again later." },
-      { status: 500 },
+      502,
     );
   }
 }

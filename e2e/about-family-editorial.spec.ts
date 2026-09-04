@@ -1,6 +1,7 @@
 import { expect, test, type Locator, type Page } from "@playwright/test";
 import { announcementCampaign } from "../src/data/announcements";
 import { philosophySections } from "../src/data/philosophy";
+import { teamHeroPeople } from "../src/data/team";
 
 const routes = ["/about", "/about/team", "/philosophy"] as const;
 const viewports = [
@@ -90,11 +91,23 @@ for (const viewport of viewports) {
 
       const networkLayout = await network.evaluate((element) => {
         const box = element.getBoundingClientRect();
-        const grid = element.parentElement;
+        const grid = element.closest("[data-team-hero]");
         const copy = grid?.firstElementChild?.getBoundingClientRect();
         const portraits = Array.from(
           element.querySelectorAll<HTMLElement>("[data-team-node-portrait]"),
         );
+
+        const portraitInClip = (portrait: HTMLElement) => {
+          const portraitBox = portrait.getBoundingClientRect();
+          return (
+            portraitBox.width > 0 &&
+            portraitBox.height > 0 &&
+            portraitBox.left >= box.left - 1 &&
+            portraitBox.right <= box.right + 1 &&
+            portraitBox.top >= box.top - 1 &&
+            portraitBox.bottom <= box.bottom + 1
+          );
+        };
 
         const overlapsCopy = Boolean(
           copy &&
@@ -106,20 +119,11 @@ for (const viewport of viewports) {
 
         return {
           copyWidth: copy?.width ?? 0,
-          contained:
-            box.left >= -1 &&
-            box.right <= window.innerWidth + 1 &&
-            portraits.every((portrait) => {
-              const portraitBox = portrait.getBoundingClientRect();
-              return (
-                portraitBox.width > 0 &&
-                portraitBox.height > 0 &&
-                portraitBox.left >= box.left - 1 &&
-                portraitBox.right <= box.right + 1 &&
-                portraitBox.top >= box.top - 1 &&
-                portraitBox.bottom <= box.bottom + 1
-              );
-            }),
+          networkInViewport:
+            box.left >= -1 && box.right <= window.innerWidth + 1,
+          allPortraitsInNetwork: portraits.every(portraitInClip),
+          visiblePortraitCount: portraits.filter(portraitInClip).length,
+          canScroll: element.scrollWidth > element.clientWidth + 1,
           minimumPortraitSize: Math.min(
             ...portraits.map(
               (portrait) => portrait.getBoundingClientRect().width,
@@ -127,12 +131,47 @@ for (const viewport of viewports) {
           ),
           networkWidth: box.width,
           overlapsCopy,
+          portraitCount: portraits.length,
         };
       });
-      expect(networkLayout).toMatchObject({
-        contained: true,
-        overlapsCopy: false,
-      });
+      expect(networkLayout.portraitCount).toBe(teamHeroPeople.length);
+      expect(networkLayout.networkInViewport).toBe(true);
+      expect(networkLayout.overlapsCopy).toBe(false);
+
+      if (viewport.width < 1024) {
+        expect(networkLayout.visiblePortraitCount).toBeGreaterThanOrEqual(1);
+        expect(networkLayout.canScroll).toBe(true);
+        await expect(page.locator("[data-team-node-scroll-hint]")).toBeVisible();
+
+        await network.evaluate((element) => {
+          element.scrollTo({ left: element.scrollWidth });
+        });
+
+        const lastPortraitIntersectsClip = await network.evaluate(
+          (element) => {
+            const box = element.getBoundingClientRect();
+            const portraits = element.querySelectorAll<HTMLElement>(
+              "[data-team-node-portrait]",
+            );
+            const last = portraits[portraits.length - 1];
+            if (!last) {
+              return false;
+            }
+            const portraitBox = last.getBoundingClientRect();
+            return (
+              portraitBox.left < box.right + 1 &&
+              portraitBox.right > box.left - 1 &&
+              portraitBox.top < box.bottom + 1 &&
+              portraitBox.bottom > box.top - 1
+            );
+          },
+        );
+        expect(lastPortraitIntersectsClip).toBe(true);
+      } else {
+        expect(networkLayout.allPortraitsInNetwork).toBe(true);
+        await expect(page.locator("[data-team-node-scroll-hint]")).toBeHidden();
+      }
+
       if (viewport.width >= 1536) {
         expect(networkLayout.networkWidth).toBeGreaterThan(
           networkLayout.copyWidth,

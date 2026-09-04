@@ -4,8 +4,8 @@ import Breadcrumb from "@/components/layout/Breadcrumb";
 import Image from "@/components/common/Image";
 import { FadeIn } from "@/components/animations";
 import ImmersionAlertSection from "@/components/immersion/ImmersionAlertSection";
+import ImmersionGoogleFormButton from "@/components/immersion/ImmersionGoogleFormButton";
 import ImmersionHeroMedia from "@/components/immersion/ImmersionHeroMedia";
-import ImmersionRegisterInterestButton from "@/components/immersion/ImmersionRegisterInterestButton";
 import {
   PublicCta,
   SectionEyebrow,
@@ -121,15 +121,21 @@ export default function Content() {
             <p className="mt-4 max-w-xl text-sm leading-6 text-[#FCFAEF]/82 sm:text-base sm:leading-7">
               {introduction}
             </p>
-            <div className="mt-6 flex max-w-xl flex-col items-stretch gap-3 sm:flex-row sm:items-center">
-              <ImmersionRegisterInterestButton
-                variant="gold"
+            <div className="mt-6 grid max-w-xl gap-3 sm:grid-cols-2">
+              <ImmersionGoogleFormButton
+                form="application"
+                variant="amber"
+                className="min-h-12 justify-center"
+              />
+              <ImmersionGoogleFormButton
+                form="info-session"
+                variant="outline-light"
                 className="min-h-12 justify-center"
               />
               <PublicCta
                 href="#experience"
                 variant="outline-light"
-                className="min-h-12 justify-center"
+                className="min-h-12 justify-center sm:col-span-2"
               >
                 Explore the Experience
               </PublicCta>
@@ -387,8 +393,9 @@ export default function Content() {
             </p>
 
             <div className="mt-8 flex max-w-xl flex-col gap-3 sm:flex-row lg:flex-col 2xl:flex-row">
-              <ImmersionRegisterInterestButton
-                variant="gold"
+              <ImmersionGoogleFormButton
+                form="application"
+                variant="amber"
                 className="min-h-12 justify-center"
               />
             </div>

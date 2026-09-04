@@ -86,27 +86,37 @@ for (const viewport of viewports) {
         const standaloneControls = page.locator(
           "[data-editorial-band] a, [data-editorial-band] button",
         );
-        const undersized = await standaloneControls.evaluateAll((controls) =>
-          controls
-            .filter((control) => {
-              const style = getComputedStyle(control);
-              const rect = control.getBoundingClientRect();
-              const inViewport =
-                rect.bottom > 0 &&
-                rect.right > 0 &&
-                rect.top < window.innerHeight &&
-                rect.left < window.innerWidth;
-              return (
-                inViewport &&
-                style.display !== "none" &&
-                style.visibility !== "hidden" &&
-                style.opacity !== "0" &&
-                (rect.width < 44 || rect.height < 44)
-              );
-            })
-            .map((control) => control.textContent?.trim() ?? control.tagName),
-        );
-        expect(undersized).toEqual([]);
+        await expect
+          .poll(
+            () =>
+              standaloneControls.evaluateAll((controls) =>
+                controls
+                  .filter((control) => {
+                    const style = getComputedStyle(control);
+                    const rect = control.getBoundingClientRect();
+                    const inViewport =
+                      rect.bottom > 0 &&
+                      rect.right > 0 &&
+                      rect.top < window.innerHeight &&
+                      rect.left < window.innerWidth;
+                    return (
+                      inViewport &&
+                      style.display !== "none" &&
+                      style.visibility !== "hidden" &&
+                      style.opacity !== "0" &&
+                      (rect.width < 44 || rect.height < 44)
+                    );
+                  })
+                  .map(
+                    (control) =>
+                      control.textContent?.trim() ?? control.tagName,
+                  ),
+              ),
+            {
+              message: `${route} controls should settle at a minimum 44px target size`,
+            },
+          )
+          .toEqual([]);
       }
     });
   }

@@ -65,6 +65,7 @@ export default function IntakeDialog({
               <DialogPanel className="relative flex h-[100dvh] w-full max-w-2xl flex-col overflow-hidden bg-[#FCFAEF] text-[#1C1F1E] shadow-2xl sm:h-auto sm:max-h-[min(92dvh,52rem)] sm:rounded-md dark:bg-[#1C1F1E] dark:text-[#FCFAEF]">
                 <button
                   type="button"
+                  autoFocus
                   onClick={onClose}
                   aria-label={closeLabel}
                   className="absolute right-3 top-3 z-10 inline-flex h-11 w-11 items-center justify-center rounded-md transition-colors hover:bg-[#eeba2b] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0F4C5C] focus-visible:ring-offset-2 dark:hover:bg-[#0F4C5C] dark:focus-visible:ring-[#F5C94D]"

@@ -1,7 +1,9 @@
 import { expect, test, type Page } from "@playwright/test";
 import { announcementCampaign } from "../src/data/announcements";
-import { immersionProgram } from "../src/data/immersion-program";
-import { IMMERSION_INTEREST_COPY } from "../src/lib/immersion-interest";
+import {
+  IMMERSION_APPLICATION_FORM_URL,
+  IMMERSION_INFO_SESSION_FORM_URL,
+} from "../src/config/links";
 
 async function preparePage(page: Page) {
   await page.emulateMedia({ colorScheme: "light" });
@@ -13,165 +15,83 @@ async function preparePage(page: Page) {
       );
       sessionStorage.setItem("akomapa-announcement-tip-dismissed", "1");
       localStorage.setItem("akomapa-theme", "light");
-      document.documentElement.classList.remove("light", "dark");
-      document.documentElement.classList.add("light");
     },
     { announcementVersion: announcementCampaign.version },
   );
 }
 
-async function openProgramInterestDialog(page: Page) {
-  await expect(page.locator("[data-immersion-hero-hydrated]")).toHaveAttribute(
-    "data-immersion-hero-hydrated",
-    "true",
-  );
-  const cta = page.getByRole("button", {
-    name: IMMERSION_INTEREST_COPY.section.cta,
-    exact: true,
-  });
-  await cta.scrollIntoViewIfNeeded();
-  await cta.click();
-  return page.getByRole("dialog");
-}
-
-test.describe("Immersion program-interest dialog", () => {
-  test("opens and closes by keyboard with focus restoration", async ({
-    page,
-  }) => {
-    await page.setViewportSize({ width: 390, height: 844 });
+test.describe("Immersion application and information-session forms", () => {
+  test.beforeEach(async ({ page }) => {
     await preparePage(page);
     await page.goto("/global-health-immersion-program", {
       waitUntil: "domcontentloaded",
     });
-    await expect(
-      page.locator("[data-immersion-hero-hydrated]"),
-    ).toHaveAttribute("data-immersion-hero-hydrated", "true");
+    await expect(page.locator("[data-immersion-hero-hydrated]")).toHaveAttribute(
+      "data-immersion-hero-hydrated",
+      "true",
+    );
+  });
 
-    const hero = page.getByRole("region", {
-      name: immersionProgram.title,
+  test("keeps the dormant Fillout route policy while hiding its launchers", async ({
+    page,
+    request,
+  }) => {
+    const response = await request.get("/global-health-immersion-program");
+    expect(response.headers()["content-security-policy"]).toContain(
+      "frame-src 'self' https://embed.fillout.com",
+    );
+    await expect(page.locator("[data-intake-intent]")).toHaveCount(0);
+  });
+
+  test("routes every visible application CTA to the supplied Google Form", async ({
+    page,
+  }) => {
+    const links = page.getByRole("link", { name: "Apply Now", exact: true });
+    await expect(links).toHaveCount(3);
+
+    for (const link of await links.all()) {
+      await expect(link).toHaveAttribute("href", IMMERSION_APPLICATION_FORM_URL);
+      await expect(link).toHaveAttribute("target", "_blank");
+      await expect(link).toHaveAttribute("rel", /noopener/);
+    }
+  });
+
+  test("routes both information-session CTAs to the supplied RSVP form", async ({
+    page,
+  }) => {
+    const links = page.getByRole("link", {
+      name: "RSVP for the Info Session",
       exact: true,
     });
-    const cta = hero.locator("[data-immersion-register-interest]");
-    await cta.scrollIntoViewIfNeeded();
-    await cta.focus();
-    await expect(cta).toBeFocused();
-    // Target the control directly so activation is not lost to page-level keys.
-    await cta.press("Enter");
+    await expect(links).toHaveCount(2);
 
-    const dialog = page.getByRole("dialog");
-    await expect(dialog).toBeVisible();
-    await expect(
-      dialog.getByRole("heading", {
-        name: "Tell us what you are interested in",
-      }),
-    ).toBeVisible();
-
-    await page.keyboard.press("Escape");
-    await expect(dialog).toBeHidden();
-    await expect
-      .poll(async () =>
-        cta.evaluate((element) => element === document.activeElement),
-      )
-      .toBe(true);
+    for (const link of await links.all()) {
+      await expect(link).toHaveAttribute("href", IMMERSION_INFO_SESSION_FORM_URL);
+      await expect(link).toHaveAttribute("target", "_blank");
+      await expect(link).toHaveAttribute("rel", /noopener/);
+    }
   });
 
-  test("submits successfully and supports retry after failure", async ({
+  test("keeps all five form links usable without page overflow on mobile", async ({
     page,
   }) => {
-    let attempt = 0;
-    await page.route("**/api/intake/program-interest", async (route) => {
-      attempt += 1;
-      if (attempt === 1) {
-        await route.fulfill({
-          status: 503,
-          contentType: "application/json",
-          body: JSON.stringify({
-            error: "Program interest service is currently unavailable",
-          }),
-        });
-        return;
-      }
-
-      await route.fulfill({
-        status: 200,
-        contentType: "application/json",
-        body: JSON.stringify({
-          success: true,
-          requestId: "00000000-0000-4000-8000-000000000000",
-        }),
-      });
-    });
-
-    await page.setViewportSize({ width: 1280, height: 800 });
-    await preparePage(page);
-    await page.goto("/global-health-immersion-program", {
-      waitUntil: "domcontentloaded",
-    });
-
-    const dialog = await openProgramInterestDialog(page);
-    await expect(dialog).toBeVisible();
-
-    await dialog.getByLabel("Full name").fill("Ama Mensah");
-    await dialog.getByLabel("Email address").fill("ama@example.com");
-    await dialog.getByRole("checkbox").check();
-    await dialog.getByRole("button", { name: "Submit request" }).click();
-
-    await expect(
-      dialog.getByText(/could not submit this request/i),
-    ).toBeVisible();
-    await expect(dialog.getByLabel("Full name")).toHaveValue("Ama Mensah");
-
-    await dialog.getByRole("button", { name: "Submit request" }).click();
-
-    await expect(
-      dialog.getByText("Your request was safely stored."),
-    ).toBeVisible();
-    expect(attempt).toBe(2);
-  });
-
-  test("stays usable without overflow at 320px width", async ({ page }) => {
-    await page.route("**/api/intake/program-interest", async (route) => {
-      await route.fulfill({
-        status: 200,
-        contentType: "application/json",
-        body: JSON.stringify({
-          success: true,
-          requestId: "00000000-0000-4000-8000-000000000000",
-        }),
-      });
-    });
-
     await page.setViewportSize({ width: 320, height: 720 });
-    await preparePage(page);
-    await page.goto("/global-health-immersion-program", {
-      waitUntil: "domcontentloaded",
-    });
+    await page.reload({ waitUntil: "domcontentloaded" });
 
-    const dialog = await openProgramInterestDialog(page);
-    await expect(dialog).toBeVisible();
+    const links = page.locator("[data-immersion-google-form] a");
+    await expect(links).toHaveCount(5);
+    for (const link of await links.all()) {
+      await link.scrollIntoViewIfNeeded();
+      await expect(link).toBeVisible();
+      expect(
+        await link.evaluate((element) => element.getBoundingClientRect().height),
+      ).toBeGreaterThanOrEqual(44);
+    }
 
-    const overflow = await page.evaluate(() => ({
-      viewportWidth: window.innerWidth,
-      documentWidth: document.documentElement.scrollWidth,
-      dialogWidth: document
-        .querySelector('[role="dialog"]')
-        ?.getBoundingClientRect().width,
-    }));
-
-    expect(overflow.documentWidth).toBeLessThanOrEqual(
-      overflow.viewportWidth + 1,
-    );
-    expect(overflow.dialogWidth ?? 0).toBeLessThanOrEqual(
-      overflow.viewportWidth + 1,
-    );
-
-    await dialog.getByLabel("Full name").fill("Ama Mensah");
-    await dialog.getByLabel("Email address").fill("ama@example.com");
-    await dialog.getByRole("checkbox").check();
-    await dialog.getByRole("button", { name: "Submit request" }).click();
-
-    await expect(
-      dialog.getByText("Your request was safely stored."),
-    ).toBeVisible();
+    expect(
+      await page.evaluate(
+        () => document.documentElement.scrollWidth - window.innerWidth <= 1,
+      ),
+    ).toBe(true);
   });
 });

@@ -260,6 +260,13 @@ export default function Content() {
                   submission, explicit discard, expiry, or clearing site data.
                 </p>
                 <p className={body}>
+                  The Global Health Immersion Program pilot is different:
+                  Fillout, not Akomapa local storage, saves an in-progress
+                  response. Resume works only from the same non-private browser
+                  and device. Akomapa does not copy Immersion answers into local
+                  storage, cookies, analytics, logs, or page URLs.
+                </p>
+                <p className={body}>
                   If we introduce optional marketing or analytics cookies, we
                   will update this Policy and, where required, provide a way to
                   manage preferences.
@@ -280,6 +287,13 @@ export default function Content() {
                   load failure, or use of the campaign fallback. We do not send
                   donor names, email addresses, payment details, or processor
                   transaction references to general website analytics.
+                </p>
+                <p className={body}>
+                  Immersion intake analytics are likewise limited to form open,
+                  provider load or failure, fallback use, and confirmed
+                  completion. They include only the form key, selected intent,
+                  and a bounded error category, never submitted values or
+                  provider response payloads.
                 </p>
               </LegalSection>
 
