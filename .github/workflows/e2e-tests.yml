@@ -22,7 +22,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
-          node-version: "22"
+          node-version-file: .nvmrc
           cache: "npm"
 
       - name: Install dependencies
@@ -49,7 +49,7 @@ jobs:
         run: npm run security:verify-rsc-patch
 
       - name: Audit production dependencies
-        run: npm audit --omit=dev
+        run: npm run security:audit:prod -- --audit-level=low
 
       - name: Build application
         run: npm run build
@@ -61,8 +61,8 @@ jobs:
           NEXT_PUBLIC_IMMERSION_FILLOUT_FORM_ID: "ciTestForm193"
           NEXT_PUBLIC_IMMERSION_FILLOUT_FORM_URL: "https://forms.fillout.com/t/ciTestForm193"
           NEXT_PUBLIC_GIVEBUTTER_DONATIONS_ENABLED: "true"
-          NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT: ${{ secrets.NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT }}
-          NEXT_PUBLIC_IMAGEKIT_PUBLIC_KEY: ${{ secrets.NEXT_PUBLIC_IMAGEKIT_PUBLIC_KEY }}
+          NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT: https://ik.imagekit.io/akomapa
+          NEXT_PUBLIC_IMAGEKIT_PUBLIC_KEY: public_ci_placeholder
 
       - name: Verify intake secrets are absent from client bundles
         run: npm run security:verify-intake-client-bundle
@@ -74,7 +74,7 @@ jobs:
         env:
           CI: true
           NEXT_PUBLIC_GIVEBUTTER_DONATIONS_ENABLED: "true"
-          PLAYWRIGHT_TEST_BASE_URL: http://localhost:3000
+          PLAYWRIGHT_TEST_BASE_URL: http://127.0.0.1:3000
         continue-on-error: false
         timeout-minutes: 20
 

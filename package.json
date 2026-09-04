@@ -23,7 +23,7 @@
     "security:verify-actions-policy": "node scripts/verify-github-actions-policy.mjs",
     "security:verify-deployment": "node scripts/verify-deployed-security.mjs",
     "security:validate-exceptions": "node scripts/validate-vulnerability-exceptions.mjs",
-    "security:audit:prod": "npm audit --omit=dev --audit-level=high",
+    "security:audit:prod": "node scripts/audit-production.mjs",
     "security:sbom": "node scripts/generate-sbom.mjs",
     "intake:retention": "node scripts/intake-retention.mjs",
     "validate": "npm run security:verify-rsc-patch && npm run security:audit:prod && npm run security:validate-exceptions && npm run security:verify-actions-policy && npm run lint && npm run typecheck && npm run test && npm run build && npm run security:verify-intake-client-bundle && npm run security:verify-source-maps && npm run test:e2e",
