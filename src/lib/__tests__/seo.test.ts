@@ -88,9 +88,10 @@ describe("SEO metadata contract", () => {
     }
 
     expect(urls).not.toContain(absoluteUrl("/sentry-example-page"));
-    expect(urls.every((url) => url.startsWith(SITE_URL))).toBe(true);
-    expect(urls.every((url) => !url.includes("www.akomapahealth.org"))).toBe(
-      true,
-    );
+    for (const url of urls) {
+      const parsed = new URL(url);
+      expect(parsed.origin).toBe(new URL(SITE_URL).origin);
+      expect(parsed.hostname).not.toBe("www.akomapahealth.org");
+    }
   });
 });
