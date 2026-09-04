@@ -1,18 +1,20 @@
 import { spawnSync } from "node:child_process";
 import { setTimeout } from "node:timers/promises";
 import { pathToFileURL } from "node:url";
+import { auditProductionOffline } from "./audit-production-offline.mjs";
 
 function runNpmAudit() {
   // Use the same npm CLI that invoked this script, including on Windows.
   const command = process.env.npm_execpath ? process.execPath : "npm";
   const args = process.env.npm_execpath ? [process.env.npm_execpath] : [];
   return spawnSync(command, [...args, "audit", "--omit=dev", "--audit-level=high", "--json",
-    "--fetch-retries=0", "--fetch-timeout=60000", ...process.argv.slice(2)], {
-    encoding: "utf8", timeout: 150000, maxBuffer: 10 * 1024 * 1024,
+    "--fetch-retries=0", "--fetch-timeout=15000", ...process.argv.slice(2)], {
+    encoding: "utf8", timeout: 45000, maxBuffer: 10 * 1024 * 1024,
   });
 }
 
-export async function auditProduction({ run = runNpmAudit, wait = setTimeout, log = console.error } = {}) {
+export async function auditProduction({ run = runNpmAudit, wait = setTimeout, log = console.error,
+  fallback = auditProductionOffline, auditLevel = "high" } = {}) {
   for (let attempt = 1; attempt <= 3; attempt += 1) {
     const result = run();
     if (result.stdout) log(result.stdout.trim());
@@ -36,10 +38,15 @@ export async function auditProduction({ run = runNpmAudit, wait = setTimeout, lo
       await wait(attempt * 10000);
     }
   }
-  log("Production audit unavailable after 3 attempts; failing without a verified audit report.");
-  return 1;
+  log("npm audit unavailable after 3 attempts; trying a fresh local-only OSV audit.");
+  return fallback({ auditLevel, log });
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
-  process.exitCode = await auditProduction();
+  const args = process.argv.slice(2);
+  const auditLevel = args[0]?.replace(/^--audit-level=/, "") ?? "high";
+  if (args.length > 1 || !["low", "moderate", "high", "critical"].includes(auditLevel)) {
+    throw new Error("Only --audit-level=low|moderate|high|critical is supported.");
+  }
+  process.exitCode = await auditProduction({ auditLevel });
 }
