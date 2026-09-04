@@ -17,6 +17,28 @@ const SCANNERS = {
 const THRESHOLDS = { low: 0, moderate: 4, high: 7, critical: 9 };
 const SEVERITIES = { LOW: 0, MODERATE: 4, MEDIUM: 4, HIGH: 7, CRITICAL: 9 };
 
+export function buildProductionInventory(lockfile) {
+  if (![2, 3].includes(lockfile?.lockfileVersion) || !lockfile.packages || !lockfile.packages[""]) {
+    throw new Error("A version 2 or 3 npm lockfile is required for a complete inventory.");
+  }
+  const components = new Map();
+  for (const [location, pkg] of Object.entries(lockfile.packages)) {
+    if (!location) continue;
+    if (!pkg || (pkg.dev !== undefined && typeof pkg.dev !== "boolean")) throw new Error("Invalid lockfile package flags.");
+    // Match npm audit --omit=dev: devOptional, optional, peer and shared
+    // dependencies remain included unless they are explicitly dev-only.
+    if (pkg.dev) continue;
+    const pathName = location.match(/(?:^|\/)node_modules\/((?:@[^/]+\/)?[^/]+)$/)?.[1];
+    const name = pkg.name ?? pathName;
+    if (pkg.link || !pathName || typeof name !== "string" || !name || typeof pkg.version !== "string" || !pkg.version) {
+      throw new Error(`Unsupported production lockfile entry: ${location}`);
+    }
+    const purl = `pkg:npm/${name.split("/").map(encodeURIComponent).join("/")}@${encodeURIComponent(pkg.version)}`;
+    components.set(`${name}@${pkg.version}`, { type: "library", name, version: pkg.version, purl });
+  }
+  return validateInventory({ bomFormat: "CycloneDX", components: [...components.values()] });
+}
+
 export function verifyScanner(bytes, expectedHash) {
   if (createHash("sha256").update(bytes).digest("hex") !== expectedHash) {
     throw new Error("OSV scanner checksum does not match the reviewed release.");
@@ -70,14 +92,9 @@ export async function auditProductionOffline({ auditLevel = "high", log = consol
   try {
     const release = SCANNERS[`${process.platform}-${process.arch}`];
     if (!release) throw new Error("No reviewed OSV scanner for this platform.");
-    const npmCli = process.env.npm_execpath;
-    const inventoryResult = spawnSync(npmCli ? process.execPath : "npm", [
-      ...(npmCli ? [npmCli] : []), "sbom", "--package-lock-only", "--omit=dev", "--sbom-format=cyclonedx",
-    ], { encoding: "utf8", timeout: 30000, maxBuffer: 20 * 1024 * 1024 });
-    if (inventoryResult.status !== 0) throw new Error(inventoryResult.stderr || "Production SBOM generation failed.");
-    const inventory = validateInventory(JSON.parse(inventoryResult.stdout));
+    const inventory = buildProductionInventory(JSON.parse(await readFile(join(process.cwd(), "package-lock.json"), "utf8")));
     const sbomPath = join(directory, "production.cdx.json");
-    await writeFile(sbomPath, inventoryResult.stdout);
+    await writeFile(sbomPath, JSON.stringify({ bomFormat: "CycloneDX", specVersion: "1.5", version: 1, components: inventory }));
 
     const response = await fetch(`https://github.com/google/osv-scanner/releases/download/v${VERSION}/osv-scanner_${release[0]}`, {
       signal: AbortSignal.timeout(60000),

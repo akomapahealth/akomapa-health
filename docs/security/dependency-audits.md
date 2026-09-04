@@ -15,9 +15,11 @@ timeouts observed on 2026-09-04.
 When those attempts cannot produce a report, the script runs OSV-Scanner 2.5.1
 locally:
 
-1. npm generates a CycloneDX inventory from the lockfile, omitting development
-   dependencies. This includes locked production dependencies rather than only
-   the optional packages installed on the current operating system.
+1. Build a CycloneDX inventory from version 2/3 lockfile entries using npm
+   audit's production inclusion rules: exclude only `dev: true`; retain shared,
+   optional, peer, and `devOptional` entries. Unsupported entries fail rather
+   than being skipped. npm's SBOM selector omitted shared runtime packages in
+   this repository, so it is not used as the inventory source.
 2. The scanner release is downloaded from Google's official GitHub repository
    and checked against a reviewed SHA-256 digest before execution.
 3. `--offline --download-offline-databases` obtains the npm advisory database in
@@ -42,7 +44,7 @@ to GitHub release assets and OSV's public database downloads.
 
 `node --test scripts/__tests__/audit-production*.test.mjs` covers thresholds,
 missing inventory, unknown severity, checksum rejection, and the rule that npm
-findings cannot be overridden. A real local scan on 2026-09-04 covered 253 unique
+findings cannot be overridden. A real local scan on 2026-09-04 covered 421 unique
 production packages with no findings; a lodash 4.17.20 control produced five
 findings, including high-severity advisories.
 
@@ -52,4 +54,4 @@ known-vulnerable inventories before merging.
 
 References: [OSV offline mode](https://google.github.io/osv-scanner/usage/offline-mode/),
 [OSV-Scanner 2.5.1](https://github.com/google/osv-scanner/releases/tag/v2.5.1),
-[npm SBOM options](https://docs.npmjs.com/cli/v11/commands/npm-sbom/).
+[npm audit](https://docs.npmjs.com/cli/v11/commands/npm-audit/).

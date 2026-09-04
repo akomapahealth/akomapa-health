@@ -1,12 +1,33 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { assessOfflineReport, verifyScanner, validateInventory } from "../audit-production-offline.mjs";
+import { assessOfflineReport, buildProductionInventory, verifyScanner, validateInventory } from "../audit-production-offline.mjs";
 
 const component = { name: "example", version: "1.0.0", purl: "pkg:npm/example@1.0.0" };
 const inventory = [component];
 const pkg = { name: component.name, version: component.version, ecosystem: "npm" };
 const report = (vulnerabilities = []) => ({ results: [{ packages: [{ package: pkg, vulnerabilities }] }] });
 const vuln = (severity) => ({ id: "GHSA-test", database_specific: { severity } });
+
+test("inventory retains shared, optional and peer runtime packages, excluding only dev-only entries", () => {
+  const components = buildProductionInventory({ lockfileVersion: 3, packages: {
+    "": {}, "node_modules/runtime": { version: "1.0.0" },
+    "node_modules/dev-tool": { version: "1.0.0", dev: true },
+    "node_modules/shared": { version: "2.0.0", devOptional: true },
+    "node_modules/optional": { version: "3.0.0", optional: true },
+    "node_modules/peer": { version: "4.0.0", peer: true },
+    "node_modules/runtime/node_modules/shared": { version: "2.0.0" },
+    "node_modules/alias": { name: "@scope/original", version: "5.0.0" },
+  } });
+  assert.deepEqual(components.map((c) => c.name), ["runtime", "shared", "optional", "peer", "@scope/original"]);
+  assert.equal(components.at(-1).purl, "pkg:npm/%40scope/original@5.0.0");
+});
+
+test("inventory fails on unsupported lockfiles and unresolved production entries", () => {
+  assert.throws(() => buildProductionInventory({ lockfileVersion: 1 }));
+  for (const pkg of [{ link: true }, {}, { version: "1.0.0", dev: "false" }]) {
+    assert.throws(() => buildProductionInventory({ lockfileVersion: 3, packages: { "": {}, "node_modules/example": pkg } }));
+  }
+});
 
 test("accepts a complete clean offline report", () => {
   assert.equal(assessOfflineReport(report(), inventory, "high").status, 0);
