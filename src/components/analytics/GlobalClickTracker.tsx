@@ -35,21 +35,20 @@ export default function GlobalClickTracker() {
       const anchor = target.closest("a");
       if (!(anchor instanceof HTMLAnchorElement)) return;
 
-      const href = anchor.getAttribute("href");
-      if (!href || href.startsWith("#") || href.startsWith("javascript:")) return;
+      const href = anchor.getAttribute("href")?.trim();
+      if (!href || href.startsWith("#")) return;
 
-      // Resolve absolute URL for outbound detection. Falls back to raw href on parse errors.
-      let resolvedUrl = href;
-      let isExternal = false;
+      // Parse before checking the scheme: browsers normalize case and whitespace.
+      let url: URL;
       try {
-        const url = new URL(href, window.location.origin);
-        resolvedUrl = url.toString();
-        isExternal =
-          url.origin !== window.location.origin &&
-          (url.protocol === "http:" || url.protocol === "https:");
+        url = new URL(href, document.baseURI);
       } catch {
-        // Relative paths that fail to parse stay treated as internal.
+        return;
       }
+      const isWebLink = url.protocol === "http:" || url.protocol === "https:";
+      if (!isWebLink && url.protocol !== "mailto:" && url.protocol !== "tel:") return;
+      const resolvedUrl = url.toString();
+      const isExternal = isWebLink && url.origin !== window.location.origin;
 
       const linkText = (anchor.textContent || anchor.getAttribute("aria-label") || "").trim().slice(0, 200);
       const surface = getSurface(anchor);

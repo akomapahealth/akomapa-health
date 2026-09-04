@@ -1,5 +1,8 @@
 import { defineConfig, devices } from '@playwright/test';
 
+const baseURL = process.env.PLAYWRIGHT_TEST_BASE_URL || 'http://127.0.0.1:3000';
+const serverPort = new URL(baseURL).port || '80';
+
 /**
  * E2E test configuration
  * Runs the full smoke suite in Chromium and targeted visual coverage in Firefox/WebKit.
@@ -16,7 +19,7 @@ export default defineConfig({
   ],
   
   use: {
-    baseURL: process.env.PLAYWRIGHT_TEST_BASE_URL || 'http://127.0.0.1:3000',
+    baseURL,
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
     // Increase timeout for slow pages with animations
@@ -44,15 +47,15 @@ export default defineConfig({
   ],
 
   webServer: process.env.CI ? {
-    command: 'npm run start -- --hostname 127.0.0.1 --port 3000',
-    url: 'http://127.0.0.1:3000',
+    command: `npm run start -- --hostname 127.0.0.1 --port ${serverPort}`,
+    url: `http://127.0.0.1:${serverPort}`,
     reuseExistingServer: false,
     timeout: 120 * 1000,
     stdout: 'ignore',
     stderr: 'pipe',
   } : {
-    command: 'npm run start -- --hostname 127.0.0.1 --port 3000',
-    url: 'http://127.0.0.1:3000',
+    command: `npm run start -- --hostname 127.0.0.1 --port ${serverPort}`,
+    url: `http://127.0.0.1:${serverPort}`,
     reuseExistingServer: false,
     timeout: 120 * 1000,
     stdout: 'ignore',
