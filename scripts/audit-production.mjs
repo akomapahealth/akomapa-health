@@ -7,8 +7,8 @@ function runNpmAudit() {
   const command = process.env.npm_execpath ? process.execPath : "npm";
   const args = process.env.npm_execpath ? [process.env.npm_execpath] : [];
   return spawnSync(command, [...args, "audit", "--omit=dev", "--audit-level=high", "--json",
-    "--fetch-retries=0", "--fetch-timeout=30000", ...process.argv.slice(2)], {
-    encoding: "utf8", timeout: 90000, maxBuffer: 10 * 1024 * 1024,
+    "--fetch-retries=0", "--fetch-timeout=60000", ...process.argv.slice(2)], {
+    encoding: "utf8", timeout: 150000, maxBuffer: 10 * 1024 * 1024,
   });
 }
 

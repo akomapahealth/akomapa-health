@@ -25,8 +25,12 @@ jobs:
           node-version-file: .nvmrc
           cache: "npm"
 
+      # npm 11 uses the bulk advisory API without the retired quick-audit fallback.
+      - name: Pin audit-capable npm
+        run: npm install --global npm@11.9.0 --ignore-scripts --no-audit --no-fund
+
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --no-audit
 
       - name: Install Playwright browsers
         run: |
