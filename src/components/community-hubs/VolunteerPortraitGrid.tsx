@@ -22,6 +22,7 @@ const featurePortraitIndexes = new Set([0, 11, 24, 35]);
 const landscapePortraitIndexes = new Set([5, 18, 29]);
 const initialPortraitCount = 8;
 const portraitBatchSize = 8;
+const defaultVolunteerObjectPosition = "center top";
 const volunteerTribute =
   "We honor every volunteer whose hard work and care keep our community hub running.";
 
@@ -113,7 +114,10 @@ export default function VolunteerPortraitGrid({
                     fill
                     sizes={sizes}
                     className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.035] motion-reduce:group-hover:scale-100 motion-reduce:transition-none"
-                    style={{ objectPosition: portrait.objectPosition ?? "center" }}
+                    style={{
+                      objectPosition:
+                        portrait.objectPosition ?? defaultVolunteerObjectPosition,
+                    }}
                   />
                   <span
                     aria-hidden="true"
@@ -231,7 +235,8 @@ export default function VolunteerPortraitGrid({
                               className="object-cover"
                               style={{
                                 objectPosition:
-                                  selectedPortrait.objectPosition ?? "center",
+                                  selectedPortrait.objectPosition ??
+                                  defaultVolunteerObjectPosition,
                               }}
                             />
                           ) : (

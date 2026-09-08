@@ -384,4 +384,63 @@ describe("HubPeopleSection", () => {
     );
     expect(within(dialog).getByText("Portrait 36 of 36")).toBeVisible();
   });
+
+  it("defaults volunteer portrait crop to center top in the grid and dialog", async () => {
+    const user = userEvent.setup();
+    render(<HubPeopleSection hubName="Test Hub" roster={smallRoster} />);
+
+    const trigger = screen.getByRole("button", {
+      name: "View volunteer portrait 1 of 1",
+    });
+    const gridImage = within(trigger).getByRole("img", {
+      name: "UCC Community Hub volunteer portrait 1 of 1",
+    });
+    expect(gridImage).toHaveStyle({ objectPosition: "center top" });
+
+    await user.click(trigger);
+    const dialog = await screen.findByRole("dialog", {
+      name: "Our Volunteer Community",
+    });
+    expect(
+      within(dialog).getByRole("img", {
+        name: "UCC Community Hub volunteer portrait 1 of 1",
+      }),
+    ).toHaveStyle({ objectPosition: "center top" });
+  });
+
+  it("honors an explicit volunteer objectPosition override", async () => {
+    const user = userEvent.setup();
+    const rosterWithOverride: HubRoster = {
+      ...smallRoster,
+      volunteers: [
+        {
+          id: "volunteer-override",
+          image: "/ucc-team/volunteers/volunteer-override.jpg",
+          alt: "UCC Community Hub volunteer portrait 1 of 1",
+          objectPosition: "left center",
+        },
+      ],
+    };
+
+    render(<HubPeopleSection hubName="Test Hub" roster={rosterWithOverride} />);
+
+    const trigger = screen.getByRole("button", {
+      name: "View volunteer portrait 1 of 1",
+    });
+    expect(
+      within(trigger).getByRole("img", {
+        name: "UCC Community Hub volunteer portrait 1 of 1",
+      }),
+    ).toHaveStyle({ objectPosition: "left center" });
+
+    await user.click(trigger);
+    const dialog = await screen.findByRole("dialog", {
+      name: "Our Volunteer Community",
+    });
+    expect(
+      within(dialog).getByRole("img", {
+        name: "UCC Community Hub volunteer portrait 1 of 1",
+      }),
+    ).toHaveStyle({ objectPosition: "left center" });
+  });
 });
