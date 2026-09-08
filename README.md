@@ -179,7 +179,7 @@ npm run test:e2e:content
 For questions about Akomapa Health Foundation:
 
 - **Email**: info@akomapa.org
-- **Website**: [akomapahealth.org](https://akomapahealth.org)
+- **Website**: [akomapahealth.org](https://akomapa.org)
 - **Partnership Inquiries**: [Partner With Us](/partner)
 - **Get Involved**: [Explore Engagement Pathways](/get-involved)
 

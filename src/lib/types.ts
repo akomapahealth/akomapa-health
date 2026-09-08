@@ -359,6 +359,8 @@ export interface BlogPost {
   date: string;
   featured: boolean;
   videoUrl?: string;
+  /** When true and `videoUrl` is absent, article media shows Coming soon instead of a player. */
+  videoComingSoon?: boolean;
 }
 
 export interface Announcement {
