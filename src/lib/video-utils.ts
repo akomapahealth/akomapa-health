@@ -10,6 +10,21 @@ export type AnnouncementPosterFields = {
   videoUrl?: string | null;
 };
 
+export type BlogVideoFields = {
+  videoUrl?: string | null;
+  videoComingSoon?: boolean;
+};
+
+/** True when a Thought Leadership post has a published recording URL. */
+export function hasPlayableBlogVideo(post: BlogVideoFields): boolean {
+  return Boolean(post.videoUrl?.trim());
+}
+
+/** True when article media should be a Coming soon module, not a player. */
+export function hasPendingBlogVideo(post: BlogVideoFields): boolean {
+  return Boolean(post.videoComingSoon) && !hasPlayableBlogVideo(post);
+}
+
 /**
  * Hero cards, modal, and feeds: explicit `thumbnail` wins (custom poster),
  * then the provider’s preview image when `videoUrl` is set (e.g. YouTube),
