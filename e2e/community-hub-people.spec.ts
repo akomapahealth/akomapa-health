@@ -184,6 +184,47 @@ test("volunteer dialog supports keyboard focus, Escape, backdrop close, and scro
   await expect(trigger).toBeFocused();
 });
 
+for (const scenario of [
+  { name: "mobile", width: 390, height: 844 },
+  { name: "desktop", width: 1280, height: 900 },
+] as const) {
+  test(`${scenario.name} volunteer portrait dialog does not add horizontal overflow`, async ({
+    page,
+  }) => {
+    await preparePage(page);
+    await page.setViewportSize({
+      width: scenario.width,
+      height: scenario.height,
+    });
+    await page.goto(route, { waitUntil: "domcontentloaded" });
+
+    const trigger = page
+      .locator("#hub-volunteers [data-volunteer-portrait-trigger]")
+      .first();
+    await trigger.scrollIntoViewIfNeeded();
+
+    const dialog = page.getByRole("dialog", { name: "Our Volunteer Community" });
+    await expect(async () => {
+      await trigger.click();
+      await expect(dialog).toBeVisible({ timeout: 2_000 });
+    }).toPass({ timeout: 10_000 });
+
+    await expect(
+      dialog.getByRole("img", { name: /volunteer portrait/i }),
+    ).toBeVisible();
+
+    await expect
+      .poll(() =>
+        page.evaluate(
+          () =>
+            document.documentElement.scrollWidth <=
+            document.documentElement.clientWidth + 1,
+        ),
+      )
+      .toBe(true);
+  });
+}
+
 test("reduced-motion users receive static people content and interactions", async ({
   browser,
 }) => {

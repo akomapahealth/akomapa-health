@@ -334,6 +334,24 @@ describe("HubPeopleSection", () => {
     );
   });
 
+  it("does not size the volunteer portrait scroller with w-screen", async () => {
+    const user = userEvent.setup();
+    render(<HubPeopleSection hubName="Test Hub" roster={smallRoster} />);
+
+    await user.click(
+      screen.getByRole("button", {
+        name: "View volunteer portrait 1 of 1",
+      }),
+    );
+    await screen.findByRole("dialog", {
+      name: "Our Volunteer Community",
+    });
+
+    const scroller = screen.getByTestId("volunteer-dialog-scroller");
+    expect(scroller).toHaveClass("fixed", "inset-0", "overflow-y-auto");
+    expect(scroller).not.toHaveClass("w-screen");
+  });
+
   it("loads volunteers in batches and browses the complete gallery in either direction", async () => {
     const user = userEvent.setup();
     render(

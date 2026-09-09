@@ -198,8 +198,11 @@ export default function VolunteerPortraitGrid({
             />
           </TransitionChild>
 
-          <div className="fixed inset-0 z-[70] w-screen overflow-y-auto p-4 sm:p-6">
-            <div className="flex min-h-full items-center justify-center">
+          <div
+            data-testid="volunteer-dialog-scroller"
+            className="fixed inset-0 z-[70] overflow-y-auto"
+          >
+            <div className="flex min-h-full items-center justify-center p-4 sm:p-6">
               <TransitionChild
                 as={Fragment}
                 enter="ease-out duration-200 motion-reduce:transition-none motion-reduce:transform-none"
