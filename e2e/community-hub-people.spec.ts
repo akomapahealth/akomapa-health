@@ -219,6 +219,43 @@ test("reduced-motion users receive static people content and interactions", asyn
   await context.close();
 });
 
+test("UG Bio dialog portrait keeps a non-zero height on a 375px viewport", async ({
+  page,
+}) => {
+  await preparePage(page);
+  await page.setViewportSize({ width: 375, height: 812 });
+  await page.goto("/community-hubs/ug", { waitUntil: "domcontentloaded" });
+
+  const ugLeadership = page.locator("#hub-leadership");
+  const kelvinPortrait = ugLeadership.getByRole("button", {
+    name: "Open biography for Kelvin Akoto Boateng",
+  });
+  await kelvinPortrait.scrollIntoViewIfNeeded();
+  await expect(async () => {
+    await kelvinPortrait.click();
+    await expect(
+      page.getByRole("dialog", { name: "Kelvin Akoto Boateng" }),
+    ).toBeVisible({ timeout: 2000 });
+  }).toPass({ timeout: 15_000 });
+
+  const dialog = page.getByRole("dialog", { name: "Kelvin Akoto Boateng" });
+  const dialogMedia = dialog.locator("[data-hub-leader-dialog-media]");
+  await expect(dialogMedia).toBeVisible();
+  const mediaHeight = await dialogMedia.evaluate(
+    (element) => element.getBoundingClientRect().height,
+  );
+  expect(mediaHeight).toBeGreaterThan(100);
+
+  const portrait = dialog.getByRole("img", {
+    name: /Portrait of Kelvin Akoto Boateng/i,
+  });
+  await expect(portrait).toBeVisible();
+  const portraitHeight = await portrait.evaluate(
+    (element) => element.getBoundingClientRect().height,
+  );
+  expect(portraitHeight).toBeGreaterThan(100);
+});
+
 test("UG renders leadership cards without a volunteer band; NHP stays roster-free", async ({
   page,
 }) => {

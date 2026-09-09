@@ -182,6 +182,15 @@ describe("HubPeopleSection", () => {
     expect(
       within(dialog).getByText(/results-driven Pharmacy candidate/i),
     ).toBeVisible();
+    const dialogMedia = dialog.querySelector(
+      "[data-hub-leader-dialog-media]",
+    );
+    expect(dialogMedia).toHaveClass("aspect-[4/5]", "md:min-h-[28rem]");
+    expect(
+      within(dialog).getByRole("img", {
+        name: "Portrait of Kelvin Akoto Boateng, Financial Officer at Akomapa–UG Community Health Hub",
+      }),
+    ).toBeVisible();
     expect(
       within(dialog).getByRole("link", {
         name: "View Kelvin Akoto Boateng on LinkedIn",
@@ -199,6 +208,50 @@ describe("HubPeopleSection", () => {
     await waitFor(() =>
       expect(screen.queryByRole("dialog")).not.toBeInTheDocument(),
     );
+  });
+
+  it("keeps initials visible when a compact-modal Bio dialog has no portrait", async () => {
+    const user = userEvent.setup();
+    const rosterWithoutImage: HubRoster = {
+      leadershipPresentation: "compact-modal",
+      leadership: [
+        {
+          id: "leader-pending-portrait",
+          name: "Ama Mensah",
+          role: "Community Lead",
+          affiliation: "Public Health Student",
+          bio: "Ama coordinates community listening and outreach.",
+        },
+      ],
+      volunteers: [],
+    };
+
+    render(
+      <HubPeopleSection hubName="Test Hub" roster={rosterWithoutImage} />,
+    );
+
+    await user.click(
+      screen.getByRole("button", {
+        name: "Open biography for Ama Mensah",
+      }),
+    );
+
+    const dialog = await screen.findByRole("dialog", {
+      name: "Ama Mensah",
+    });
+    const dialogMedia = dialog.querySelector(
+      "[data-hub-leader-dialog-media]",
+    );
+    expect(dialogMedia).toHaveClass("aspect-[4/5]", "md:min-h-[28rem]");
+    expect(
+      within(dialog).getByRole("img", {
+        name: "Portrait pending for Ama Mensah",
+      }),
+    ).toHaveTextContent("AM");
+    expect(dialog.querySelector("img")).toBeNull();
+    expect(
+      dialog.querySelector("[data-hub-portrait-fallback]"),
+    ).not.toBeNull();
   });
 
   it("renders an accessible initials fallback when a leader has no portrait", () => {
