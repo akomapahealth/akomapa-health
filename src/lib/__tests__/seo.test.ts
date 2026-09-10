@@ -2,8 +2,11 @@ import { describe, expect, it } from "vitest";
 import createNextConfig from "../../../next.config";
 import sitemap from "@/app/sitemap";
 import {
+  DEFAULT_OG_IMAGE,
+  DEFAULT_OG_IMAGE_ALT,
   SITE_URL,
   absoluteUrl,
+  buildArticleMetadata,
   buildPageMetadata,
   canonicalSeoRoutes,
   noindexRoutes,
@@ -39,6 +42,12 @@ describe("SEO metadata contract", () => {
     }
   });
 
+  it("uses the akomapa.org apex as the canonical origin", () => {
+    expect(SITE_URL).toBe("https://akomapa.org");
+    expect(absoluteUrl("/")).toBe("https://akomapa.org");
+    expect(absoluteUrl("/about")).toBe("https://akomapa.org/about");
+  });
+
   it("builds complete Open Graph, Twitter, and canonical metadata for public routes", () => {
     for (const route of canonicalSeoRoutes) {
       const metadata = buildPageMetadata(route.path);
@@ -49,15 +58,66 @@ describe("SEO metadata contract", () => {
       expect(metadata.openGraph?.title).toBe(`${route.title} | Akomapa Health`);
       expect(metadata.openGraph?.description).toBe(route.description);
       expect(metadata.openGraph?.url).toBe(absoluteUrl(route.path));
+      expect(metadata.openGraph?.images).toEqual([
+        {
+          url: DEFAULT_OG_IMAGE,
+          width: 1200,
+          height: 630,
+          alt: DEFAULT_OG_IMAGE_ALT,
+        },
+      ]);
       const twitter = metadata.twitter as {
         card?: string;
         title?: string;
         description?: string;
+        images?: Array<{ url?: string; alt?: string }>;
       };
       expect(twitter.card).toBe("summary_large_image");
       expect(twitter.title).toBe(`${route.title} | Akomapa Health`);
       expect(twitter.description).toBe(route.description);
+      expect(twitter.images).toEqual([
+        {
+          url: DEFAULT_OG_IMAGE,
+          alt: DEFAULT_OG_IMAGE_ALT,
+        },
+      ]);
     }
+  });
+
+  it("keeps article-specific images and falls back to the homepage screenshot", () => {
+    const withCover = buildArticleMetadata({
+      title: "Ethical leadership",
+      description:
+        "A student reflection on ethical leadership in community-centered global health practice.",
+      path: "/blog/ethical-leadership",
+      image: "/highlights/Akomapa-20.jpg",
+    });
+    const fallback = buildArticleMetadata({
+      title: "Untitled briefing",
+      description:
+        "A briefing without a dedicated cover image should reuse the homepage social share screenshot.",
+      path: "/news/untitled-briefing",
+    });
+
+    expect(withCover.openGraph?.images).toEqual([
+      {
+        url: "/highlights/Akomapa-20.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Ethical leadership",
+      },
+    ]);
+    expect(fallback.openGraph?.images).toEqual([
+      {
+        url: DEFAULT_OG_IMAGE,
+        width: 1200,
+        height: 630,
+        alt: DEFAULT_OG_IMAGE_ALT,
+      },
+    ]);
+    expect(fallback.twitter).toMatchObject({
+      images: [{ url: DEFAULT_OG_IMAGE, alt: DEFAULT_OG_IMAGE_ALT }],
+    });
   });
 
   it("describes the Immersion program without implying open enrollment", () => {
@@ -90,8 +150,10 @@ describe("SEO metadata contract", () => {
     expect(urls).not.toContain(absoluteUrl("/sentry-example-page"));
     for (const url of urls) {
       const parsed = new URL(url);
-      expect(parsed.origin).toBe(new URL(SITE_URL).origin);
+      expect(parsed.origin).toBe("https://akomapa.org");
+      expect(parsed.hostname).not.toBe("www.akomapa.org");
       expect(parsed.hostname).not.toBe("www.akomapahealth.org");
+      expect(parsed.hostname).not.toBe("akomapahealth.org");
     }
   });
 });
