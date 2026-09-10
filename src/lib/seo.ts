@@ -1,12 +1,14 @@
 import type { Metadata, MetadataRoute } from "next";
 
-export const SITE_URL = "https://akomapahealth.org";
+export const SITE_URL = "https://akomapa.org";
 export const SITE_NAME = "Akomapa Health";
 export const DEFAULT_TITLE =
   "Akomapa Health - Building Ethical Global Health Leaders";
 export const DEFAULT_DESCRIPTION =
   "Akomapa develops ethical, community-centered global health leaders through healthcare service, leadership training, research, and equitable partnerships.";
-export const DEFAULT_OG_IMAGE = "/opengraph-image";
+export const DEFAULT_OG_IMAGE = "/images/og-homepage.jpg";
+export const DEFAULT_OG_IMAGE_ALT =
+  "Akomapa homepage: community clinic care with the headline Advancing Noncommunicable Disease Prevention & Care and Explore Our Academy and Partner With Us";
 
 export type SeoRoute = {
   path: string;
@@ -309,7 +311,7 @@ export function buildPageMetadata(path: string): Metadata {
           url: DEFAULT_OG_IMAGE,
           width: 1200,
           height: 630,
-          alt: `${SITE_NAME} - ${route.title}`,
+          alt: DEFAULT_OG_IMAGE_ALT,
         },
       ],
     },
@@ -317,7 +319,12 @@ export function buildPageMetadata(path: string): Metadata {
       card: "summary_large_image",
       title: socialTitle,
       description: route.description,
-      images: [DEFAULT_OG_IMAGE],
+      images: [
+        {
+          url: DEFAULT_OG_IMAGE,
+          alt: DEFAULT_OG_IMAGE_ALT,
+        },
+      ],
     },
   };
 }
@@ -361,6 +368,7 @@ export function buildArticleMetadata({
   const url = absoluteUrl(path);
   const socialTitle = withSiteName(title);
   const imageUrl = image ?? DEFAULT_OG_IMAGE;
+  const imageAlt = image ? title : DEFAULT_OG_IMAGE_ALT;
 
   return {
     title,
@@ -379,7 +387,7 @@ export function buildArticleMetadata({
           url: imageUrl,
           width: 1200,
           height: 630,
-          alt: title,
+          alt: imageAlt,
         },
       ],
       ...(publishedTime ? { publishedTime } : {}),
@@ -389,7 +397,12 @@ export function buildArticleMetadata({
       card: "summary_large_image",
       title: socialTitle,
       description,
-      images: [imageUrl],
+      images: [
+        {
+          url: imageUrl,
+          alt: imageAlt,
+        },
+      ],
     },
   };
 }
