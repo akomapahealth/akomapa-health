@@ -57,7 +57,7 @@ export default function AnnouncementTrigger() {
 
   return (
     <div
-      className="fixed bottom-4 right-4 z-40 flex flex-col items-end gap-3 sm:bottom-6 sm:right-6"
+      className="fixed bottom-[max(1rem,calc(0.5rem+env(safe-area-inset-bottom)))] right-4 z-40 flex flex-col items-end gap-3 sm:bottom-[max(1.5rem,calc(0.75rem+env(safe-area-inset-bottom)))] sm:right-6"
       data-testid="announcement-trigger-group"
     >
       <AnimatePresence>

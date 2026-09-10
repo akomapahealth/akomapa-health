@@ -151,7 +151,7 @@ export default function Newsletter() {
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
                 data-newsletter-form
-                className="flex flex-col gap-3 sm:flex-row sm:items-start"
+                className="flex flex-col gap-3 pe-20 sm:flex-row sm:items-start sm:pe-[5.5rem]"
                 noValidate
               >
                 <FormField

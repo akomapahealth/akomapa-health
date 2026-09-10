@@ -24,7 +24,7 @@ export default function Footer() {
         className="absolute left-0 top-0 h-1 w-24 bg-[#eeba2b] md:w-40"
       />
 
-      <div className="site-container mx-auto px-4 py-14 md:py-16 lg:py-20">
+      <div className="site-container mx-auto px-4 pt-14 pb-[max(3.5rem,calc(5rem+env(safe-area-inset-bottom)))] md:pt-16 md:pb-[max(4rem,calc(5.5rem+env(safe-area-inset-bottom)))] lg:pt-20">
         <div
           data-footer-grid
           className="grid grid-cols-1 gap-x-8 gap-y-10 md:grid-cols-2 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,0.7fr)_minmax(0,0.9fr)_minmax(15rem,1.1fr)] lg:gap-x-10"
@@ -253,7 +253,7 @@ export default function Footer() {
 
         <div
           data-footer-legal
-          className="mt-10 flex flex-col gap-4 border-t border-[#2F3332]/15 pt-6 dark:border-[#FCFAEF]/20 sm:flex-row sm:items-center sm:justify-between"
+          className="mt-10 flex flex-col gap-4 border-t border-[#2F3332]/15 pt-6 pe-20 dark:border-[#FCFAEF]/20 sm:flex-row sm:items-center sm:justify-between sm:pe-[5.5rem]"
         >
           <p className="font-body text-sm text-[#2F3332]/70 dark:text-[#E6E7E7]">
             &copy; {currentYear} Akomapa Health. All rights reserved.
