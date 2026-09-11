@@ -94,8 +94,14 @@ describe("Academy editorial sections", () => {
 
     for (const faculty of academyFaculty) {
       expect(screen.getByText(faculty.name)).toBeVisible();
-      expect(screen.getByText(faculty.title)).toBeVisible();
-      expect(screen.getByText(faculty.institution)).toBeVisible();
+      if (faculty.title) {
+        expect(screen.getByText(faculty.title)).toBeVisible();
+      }
+      if (faculty.institution) {
+        expect(screen.getAllByText(faculty.institution).length).toBeGreaterThan(
+          0,
+        );
+      }
     }
 
     const images = section.querySelectorAll("img");

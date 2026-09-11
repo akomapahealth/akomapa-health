@@ -75,7 +75,7 @@ export const academyCurriculum: AcademyCurriculum = {
       ],
       facultyContributors: [
         "Dr. Kaveh Khoshnood",
-        "Dr. Rabin",
+        "Dr. Tracy Rabin",
         "Prof. Alfred Yawson",
         "Prof. Derek Anamaale Tuoyire",
       ],
@@ -104,7 +104,7 @@ export const academyCurriculum: AcademyCurriculum = {
         "Explain how trust is built and sustained with communities",
         "Connect community leadership to care design",
       ],
-      facultyContributors: ["Dr. Frimpong"],
+      facultyContributors: ["Dr. Shadrack Frimpong"],
       order: 6,
     },
     {
@@ -134,7 +134,7 @@ export const academyCurriculum: AcademyCurriculum = {
         "Explore mentorship, pipelines, and leadership development",
         "Connect student leadership to advocacy and innovation",
       ],
-      facultyContributors: ["Osei-Boateng", "NHP Free Clinic"],
+      facultyContributors: ["Osei Boateng", "NHP Free Clinic"],
       order: 8,
     },
     {
@@ -147,7 +147,7 @@ export const academyCurriculum: AcademyCurriculum = {
         "Identify harmful hierarchies in healthcare",
         "Practice team leadership across professional roles",
       ],
-      facultyContributors: ["Prof. Rohrbaugh"],
+      facultyContributors: ["Dr. Robert Rohrbaugh"],
       order: 9,
     },
     {
@@ -226,6 +226,48 @@ const facultyProfiles: FacultyProfile[] = [
   },
 ];
 
+const additionalFaculty: FacultyMember[] = [
+  {
+    id: "osei-boateng",
+    name: "Osei Boateng",
+    institution: "OKB Foundation",
+  },
+  {
+    id: "aba-black",
+    name: "Dr. Aba Black",
+    institution: "Yale University",
+  },
+  {
+    id: "kaveh-khoshnood",
+    name: "Dr. Kaveh Khoshnood",
+    institution: "Yale University",
+  },
+  {
+    id: "shadrack-frimpong",
+    name: "Dr. Shadrack Frimpong",
+    institution: "Mundaly",
+  },
+  {
+    id: "robert-rohrbaugh",
+    name: "Dr. Robert Rohrbaugh",
+    institution: "Yale University",
+  },
+  {
+    id: "tracy-rabin",
+    name: "Dr. Tracy Rabin",
+    institution: "Yale University",
+  },
+  {
+    id: "megan-raney",
+    name: "Dr. Megan Raney",
+    institution: "Yale University",
+  },
+  {
+    id: "easmon-otupuri",
+    name: "Dr. Easmon Otupuri",
+  },
+];
+
 function toFacultyMember(
   profile: FacultyProfile,
   member: TeamMember,
@@ -249,19 +291,22 @@ function toFacultyMember(
   };
 }
 
-export const academyFaculty: FacultyMember[] = facultyProfiles.map((profile) => {
-  const member = advisoryBoardMembers.find(
-    (teamMember) => teamMember.id === profile.teamMemberId,
-  );
-
-  if (!member) {
-    throw new Error(
-      `Academy faculty source ${profile.teamMemberId} must reference an advisory-board member.`,
+export const academyFaculty: FacultyMember[] = [
+  ...facultyProfiles.map((profile) => {
+    const member = advisoryBoardMembers.find(
+      (teamMember) => teamMember.id === profile.teamMemberId,
     );
-  }
 
-  return toFacultyMember(profile, member);
-});
+    if (!member) {
+      throw new Error(
+        `Academy faculty source ${profile.teamMemberId} must reference an advisory-board member.`,
+      );
+    }
+
+    return toFacultyMember(profile, member);
+  }),
+  ...additionalFaculty,
+];
 
 export const academyTestimonials: Testimonial[] = [
   {

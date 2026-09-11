@@ -84,6 +84,14 @@ describe("rebrand content data", () => {
       "Prof. Alfred Yawson",
       "Emily Sheldon",
       "Dr. Elijah Paintsil",
+      "Osei Boateng",
+      "Dr. Aba Black",
+      "Dr. Kaveh Khoshnood",
+      "Dr. Shadrack Frimpong",
+      "Dr. Robert Rohrbaugh",
+      "Dr. Tracy Rabin",
+      "Dr. Megan Raney",
+      "Dr. Easmon Otupuri",
     ]);
 
     const advisors = advisoryBoardMembers;
@@ -113,10 +121,10 @@ describe("rebrand content data", () => {
     expect(featuredFacultyNames.has("Dr. Adrian Mayo")).toBe(false);
 
     for (const facultyMember of academyFaculty) {
-      expect(
-        advisors.some(({ name }) => name === facultyMember.name),
-      ).toBe(true);
-      expect(facultyMember.specialties.length).toBeGreaterThanOrEqual(3);
+      if (advisors.some(({ name }) => name === facultyMember.name)) {
+        expect(facultyMember.specialties?.length ?? 0).toBeGreaterThanOrEqual(3);
+        expect(facultyMember.image).toBeTruthy();
+      }
     }
   });
 

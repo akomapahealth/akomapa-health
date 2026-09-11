@@ -12,40 +12,49 @@ import type { FacultyMember } from "@/lib/types";
 
 function FacultyCard({ faculty }: { faculty: FacultyMember }) {
   const hasLinks = faculty.socialLinks?.linkedin || faculty.socialLinks?.email;
+  const specialties = faculty.specialties ?? [];
 
   return (
     <article className="flex h-full flex-col border-t border-[#1C1F1E]/15 pt-6 dark:border-[#FCFAEF]/20">
-      <div className="relative aspect-[4/5] w-full overflow-hidden rounded-md border border-[#1C1F1E]/10 bg-[#E6E7E7] dark:border-[#FCFAEF]/15 dark:bg-[#2F3332]">
-        <Image
-          src={faculty.image}
-          alt={`${faculty.name}, ${faculty.title}`}
-          fill
-          sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
-          className="object-cover object-center"
-        />
-      </div>
+      {faculty.image ? (
+        <div className="relative aspect-[4/5] w-full overflow-hidden rounded-md border border-[#1C1F1E]/10 bg-[#E6E7E7] dark:border-[#FCFAEF]/15 dark:bg-[#2F3332]">
+          <Image
+            src={faculty.image}
+            alt={`${faculty.name}${faculty.title ? `, ${faculty.title}` : ""}`}
+            fill
+            sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+            className="object-cover object-center"
+          />
+        </div>
+      ) : null}
 
       <div className="flex flex-1 flex-col gap-2 pt-5">
-        <p className="font-subheading text-xs font-bold uppercase tracking-[0.2em] text-[#0097b2] dark:text-[#66C4DC]">
-          {faculty.institution}
-        </p>
+        {faculty.institution ? (
+          <p className="font-subheading text-xs font-bold uppercase tracking-[0.2em] text-[#0097b2] dark:text-[#66C4DC]">
+            {faculty.institution}
+          </p>
+        ) : null}
         <h3 className="font-heading text-xl font-semibold leading-snug text-[#1C1F1E] dark:text-[#FCFAEF]">
           {faculty.name}
         </h3>
-        <p className="text-sm leading-relaxed text-[#2F3332]/80 dark:text-[#E6E7E7]/80">
-          {faculty.title}
-        </p>
+        {faculty.title ? (
+          <p className="text-sm leading-relaxed text-[#2F3332]/80 dark:text-[#E6E7E7]/80">
+            {faculty.title}
+          </p>
+        ) : null}
 
-        <ul className="mt-2 flex flex-wrap gap-x-3 gap-y-1">
-          {faculty.specialties.map((specialty) => (
-            <li
-              key={specialty}
-              className="text-xs leading-relaxed text-[#2F3332]/70 dark:text-[#E6E7E7]/70"
-            >
-              {specialty}
-            </li>
-          ))}
-        </ul>
+        {specialties.length > 0 ? (
+          <ul className="mt-2 flex flex-wrap gap-x-3 gap-y-1">
+            {specialties.map((specialty) => (
+              <li
+                key={specialty}
+                className="text-xs leading-relaxed text-[#2F3332]/70 dark:text-[#E6E7E7]/70"
+              >
+                {specialty}
+              </li>
+            ))}
+          </ul>
+        ) : null}
 
         {hasLinks ? (
           <div className="mt-auto flex items-center gap-3 pt-4">
