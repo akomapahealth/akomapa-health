@@ -183,7 +183,7 @@ export const canonicalSeoRoutes = [
     path: "/global-health-immersion-program",
     title: "Global Health Immersion Program",
     description:
-      "Explore Akomapa's three-week learning experience in Ghana centered on supervised community health practice, research, ethical leadership, and cultural learning.",
+      "Explore Akomapa's two-week Global Health Immersion Program in Accra and Cape Coast, Ghana, January 2–15, 2027, with community health and ethical leadership.",
     changeFrequency: "monthly",
     priority: 0.7,
   },

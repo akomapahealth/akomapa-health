@@ -128,7 +128,9 @@ describe("SEO metadata contract", () => {
 
     expect(route).toBeDefined();
     expect(route?.title).toBe("Global Health Immersion Program");
-    expect(route?.description).toContain("three-week learning experience");
+    expect(route?.description).toContain("two-week Global Health Immersion Program");
+    expect(route?.description).toContain("January 2–15, 2027");
+    expect(route?.description).toContain("Accra and Cape Coast");
     expect(route?.description).not.toMatch(
       /apply now|applications open|enroll now|join the next cohort/i,
     );
