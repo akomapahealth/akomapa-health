@@ -19,11 +19,31 @@ export function isNonCriticalConsoleError(error: string): boolean {
   );
 }
 
+function extractUrlsFromText(text: string): string[] {
+  const matches = text.match(/https?:\/\/[^\s)"']+/g);
+  return matches ?? [];
+}
+
+function hasAllowedHostInText(
+  text: string,
+  allowedHosts: readonly string[],
+): boolean {
+  const urls = extractUrlsFromText(text);
+  return urls.some((rawUrl) => {
+    try {
+      const hostname = new URL(rawUrl).hostname;
+      return allowedHosts.includes(hostname);
+    } catch {
+      return false;
+    }
+  });
+}
+
 function isGoogleMapsEmbedConsoleError(error: string): boolean {
-  const fromMapsEmbed =
-    error.includes('maps.gstatic.com') ||
-    error.includes('maps-api-v3/embed') ||
-    error.includes('init_embed.js');
+  const fromMapsEmbedHost = hasAllowedHostInText(error, ['maps.gstatic.com']);
+  const fromMapsEmbedScriptPath =
+    error.includes('maps-api-v3/embed') || error.includes('init_embed.js');
+  const fromMapsEmbed = fromMapsEmbedHost || fromMapsEmbedScriptPath;
 
   return (
     fromMapsEmbed && error.includes('ReferenceError: google is not defined')
