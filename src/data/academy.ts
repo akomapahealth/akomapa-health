@@ -226,7 +226,8 @@ const facultyProfiles: FacultyProfile[] = [
   },
 ];
 
-const additionalFaculty: FacultyMember[] = [
+/** GHELP instructors. They teach in the Academy and are not advisory-board members. */
+export const academyInstructors: FacultyMember[] = [
   {
     id: "osei-boateng",
     name: "Osei Boateng",
@@ -305,7 +306,7 @@ export const academyFaculty: FacultyMember[] = [
 
     return toFacultyMember(profile, member);
   }),
-  ...additionalFaculty,
+  ...academyInstructors,
 ];
 
 export const academyTestimonials: Testimonial[] = [

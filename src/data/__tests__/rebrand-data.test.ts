@@ -5,6 +5,7 @@ import { describe, expect, it } from "vitest";
 import {
   academyCurriculum,
   academyFaculty,
+  academyInstructors,
   academyOverview,
   academyTestimonials,
 } from "@/data/academy";
@@ -119,6 +120,14 @@ describe("rebrand content data", () => {
     }
 
     expect(featuredFacultyNames.has("Dr. Adrian Mayo")).toBe(false);
+    expect(academyInstructors).toHaveLength(8);
+    expect(academyFaculty).toHaveLength(13);
+
+    for (const instructor of academyInstructors) {
+      expect(
+        advisors.some(({ name }) => name === instructor.name),
+      ).toBe(false);
+    }
 
     for (const facultyMember of academyFaculty) {
       if (advisors.some(({ name }) => name === facultyMember.name)) {
