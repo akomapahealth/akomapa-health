@@ -1,6 +1,7 @@
 import { expect, test, type Page } from "@playwright/test";
 import { announcementCampaign } from "../src/data/announcements";
 import { teamHeroPeople } from "../src/data/team";
+import { isNonCriticalConsoleError } from "./helpers";
 
 /**
  * Cross-page responsive smoke coverage. For each viewport × route we assert:
@@ -145,10 +146,7 @@ test.describe("Responsive pages — header, footer, no horizontal overflow", () 
         expect(await hasHorizontalOverflow(page)).toBe(false);
 
         const criticalErrors = consoleErrors.filter(
-          (error) =>
-            !error.includes("Failed to load resource") &&
-            !error.includes("net::ERR_") &&
-            !error.includes("404"),
+          (error) => !isNonCriticalConsoleError(error),
         );
         expect(criticalErrors).toEqual([]);
       });

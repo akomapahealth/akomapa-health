@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { isNonCriticalConsoleError } from './helpers';
 
 /**
  * Simple page rendering tests
@@ -88,11 +89,8 @@ test.describe('Page Rendering Tests', () => {
       await testPage.waitForTimeout(500);
       
       // Filter out known non-critical errors (like missing images, etc.)
-      const criticalErrors = errors.filter(error => 
-        !error.includes('Failed to load resource') &&
-        !error.includes('net::ERR_') &&
-        !error.includes('404') &&
-        !error.includes('The requested resource isn\'t a valid image')
+      const criticalErrors = errors.filter(
+        (error) => !isNonCriticalConsoleError(error),
       );
       
       expect(criticalErrors.length).toBe(0);

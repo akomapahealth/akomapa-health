@@ -5,6 +5,52 @@ import { Page } from '@playwright/test';
  */
 
 /**
+ * Console errors that are not caused by our application.
+ * Google Maps embed scripts can throw `ReferenceError: google is not defined`
+ * from maps.gstatic.com; that must not fail page smoke coverage.
+ */
+export function isNonCriticalConsoleError(error: string): boolean {
+  return (
+    error.includes('Failed to load resource') ||
+    error.includes('net::ERR_') ||
+    error.includes('404') ||
+    error.includes("The requested resource isn't a valid image") ||
+    isGoogleMapsEmbedConsoleError(error)
+  );
+}
+
+function extractUrlsFromText(text: string): string[] {
+  const matches = text.match(/https?:\/\/[^\s)"']+/g);
+  return matches ?? [];
+}
+
+function hasAllowedHostInText(
+  text: string,
+  allowedHosts: readonly string[],
+): boolean {
+  const urls = extractUrlsFromText(text);
+  return urls.some((rawUrl) => {
+    try {
+      const hostname = new URL(rawUrl).hostname;
+      return allowedHosts.includes(hostname);
+    } catch {
+      return false;
+    }
+  });
+}
+
+function isGoogleMapsEmbedConsoleError(error: string): boolean {
+  const fromMapsEmbedHost = hasAllowedHostInText(error, ['maps.gstatic.com']);
+  const fromMapsEmbedScriptPath =
+    error.includes('maps-api-v3/embed') || error.includes('init_embed.js');
+  const fromMapsEmbed = fromMapsEmbedHost || fromMapsEmbedScriptPath;
+
+  return (
+    fromMapsEmbed && error.includes('ReferenceError: google is not defined')
+  );
+}
+
+/**
  * Wait for page to be fully loaded and interactive
  */
 export async function waitForPageLoad(page: Page) {
