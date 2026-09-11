@@ -13,6 +13,7 @@ import {
   IntakeSafetyNotice,
 } from "@/components/intake/IntakeFormSupport";
 import {
+  editorialContactLinkClassName,
   editorialFieldClassName,
   editorialFormShellClassName,
   editorialLabelClassName,
@@ -74,7 +75,10 @@ function ContactDetails() {
             <p className="mb-1 text-sm font-medium">Email</p>
             <a
               href={CONTACT.email.href}
-              className="inline-flex min-h-11 items-center break-all text-sm underline-offset-2 hover:underline"
+              className={cn(
+                editorialContactLinkClassName,
+                "break-all text-sm underline-offset-2 hover:underline",
+              )}
             >
               {CONTACT.email.display}
             </a>
@@ -97,9 +101,12 @@ function ContactDetails() {
               </address>
               <a
                 href={office.phone.href}
-                className="mt-1 inline-flex min-h-11 items-center text-sm underline-offset-2 hover:underline"
+                className={cn(
+                  editorialContactLinkClassName,
+                  "mt-1 flex h-11 w-fit shrink-0 whitespace-nowrap text-sm underline-offset-2 hover:underline",
+                )}
               >
-                <Phone className="mr-1.5 h-4 w-4" aria-hidden="true" />
+                <Phone className="mr-1.5 h-4 w-4 shrink-0" aria-hidden="true" />
                 {office.phone.display}
               </a>
             </div>
