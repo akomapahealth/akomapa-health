@@ -109,11 +109,11 @@ export interface AcademyCurriculum {
 export interface FacultyMember {
   id: string;
   name: string;
-  title: string;
-  institution: string;
-  bio: string;
-  image: string;
-  specialties: string[];
+  title?: string;
+  institution?: string;
+  bio?: string;
+  image?: string;
+  specialties?: string[];
   socialLinks?: {
     linkedin?: string;
     email?: string;

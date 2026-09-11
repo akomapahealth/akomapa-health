@@ -9,7 +9,7 @@ import type {
 export const academyOverview = {
   title: "Training Ethical Leaders for a Changing World",
   description:
-    "The Akomapa Academy prepares students and emerging health professionals to navigate the ethical, relational, and systems challenges of global health. Its semester-long learning experience combines faculty dialogue, case-based study, community practice, mentorship, and a capstone project.",
+    "The Akomapa Academy prepares students and emerging health professionals to navigate the ethical, relational, and systems challenges of global health. Its semester-long learning experience combines faculty dialogue, case-based study, community practice, mentorship, and guided reflection.",
   whyItMatters:
     "Health professionals make decisions that affect communities, institutions, and public trust. Ethical leadership helps them examine power, listen across differences, use evidence responsibly, and build solutions with the people those solutions are intended to serve.",
 } as const;
@@ -18,124 +18,150 @@ export const academyCurriculum: AcademyCurriculum = {
   totalDuration: "10–16 weeks",
   certificationName: "Akomapa Certificate in Global Health Leadership",
   certificationDescription:
-    "Awarded to scholars who complete the core modules, participate in faculty and peer learning, and present an applied community-centered capstone project.",
+    "Awarded to scholars who complete the core modules, participate in faculty and peer learning, and finish the closing reflection and commitment.",
   modules: [
     {
-      id: "ethical-decision-making",
-      title: "Ethical Leadership and Decision-Making",
+      id: "welcome-akomapa-ethos",
+      title: "Welcome & Akomapa Ethos",
       description:
-        "Build a practical foundation for recognizing ethical tensions and making accountable decisions in complex health settings.",
+        "Begin with Akomapa's origin story and the personal journeys that shape ethical global health leadership.",
       learningObjectives: [
-        "Apply ethical frameworks to realistic global and community health cases",
-        "Identify power imbalances, conflicts of interest, and unintended consequences",
-        "Practice transparent reasoning and accountable decision-making",
+        "Understand Akomapa's origin and shared ethos",
+        "Reflect on personal journeys into community health",
+        "Connect individual purpose to leadership commitments",
       ],
-      facultyContributors: ["derek-tuoyire", "jeremy-schwartz"],
-      duration: "2 weeks",
+      facultyContributors: ["Akomapa Team"],
       order: 1,
     },
     {
-      id: "community-partnership",
-      title: "Community Partnership and Shared Power",
+      id: "ncds-as-systems-problems",
+      title: "NCDs as Systems Problems",
       description:
-        "Learn how equitable partnerships are formed, governed, evaluated, and sustained with communities.",
+        "Examine Ghana's NCD epidemic as a systems challenge, and why screening alone cannot close gaps in chronic care.",
       learningObjectives: [
-        "Distinguish consultation from meaningful shared decision-making",
-        "Design engagement practices that respect community knowledge and priorities",
-        "Develop accountability mechanisms for long-term partnerships",
+        "Examine the silent epidemic of NCDs through the Ghanaian story",
+        "Explain why screening alone fails without systems thinking",
+        "Study the Akomapa model as a community-centered response",
       ],
-      facultyContributors: ["derek-tuoyire", "alfred-yawson"],
-      duration: "2 weeks",
+      facultyContributors: [
+        "Prof. Alfred Yawson",
+        "Dr. Jeremy Schwartz",
+        "Dr. Megan Raney",
+      ],
       order: 2,
     },
     {
-      id: "cultural-humility",
-      title: "Cultural Humility and Reciprocal Learning",
+      id: "leadership-power-responsibility",
+      title: "Leadership, Power & Responsibility",
       description:
-        "Develop reflective habits for learning across cultures, professions, institutions, and lived experiences.",
+        "Examine how power, privilege, and bias shape leadership in community and global health.",
       learningObjectives: [
-        "Practice self-reflection and recognize assumptions that shape health work",
-        "Use listening and dialogue to support reciprocal learning",
-        "Respond constructively to uncertainty, disagreement, and feedback",
+        "Recognize power and privilege in health leadership",
+        "Identify how bias affects care and partnership",
+        "Practice responsible use of influence in community settings",
       ],
-      facultyContributors: ["adrian-mayo", "derek-tuoyire"],
-      duration: "1 week",
+      facultyContributors: ["Dr. Aba Black"],
       order: 3,
     },
     {
-      id: "ncd-health-equity",
-      title: "NCDs, Prevention, and Health Equity",
+      id: "ethics-in-community-health-work",
+      title: "Ethics in Community Health Work",
       description:
-        "Examine the non-communicable disease epidemic and the structural barriers that shape prevention, diagnosis, treatment, and follow-up.",
+        "Build cultural humility, ethical leadership, and reciprocal learning across institutions and communities.",
       learningObjectives: [
-        "Explain how social and health-system factors influence NCD outcomes",
-        "Connect prevention and screening to referral and longitudinal care",
-        "Assess an NCD intervention through a health-equity lens",
+        "Practice cultural humility and ethical leadership",
+        "Examine bidirectionality in global health education",
+        "Learn from student-led community engagement through the COBES story",
       ],
-      facultyContributors: ["jeremy-schwartz", "alfred-yawson"],
-      duration: "2 weeks",
+      facultyContributors: [
+        "Dr. Kaveh Khoshnood",
+        "Dr. Tracy Rabin",
+        "Prof. Alfred Yawson",
+        "Prof. Derek Anamaale Tuoyire",
+      ],
       order: 4,
     },
     {
-      id: "systems-thinking",
-      title: "Systems Thinking and Interprofessional Leadership",
+      id: "sustainability-systems-design",
+      title: "Sustainability, Systems Design & Longitudinal Impact",
       description:
-        "Understand how people, policies, resources, incentives, and institutions interact within health systems.",
+        "Learn why promising global health programs fail, and how to design ethical, scalable systems for NCD care.",
       learningObjectives: [
-        "Map stakeholders and feedback loops in a health-system challenge",
-        "Lead effectively across professional and institutional boundaries",
-        "Identify leverage points for sustainable systems strengthening",
+        "Identify why good global health programs fail",
+        "Design ethical and scalable systems for NCD care",
+        "Plan for longitudinal impact beyond short-term projects",
       ],
-      facultyContributors: ["alfred-yawson", "adrian-mayo"],
-      duration: "2 weeks",
+      facultyContributors: ["Emily Sheldon", "Dr. Elijah Paintsil"],
       order: 5,
     },
     {
-      id: "community-research",
-      title: "Community-Based Research and Evidence",
+      id: "community-driven-care-trust",
+      title: "Community-Driven Care & Trust",
       description:
-        "Use research methods responsibly to answer community priorities and improve programs.",
+        "Explore how trust and community leadership shape durable care.",
       learningObjectives: [
-        "Formulate useful, ethical, and community-relevant research questions",
-        "Select appropriate qualitative and quantitative methods",
-        "Plan responsible data collection, interpretation, and knowledge sharing",
+        "Describe principles of community-driven care",
+        "Explain how trust is built and sustained with communities",
+        "Connect community leadership to care design",
       ],
-      facultyContributors: ["jeremy-schwartz", "derek-tuoyire"],
-      duration: "2 weeks",
+      facultyContributors: ["Dr. Shadrack Frimpong"],
       order: 6,
     },
     {
-      id: "responsible-innovation",
-      title: "Responsible Innovation and Quality Improvement",
+      id: "research-data-knowledge-stewardship",
+      title: "Research, Data & Knowledge Stewardship",
       description:
-        "Explore how technology, implementation science, and quality improvement can strengthen care without outpacing evidence or trust.",
+        "Practice ethical student-led research and responsible stewardship of community health data.",
       learningObjectives: [
-        "Evaluate innovations for usefulness, safety, equity, and sustainability",
-        "Design a measurable quality-improvement cycle",
-        "Plan an implementation approach that can adapt to local context",
+        "Apply consent, privacy, confidentiality, and data ownership in student-led research",
+        "Practice reciprocity in how knowledge is generated and shared",
+        "Understand Nkwapa and Akomapa's data trust policy",
       ],
-      facultyContributors: ["adrian-mayo", "jeremy-schwartz"],
-      duration: "2 weeks",
+      facultyContributors: [
+        "Dr. Jeremy Schwartz",
+        "Prof. Kyei",
+        "Dr. Easmon Otupuri",
+      ],
       order: 7,
     },
     {
-      id: "leadership-capstone",
-      title: "Applied Leadership Capstone",
+      id: "student-led-leadership-advocacy",
+      title: "Student-Led Leadership, Advocacy & Innovation",
       description:
-        "Integrate Academy learning in a practical proposal responding to a community-defined health challenge.",
+        "Learn from youth leadership, mentorship pipelines, and student-led innovation in practice.",
       learningObjectives: [
-        "Co-design a feasible intervention with a clear theory of change",
-        "Define ethical safeguards, partnership roles, and measures of success",
-        "Communicate and defend a proposal to faculty, peers, and community partners",
+        "Learn from youth leadership in action through the OKB Foundation story",
+        "Explore mentorship, pipelines, and leadership development",
+        "Connect student leadership to advocacy and innovation",
       ],
-      facultyContributors: [
-        "derek-tuoyire",
-        "jeremy-schwartz",
-        "adrian-mayo",
-        "alfred-yawson",
-      ],
-      duration: "2 weeks",
+      facultyContributors: ["Osei Boateng", "NHP Free Clinic"],
       order: 8,
+    },
+    {
+      id: "interprofessional-practice-team-leadership",
+      title: "Interprofessional Practice & Team Leadership",
+      description:
+        "Understand why interprofessional care matters and how hierarchies can harm teams and patients.",
+      learningObjectives: [
+        "Explain why interprofessional care matters",
+        "Identify harmful hierarchies in healthcare",
+        "Practice team leadership across professional roles",
+      ],
+      facultyContributors: ["Dr. Robert Rohrbaugh"],
+      order: 9,
+    },
+    {
+      id: "reflection-integration-commitment",
+      title: "Reflection, Integration & Commitment",
+      description:
+        "Integrate the semester's learning, reflect on leading within limits, and define next steps.",
+      learningObjectives: [
+        "Participate in a reflection circle on leading within limits",
+        "Integrate learning across the Academy curriculum",
+        "Commit to concrete next steps as an ethical health leader",
+      ],
+      facultyContributors: ["Akomapa Team"],
+      order: 10,
     },
   ],
 };
@@ -169,16 +195,6 @@ const facultyProfiles: FacultyProfile[] = [
     ],
   },
   {
-    teamMemberId: "32",
-    id: "adrian-mayo",
-    institution: "David Geffen School of Medicine at UCLA",
-    specialties: [
-      "Clinical education",
-      "Ethical leadership",
-      "Interprofessional collaboration",
-    ],
-  },
-  {
     teamMemberId: "34",
     id: "alfred-yawson",
     institution: "University of Ghana",
@@ -187,6 +203,69 @@ const facultyProfiles: FacultyProfile[] = [
       "Health professions education",
       "Health systems leadership",
     ],
+  },
+  {
+    teamMemberId: "30",
+    id: "emily-sheldon",
+    institution: "African Health Innovation Center",
+    specialties: [
+      "Public health innovation",
+      "Organizational leadership",
+      "Health systems design",
+    ],
+  },
+  {
+    teamMemberId: "33",
+    id: "elijah-paintsil",
+    institution: "Boston Medical Center",
+    specialties: [
+      "Pediatrics",
+      "Healthcare leadership",
+      "Clinical education",
+    ],
+  },
+];
+
+/** GHELP instructors. They teach in the Academy and are not advisory-board members. */
+export const academyInstructors: FacultyMember[] = [
+  {
+    id: "osei-boateng",
+    name: "Osei Boateng",
+    institution: "OKB Foundation",
+  },
+  {
+    id: "aba-black",
+    name: "Dr. Aba Black",
+    institution: "Yale University",
+  },
+  {
+    id: "kaveh-khoshnood",
+    name: "Dr. Kaveh Khoshnood",
+    institution: "Yale University",
+  },
+  {
+    id: "shadrack-frimpong",
+    name: "Dr. Shadrack Frimpong",
+    institution: "Mundaly",
+  },
+  {
+    id: "robert-rohrbaugh",
+    name: "Dr. Robert Rohrbaugh",
+    institution: "Yale University",
+  },
+  {
+    id: "tracy-rabin",
+    name: "Dr. Tracy Rabin",
+    institution: "Yale University",
+  },
+  {
+    id: "megan-raney",
+    name: "Dr. Megan Raney",
+    institution: "Yale University",
+  },
+  {
+    id: "easmon-otupuri",
+    name: "Dr. Easmon Otupuri",
   },
 ];
 
@@ -213,19 +292,22 @@ function toFacultyMember(
   };
 }
 
-export const academyFaculty: FacultyMember[] = facultyProfiles.map((profile) => {
-  const member = advisoryBoardMembers.find(
-    (teamMember) => teamMember.id === profile.teamMemberId,
-  );
-
-  if (!member) {
-    throw new Error(
-      `Academy faculty source ${profile.teamMemberId} must reference an advisory-board member.`,
+export const academyFaculty: FacultyMember[] = [
+  ...facultyProfiles.map((profile) => {
+    const member = advisoryBoardMembers.find(
+      (teamMember) => teamMember.id === profile.teamMemberId,
     );
-  }
 
-  return toFacultyMember(profile, member);
-});
+    if (!member) {
+      throw new Error(
+        `Academy faculty source ${profile.teamMemberId} must reference an advisory-board member.`,
+      );
+    }
+
+    return toFacultyMember(profile, member);
+  }),
+  ...academyInstructors,
+];
 
 export const academyTestimonials: Testimonial[] = [
   {
