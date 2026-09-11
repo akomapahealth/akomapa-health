@@ -94,12 +94,12 @@ export default function FacultyGrid() {
           </EditorialHeading>
           <EditorialLead className="mt-5">
             Our faculty bring decades of experience across community medicine,
-            health systems, clinical education, and public health leadership.
+            health systems, innovation, and public health leadership.
           </EditorialLead>
         </div>
       </FadeIn>
 
-      <FadeInStagger className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4 sm:gap-6 lg:gap-8">
+      <FadeInStagger className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 sm:gap-6 lg:gap-8">
         {academyFaculty.map((faculty) => (
           <FadeInStaggerItem key={faculty.id}>
             <FacultyCard faculty={faculty} />

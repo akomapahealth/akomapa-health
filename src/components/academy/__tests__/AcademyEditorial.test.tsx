@@ -63,7 +63,7 @@ describe("Academy editorial sections", () => {
     render(<CurriculumSection />);
 
     const section = screen.getByRole("region", {
-      name: "8 Modules. One Transformative Journey.",
+      name: `${academyCurriculum.modules.length} Modules. One Transformative Journey.`,
     });
     expect(section).toHaveAttribute("id", "curriculum");
     expect(section.className).not.toContain("gradient");
