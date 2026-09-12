@@ -7,6 +7,8 @@ import {
   EditorialHeading,
 } from "@/components/shared/EditorialPrimitives";
 import type { Story } from "@/lib/types";
+import StoryDialog from "@/components/community-hubs/StoryDialog";
+import MoreStoriesDialog from "./MoreStoriesDialog";
 
 type EmptyState = {
   title: string;
@@ -46,9 +48,8 @@ export default function StoriesSection({
 
       {hasStories ? (
         <FadeInStagger
-          className={`mt-12 grid gap-0 border-t md:grid-cols-2 lg:grid-cols-3 ${
-            isTeal ? "border-[#FCFAEF]/20" : "border-[#1C1F1E]/15 dark:border-[#FCFAEF]/20"
-          }`}
+          className={`mt-12 grid gap-0 border-t md:grid-cols-2 lg:grid-cols-3 ${isTeal ? "border-[#FCFAEF]/20" : "border-[#1C1F1E]/15 dark:border-[#FCFAEF]/20"
+            }`}
         >
           {stories.map((story) => (
             <FadeInStaggerItem key={story.id} direction="up">
@@ -79,6 +80,13 @@ export default function StoriesSection({
           />
         </FadeIn>
       )}
+
+      <MoreStoriesDialog
+        stories={stories}
+        title={`More ${title}`}
+        tone={tone === "teal" ? "teal" : "amber"}
+      />
+
     </EditorialBand>
   );
 }

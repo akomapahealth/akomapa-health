@@ -215,7 +215,8 @@ export default function GivebutterCheckout({
           <div
             role="status"
             aria-live="polite"
-            className="flex min-h-44 flex-col items-center justify-center gap-3 text-sm text-[#2F3332]/75 dark:text-[#E6E7E7]/75"
+            // className="flex min-h-44 flex-col items-center justify-center gap-3 text-sm text-[#2F3332]/75 dark:text-[#E6E7E7]/75"
+             className="flex w-full min-h-44 flex-col items-center justify-center gap-3 text-sm text-[#2F3332]/75 dark:text-[#E6E7E7]/75"
           >
             <Loader2 aria-hidden="true" className="h-6 w-6 animate-spin" />
             Loading secure donation form…
@@ -226,15 +227,17 @@ export default function GivebutterCheckout({
           <givebutter-giving-form
             key={widgetKey}
             campaign={provider.campaignCode}
-            max-width="760px"
+            max-width="100%"
             data-testid="givebutter-giving-form"
+            className="w-full"
           />
         ) : null}
 
         {loadState === "error" ? (
           <div
             role="alert"
-            className="border border-[#C9920F]/35 bg-[#F5C94D]/10 px-4 py-5 text-center"
+            // className="border border-[#C9920F]/35 bg-[#F5C94D]/10 px-4 py-5 text-center"
+            className="w-full border border-[#C9920F]/35 bg-[#F5C94D]/10 px-4 py-5 text-center"
           >
             <p className="text-sm leading-6 text-[#2F3332] dark:text-[#FCFAEF]">
               {provider.configurationErrorMessage}
@@ -294,5 +297,6 @@ export default function GivebutterCheckout({
         </p>
       </div>
     </section>
+
   );
 }

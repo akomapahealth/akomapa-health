@@ -1,3 +1,5 @@
+import { uccCommunityStories, uccStudentStories } from "./hub-stories/ucc-stories";
+import { ugCommunityStories, ugStudentStories } from "./hub-stories/ug-stories";
 import { UG_TRAINING_FORM_URL } from "@/config/links";
 import type {
   CommunityHub,
@@ -5,6 +7,7 @@ import type {
   HubRoster,
   HubRouteSlug,
 } from "@/lib/types";
+
 
 export const hubMissions: HubMission[] = [
   {
@@ -66,100 +69,100 @@ export const hubActivities: ReadonlyArray<{
   description: string;
   icon: HubActivityIcon;
 }> = [
-  {
-    id: "screening",
-    title: "Health Screening",
-    description:
-      "Community-based prevention and early detection for NCDs and related health risks.",
-    icon: "Stethoscope",
-  },
-  {
-    id: "referrals",
-    title: "Clinical Referrals",
-    description:
-      "Pathways connecting community members to follow-up care and trusted local services.",
-    icon: "ArrowRightLeft",
-  },
-  {
-    id: "education",
-    title: "Health Education",
-    description:
-      "Workshops and outreach that build health literacy in schools, workplaces, and neighborhoods.",
-    icon: "BookOpen",
-  },
-  {
-    id: "engagement",
-    title: "Community Engagement",
-    description:
-      "Listening sessions, co-design, and ongoing partnership with local leaders and residents.",
-    icon: "Users",
-  },
-  {
-    id: "leadership",
-    title: "Leadership Training",
-    description:
-      "Structured opportunities for students to practice ethical, community-centered leadership.",
-    icon: "GraduationCap",
-  },
-  {
-    id: "mentorship",
-    title: "Student Mentorship",
-    description:
-      "Faculty and clinician mentors guiding students through supervised service and reflection.",
-    icon: "HeartHandshake",
-  },
-  {
-    id: "research",
-    title: "Research Activities",
-    description:
-      "Student-led and community-based studies that turn local learning into actionable evidence.",
-    icon: "FlaskConical",
-  },
-  {
-    id: "innovation",
-    title: "Innovation Pilots",
-    description:
-      "Testing digital tools, quality improvement, and new care models in real community settings.",
-    icon: "Lightbulb",
-  },
-];
+    {
+      id: "screening",
+      title: "Health Screening",
+      description:
+        "Community-based prevention and early detection for NCDs and related health risks.",
+      icon: "Stethoscope",
+    },
+    {
+      id: "referrals",
+      title: "Clinical Referrals",
+      description:
+        "Pathways connecting community members to follow-up care and trusted local services.",
+      icon: "ArrowRightLeft",
+    },
+    {
+      id: "education",
+      title: "Health Education",
+      description:
+        "Workshops and outreach that build health literacy in schools, workplaces, and neighborhoods.",
+      icon: "BookOpen",
+    },
+    {
+      id: "engagement",
+      title: "Community Engagement",
+      description:
+        "Listening sessions, co-design, and ongoing partnership with local leaders and residents.",
+      icon: "Users",
+    },
+    {
+      id: "leadership",
+      title: "Leadership Training",
+      description:
+        "Structured opportunities for students to practice ethical, community-centered leadership.",
+      icon: "GraduationCap",
+    },
+    {
+      id: "mentorship",
+      title: "Student Mentorship",
+      description:
+        "Faculty and clinician mentors guiding students through supervised service and reflection.",
+      icon: "HeartHandshake",
+    },
+    {
+      id: "research",
+      title: "Research Activities",
+      description:
+        "Student-led and community-based studies that turn local learning into actionable evidence.",
+      icon: "FlaskConical",
+    },
+    {
+      id: "innovation",
+      title: "Innovation Pilots",
+      description:
+        "Testing digital tools, quality improvement, and new care models in real community settings.",
+      icon: "Lightbulb",
+    },
+  ];
 
 export const whyHubsMatter: ReadonlyArray<{
   id: string;
   title: string;
   description: string;
 }> = [
-  {
-    id: "access",
-    title: "Healthcare Access",
-    description:
-      "Hubs bring prevention, screening, education, and referral support closer to the communities that need them most.",
-  },
-  {
-    id: "leadership",
-    title: "Leadership Development",
-    description:
-      "Students gain supervised experience practicing ethical, interprofessional leadership alongside communities.",
-  },
-  {
-    id: "partnership",
-    title: "Community Partnership",
-    description:
-      "Programs are co-designed with local leaders so services reflect community priorities and strengths.",
-  },
-  {
-    id: "research",
-    title: "Research",
-    description:
-      "Hub activity generates evidence that strengthens programs, partnerships, and health-system practice.",
-  },
-  {
-    id: "systems",
-    title: "Health Systems Strengthening",
-    description:
-      "Innovation pilots and referral networks help build more connected, responsive local health systems.",
-  },
-];
+    {
+      id: "access",
+      title: "Healthcare Access",
+      description:
+        "Hubs bring prevention, screening, education, and referral support closer to the communities that need them most.",
+    },
+    {
+      id: "leadership",
+      title: "Leadership Development",
+      description:
+        "Students gain supervised experience practicing ethical, interprofessional leadership alongside communities.",
+    },
+    {
+      id: "partnership",
+      title: "Community Partnership",
+      description:
+        "Programs are co-designed with local leaders so services reflect community priorities and strengths.",
+    },
+    {
+      id: "research",
+      title: "Research",
+      description:
+        "Hub activity generates evidence that strengthens programs, partnerships, and health-system practice.",
+    },
+    {
+      id: "systems",
+      title: "Health Systems Strengthening",
+      description:
+        "Innovation pilots and referral networks help build more connected, responsive local health systems.",
+    },
+  ];
 
 export const hubEmptyStates = {
   communityStories: {
@@ -553,8 +556,10 @@ export const communityHubs: CommunityHub[] = [
       communitiesReached: 2,
       partnersEngaged: 3,
     },
-    communityStories: [],
-    studentStories: [],
+    // communityStories: [],
+    // studentStories: [],
+    communityStories: uccCommunityStories,
+    studentStories: uccStudentStories,
     facultyMentorship: {
       model:
         "Interprofessional student teams lead defined activities under dual review and on-site supervision from licensed clinicians and faculty mentors.",
@@ -584,8 +589,8 @@ export const communityHubs: CommunityHub[] = [
       communitiesReached: 0,
       partnersEngaged: 4,
     },
-    communityStories: [],
-    studentStories: [],
+    communityStories: ugCommunityStories,
+    studentStories: ugStudentStories,
     facultyMentorship: {
       model:
         "Faculty, university leaders, health-system partners, and Akomapa mentors supervise interprofessional student teams as the UG hub delivers community health activities and leadership training.",
