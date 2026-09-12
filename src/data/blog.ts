@@ -207,7 +207,7 @@ export const blogPosts: BlogPost[] = [
     slug: "reciprocal-learning-in-practice",
     title: "Reciprocal Learning in Practice",
     excerpt:
-      "A recorded conversation between faculty and scholars on what it means to learn from the communities we serve — and why the direction of that learning matters.",
+      "A conversation between faculty and scholars on what it means to learn from the communities we serve — and why the direction of that learning matters. The recording will be published when it is available.",
     author: "Akomapa Academy",
     authorRole: "Ethical Leadership Academy",
     authorInstitution: "Akomapa Health",
@@ -216,11 +216,11 @@ export const blogPosts: BlogPost[] = [
     category: "recorded-talk",
     tags: ["reciprocal-learning", "academy", "ethical-leadership"],
     image: "/highlights/Akomapa-47.jpg",
-    videoUrl: "https://www.youtube.com/watch?v=ysz5S6PUM-U",
+    videoComingSoon: true,
     date: "2026-01-20",
     featured: false,
     content: `
-<p>In this recorded session, Academy faculty and scholars sit down to unpack one of the ideas at the heart of the Akomapa model: that learning in global health should move in both directions.</p>
+<p>In this session, Academy faculty and scholars sit down to unpack one of the ideas at the heart of the Akomapa model: that learning in global health should move in both directions.</p>
 <h2>The conversation in brief</h2>
 <p>Too often, "training" describes a one-way transfer — expertise flowing from the institution to the community. Reciprocal learning insists on something harder and more honest: that the community is also a teacher, and that the student who cannot learn from it is not yet ready to serve it.</p>
 <blockquote>The question is not only what we bring to a community, but what we are willing to be changed by.</blockquote>
@@ -230,7 +230,7 @@ export const blogPosts: BlogPost[] = [
   <li>Why faculty treat humility as a clinical skill, not a personality trait.</li>
   <li>Practical ways hubs build reflection into every visit.</li>
 </ul>
-<p>Watch the full conversation above, and read the companion essays from our scholars to see these ideas at work in the field.</p>
+<p>A recording of this conversation will be published here when it is available. Until then, read the companion essays from our scholars to see these ideas at work in the field.</p>
 `.trim(),
   },
 ];

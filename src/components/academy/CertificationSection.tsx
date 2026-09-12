@@ -12,9 +12,9 @@ import {
 import { academyCurriculum } from "@/data/academy";
 
 const certificationRequirements = [
-  "Complete all 8 core modules",
+  `Complete all ${academyCurriculum.modules.length} core modules`,
   "Participate in faculty and peer learning sessions",
-  "Present an applied community-centered capstone project",
+  "Complete the closing reflection and commitment",
 ] as const;
 
 export default function CertificationSection() {
@@ -35,7 +35,7 @@ export default function CertificationSection() {
           <div className="relative aspect-[4/3] overflow-hidden rounded-md border border-[#FCFAEF]/25 bg-[#0F4C5C] lg:aspect-[4/5]">
             <Image
               src="/highlights/Akomapa-40.jpg"
-              alt="Academy scholars in a capstone presentation"
+              alt="Academy scholars in a learning session"
               fill
               sizes="(min-width: 1024px) 40vw, 100vw"
               className="object-cover object-center"

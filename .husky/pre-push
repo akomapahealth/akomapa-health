@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
-# Blocks push if lint, types, production build, or E2E tests fail.
+# Blocks push if the security, unit, build, and browser checks fail.
 # Bypass (emergency only): git push --no-verify  OR  HUSKY=0 git push
 set -e
 
@@ -11,6 +11,10 @@ if [ "$actual_node_major" != "$required_node_major" ]; then
 fi
 
 echo ""
+echo "=== pre-push: React Server Components security patch ==="
+npm run security:verify-rsc-patch
+
+echo ""
 echo "=== pre-push: ESLint (full project) ==="
 npm run lint
 
@@ -19,8 +23,17 @@ echo "=== pre-push: TypeScript ==="
 npm run typecheck
 
 echo ""
+echo "=== pre-push: unit tests ==="
+npm test
+
+echo ""
 echo "=== pre-push: production build ==="
 npm run build
+
+echo ""
+echo "=== pre-push: client bundle security ==="
+npm run security:verify-intake-client-bundle
+npm run security:verify-source-maps
 
 echo ""
 echo "=== pre-push: Playwright E2E ==="

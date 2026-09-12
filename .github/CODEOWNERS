@@ -1,0 +1,21 @@
+# Repository-wide fallback owner.
+* @nanaagyei
+
+# CI, dependency, supply-chain, and deployment controls.
+/.github/ @nanaagyei
+/package.json @nanaagyei
+/package-lock.json @nanaagyei
+/next.config.ts @nanaagyei
+/playwright.config.ts @nanaagyei
+/scripts/ @nanaagyei
+
+# Public request handlers and security-sensitive runtime configuration.
+/src/app/api/ @nanaagyei
+/src/config/ @nanaagyei
+/src/lib/intake/server/ @nanaagyei
+
+# Security, operations, and architectural decisions.
+/SECURITY.md @nanaagyei
+/docs/architecture/ @nanaagyei
+/docs/operations/ @nanaagyei
+/docs/security/ @nanaagyei

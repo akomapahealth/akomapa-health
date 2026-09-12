@@ -14,7 +14,7 @@ describe("Immersion security headers", () => {
 
     expect(IMMERSION_ROUTE).toBe("/global-health-immersion-program");
     expect(contentSecurityPolicy?.value).toBe(
-      `frame-src 'self' ${FILLOUT_EMBED_ORIGIN};`,
+      `base-uri 'self'; object-src 'none'; frame-ancestors 'none'; frame-src 'self' ${FILLOUT_EMBED_ORIGIN};`,
     );
     expect(contentSecurityPolicy?.value).not.toContain("*");
     expect(contentSecurityPolicy?.value).not.toContain("forms.fillout.com");
@@ -26,7 +26,7 @@ describe("Immersion security headers", () => {
     );
 
     expect(permissionsPolicy?.value).toBe(
-      "camera=(), microphone=(), geolocation=()",
+      "camera=(), microphone=(), geolocation=(), payment=(), usb=()",
     );
   });
 });

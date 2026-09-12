@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest } from "next/server";
 import type { z } from "zod";
 import {
   INTAKE_SCHEMA_VERSION,
@@ -9,14 +9,23 @@ import {
 } from "@/lib/intake/contracts";
 import { deliverIntakeRecord } from "@/lib/intake/server/deliver";
 import { providerErrorCategory } from "@/lib/intake/server/errors";
+import {
+  createInMemoryRateLimiter,
+  getRequestClientAddress,
+  noStoreJson,
+  readSecureJson,
+} from "@/lib/http/public-api-security";
 
 const MAX_BODY_BYTES = 8_192;
 const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1_000;
 const RATE_LIMIT_MAX_REQUESTS = 5;
 const RATE_LIMIT_MAX_ENTRIES = 1_000;
 
-type RateLimitEntry = { count: number; resetAt: number };
-const rateLimitEntries = new Map<string, RateLimitEntry>();
+const intakeRateLimiter = createInMemoryRateLimiter({
+  maxEntries: RATE_LIMIT_MAX_ENTRIES,
+  maxRequests: RATE_LIMIT_MAX_REQUESTS,
+  windowMs: RATE_LIMIT_WINDOW_MS,
+});
 
 type IntakeRouteOptions<T extends IntakeFormType> = {
   formType: T;
@@ -24,50 +33,8 @@ type IntakeRouteOptions<T extends IntakeFormType> = {
   defaultSourcePath: string;
 };
 
-function jsonResponse(
-  body: Record<string, unknown>,
-  status: number,
-  headers?: HeadersInit,
-) {
-  return NextResponse.json(body, {
-    status,
-    headers: {
-      "Cache-Control": "no-store",
-      ...headers,
-    },
-  });
-}
-
 function getClientKey(request: NextRequest, formType: IntakeFormType) {
-  const address =
-    request.headers.get("x-real-ip") ??
-    request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
-    "unknown";
-  return `${formType}:${address}`;
-}
-
-function isRateLimited(clientKey: string) {
-  const now = Date.now();
-  const current = rateLimitEntries.get(clientKey);
-
-  if (!current || current.resetAt <= now) {
-    for (const [key, entry] of rateLimitEntries) {
-      if (entry.resetAt <= now) rateLimitEntries.delete(key);
-    }
-    while (rateLimitEntries.size >= RATE_LIMIT_MAX_ENTRIES) {
-      const oldestKey = rateLimitEntries.keys().next().value;
-      if (typeof oldestKey !== "string") break;
-      rateLimitEntries.delete(oldestKey);
-    }
-    rateLimitEntries.set(clientKey, {
-      count: 1,
-      resetAt: now + RATE_LIMIT_WINDOW_MS,
-    });
-    return false;
-  }
-
-  current.count += 1;
-  return current.count > RATE_LIMIT_MAX_REQUESTS;
+  return `${formType}:${getRequestClientAddress(request)}`;
 }
 
 export function createIntakePostHandler<T extends IntakeFormType>({
@@ -76,56 +43,26 @@ export function createIntakePostHandler<T extends IntakeFormType>({
   defaultSourcePath,
 }: IntakeRouteOptions<T>) {
   return async function POST(request: NextRequest) {
-    const contentType = request.headers.get("content-type") ?? "";
-    if (!contentType.startsWith("application/json")) {
-      return jsonResponse({ error: "Unsupported content type" }, 415);
-    }
+    const payload = await readSecureJson(request, MAX_BODY_BYTES);
+    if (!payload.ok) return payload.response;
 
-    const origin = request.headers.get("origin");
-    if (!origin || origin !== request.nextUrl.origin) {
-      return jsonResponse({ error: "Request origin is not allowed" }, 403);
-    }
-
-    const contentLength = Number(request.headers.get("content-length") ?? 0);
-    if (Number.isFinite(contentLength) && contentLength > MAX_BODY_BYTES) {
-      return jsonResponse({ error: "Request body is too large" }, 413);
-    }
-
-    if (isRateLimited(getClientKey(request, formType))) {
-      return jsonResponse(
+    if (intakeRateLimiter.isLimited(getClientKey(request, formType))) {
+      return noStoreJson(
         { error: "Too many requests. Please try again later." },
         429,
         { "Retry-After": String(RATE_LIMIT_WINDOW_MS / 1_000) },
       );
     }
 
-    let rawBody: string;
-    try {
-      rawBody = await request.text();
-    } catch {
-      return jsonResponse({ error: "Invalid request body" }, 400);
-    }
-
-    if (new TextEncoder().encode(rawBody).byteLength > MAX_BODY_BYTES) {
-      return jsonResponse({ error: "Request body is too large" }, 413);
-    }
-
-    let body: unknown;
-    try {
-      body = JSON.parse(rawBody);
-    } catch {
-      return jsonResponse({ error: "Invalid request body" }, 400);
-    }
-
-    const parsed = schema.safeParse(body);
+    const parsed = schema.safeParse(payload.body);
     if (!parsed.success) {
-      return jsonResponse({ error: "Please check the form fields." }, 400);
+      return noStoreJson({ error: "Please check the form fields." }, 400);
     }
 
     const parsedData = parsed.data as IntakeInputByType[T];
 
     if (parsedData.company) {
-      return jsonResponse({ success: true }, 200);
+      return noStoreJson({ success: true }, 200);
     }
 
     const data = Object.fromEntries(
@@ -144,7 +81,7 @@ export function createIntakePostHandler<T extends IntakeFormType>({
 
     try {
       await deliverIntakeRecord(record);
-      return jsonResponse(
+      return noStoreJson(
         { success: true, requestId: record.requestId },
         200,
       );
@@ -156,7 +93,7 @@ export function createIntakePostHandler<T extends IntakeFormType>({
         category,
       });
 
-      return jsonResponse(
+      return noStoreJson(
         {
           error:
             category === "misconfigured"
@@ -170,5 +107,5 @@ export function createIntakePostHandler<T extends IntakeFormType>({
 }
 
 export function resetIntakeRateLimitForTests() {
-  rateLimitEntries.clear();
+  intakeRateLimiter.reset();
 }

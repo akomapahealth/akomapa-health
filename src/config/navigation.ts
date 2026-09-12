@@ -68,7 +68,7 @@ export function isNavigationGroup(
 }
 
 export function isNavigationPathActive(pathname: string, href: string) {
-  return pathname === href || (href !== "/" && pathname.startsWith(`${href}/`));
+  return pathname === href;
 }
 
 export function isNavigationItemActive(

@@ -103,9 +103,20 @@ for (const scenario of [
 
     const firstLeaderImage = leadership.locator("img").first();
     await expect(firstLeaderImage).toHaveAttribute("loading", "lazy");
-    await expect(firstLeaderImage).toHaveAttribute(
-      "src",
-      /ik\.imagekit\.io\/akomapa\/ucc-team\/.+tr=q-75,w-/,
+    const firstLeaderSrc = await firstLeaderImage.getAttribute("src");
+    expect(firstLeaderSrc).not.toBeNull();
+    const firstLeaderUrl = new URL(firstLeaderSrc!);
+    expect(firstLeaderUrl.protocol).toBe("https:");
+    expect(firstLeaderUrl.hostname).toBe("ik.imagekit.io");
+    expect(firstLeaderUrl.pathname).toMatch(/^\/[^/]+\/ucc-team\/[^/]+$/);
+    expect(firstLeaderUrl.searchParams.get("tr")).toMatch(
+      /(?:^|,)f-auto(?:,|$)/,
+    );
+    expect(firstLeaderUrl.searchParams.get("tr")).toMatch(
+      /(?:^|,)q-75(?:,|$)/,
+    );
+    expect(firstLeaderUrl.searchParams.get("tr")).toMatch(
+      /(?:^|,)w-\d+(?:,|$)/,
     );
     await expect(firstLeaderImage).toHaveAttribute("sizes", /100vw/);
   });
@@ -173,6 +184,47 @@ test("volunteer dialog supports keyboard focus, Escape, backdrop close, and scro
   await expect(trigger).toBeFocused();
 });
 
+for (const scenario of [
+  { name: "mobile", width: 390, height: 844 },
+  { name: "desktop", width: 1280, height: 900 },
+] as const) {
+  test(`${scenario.name} volunteer portrait dialog does not add horizontal overflow`, async ({
+    page,
+  }) => {
+    await preparePage(page);
+    await page.setViewportSize({
+      width: scenario.width,
+      height: scenario.height,
+    });
+    await page.goto(route, { waitUntil: "domcontentloaded" });
+
+    const trigger = page
+      .locator("#hub-volunteers [data-volunteer-portrait-trigger]")
+      .first();
+    await trigger.scrollIntoViewIfNeeded();
+
+    const dialog = page.getByRole("dialog", { name: "Our Volunteer Community" });
+    await expect(async () => {
+      await trigger.click();
+      await expect(dialog).toBeVisible({ timeout: 2_000 });
+    }).toPass({ timeout: 10_000 });
+
+    await expect(
+      dialog.getByRole("img", { name: /volunteer portrait/i }),
+    ).toBeVisible();
+
+    await expect
+      .poll(() =>
+        page.evaluate(
+          () =>
+            document.documentElement.scrollWidth <=
+            document.documentElement.clientWidth + 1,
+        ),
+      )
+      .toBe(true);
+  });
+}
+
 test("reduced-motion users receive static people content and interactions", async ({
   browser,
 }) => {
@@ -208,6 +260,43 @@ test("reduced-motion users receive static people content and interactions", asyn
   await context.close();
 });
 
+test("UG Bio dialog portrait keeps a non-zero height on a 375px viewport", async ({
+  page,
+}) => {
+  await preparePage(page);
+  await page.setViewportSize({ width: 375, height: 812 });
+  await page.goto("/community-hubs/ug", { waitUntil: "domcontentloaded" });
+
+  const ugLeadership = page.locator("#hub-leadership");
+  const kelvinPortrait = ugLeadership.getByRole("button", {
+    name: "Open biography for Kelvin Akoto Boateng",
+  });
+  await kelvinPortrait.scrollIntoViewIfNeeded();
+  await expect(async () => {
+    await kelvinPortrait.click();
+    await expect(
+      page.getByRole("dialog", { name: "Kelvin Akoto Boateng" }),
+    ).toBeVisible({ timeout: 2000 });
+  }).toPass({ timeout: 15_000 });
+
+  const dialog = page.getByRole("dialog", { name: "Kelvin Akoto Boateng" });
+  const dialogMedia = dialog.locator("[data-hub-leader-dialog-media]");
+  await expect(dialogMedia).toBeVisible();
+  const mediaHeight = await dialogMedia.evaluate(
+    (element) => element.getBoundingClientRect().height,
+  );
+  expect(mediaHeight).toBeGreaterThan(100);
+
+  const portrait = dialog.getByRole("img", {
+    name: /Portrait of Kelvin Akoto Boateng/i,
+  });
+  await expect(portrait).toBeVisible();
+  const portraitHeight = await portrait.evaluate(
+    (element) => element.getBoundingClientRect().height,
+  );
+  expect(portraitHeight).toBeGreaterThan(100);
+});
+
 test("UG renders leadership cards without a volunteer band; NHP stays roster-free", async ({
   page,
 }) => {
@@ -238,7 +327,7 @@ test("UG renders leadership cards without a volunteer band; NHP stays roster-fre
     "data-hub-leadership-presentation",
     "compact-modal",
   );
-  await expect(ugLeadership.locator("[data-hub-leader]")).toHaveCount(4);
+  await expect(ugLeadership.locator("[data-hub-leader]")).toHaveCount(14);
   await expect(
     ugLeadership.getByRole("heading", {
       level: 3,

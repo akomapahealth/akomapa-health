@@ -26,7 +26,12 @@ import {
 } from "@/components/shared/EditorialPrimitives";
 import { formatDate, readingTime } from "@/lib/utils";
 import { getCategoryLabel } from "@/data/blog";
-import { getAnnouncementPosterSrc, parseVideoUrl } from "@/lib/video-utils";
+import {
+  getAnnouncementPosterSrc,
+  hasPendingBlogVideo,
+  hasPlayableBlogVideo,
+  parseVideoUrl,
+} from "@/lib/video-utils";
 import type { BlogPost as BlogPostType } from "@/lib/types";
 import { AuthorAvatar } from "./AuthorAvatar";
 import { BlogAuthorBio } from "./BlogAuthorBio";
@@ -51,6 +56,9 @@ export function BlogPost({ post, related, hasMoreByAuthor }: BlogPostProps) {
     image: post.image,
     videoUrl: post.videoUrl,
   });
+  const playableVideo = hasPlayableBlogVideo(post);
+  const pendingVideo = hasPendingBlogVideo(post);
+  const showMedia = Boolean(posterSrc) || pendingVideo;
 
   useEffect(() => {
     setShareUrl(window.location.href);
@@ -164,7 +172,7 @@ export function BlogPost({ post, related, hasMoreByAuthor }: BlogPostProps) {
           </div>
         </EditorialBand>
 
-        {posterSrc ? (
+        {showMedia ? (
           <EditorialBand
             tone="cream"
             aria-label="Article media"
@@ -172,7 +180,7 @@ export function BlogPost({ post, related, hasMoreByAuthor }: BlogPostProps) {
           >
             <FadeIn className="mx-auto max-w-4xl">
               <div className="relative aspect-[16/9] overflow-hidden rounded-md border border-[#1C1F1E]/10 dark:border-[#FCFAEF]/15">
-                {post.videoUrl && videoPlaying ? (
+                {playableVideo && videoPlaying && post.videoUrl ? (
                   <iframe
                     src={parseVideoUrl(post.videoUrl)?.embedUrl}
                     className="absolute inset-0 h-full w-full"
@@ -182,15 +190,45 @@ export function BlogPost({ post, related, hasMoreByAuthor }: BlogPostProps) {
                   />
                 ) : (
                   <>
-                    <Image
-                      src={posterSrc}
-                      alt={post.title}
-                      fill
-                      priority
-                      sizes="(min-width: 1024px) 56rem, 100vw"
-                      className="object-cover"
-                    />
-                    {post.videoUrl ? (
+                    {posterSrc ? (
+                      <Image
+                        src={posterSrc}
+                        alt={post.title}
+                        fill
+                        priority
+                        sizes="(min-width: 1024px) 56rem, 100vw"
+                        className="object-cover"
+                      />
+                    ) : (
+                      <div
+                        className="absolute inset-0 bg-[#0F4C5C]"
+                        aria-hidden="true"
+                      />
+                    )}
+                    {pendingVideo ? (
+                      <div
+                        data-blog-video-coming-soon
+                        role="status"
+                        className="absolute inset-0 flex items-end sm:items-center sm:justify-center"
+                      >
+                        <div
+                          className="pointer-events-none absolute inset-0 hidden bg-[#0F4C5C]/70 sm:block"
+                          aria-hidden="true"
+                        />
+                        <div className="relative w-full bg-[#0F4C5C]/90 px-4 py-4 sm:bg-transparent sm:px-8 sm:py-8 sm:text-center">
+                          <p className="font-subheading text-[11px] font-bold uppercase tracking-[0.18em] text-[#F5C94D]">
+                            Coming soon
+                          </p>
+                          <p className="mt-1.5 font-heading text-lg font-semibold leading-tight text-balance text-[#FCFAEF] sm:text-2xl">
+                            Recording coming soon
+                          </p>
+                          <p className="mt-1.5 hidden text-pretty text-sm leading-relaxed text-[#FCFAEF]/90 sm:block">
+                            This conversation will be published here when the
+                            recording is available.
+                          </p>
+                        </div>
+                      </div>
+                    ) : playableVideo ? (
                       <button
                         type="button"
                         onClick={() => setVideoPlaying(true)}
@@ -205,6 +243,12 @@ export function BlogPost({ post, related, hasMoreByAuthor }: BlogPostProps) {
                   </>
                 )}
               </div>
+              {pendingVideo ? (
+                <p className="mt-3 text-sm leading-relaxed text-pretty text-[#2F3332]/80 sm:hidden dark:text-[#E6E7E7]/80">
+                  This conversation will be published here when the recording is
+                  available.
+                </p>
+              ) : null}
             </FadeIn>
           </EditorialBand>
         ) : null}

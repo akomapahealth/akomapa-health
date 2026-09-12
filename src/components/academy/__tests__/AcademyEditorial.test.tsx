@@ -63,7 +63,7 @@ describe("Academy editorial sections", () => {
     render(<CurriculumSection />);
 
     const section = screen.getByRole("region", {
-      name: "8 Modules. One Transformative Journey.",
+      name: `${academyCurriculum.modules.length} Modules. One Transformative Journey.`,
     });
     expect(section).toHaveAttribute("id", "curriculum");
     expect(section.className).not.toContain("gradient");
@@ -94,8 +94,14 @@ describe("Academy editorial sections", () => {
 
     for (const faculty of academyFaculty) {
       expect(screen.getByText(faculty.name)).toBeVisible();
-      expect(screen.getByText(faculty.title)).toBeVisible();
-      expect(screen.getByText(faculty.institution)).toBeVisible();
+      if (faculty.title) {
+        expect(screen.getByText(faculty.title)).toBeVisible();
+      }
+      if (faculty.institution) {
+        expect(screen.getAllByText(faculty.institution).length).toBeGreaterThan(
+          0,
+        );
+      }
     }
 
     const images = section.querySelectorAll("img");

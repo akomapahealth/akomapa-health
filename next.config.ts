@@ -4,6 +4,10 @@ import {
   IMMERSION_SECURITY_HEADERS,
 } from "./src/config/immersion-security";
 import {
+  GLOBAL_SECURITY_HEADERS,
+  GLOBAL_SECURITY_ROUTE,
+} from "./src/config/security-headers";
+import {
   getSentryPublicEnv,
   resolveSentryEnvironment,
   resolveSentryRelease,
@@ -31,6 +35,10 @@ const nextConfig: NextConfig = {
   },
   async headers() {
     return [
+      {
+        source: GLOBAL_SECURITY_ROUTE,
+        headers: [...GLOBAL_SECURITY_HEADERS],
+      },
       {
         source: IMMERSION_ROUTE,
         headers: [...IMMERSION_SECURITY_HEADERS],

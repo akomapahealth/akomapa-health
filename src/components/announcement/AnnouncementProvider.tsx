@@ -10,7 +10,7 @@ import {
   type ReactNode,
 } from "react";
 import dynamic from "next/dynamic";
-import { announcementCampaign } from "@/data/announcements";
+import { getActiveAnnouncementCampaign } from "@/data/announcements";
 
 const STORAGE_KEY = "akomapa-announcements-dismissed";
 const AUTO_OPEN_DELAY_MS = 3000;
@@ -68,7 +68,8 @@ export function AnnouncementProvider({ children }: AnnouncementProviderProps) {
   const [hasUnseenAnnouncements, setHasUnseenAnnouncements] = useState(false);
   const [mountTrigger, setMountTrigger] = useState(false);
   const [mountModal, setMountModal] = useState(false);
-  const { slides, version } = announcementCampaign;
+  const campaign = useMemo(() => getActiveAnnouncementCampaign(), []);
+  const { slides, version } = campaign;
 
   useEffect(() => {
     if (slides.length === 0) return;
@@ -141,6 +142,7 @@ export function AnnouncementProvider({ children }: AnnouncementProviderProps) {
       {mountTrigger ? <AnnouncementTrigger /> : null}
       {mountModal ? (
         <AnnouncementModal
+          campaign={campaign}
           isOpen={isOpen}
           onOpenChange={setIsOpen}
           onDismiss={handleDismiss}

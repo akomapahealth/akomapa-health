@@ -1,5 +1,7 @@
 import { expect, test, type Page } from "@playwright/test";
 import { announcementCampaign } from "../src/data/announcements";
+import { teamHeroPeople } from "../src/data/team";
+import { isNonCriticalConsoleError } from "./helpers";
 
 /**
  * Cross-page responsive smoke coverage. For each viewport × route we assert:
@@ -144,10 +146,7 @@ test.describe("Responsive pages — header, footer, no horizontal overflow", () 
         expect(await hasHorizontalOverflow(page)).toBe(false);
 
         const criticalErrors = consoleErrors.filter(
-          (error) =>
-            !error.includes("Failed to load resource") &&
-            !error.includes("net::ERR_") &&
-            !error.includes("404"),
+          (error) => !isNonCriticalConsoleError(error),
         );
         expect(criticalErrors).toEqual([]);
       });
@@ -167,7 +166,9 @@ test("the Team node network is unique and contained to its editorial band", asyn
   await expect(network).toHaveCount(1);
   await expect(network).toBeVisible();
   await expect(network).toHaveAttribute("aria-hidden", "true");
-  await expect(network.locator("[data-team-node-portrait]")).toHaveCount(22);
+  await expect(network.locator("[data-team-node-portrait]")).toHaveCount(
+    teamHeroPeople.length,
+  );
 
   const isContained = await network.evaluate((element) => {
     const networkBox = element.getBoundingClientRect();

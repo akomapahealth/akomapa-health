@@ -4,9 +4,8 @@ import Breadcrumb from "@/components/layout/Breadcrumb";
 import Image from "@/components/common/Image";
 import { FadeIn } from "@/components/animations";
 import ImmersionAlertSection from "@/components/immersion/ImmersionAlertSection";
+import ImmersionGoogleFormButton from "@/components/immersion/ImmersionGoogleFormButton";
 import ImmersionHeroMedia from "@/components/immersion/ImmersionHeroMedia";
-import ImmersionRegisterInterestButton from "@/components/immersion/ImmersionRegisterInterestButton";
-import ImmersionRequestBrochureButton from "@/components/immersion/ImmersionRequestBrochureButton";
 import {
   PublicCta,
   SectionEyebrow,
@@ -68,6 +67,39 @@ function EditorialLinkArrow() {
   );
 }
 
+function GlanceItem({
+  label,
+  value,
+  description,
+  className,
+}: {
+  label: string;
+  value: string;
+  description: string;
+  className?: string;
+}) {
+  return (
+    <div
+      className={cn(
+        "border-b border-[#1C1F1E]/12 py-7 dark:border-[#FCFAEF]/12 md:px-6",
+        className,
+      )}
+    >
+      <dt className="text-xs font-bold uppercase tracking-[0.18em] text-[#0097b2] dark:text-[#66C4DC]">
+        {label}
+      </dt>
+      <dd className="mt-3">
+        <span className="block font-heading text-2xl font-semibold leading-tight">
+          {value}
+        </span>
+        <span className="mt-2 block text-sm leading-6 text-[#2F3332]/68 dark:text-[#E6E7E7]/68">
+          {description}
+        </span>
+      </dd>
+    </div>
+  );
+}
+
 export default function Content() {
   const {
     eyebrow,
@@ -77,6 +109,7 @@ export default function Content() {
     overview,
     vision,
     facts,
+    registration,
     experiences,
     audiences,
     hostCities,
@@ -123,11 +156,13 @@ export default function Content() {
               {introduction}
             </p>
             <div className="mt-6 grid max-w-xl gap-3 sm:grid-cols-2">
-              <ImmersionRegisterInterestButton
-                variant="gold"
+              <ImmersionGoogleFormButton
+                form="application"
+                variant="amber"
                 className="min-h-12 justify-center"
               />
-              <ImmersionRequestBrochureButton
+              <ImmersionGoogleFormButton
+                form="info-session"
                 variant="outline-light"
                 className="min-h-12 justify-center"
               />
@@ -180,28 +215,32 @@ export default function Content() {
             </div>
           </div>
 
-          <dl className="grid md:grid-cols-3">
+          <dl data-immersion-glance className="grid md:grid-cols-6">
             {facts.map((fact, index) => (
-              <div
+              <GlanceItem
                 key={fact.label}
+                label={fact.label}
+                value={fact.value}
+                description={fact.description}
                 className={cn(
-                  "border-b border-[#1C1F1E]/12 py-7 dark:border-[#FCFAEF]/12 md:border-b-0 md:px-6",
+                  "md:col-span-2 md:border-b-0",
                   index > 0 && "md:border-l",
                   index === 0 && "md:pl-0",
                 )}
-              >
-                <dt className="text-xs font-bold uppercase tracking-[0.18em] text-[#0097b2] dark:text-[#66C4DC]">
-                  {fact.label}
-                </dt>
-                <dd className="mt-3">
-                  <span className="block font-heading text-2xl font-semibold leading-tight">
-                    {fact.value}
-                  </span>
-                  <span className="mt-2 block text-sm leading-6 text-[#2F3332]/68 dark:text-[#E6E7E7]/68">
-                    {fact.description}
-                  </span>
-                </dd>
-              </div>
+              />
+            ))}
+            {registration.map((option, index) => (
+              <GlanceItem
+                key={option.label}
+                label={option.label}
+                value={option.price}
+                description={option.description ?? `By ${option.deadline}`}
+                className={cn(
+                  "md:col-span-3 md:border-t",
+                  index > 0 && "md:border-l",
+                  index === 0 && "md:pl-0",
+                )}
+              />
             ))}
           </dl>
         </div>
@@ -392,8 +431,9 @@ export default function Content() {
             </p>
 
             <div className="mt-8 flex max-w-xl flex-col gap-3 sm:flex-row lg:flex-col 2xl:flex-row">
-              <ImmersionRegisterInterestButton
-                variant="gold"
+              <ImmersionGoogleFormButton
+                form="application"
+                variant="amber"
                 className="min-h-12 justify-center"
               />
             </div>

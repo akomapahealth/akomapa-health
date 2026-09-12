@@ -13,10 +13,13 @@ import {
 import { academyCurriculum, academyFaculty } from "@/data/academy";
 import type { AcademyModule } from "@/lib/types";
 
-function resolveFacultyNames(contributorIds: string[]): string {
-  return contributorIds
-    .map((id) => academyFaculty.find((f) => f.id === id)?.name)
-    .filter(Boolean)
+function resolveFacultyNames(contributors: string[]): string {
+  return contributors
+    .map(
+      (contributor) =>
+        academyFaculty.find((faculty) => faculty.id === contributor)?.name ??
+        contributor,
+    )
     .join(", ");
 }
 
@@ -152,12 +155,13 @@ export default function CurriculumSection() {
             id="curriculum-heading"
             className="mt-4 text-[#FCFAEF]"
           >
-            8 Modules. One Transformative Journey.
+            {academyCurriculum.modules.length} Modules. One Transformative
+            Journey.
           </EditorialHeading>
           <EditorialLead className="mt-5 text-[#FCFAEF]/85 dark:text-[#FCFAEF]/85">
-            A {academyCurriculum.totalDuration} program covering ethical
-            leadership, community partnership, research, innovation, and an
-            applied capstone project.
+            A {academyCurriculum.totalDuration} program covering Akomapa ethos,
+            NCD systems, ethical leadership, community-driven care, research
+            stewardship, and closing reflection.
           </EditorialLead>
         </div>
       </FadeIn>

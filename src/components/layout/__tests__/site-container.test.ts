@@ -35,8 +35,12 @@ describe("site container layout contract", () => {
 
   it("keeps the Team network inside the shared layout system", () => {
     const teamPage = readSource("src/components/about/TeamPageContent.tsx");
+    const teamNetwork = readSource(
+      "src/components/about/TeamHeroNetwork.tsx",
+    );
 
-    expect(teamPage).toContain("data-team-node-network");
+    expect(teamPage).toContain("<TeamHeroNetwork");
+    expect(teamNetwork).toContain("data-team-node-network");
     expect(teamPage).toContain("site-container");
     expect(teamPage).not.toContain("container mx-auto px-4");
   });

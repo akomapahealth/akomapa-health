@@ -4,12 +4,30 @@ import { immersionProgram } from "@/data/immersion-program";
 describe("immersion program content", () => {
   it("publishes the concise program overview and video source", () => {
     expect(immersionProgram.facts).toEqual([
-      expect.objectContaining({ label: "Duration", value: "Two weeks" }),
       expect.objectContaining({
-        label: "Host cities",
-        value: "Accra & Cape Coast",
+        label: "Dates",
+        value: "January 2–15, 2027",
       }),
-      expect.objectContaining({ label: "Next cohort", value: "Coming 2027" }),
+      expect.objectContaining({
+        label: "Locations",
+        value: "Accra and Cape Coast, Ghana",
+      }),
+      expect.objectContaining({
+        label: "Cohort size",
+        value: "Limited to 12 students",
+      }),
+    ]);
+    expect(immersionProgram.registration).toEqual([
+      expect.objectContaining({
+        label: "Early registration",
+        price: "$2,499",
+        deadline: "October 1, 2026",
+      }),
+      expect.objectContaining({
+        label: "Regular registration",
+        price: "$2,799",
+        deadline: "November 1, 2026",
+      }),
     ]);
     expect(immersionProgram.introduction).toContain("two-week");
     expect(immersionProgram.images.hero.videoSrc).toBe(
@@ -35,8 +53,11 @@ describe("immersion program content", () => {
     const serializedContent = JSON.stringify(immersionProgram);
 
     expect(serializedContent).not.toMatch(
-      /January 2026|Summer 2026|2026 Pilot Cohort|Program Fees|TBD|Certificate|University of Ghana|Applied Research|Leadership Circles|Community Partnership Projects/,
+      /January 2026|Summer 2026|2026 Pilot Cohort|Program Fees|TBD|Certificate|University of Ghana|Applied Research|Leadership Circles|Community Partnership Projects|Coming 2027/,
     );
-    expect(serializedContent).toContain("Coming 2027");
+    expect(serializedContent).toContain("January 2–15, 2027");
+    expect(serializedContent).toContain("$2,499");
+    expect(serializedContent).toContain("$2,799");
+    expect(serializedContent).toContain("Limited to 12 students");
   });
 });

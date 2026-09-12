@@ -41,12 +41,7 @@ export default function Image({
   const resolvedSizes = fill ? (sizes ?? "100vw") : sizes;
   const useImageKitLoader = isImageKitSrc(src);
 
-  const resolvedLoading =
-    loading !== undefined
-      ? loading
-      : priority
-        ? undefined
-        : ("lazy" as const);
+  const resolvedLoading = loading ?? (priority ? "eager" : "lazy");
 
   return (
     <NextImage

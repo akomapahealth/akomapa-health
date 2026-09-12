@@ -3,7 +3,10 @@ import { ArrowRight, Play } from "lucide-react";
 import Image from "@/components/common/Image";
 import { cn, formatDate } from "@/lib/utils";
 import { getCategoryBadgeClass, getCategoryLabel } from "@/data/blog";
-import { getAnnouncementPosterSrc } from "@/lib/video-utils";
+import {
+  getAnnouncementPosterSrc,
+  hasPlayableBlogVideo,
+} from "@/lib/video-utils";
 import type { BlogPost } from "@/lib/types";
 import { AuthorAvatar } from "./AuthorAvatar";
 
@@ -19,6 +22,7 @@ export function BlogCard({ post }: BlogCardProps) {
     image: post.image,
     videoUrl: post.videoUrl,
   });
+  const playableVideo = hasPlayableBlogVideo(post);
 
   return (
     <Link
@@ -41,7 +45,7 @@ export function BlogCard({ post }: BlogCardProps) {
               sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
               className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
             />
-            {post.videoUrl && (
+            {playableVideo && (
               <span className="absolute inset-0 flex items-center justify-center">
                 <span className="flex h-12 w-12 items-center justify-center rounded-full bg-white/90 shadow-lg transition-transform duration-300 group-hover:scale-110">
                   <Play className="ml-0.5 h-5 w-5 text-[#0097b2]" fill="currentColor" />

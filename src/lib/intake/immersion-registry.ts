@@ -1,4 +1,7 @@
 import { z } from "zod";
+import { FILLOUT_EMBED_ORIGIN } from "../../config/external-service-origins.mjs";
+
+export { FILLOUT_EMBED_ORIGIN };
 
 export const IMMERSION_INTAKE_ENABLE_ENV =
   "NEXT_PUBLIC_IMMERSION_INTAKE_ENABLED" as const;
@@ -15,8 +18,6 @@ export const IMMERSION_PROGRAM_ID =
 export const IMMERSION_SOURCE_PATH =
   "/global-health-immersion-program" as const;
 export const IMMERSION_DEFAULT_FALLBACK_URL = "/contact" as const;
-export const FILLOUT_EMBED_ORIGIN = "https://embed.fillout.com" as const;
-
 export const immersionIntents = [
   "register_interest",
   "request_brochure",

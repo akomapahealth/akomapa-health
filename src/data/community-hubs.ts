@@ -3,11 +3,12 @@ import { ugCommunityStories, ugStudentStories } from "./hub-stories/ug-stories";
 import { UG_TRAINING_FORM_URL } from "@/config/links";
 import type {
   CommunityHub,
+  HubLeaderReference,
   HubMission,
   HubRoster,
   HubRouteSlug,
 } from "@/lib/types";
-
+import { resolveHubLeadership } from "@/data/team";
 
 export const hubMissions: HubMission[] = [
   {
@@ -69,100 +70,100 @@ export const hubActivities: ReadonlyArray<{
   description: string;
   icon: HubActivityIcon;
 }> = [
-    {
-      id: "screening",
-      title: "Health Screening",
-      description:
-        "Community-based prevention and early detection for NCDs and related health risks.",
-      icon: "Stethoscope",
-    },
-    {
-      id: "referrals",
-      title: "Clinical Referrals",
-      description:
-        "Pathways connecting community members to follow-up care and trusted local services.",
-      icon: "ArrowRightLeft",
-    },
-    {
-      id: "education",
-      title: "Health Education",
-      description:
-        "Workshops and outreach that build health literacy in schools, workplaces, and neighborhoods.",
-      icon: "BookOpen",
-    },
-    {
-      id: "engagement",
-      title: "Community Engagement",
-      description:
-        "Listening sessions, co-design, and ongoing partnership with local leaders and residents.",
-      icon: "Users",
-    },
-    {
-      id: "leadership",
-      title: "Leadership Training",
-      description:
-        "Structured opportunities for students to practice ethical, community-centered leadership.",
-      icon: "GraduationCap",
-    },
-    {
-      id: "mentorship",
-      title: "Student Mentorship",
-      description:
-        "Faculty and clinician mentors guiding students through supervised service and reflection.",
-      icon: "HeartHandshake",
-    },
-    {
-      id: "research",
-      title: "Research Activities",
-      description:
-        "Student-led and community-based studies that turn local learning into actionable evidence.",
-      icon: "FlaskConical",
-    },
-    {
-      id: "innovation",
-      title: "Innovation Pilots",
-      description:
-        "Testing digital tools, quality improvement, and new care models in real community settings.",
-      icon: "Lightbulb",
-    },
-  ];
+  {
+    id: "screening",
+    title: "Health Screening",
+    description:
+      "Community-based prevention and early detection for NCDs and related health risks.",
+    icon: "Stethoscope",
+  },
+  {
+    id: "referrals",
+    title: "Clinical Referrals",
+    description:
+      "Pathways connecting community members to follow-up care and trusted local services.",
+    icon: "ArrowRightLeft",
+  },
+  {
+    id: "education",
+    title: "Health Education",
+    description:
+      "Workshops and outreach that build health literacy in schools, workplaces, and neighborhoods.",
+    icon: "BookOpen",
+  },
+  {
+    id: "engagement",
+    title: "Community Engagement",
+    description:
+      "Listening sessions, co-design, and ongoing partnership with local leaders and residents.",
+    icon: "Users",
+  },
+  {
+    id: "leadership",
+    title: "Leadership Training",
+    description:
+      "Structured opportunities for students to practice ethical, community-centered leadership.",
+    icon: "GraduationCap",
+  },
+  {
+    id: "mentorship",
+    title: "Student Mentorship",
+    description:
+      "Faculty and clinician mentors guiding students through supervised service and reflection.",
+    icon: "HeartHandshake",
+  },
+  {
+    id: "research",
+    title: "Research Activities",
+    description:
+      "Student-led and community-based studies that turn local learning into actionable evidence.",
+    icon: "FlaskConical",
+  },
+  {
+    id: "innovation",
+    title: "Innovation Pilots",
+    description:
+      "Testing digital tools, quality improvement, and new care models in real community settings.",
+    icon: "Lightbulb",
+  },
+];
 
 export const whyHubsMatter: ReadonlyArray<{
   id: string;
   title: string;
   description: string;
 }> = [
-    {
-      id: "access",
-      title: "Healthcare Access",
-      description:
-        "Hubs bring prevention, screening, education, and referral support closer to the communities that need them most.",
-    },
-    {
-      id: "leadership",
-      title: "Leadership Development",
-      description:
-        "Students gain supervised experience practicing ethical, interprofessional leadership alongside communities.",
-    },
-    {
-      id: "partnership",
-      title: "Community Partnership",
-      description:
-        "Programs are co-designed with local leaders so services reflect community priorities and strengths.",
-    },
-    {
-      id: "research",
-      title: "Research",
-      description:
-        "Hub activity generates evidence that strengthens programs, partnerships, and health-system practice.",
-    },
-    {
-      id: "systems",
-      title: "Health Systems Strengthening",
-      description:
-        "Innovation pilots and referral networks help build more connected, responsive local health systems.",
-    },
-  ];
+  {
+    id: "access",
+    title: "Healthcare Access",
+    description:
+      "Hubs bring prevention, screening, education, and referral support closer to the communities that need them most.",
+  },
+  {
+    id: "leadership",
+    title: "Leadership Development",
+    description:
+      "Students gain supervised experience practicing ethical, interprofessional leadership alongside communities.",
+  },
+  {
+    id: "partnership",
+    title: "Community Partnership",
+    description:
+      "Programs are co-designed with local leaders so services reflect community priorities and strengths.",
+  },
+  {
+    id: "research",
+    title: "Research",
+    description:
+      "Hub activity generates evidence that strengthens programs, partnerships, and health-system practice.",
+  },
+  {
+    id: "systems",
+    title: "Health Systems Strengthening",
+    description:
+      "Innovation pilots and referral networks help build more connected, responsive local health systems.",
+  },
+];
 
 export const hubEmptyStates = {
   communityStories: {
@@ -172,9 +173,9 @@ export const hubEmptyStates = {
     cta: { label: "Share your story", href: "/contact" },
   },
   studentStories: {
-    title: "Student stories are coming soon",
+    title: "Volunteer stories are coming soon",
     description:
-      "Leadership journeys and reflections from students at this hub will be shared here.",
+      "Leadership journeys and reflections from volunteers at this hub will be shared here.",
     cta: { label: "Get involved", href: "/get-involved" },
   },
   research: {
@@ -191,95 +192,23 @@ export const hubEmptyStates = {
   },
 } as const;
 
+export const uccLeadershipConfig = [
+  { personId: "member-david-ofosu", role: "Co-Director", featured: true },
+  { personId: "executive-hafiz-shaban", role: "Co-Director", featured: true },
+  { personId: "member-getwell-essuman", role: "Volunteer Recruitment Co-Lead" },
+  { personId: "member-david-konadu-kombate", role: "Volunteer Recruitment Co-Lead" },
+  { personId: "executive-wilfred-obeng", role: "Training & Standards Coordinator" },
+  { personId: "member-belinda-odoom", role: "Training & Standards Coordinator" },
+  { personId: "member-geraldine-agyapong", role: "Finance Officer" },
+  { personId: "member-frederick-baffour", role: "Finance Officer" },
+  { personId: "member-gloria-tawiah-blay", role: "Community Engagement Liaison" },
+  { personId: "member-prince-nyarko", role: "Community Engagement Liaison" },
+  { personId: "member-queenstar-opoku", role: "Supplies & Logistics Manager" },
+  { personId: "member-martha-bawa", role: "Supplies & Logistics Manager" },
+] as const satisfies readonly HubLeaderReference[];
+
 export const uccHubRoster: HubRoster = {
-  leadership: [
-    {
-      id: "david-ofosu",
-      name: "David Ofosu",
-      role: "Co-Director",
-      affiliation: "Medical Student",
-      image: "/ucc-team/david_kojo_ofosu.JPG",
-      featured: true,
-    },
-    {
-      id: "hafiz-shaban",
-      name: "Hafiz Shaban",
-      role: "Co-Director",
-      affiliation: "Nursing Student",
-      image: "/ucc-team/hafiz_shaban.JPG",
-      featured: true,
-    },
-    {
-      id: "getwell-essuman",
-      name: "Getwell Essuman",
-      role: "Volunteer Recruitment Co-Lead",
-      affiliation: "Medical Laboratory Science Student",
-      image: "/ucc-team/getwell_ebiram_essuman.JPG",
-    },
-    {
-      id: "david-konadu-kombate",
-      name: "David Konadu Kombate",
-      role: "Volunteer Recruitment Co-Lead",
-      affiliation: "Medical Laboratory Science Student",
-      image: "/ucc-team/david_konadu_kombate.JPG",
-    },
-    {
-      id: "wilfred-obeng",
-      name: "Wilfred Obeng",
-      role: "Training & Standards Coordinator",
-      affiliation: "Medical Student",
-      image: "/ucc-team/wilfred_obeng.JPG",
-    },
-    {
-      id: "belinda-odoom",
-      name: "Belinda Odoom",
-      role: "Training & Standards Coordinator",
-      affiliation: "Nursing Student",
-      image: "/ucc-team/belinda_odoom.JPG",
-    },
-    {
-      id: "geraldine-cristal-apeadua-agyapong",
-      name: "Geraldine-Cristal Apeadua Agyapong",
-      role: "Finance Officer",
-      affiliation: "Medical Student",
-      image: "/ucc-team/geraldine_cristal_apeadua_agyepong.JPG",
-    },
-    {
-      id: "frederick-baffour",
-      name: "Frederick Baffour",
-      role: "Finance Officer",
-      affiliation: "Optometry Student",
-      image: "/ucc-team/frederick_baffour.JPG",
-    },
-    {
-      id: "gloria-tawiah-blay",
-      name: "Gloria Tawiah Blay",
-      role: "Community Engagement Liaison",
-      affiliation: "Pharmacy Student",
-      image: "/ucc-team/gloria_tawia_blay.JPG",
-    },
-    {
-      id: "prince-nyarko",
-      name: "Prince Nyarko",
-      role: "Community Engagement Liaison",
-      affiliation: "Optometry Student",
-      image: "/ucc-team/prince_nyarkoh.JPG",
-    },
-    {
-      id: "queenstar-aduse-opoku",
-      name: "Queenstar Aduse Opoku",
-      role: "Supplies & Logistics Manager",
-      affiliation: "Pharmacy Student",
-      image: "/ucc-team/queenster_aduse_opoku.JPG",
-    },
-    {
-      id: "martha-bawa",
-      name: "Martha Bawa",
-      role: "Supplies & Logistics Manager",
-      affiliation: "Nursing Student",
-      image: "/ucc-team/martha_bawa.JPG",
-    },
-  ],
+  leadership: resolveHubLeadership(uccLeadershipConfig),
   volunteers: [
     {
       id: "ucc-volunteer-103",
@@ -470,54 +399,26 @@ export const uccHubRoster: HubRoster = {
  * attach `pending.volunteers`) so the volunteer band stays commented out of the
  * page until that data ships.
  */
+export const ugLeadershipConfig = [
+  { personId: "executive-divina-afenyo", role: "UG Hub Co-Director" },
+  { personId: "kelvin-akoto-boateng", role: "Financial Officer" },
+  { personId: "nana-ekow-moses", role: "Follow-up Lead" },
+  { personId: "rachael-akusika-adu", role: "Follow-up Lead" },
+  { personId: "jil-owusu-ansah", role: "Community Liaison Officer" },
+  { personId: "esther-bray", role: "Community Liaison Officer" },
+  { personId: "maxwell-abiam-danso", role: "Volunteer Recruitment Lead" },
+  { personId: "joseph-at-bron", role: "Volunteer Recruitment Lead" },
+  { personId: "akua-bowaa-essah", role: "Faculty Recruitment Lead" },
+  { personId: "edugie-osunde", role: "Financial Officer" },
+  { personId: "denzel-nketia-achiampong", role: "Research Co-Lead" },
+  { personId: "austin-afutu", role: "Training & Standards Coordinator" },
+  { personId: "nneoma-orji-okoro", role: "Faculty Recruitment Lead" },
+  { personId: "georgina-garbrah", role: "Community Liaison Officer" },
+] as const satisfies readonly HubLeaderReference[];
+
 export const ugHubRoster: HubRoster = {
   leadershipPresentation: "compact-modal",
-  leadership: [
-    {
-      id: "divina-selase-afenyo",
-      name: "Divina Selase Afenyo",
-      role: "UG Hub Co-Lead",
-      affiliation: "Akomapa Health Foundation",
-      image: "/images/team/divina-selase-afenyo.jpg",
-      bio: "Divina Selase Afenyo co-leads planning and coordination for Akomapa’s University of Ghana hub, supporting the local team as it develops student-led community health activities.",
-    },
-    {
-      id: "kelvin-akoto-boateng",
-      name: "Kelvin Akoto Boateng",
-      role: "Financial Officer",
-      affiliation: "Pharmacy Student",
-      image: "/ug-team/kelvin-akoto-boateng.jpg",
-      bio: "A results-driven Pharmacy candidate combining rigorous pharmaceutical training with extensive leadership experience across musical settings, student associations, community organizing, and youth empowerment.",
-      contact: {
-        linkedin:
-          "https://www.linkedin.com/in/kelvin-boateng-5b75492b5",
-      },
-    },
-    {
-      id: "nana-ekow-moses",
-      name: "Nana-Ekow Moses",
-      role: "Follow-up Lead",
-      affiliation: "General Nursing Student",
-      image: "/ug-team/nana-ekow-moses.jpg",
-      bio: "Nana-Ekow Moses is a general nursing student at the University of Ghana with a strong interest in healthcare leadership, community health, and patient-centered care. He serves as the Follow-Up Lead at the Akomapa UG Clinic, supporting patient continuity of care and follow-up after clinical encounters. He is also passionate about student leadership, health advocacy, and initiatives that improve access to quality healthcare within communities.",
-      contact: {
-        email: "ekowmoses29@gmail.com",
-        linkedin: "https://www.linkedin.com/in/nana-ekow-moses-405a9b291",
-      },
-    },
-    {
-      id: "rachael-akusika-adu",
-      name: "Rachael Akusika Adu",
-      role: "Follow-up Lead",
-      affiliation: "Final Year BSc Physiotherapy Student",
-      image: "/ug-team/rachael-akusika-adu.jpg",
-      bio: "Rachael Akusika Adu is a final-year BSc Physiotherapy student at the University of Ghana and serves as a Follow-up Lead at the Akomapa UG Clinic, supporting continuity of care after clinical encounters.",
-      contact: {
-        email: "rachaeladu19@gmail.com",
-        linkedin: "https://www.linkedin.com/in/rachael-adu",
-      },
-    },
-  ],
+  leadership: resolveHubLeadership(ugLeadershipConfig),
   // Volunteers section intentionally omitted until portraits and bios are ready.
   volunteers: [],
   // pending.volunteers commented out until the non-executive portrait grid ships:
@@ -556,8 +457,6 @@ export const communityHubs: CommunityHub[] = [
       communitiesReached: 2,
       partnersEngaged: 3,
     },
-    // communityStories: [],
-    // studentStories: [],
     communityStories: uccCommunityStories,
     studentStories: uccStudentStories,
     facultyMentorship: {

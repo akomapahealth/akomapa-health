@@ -8,6 +8,7 @@
  */
 
 interface ImageKitTransformations {
+  format?: "auto" | "avif" | "jpeg" | "jpg" | "png" | "webp";
   quality?: number;
   width?: number;
   height?: number;
@@ -46,6 +47,9 @@ function buildTransformParams(
   const width = transformations.minWidth || transformations.width;
   const height = transformations.minHeight || transformations.height;
 
+  if (transformations.format !== undefined) {
+    transformParams.push(`f-${transformations.format}`);
+  }
   if (transformations.quality !== undefined) {
     transformParams.push(`q-${transformations.quality}`);
   }
@@ -145,7 +149,9 @@ export type ImageKitLoaderParams = {
  * `next/image` loader for ImageKit asset paths (e.g. `/highlights/photo.jpg`)
  * and absolute `*.imagekit.io` URLs.
  *
- * Applies `tr=w-` and `tr=q-` so ImageKit serves appropriately sized bytes.
+ * Applies `tr=f-auto`, `tr=w-`, and `tr=q-` so ImageKit transcodes source
+ * formats (including HEIF/HEIC) for the requesting browser and serves
+ * appropriately sized bytes.
  * With a custom loader, Next emits these URLs directly on `<img>` — the browser
  * fetches ImageKit; Next does not re-optimize through `/_next/image`.
  */
@@ -155,5 +161,5 @@ export function imageKitLoader({
   quality,
 }: ImageKitLoaderParams): string {
   const q = quality ?? 75;
-  return getImageKitUrl(src, { width, quality: q });
+  return getImageKitUrl(src, { format: "auto", width, quality: q });
 }

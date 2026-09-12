@@ -138,13 +138,16 @@ export default function HubLeaderDialog({
                   </button>
 
                   <div className="grid md:grid-cols-[minmax(14rem,0.85fr)_minmax(0,1.15fr)]">
-                    <div className="relative min-h-[16rem] bg-[#E6E7E7] md:min-h-[28rem] dark:bg-[#2F3332]">
+                    <div
+                      data-hub-leader-dialog-media
+                      className="relative aspect-[4/5] min-h-0 bg-[#E6E7E7] md:aspect-auto md:min-h-[28rem] dark:bg-[#2F3332]"
+                    >
                       <HubPortrait
                         name={leader.name}
                         image={leader.image}
                         alt={portraitAlt}
                         sizes="(min-width: 768px) 40vw, 100vw"
-                        className="h-full rounded-none aspect-auto md:min-h-[28rem]"
+                        className="h-full rounded-none aspect-auto"
                       />
                     </div>
 

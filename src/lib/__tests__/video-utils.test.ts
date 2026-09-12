@@ -1,5 +1,10 @@
 import { describe, expect, it } from "vitest";
-import { getAnnouncementPosterSrc, parseVideoUrl } from "@/lib/video-utils";
+import {
+  getAnnouncementPosterSrc,
+  hasPendingBlogVideo,
+  hasPlayableBlogVideo,
+  parseVideoUrl,
+} from "@/lib/video-utils";
 
 describe("parseVideoUrl", () => {
   it("parses youtube.com/watch?v= URLs", () => {
@@ -65,5 +70,31 @@ describe("getAnnouncementPosterSrc", () => {
 
   it("returns undefined when all sources are missing", () => {
     expect(getAnnouncementPosterSrc({})).toBeUndefined();
+  });
+});
+
+describe("hasPlayableBlogVideo", () => {
+  it("requires a non-empty videoUrl", () => {
+    expect(hasPlayableBlogVideo({})).toBe(false);
+    expect(hasPlayableBlogVideo({ videoUrl: "   " })).toBe(false);
+    expect(
+      hasPlayableBlogVideo({
+        videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+      }),
+    ).toBe(true);
+  });
+});
+
+describe("hasPendingBlogVideo", () => {
+  it("is true only when coming soon and no playable URL", () => {
+    expect(hasPendingBlogVideo({ videoComingSoon: true })).toBe(true);
+    expect(
+      hasPendingBlogVideo({
+        videoComingSoon: true,
+        videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+      }),
+    ).toBe(false);
+    expect(hasPendingBlogVideo({ videoComingSoon: false })).toBe(false);
+    expect(hasPendingBlogVideo({})).toBe(false);
   });
 });

@@ -5,13 +5,17 @@
 | Asset class | Primary optimizer | Mechanism |
 | --- | --- | --- |
 | ImageKit CDN paths (relative, e.g. `/highlights/…`) | **ImageKit** | Custom `imageKitLoader` on `@/components/common/Image` |
-| Absolute `*.imagekit.io` URLs | **ImageKit** | Same custom loader (applies/replaces `tr=w-,q-`) |
+| Absolute `*.imagekit.io` URLs | **ImageKit** | Same custom loader (applies/replaces `tr=f-auto,q-,w-`) |
 | Local / `public/` and non-ImageKit remotes (e.g. YouTube thumbs) | **Next `/_next/image`** | Default `next/image` loader |
 
 ImageKit is the primary optimizer for CDN assets. A custom `next/image` loader
 makes Next emit `src` / `srcSet` pointing at ImageKit URLs; the browser fetches
 those URLs directly. Next does **not** re-proxy them through `/_next/image`, so
 there is no double optimization for the ImageKit path.
+
+The loader explicitly requests `f-auto`. This lets ImageKit transcode source
+assets such as HEIF and HEIC into a format supported by the requesting browser,
+while retaining responsive width and quality transformations.
 
 Do **not** set blanket `unoptimized` on the shared Image wrapper — that would
 disable Next optimization for any non-ImageKit usage of `next/image` patterns
@@ -29,14 +33,15 @@ wrapper (relative paths on the wrapper are treated as ImageKit CDN paths).
 ## LCP heroes
 
 Homepage and marketing LCP images that use `@/components/common/Image` with
-`priority` and `sizes` rely on ImageKit `tr=w-,q-` for byte size. Keep those
-props accurate so the loader requests an appropriate width.
+`priority` and `sizes` rely on ImageKit `tr=f-auto,q-,w-` for compatible output
+and byte size. Keep those props accurate so the loader requests an appropriate
+width.
 
 ## How to verify
 
 1. `npm run build && npm run start`
 2. Open `/` (or another page with ImageKit heroes) in DevTools → Network → Img
-3. Confirm ImageKit assets request `https://ik.imagekit.io/...?tr=q-*,w-*` (not `/_next/image?...`)
+3. Confirm ImageKit assets request `https://ik.imagekit.io/...?tr=f-auto,q-*,w-*` (not `/_next/image?...`)
 4. Confirm local logos (e.g. brand marks from `public/`) request `/_next/image?...`
 
 Collaborator validation (2026-07-05) already observed direct ImageKit URLs for

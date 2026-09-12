@@ -35,7 +35,7 @@ describe("getImageKitUrl / imageKitLoader", () => {
     vi.unstubAllEnvs();
   });
 
-  it("builds relative ImageKit URLs with tr= width and quality", () => {
+  it("builds relative ImageKit URLs with format, width, and quality", () => {
     vi.stubEnv("NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT", endpoint);
 
     expect(
@@ -44,14 +44,25 @@ describe("getImageKitUrl / imageKitLoader", () => {
 
     expect(
       imageKitLoader({ src: "/highlights/photo.jpg", width: 1200, quality: 85 }),
-    ).toBe(`${endpoint}/highlights/photo.jpg?tr=q-85,w-1200`);
+    ).toBe(`${endpoint}/highlights/photo.jpg?tr=f-auto,q-85,w-1200`);
   });
+
+  it.each(["/images/team/portrait.heif", "/images/team/portrait.HEIC"])(
+    "transcodes %s to a browser-compatible output format",
+    (src) => {
+      vi.stubEnv("NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT", endpoint);
+
+      const url = new URL(imageKitLoader({ src, width: 640, quality: 75 }));
+      expect(url.pathname).toBe(`/akomapa${src}`);
+      expect(url.searchParams.get("tr")).toBe("f-auto,q-75,w-640");
+    },
+  );
 
   it("applies loader transforms to absolute ImageKit URLs", () => {
     const src = "https://ik.imagekit.io/akomapa/hero.jpg?tr=q-50,w-100";
 
     expect(imageKitLoader({ src, width: 3840, quality: 75 })).toBe(
-      "https://ik.imagekit.io/akomapa/hero.jpg?tr=q-75%2Cw-3840",
+      "https://ik.imagekit.io/akomapa/hero.jpg?tr=f-auto%2Cq-75%2Cw-3840",
     );
   });
 

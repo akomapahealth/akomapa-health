@@ -1,5 +1,5 @@
 import { describe, expect, expectTypeOf, it } from "vitest";
-import { teamMembers } from "@/data/team";
+import { people } from "@/data/team";
 import type {
   AcademyCurriculum,
   AcademyModule,
@@ -14,11 +14,11 @@ import type {
   MapLocation,
   MentorshipInfo,
   Partner,
+  PersonProfile,
   PhilosophySection,
   Pillar,
   ResearchItem,
   Story,
-  TeamMember,
   TimelineEvent,
 } from "@/lib/types";
 
@@ -73,7 +73,9 @@ describe("rebrand data model contracts", () => {
     expectTypeOf(curriculum).toEqualTypeOf<AcademyCurriculum>();
     expectTypeOf(facultyMember).toEqualTypeOf<FacultyMember>();
     expectTypeOf<OptionalKeys<AcademyModule>>().toEqualTypeOf<"duration">();
-    expectTypeOf<OptionalKeys<FacultyMember>>().toEqualTypeOf<"socialLinks">();
+    expectTypeOf<OptionalKeys<FacultyMember>>().toEqualTypeOf<
+      "title" | "institution" | "bio" | "image" | "specialties" | "socialLinks"
+    >();
   });
 
   it("supports a fully nested community hub model", () => {
@@ -254,45 +256,22 @@ describe("rebrand data model contracts", () => {
       "futureValue" | "futureYear" | "icon"
     >();
     expectTypeOf<OptionalKeys<BlogPost>>().toEqualTypeOf<
-      "authorInstitution" | "authorBio" | "authorImage" | "image" | "videoUrl"
+      | "authorInstitution"
+      | "authorBio"
+      | "authorImage"
+      | "image"
+      | "videoUrl"
+      | "videoComingSoon"
     >();
   });
 
-  it("requires a supported role category for every team member", () => {
-    expectTypeOf<TeamMember["roleCategory"]>().toEqualTypeOf<
-      | "executive"
-      | "member"
-      | "faculty"
-      | "advisor"
-      | "community-leader"
-      | "government-leader"
-      | "partner-institution"
+  it("keeps canonical identity separate from contextual roles", () => {
+    expectTypeOf<PersonProfile["featuredInTeamHero"]>().toEqualTypeOf<
+      boolean | undefined
     >();
-
-    const roleCounts = teamMembers.reduce<Record<TeamMember["roleCategory"], number>>(
-      (counts, member) => {
-        counts[member.roleCategory] += 1;
-        return counts;
-      },
-      {
-        executive: 0,
-        member: 0,
-        faculty: 0,
-        advisor: 0,
-        "community-leader": 0,
-        "government-leader": 0,
-        "partner-institution": 0,
-      },
-    );
-
-    expect(roleCounts).toEqual({
-      executive: 12,
-      member: 18,
-      faculty: 0,
-      advisor: 8,
-      "community-leader": 1,
-      "government-leader": 0,
-      "partner-institution": 0,
-    });
+    expectTypeOf<OptionalKeys<PersonProfile>>().toEqualTypeOf<
+      "slug" | "image" | "featuredInTeamHero" | "socialLinks"
+    >();
+    expect(people.length).toBeGreaterThan(40);
   });
 });

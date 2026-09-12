@@ -1,6 +1,9 @@
 import { expect, type Page, test } from "@playwright/test";
 
-const canonicalOrigin = "https://akomapahealth.org";
+const canonicalOrigin = "https://akomapa.org";
+const defaultOgImage = `${canonicalOrigin}/images/og-homepage.jpg`;
+const homepageOgAlt =
+  "Akomapa homepage: community clinic care with the headline Advancing Noncommunicable Disease Prevention & Care and Explore Our Academy and Partner With Us";
 
 async function expectMetadata(
   page: Page,
@@ -69,7 +72,9 @@ test.describe("SEO metadata", () => {
     expect(sitemapText).toContain(`${canonicalOrigin}/community-hubs`);
     expect(sitemapText).not.toContain(`${canonicalOrigin}/faculty`);
     expect(sitemapText).not.toContain(`${canonicalOrigin}/clinics`);
+    expect(sitemapText).not.toContain("www.akomapa.org");
     expect(sitemapText).not.toContain("www.akomapahealth.org");
+    expect(sitemapText).not.toContain("akomapahealth.org");
 
     await page.goto("/robots.txt");
     const robotsText = await page.locator("body").innerText();
@@ -78,6 +83,54 @@ test.describe("SEO metadata", () => {
     expect(robotsText).toContain("Allow: /");
     expect(robotsText).toContain("Disallow: /sentry-example-page");
     expect(robotsText).toContain(`Sitemap: ${canonicalOrigin}/sitemap.xml`);
+  });
+
+  test("uses the homepage screenshot as the default social share image", async ({
+    page,
+  }) => {
+    await page.goto("/", { waitUntil: "domcontentloaded" });
+
+    await expect(page.locator('meta[property="og:url"]')).toHaveAttribute(
+      "content",
+      canonicalOrigin,
+    );
+    await expect(page.locator('meta[property="og:image"]')).toHaveAttribute(
+      "content",
+      defaultOgImage,
+    );
+    await expect(page.locator('meta[property="og:image:alt"]')).toHaveAttribute(
+      "content",
+      homepageOgAlt,
+    );
+    await expect(page.locator('meta[name="twitter:card"]')).toHaveAttribute(
+      "content",
+      "summary_large_image",
+    );
+    await expect(page.locator('meta[name="twitter:image"]')).toHaveAttribute(
+      "content",
+      defaultOgImage,
+    );
+    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
+      "href",
+      canonicalOrigin,
+    );
+  });
+
+  test("keeps article cover images instead of the homepage screenshot", async ({
+    page,
+  }) => {
+    await page.goto("/blog/what-ethical-leadership-means-to-me", {
+      waitUntil: "domcontentloaded",
+    });
+
+    await expect(page.locator('meta[property="og:image"]')).toHaveAttribute(
+      "content",
+      `${canonicalOrigin}/highlights/Akomapa-20.jpg`,
+    );
+    await expect(page.locator('meta[property="og:image"]')).not.toHaveAttribute(
+      "content",
+      defaultOgImage,
+    );
   });
 
   test("redirects faculty route to the team page", async ({ page }) => {

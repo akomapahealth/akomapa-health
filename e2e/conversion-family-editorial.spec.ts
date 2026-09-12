@@ -308,12 +308,14 @@ test.describe("conversion family editorial contracts", () => {
                 }
                 return rect.width < 44 || rect.height < 44;
               })
-              .map(
-                (control) =>
+              .map((control) => {
+                const rect = control.getBoundingClientRect();
+                const label =
                   control.getAttribute("aria-label") ||
                   control.textContent?.trim() ||
-                  control.tagName,
-              ),
+                  control.tagName;
+                return `${label} ${Math.round(rect.width)}x${Math.round(rect.height)}`;
+              }),
           );
           expect(undersized).toEqual([]);
         }

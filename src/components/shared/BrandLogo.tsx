@@ -27,6 +27,7 @@ export default function BrandLogo({
         width={width}
         height={height}
         priority={priority}
+        loading={priority ? "eager" : "lazy"}
         className={cn("h-12 w-auto object-contain dark:hidden", imageClassName)}
       />
       <Image
@@ -35,6 +36,7 @@ export default function BrandLogo({
         width={width}
         height={height}
         priority={priority}
+        loading={priority ? "eager" : "lazy"}
         className={cn("hidden h-12 w-auto object-contain dark:block", imageClassName)}
       />
     </span>
