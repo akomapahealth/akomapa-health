@@ -210,13 +210,15 @@ export default function GivebutterCheckout({
         </p>
       </div>
 
-      <div className="mx-auto mt-6 min-h-44 w-full max-w-[47.5rem]">
+      <div
+        className="mx-auto mt-6 flex min-h-44 w-full max-w-[60rem] justify-center"
+        data-testid="givebutter-widget-host"
+      >
         {loadState === "loading" || loadState === "idle" ? (
           <div
             role="status"
             aria-live="polite"
-            // className="flex min-h-44 flex-col items-center justify-center gap-3 text-sm text-[#2F3332]/75 dark:text-[#E6E7E7]/75"
-             className="flex w-full min-h-44 flex-col items-center justify-center gap-3 text-sm text-[#2F3332]/75 dark:text-[#E6E7E7]/75"
+            className="flex w-full min-h-44 flex-col items-center justify-center gap-3 text-sm text-[#2F3332]/75 dark:text-[#E6E7E7]/75"
           >
             <Loader2 aria-hidden="true" className="h-6 w-6 animate-spin" />
             Loading secure donation form…
@@ -227,16 +229,16 @@ export default function GivebutterCheckout({
           <givebutter-giving-form
             key={widgetKey}
             campaign={provider.campaignCode}
-            max-width="100%"
+            max-width="960px"
             data-testid="givebutter-giving-form"
-            className="w-full"
+            className="mx-auto block w-full"
+            style={{ display: "block", width: "100%", marginInline: "auto" }}
           />
         ) : null}
 
         {loadState === "error" ? (
           <div
             role="alert"
-            // className="border border-[#C9920F]/35 bg-[#F5C94D]/10 px-4 py-5 text-center"
             className="w-full border border-[#C9920F]/35 bg-[#F5C94D]/10 px-4 py-5 text-center"
           >
             <p className="text-sm leading-6 text-[#2F3332] dark:text-[#FCFAEF]">
@@ -297,6 +299,5 @@ export default function GivebutterCheckout({
         </p>
       </div>
     </section>
-
   );
 }

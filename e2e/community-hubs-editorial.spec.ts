@@ -177,7 +177,30 @@ for (const routeSlug of hubRouteSlugs) {
       await expect(page.getByText(/This hub is in development/i)).toBeVisible();
     }
 
-    await expect(page.locator("[data-hub-empty-state]")).toHaveCount(4);
+    const communityStories = hub.communityStories ?? [];
+    const studentStories = hub.studentStories ?? [];
+    const expectedEmptyStates =
+      (communityStories.length === 0 ? 1 : 0) +
+      (studentStories.length === 0 ? 1 : 0) +
+      2; // research + innovation remain empty
+
+    await expect(page.locator("[data-hub-empty-state]")).toHaveCount(
+      expectedEmptyStates,
+    );
+
+    if (communityStories.length > 0) {
+      await expect(
+        page.getByRole("heading", { name: "Community Stories" }),
+      ).toBeVisible();
+      await expect(page.getByText(communityStories[0].author, { exact: true })).toBeVisible();
+    }
+
+    if (studentStories.length > 0) {
+      await expect(
+        page.getByRole("heading", { name: "Volunteer Stories" }),
+      ).toBeVisible();
+      await expect(page.getByText(studentStories[0].author, { exact: true })).toBeVisible();
+    }
   });
 }
 
