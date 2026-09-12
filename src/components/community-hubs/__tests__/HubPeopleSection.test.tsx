@@ -182,6 +182,15 @@ describe("HubPeopleSection", () => {
     expect(
       within(dialog).getByText(/results-driven Pharmacy candidate/i),
     ).toBeVisible();
+    const dialogMedia = dialog.querySelector(
+      "[data-hub-leader-dialog-media]",
+    );
+    expect(dialogMedia).toHaveClass("aspect-[4/5]", "md:min-h-[28rem]");
+    expect(
+      within(dialog).getByRole("img", {
+        name: "Portrait of Kelvin Akoto Boateng, Financial Officer at Akomapa–UG Community Health Hub",
+      }),
+    ).toBeVisible();
     expect(
       within(dialog).getByRole("link", {
         name: "View Kelvin Akoto Boateng on LinkedIn",
@@ -199,6 +208,50 @@ describe("HubPeopleSection", () => {
     await waitFor(() =>
       expect(screen.queryByRole("dialog")).not.toBeInTheDocument(),
     );
+  });
+
+  it("keeps initials visible when a compact-modal Bio dialog has no portrait", async () => {
+    const user = userEvent.setup();
+    const rosterWithoutImage: HubRoster = {
+      leadershipPresentation: "compact-modal",
+      leadership: [
+        {
+          id: "leader-pending-portrait",
+          name: "Ama Mensah",
+          role: "Community Lead",
+          affiliation: "Public Health Student",
+          bio: "Ama coordinates community listening and outreach.",
+        },
+      ],
+      volunteers: [],
+    };
+
+    render(
+      <HubPeopleSection hubName="Test Hub" roster={rosterWithoutImage} />,
+    );
+
+    await user.click(
+      screen.getByRole("button", {
+        name: "Open biography for Ama Mensah",
+      }),
+    );
+
+    const dialog = await screen.findByRole("dialog", {
+      name: "Ama Mensah",
+    });
+    const dialogMedia = dialog.querySelector(
+      "[data-hub-leader-dialog-media]",
+    );
+    expect(dialogMedia).toHaveClass("aspect-[4/5]", "md:min-h-[28rem]");
+    expect(
+      within(dialog).getByRole("img", {
+        name: "Portrait pending for Ama Mensah",
+      }),
+    ).toHaveTextContent("AM");
+    expect(dialog.querySelector("img")).toBeNull();
+    expect(
+      dialog.querySelector("[data-hub-portrait-fallback]"),
+    ).not.toBeNull();
   });
 
   it("renders an accessible initials fallback when a leader has no portrait", () => {
@@ -334,6 +387,24 @@ describe("HubPeopleSection", () => {
     );
   });
 
+  it("does not size the volunteer portrait scroller with w-screen", async () => {
+    const user = userEvent.setup();
+    render(<HubPeopleSection hubName="Test Hub" roster={smallRoster} />);
+
+    await user.click(
+      screen.getByRole("button", {
+        name: "View volunteer portrait 1 of 1",
+      }),
+    );
+    await screen.findByRole("dialog", {
+      name: "Our Volunteer Community",
+    });
+
+    const scroller = screen.getByTestId("volunteer-dialog-scroller");
+    expect(scroller).toHaveClass("fixed", "inset-0", "overflow-y-auto");
+    expect(scroller).not.toHaveClass("w-screen");
+  });
+
   it("loads volunteers in batches and browses the complete gallery in either direction", async () => {
     const user = userEvent.setup();
     render(
@@ -383,5 +454,64 @@ describe("HubPeopleSection", () => {
       }),
     );
     expect(within(dialog).getByText("Portrait 36 of 36")).toBeVisible();
+  });
+
+  it("defaults volunteer portrait crop to center top in the grid and dialog", async () => {
+    const user = userEvent.setup();
+    render(<HubPeopleSection hubName="Test Hub" roster={smallRoster} />);
+
+    const trigger = screen.getByRole("button", {
+      name: "View volunteer portrait 1 of 1",
+    });
+    const gridImage = within(trigger).getByRole("img", {
+      name: "UCC Community Hub volunteer portrait 1 of 1",
+    });
+    expect(gridImage).toHaveStyle({ objectPosition: "center top" });
+
+    await user.click(trigger);
+    const dialog = await screen.findByRole("dialog", {
+      name: "Our Volunteer Community",
+    });
+    expect(
+      within(dialog).getByRole("img", {
+        name: "UCC Community Hub volunteer portrait 1 of 1",
+      }),
+    ).toHaveStyle({ objectPosition: "center top" });
+  });
+
+  it("honors an explicit volunteer objectPosition override", async () => {
+    const user = userEvent.setup();
+    const rosterWithOverride: HubRoster = {
+      ...smallRoster,
+      volunteers: [
+        {
+          id: "volunteer-override",
+          image: "/ucc-team/volunteers/volunteer-override.jpg",
+          alt: "UCC Community Hub volunteer portrait 1 of 1",
+          objectPosition: "left center",
+        },
+      ],
+    };
+
+    render(<HubPeopleSection hubName="Test Hub" roster={rosterWithOverride} />);
+
+    const trigger = screen.getByRole("button", {
+      name: "View volunteer portrait 1 of 1",
+    });
+    expect(
+      within(trigger).getByRole("img", {
+        name: "UCC Community Hub volunteer portrait 1 of 1",
+      }),
+    ).toHaveStyle({ objectPosition: "left center" });
+
+    await user.click(trigger);
+    const dialog = await screen.findByRole("dialog", {
+      name: "Our Volunteer Community",
+    });
+    expect(
+      within(dialog).getByRole("img", {
+        name: "UCC Community Hub volunteer portrait 1 of 1",
+      }),
+    ).toHaveStyle({ objectPosition: "left center" });
   });
 });

@@ -8,7 +8,9 @@ import {
   EditorialHeading,
   EditorialLead,
 } from "@/components/shared/EditorialPrimitives";
+import { editorialContactLinkClassName } from "@/components/shared/editorialFormStyles";
 import { CONTACT } from "@/config/contact";
+import { cn } from "@/lib/utils";
 
 export default function Content() {
   return (
@@ -91,7 +93,10 @@ export default function Content() {
                     ))}
                     <a
                       href={office.phone.href}
-                      className="mt-2 inline-flex min-h-11 items-center text-[#0097b2] transition-colors hover:text-[#0F4C5C] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eeba2b] focus-visible:ring-offset-2 dark:text-[#66C4DC] dark:hover:text-[#F5C94D]"
+                      className={cn(
+                        editorialContactLinkClassName,
+                        "mt-2 flex h-11 w-fit shrink-0 whitespace-nowrap text-[#0097b2] transition-colors hover:text-[#0F4C5C] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eeba2b] focus-visible:ring-offset-2 dark:text-[#66C4DC] dark:hover:text-[#F5C94D]",
+                      )}
                     >
                       {office.phone.display}
                     </a>
@@ -109,7 +114,10 @@ export default function Content() {
                   </span>
                   <a
                     href={CONTACT.email.href}
-                    className="inline-flex min-h-11 items-center break-all text-[#0097b2] transition-colors hover:text-[#0F4C5C] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eeba2b] focus-visible:ring-offset-2 dark:text-[#66C4DC] dark:hover:text-[#F5C94D]"
+                    className={cn(
+                      editorialContactLinkClassName,
+                      "break-all text-[#0097b2] transition-colors hover:text-[#0F4C5C] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eeba2b] focus-visible:ring-offset-2 dark:text-[#66C4DC] dark:hover:text-[#F5C94D]",
+                    )}
                   >
                     {CONTACT.email.display}
                   </a>

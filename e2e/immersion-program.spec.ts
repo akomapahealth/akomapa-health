@@ -97,11 +97,37 @@ test.describe("Immersion program responsive editorial layout", () => {
           pageShell.locator('[data-section-tone="teal"]'),
         ).toHaveCount(2);
 
+        const glance = page.locator("[data-immersion-glance]");
+        await expect(glance).toBeVisible();
+        for (const fact of immersionProgram.facts) {
+          await expect(glance.getByText(fact.label, { exact: true })).toBeVisible();
+          await expect(glance.getByText(fact.value, { exact: true })).toBeVisible();
+        }
+        for (const option of immersionProgram.registration) {
+          await expect(
+            glance.getByText(option.label, { exact: true }),
+          ).toBeVisible();
+          await expect(
+            glance.getByText(option.price, { exact: true }),
+          ).toBeVisible();
+          await expect(
+            glance.getByText(option.description ?? `By ${option.deadline}`, {
+              exact: true,
+            }),
+          ).toBeVisible();
+        }
+        await expect(page.getByText("Coming 2027")).toHaveCount(0);
+
         await assertNoHorizontalOverflow(page);
 
         const layoutChecks = await pageShell.evaluate((element) => {
           const headings = Array.from(
             element.querySelectorAll<HTMLElement>("h1, h2, h3"),
+          );
+          const glanceItems = Array.from(
+            element.querySelectorAll<HTMLElement>(
+              "[data-immersion-glance] dt, [data-immersion-glance] dd span",
+            ),
           );
           const experienceLinks = Array.from(
             element.querySelectorAll<HTMLElement>('a[href="#experience"]'),
@@ -115,6 +141,9 @@ test.describe("Immersion program responsive editorial layout", () => {
           return {
             headingOverflow: headings.some(
               (heading) => heading.scrollWidth > heading.clientWidth + 1,
+            ),
+            glanceOverflow: glanceItems.some(
+              (item) => item.scrollWidth > item.clientWidth + 1,
             ),
             experienceLinks: experienceLinks.map((link) => {
               const rect = link.getBoundingClientRect();
@@ -138,6 +167,7 @@ test.describe("Immersion program responsive editorial layout", () => {
         });
 
         expect(layoutChecks.headingOverflow).toBe(false);
+        expect(layoutChecks.glanceOverflow).toBe(false);
         expect(layoutChecks.experienceLinks).toHaveLength(1);
         expect(layoutChecks.formLinks).toHaveLength(5);
         for (const link of layoutChecks.experienceLinks) {

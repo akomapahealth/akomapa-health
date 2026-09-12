@@ -73,7 +73,9 @@ describe("rebrand data model contracts", () => {
     expectTypeOf(curriculum).toEqualTypeOf<AcademyCurriculum>();
     expectTypeOf(facultyMember).toEqualTypeOf<FacultyMember>();
     expectTypeOf<OptionalKeys<AcademyModule>>().toEqualTypeOf<"duration">();
-    expectTypeOf<OptionalKeys<FacultyMember>>().toEqualTypeOf<"socialLinks">();
+    expectTypeOf<OptionalKeys<FacultyMember>>().toEqualTypeOf<
+      "title" | "institution" | "bio" | "image" | "specialties" | "socialLinks"
+    >();
   });
 
   it("supports a fully nested community hub model", () => {
@@ -254,7 +256,12 @@ describe("rebrand data model contracts", () => {
       "futureValue" | "futureYear" | "icon"
     >();
     expectTypeOf<OptionalKeys<BlogPost>>().toEqualTypeOf<
-      "authorInstitution" | "authorBio" | "authorImage" | "image" | "videoUrl"
+      | "authorInstitution"
+      | "authorBio"
+      | "authorImage"
+      | "image"
+      | "videoUrl"
+      | "videoComingSoon"
     >();
   });
 

@@ -109,11 +109,11 @@ export interface AcademyCurriculum {
 export interface FacultyMember {
   id: string;
   name: string;
-  title: string;
-  institution: string;
-  bio: string;
-  image: string;
-  specialties: string[];
+  title?: string;
+  institution?: string;
+  bio?: string;
+  image?: string;
+  specialties?: string[];
   socialLinks?: {
     linkedin?: string;
     email?: string;
@@ -359,6 +359,8 @@ export interface BlogPost {
   date: string;
   featured: boolean;
   videoUrl?: string;
+  /** When true and `videoUrl` is absent, article media shows Coming soon instead of a player. */
+  videoComingSoon?: boolean;
 }
 
 export interface Announcement {

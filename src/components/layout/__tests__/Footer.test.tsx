@@ -51,4 +51,22 @@ describe("Footer", () => {
       within(footer).getByRole("link", { name: "Terms of Service" }),
     ).toHaveAttribute("href", "/terms");
   });
+
+  it("reserves announcement FAB clearance around Subscribe and legal links", () => {
+    render(<Footer />);
+
+    const footer = screen.getByRole("contentinfo");
+    const shell = footer.querySelector(".site-container");
+    const newsletterForm = footer.querySelector("[data-newsletter-form]");
+    const legal = footer.querySelector("[data-footer-legal]");
+
+    expect(shell?.className).toMatch(
+      /pb-\[max\(3\.5rem,calc\(5rem\+env\(safe-area-inset-bottom\)\)\)\]/,
+    );
+    expect(shell?.className).toMatch(
+      /md:pb-\[max\(4rem,calc\(5\.5rem\+env\(safe-area-inset-bottom\)\)\)\]/,
+    );
+    expect(newsletterForm).toHaveClass("pe-20", "sm:pe-[5.5rem]");
+    expect(legal).toHaveClass("pe-20", "sm:pe-[5.5rem]");
+  });
 });

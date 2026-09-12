@@ -40,6 +40,8 @@ describe("Global Health Immersion Program top-level page", () => {
       container.querySelector("[data-immersion-hero-credit]"),
     ).toHaveTextContent("*Video courtesy Ghana Tourism Authority");
     expect(container.querySelector("#program-overview")).not.toBeNull();
+    expect(container.querySelectorAll("section")).toHaveLength(7);
+    expect(screen.queryByText("Coming 2027")).toBeNull();
 
     [
       "At a glance",
@@ -57,13 +59,21 @@ describe("Global Health Immersion Program top-level page", () => {
 
   it("uses semantic facts and preserves every program concept", () => {
     const { container } = renderContent();
-    const factList = container.querySelector("dl");
+    const factList = container.querySelector("[data-immersion-glance]");
 
     expect(factList).not.toBeNull();
     const factScope = within(factList as HTMLElement);
     immersionProgram.facts.forEach((fact) => {
       expect(factScope.getByText(fact.label)).toBeInTheDocument();
       expect(factScope.getByText(fact.value)).toBeInTheDocument();
+      expect(factScope.getByText(fact.description)).toBeInTheDocument();
+    });
+    immersionProgram.registration.forEach((option) => {
+      expect(factScope.getByText(option.label)).toBeInTheDocument();
+      expect(factScope.getByText(option.price)).toBeInTheDocument();
+      expect(
+        factScope.getByText(option.description ?? `By ${option.deadline}`),
+      ).toBeInTheDocument();
     });
 
     [
@@ -138,7 +148,7 @@ describe("Global Health Immersion Program top-level page", () => {
     ).toBeInTheDocument();
 
     expect(container.textContent).not.toMatch(
-      /January 2026|Summer 2026|2026 Pilot Cohort|Program Fees|TBD|Certificate|University of Ghana|Learning Model|Participant Development|Applied Research|Leadership Circles/,
+      /January 2026|Summer 2026|2026 Pilot Cohort|Program Fees|TBD|Certificate|University of Ghana|Learning Model|Participant Development|Applied Research|Leadership Circles|Coming 2027/,
     );
   });
 });

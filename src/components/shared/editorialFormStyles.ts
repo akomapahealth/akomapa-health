@@ -48,3 +48,11 @@ export const editorialFormShellClassName = cn(
   "border border-[#1C1F1E]/10 bg-white p-6 shadow-[0_1px_0_rgba(28,31,30,0.04)] sm:p-8",
   "dark:border-[#FCFAEF]/15 dark:bg-[#1C1F1E] dark:shadow-none",
 );
+
+/**
+ * 44×44 CSS px hit area for conversion-family tel/mailto text controls.
+ * Phone links should also add `h-11 w-fit whitespace-nowrap` so they cannot wrap under 44px.
+ */
+export const editorialContactLinkClassName = cn(
+  "inline-flex min-h-[44px] min-w-[44px] items-center leading-none",
+);

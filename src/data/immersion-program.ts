@@ -4,6 +4,13 @@ export type ImmersionProgramFact = {
   description: string;
 };
 
+export type ImmersionRegistrationOption = {
+  label: string;
+  price: string;
+  deadline: string;
+  description?: string;
+};
+
 export type ImmersionProgramItem = {
   title: string;
   description: string;
@@ -27,6 +34,7 @@ export type ImmersionProgramContent = {
   overview: readonly string[];
   vision: string;
   facts: readonly ImmersionProgramFact[];
+  registration: readonly ImmersionRegistrationOption[];
   experiences: readonly ImmersionProgramVisualItem[];
   audiences: readonly ImmersionProgramVisualItem[];
   hostCities: {
@@ -57,19 +65,33 @@ export const immersionProgram: ImmersionProgramContent = {
     "Participants leave with a clearer understanding of community-centered health practice and a stronger foundation for ethical collaboration across cultures, disciplines, and health systems.",
   facts: [
     {
-      label: "Duration",
-      value: "Two weeks",
-      description: "An immersive learning journey in Ghana.",
+      label: "Dates",
+      value: "January 2–15, 2027",
+      description: "A two-week immersive learning journey in Ghana.",
     },
     {
-      label: "Host cities",
-      value: "Accra & Cape Coast",
+      label: "Locations",
+      value: "Accra and Cape Coast, Ghana",
       description: "Two cities, one connected experience.",
     },
     {
-      label: "Next cohort",
-      value: "Coming 2027",
-      description: "Applications are now open.",
+      label: "Cohort size",
+      value: "Limited to 12 students",
+      description: "A small cohort for close mentorship and partnership.",
+    },
+  ],
+  registration: [
+    {
+      label: "Early registration",
+      price: "$2,499",
+      deadline: "October 1, 2026",
+      description: "By October 1, 2026",
+    },
+    {
+      label: "Regular registration",
+      price: "$2,799",
+      deadline: "November 1, 2026",
+      description: "By November 1, 2026",
     },
   ],
   experiences: [

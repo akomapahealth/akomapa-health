@@ -10,6 +10,7 @@ import DeferredGlobalWidgets from '@/components/global/DeferredGlobalWidgets';
 import {
   DEFAULT_DESCRIPTION,
   DEFAULT_OG_IMAGE,
+  DEFAULT_OG_IMAGE_ALT,
   DEFAULT_TITLE,
   SITE_NAME,
   SITE_URL,
@@ -96,7 +97,7 @@ export const metadata: Metadata = {
         url: DEFAULT_OG_IMAGE,
         width: 1200,
         height: 630,
-        alt: DEFAULT_TITLE,
+        alt: DEFAULT_OG_IMAGE_ALT,
       },
     ],
   },
@@ -104,7 +105,12 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: DEFAULT_TITLE,
     description: DEFAULT_DESCRIPTION,
-    images: [DEFAULT_OG_IMAGE],
+    images: [
+      {
+        url: DEFAULT_OG_IMAGE,
+        alt: DEFAULT_OG_IMAGE_ALT,
+      },
+    ],
   },
 };
 

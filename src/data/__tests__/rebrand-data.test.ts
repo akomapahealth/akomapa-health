@@ -5,6 +5,7 @@ import { describe, expect, it } from "vitest";
 import {
   academyCurriculum,
   academyFaculty,
+  academyInstructors,
   academyOverview,
   academyTestimonials,
 } from "@/data/academy";
@@ -71,16 +72,33 @@ describe("rebrand content data", () => {
     expect(academyOverview.title).toBe(
       "Training Ethical Leaders for a Changing World",
     );
-    expect(academyCurriculum.modules).toHaveLength(8);
+    expect(academyCurriculum.modules).toHaveLength(10);
     expectUniqueIds(academyCurriculum.modules);
     expectUniqueIds(academyFaculty);
     expectUniqueIds(academyTestimonials);
 
     const moduleOrders = academyCurriculum.modules.map(({ order }) => order);
-    expect(moduleOrders).toEqual([1, 2, 3, 4, 5, 6, 7, 8]);
+    expect(moduleOrders).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+    expect(academyFaculty.map(({ name }) => name)).toEqual([
+      "Prof. Derek Anamaale Tuoyire",
+      "Dr. Jeremy Schwartz",
+      "Prof. Alfred Yawson",
+      "Emily Sheldon",
+      "Dr. Elijah Paintsil",
+      "Osei Boateng",
+      "Dr. Aba Black",
+      "Dr. Kaveh Khoshnood",
+      "Dr. Shadrack Frimpong",
+      "Dr. Robert Rohrbaugh",
+      "Dr. Tracy Rabin",
+      "Dr. Megan Raney",
+      "Dr. Easmon Otupuri",
+    ]);
 
-    const facultyIds = new Set(academyFaculty.map(({ id }) => id));
     const advisors = advisoryBoardMembers;
+    const featuredFacultyNames = new Set(
+      academyFaculty.map(({ name }) => name),
+    );
 
     for (const curriculumModule of academyCurriculum.modules) {
       expect(curriculumModule.learningObjectives.length).toBeGreaterThanOrEqual(
@@ -88,16 +106,34 @@ describe("rebrand content data", () => {
       );
       expect(curriculumModule.facultyContributors.length).toBeGreaterThan(0);
 
-      for (const contributorId of curriculumModule.facultyContributors) {
-        expect(facultyIds.has(contributorId)).toBe(true);
+      for (const contributor of curriculumModule.facultyContributors) {
+        expect(contributor.trim().length).toBeGreaterThan(0);
       }
     }
 
     for (const facultyMember of academyFaculty) {
       expect(
-        advisors.some(({ name }) => name === facultyMember.name),
+        academyCurriculum.modules.some(({ facultyContributors }) =>
+          facultyContributors.includes(facultyMember.name),
+        ),
       ).toBe(true);
-      expect(facultyMember.specialties.length).toBeGreaterThanOrEqual(3);
+    }
+
+    expect(featuredFacultyNames.has("Dr. Adrian Mayo")).toBe(false);
+    expect(academyInstructors).toHaveLength(8);
+    expect(academyFaculty).toHaveLength(13);
+
+    for (const instructor of academyInstructors) {
+      expect(
+        advisors.some(({ name }) => name === instructor.name),
+      ).toBe(false);
+    }
+
+    for (const facultyMember of academyFaculty) {
+      if (advisors.some(({ name }) => name === facultyMember.name)) {
+        expect(facultyMember.specialties?.length ?? 0).toBeGreaterThanOrEqual(3);
+        expect(facultyMember.image).toBeTruthy();
+      }
     }
   });
 
