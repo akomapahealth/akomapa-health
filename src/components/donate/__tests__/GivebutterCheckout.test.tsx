@@ -66,14 +66,17 @@ describe("GivebutterCheckout", () => {
     );
     for (const form of screen.getAllByTestId("givebutter-giving-form")) {
       expect(form).toHaveAttribute("campaign", "HE1MLG");
-      expect(form).toHaveAttribute("max-width", "960px");
-      expect(form).toHaveClass("mx-auto", "block", "w-full");
+      expect(form).toHaveAttribute("max-width", "100%");
+      expect(form).toHaveClass("block", "w-full", "justify-self-center");
     }
+    expect(screen.getAllByTestId("givebutter-checkout-partner")[0]).toHaveClass(
+      "border",
+      "lg:px-10",
+    );
     expect(screen.getAllByTestId("givebutter-widget-host")[0]).toHaveClass(
       "mx-auto",
-      "flex",
-      "justify-center",
-      "max-w-[60rem]",
+      "grid",
+      "place-items-center",
     );
     expect(window.location.search).toBe("?frequency=monthly");
   });
