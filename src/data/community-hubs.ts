@@ -1,3 +1,5 @@
+import { uccCommunityStories, uccStudentStories } from "./hub-stories/ucc-stories";
+import { ugCommunityStories, ugStudentStories } from "./hub-stories/ug-stories";
 import { UG_TRAINING_FORM_URL } from "@/config/links";
 import type {
   CommunityHub,
@@ -171,9 +173,9 @@ export const hubEmptyStates = {
     cta: { label: "Share your story", href: "/contact" },
   },
   studentStories: {
-    title: "Student stories are coming soon",
+    title: "Volunteer stories are coming soon",
     description:
-      "Leadership journeys and reflections from students at this hub will be shared here.",
+      "Leadership journeys and reflections from volunteers at this hub will be shared here.",
     cta: { label: "Get involved", href: "/get-involved" },
   },
   research: {
@@ -455,8 +457,8 @@ export const communityHubs: CommunityHub[] = [
       communitiesReached: 2,
       partnersEngaged: 3,
     },
-    communityStories: [],
-    studentStories: [],
+    communityStories: uccCommunityStories,
+    studentStories: uccStudentStories,
     facultyMentorship: {
       model:
         "Interprofessional student teams lead defined activities under dual review and on-site supervision from licensed clinicians and faculty mentors.",
@@ -486,8 +488,8 @@ export const communityHubs: CommunityHub[] = [
       communitiesReached: 0,
       partnersEngaged: 4,
     },
-    communityStories: [],
-    studentStories: [],
+    communityStories: ugCommunityStories,
+    studentStories: ugStudentStories,
     facultyMentorship: {
       model:
         "Faculty, university leaders, health-system partners, and Akomapa mentors supervise interprofessional student teams as the UG hub delivers community health activities and leadership training.",
