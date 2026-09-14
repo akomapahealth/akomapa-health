@@ -120,7 +120,6 @@ export const academyCurriculum: AcademyCurriculum = {
       facultyContributors: [
         "Dr. Jeremy Schwartz",
         "Prof. Kyei",
-        "Dr. Easmon Otupuri",
       ],
       order: 7,
     },
@@ -262,10 +261,6 @@ export const academyInstructors: FacultyMember[] = [
     id: "megan-raney",
     name: "Dr. Megan Raney",
     institution: "Yale University",
-  },
-  {
-    id: "easmon-otupuri",
-    name: "Dr. Easmon Otupuri",
   },
 ];
 
