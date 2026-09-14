@@ -119,7 +119,7 @@ describe("rebrand content data", () => {
     }
 
     expect(featuredFacultyNames.has("Dr. Adrian Mayo")).toBe(false);
-    expect(academyInstructors).toHaveLength(8);
+    expect(academyInstructors).toHaveLength(7);
     expect(academyFaculty).toHaveLength(13);
 
     for (const instructor of academyInstructors) {
