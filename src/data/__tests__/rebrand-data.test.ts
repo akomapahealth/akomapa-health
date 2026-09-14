@@ -92,7 +92,6 @@ describe("rebrand content data", () => {
       "Dr. Robert Rohrbaugh",
       "Dr. Tracy Rabin",
       "Dr. Megan Raney",
-      "Dr. Easmon Otupuri",
     ]);
 
     const advisors = advisoryBoardMembers;
