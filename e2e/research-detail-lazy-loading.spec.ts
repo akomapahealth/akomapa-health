@@ -82,6 +82,24 @@ test.describe("research detail PDF lazy loading", () => {
     expect(pdfRequests).toEqual([]);
   });
 
+  test("centers the PDF viewer beneath the abstract", async ({ page }) => {
+    await preparePage(page);
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto(researchPath, { waitUntil: "domcontentloaded" });
+
+    const measureBox = await page
+      .locator("[data-publication-article-measure]")
+      .boundingBox();
+    const viewerBox = await page.locator("#pdf-viewer").boundingBox();
+    expect(measureBox).not.toBeNull();
+    expect(viewerBox).not.toBeNull();
+
+    const measureCenter = measureBox!.x + measureBox!.width / 2;
+    const viewerCenter = viewerBox!.x + viewerBox!.width / 2;
+    expect(Math.abs(viewerCenter - measureCenter)).toBeLessThanOrEqual(2);
+    expect(viewerBox!.width).toBeGreaterThan(measureBox!.width);
+  });
+
   test("loads the viewer through its explicit action without IntersectionObserver", async ({
     page,
   }) => {
