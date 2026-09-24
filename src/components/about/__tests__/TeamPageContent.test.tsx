@@ -45,7 +45,7 @@ describe("TeamPageContent", () => {
     ).toHaveLength(3);
     expect(
       container.querySelectorAll('[data-team-role-category="member"]'),
-    ).toHaveLength(17);
+    ).toHaveLength(18);
     expect(
       container.querySelectorAll('[data-team-role-category="advisor"]'),
     ).toHaveLength(8);
