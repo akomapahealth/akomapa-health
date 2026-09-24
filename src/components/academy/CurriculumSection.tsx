@@ -166,7 +166,7 @@ export default function CurriculumSection() {
         </div>
       </FadeIn>
 
-      <div className="mx-auto mt-12 max-w-3xl">
+      <div className="mt-12 max-w-3xl">
         <ModuleAccordion modules={academyCurriculum.modules} />
       </div>
     </EditorialBand>

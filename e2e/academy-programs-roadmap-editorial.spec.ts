@@ -123,6 +123,17 @@ test("academy preserves curriculum order, certification, and apply destination",
     academyCurriculum.modules.map((module) => module.title),
   );
 
+  const curriculumHeadingBox = await page
+    .locator("#curriculum-heading")
+    .boundingBox();
+  const moduleListBox = await page.locator("#curriculum ol").boundingBox();
+  expect(curriculumHeadingBox).not.toBeNull();
+  expect(moduleListBox).not.toBeNull();
+  // Modules share the heading's left edge instead of floating centered.
+  expect(
+    Math.abs(moduleListBox!.x - curriculumHeadingBox!.x),
+  ).toBeLessThanOrEqual(2);
+
   await expect(
     page.getByRole("heading", {
       name: academyCurriculum.certificationName,
