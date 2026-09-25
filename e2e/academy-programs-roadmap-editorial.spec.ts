@@ -133,6 +133,16 @@ test("academy preserves curriculum order, certification, and apply destination",
   expect(
     Math.abs(moduleListBox!.x - curriculumHeadingBox!.x),
   ).toBeLessThanOrEqual(2);
+  // ...and stretch to the band's right content edge like the rest of the page.
+  const containerContentRight = await page
+    .locator("#curriculum > .site-container")
+    .evaluate((element) => {
+      const rect = element.getBoundingClientRect();
+      return rect.right - parseFloat(getComputedStyle(element).paddingRight);
+    });
+  expect(
+    Math.abs(moduleListBox!.x + moduleListBox!.width - containerContentRight),
+  ).toBeLessThanOrEqual(2);
 
   await expect(
     page.getByRole("heading", {
