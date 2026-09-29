@@ -87,10 +87,12 @@ for (const viewport of viewports) {
             .filter((control) => {
               const style = getComputedStyle(control);
               const rect = control.getBoundingClientRect();
+              // Entrance transforms can report a 44px box as 43.99998px.
+              const minTarget = 44 - 0.01;
               return (
                 style.display !== "none" &&
                 style.visibility !== "hidden" &&
-                (rect.width < 44 || rect.height < 44)
+                (rect.width < minTarget || rect.height < minTarget)
               );
             })
             .map((control) => control.textContent?.trim() ?? control.tagName),

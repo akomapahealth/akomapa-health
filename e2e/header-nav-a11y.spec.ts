@@ -170,6 +170,9 @@ test.describe("desktop header dropdown keyboard accessibility", () => {
       page.getByRole("menuitem", { name: "Research & Innovation" }),
     ).toBeFocused();
     await page.keyboard.press("ArrowDown");
+    await expect(
+      page.getByRole("menuitem", { name: "Impact", exact: true }),
+    ).toBeFocused();
     await page.keyboard.press("ArrowDown");
     await expect(learningSubmenu).toBeFocused();
     await page.keyboard.press("ArrowRight");
