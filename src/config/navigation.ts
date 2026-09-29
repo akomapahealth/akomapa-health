@@ -25,29 +25,29 @@ export const mainNavigation: readonly NavigationItem[] = [
     ],
   },
   {
-    name: "Our Work",
+    name: "Community Health Hubs",
+    href: "/community-hubs",
     children: [
-      {
-        name: "Community Health Hubs",
-        href: "/community-hubs",
-        children: [
-          { name: "All Community Health Hubs", href: "/community-hubs" },
-          { name: "Akomapa UCC Hub", href: "/community-hubs/ucc" },
-          { name: "Akomapa UG Hub", href: "/community-hubs/ug" },
-          { name: "Akomapa NHP Yale Hub", href: "/community-hubs/nhp" },
-        ],
-      },
-      { name: "Research & Innovation", href: "/research" },
-      { name: "Impact", href: "/impact" },
+      { name: "All Community Health Hubs", href: "/community-hubs" },
+      { name: "Akomapa UCC Hub", href: "/community-hubs/ucc" },
+      { name: "Akomapa UG Hub", href: "/community-hubs/ug" },
+      { name: "Akomapa NHP Yale Hub", href: "/community-hubs/nhp" },
     ],
   },
   {
-    name: "Learning Experiences",
+    name: "Our Work",
     children: [
-      { name: "Akomapa Academy", href: "/academy" },
+      { name: "Research & Innovation", href: "/research" },
+      { name: "Impact", href: "/impact" },
       {
-        name: "Global Health Immersion Program",
-        href: "/global-health-immersion-program",
+        name: "Learning Experiences",
+        children: [
+          { name: "Akomapa Academy", href: "/academy" },
+          {
+            name: "Global Health Immersion Program",
+            href: "/global-health-immersion-program",
+          },
+        ],
       },
     ],
   },

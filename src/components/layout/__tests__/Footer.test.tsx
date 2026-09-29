@@ -52,6 +52,24 @@ describe("Footer", () => {
     ).toHaveAttribute("href", "/terms");
   });
 
+  it("keeps office addresses and phone numbers on the contact page only", () => {
+    render(<Footer />);
+
+    const footer = screen.getByRole("contentinfo");
+    for (const office of CONTACT.offices) {
+      expect(footer).not.toHaveTextContent(office.label);
+      // The final line is the country, which the legal notice still names.
+      for (const line of office.addressLines.slice(0, -1)) {
+        expect(footer).not.toHaveTextContent(line);
+      }
+      expect(footer).not.toHaveTextContent(office.phone.display);
+      expect(
+        footer.querySelector(`a[href="${office.phone.href}"]`),
+      ).toBeNull();
+    }
+    expect(footer.querySelector("address")).toBeNull();
+  });
+
   it("reserves announcement FAB clearance around Subscribe and legal links", () => {
     render(<Footer />);
 

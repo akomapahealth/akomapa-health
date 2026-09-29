@@ -1,4 +1,8 @@
 import { Page } from '@playwright/test';
+import {
+  ANNOUNCEMENT_LIFETIME_DAYS,
+  announcementCampaign,
+} from '../src/data/announcements';
 
 /**
  * Helper functions for E2E tests
@@ -164,3 +168,22 @@ export async function getVisibleSections(page: Page): Promise<string[]> {
   });
 }
 
+
+/**
+ * Freeze the browser clock one day after the newest announcement was
+ * published so announcement specs do not expire with the real calendar.
+ * Timers keep running, so auto-open and tip delays behave normally.
+ * Call before `page.goto`.
+ */
+export async function freezeClockInAnnouncementWindow(page: Page) {
+  const newestPublishedAt = Math.max(
+    ...announcementCampaign.slides.map(({ publishedAt }) =>
+      Date.parse(publishedAt),
+    ),
+  );
+  const dayMs = 24 * 60 * 60 * 1000;
+  if (ANNOUNCEMENT_LIFETIME_DAYS < 2) {
+    throw new Error('Announcement lifetime is too short to freeze inside it.');
+  }
+  await page.clock.setFixedTime(new Date(newestPublishedAt + dayMs));
+}

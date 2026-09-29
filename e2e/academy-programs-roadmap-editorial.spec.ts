@@ -87,10 +87,12 @@ for (const viewport of viewports) {
             .filter((control) => {
               const style = getComputedStyle(control);
               const rect = control.getBoundingClientRect();
+              // Entrance transforms can report a 44px box as 43.99998px.
+              const minTarget = 44 - 0.01;
               return (
                 style.display !== "none" &&
                 style.visibility !== "hidden" &&
-                (rect.width < 44 || rect.height < 44)
+                (rect.width < minTarget || rect.height < minTarget)
               );
             })
             .map((control) => control.textContent?.trim() ?? control.tagName),
@@ -122,6 +124,27 @@ test("academy preserves curriculum order, certification, and apply destination",
   expect(moduleTitles).toEqual(
     academyCurriculum.modules.map((module) => module.title),
   );
+
+  const curriculumHeadingBox = await page
+    .locator("#curriculum-heading")
+    .boundingBox();
+  const moduleListBox = await page.locator("#curriculum ol").boundingBox();
+  expect(curriculumHeadingBox).not.toBeNull();
+  expect(moduleListBox).not.toBeNull();
+  // Modules share the heading's left edge instead of floating centered.
+  expect(
+    Math.abs(moduleListBox!.x - curriculumHeadingBox!.x),
+  ).toBeLessThanOrEqual(2);
+  // ...and stretch to the band's right content edge like the rest of the page.
+  const containerContentRight = await page
+    .locator("#curriculum > .site-container")
+    .evaluate((element) => {
+      const rect = element.getBoundingClientRect();
+      return rect.right - parseFloat(getComputedStyle(element).paddingRight);
+    });
+  expect(
+    Math.abs(moduleListBox!.x + moduleListBox!.width - containerContentRight),
+  ).toBeLessThanOrEqual(2);
 
   await expect(
     page.getByRole("heading", {

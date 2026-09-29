@@ -1,5 +1,6 @@
 import { test, expect } from "@playwright/test";
 import { announcementCampaign } from "../src/data/announcements";
+import { freezeClockInAnnouncementWindow } from "./helpers";
 
 test.describe("News Detail Pages", () => {
   test.beforeEach(async ({ page }) => {
@@ -144,6 +145,10 @@ test.describe("News Detail Pages", () => {
 });
 
 test.describe("Announcement modal", () => {
+  test.beforeEach(async ({ page }) => {
+    await freezeClockInAnnouncementWindow(page);
+  });
+
   test("auto-opens for first-time visitors", async ({ page }) => {
     await page.addInitScript(() => {
       localStorage.removeItem("akomapa-announcements-dismissed");

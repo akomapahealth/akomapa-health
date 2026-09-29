@@ -102,7 +102,7 @@ test.describe("desktop header dropdown keyboard accessibility", () => {
     await expect(aboutTrigger).toBeFocused();
   });
 
-  test("Our Work dropdown opens with keyboard and reaches Research", async ({
+  test("Our Work dropdown opens with keyboard and reaches Impact", async ({
     page,
   }) => {
     const workTrigger = page.getByRole("button", {
@@ -111,33 +111,33 @@ test.describe("desktop header dropdown keyboard accessibility", () => {
     await workTrigger.focus();
     await page.keyboard.press("Enter");
 
-    const hubsLink = page.getByRole("menuitem", {
-      name: "Community Health Hubs",
-    });
     const researchLink = page.getByRole("menuitem", {
       name: "Research & Innovation",
     });
-    await expect(hubsLink).toBeFocused();
-    await page.keyboard.press("ArrowDown");
+    const impactLink = page.getByRole("menuitem", {
+      name: "Impact",
+      exact: true,
+    });
     await expect(researchLink).toBeFocused();
+    await expect(
+      page.getByRole("menuitem", { name: "Community Health Hubs" }),
+    ).toHaveCount(0);
+    await page.keyboard.press("ArrowDown");
+    await expect(impactLink).toBeFocused();
 
     await page.keyboard.press("Enter");
-    await expect(page).toHaveURL(/\/research$/);
+    await expect(page).toHaveURL(/\/impact$/);
   });
 
-  test("Community Health Hubs retains keyboard access to individual hubs", async ({
+  test("Community Health Hubs is top-level and reaches individual hubs", async ({
     page,
   }) => {
-    const workTrigger = page.getByRole("button", { name: "Our Work" });
-    await workTrigger.focus();
-    await page.keyboard.press("Enter");
-
-    const hubsSubmenu = page.getByRole("menuitem", {
+    const hubsTrigger = page.getByRole("button", {
       name: "Community Health Hubs",
       exact: true,
     });
-    await expect(hubsSubmenu).toBeFocused();
-    await page.keyboard.press("ArrowRight");
+    await hubsTrigger.focus();
+    await page.keyboard.press("Enter");
 
     const allHubsLink = page.getByRole("menuitem", {
       name: "All Community Health Hubs",
@@ -149,19 +149,33 @@ test.describe("desktop header dropdown keyboard accessibility", () => {
     await page.keyboard.press("Enter");
 
     await expect(page).toHaveURL(/\/community-hubs\/ucc$/);
-    await workTrigger.click();
-    await hubsSubmenu.hover();
+    await hubsTrigger.click();
+    await expect(uccLink).toBeVisible();
     await expect(uccLink).toHaveAttribute("aria-current", "page");
+    await expect(allHubsLink).not.toHaveAttribute("aria-current", "page");
   });
 
-  test("Learning Experiences reaches the Immersion program by keyboard", async ({
+  test("Learning Experiences under Our Work reaches the Immersion program", async ({
     page,
   }) => {
-    const learningTrigger = page.getByRole("button", {
-      name: "Learning Experiences",
-    });
-    await learningTrigger.focus();
+    const workTrigger = page.getByRole("button", { name: "Our Work" });
+    await workTrigger.focus();
     await page.keyboard.press("Enter");
+
+    const learningSubmenu = page.getByRole("menuitem", {
+      name: "Learning Experiences",
+      exact: true,
+    });
+    await expect(
+      page.getByRole("menuitem", { name: "Research & Innovation" }),
+    ).toBeFocused();
+    await page.keyboard.press("ArrowDown");
+    await expect(
+      page.getByRole("menuitem", { name: "Impact", exact: true }),
+    ).toBeFocused();
+    await page.keyboard.press("ArrowDown");
+    await expect(learningSubmenu).toBeFocused();
+    await page.keyboard.press("ArrowRight");
 
     const academyLink = page.getByRole("menuitem", {
       name: "Akomapa Academy",
@@ -176,7 +190,8 @@ test.describe("desktop header dropdown keyboard accessibility", () => {
     await page.keyboard.press("Enter");
 
     await expect(page).toHaveURL(/\/global-health-immersion-program$/);
-    await learningTrigger.click();
+    await workTrigger.click();
+    await learningSubmenu.hover();
     await expect(immersionLink).toBeVisible();
     await expect(immersionLink).toHaveAttribute("aria-current", "page");
   });
@@ -266,6 +281,9 @@ test.describe("mobile grouped navigation", () => {
     await page.getByRole("button", { name: "Open main menu" }).click();
     const drawer = page.getByRole("dialog");
 
+    await expect(
+      drawer.getByRole("link", { name: "Community Health Hubs", exact: true }),
+    ).toBeVisible();
     await expect(
       drawer.getByText("Our Work", { exact: true }),
     ).toBeVisible();

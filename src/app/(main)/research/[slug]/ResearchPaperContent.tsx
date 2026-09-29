@@ -102,7 +102,7 @@ export default function ResearchPaperContent({
           />
         </PublicationArticleMeasure>
 
-        <div className="mt-10 max-w-5xl">
+        <div className="mx-auto mt-10 w-full max-w-5xl">
           <DeferredPdfViewer pdfUrl={paper.pdfUrl} />
         </div>
       </EditorialBand>
