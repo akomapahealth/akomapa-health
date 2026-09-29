@@ -87,10 +87,14 @@ test.describe("research detail PDF lazy loading", () => {
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto(researchPath, { waitUntil: "domcontentloaded" });
 
-    const measureBox = await page
-      .locator("[data-publication-article-measure]")
-      .boundingBox();
-    const viewerBox = await page.locator("#pdf-viewer").boundingBox();
+    const measure = page.locator("[data-publication-article-measure]");
+    const viewer = page.locator("#pdf-viewer");
+    await expect(measure).toBeVisible();
+    await expect(viewer).toBeAttached();
+    await viewer.scrollIntoViewIfNeeded();
+
+    const measureBox = await measure.boundingBox();
+    const viewerBox = await viewer.boundingBox();
     expect(measureBox).not.toBeNull();
     expect(viewerBox).not.toBeNull();
 
