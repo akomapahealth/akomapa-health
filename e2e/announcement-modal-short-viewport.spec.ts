@@ -1,5 +1,6 @@
 import { expect, test, type Locator, type Page } from "@playwright/test";
 import { announcementCampaign } from "../src/data/announcements";
+import { freezeClockInAnnouncementWindow } from "./helpers";
 
 const viewports = [
   { name: "375x667", width: 375, height: 667 },
@@ -9,6 +10,7 @@ const viewports = [
 ] as const;
 
 async function openAnnouncementModal(page: Page) {
+  await freezeClockInAnnouncementWindow(page);
   await page.addInitScript((version) => {
     localStorage.setItem("akomapa-announcements-dismissed", version);
     sessionStorage.setItem("akomapa-announcement-tip-dismissed", "1");
