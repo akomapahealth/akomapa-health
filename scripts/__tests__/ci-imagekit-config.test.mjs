@@ -39,3 +39,10 @@ test("only the CI workflow runs the real-media check", async () => {
   assert.equal(e2e.includes("test:e2e:real-media"), false);
   assert.equal(e2e.includes("E2E_REAL_MEDIA"), false);
 });
+
+test("Lighthouse isolates ImageKit unless explicitly opted out", async () => {
+  const script = await readRepoFile("scripts/lighthouse.mjs");
+  assert.match(script, /LIGHTHOUSE_IMAGEKIT_FIXTURES !== "0"/);
+  assert.match(script, /connectOverCDP/);
+  assert.match(script, /localMediaFixture/);
+});
