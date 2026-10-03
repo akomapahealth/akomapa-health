@@ -12,6 +12,10 @@
  *   LIGHTHOUSE_LABEL=after node scripts/lighthouse.mjs
  *
  * Assumes a production build already exists (`npm run build` first).
+ *
+ * This script launches Chrome outside Playwright, so it does not use the E2E
+ * ImageKit fixtures. A run downloads production media, including the immersion
+ * video. See docs/performance/e2e-imagekit-bandwidth.md.
  */
 
 import { spawn } from "node:child_process";

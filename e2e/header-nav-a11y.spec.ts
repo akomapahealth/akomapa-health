@@ -1,4 +1,5 @@
-import { expect, test } from "@playwright/test";
+import { expect } from "@playwright/test";
+import { test } from "./media/playwright";
 import { announcementCampaign } from "../src/data/announcements";
 
 const DESKTOP_VIEWPORT = { width: 1440, height: 900 };

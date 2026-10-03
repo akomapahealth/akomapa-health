@@ -1,4 +1,5 @@
-import { expect, test, type Page } from "@playwright/test";
+import { expect, type Page } from "@playwright/test";
+import { test } from "./media/playwright";
 import { announcementCampaign } from "../src/data/announcements";
 
 const researchPath = "/research/student-led-interventions";
@@ -110,12 +111,21 @@ test.describe("research detail PDF lazy loading", () => {
     await preparePage(page, true);
     await page.goto(researchPath, { waitUntil: "domcontentloaded" });
 
-    const pdfRequest = page.waitForRequest((request) =>
-      request.url().includes(pdfPath),
+    await page.getByRole("link", { name: "View PDF" }).click();
+    const loadButton = page.getByRole("button", { name: "Load PDF viewer" });
+    const pdfRequest = page.waitForRequest(
+      (request) => request.url().includes(pdfPath),
+      { timeout: 20_000 },
     );
 
-    await page.getByRole("link", { name: "View PDF" }).click();
-    await page.getByRole("button", { name: "Load PDF viewer" }).click();
+    await expect(async () => {
+      if (await loadButton.isVisible()) {
+        await loadButton.click();
+      }
+      await expect(page.getByTestId("pdf-viewer-loaded")).toBeVisible({
+        timeout: 2_000,
+      });
+    }).toPass({ timeout: 15_000 });
 
     await pdfRequest;
     await expect(page.getByTestId("pdf-viewer-loaded")).toBeVisible();

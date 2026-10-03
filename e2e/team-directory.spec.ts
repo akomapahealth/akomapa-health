@@ -1,4 +1,5 @@
-import { expect, test, type Page } from "@playwright/test";
+import { expect, type Page } from "@playwright/test";
+import { test } from "./media/playwright";
 import { announcementCampaign } from "../src/data/announcements";
 import {
   advisoryBoardMembers,
@@ -89,16 +90,10 @@ test.describe("team directory hierarchy", () => {
     expect(jadePortraitUrl.searchParams.get("tr")).toMatch(
       /(?:^|,)f-auto(?:,|$)/,
     );
-    await expect
-      .poll(() =>
-        jadePortrait.evaluate(
-          (image: HTMLImageElement) => image.naturalWidth,
-        ),
-      )
-      .toBeGreaterThan(0);
+    // Browser decode of this HEIF source is covered by e2e/real-media.spec.ts.
   });
 
-  test("transcodes HEIF and HEIC portraits into browser-renderable images", async ({
+  test("points the HEIC portrait at an auto-format ImageKit URL", async ({
     page,
   }) => {
     const darrenCard = page.locator('[data-team-member="Darren Markwei"]');
@@ -114,13 +109,7 @@ test.describe("team directory hierarchy", () => {
     expect(darrenPortraitUrl.searchParams.get("tr")).toMatch(
       /(?:^|,)f-auto(?:,|$)/,
     );
-    await expect
-      .poll(() =>
-        darrenPortrait.evaluate(
-          (image: HTMLImageElement) => image.naturalWidth,
-        ),
-      )
-      .toBeGreaterThan(0);
+    // Browser decode of this HEIC source is covered by e2e/real-media.spec.ts.
   });
 
   test("renders a complete non-executive profile with consistent portrait cropping", async ({

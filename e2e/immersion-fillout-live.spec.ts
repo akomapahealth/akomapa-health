@@ -1,4 +1,5 @@
-import { expect, test } from "@playwright/test";
+import { expect } from "@playwright/test";
+import { test } from "./media/playwright";
 
 const liveEnabled = process.env.FILLOUT_LIVE_SMOKE === "true";
 const stagingId = process.env.FILLOUT_STAGING_FORM_ID ?? "";
