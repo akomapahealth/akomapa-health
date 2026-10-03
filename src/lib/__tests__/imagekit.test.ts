@@ -70,4 +70,23 @@ describe("getImageKitUrl / imageKitLoader", () => {
     const src = "https://img.youtube.com/vi/abc/maxresdefault.jpg";
     expect(getImageKitUrl(src, { width: 640, quality: 75 })).toBe(src);
   });
+
+  it("rewrites ImageKit URLs to the local fixture route in development", () => {
+    vi.stubEnv("NODE_ENV", "development");
+    vi.stubEnv("NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT", endpoint);
+
+    expect(getImageKitUrl("/highlights/photo.jpg", { width: 800, quality: 75 })).toBe(
+      "/api/dev-imagekit?src=https%3A%2F%2Fik.imagekit.io%2Fakomapa%2Fhighlights%2Fphoto.jpg%3Ftr%3Dq-75%2Cw-800",
+    );
+  });
+
+  it("keeps generated ImageKit URLs when development fixtures are opted out", () => {
+    vi.stubEnv("NODE_ENV", "development");
+    vi.stubEnv("NEXT_PUBLIC_IMAGEKIT_DEV_FIXTURES", "0");
+    vi.stubEnv("NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT", endpoint);
+
+    expect(
+      getImageKitUrl("/highlights/photo.jpg", { width: 800, quality: 75 }),
+    ).toBe(`${endpoint}/highlights/photo.jpg?tr=q-75,w-800`);
+  });
 });

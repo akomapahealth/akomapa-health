@@ -70,7 +70,7 @@ test("ImageKit host and real-media allowlist stay narrow", () => {
   );
   assert.equal(
     isRealMediaCdnRequest(
-      "https://ik.imagekit.io/akomapa/immersion-hero.mp4?tr=q-60,w-1920",
+      "https://ik.imagekit.io/akomapa/immersion-hero.mp4?tr=q-60,w-1280",
     ),
     false,
   );

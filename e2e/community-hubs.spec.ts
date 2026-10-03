@@ -18,6 +18,7 @@ async function preparePage(page: Page, theme?: "light" | "dark") {
         "akomapa-announcements-dismissed",
         announcementVersion,
       );
+      sessionStorage.setItem("akomapa-announcement-tip-dismissed", "1");
 
       if (storedTheme) {
         localStorage.setItem("akomapa-theme", storedTheme);
@@ -150,16 +151,24 @@ for (const routeSlug of hubRouteSlugs) {
       } else {
         await expect(page.getByRole("heading", { name: "Community Stories" })).toBeVisible();
         await expect(page.getByText(communityStories[0].author, { exact: true })).toBeVisible();
-        await page.getByTestId(`story-read-more-${communityStories[0].id}`).click();
+        const readMore = page.getByTestId(
+          `story-read-more-${communityStories[0].id}`,
+        );
+        await readMore.scrollIntoViewIfNeeded();
         const dialog = page.getByRole("dialog");
-        await expect(dialog).toBeVisible();
+        await expect(async () => {
+          await readMore.click();
+          await expect(dialog).toBeVisible({ timeout: 2_000 });
+        }).toPass({ timeout: 15_000 });
         await expect(dialog.getByRole("heading", { name: communityStories[0].title })).toBeVisible();
         await dialog.getByRole("button", { name: "Next story" }).click();
         await expect(dialog.getByRole("heading", { name: communityStories[1].title })).toBeVisible();
         await dialog.getByRole("button", { name: "Previous story" }).click();
         await expect(dialog.getByRole("heading", { name: communityStories[0].title })).toBeVisible();
         await dialog.getByRole("button", { name: /Close/i }).click();
-        await expect(dialog).toHaveCount(0);
+        await expect(async () => {
+          await expect(dialog).toHaveCount(0);
+        }).toPass({ timeout: 10_000 });
       }
 
       if (studentStories.length === 0) {

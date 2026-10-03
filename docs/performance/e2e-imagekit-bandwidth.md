@@ -2,7 +2,7 @@
 
 Routine Playwright runs fulfill `*.imagekit.io` responses locally. Generated `src` and `srcSet` values stay on `https://ik.imagekit.io/akomapa`. One CI check still downloads two team portraits and the mobile immersion video.
 
-Production paths, filenames, and the ImageKit loader are unchanged. `scripts/lighthouse.mjs` launches Chrome outside Playwright, so a Lighthouse run still downloads production media.
+Production paths, filenames, and the ImageKit loader stay the same in production builds. `next dev` rewrites generated ImageKit URLs to `/api/dev-imagekit`, which serves local fixture bytes and never fetches the CDN. `scripts/lighthouse.mjs` intercepts ImageKit in Chrome unless `LIGHTHOUSE_IMAGEKIT_FIXTURES=0`. Set `NEXT_PUBLIC_IMAGEKIT_DEV_FIXTURES=0` to browse local development against production media.
 
 ## September 2026 context
 
@@ -53,6 +53,8 @@ That is the observed delivery count for this run. It is not a measured byte savi
 | `immersion-hero.mp4?tr=q-60,w-960` | 206 | `video/webm` | 13,352,800 |
 
 Sum of those `content-length` values: 13,378,142 bytes. The video `content-range` was `bytes 0-13352799/13352800`, so that 206 response carried the whole object. The desktop `w-1920` URL was present on the `<source>` element and was not requested from ImageKit. Both portraits decoded with `naturalWidth > 0`. The video reached `videoWidth > 0` and `videoHeight > 0`, then playback was stopped and the page was closed.
+
+The immersion hero later switched the unused desktop variant from `w-1920` to `w-1280`. The real-media check still fetches only `w-960`.
 
 The project retries once. A failed attempt can download these objects again. This run did not retry.
 
