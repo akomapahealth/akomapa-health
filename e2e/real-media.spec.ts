@@ -137,11 +137,13 @@ test("decodes one immersion video variant and does not fetch the other", async (
   await expect(
     page.locator("[data-immersion-hero-hydrated]"),
   ).toHaveAttribute("data-immersion-hero-hydrated", "true");
+  await expect(video.locator("source")).toHaveCount(2);
   const sourceUrls = await video.locator("source").evaluateAll((elements) =>
     elements.map((element) => element.getAttribute("src")),
   );
   expect(sourceUrls.some((src) => src?.includes("w-960"))).toBe(true);
-  expect(sourceUrls.some((src) => src?.includes("w-1920"))).toBe(true);
+  expect(sourceUrls.some((src) => src?.includes("w-1280"))).toBe(true);
+  expect(sourceUrls.some((src) => src?.includes("w-1920"))).toBe(false);
 
   await expect
     .poll(() =>
@@ -167,6 +169,9 @@ test("decodes one immersion video variant and does not fetch the other", async (
   expect(videoDeliveries.length).toBeGreaterThan(0);
   expect(videoDeliveries.every((delivery) => delivery.url.includes("w-960"))).toBe(
     true,
+  );
+  expect(deliveries.some((delivery) => delivery.url.includes("w-1280"))).toBe(
+    false,
   );
   expect(deliveries.some((delivery) => delivery.url.includes("w-1920"))).toBe(
     false,
