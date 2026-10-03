@@ -91,8 +91,9 @@ jobs:
           NEXT_PUBLIC_IMMERSION_FILLOUT_FORM_ID: ciTestForm194
           NEXT_PUBLIC_IMMERSION_FILLOUT_FORM_URL: https://forms.fillout.com/t/ciTestForm194
           NEXT_PUBLIC_GIVEBUTTER_DONATIONS_ENABLED: "true"
-          # E2E reuses this build and verifies real portrait decoding. This CDN
-          # URL is public; do not require repository secrets for fork PRs.
+          # Image URLs are baked from this public CDN at build time. Routine E2E
+          # fulfills those requests locally. Only the real-media step downloads
+          # production media. Do not require repository secrets for fork PRs.
           NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT: https://ik.imagekit.io/akomapa
           NEXT_PUBLIC_IMAGEKIT_PUBLIC_KEY: public_ci_placeholder
 
@@ -120,7 +121,7 @@ jobs:
     name: E2E
     needs: build
     runs-on: ubuntu-24.04
-    timeout-minutes: 30
+    timeout-minutes: 40
     steps:
       - name: Checkout repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -154,6 +155,14 @@ jobs:
           NEXT_PUBLIC_GIVEBUTTER_DONATIONS_ENABLED: "true"
           PLAYWRIGHT_TEST_BASE_URL: http://127.0.0.1:3000
         timeout-minutes: 20
+
+      - name: Run real ImageKit media check
+        run: npm run test:e2e:real-media
+        env:
+          CI: true
+          NEXT_PUBLIC_GIVEBUTTER_DONATIONS_ENABLED: "true"
+          PLAYWRIGHT_TEST_BASE_URL: http://127.0.0.1:3000
+        timeout-minutes: 10
 
       - name: Upload Playwright report
         if: failure()

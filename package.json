@@ -31,6 +31,7 @@
     "prepare": "node scripts/ensure-husky-hooks.mjs",
     "clean": "rm -rf .next && rm -rf node_modules/.cache",
     "test:e2e": "playwright test",
+    "test:e2e:real-media": "E2E_REAL_MEDIA=1 playwright test --project=real-media",
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:headed": "playwright test --headed",
     "test:e2e:debug": "playwright test --debug"

@@ -1,9 +1,22 @@
+import { appendFileSync, mkdirSync } from "node:fs";
+import path from "node:path";
 import type { BrowserContext, Route } from "@playwright/test";
 import {
   isImageKitHostname,
   isImageKitRequestUrl,
   isVideoRequestUrl,
 } from "./imagekit-url.mjs";
+
+const accountLogPath = path.join("test-results", "imagekit-account.log");
+
+function recordImageKitOutcome(kind: "fixture" | "leak", url: string): void {
+  try {
+    mkdirSync(path.dirname(accountLogPath), { recursive: true });
+    appendFileSync(accountLogPath, `${kind}\t${url}\n`);
+  } catch {
+    // Accounting is diagnostic. A write failure must not hide the test result.
+  }
+}
 
 export const MEDIA_FIXTURE_HEADER = "x-akomapa-media-fixture";
 
@@ -76,6 +89,8 @@ export async function fulfillImageKitFixture(route: Route): Promise<void> {
     ? bytesForRange(payload, route.request().headers().range)
     : { status: 200, body: payload };
 
+  recordImageKitOutcome("fixture", requestUrl);
+
   await route.fulfill({
     status: ranged.status,
     contentType: video ? "video/mp4" : "image/png",
@@ -106,6 +121,7 @@ export async function installImageKitFixtures(
   context.on("response", (response) => {
     if (!isImageKitRequestUrl(response.url())) return;
     if (response.headers()[MEDIA_FIXTURE_HEADER] === "1") return;
+    recordImageKitOutcome("leak", response.url());
     leaks.push({ url: response.url(), status: response.status() });
   });
 
