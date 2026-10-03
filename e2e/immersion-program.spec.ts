@@ -1,4 +1,5 @@
-import { expect, test, type Page } from "@playwright/test";
+import { expect, type Page } from "@playwright/test";
+import { test } from "./media/playwright";
 import { announcementCampaign } from "../src/data/announcements";
 import { immersionProgram } from "../src/data/immersion-program";
 
@@ -259,6 +260,7 @@ test.describe("Immersion program responsive editorial layout", () => {
       page.locator("[data-immersion-hero-hydrated]"),
     ).toHaveAttribute("data-immersion-hero-hydrated", "true");
     await expect(video).toHaveCount(1);
+    await expect(video.locator("source")).toHaveCount(2);
     await expect(page.locator("[data-immersion-hero-media] img")).toHaveCount(
       0,
     );
@@ -283,7 +285,7 @@ test.describe("Immersion program responsive editorial layout", () => {
       muted: true,
       playsInline: true,
       poster: "",
-      preload: "auto",
+      preload: "metadata",
     });
     await expect(video).toHaveCSS("opacity", "1");
   });

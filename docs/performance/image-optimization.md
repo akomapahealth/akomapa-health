@@ -25,6 +25,8 @@ we rely on elsewhere (local logos, etc.).
 
 - [`src/components/common/Image.tsx`](../../src/components/common/Image.tsx) — loader selection via `isImageKitSrc`
 - [`src/lib/imagekit.ts`](../../src/lib/imagekit.ts) — `getImageKitUrl`, `imageKitLoader`
+- [`src/app/api/dev-imagekit/route.ts`](../../src/app/api/dev-imagekit/route.ts) — local fixtures for `next dev`
+- [`src/components/immersion/ImmersionHeroMedia.tsx`](../../src/components/immersion/ImmersionHeroMedia.tsx) — hero video sources and transforms
 - [`next.config.ts`](../../next.config.ts) — `images.remotePatterns` allowlist (ImageKit + YouTube)
 
 Local `public/` assets should use `next/image` directly, not the common Image
@@ -36,6 +38,16 @@ Homepage and marketing LCP images that use `@/components/common/Image` with
 `priority` and `sizes` rely on ImageKit `tr=f-auto,q-,w-` for compatible output
 and byte size. Keep those props accurate so the loader requests an appropriate
 width.
+
+## Local development and Lighthouse
+
+`next dev` points generated ImageKit `src` values at [`/api/dev-imagekit`](../../src/app/api/dev-imagekit/route.ts). That route returns tiny local PNG/MP4 fixtures and does not fetch ImageKit. Production builds are unchanged. Opt out with `NEXT_PUBLIC_IMAGEKIT_DEV_FIXTURES=0`.
+
+`scripts/lighthouse.mjs` intercepts `*.imagekit.io` in the audited Chrome session by default. Use `LIGHTHOUSE_IMAGEKIT_FIXTURES=0` only when the audit must measure real CDN bytes.
+
+## Immersion hero video
+
+The decorative hero on `/global-health-immersion-program` keeps `immersion-hero.mp4` at the same ImageKit path. It attaches `<source>` elements after the hero is in view, uses `preload="metadata"`, and requests `w-960` below 768px and `w-1280` otherwise (`q-60`). Autoplay, loop, and muted playback are unchanged. Reduced-motion visitors still get the static poster.
 
 ## How to verify
 

@@ -16,8 +16,25 @@ interface ImageKitTransformations {
   minHeight?: number;
 }
 
+const DEV_IMAGEKIT_FIXTURE_PATH = "/api/dev-imagekit";
+
 function isImageKitHostname(hostname: string): boolean {
   return hostname === "imagekit.io" || hostname.endsWith(".imagekit.io");
+}
+
+/**
+ * `next dev` emits a same-origin fixture URL so the browser never fetches
+ * ImageKit. Production and test builds keep the CDN URL.
+ */
+function maybeDevImageKitFixtureUrl(url: string): string {
+  if (
+    process.env.NODE_ENV !== "development" ||
+    process.env.NEXT_PUBLIC_IMAGEKIT_DEV_FIXTURES === "0"
+  ) {
+    return url;
+  }
+
+  return `${DEV_IMAGEKIT_FIXTURE_PATH}?${new URLSearchParams({ src: url }).toString()}`;
 }
 
 /**
@@ -87,7 +104,7 @@ export function getImageKitUrl(
       if (transformParams.length > 0) {
         url.searchParams.set("tr", transformParams.join(","));
       }
-      return url.href;
+      return maybeDevImageKitFixtureUrl(url.href);
     } catch {
       return path;
     }
@@ -112,10 +129,10 @@ export function getImageKitUrl(
   const imageUrl = `${baseUrl}/${cleanPath}`;
 
   if (transformParams.length > 0) {
-    return `${imageUrl}?tr=${transformParams.join(",")}`;
+    return maybeDevImageKitFixtureUrl(`${imageUrl}?tr=${transformParams.join(",")}`);
   }
 
-  return imageUrl;
+  return maybeDevImageKitFixtureUrl(imageUrl);
 }
 
 /**

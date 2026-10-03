@@ -27,7 +27,7 @@ export default function Footer() {
       <div className="site-container mx-auto px-4 pt-14 pb-[max(3.5rem,calc(5rem+env(safe-area-inset-bottom)))] md:pt-16 md:pb-[max(4rem,calc(5.5rem+env(safe-area-inset-bottom)))] lg:pt-20">
         <div
           data-footer-grid
-          className="grid grid-cols-1 gap-x-8 gap-y-10 md:grid-cols-2 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,0.7fr)_minmax(0,0.9fr)_minmax(15rem,1.1fr)] lg:gap-x-10"
+          className="grid grid-cols-1 gap-x-8 gap-y-10 md:grid-cols-2 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,0.8fr)_minmax(0,0.9fr)_minmax(0,0.9fr)] lg:gap-x-10"
         >
           {/* Logo and mission */}
           <div
@@ -215,37 +215,25 @@ export default function Footer() {
             <h3 className="mb-5 font-heading text-lg font-bold tracking-tight">
               Contact Us
             </h3>
-            <div className="space-y-6 font-body text-[#2F3332]/75 dark:text-[#FCFAEF]/85">
-              <Link href="/contact" className={footerLinkClass}>
-                Send us a message
-              </Link>
-              {CONTACT.offices.map((office) => (
-                <div key={office.id}>
-                  <h4 className="mb-1 font-semibold text-[#1C1F1E] dark:text-[#FCFAEF]">
-                    {office.label}
-                  </h4>
-                  <address className="not-italic text-sm leading-relaxed">
-                    {office.addressLines.map((line) => (
-                      <span key={line} className="block">
-                        {line}
-                      </span>
-                    ))}
-                    <a href={office.phone.href} className={footerLinkClass}>
-                      {office.phone.display}
-                    </a>
-                  </address>
-                </div>
-              ))}
-              <div className="flex items-start border-t border-[#2F3332]/15 pt-5 dark:border-[#FCFAEF]/20">
-                <Mail className="mr-2 h-5 w-5 flex-shrink-0 text-[#F5C94D]" />
+            <ul className="space-y-2 font-body text-sm leading-relaxed md:text-base">
+              <li>
+                <Link href="/contact" className={footerLinkClass}>
+                  Send us a message
+                </Link>
+              </li>
+              <li className="flex items-center gap-2">
+                <Mail
+                  className="h-4 w-4 flex-shrink-0 text-[#C9920F] dark:text-[#F5C94D]"
+                  aria-hidden="true"
+                />
                 <a
                   href={CONTACT.email.href}
                   className={`min-w-0 break-all ${footerLinkClass}`}
                 >
                   {CONTACT.email.display}
                 </a>
-              </div>
-            </div>
+              </li>
+            </ul>
           </div>
         </div>
 

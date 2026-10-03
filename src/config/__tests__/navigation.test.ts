@@ -45,6 +45,40 @@ function asGroup(name: string): NavigationGroup {
   return item;
 }
 
+describe("main navigation structure", () => {
+  it("promotes Community Health Hubs to the top level", () => {
+    expect(mainNavigation.map(({ name }) => name)).toEqual([
+      "Home",
+      "About",
+      "Community Health Hubs",
+      "Our Work",
+      "Join Us",
+    ]);
+
+    const hubs = asGroup("Community Health Hubs");
+    expect(hubs.href).toBe("/community-hubs");
+    expect(hubs.children.map(({ name }) => name)).toEqual([
+      "All Community Health Hubs",
+      "Akomapa UCC Hub",
+      "Akomapa UG Hub",
+      "Akomapa NHP Yale Hub",
+    ]);
+  });
+
+  it("nests Learning Experiences under Our Work without the hubs", () => {
+    const ourWork = asGroup("Our Work");
+    expect(ourWork.children.map(({ name }) => name)).toEqual([
+      "Research & Innovation",
+      "Impact",
+      "Learning Experiences",
+    ]);
+    expect(findNode(ourWork.children, "Community Health Hubs")).toBeUndefined();
+    expect(
+      asGroup("Learning Experiences").children.map(({ name }) => name),
+    ).toEqual(["Akomapa Academy", "Global Health Immersion Program"]);
+  });
+});
+
 describe("isNavigationPathActive", () => {
   it("uses exact matching so sibling routes are exclusive", () => {
     expect(isNavigationPathActive("/about/team", "/about")).toBe(false);
@@ -82,6 +116,19 @@ describe("main navigation active state", () => {
     expect(isNavigationItemActive("/community-hubs/ucc", uccHub)).toBe(true);
     expect(isNavigationItemActive("/community-hubs/ucc", allHubs)).toBe(false);
     expect(isNavigationItemActive("/community-hubs/ucc", hubs)).toBe(true);
+    expect(
+      isNavigationItemActive("/community-hubs/ucc", asGroup("Our Work")),
+    ).toBe(false);
+  });
+
+  it("keeps Our Work active for nested Learning Experiences routes", () => {
+    const academy = asLink("Akomapa Academy");
+    expect(isNavigationItemActive("/academy", academy)).toBe(true);
+    expect(
+      isNavigationItemActive("/academy", asGroup("Learning Experiences")),
+    ).toBe(true);
+    expect(isNavigationItemActive("/academy", asGroup("Our Work"))).toBe(true);
+    expect(isNavigationItemActive("/academy", hubs)).toBe(false);
   });
 
   it("highlights only Home on /", () => {

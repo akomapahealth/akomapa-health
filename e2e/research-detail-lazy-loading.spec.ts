@@ -1,4 +1,5 @@
-import { expect, test, type Page } from "@playwright/test";
+import { expect, type Page } from "@playwright/test";
+import { test } from "./media/playwright";
 import { announcementCampaign } from "../src/data/announcements";
 
 const researchPath = "/research/student-led-interventions";
@@ -82,18 +83,49 @@ test.describe("research detail PDF lazy loading", () => {
     expect(pdfRequests).toEqual([]);
   });
 
+  test("centers the PDF viewer beneath the abstract", async ({ page }) => {
+    await preparePage(page);
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto(researchPath, { waitUntil: "domcontentloaded" });
+
+    const measure = page.locator("[data-publication-article-measure]");
+    const viewer = page.locator("#pdf-viewer");
+    await expect(measure).toBeVisible();
+    await expect(viewer).toBeAttached();
+    await viewer.scrollIntoViewIfNeeded();
+
+    const measureBox = await measure.boundingBox();
+    const viewerBox = await viewer.boundingBox();
+    expect(measureBox).not.toBeNull();
+    expect(viewerBox).not.toBeNull();
+
+    const measureCenter = measureBox!.x + measureBox!.width / 2;
+    const viewerCenter = viewerBox!.x + viewerBox!.width / 2;
+    expect(Math.abs(viewerCenter - measureCenter)).toBeLessThanOrEqual(2);
+    expect(viewerBox!.width).toBeGreaterThan(measureBox!.width);
+  });
+
   test("loads the viewer through its explicit action without IntersectionObserver", async ({
     page,
   }) => {
     await preparePage(page, true);
     await page.goto(researchPath, { waitUntil: "domcontentloaded" });
 
-    const pdfRequest = page.waitForRequest((request) =>
-      request.url().includes(pdfPath),
+    await page.getByRole("link", { name: "View PDF" }).click();
+    const loadButton = page.getByRole("button", { name: "Load PDF viewer" });
+    const pdfRequest = page.waitForRequest(
+      (request) => request.url().includes(pdfPath),
+      { timeout: 20_000 },
     );
 
-    await page.getByRole("link", { name: "View PDF" }).click();
-    await page.getByRole("button", { name: "Load PDF viewer" }).click();
+    await expect(async () => {
+      if (await loadButton.isVisible()) {
+        await loadButton.click();
+      }
+      await expect(page.getByTestId("pdf-viewer-loaded")).toBeVisible({
+        timeout: 2_000,
+      });
+    }).toPass({ timeout: 15_000 });
 
     await pdfRequest;
     await expect(page.getByTestId("pdf-viewer-loaded")).toBeVisible();

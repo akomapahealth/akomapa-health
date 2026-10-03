@@ -1,4 +1,5 @@
-import { expect, test, type Page } from "@playwright/test";
+import { expect, type Page } from "@playwright/test";
+import { test } from "./media/playwright";
 import { announcementCampaign } from "../src/data/announcements";
 import {
   communityHubs,
@@ -17,6 +18,7 @@ async function preparePage(page: Page, theme?: "light" | "dark") {
         "akomapa-announcements-dismissed",
         announcementVersion,
       );
+      sessionStorage.setItem("akomapa-announcement-tip-dismissed", "1");
 
       if (storedTheme) {
         localStorage.setItem("akomapa-theme", storedTheme);
@@ -141,8 +143,41 @@ for (const routeSlug of hubRouteSlugs) {
 
       await expect(page.getByText(hub.facultyMentorship!.model)).toBeVisible();
 
-      await expect(page.getByText(/Community stories are coming soon/i)).toBeVisible();
-      await expect(page.getByText(/Student stories are coming soon/i)).toBeVisible();
+      const communityStories = hub.communityStories ?? [];
+      const studentStories = hub.studentStories ?? [];
+
+      if (communityStories.length === 0) {
+        await expect(page.getByText(/Community stories are coming soon/i)).toBeVisible();
+      } else {
+        await expect(page.getByRole("heading", { name: "Community Stories" })).toBeVisible();
+        await expect(page.getByText(communityStories[0].author, { exact: true })).toBeVisible();
+        const readMore = page.getByTestId(
+          `story-read-more-${communityStories[0].id}`,
+        );
+        await readMore.scrollIntoViewIfNeeded();
+        const dialog = page.getByRole("dialog");
+        await expect(async () => {
+          await readMore.click();
+          await expect(dialog).toBeVisible({ timeout: 2_000 });
+        }).toPass({ timeout: 15_000 });
+        await expect(dialog.getByRole("heading", { name: communityStories[0].title })).toBeVisible();
+        await dialog.getByRole("button", { name: "Next story" }).click();
+        await expect(dialog.getByRole("heading", { name: communityStories[1].title })).toBeVisible();
+        await dialog.getByRole("button", { name: "Previous story" }).click();
+        await expect(dialog.getByRole("heading", { name: communityStories[0].title })).toBeVisible();
+        await dialog.getByRole("button", { name: /Close/i }).click();
+        await expect(async () => {
+          await expect(dialog).toHaveCount(0);
+        }).toPass({ timeout: 10_000 });
+      }
+
+      if (studentStories.length === 0) {
+        await expect(page.getByText(/Volunteer stories are coming soon/i)).toBeVisible();
+      } else {
+        await expect(page.getByRole("heading", { name: "Volunteer Stories" })).toBeVisible();
+        await expect(page.getByText(studentStories[0].author, { exact: true })).toBeVisible();
+      }
+
       await expect(page.getByText(/Research updates are coming soon/i)).toBeVisible();
       await expect(page.getByText(/Innovation updates are coming soon/i)).toBeVisible();
 

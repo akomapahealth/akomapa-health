@@ -87,7 +87,7 @@ function ModuleAccordion({ modules }: { modules: AcademyModule[] }) {
                   }
                   style={{ overflow: "hidden" }}
                 >
-                  <div className="space-y-5 pb-6">
+                  <div className="max-w-3xl space-y-5 pb-6">
                     <p className="text-sm leading-relaxed text-[#FCFAEF]/85 sm:text-base">
                       {module.description}
                     </p>
@@ -166,7 +166,7 @@ export default function CurriculumSection() {
         </div>
       </FadeIn>
 
-      <div className="mx-auto mt-12 max-w-3xl">
+      <div className="mt-12">
         <ModuleAccordion modules={academyCurriculum.modules} />
       </div>
     </EditorialBand>

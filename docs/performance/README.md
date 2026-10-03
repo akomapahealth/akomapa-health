@@ -23,7 +23,8 @@ npm run build
 
 # 2. Capture baseline (or after) Lighthouse scores against the prod build.
 #    The script boots `next start` on :3100, audits each route, and writes a
-#    JSON per route plus a markdown summary table.
+#    JSON per route plus a markdown summary table. ImageKit is fixture-isolated
+#    by default; set LIGHTHOUSE_IMAGEKIT_FIXTURES=0 to include CDN bytes.
 LIGHTHOUSE_LABEL=before node scripts/lighthouse.mjs
 LIGHTHOUSE_LABEL=after  node scripts/lighthouse.mjs
 

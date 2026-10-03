@@ -178,21 +178,42 @@ describe("Community hub detail editorial system", () => {
       }
 
       expect(screen.getByText(hub.facultyMentorship!.model)).toBeVisible();
-      expect(screen.getByText(hubEmptyStates.communityStories.title)).toBeVisible();
-      expect(screen.getByText(hubEmptyStates.studentStories.title)).toBeVisible();
+
+      const communityStories = hub.communityStories ?? [];
+      const studentStories = hub.studentStories ?? [];
+
+      if (communityStories.length === 0) {
+        expect(screen.getByText(hubEmptyStates.communityStories.title)).toBeVisible();
+        expect(
+          screen.getByRole("link", {
+            name: hubEmptyStates.communityStories.cta.label,
+          }),
+        ).toHaveAttribute("href", hubEmptyStates.communityStories.cta.href);
+      } else {
+        expect(screen.getByRole("heading", { name: "Community Stories" })).toBeVisible();
+        for (const story of communityStories) {
+          expect(screen.getByText(story.title)).toBeVisible();
+          expect(screen.getByText(story.author)).toBeVisible();
+        }
+      }
+
+      if (studentStories.length === 0) {
+        expect(screen.getByText(hubEmptyStates.studentStories.title)).toBeVisible();
+        expect(
+          screen.getByRole("link", {
+            name: hubEmptyStates.studentStories.cta.label,
+          }),
+        ).toHaveAttribute("href", hubEmptyStates.studentStories.cta.href);
+      } else {
+        expect(screen.getByRole("heading", { name: "Volunteer Stories" })).toBeVisible();
+        for (const story of studentStories) {
+          expect(screen.getByText(story.title)).toBeVisible();
+          expect(screen.getByText(story.author)).toBeVisible();
+        }
+      }
+
       expect(screen.getByText(hubEmptyStates.research.title)).toBeVisible();
       expect(screen.getByText(hubEmptyStates.innovation.title)).toBeVisible();
-
-      expect(
-        screen.getByRole("link", {
-          name: hubEmptyStates.communityStories.cta.label,
-        }),
-      ).toHaveAttribute("href", hubEmptyStates.communityStories.cta.href);
-      expect(
-        screen.getByRole("link", {
-          name: hubEmptyStates.studentStories.cta.label,
-        }),
-      ).toHaveAttribute("href", hubEmptyStates.studentStories.cta.href);
       expect(
         screen.getByRole("link", {
           name: hubEmptyStates.research.cta.label,

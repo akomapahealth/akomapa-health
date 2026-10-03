@@ -12,6 +12,37 @@ vi.mock("framer-motion", async (importOriginal) => {
   };
 });
 
+class ImmediateIntersectionObserver {
+  callback: IntersectionObserverCallback;
+
+  constructor(callback: IntersectionObserverCallback) {
+    this.callback = callback;
+  }
+
+  observe(target: Element) {
+    this.callback(
+      [
+        {
+          isIntersecting: true,
+          target,
+          time: 0,
+          intersectionRatio: 1,
+          boundingClientRect: target.getBoundingClientRect(),
+          intersectionRect: target.getBoundingClientRect(),
+          rootBounds: null,
+        },
+      ],
+      this as unknown as IntersectionObserver,
+    );
+  }
+
+  disconnect() {}
+  takeRecords() {
+    return [];
+  }
+  unobserve() {}
+}
+
 const mockedUseReducedMotion = vi.mocked(useReducedMotion);
 
 const props = {
@@ -26,6 +57,7 @@ describe("ImmersionHeroMedia", () => {
       "NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT",
       "https://ik.imagekit.io/akomapa",
     );
+    vi.stubGlobal("IntersectionObserver", ImmediateIntersectionObserver);
   });
 
   it("renders the optimized video immediately without a poster transition", () => {
@@ -45,7 +77,7 @@ describe("ImmersionHeroMedia", () => {
     expect(video).toHaveProperty("muted", true);
     expect(video).toHaveProperty("playsInline", true);
     expect(video).toHaveAttribute("aria-hidden", "true");
-    expect(video).toHaveAttribute("preload", "auto");
+    expect(video).toHaveAttribute("preload", "metadata");
     expect(video).not.toHaveAttribute("poster");
     expect(video).toHaveClass("motion-reduce:hidden");
     expect(video).not.toHaveClass("opacity-70");
@@ -64,6 +96,9 @@ describe("ImmersionHeroMedia", () => {
     expect(sources[0]?.getAttribute("src")).toContain(
       "ik.imagekit.io/akomapa/immersion-hero.mp4",
     );
+    expect(sources[0]?.getAttribute("src")).toContain("w-960");
+    expect(sources[1]?.getAttribute("src")).toContain("w-1280");
+    expect(sources[1]?.getAttribute("src")).not.toContain("w-1920");
 
   });
 

@@ -29,7 +29,7 @@ export default function CommunityHubDetailPage({ hub }: CommunityHubDetailPagePr
         sectionId="community-stories"
       />
       <StoriesSection
-        title="Student Stories"
+        title="Volunteer Stories"
         stories={hub.studentStories}
         emptyState={hubEmptyStates.studentStories}
         sectionId="student-stories"

@@ -544,6 +544,16 @@ const canonicalPeople: PersonProfile[] = [
       email: "darren.dynawd@gmail.com",
     },
   },
+  {
+    id: "davida-afriyie",
+    name: "Davida Afriyie",
+    affiliation: "Akomapa Health Foundation",
+    image: "/images/team/davida-afriyie.jpg",
+    bio: "Davida Afriyie serves as Fundraising Lead at Akomapa Health Foundation, helping grow the resources that sustain community health programs across Ghana.",
+    socialLinks: {
+      email: "afriyiedavida01@gmail.com",
+    },
+  },
 ];
 
 export interface PersonPlacement {
@@ -681,6 +691,11 @@ export const departmentMemberships = [
     departmentId: "finance",
     personId: "bernard-kartey-larbi",
     title: "Research & Financial Officer",
+  },
+  {
+    departmentId: "finance",
+    personId: "davida-afriyie",
+    title: "Fundraising Lead",
   },
   {
     departmentId: "legal",

@@ -19,7 +19,7 @@ const expectedDepartments = [
   ["Technology", ["Prince Agyei Tuffour", "Sylvester Bempong", "Mighty Doffoe"]],
   ["Onboarding, Training and Standards", ["Wilfred Obeng"]],
   ["Partnerships", ["Sedem Dankwa", "Dr. Patrick Ampofo", "Gabrielle Nartey", "Kelvin Fiifi Ocran", "Darren Markwei"]],
-  ["Finance", ["Adwoa Danso-Dodoo", "Bernard Kartey Larbi"]],
+  ["Finance", ["Adwoa Danso-Dodoo", "Bernard Kartey Larbi", "Davida Afriyie"]],
   ["Legal", ["Samuel Kumi"]],
   ["Internal Affairs", ["Jade Kissi"]],
 ] as const;
@@ -56,6 +56,16 @@ describe("canonical people directory", () => {
     expect(getPersonById("darren-markwei")?.image).toBe(
       "/images/team/darren_markwei.HEIC",
     );
+    expect(getPersonById("davida-afriyie")).toMatchObject({
+      name: "Davida Afriyie",
+      image: "/images/team/davida-afriyie.jpg",
+      socialLinks: { email: "afriyiedavida01@gmail.com" },
+    });
+    expect(
+      teamDepartments
+        .find(({ id }) => id === "finance")
+        ?.members.find(({ id }) => id === "davida-afriyie")?.title,
+    ).toBe("Fundraising Lead");
   });
 
   it("selects every eligible pictured team member for the hero network", () => {

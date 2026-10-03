@@ -12,6 +12,10 @@
  *   LIGHTHOUSE_LABEL=after node scripts/lighthouse.mjs
  *
  * Assumes a production build already exists (`npm run build` first).
+ *
+ * ImageKit requests are fulfilled with local fixtures by default so this
+ * script does not download production media. Set
+ * LIGHTHOUSE_IMAGEKIT_FIXTURES=0 to measure real CDN delivery.
  */
 
 import { spawn } from "node:child_process";
@@ -19,6 +23,12 @@ import { mkdir, writeFile } from "node:fs/promises";
 import { existsSync } from "node:fs";
 import path from "node:path";
 import { setTimeout as sleep } from "node:timers/promises";
+import { chromium } from "playwright";
+import {
+  isImageKitHostname,
+  localMediaFixture,
+  MEDIA_FIXTURE_HEADER,
+} from "../src/lib/imagekit-local-fixtures.mjs";
 
 const ROUTES = [
   { path: "/", name: "home" },
@@ -37,6 +47,8 @@ const PORT = Number.parseInt(process.env.PORT || "3100", 10);
 const BASE_URL = `http://127.0.0.1:${PORT}`;
 const OUT_DIR = path.resolve("docs/performance");
 const RUN_DIR = path.join(OUT_DIR, `lighthouse-${LABEL}`);
+const useImageKitFixtures = process.env.LIGHTHOUSE_IMAGEKIT_FIXTURES !== "0";
+const isolatedLighthouseContexts = new WeakSet();
 
 async function waitForServer(url, timeoutMs = 60_000) {
   const deadline = Date.now() + timeoutMs;
@@ -70,6 +82,34 @@ function startNextServer() {
   return proc;
 }
 
+async function installImageKitFixtures(context) {
+  if (isolatedLighthouseContexts.has(context)) return;
+  isolatedLighthouseContexts.add(context);
+  await context.route(
+    (url) => isImageKitHostname(url.hostname),
+    async (route) => {
+      const requestUrl = route.request().url();
+      const fixture = localMediaFixture(
+        requestUrl,
+        route.request().headers().range,
+      );
+      await route.fulfill({
+        status: fixture.status,
+        contentType: fixture.contentType,
+        headers: {
+          [MEDIA_FIXTURE_HEADER]: "1",
+          "accept-ranges": fixture.acceptRanges,
+          "cache-control": "no-store",
+          ...(fixture.contentRange
+            ? { "content-range": fixture.contentRange }
+            : {}),
+        },
+        body: fixture.body,
+      });
+    },
+  );
+}
+
 async function runLighthouse(url) {
   const lighthouse = (await import("lighthouse")).default;
   const chromeLauncher = await import("chrome-launcher");
@@ -77,6 +117,17 @@ async function runLighthouse(url) {
     chromeFlags: ["--headless=new", "--no-sandbox", "--disable-gpu"],
   });
   try {
+    if (useImageKitFixtures) {
+      const browser = await chromium.connectOverCDP(
+        `http://127.0.0.1:${chrome.port}`,
+      );
+      for (const context of browser.contexts()) {
+        await installImageKitFixtures(context);
+      }
+      browser.on("page", (page) => {
+        void installImageKitFixtures(page.context());
+      });
+    }
     const result = await lighthouse(
       url,
       {
