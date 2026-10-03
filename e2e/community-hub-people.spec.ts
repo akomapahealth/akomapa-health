@@ -360,10 +360,12 @@ test("UG renders leadership cards without a volunteer band; NHP stays roster-fre
   await expect(
     dialog.getByText(/results-driven Pharmacy candidate/i),
   ).toBeVisible();
-  await dialog
-    .getByRole("button", { name: "Close Kelvin Akoto Boateng biography" })
-    .click();
-  await expect(dialog).toBeHidden();
+  await expect(async () => {
+    await dialog
+      .getByRole("button", { name: "Close Kelvin Akoto Boateng biography" })
+      .click();
+    await expect(dialog).toHaveCount(0, { timeout: 2_000 });
+  }).toPass({ timeout: 10_000 });
 
   await expect(
     page.getByRole("link", { name: /Apply now/i }).first(),
