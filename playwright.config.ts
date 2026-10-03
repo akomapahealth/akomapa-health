@@ -32,18 +32,32 @@ export default defineConfig({
   projects: [
     {
       name: 'chromium',
+      testIgnore: /real-media\.spec\.ts/,
       use: { ...devices['Desktop Chrome'] },
     },
     {
       name: 'firefox',
       testMatch: /research-carousel\.spec\.ts/,
+      testIgnore: /real-media\.spec\.ts/,
       use: { ...devices['Desktop Firefox'] },
     },
     {
       name: 'webkit',
       testMatch: /research-carousel\.spec\.ts/,
+      testIgnore: /real-media\.spec\.ts/,
       use: { ...devices['Desktop Safari'] },
     },
+    // Opt-in CDN check. Absent unless E2E_REAL_MEDIA=1, so routine runs stay local.
+    ...(process.env.E2E_REAL_MEDIA === '1'
+      ? [
+          {
+            name: 'real-media',
+            testMatch: /real-media\.spec\.ts/,
+            retries: 1,
+            use: { ...devices['Desktop Chrome'] },
+          },
+        ]
+      : []),
   ],
 
   webServer: process.env.CI ? {

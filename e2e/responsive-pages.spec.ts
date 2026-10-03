@@ -1,4 +1,5 @@
-import { expect, test, type Page } from "@playwright/test";
+import { expect, type Page } from "@playwright/test";
+import { test } from "./media/playwright";
 import { announcementCampaign } from "../src/data/announcements";
 import { teamHeroPeople } from "../src/data/team";
 import { isNonCriticalConsoleError } from "./helpers";

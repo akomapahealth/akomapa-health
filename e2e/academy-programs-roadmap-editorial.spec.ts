@@ -1,4 +1,5 @@
-import { expect, test, type Locator, type Page } from "@playwright/test";
+import { expect, type Locator, type Page } from "@playwright/test";
+import { test } from "./media/playwright";
 import { announcementCampaign } from "../src/data/announcements";
 import { academyCurriculum, academyOverview } from "../src/data/academy";
 import { phases } from "../src/components/roadmap/phases";

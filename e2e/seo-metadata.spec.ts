@@ -1,4 +1,5 @@
-import { expect, type Page, test } from "@playwright/test";
+import { expect, type Page } from "@playwright/test";
+import { test } from "./media/playwright";
 
 const canonicalOrigin = "https://akomapa.org";
 const defaultOgImage = `${canonicalOrigin}/images/og-homepage.jpg`;
