@@ -92,7 +92,7 @@
     "@vitejs/plugin-react": "^6.1.0",
     "@vitest/coverage-v8": "^4.1.11",
     "autoprefixer": "^10.6.1",
-    "chrome-launcher": "^1.2.1",
+    "chrome-launcher": "^1.2.2",
     "eslint": "^9",
     "eslint-config-next": "16.3.8",
     "husky": "^9.1.7",
