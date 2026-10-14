@@ -58,30 +58,27 @@ test.describe("Announcement modal on short viewports", () => {
 
       const modal = await openAnnouncementModal(page);
 
-      const apply = modal.getByRole("link", { name: "Apply Now", exact: true });
-      const rsvp = modal.getByRole("link", {
-        name: "RSVP for the Info Session",
+      const explore = modal.getByRole("link", {
+        name: "Explore Nkwapa",
         exact: true,
       });
       const viewAll = modal.getByRole("link", { name: /View All Updates/i });
       const dismiss = modal.getByRole("button", { name: "Dismiss", exact: true });
 
-      await expectReachableInDialog(apply, modal);
-      await expectReachableInDialog(rsvp, modal);
+      await expectReachableInDialog(explore, modal);
       await expectReachableInDialog(viewAll, modal);
       await expectReachableInDialog(dismiss, modal);
 
       const viewAllBox = await viewAll.boundingBox();
       const dismissBox = await dismiss.boundingBox();
-      const applyBox = await apply.boundingBox();
-      const rsvpBox = await rsvp.boundingBox();
+      const exploreBox = await explore.boundingBox();
       expect(viewAllBox).not.toBeNull();
       expect(dismissBox).not.toBeNull();
-      expect(applyBox).not.toBeNull();
-      expect(rsvpBox).not.toBeNull();
+      expect(exploreBox).not.toBeNull();
       expect(Math.abs(viewAllBox!.y - dismissBox!.y)).toBeLessThan(24);
-      expect(Math.abs(applyBox!.y - rsvpBox!.y)).toBeLessThan(24);
-      expect(applyBox!.x + applyBox!.width).toBeLessThanOrEqual(rsvpBox!.x + 1);
+      expect(exploreBox!.y + exploreBox!.height).toBeLessThanOrEqual(
+        viewAllBox!.y + 1,
+      );
     });
   }
 });

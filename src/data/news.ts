@@ -68,7 +68,7 @@ export const news: News[] = [
       "Akomapa positions Nkwapa as enabling infrastructure that supports frontline teams and strengthens continuity, while keeping patient-centered care at the core.",
       "As the beta evolves, the focus remains clear: technology that adapts to context, not the other way around."
     ],
-    image: "/images/nkwapa.png",
+    image: "/static/nkwapa/nkwapa-launch.webp",
     date: "2026-04-28",
     category: "Product Launch",
     tags: ["Nkwapa", "EMR", "Digital Health", "Offline First"],

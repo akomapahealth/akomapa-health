@@ -15,3 +15,6 @@ export const IMMERSION_APPLICATION_FORM_URL =
 /** Global Health Immersion Program information-session RSVP form. */
 export const IMMERSION_INFO_SESSION_FORM_URL =
   "https://docs.google.com/forms/d/e/1FAIpQLSdtHpJbS4HTf_Cq3moudw4-Y47LU9_erS102NIBZYAIkjhahQ/viewform";
+
+/** Nkwapa, Akomapa's offline-first community health records platform (production). */
+export const NKWAPA_URL = "https://nkwapa.app";

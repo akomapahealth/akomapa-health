@@ -1,6 +1,7 @@
 import {
   IMMERSION_APPLICATION_FORM_URL,
   IMMERSION_INFO_SESSION_FORM_URL,
+  NKWAPA_URL,
   UG_TRAINING_FORM_URL,
 } from "@/config/links";
 import type {
@@ -20,8 +21,37 @@ const announcementDateFormatter = new Intl.DateTimeFormat("en-US", {
 });
 
 export const announcementCampaign: AnnouncementCampaign = {
-  version: "2026-09-immersion-v1",
+  version: "2026-10-nkwapa-launch-v1",
   slides: [
+    {
+      id: "nkwapa-emr-launch",
+      publishedAt: "2026-10-14T00:00:00.000Z",
+      tag: "Now Live",
+      tagColor: "skobeloff",
+      title: "Nkwapa is live! Meet the future of community health records.",
+      titleHighlights: ["Nkwapa is live!"],
+      description:
+        "The wait is over—Nkwapa Beta is now fully launched at nkwapa.app! Built by Akomapa for real-world care in resource-limited settings, Nkwapa brings offline-first digital records to the work of our clinics. This is a major milestone in building more resilient, community-centered care. Explore Nkwapa and see what’s possible.",
+      image: "/static/nkwapa/nkwapa-launch.webp",
+      ctaText: "Explore Nkwapa",
+      ctaLink: NKWAPA_URL,
+      isExternal: true,
+      celebration: "confetti",
+    },
+    {
+      id: "support-akomapa-care",
+      publishedAt: "2026-10-14T00:00:00.000Z",
+      tag: "With Gratitude",
+      tagColor: "amber",
+      title: "Thank you for walking alongside our communities",
+      titleHighlights: ["walking alongside"],
+      description:
+        "From community screenings to tools like Nkwapa, everything we build is powered by people who believe good care should reach everyone. If our work speaks to you, a gift of any size helps student-led teams keep showing up for patients across Ghana. We’re so grateful you’re here.",
+      image: "/highlights/Akomapa-73.jpg",
+      ctaText: "Support our work",
+      ctaLink: "/donate",
+      isExternal: false,
+    },
     {
       id: "global-health-immersion-applications",
       publishedAt: "2026-09-03T00:00:00.000Z",
@@ -96,20 +126,6 @@ export const announcementCampaign: AnnouncementCampaign = {
       ctaText: "Learn More",
       ctaLink: "/programs/akomapa-ghltp",
       isExternal: false,
-    },
-    {
-      id: "nkwapa-emr-launch",
-      publishedAt: "2026-04-28T00:00:00.000Z",
-      tag: "New",
-      tagColor: "skobeloff",
-      title: "Introducing Nkwapa — Our EMR Platform",
-      titleHighlights: ["Nkwapa", "EMR Platform"],
-      description:
-        "Our offline-first electronic medical records system is now in public beta. Purpose-built to power Akomapa clinics in resource-limited settings.",
-      image: "/images/nkwapa.png",
-      ctaText: "View Demo",
-      ctaLink: "https://staging.nkwapa.app",
-      isExternal: true,
     },
     {
       id: "mastercard-momentum",

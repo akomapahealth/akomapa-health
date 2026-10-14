@@ -25,12 +25,12 @@ describe("NkwapaSection", () => {
     expect(within(section).getByText("Evidence for improvement")).toBeVisible();
   });
 
-  it("renders the demo CTA pointing to staging.nkwapa.app and opening in a new tab", () => {
+  it("renders the CTA pointing to production nkwapa.app and opening in a new tab", () => {
     render(<NkwapaSection />);
 
     const cta = screen.getByTestId("nkwapa-cta");
     expect(cta).toHaveTextContent("Explore Nkwapa");
-    expect(cta).toHaveAttribute("href", "https://staging.nkwapa.app");
+    expect(cta).toHaveAttribute("href", "https://nkwapa.app");
     expect(cta).toHaveAttribute("target", "_blank");
     expect(cta).toHaveAttribute("rel", expect.stringContaining("noopener"));
   });
@@ -40,7 +40,7 @@ describe("NkwapaSection", () => {
     const screenshot = screen.getByTestId("nkwapa-screenshot");
     expect(screenshot).toHaveAttribute(
       "alt",
-      "Nkwapa patient management system dashboard",
+      "Nkwapa website: clinical records that work when the network doesn't",
     );
   });
 });
