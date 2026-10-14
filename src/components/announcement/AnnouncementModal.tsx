@@ -464,14 +464,14 @@ export default function AnnouncementModal({
                       </EditorialButton>
                     ) : (
                       <EditorialButton
-                        href={`/news/${currentSlide.id}`}
+                        href={currentSlide.ctaLink}
                         className={slideCtaClassName}
                         onClick={() => {
                           trackEvent({
                             name: "announcement_cta_click",
                             slide_id: currentSlide.id,
                             cta_text: currentSlide.ctaText ?? "",
-                            cta_link: `/news/${currentSlide.id}`,
+                            cta_link: currentSlide.ctaLink ?? "",
                           });
                           close();
                         }}

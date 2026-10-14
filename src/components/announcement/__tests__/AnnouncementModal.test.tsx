@@ -174,6 +174,19 @@ describe("AnnouncementModal", () => {
     ).not.toBeInTheDocument();
   });
 
+  it("sends internal CTAs to their ctaLink and closes the modal", () => {
+    const { onOpenChange } = renderModal({
+      ...twoCtaCampaign,
+      slides: [twoCtaCampaign.slides[1]],
+    });
+
+    const cta = screen.getByRole("link", { name: "Learn More" });
+    expect(cta).toHaveAttribute("href", "/programs/akomapa-ghltp");
+
+    fireEvent.click(cta);
+    expect(onOpenChange).toHaveBeenCalledWith(false);
+  });
+
   it("dismisses from the sticky footer", () => {
     const { onDismiss, onOpenChange } = renderModal();
 
