@@ -160,21 +160,20 @@ test.describe("Announcement modal", () => {
     await expect(modal).toBeVisible({ timeout: 15000 });
     await expect(
       modal.getByRole("heading", {
-        name: "Global Health Immersion Program applications are open",
+        name: "Nkwapa is live! Meet the future of community health records.",
       }),
     ).toBeVisible();
     await expect(modal.locator("time")).toHaveAttribute(
       "datetime",
-      "2026-09-03T00:00:00.000Z",
+      "2026-10-14T00:00:00.000Z",
     );
-    await expect(modal.locator("time")).toHaveText("September 3, 2026");
-    await expect(modal.getByRole("link", { name: "Apply Now" })).toBeVisible();
+    await expect(modal.locator("time")).toHaveText("October 14, 2026");
     await expect(
-      modal.getByRole("link", { name: "RSVP for the Info Session" }),
+      modal.getByRole("link", { name: "Explore Nkwapa" }),
     ).toBeVisible();
     await expect(modal.locator("img")).toHaveAttribute(
       "src",
-      /elimina-castle\.webp/,
+      /nkwapa-launch\.webp/,
     );
   });
 
