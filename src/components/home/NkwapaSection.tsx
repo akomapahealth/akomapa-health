@@ -18,7 +18,7 @@ import {
 } from "@/components/shared/PublicPagePrimitives";
 import { NKWAPA_URL } from "@/config/links";
 
-const SCREENSHOT_SRC = "/images/nkwapa.png";
+const SCREENSHOT_SRC = "/static/nkwapa/nkwapa-launch.webp";
 
 const features = [
   {
@@ -77,20 +77,20 @@ export default function NkwapaSection() {
                   <span className="h-2.5 w-2.5 rounded-full bg-[#28C840]/90" />
                 </div>
                 <div className="min-w-0 flex-1 rounded-md bg-[#E6E7E7]/60 px-3 py-1 text-center text-xs font-medium text-[#2F3332]/70 dark:bg-[#2F3332] dark:text-[#E6E7E7]/80">
-                  Nkwapa · Patient Management System
+                  nkwapa.app
                 </div>
               </div>
 
-              <div className="relative h-[420px] md:h-[520px] lg:h-[600px]">
+              <div className="relative aspect-[16/10] w-full">
                 <Image
                   src={SCREENSHOT_SRC}
-                  alt="Nkwapa patient management system dashboard"
+                  alt="Nkwapa website: clinical records that work when the network doesn't"
                   fill
-                  sizes="(min-width: 1024px) 42vw, 100vw"
+                  sizes="(min-width: 1024px) 40vw, 100vw"
                   className="object-cover object-top"
                   data-testid="nkwapa-screenshot"
                 />
-                <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#FCFAEF]/90 to-transparent dark:from-[#1C1F1E]/90" />
+                <div className="pointer-events-none absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-[#FCFAEF]/90 to-transparent dark:from-[#1C1F1E]/90" />
               </div>
             </SurfaceCard>
           </div>

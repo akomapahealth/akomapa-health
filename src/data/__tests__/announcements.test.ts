@@ -71,6 +71,7 @@ describe("Nkwapa launch announcement", () => {
     expect(nkwapa.ctaText).toBe("Explore Nkwapa");
     expect(nkwapa.ctaLink).toBe("https://nkwapa.app");
     expect(nkwapa.isExternal).toBe(true);
+    expect(nkwapa.image).toBe("/static/nkwapa/nkwapa-launch.webp");
   });
 
   it("opts into the confetti celebration explicitly", () => {

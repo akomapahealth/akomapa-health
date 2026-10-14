@@ -40,7 +40,7 @@ describe("NkwapaSection", () => {
     const screenshot = screen.getByTestId("nkwapa-screenshot");
     expect(screenshot).toHaveAttribute(
       "alt",
-      "Nkwapa patient management system dashboard",
+      "Nkwapa website: clinical records that work when the network doesn't",
     );
   });
 });

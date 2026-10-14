@@ -197,7 +197,7 @@ const celebrationCampaign: AnnouncementCampaign = {
       tagColor: "skobeloff",
       title: "A milestone is live",
       description: "A celebratory milestone announcement.",
-      image: "/images/nkwapa.png",
+      image: "/static/nkwapa/nkwapa-launch.webp",
       ctaText: "Explore",
       ctaLink: "https://example.com/launch",
       isExternal: true,
