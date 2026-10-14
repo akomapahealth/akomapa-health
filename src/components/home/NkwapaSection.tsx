@@ -81,7 +81,7 @@ export default function NkwapaSection() {
                 </div>
               </div>
 
-              <div className="relative aspect-[16/10] w-full">
+              <div className="relative aspect-[2/1] w-full">
                 <Image
                   src={SCREENSHOT_SRC}
                   alt="Nkwapa website: clinical records that work when the network doesn't"
