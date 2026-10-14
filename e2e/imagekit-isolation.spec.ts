@@ -85,11 +85,14 @@ test("a page route can still abort the immersion video", async ({ page }) => {
   await page.goto("/global-health-immersion-program", {
     waitUntil: "domcontentloaded",
   });
-  await expect(page.locator("[data-immersion-hero-hydrated]")).toHaveAttribute(
-    "data-immersion-hero-hydrated",
-    "true",
-  );
+  // Aborting the video can leave React's hidden suspense replay in the DOM
+  // beside the hydrated hero. Assert the visible hero only.
+  const hero = page.locator("[data-immersion-hero-hydrated]:visible");
+  await expect(hero).toHaveCount(1);
+  await expect(hero).toHaveAttribute("data-immersion-hero-hydrated", "true");
   await expect.poll(() => failed.length).toBeGreaterThan(0);
   expect(fixtureResponses).toEqual([]);
-  await expect(page.locator("[data-immersion-hero-video]")).toHaveCount(1);
+  await expect(page.locator("[data-immersion-hero-video]:visible")).toHaveCount(
+    1,
+  );
 });
