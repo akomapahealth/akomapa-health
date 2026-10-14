@@ -12,7 +12,7 @@ const CONFETTI_COLORS = [
   "#F5C94D",
 ] as const;
 
-const PARTICLES_PER_CANNON = 22;
+const PARTICLES_PER_CANNON = 28;
 const MAX_DELAY_S = 0.12;
 const MAX_DURATION_S = 1.75;
 /** Time after which every particle has landed and faded out. */
@@ -62,10 +62,10 @@ function buildParticles(seed: number): Particle[] {
         roll < 0.55 ? "chip" : roll < 0.88 ? "ribbon" : "dot";
       const size =
         shape === "chip"
-          ? { width: between(6, 9), height: between(9, 13) }
+          ? { width: between(7, 11), height: between(11, 16) }
           : shape === "ribbon"
-            ? { width: between(2.5, 3.5), height: between(14, 22) }
-            : { width: between(5, 7), height: 0 };
+            ? { width: between(3, 4.5), height: between(16, 26) }
+            : { width: between(6, 9), height: 0 };
 
       particles.push({
         id: particles.length,
@@ -91,22 +91,22 @@ function buildParticles(seed: number): Particle[] {
 /** Fixed, motionless confetti used when the visitor prefers reduced motion. */
 const STATIC_PIECES: ReadonlyArray<{
   left: string;
-  top: string;
+  bottom: string;
   rotate: number;
   shape: ParticleShape;
   color: string;
 }> = [
-  { left: "6%", top: "10px", rotate: -18, shape: "chip", color: "#eeba2b" },
-  { left: "12%", top: "26px", rotate: 34, shape: "ribbon", color: "#0097b2" },
-  { left: "19%", top: "8px", rotate: 12, shape: "dot", color: "#0F4C5C" },
-  { left: "27%", top: "20px", rotate: -40, shape: "ribbon", color: "#F5C94D" },
-  { left: "36%", top: "6px", rotate: 22, shape: "chip", color: "#66C4DC" },
-  { left: "45%", top: "18px", rotate: -8, shape: "dot", color: "#eeba2b" },
-  { left: "55%", top: "8px", rotate: 48, shape: "ribbon", color: "#0F4C5C" },
-  { left: "63%", top: "24px", rotate: -26, shape: "chip", color: "#0097b2" },
-  { left: "71%", top: "10px", rotate: 16, shape: "dot", color: "#F5C94D" },
-  { left: "79%", top: "22px", rotate: -52, shape: "ribbon", color: "#eeba2b" },
-  { left: "86%", top: "6px", rotate: 30, shape: "chip", color: "#66C4DC" },
+  { left: "5%", bottom: "14px", rotate: -18, shape: "chip", color: "#eeba2b" },
+  { left: "11%", bottom: "28px", rotate: 34, shape: "ribbon", color: "#0097b2" },
+  { left: "17%", bottom: "10px", rotate: 12, shape: "dot", color: "#0F4C5C" },
+  { left: "24%", bottom: "24px", rotate: -40, shape: "ribbon", color: "#F5C94D" },
+  { left: "31%", bottom: "8px", rotate: 22, shape: "chip", color: "#66C4DC" },
+  { left: "38%", bottom: "20px", rotate: -8, shape: "dot", color: "#eeba2b" },
+  { left: "45%", bottom: "10px", rotate: 48, shape: "ribbon", color: "#0F4C5C" },
+  { left: "52%", bottom: "26px", rotate: -26, shape: "chip", color: "#0097b2" },
+  { left: "59%", bottom: "12px", rotate: 16, shape: "dot", color: "#F5C94D" },
+  { left: "66%", bottom: "22px", rotate: -52, shape: "ribbon", color: "#eeba2b" },
+  { left: "73%", bottom: "8px", rotate: 30, shape: "chip", color: "#66C4DC" },
 ];
 
 function pieceStyle(shape: ParticleShape, width: number, height: number) {
@@ -148,22 +148,22 @@ export default function AnnouncementConfetti({
         data-testid="announcement-confetti"
         data-variant="static"
         data-burst={burstId}
-        className="pointer-events-none absolute inset-x-0 top-0 z-[15] h-12 overflow-hidden"
+        className="pointer-events-none absolute inset-x-0 bottom-0 z-[15] h-14 overflow-hidden"
       >
         {STATIC_PIECES.map((piece, index) => {
           const size =
             piece.shape === "ribbon"
-              ? { width: 3, height: 16 }
+              ? { width: 4, height: 18 }
               : piece.shape === "dot"
-                ? { width: 6, height: 6 }
-                : { width: 7, height: 10 };
+                ? { width: 7, height: 7 }
+                : { width: 8, height: 12 };
           return (
             <span
               key={index}
               className="absolute opacity-90"
               style={{
                 left: piece.left,
-                top: piece.top,
+                bottom: piece.bottom,
                 backgroundColor: piece.color,
                 transform: `rotate(${piece.rotate}deg)`,
                 ...pieceStyle(piece.shape, size.width, size.height),
@@ -207,7 +207,7 @@ export default function AnnouncementConfetti({
             delay: particle.delay,
             x: { duration: particle.duration, delay: particle.delay, times: [0, 0.3, 1], ease: ["easeOut", "linear"] },
             y: { duration: particle.duration, delay: particle.delay, times: [0, 0.3, 1], ease: ["easeOut", "easeIn"] },
-            opacity: { duration: particle.duration, delay: particle.delay, times: [0, 0.04, 0.75, 1] },
+            opacity: { duration: particle.duration, delay: particle.delay, times: [0, 0.04, 0.85, 1] },
           }}
         />
       ))}
