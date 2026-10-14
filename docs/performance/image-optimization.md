@@ -6,6 +6,7 @@
 | --- | --- | --- |
 | ImageKit CDN paths (relative, e.g. `/highlights/…`) | **ImageKit** | Custom `imageKitLoader` on `@/components/common/Image` |
 | Absolute `*.imagekit.io` URLs | **ImageKit** | Same custom loader (applies/replaces `tr=f-auto,q-,w-`) |
+| Committed `public/static/` assets (`/static/…`) | **Next `/_next/image`** | `@/components/common/Image` skips the ImageKit loader for this prefix |
 | Local / `public/` and non-ImageKit remotes (e.g. YouTube thumbs) | **Next `/_next/image`** | Default `next/image` loader |
 
 ImageKit is the primary optimizer for CDN assets. A custom `next/image` loader
@@ -30,7 +31,10 @@ we rely on elsewhere (local logos, etc.).
 - [`next.config.ts`](../../next.config.ts) — `images.remotePatterns` allowlist (ImageKit + YouTube)
 
 Local `public/` assets should use `next/image` directly, not the common Image
-wrapper (relative paths on the wrapper are treated as ImageKit CDN paths).
+wrapper (relative paths on the wrapper are treated as ImageKit CDN paths). The
+exception is `public/static/`: content data (announcements, news) can reference
+`/static/…` through the common wrapper, and it is served and optimized by Next.
+Use it for assets that are not on ImageKit yet, such as product screenshots.
 
 ## LCP heroes
 

@@ -11,6 +11,11 @@ describe("isImageKitSrc", () => {
     expect(isImageKitSrc("gallery/image.webp")).toBe(true);
   });
 
+  it("keeps committed /static/ assets on the Next optimizer", () => {
+    expect(isImageKitSrc("/static/nkwapa/nkwapa-launch.webp")).toBe(false);
+    expect(isImageKitSrc("/images/static-looking.png")).toBe(true);
+  });
+
   it("detects absolute ImageKit hosts", () => {
     expect(
       isImageKitSrc("https://ik.imagekit.io/akomapa/highlights/photo.jpg"),
