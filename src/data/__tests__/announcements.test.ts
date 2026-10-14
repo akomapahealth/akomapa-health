@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { NKWAPA_URL } from "@/config/links";
 import {
   ANNOUNCEMENT_LIFETIME_DAYS,
   announcementCampaign,
@@ -8,7 +9,9 @@ import {
 } from "@/data/announcements";
 
 describe("announcement lifecycle", () => {
-  const immersionAnnouncement = announcementCampaign.slides[0];
+  const immersionAnnouncement = announcementCampaign.slides.find(
+    ({ id }) => id === "global-health-immersion-applications",
+  )!;
 
   it("dates every announcement with a valid ISO timestamp", () => {
     for (const announcement of announcementCampaign.slides) {
@@ -51,5 +54,47 @@ describe("announcement lifecycle", () => {
     expect(formatAnnouncementDate(immersionAnnouncement.publishedAt)).toBe(
       "September 3, 2026",
     );
+  });
+});
+
+describe("Nkwapa launch announcement", () => {
+  const nkwapa = announcementCampaign.slides.find(
+    ({ id }) => id === "nkwapa-emr-launch",
+  )!;
+
+  it("announces the full launch and links to production", () => {
+    expect(NKWAPA_URL).toBe("https://nkwapa.app");
+    expect(nkwapa.tag).toBe("Now Live");
+    expect(nkwapa.title).toMatch(/Nkwapa is live!/);
+    expect(nkwapa.description).toMatch(/offline-first/i);
+    expect(nkwapa.description).not.toMatch(/public beta/i);
+    expect(nkwapa.ctaText).toBe("Explore Nkwapa");
+    expect(nkwapa.ctaLink).toBe("https://nkwapa.app");
+    expect(nkwapa.isExternal).toBe(true);
+  });
+
+  it("opts into the confetti celebration explicitly", () => {
+    expect(nkwapa.celebration).toBe("confetti");
+  });
+
+  it("leads the campaign and is the only active slide during its rollout window", () => {
+    expect(announcementCampaign.slides[0].id).toBe("nkwapa-emr-launch");
+    expect(announcementCampaign.version).not.toBe("2026-09-immersion-v1");
+
+    for (const now of ["2026-10-14T00:00:00.000Z", "2026-10-27T23:59:59.999Z"]) {
+      expect(
+        getActiveAnnouncementCampaign(new Date(now)).slides.map(({ id }) => id),
+      ).toEqual(["nkwapa-emr-launch"]);
+    }
+    expect(
+      isAnnouncementActive(nkwapa, new Date("2026-10-28T00:00:00.000Z")),
+    ).toBe(false);
+  });
+
+  it("never points an announcement CTA at the Nkwapa staging environment", () => {
+    for (const slide of announcementCampaign.slides) {
+      expect(slide.ctaLink ?? "").not.toContain("staging.nkwapa.app");
+      expect(slide.secondaryCtaLink ?? "").not.toContain("staging.nkwapa.app");
+    }
   });
 });
