@@ -8,6 +8,7 @@ import { MOTION_EASE, motionDurations } from "@/lib/motion/tokens";
 import { formatAnnouncementDate } from "@/data/announcements";
 import type { AnnouncementCampaign } from "@/lib/types";
 import Image from "@/components/common/Image";
+import AnnouncementConfetti from "@/components/announcement/AnnouncementConfetti";
 import {
   EditorialArrowLink,
   EditorialButton,
@@ -53,11 +54,13 @@ export default function AnnouncementModal({
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
   const [videoPlaying, setVideoPlaying] = useState(false);
+  const [confettiBurst, setConfettiBurst] = useState<number | null>(null);
 
   const modalRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const previousFocusRef = useRef<HTMLElement | null>(null);
   const viewedSlideIdsRef = useRef<Set<string>>(new Set());
+  const confettiCounterRef = useRef(0);
 
   const { slides, version } = campaign;
 
@@ -89,6 +92,20 @@ export default function AnnouncementModal({
       slide_index: currentIndex,
     });
   }, [isOpen, currentIndex, slides]);
+
+  // Celebrate opted-in milestone slides once per open/selection transition.
+  const selectedSlideId = slides[currentIndex]?.id;
+  const selectedCelebration = slides[currentIndex]?.celebration;
+  useEffect(() => {
+    if (isOpen && selectedSlideId && selectedCelebration === "confetti") {
+      confettiCounterRef.current += 1;
+      setConfettiBurst(confettiCounterRef.current);
+    } else {
+      setConfettiBurst(null);
+    }
+  }, [isOpen, selectedSlideId, selectedCelebration]);
+
+  const clearConfetti = useCallback(() => setConfettiBurst(null), []);
 
   useEffect(() => {
     const scroller = scrollRef.current;
@@ -225,6 +242,17 @@ export default function AnnouncementModal({
     currentSlide.secondaryCtaText && currentSlide.secondaryCtaLink,
   );
 
+  // Confetti lives inside the slide media (or copy block) so it sits beneath the
+  // media controls (z-20) and never reaches the footer actions.
+  const confetti =
+    confettiBurst !== null ? (
+      <AnnouncementConfetti
+        key={confettiBurst}
+        burstId={confettiBurst}
+        onComplete={clearConfetti}
+      />
+    ) : null;
+
   const slideVariants = {
     enter: (d: number) => ({ opacity: 0, x: d > 0 ? 60 : -60 }),
     center: { opacity: 1, x: 0 },
@@ -331,6 +359,8 @@ export default function AnnouncementModal({
                         </>
                       )}
 
+                      {videoPlaying ? null : confetti}
+
                       {currentSlide.tag && !videoPlaying ? (
                         <div className="absolute top-3 left-3 z-10 rounded-md bg-[#FCFAEF]/95 px-3 py-2 dark:bg-[#1C1F1E]/95">
                           <EditorialEyebrow
@@ -376,7 +406,9 @@ export default function AnnouncementModal({
                     </div>
                   ) : null}
 
-                  <div className="p-5 sm:p-8">
+                  <div className="relative p-5 sm:p-8">
+                    {hasMedia ? null : confetti}
+
                     {currentSlide.tag &&
                     !currentSlide.image &&
                     !currentSlide.videoUrl ? (
@@ -407,7 +439,7 @@ export default function AnnouncementModal({
               </AnimatePresence>
             </div>
 
-            <div className="shrink-0 border-t border-[#1C1F1E]/15 bg-[#FCFAEF] px-4 pt-4 pb-5 dark:border-[#FCFAEF]/20 dark:bg-[#1C1F1E] sm:px-8">
+            <div className="relative z-20 shrink-0 border-t border-[#1C1F1E]/15 bg-[#FCFAEF] px-4 pt-4 pb-5 dark:border-[#FCFAEF]/20 dark:bg-[#1C1F1E] sm:px-8">
               {hasPrimaryCta || hasSecondaryCta ? (
                 <div
                   data-testid="announcement-modal-ctas"
