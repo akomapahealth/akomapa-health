@@ -78,14 +78,14 @@ describe("Nkwapa launch announcement", () => {
     expect(nkwapa.celebration).toBe("confetti");
   });
 
-  it("leads the campaign and is the only active slide during its rollout window", () => {
+  it("leads the campaign alongside the donate slide during its rollout window", () => {
     expect(announcementCampaign.slides[0].id).toBe("nkwapa-emr-launch");
     expect(announcementCampaign.version).not.toBe("2026-09-immersion-v1");
 
     for (const now of ["2026-10-14T00:00:00.000Z", "2026-10-27T23:59:59.999Z"]) {
       expect(
         getActiveAnnouncementCampaign(new Date(now)).slides.map(({ id }) => id),
-      ).toEqual(["nkwapa-emr-launch"]);
+      ).toEqual(["nkwapa-emr-launch", "support-akomapa-care"]);
     }
     expect(
       isAnnouncementActive(nkwapa, new Date("2026-10-28T00:00:00.000Z")),
@@ -97,5 +97,19 @@ describe("Nkwapa launch announcement", () => {
       expect(slide.ctaLink ?? "").not.toContain("staging.nkwapa.app");
       expect(slide.secondaryCtaLink ?? "").not.toContain("staging.nkwapa.app");
     }
+  });
+});
+
+describe("donate announcement", () => {
+  const donate = announcementCampaign.slides.find(
+    ({ id }) => id === "support-akomapa-care",
+  )!;
+
+  it("invites visitors to the donate page without confetti", () => {
+    expect(donate.ctaText).toBe("Support our work");
+    expect(donate.ctaLink).toBe("/donate");
+    expect(donate.isExternal).toBe(false);
+    expect(donate.celebration).toBeUndefined();
+    expect(donate.image).toBeTruthy();
   });
 });

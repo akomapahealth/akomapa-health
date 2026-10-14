@@ -39,6 +39,20 @@ export const announcementCampaign: AnnouncementCampaign = {
       celebration: "confetti",
     },
     {
+      id: "support-akomapa-care",
+      publishedAt: "2026-10-14T00:00:00.000Z",
+      tag: "With Gratitude",
+      tagColor: "amber",
+      title: "Thank you for walking alongside our communities",
+      titleHighlights: ["walking alongside"],
+      description:
+        "From community screenings to tools like Nkwapa, everything we build is powered by people who believe good care should reach everyone. If our work speaks to you, a gift of any size helps student-led teams keep showing up for patients across Ghana. We’re so grateful you’re here.",
+      image: "/highlights/Akomapa-73.jpg",
+      ctaText: "Support our work",
+      ctaLink: "/donate",
+      isExternal: false,
+    },
+    {
       id: "global-health-immersion-applications",
       publishedAt: "2026-09-03T00:00:00.000Z",
       tag: "Applications Open",
