@@ -16,8 +16,8 @@ import {
   SectionEyebrow,
   SurfaceCard,
 } from "@/components/shared/PublicPagePrimitives";
+import { NKWAPA_URL } from "@/config/links";
 
-const DEMO_URL = "https://staging.nkwapa.app";
 const SCREENSHOT_SRC = "/images/nkwapa.png";
 
 const features = [
@@ -108,7 +108,7 @@ export default function NkwapaSection() {
             <SectionEyebrow>Responsible Health Innovation</SectionEyebrow>
 
             <div className="inline-flex w-fit items-center rounded-full bg-[#0097b2]/10 px-3 py-1 text-sm font-semibold text-[#0097b2] dark:bg-[#66C4DC]/15 dark:text-[#66C4DC]">
-              Akomapa-built · Public beta
+              Akomapa-built · Now live
             </div>
 
             <h2
@@ -160,11 +160,11 @@ export default function NkwapaSection() {
                 icon={false}
               >
                 <a
-                  href={DEMO_URL}
+                  href={NKWAPA_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   data-testid="nkwapa-cta"
-                  aria-label="Explore Nkwapa demo (opens in a new tab)"
+                  aria-label="Explore Nkwapa (opens in a new tab)"
                 >
                   Explore Nkwapa
                   <ArrowUpRight
