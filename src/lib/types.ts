@@ -363,6 +363,13 @@ export interface BlogPost {
   videoComingSoon?: boolean;
 }
 
+/**
+ * Celebration effects an announcement can opt into when it is selected in the
+ * announcement modal. Reserved for milestones (launches, partnerships, grants,
+ * publications) — never inferred from copy.
+ */
+export type AnnouncementCelebration = "confetti";
+
 export interface Announcement {
   id: string;
   title: string;
@@ -387,6 +394,8 @@ export interface Announcement {
    * Leave undefined or empty to render the title in plain white.
    */
   titleHighlights?: string[];
+  /** Explicit opt-in for a brief celebratory effect when this slide is shown. */
+  celebration?: AnnouncementCelebration;
 }
 
 export interface DatedAnnouncement extends Announcement {
