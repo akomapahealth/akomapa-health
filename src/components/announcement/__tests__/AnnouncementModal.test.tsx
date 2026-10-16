@@ -10,6 +10,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { useReducedMotion } from "framer-motion";
 import AnnouncementModal from "@/components/announcement/AnnouncementModal";
 import { CONFETTI_BURST_MS } from "@/components/announcement/AnnouncementConfetti";
+import { announcementCampaign } from "@/data/announcements";
 import type { AnnouncementCampaign } from "@/lib/types";
 
 vi.mock("@/lib/analytics", () => ({
@@ -238,6 +239,28 @@ describe("AnnouncementModal celebration", () => {
 
   afterEach(() => {
     vi.useRealTimers();
+  });
+
+  it("bursts confetti for the published PLOS slide", () => {
+    const publication = announcementCampaign.slides.find(
+      ({ id }) => id === "plos-global-public-health-publication",
+    )!;
+
+    expect(publication.celebration).toBe("confetti");
+    renderModal({
+      version: announcementCampaign.version,
+      slides: [publication],
+    });
+
+    const confetti = screen.getByTestId("announcement-confetti");
+    expect(confetti).toHaveAttribute("data-variant", "burst");
+    expect(
+      screen.getByRole("link", { name: "Read the open-access paper" }),
+    ).toHaveAttribute(
+      "href",
+      "https://journals.plos.org/globalpublichealth/article?id=10.1371/journal.pgph.0005092",
+    );
+    expect(screen.queryByRole("img")).not.toBeInTheDocument();
   });
 
   it("bursts confetti when the modal opens directly on a marked slide", () => {

@@ -78,15 +78,15 @@ describe("Nkwapa launch announcement", () => {
     expect(nkwapa.celebration).toBe("confetti");
   });
 
-  it("leads the campaign alongside the donate slide during its rollout window", () => {
+  it("leads the campaign alongside the donate slide at the start of its rollout", () => {
     expect(announcementCampaign.slides[0].id).toBe("nkwapa-emr-launch");
-    expect(announcementCampaign.version).not.toBe("2026-09-immersion-v1");
+    expect(announcementCampaign.version).toBe("2026-10-plos-publication-v1");
 
-    for (const now of ["2026-10-14T00:00:00.000Z", "2026-10-27T23:59:59.999Z"]) {
-      expect(
-        getActiveAnnouncementCampaign(new Date(now)).slides.map(({ id }) => id),
-      ).toEqual(["nkwapa-emr-launch", "support-akomapa-care"]);
-    }
+    expect(
+      getActiveAnnouncementCampaign(
+        new Date("2026-10-14T00:00:00.000Z"),
+      ).slides.map(({ id }) => id),
+    ).toEqual(["nkwapa-emr-launch", "support-akomapa-care"]);
     expect(
       isAnnouncementActive(nkwapa, new Date("2026-10-28T00:00:00.000Z")),
     ).toBe(false);
@@ -97,6 +97,59 @@ describe("Nkwapa launch announcement", () => {
       expect(slide.ctaLink ?? "").not.toContain("staging.nkwapa.app");
       expect(slide.secondaryCtaLink ?? "").not.toContain("staging.nkwapa.app");
     }
+  });
+});
+
+describe("PLOS Global Public Health publication announcement", () => {
+  const publication = announcementCampaign.slides.find(
+    ({ id }) => id === "plos-global-public-health-publication",
+  )!;
+  const articleUrl =
+    "https://journals.plos.org/globalpublichealth/article?id=10.1371/journal.pgph.0005092";
+
+  it("announces the published paper and links to the article page", () => {
+    expect(announcementCampaign.slides[1].id).toBe(
+      "plos-global-public-health-publication",
+    );
+    expect(publication.tag).toBe("Publication");
+    expect(publication.title).toBe(
+      "Akomapa research published in PLOS Global Public Health",
+    );
+    expect(publication.titleHighlights).toEqual(["PLOS Global Public Health"]);
+    expect(publication.description).toBe(
+      "A proud milestone for Akomapa and student-led health research in Ghana: our study, “Exploring stakeholder support for student-run free clinics to address gaps in non-communicable disease care in Ghana,” is now published in PLOS Global Public Health. The paper explores stakeholder support for student-run free clinics as one response to gaps in non-communicable disease care. Read the open-access research and share the work.",
+    );
+    expect(publication.description).not.toMatch(
+      /odds ratio|prove[sd]?|effective|86\.7/i,
+    );
+    expect(publication.ctaText).toBe("Read the open-access paper");
+    expect(publication.ctaLink).toBe(articleUrl);
+    expect(publication.isExternal).toBe(true);
+    expect(publication.image).toBeUndefined();
+    expect(publication.celebration).toBe("confetti");
+  });
+
+  it("stays visible for the 14-day rollout window after Nkwapa", () => {
+    expect(
+      isAnnouncementActive(publication, new Date("2026-10-15T23:59:59.999Z")),
+    ).toBe(false);
+
+    for (const now of ["2026-10-17T00:00:00.000Z", "2026-10-27T23:59:59.999Z"]) {
+      expect(
+        getActiveAnnouncementCampaign(new Date(now)).slides.map(({ id }) => id),
+      ).toEqual([
+        "nkwapa-emr-launch",
+        "plos-global-public-health-publication",
+        "support-akomapa-care",
+      ]);
+    }
+
+    expect(
+      isAnnouncementActive(publication, new Date("2026-10-29T23:59:59.999Z")),
+    ).toBe(true);
+    expect(
+      isAnnouncementActive(publication, new Date("2026-10-30T00:00:00.000Z")),
+    ).toBe(false);
   });
 });
 
