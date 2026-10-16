@@ -10,7 +10,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { useReducedMotion } from "framer-motion";
 import AnnouncementModal from "@/components/announcement/AnnouncementModal";
 import { CONFETTI_BURST_MS } from "@/components/announcement/AnnouncementConfetti";
-import { announcementCampaign } from "@/data/announcements";
+import { announcementCampaign, getActiveAnnouncementCampaign } from "@/data/announcements";
 import type { AnnouncementCampaign } from "@/lib/types";
 
 vi.mock("@/lib/analytics", () => ({
@@ -260,7 +260,33 @@ describe("AnnouncementModal celebration", () => {
       "href",
       "https://journals.plos.org/globalpublichealth/article?id=10.1371/journal.pgph.0005092",
     );
-    expect(screen.queryByRole("img")).not.toBeInTheDocument();
+    expect(document.querySelector("img")?.getAttribute("src")).toContain(
+      "plos-global-health.png",
+    );
+  });
+
+  it("offers previous and next controls on the publication slide", async () => {
+    renderModal(
+      getActiveAnnouncementCampaign(new Date("2026-10-17T12:00:00.000Z")),
+    );
+
+    fireEvent.click(screen.getByRole("button", { name: "Next announcement" }));
+
+    expect(
+      await screen.findByRole("heading", {
+        name: "Akomapa research published in PLOS Global Public Health",
+      }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "Previous announcement" }),
+    ).toBeEnabled();
+    expect(
+      screen.getByRole("button", { name: "Next announcement" }),
+    ).toBeEnabled();
+    expect(screen.getByTestId("announcement-confetti")).toHaveAttribute(
+      "data-variant",
+      "burst",
+    );
   });
 
   it("bursts confetti when the modal opens directly on a marked slide", () => {

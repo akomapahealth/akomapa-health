@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { NKWAPA_URL } from "@/config/links";
+import { isImageKitSrc } from "@/lib/imagekit";
 import {
   ANNOUNCEMENT_LIFETIME_DAYS,
   announcementCampaign,
@@ -125,7 +126,10 @@ describe("PLOS Global Public Health publication announcement", () => {
     expect(publication.ctaText).toBe("Read the open-access paper");
     expect(publication.ctaLink).toBe(articleUrl);
     expect(publication.isExternal).toBe(true);
-    expect(publication.image).toBeUndefined();
+    const image = "/static/plos-global-health.png";
+    expect(publication.image).toBe(image);
+    expect(isImageKitSrc(image)).toBe(false);
+    expect(publication.imageFit).toBe("contain");
     expect(publication.celebration).toBe("confetti");
   });
 

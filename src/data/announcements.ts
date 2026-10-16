@@ -47,6 +47,8 @@ export const announcementCampaign: AnnouncementCampaign = {
       titleHighlights: ["PLOS Global Public Health"],
       description:
         "A proud milestone for Akomapa and student-led health research in Ghana: our study, “Exploring stakeholder support for student-run free clinics to address gaps in non-communicable disease care in Ghana,” is now published in PLOS Global Public Health. The paper explores stakeholder support for student-run free clinics as one response to gaps in non-communicable disease care. Read the open-access research and share the work.",
+      image: "/static/plos-global-health.png",
+      imageFit: "contain",
       ctaText: "Read the open-access paper",
       ctaLink:
         "https://journals.plos.org/globalpublichealth/article?id=10.1371/journal.pgph.0005092",
