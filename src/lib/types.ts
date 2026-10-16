@@ -379,6 +379,11 @@ export interface Announcement {
   tag?: string;
   tagColor?: "lapis" | "amber" | "skobeloff";
   image?: string;
+  /**
+   * How `image` fills the announcement poster. Wide marks use `contain` so
+   * the artwork stays intact inside the 16:9 frame.
+   */
+  imageFit?: "cover" | "contain";
   videoUrl?: string;
   /** Optional poster override; otherwise YouTube/Vimeo preview or `image` is used. */
   thumbnail?: string;

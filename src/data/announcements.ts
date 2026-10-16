@@ -21,7 +21,7 @@ const announcementDateFormatter = new Intl.DateTimeFormat("en-US", {
 });
 
 export const announcementCampaign: AnnouncementCampaign = {
-  version: "2026-10-nkwapa-launch-v1",
+  version: "2026-10-plos-publication-v1",
   slides: [
     {
       id: "nkwapa-emr-launch",
@@ -35,6 +35,23 @@ export const announcementCampaign: AnnouncementCampaign = {
       image: "/static/nkwapa/nkwapa-launch.webp",
       ctaText: "Explore Nkwapa",
       ctaLink: NKWAPA_URL,
+      isExternal: true,
+      celebration: "confetti",
+    },
+    {
+      id: "plos-global-public-health-publication",
+      publishedAt: "2026-10-16T00:00:00.000Z",
+      tag: "Publication",
+      tagColor: "amber",
+      title: "Akomapa research published in PLOS Global Public Health",
+      titleHighlights: ["PLOS Global Public Health"],
+      description:
+        "A proud milestone for Akomapa and student-led health research in Ghana: our study, “Exploring stakeholder support for student-run free clinics to address gaps in non-communicable disease care in Ghana,” is now published in PLOS Global Public Health. The paper explores stakeholder support for student-run free clinics as one response to gaps in non-communicable disease care. Read the open-access research and share the work.",
+      image: "/static/plos-global-health.png",
+      imageFit: "contain",
+      ctaText: "Read the open-access paper",
+      ctaLink:
+        "https://journals.plos.org/globalpublichealth/article?id=10.1371/journal.pgph.0005092",
       isExternal: true,
       celebration: "confetti",
     },

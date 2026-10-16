@@ -321,7 +321,12 @@ export default function AnnouncementModal({
                   aria-atomic="true"
                 >
                   {hasMedia ? (
-                    <div className="relative aspect-[16/9] max-h-[min(40dvh,14rem)] w-full overflow-hidden sm:aspect-[2/1] lg:max-h-none">
+                    <div
+                      className={cn(
+                        "relative aspect-[16/9] max-h-[min(40dvh,14rem)] w-full overflow-hidden sm:aspect-[2/1] lg:max-h-none",
+                        currentSlide.imageFit === "contain" && "bg-white",
+                      )}
+                    >
                       {currentSlide.videoUrl && videoPlaying ? (
                         <iframe
                           src={parseVideoUrl(currentSlide.videoUrl)?.embedUrl}
@@ -337,7 +342,11 @@ export default function AnnouncementModal({
                             src={getAnnouncementPosterSrc(currentSlide) || ""}
                             alt=""
                             fill
-                            className="object-cover"
+                            className={
+                              currentSlide.imageFit === "contain"
+                                ? "object-contain px-14 sm:px-16"
+                                : "object-cover"
+                            }
                             sizes="(max-width: 640px) 100vw, 680px"
                           />
 
