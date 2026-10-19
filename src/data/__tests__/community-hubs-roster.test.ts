@@ -24,6 +24,8 @@ const expectedLeadership = [
 
 const expectedUgLeadership = [
   ["Divina Selase Afenyo", "UG Hub Co-Director", "University of Ghana"],
+  ["Priscilla Afriyie Adomako", "Co-Director", "Medical student"],
+  ["Victor Owusu Barnieh", "Media Lead", "Level 300 Computer Science student, University of Ghana, Legon"],
   ["Kelvin Akoto Boateng", "Financial Officer", "Pharmacy Student"],
   ["Nana-Ekow Moses", "Follow-up Lead", "General Nursing Student"],
   ["Rachael Akusika Adu", "Follow-up Lead", "Final Year BSc Physiotherapy Student"],
@@ -123,6 +125,8 @@ describe("UG community hub roster", () => {
       ugHubRoster.leadership.map(({ image }) => image),
     ).toEqual([
       "/ug-team/divina_selase_afenyo.jpg",
+      "/ug-team/priscilla_adomako.jpeg",
+      "/ug-team/victor_owusu_barnieh.jpg",
       "/ug-team/kelvin-akoto-boateng.jpg",
       "/ug-team/nana-ekow-moses.jpg",
       "/ug-team/rachael-akusika-adu.jpg",
@@ -137,6 +141,18 @@ describe("UG community hub roster", () => {
       "/ug-team/nneoma_orji-okoro.PNG",
       "/ug-team/georgina_gabrah.jpg",
     ]);
+  });
+
+  it("publishes Victor and Priscilla with their supplied contact links", () => {
+    const victor = ugHubRoster.leadership.find(({ id }) => id === "victor-owusu-barnieh");
+    const priscilla = ugHubRoster.leadership.find(({ id }) => id === "priscilla-afriyie-adomako");
+
+    expect(victor?.contact?.email).toBe("victorbarnieh8@gmail.com");
+    expect(victor?.contact?.linkedin).toBeUndefined();
+    expect(priscilla?.contact?.email).toBe("priscillaafriyieadomako@gmail.com");
+    expect(priscilla?.contact?.linkedin).toBe(
+      "https://www.linkedin.com/in/priscilla-afriyie-adomako",
+    );
   });
 
   it("keeps the volunteer section omitted until portraits arrive", () => {

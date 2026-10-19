@@ -401,6 +401,8 @@ export const uccHubRoster: HubRoster = {
  */
 export const ugLeadershipConfig = [
   { personId: "executive-divina-afenyo", role: "UG Hub Co-Director" },
+  { personId: "priscilla-afriyie-adomako", role: "Co-Director" },
+  { personId: "victor-owusu-barnieh", role: "Media Lead" },
   { personId: "kelvin-akoto-boateng", role: "Financial Officer" },
   { personId: "nana-ekow-moses", role: "Follow-up Lead" },
   { personId: "rachael-akusika-adu", role: "Follow-up Lead" },

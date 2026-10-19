@@ -525,6 +525,27 @@ const canonicalPeople: PersonProfile[] = [
     },
   },
   {
+    id: "priscilla-afriyie-adomako",
+    name: "Priscilla Afriyie Adomako",
+    affiliation: "Medical student",
+    image: "/ug-team/priscilla_adomako.jpeg",
+    bio: "Priscilla Afriyie Adomako is a medical student with experience in youth leadership, mentorship, public health, and community development. She serves as Curator of the Global Shapers Cape Coast Hub, where programmes focus on health education, community service, and youth development. Her interests span clinical medicine, neuroscience, research, and healthcare equity, with a focus on empowering young people to lead and contribute to meaningful change through service, education, and advocacy.",
+    socialLinks: {
+      email: "priscillaafriyieadomako@gmail.com",
+      linkedin: "https://www.linkedin.com/in/priscilla-afriyie-adomako",
+    },
+  },
+  {
+    id: "victor-owusu-barnieh",
+    name: "Victor Owusu Barnieh",
+    affiliation: "Level 300 Computer Science student, University of Ghana, Legon",
+    image: "/ug-team/victor_owusu_barnieh.jpg",
+    bio: "I am Victor Owusu Barnieh, but everyone calls me Wiseman! I am a Level 300 Computer Science student at the University of Ghana, Legon, and a music and spoken word lover. I serve as Media Director for the National Union of Presbyterian Students, University of Ghana branch, where I drive publicity. I love technology, truth, and standing up for the marginalized.",
+    socialLinks: {
+      email: "victorbarnieh8@gmail.com",
+    },
+  },
+  {
     id: "bernard-kartey-larbi",
     name: "Bernard Kartey Larbi",
     affiliation: "Kwame Nkrumah University of Science and Technology",
