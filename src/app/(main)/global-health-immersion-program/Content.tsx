@@ -161,15 +161,10 @@ export default function Content() {
                 variant="amber"
                 className="min-h-12 justify-center"
               />
-              <ImmersionGoogleFormButton
-                form="info-session"
-                variant="outline-light"
-                className="min-h-12 justify-center"
-              />
               <PublicCta
                 href="#experience"
                 variant="outline-light"
-                className="min-h-12 justify-center sm:col-span-2"
+                className="min-h-12 justify-center"
               >
                 Explore the Experience
               </PublicCta>
@@ -418,7 +413,7 @@ export default function Content() {
           <div className="lg:col-span-6">
             <SectionEyebrow tone="light">{hostCities.heading}</SectionEyebrow>
             <h2
-              id="host-cities-title"
+              id="host-city-title"
               className="mt-4 font-heading text-[1.9rem] font-semibold leading-[1.14] tracking-tight md:text-[2.4rem] lg:text-[2.8rem]"
             >
               {hostCities.name}

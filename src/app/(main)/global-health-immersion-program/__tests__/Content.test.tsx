@@ -4,10 +4,7 @@ import ImmersionInterestProvider from "@/components/immersion/ImmersionInterestP
 import Content from "../Content";
 import { immersionProgram } from "@/data/immersion-program";
 import { IMMERSION_INTEREST_COPY } from "@/lib/immersion-interest";
-import {
-  IMMERSION_APPLICATION_FORM_URL,
-  IMMERSION_INFO_SESSION_FORM_URL,
-} from "@/config/links";
+import { IMMERSION_APPLICATION_FORM_URL } from "@/config/links";
 
 function renderContent() {
   return render(
@@ -109,7 +106,7 @@ describe("Global Health Immersion Program top-level page", () => {
     });
   });
 
-  it("provides the current application and information-session actions", () => {
+  it("provides the application and experience actions without an information session", () => {
     const { container } = renderContent();
 
     const applicationLinks = screen.getAllByRole("link", {
@@ -122,15 +119,9 @@ describe("Global Health Immersion Program top-level page", () => {
       expect(link).toHaveAttribute("rel", "noopener noreferrer");
     });
 
-    const infoSessionLinks = screen.getAllByRole("link", {
-      name: "RSVP for the Info Session",
-    });
-    expect(infoSessionLinks).toHaveLength(2);
-    infoSessionLinks.forEach((link) => {
-      expect(link).toHaveAttribute("href", IMMERSION_INFO_SESSION_FORM_URL);
-      expect(link).toHaveAttribute("target", "_blank");
-      expect(link).toHaveAttribute("rel", "noopener noreferrer");
-    });
+    expect(
+      screen.queryByRole("link", { name: "RSVP for the Info Session" }),
+    ).not.toBeInTheDocument();
     expect(container.querySelectorAll("[data-intake-intent]")).toHaveLength(0);
 
     expect(
@@ -147,6 +138,7 @@ describe("Global Health Immersion Program top-level page", () => {
       }),
     ).toBeInTheDocument();
 
+    expect(container.textContent).not.toMatch(/information session/i);
     expect(container.textContent).not.toMatch(
       /January 2026|Summer 2026|2026 Pilot Cohort|Program Fees|TBD|Certificate|University of Ghana|Learning Model|Participant Development|Applied Research|Leadership Circles|Coming 2027/,
     );
