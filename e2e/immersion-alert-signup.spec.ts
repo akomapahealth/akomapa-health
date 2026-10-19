@@ -1,10 +1,7 @@
 import { expect, type Page } from "@playwright/test";
 import { test } from "./media/playwright";
 import { announcementCampaign } from "../src/data/announcements";
-import {
-  IMMERSION_APPLICATION_FORM_URL,
-  IMMERSION_INFO_SESSION_FORM_URL,
-} from "../src/config/links";
+import { IMMERSION_APPLICATION_FORM_URL } from "../src/config/links";
 
 async function preparePage(page: Page) {
   await page.emulateMedia({ colorScheme: "light" });
@@ -21,7 +18,7 @@ async function preparePage(page: Page) {
   );
 }
 
-test.describe("Immersion application and information-session forms", () => {
+test.describe("Immersion application form", () => {
   test.beforeEach(async ({ page }) => {
     await preparePage(page);
     await page.goto("/global-health-immersion-program", {
@@ -57,30 +54,23 @@ test.describe("Immersion application and information-session forms", () => {
     }
   });
 
-  test("routes both information-session CTAs to the supplied RSVP form", async ({
-    page,
-  }) => {
-    const links = page.getByRole("link", {
-      name: "RSVP for the Info Session",
-      exact: true,
-    });
-    await expect(links).toHaveCount(2);
-
-    for (const link of await links.all()) {
-      await expect(link).toHaveAttribute("href", IMMERSION_INFO_SESSION_FORM_URL);
-      await expect(link).toHaveAttribute("target", "_blank");
-      await expect(link).toHaveAttribute("rel", /noopener/);
-    }
+  test("does not show an information-session CTA", async ({ page }) => {
+    await expect(
+      page.getByRole("link", {
+        name: "RSVP for the Info Session",
+        exact: true,
+      }),
+    ).toHaveCount(0);
   });
 
-  test("keeps all five form links usable without page overflow on mobile", async ({
+  test("keeps the application links usable without page overflow on mobile", async ({
     page,
   }) => {
     await page.setViewportSize({ width: 320, height: 720 });
     await page.reload({ waitUntil: "domcontentloaded" });
 
     const links = page.locator("[data-immersion-google-form] a");
-    await expect(links).toHaveCount(5);
+    await expect(links).toHaveCount(3);
     for (const link of await links.all()) {
       await link.scrollIntoViewIfNeeded();
       await expect(link).toBeVisible();
