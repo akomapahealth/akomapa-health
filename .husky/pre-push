@@ -46,7 +46,7 @@ if [ "$(uname)" = "Darwin" ]; then
   fi
   playwright_home="$(mktemp -d "${TMPDIR:-/tmp}/pw-home.XXXXXX")"
   export CFFIXED_USER_HOME="$playwright_home"
-  trap 'rm -rf "$playwright_home"' EXIT
+  trap 'rm -rf "$playwright_home" >/dev/null 2>&1 || true' EXIT
 fi
 npm run test:e2e
 
