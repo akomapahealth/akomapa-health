@@ -37,6 +37,17 @@ npm run security:verify-source-maps
 
 echo ""
 echo "=== pre-push: Playwright E2E ==="
+# macOS 27 protects ~/Library/Application Support/Firefox. Git and the editor
+# cannot read that directory, so Firefox quits before the browser checks run.
+# A temporary CoreFoundation home avoids it. Browser binaries stay in the real cache.
+if [ "$(uname)" = "Darwin" ]; then
+  if [ -z "${PLAYWRIGHT_BROWSERS_PATH:-}" ]; then
+    export PLAYWRIGHT_BROWSERS_PATH="${HOME}/Library/Caches/ms-playwright"
+  fi
+  playwright_home="$(mktemp -d "${TMPDIR:-/tmp}/pw-home.XXXXXX")"
+  export CFFIXED_USER_HOME="$playwright_home"
+  trap 'rm -rf "$playwright_home"' EXIT
+fi
 npm run test:e2e
 
 echo ""
