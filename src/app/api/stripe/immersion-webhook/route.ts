@@ -59,17 +59,33 @@ export async function POST(request: Request) {
   const paymentType = session.metadata?.payment_type;
   const selectedEmail = session.metadata?.selected_email;
   if (session.payment_link || session.metadata?.program !== "global-health-immersion" ||
-    (paymentType !== "deposit" && paymentType !== "full") || !selectedEmail ||
+    (paymentType !== "deposit" && paymentType !== "full" && paymentType !== "balance") || !selectedEmail ||
     !findInvitee(config.roster, selectedEmail) ||
     session.customer_details?.email?.toLowerCase() !== selectedEmail.toLowerCase()) {
     return Response.json({ received: true });
   }
 
-  const expectedAmount =
-    paymentType === "deposit" ? IMMERSION_DEPOSIT_CENTS : IMMERSION_FULL_CENTS;
+  const expectedAmount = paymentType === "full" ? IMMERSION_FULL_CENTS : IMMERSION_DEPOSIT_CENTS;
   if (session.currency !== "usd" || session.amount_total !== expectedAmount) {
     console.error("Immersion Stripe amount mismatch", { eventId: event.id });
     return new Response(null, { status: 500 });
+  }
+
+  if (paymentType === "balance") {
+    const depositId = session.metadata?.deposit_session_id;
+    if (!depositId?.startsWith("cs_") || !session.customer) return new Response(null, { status: 500 });
+    try {
+      const deposit = await new Stripe(config.stripeKey).checkout.sessions.retrieve(depositId);
+      if (deposit.status !== "complete" || deposit.payment_status !== "paid" ||
+        deposit.metadata?.payment_type !== "deposit" ||
+        deposit.metadata?.program !== "global-health-immersion" ||
+        deposit.metadata.selected_email?.toLowerCase() !== selectedEmail.toLowerCase() ||
+        deposit.amount_total !== IMMERSION_DEPOSIT_CENTS || deposit.currency !== "usd" ||
+        deposit.customer !== session.customer) return new Response(null, { status: 500 });
+    } catch {
+      console.error("Immersion deposit verification failed", { eventId: event.id });
+      return new Response(null, { status: 503 });
+    }
   }
 
   try {

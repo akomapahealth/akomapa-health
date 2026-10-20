@@ -26,8 +26,9 @@ export function getImmersionConfig() {
   const stripeKey = process.env.STRIPE_SECRET_KEY;
   const depositPrice = process.env.STRIPE_IMMERSION_DEPOSIT_PRICE_ID;
   const fullPrice = process.env.STRIPE_IMMERSION_FULL_PRICE_ID;
+  const balancePrice = process.env.STRIPE_IMMERSION_BALANCE_PRICE_ID;
   if (!secret || secret.length < 32 || !stripeKey?.startsWith("sk_test_") ||
-    !depositPrice?.startsWith("price_") || !fullPrice?.startsWith("price_") ||
+    !depositPrice?.startsWith("price_") || !fullPrice?.startsWith("price_") || !balancePrice?.startsWith("price_") ||
     !process.env.RESEND_API_KEY || !process.env.FORM_NOTIFICATION_FROM ||
     !process.env.FORM_NOTIFICATION_TO) return null;
   let roster: Invitee[];
@@ -36,7 +37,7 @@ export function getImmersionConfig() {
   } catch { return null; }
   const emails = roster.map((person) => person.email.toLowerCase());
   if (new Set(emails).size !== emails.length) return null;
-  return { secret, stripeKey, depositPrice, fullPrice, roster };
+  return { secret, stripeKey, depositPrice, fullPrice, balancePrice, roster };
 }
 
 export function findInvitee(roster: Invitee[], email: string) {

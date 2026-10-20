@@ -20,10 +20,24 @@ describe("Immersion payment section", () => {
   });
 
   it("shows a verified participant their first name and payment choices", async () => {
-    vi.stubGlobal("fetch", vi.fn().mockResolvedValue({ json: async () => ({ verified: true, firstName: "Test" }) }));
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue({ json: async () => ({ verified: true, firstName: "Test", paymentStage: "initial" }) }));
     render(<ImmersionPaymentSection />);
     await waitFor(() => expect(screen.getByText(/Welcome, Test/)).toBeInTheDocument());
     expect(screen.getByRole("button", { name: /Pay \$1,249/ })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /Pay \$2,499/ })).toBeInTheDocument();
+  });
+
+  it("offers only the remaining balance after a deposit", async () => {
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue({ json: async () => ({ verified: true, firstName: "Test", paymentStage: "balance" }) }));
+    render(<ImmersionPaymentSection />);
+    expect(await screen.findByRole("button", { name: /Pay remaining \$1,249/ })).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: /Pay \$2,499/ })).toBeNull();
+  });
+
+  it("offers no payment after the full fee is paid", async () => {
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue({ json: async () => ({ verified: true, firstName: "Test", paymentStage: "paid" }) }));
+    render(<ImmersionPaymentSection />);
+    expect(await screen.findByText(/program fee is paid in full/)).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: /Pay/ })).toBeNull();
   });
 });

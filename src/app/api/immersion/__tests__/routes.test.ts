@@ -8,7 +8,9 @@ import { POST as checkout } from "../checkout/route";
 
 const createCustomer = vi.fn().mockResolvedValue({ id: "cus_test" });
 const createSession = vi.fn().mockResolvedValue({ url: "https://checkout.stripe.com/c/pay/cs_test" });
-vi.mock("stripe", () => ({ default: class { customers = { create: createCustomer }; checkout = { sessions: { create: createSession } }; } }));
+const listCustomers = vi.fn();
+const listSessions = vi.fn();
+vi.mock("stripe", () => ({ default: class { customers = { create: createCustomer, list: listCustomers }; checkout = { sessions: { create: createSession, list: listSessions } }; } }));
 
 const secret = "x".repeat(48);
 const base = "https://preview.example.com";
@@ -26,11 +28,14 @@ beforeEach(() => {
   vi.stubEnv("STRIPE_SECRET_KEY", "sk_test_fixture");
   vi.stubEnv("STRIPE_IMMERSION_DEPOSIT_PRICE_ID", "price_deposit");
   vi.stubEnv("STRIPE_IMMERSION_FULL_PRICE_ID", "price_full");
+  vi.stubEnv("STRIPE_IMMERSION_BALANCE_PRICE_ID", "price_balance");
   vi.stubEnv("IMMERSION_INVITE_TOKEN_SECRET", secret);
   vi.stubEnv("IMMERSION_SELECTED_PARTICIPANTS_JSON", JSON.stringify([{ name: "Test Participant", email: "test@example.com" }]));
   vi.stubEnv("RESEND_API_KEY", "re_fixture");
   vi.stubEnv("FORM_NOTIFICATION_FROM", "Akomapa <test@example.com>");
   vi.stubEnv("FORM_NOTIFICATION_TO", "staff@example.com");
+  listCustomers.mockResolvedValue({ data: [], has_more: false });
+  listSessions.mockResolvedValue({ data: [], has_more: false });
 });
 afterEach(() => { vi.unstubAllEnvs(); vi.unstubAllGlobals(); vi.clearAllMocks(); });
 
@@ -63,7 +68,7 @@ describe("Immersion invite routes", () => {
     expect(cookie).toContain("HttpOnly");
     expect(cookie).toContain("Secure");
     const lookup = await status(new NextRequest(`${base}/api/immersion/status`, { headers: { cookie } }));
-    expect(await lookup.json()).toEqual({ verified: true, firstName: "Test" });
+    expect(await lookup.json()).toEqual({ verified: true, firstName: "Test", paymentStage: "initial" });
     const denied = await status(new NextRequest(`${base}/api/immersion/status`));
     expect((await denied.json()).verified).toBe(false);
   });
@@ -76,9 +81,43 @@ describe("Immersion invite routes", () => {
     const response = await checkout(post("/api/immersion/checkout", { choice: "deposit" }, `${IMMERSION_COOKIE}=${token}`));
     expect(response.status).toBe(200);
     expect((await response.json()).url).toMatch(/^https:\/\/checkout\.stripe\.com\//);
-    expect(createCustomer).toHaveBeenCalledWith(expect.objectContaining({ email: "test@example.com" }));
+    expect(createCustomer).toHaveBeenCalledWith(expect.objectContaining({ email: "test@example.com" }), expect.objectContaining({ idempotencyKey: expect.any(String) }));
     expect(createSession).toHaveBeenCalledWith(expect.objectContaining({
       customer: "cus_test", line_items: [{ price: "price_deposit", quantity: 1 }],
-    }));
+    }), expect.objectContaining({ idempotencyKey: expect.any(String) }));
+  });
+
+  it("allows a balance checkout only after a paid deposit and reuses its Stripe customer", async () => {
+    const token = signInviteToken("test@example.com", "session", secret, 60);
+    const cookie = `${IMMERSION_COOKIE}=${token}`;
+    expect((await checkout(post("/api/immersion/checkout", { choice: "balance" }, cookie))).status).toBe(409);
+    listCustomers.mockResolvedValue({ data: [{ id: "cus_test", metadata: { program: "global-health-immersion" } }], has_more: false });
+    listSessions.mockResolvedValue({ data: [{ id: "cs_deposit", status: "complete", payment_status: "paid", livemode: false,
+      mode: "payment", payment_link: null, metadata: { program: "global-health-immersion", payment_type: "deposit", selected_email: "test@example.com" },
+      amount_total: 124_950, currency: "usd", customer_details: { email: "test@example.com" }, customer: "cus_test" }], has_more: false });
+    const statusResponse = await status(new NextRequest(`${base}/api/immersion/status`, { headers: { cookie } }));
+    expect((await statusResponse.json()).paymentStage).toBe("balance");
+    expect((await checkout(post("/api/immersion/checkout", { choice: "full" }, cookie))).status).toBe(409);
+    const response = await checkout(post("/api/immersion/checkout", { choice: "balance" }, cookie));
+    expect(response.status).toBe(200);
+    expect(createCustomer).not.toHaveBeenCalled();
+    expect(createSession).toHaveBeenCalledWith(expect.objectContaining({
+      customer: "cus_test", line_items: [{ price: "price_balance", quantity: 1 }],
+      metadata: expect.objectContaining({ deposit_session_id: "cs_deposit" }),
+    }), expect.any(Object));
+  });
+
+  it("reuses an open checkout and blocks a second choice", async () => {
+    const token = signInviteToken("test@example.com", "session", secret, 60);
+    const cookie = `${IMMERSION_COOKIE}=${token}`;
+    listCustomers.mockResolvedValue({ data: [{ id: "cus_test", metadata: { program: "global-health-immersion" } }], has_more: false });
+    listSessions.mockResolvedValue({ data: [{ id: "cs_open", status: "open", payment_status: "unpaid", livemode: false,
+      mode: "payment", payment_link: null, metadata: { program: "global-health-immersion", payment_type: "deposit", selected_email: "test@example.com" },
+      amount_total: 124_950, currency: "usd", customer_details: { email: "test@example.com" }, customer: "cus_test",
+      url: "https://checkout.stripe.com/c/pay/existing", expires_at: Math.floor(Date.now() / 1000) + 3600 }], has_more: false });
+    const existing = await checkout(post("/api/immersion/checkout", { choice: "deposit" }, cookie));
+    expect(await existing.json()).toEqual({ url: "https://checkout.stripe.com/c/pay/existing" });
+    expect((await checkout(post("/api/immersion/checkout", { choice: "full" }, cookie))).status).toBe(409);
+    expect(createSession).not.toHaveBeenCalled();
   });
 });

@@ -10,6 +10,7 @@ function configure() {
   vi.stubEnv("STRIPE_SECRET_KEY", "sk_test_fixture");
   vi.stubEnv("STRIPE_IMMERSION_DEPOSIT_PRICE_ID", "price_deposit");
   vi.stubEnv("STRIPE_IMMERSION_FULL_PRICE_ID", "price_full");
+  vi.stubEnv("STRIPE_IMMERSION_BALANCE_PRICE_ID", "price_balance");
   vi.stubEnv("RESEND_API_KEY", "re_fixture");
   vi.stubEnv("FORM_NOTIFICATION_FROM", "Akomapa <test@example.com>");
   vi.stubEnv("FORM_NOTIFICATION_TO", "staff@example.com");

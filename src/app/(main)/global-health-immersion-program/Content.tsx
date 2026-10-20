@@ -130,7 +130,7 @@ export default function Content() {
           label: "Deposit option",
           price: "$1,249.50",
           description:
-            `Nonrefundable on participant cancellation. This counts toward the program fee; the remaining $1,249.50 is due ${IMMERSION_BALANCE_DUE_LABEL} and collected separately.`,
+            `Nonrefundable on participant cancellation. This counts toward the program fee; the remaining $1,249.50 is due ${IMMERSION_BALANCE_DUE_LABEL} and can be paid from the verified page.`,
         },
       ]
     : registration;

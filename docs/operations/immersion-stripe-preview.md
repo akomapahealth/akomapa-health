@@ -1,6 +1,6 @@
 # Immersion Stripe preview handoff
 
-The Immersion payment flow is a sandbox test. It is enabled only when `VERCEL_ENV=preview` (or local development) and `NEXT_PUBLIC_IMMERSION_STRIPE_TEST_ENABLED=true`. Production stays off until Akomapa approves the complete public terms, live Stripe resources, and a separate launch change. The remaining $1,249.50 balance is due **November 30, 2026 at 11:59 p.m. Eastern Time**; collection remains manual. The executives approved the core refund rule for the Preview copy: the 50% deposit portion is nonrefundable on participant cancellation; a full-fee payer who cancels by **November 29, 2026 at 11:59 p.m. Eastern Time** receives the other $1,249.50 back; and Akomapa refunds all payments if it cancels or cannot offer a place. The extended terms draft and its open decisions remain in a Git-ignored local file for review.
+The Immersion payment flow is a sandbox test. It is enabled only when `VERCEL_ENV=preview` (or local development) and `NEXT_PUBLIC_IMMERSION_STRIPE_TEST_ENABLED=true`. Production stays off until Akomapa approves the complete public terms, live Stripe resources, and a separate launch change. The remaining $1,249.50 balance is due **November 30, 2026 at 11:59 p.m. Eastern Time**; a depositor can return to the verified page and pay it through a new Stripe Checkout Session. The charge is initiated by the participant, not scheduled automatically. The executives approved the core refund rule for the Preview copy: the 50% deposit portion is nonrefundable on participant cancellation; a full-fee payer who cancels by **November 29, 2026 at 11:59 p.m. Eastern Time** receives the other $1,249.50 back; and Akomapa refunds all payments if it cancels or cannot offer a place. The extended terms draft and its open decisions remain in a Git-ignored local file for review.
 
 ## Selected applicants and verification
 
@@ -22,6 +22,7 @@ Set these in the `akomapa-staging` Vercel project for the desired Preview branch
 | `STRIPE_SECRET_KEY` | Rotated sandbox `sk_test_` key, server-only |
 | `STRIPE_IMMERSION_DEPOSIT_PRICE_ID` | `price_1USTQsCGfDUBJPt0kCpqL0bB` |
 | `STRIPE_IMMERSION_FULL_PRICE_ID` | `price_1USTQwCGfDUBJPt0bA9jS4p7` |
+| `STRIPE_IMMERSION_BALANCE_PRICE_ID` | `price_1UShEGCGfDUBJPt0OzIvLagp` |
 | `STRIPE_IMMERSION_WEBHOOK_SECRET` | Signing secret for this Preview webhook destination |
 | `RESEND_API_KEY` | Existing email service key |
 | `FORM_NOTIFICATION_FROM` | Existing verified sender, used for verification and staff alerts |
@@ -31,7 +32,7 @@ Remove the obsolete `NEXT_PUBLIC_IMMERSION_STRIPE_DEPOSIT_URL`, `NEXT_PUBLIC_IMM
 
 ## Stripe and webhook
 
-The connected account is Akomapa Health Foundation Inc sandbox (`acct_1USSpJCGfDUBJPt0`). Prices are USD $1,249.50 deposit and $2,499 full fee. The deposit leaves $1,249.50 for **manual follow-up**. Checkout creates a Customer with the selected applicant's name and email, then uses that Customer in a hosted Session so the receipt address is locked to the verified email. The new tab opens `checkout.stripe.com`. No future charge is scheduled.
+The connected account is Akomapa Health Foundation Inc sandbox (`acct_1USSpJCGfDUBJPt0`). Prices are USD $1,249.50 deposit, $2,499 full fee, and $1,249.50 balance. Checkout creates or reuses a Customer with the selected applicant's name and email, then uses that Customer in a hosted Session so the receipt address is locked to the verified email. Once Stripe shows a paid deposit, the verified page offers only the balance button. Once the full fee is paid, it offers no payment button. Each button opens a new tab at `checkout.stripe.com`; no future charge is scheduled. The server rechecks Stripe payment history before creating a Session, reuses an open Session, and uses a deterministic idempotency key to limit concurrent duplicates. Staff should still reconcile unusual duplicate or disputed charges in Stripe.
 
 The sandbox webhook destination is `we_1USTlFCGfDUBJPt0wsG5NWVj`. Check its **current URL in Stripe** before testing; it must point to `https://<current-preview-host>/api/stripe/immersion-webhook`. It subscribes to `checkout.session.completed` and `checkout.session.async_payment_succeeded`. Vercel deployment URLs change after pushes, so update the destination when the Preview host changes. Store that destination's signing secret in Vercel. The webhook verifies Stripe's signature and the paid Session, then checks the program metadata, selected email, USD currency, and exact amount. It sends the intake mailbox the payer details, payment choice, amount, Checkout Session ID, and event ID. Resend's idempotency key uses the Stripe event ID; staff should reconcile by Session ID. A failed alert returns an error for Stripe retry.
 
@@ -42,7 +43,7 @@ In sandbox Settings → Business → Customer emails, **Successful payments** is
 1. On a Preview deployment, confirm the email field appears only after the checkbox. No payment button or public Stripe URL should appear before verification. Production must have no payment section.
 2. Enter an unlisted synthetic email. Confirm the neutral message and Contact Us link, with no payment access. Enter a selected test address and follow its email link within 15 minutes. Confirm the first-name greeting and both payment choices.
 3. Open both choices from desktop, mobile, and keyboard. Check each goes to a new Stripe tab with the correct amount and the verified email. Use test cards only.
-4. Complete one sandbox payment for each choice. Confirm the Stripe Sessions and intake alerts, including the deposit balance note. Check valid and invalid webhook signatures, delayed success, duplicate events, and notification failure.
+4. Complete a sandbox deposit, return to the verified page, and confirm only **Pay remaining $1,249.50** appears. Complete the balance payment and confirm no payment button remains. With another temporary selected test entry, complete the full-fee checkout and confirm it also ends with no payment button. Confirm all Stripe Sessions and intake alerts. Check valid and invalid webhook signatures, delayed success, duplicate events, and notification failure.
 5. Confirm both old Payment Links show Stripe's deactivated page. Rotate the exposed test key if it has not already been rotated.
 
 ## Before live launch
