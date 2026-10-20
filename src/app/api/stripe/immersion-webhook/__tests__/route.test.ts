@@ -106,6 +106,14 @@ describe("Immersion Stripe webhook", () => {
     expect(init.body).toContain("participant@example.com");
   });
 
+  it("alerts for a paid checkout after its invitee is removed from the current roster", async () => {
+    vi.stubEnv("IMMERSION_SELECTED_PARTICIPANTS_JSON", JSON.stringify([{ name: "Other Participant", email: "other@example.com" }]));
+    const fetchMock = vi.fn().mockResolvedValue(new Response(null, { status: 200 }));
+    vi.stubGlobal("fetch", fetchMock);
+    expect((await POST(eventRequest())).status).toBe(200);
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+  });
+
   it("sends a full-payment alert after delayed success", async () => {
     const fetchMock = vi.fn().mockResolvedValue(new Response(null, { status: 200 }));
     vi.stubGlobal("fetch", fetchMock);

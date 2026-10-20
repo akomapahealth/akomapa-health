@@ -2,7 +2,6 @@ import Stripe from "stripe";
 import {
   IMMERSION_DEPOSIT_CENTS,
   IMMERSION_FULL_CENTS,
-  findInvitee,
   getImmersionConfig,
 } from "@/lib/payments/immersion";
 import { sendImmersionPaymentNotification } from "@/lib/payments/immersion-notification";
@@ -60,7 +59,6 @@ export async function POST(request: Request) {
   const selectedEmail = session.metadata?.selected_email;
   if (session.payment_link || session.metadata?.program !== "global-health-immersion" ||
     (paymentType !== "deposit" && paymentType !== "full" && paymentType !== "balance") || !selectedEmail ||
-    !findInvitee(config.roster, selectedEmail) ||
     session.customer_details?.email?.toLowerCase() !== selectedEmail.toLowerCase()) {
     return Response.json({ received: true });
   }
