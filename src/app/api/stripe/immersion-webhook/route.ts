@@ -2,6 +2,8 @@ import Stripe from "stripe";
 import {
   IMMERSION_DEPOSIT_CENTS,
   IMMERSION_FULL_CENTS,
+  findInvitee,
+  getImmersionConfig,
 } from "@/lib/payments/immersion";
 import { sendImmersionPaymentNotification } from "@/lib/payments/immersion-notification";
 
@@ -20,11 +22,9 @@ export async function POST(request: Request) {
     return new Response(null, { status: 404 });
   }
 
-  const apiKey = process.env.STRIPE_SECRET_KEY;
+  const config = getImmersionConfig();
   const webhookSecret = process.env.STRIPE_IMMERSION_WEBHOOK_SECRET;
-  const depositLinkId = process.env.STRIPE_IMMERSION_DEPOSIT_LINK_ID;
-  const fullLinkId = process.env.STRIPE_IMMERSION_FULL_LINK_ID;
-  if (!apiKey || !webhookSecret || !depositLinkId || !fullLinkId) {
+  if (!config || !webhookSecret) {
     return new Response(null, { status: 503 });
   }
 
@@ -33,7 +33,7 @@ export async function POST(request: Request) {
 
   let event: Stripe.Event;
   try {
-    event = new Stripe(apiKey).webhooks.constructEvent(
+    event = new Stripe(config.stripeKey).webhooks.constructEvent(
       await request.text(),
       signature,
       webhookSecret,
@@ -56,17 +56,14 @@ export async function POST(request: Request) {
     return Response.json({ received: true });
   }
 
-  const linkId =
-    typeof session.payment_link === "string"
-      ? session.payment_link
-      : session.payment_link?.id;
-  const paymentType =
-    linkId === depositLinkId
-      ? "deposit"
-      : linkId === fullLinkId
-        ? "full"
-        : null;
-  if (!paymentType) return Response.json({ received: true });
+  const paymentType = session.metadata?.payment_type;
+  const selectedEmail = session.metadata?.selected_email;
+  if (session.payment_link || session.metadata?.program !== "global-health-immersion" ||
+    (paymentType !== "deposit" && paymentType !== "full") || !selectedEmail ||
+    !findInvitee(config.roster, selectedEmail) ||
+    session.customer_details?.email?.toLowerCase() !== selectedEmail.toLowerCase()) {
+    return Response.json({ received: true });
+  }
 
   const expectedAmount =
     paymentType === "deposit" ? IMMERSION_DEPOSIT_CENTS : IMMERSION_FULL_CENTS;

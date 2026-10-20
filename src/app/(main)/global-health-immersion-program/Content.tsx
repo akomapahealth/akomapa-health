@@ -13,7 +13,7 @@ import {
 } from "@/components/shared/PublicPagePrimitives";
 import { immersionProgram } from "@/data/immersion-program";
 import { cn } from "@/lib/utils";
-import { getPreviewImmersionPaymentLinks } from "@/lib/payments/immersion";
+import { getImmersionConfig } from "@/lib/payments/immersion";
 
 const sectionContainerClass =
   "site-container mx-auto px-4 py-16 md:py-20 lg:py-24";
@@ -103,7 +103,7 @@ function GlanceItem({
 }
 
 export default function Content() {
-  const paymentLinks = getPreviewImmersionPaymentLinks();
+  const paymentEnabled = Boolean(getImmersionConfig());
   const {
     eyebrow,
     applicationStatus,
@@ -118,7 +118,7 @@ export default function Content() {
     hostCities,
     images,
   } = immersionProgram;
-  const displayedRegistration = paymentLinks
+  const displayedRegistration = paymentEnabled
     ? [
         {
           label: "Program fee",
@@ -259,7 +259,7 @@ export default function Content() {
         </div>
       </section>
 
-      {paymentLinks ? <ImmersionPaymentSection links={paymentLinks} /> : null}
+      {paymentEnabled ? <ImmersionPaymentSection /> : null}
 
       <section
         aria-labelledby="program-purpose-title"

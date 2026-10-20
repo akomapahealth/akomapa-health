@@ -1,37 +1,27 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import ImmersionPaymentSection from "../ImmersionPaymentSection";
 
-const links = {
-  deposit: "https://buy.stripe.com/test_deposit",
-  full: "https://buy.stripe.com/test_full",
-};
+afterEach(() => { vi.unstubAllGlobals(); vi.restoreAllMocks(); });
 
 describe("Immersion payment section", () => {
-  it("requires application self-confirmation before exposing checkout links", async () => {
+  it("hides email and payment choices until application confirmation", async () => {
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue({ json: async () => ({ verified: false }) }));
     const user = userEvent.setup();
-    render(<ImmersionPaymentSection links={links} />);
-
-    expect(screen.queryByRole("link", { name: /Pay \$1,249\.50 deposit/ })).toBeNull();
-    expect(screen.queryByRole("link", { name: /Pay \$2,499 in full/ })).toBeNull();
-
+    render(<ImmersionPaymentSection />);
+    expect(screen.queryByRole("textbox", { name: /Email address/ })).toBeNull();
+    expect(screen.queryByRole("button", { name: /Pay \$1,249/ })).toBeNull();
     await user.click(screen.getByRole("checkbox"));
+    expect(screen.getByRole("textbox", { name: /Email address/ })).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: /Pay \$1,249/ })).toBeNull();
+  });
 
-    expect(screen.getByRole("link", { name: /Pay \$1,249\.50 deposit/ })).toHaveAttribute(
-      "href",
-      links.deposit,
-    );
-    expect(screen.getByRole("link", { name: /Pay \$2,499 in full/ })).toHaveAttribute(
-      "href",
-      links.full,
-    );
-    for (const link of screen.getAllByRole("link")) {
-      expect(link).toHaveAttribute("target", "_blank");
-      expect(link).toHaveAttribute("rel", "noopener noreferrer");
-    }
-
-    await user.click(screen.getByRole("checkbox"));
-    expect(screen.queryAllByRole("link")).toHaveLength(0);
+  it("shows a verified participant their first name and payment choices", async () => {
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue({ json: async () => ({ verified: true, firstName: "Test" }) }));
+    render(<ImmersionPaymentSection />);
+    await waitFor(() => expect(screen.getByText(/Welcome, Test/)).toBeInTheDocument());
+    expect(screen.getByRole("button", { name: /Pay \$1,249/ })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /Pay \$2,499/ })).toBeInTheDocument();
   });
 });

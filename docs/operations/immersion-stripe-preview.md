@@ -1,137 +1,50 @@
-# Immersion Stripe preview runbook
+# Immersion Stripe preview handoff
 
-This is a sandbox payment test for the Global Health Immersion Program. The
-payment section and webhook operate in Vercel preview deployments (or local
-development) only. Production remains disabled. Stripe is the payment system
-of record; an email alert is only a prompt for staff follow-up.
+The Immersion payment flow is a sandbox test. It is enabled only when `VERCEL_ENV=preview` (or local development) and `NEXT_PUBLIC_IMMERSION_STRIPE_TEST_ENABLED=true`. Production stays off until Akomapa approves the balance due date, refund terms, live Stripe resources, and a separate launch change.
 
-## Provisioned sandbox resources (October 19, 2026)
+## Selected applicants and verification
 
-The connected sandbox account is **Akomapa Health Foundation Inc sandbox**
-(`acct_1USSpJCGfDUBJPt0`). These are one-time USD payments, with no automatic
-charge for the remaining deposit balance:
+The roster is a **server-only** Preview environment value named `IMMERSION_SELECTED_PARTICIPANTS_JSON`. It is a JSON array of `{ "name": "Full Name", "email": "address@example.com" }` objects. The 14 supplied participants are in the ignored local file `.env.immersion-roster.local` (mode 0600), ready to copy as the value. Do not commit or expose it as a `NEXT_PUBLIC_` variable. Protect Vercel project access because anyone who can view its sensitive environment variables can view the roster. To add/remove an invitee, update that variable and redeploy.
 
-| Choice | Price ID | Payment Link ID | Public checkout URL |
-| --- | --- | --- | --- |
-| $1,249.50 deposit | `price_1USTQsCGfDUBJPt0kCpqL0bB` | `plink_1USTRBCGfDUBJPt0PrfT0kPS` | https://buy.stripe.com/test_aFadR8gXn4513M908hgEg00 |
-| $2,499.00 full fee | `price_1USTQwCGfDUBJPt0bA9jS4p7` | `plink_1USTRHCGfDUBJPt0uLPk8FLk` | https://buy.stripe.com/test_7sY00i5eF0SP5Uh4oxgEg01 |
+The visitor confirms they applied, enters their registered email, and receives a 15-minute verification link if it matches the roster. The response to a lookup is the same whether or not the email is selected; this avoids revealing cohort membership. The message points people to Contact Us and a future cohort. A successful link sets a signed, HttpOnly, two-hour cookie. The first name and payment choices appear only after the server verifies the cookie and checks that the invitee remains on the roster. Server routes verify the cookie again before creating each Stripe Checkout Session. A public email address alone cannot unlock the buttons. A forwarded verification link could still be used during its lifetime; a durable single-use token store would be needed to prevent that.
 
-The sandbox webhook endpoint is `we_1USTlFCGfDUBJPt0wsG5NWVj`. It currently
-targets
-`https://akomapa-staging-frigowpcf-akomapa-healths-projects.vercel.app/api/stripe/immersion-webhook`.
-This is a deployment-specific URL: update the destination in Stripe when
-switching the test to another preview deployment. Keep its `whsec_` signing
-secret in Vercel Preview settings only.
+The previous deposit and full-fee sandbox Payment Links (`plink_1USTRBCGfDUBJPt0PrfT0kPS`, `plink_1USTRHCGfDUBJPt0uLPk8FLk`) were deactivated on October 20, 2026. Their URLs are no longer accepted, even if someone saved or shared them. The associated **sandbox Prices** are reused by server-created Checkout Sessions. Stripe remains the payment record.
 
-Both checkout choices completed successfully in the sandbox and produced
-`checkout.session.completed` events. The deposit Session is
-`cs_test_a1OpwagJ20TzcG02a1IK7FvJpeF9hJNzylv99d5Ruk7hwr3kg2ZVsxZrDT`;
-the full-fee Session is
-`cs_test_a1Wp5VnmFLHHA708xkL0bGzdk3U5MS0Vv0HMyNiGVkcQ1LerC9O4EQT3wH`.
-The intake mailbox received both staff alerts. The deployed webhook rejected
-an invalid Stripe signature with HTTP 400. Unit tests cover event replay with
-the same Resend idempotency key, delayed-payment success, and notification
-failure. Stripe created online receipt URLs for both test charges; it does not
-automatically email test-mode receipts.
+## Preview settings
 
-## Stripe account and sandbox
+Set these in the `akomapa-staging` Vercel project for the desired Preview branch (`codex/immersion-stripe-payments`, then `dev` after merge). Use **Sensitive** for secrets and the roster. Redeploy after changing values.
 
-1. Use the official Stripe plugin and OAuth connection to the organization's
-   sandbox account. Confirm the `stripe_implementation_planner` tool and run it
-   with Akomapa's one-time Immersion payment context before creating resources.
-   If this tool remains unavailable after reconnecting in a fresh Codex session,
-   use the Stripe documentation skills fallback.
-2. Rotate the sandbox secret key shared during setup. Do not paste its replacement
-   into Git, issue comments, screenshots, shell commands, or logs. Store the
-   replacement and webhook signing secret as sensitive preview deployment
-   values. The public publishable key is not needed by this hosted-link flow.
-3. In the Stripe sandbox, create a one-time USD product/price for **Immersion
-   Program deposit** at **$1,249.50** and another for **Immersion Program full
-   fee** at **$2,499.00**. Do not configure recurring billing or automatic
-   future charges. The deposit leaves **$1,249.50** for manual follow-up.
-4. Create one Payment Link for each price, quantity one. Collect the payer's
-   email and require their individual full name. Give each link a clear
-   description and metadata such as `program=global-health-immersion-2027` and
-   `payment_type=deposit` or `full`. Use the same values in PaymentIntent
-   metadata if the link editor offers it. Configure an Akomapa confirmation
-   message that says payment does not confirm program acceptance. Keep tax and
-   promotion-code settings off unless Finance explicitly approves them.
-5. Record each link's `plink_` ID and `https://buy.stripe.com/test_...` URL.
-   Do not substitute live links into the preview configuration. The page
-   rejects non-sandbox checkout URLs.
-
-## Preview deployment settings
-
-Set these on the **Preview** environment only:
-
-| Setting | Value |
+| Variable | Value |
 | --- | --- |
 | `NEXT_PUBLIC_IMMERSION_STRIPE_TEST_ENABLED` | `true` |
-| `NEXT_PUBLIC_IMMERSION_STRIPE_DEPOSIT_URL` | Sandbox deposit Payment Link URL |
-| `NEXT_PUBLIC_IMMERSION_STRIPE_FULL_URL` | Sandbox full-fee Payment Link URL |
-| `STRIPE_IMMERSION_DEPOSIT_LINK_ID` | Sandbox deposit `plink_` ID |
-| `STRIPE_IMMERSION_FULL_LINK_ID` | Sandbox full-fee `plink_` ID |
-| `STRIPE_SECRET_KEY` | Rotated sandbox key, sensitive/server-only |
-| `STRIPE_IMMERSION_WEBHOOK_SECRET` | Preview webhook `whsec_` secret, sensitive/server-only |
-| `RESEND_API_KEY` | Existing staff notification key, sensitive/server-only |
-| `FORM_NOTIFICATION_FROM` | Existing verified sender |
+| `IMMERSION_SELECTED_PARTICIPANTS_JSON` | Entire JSON value from ignored `.env.immersion-roster.local` |
+| `IMMERSION_INVITE_TOKEN_SECRET` | New random secret of at least 32 characters, server-only |
+| `STRIPE_SECRET_KEY` | Rotated sandbox `sk_test_` key, server-only |
+| `STRIPE_IMMERSION_DEPOSIT_PRICE_ID` | `price_1USTQsCGfDUBJPt0kCpqL0bB` |
+| `STRIPE_IMMERSION_FULL_PRICE_ID` | `price_1USTQwCGfDUBJPt0bA9jS4p7` |
+| `STRIPE_IMMERSION_WEBHOOK_SECRET` | Signing secret for this Preview webhook destination |
+| `RESEND_API_KEY` | Existing email service key |
+| `FORM_NOTIFICATION_FROM` | Existing verified sender, used for verification and staff alerts |
 | `FORM_NOTIFICATION_TO` | Existing private intake mailbox |
 
-Never set the enable flag for Production. The code also checks
-`VERCEL_ENV=preview` (or local `NODE_ENV=development`) before displaying the
-section or accepting webhook events. Missing, malformed, or live Payment Link
-URLs hide the entire section.
+Remove the obsolete `NEXT_PUBLIC_IMMERSION_STRIPE_DEPOSIT_URL`, `NEXT_PUBLIC_IMMERSION_STRIPE_FULL_URL`, `STRIPE_IMMERSION_DEPOSIT_LINK_ID`, and `STRIPE_IMMERSION_FULL_LINK_ID` settings after the new deployment is verified. Do not set the enable flag for Production. The server requires the sandbox key and valid configuration before showing the section.
 
-## Webhook and staff alert
+## Stripe and webhook
 
-After the preview deployment exists, create a **snapshot** webhook destination
-for `https://<preview-host>/api/stripe/immersion-webhook`. Subscribe to
-`checkout.session.completed` and `checkout.session.async_payment_succeeded`.
-Store its signing secret in the preview deployment setting above. Each preview
-host needs its own destination and signing secret if testing more than one.
-The route verifies Stripe's signature over the raw request body, requires a
-paid session, and matches its Payment Link ID, USD currency, and exact amount.
-It then sends a staff email through Resend with payer name, email, amount,
-payment choice, Checkout Session ID, and event ID. The Resend request uses the
-event ID as its idempotency key. Resend retains idempotency keys for 24 hours;
-staff should reconcile by Stripe Session ID if a later retry duplicates an
-alert. A failed notification returns an error so Stripe retries it. No payer
-details or credentials are written to application logs.
+The connected account is Akomapa Health Foundation Inc sandbox (`acct_1USSpJCGfDUBJPt0`). Prices are USD $1,249.50 deposit and $2,499 full fee. The deposit leaves $1,249.50 for **manual follow-up**. Checkout creates a Customer with the selected applicant's name and email, then uses that Customer in a hosted Session so the receipt address is locked to the verified email. The new tab opens `checkout.stripe.com`. No future charge is scheduled.
 
-## Receipts and handoff
+Set the sandbox webhook destination to `https://<current-preview-host>/api/stripe/immersion-webhook` and subscribe to `checkout.session.completed` and `checkout.session.async_payment_succeeded`. The existing destination is `we_1USTlFCGfDUBJPt0wsG5NWVj`; its old deployment-specific URL must be updated for each new preview host. Store that destination's signing secret in Vercel. The webhook verifies Stripe's signature and the paid Session, then checks the program metadata, selected email, USD currency, and exact amount. It sends the intake mailbox the payer details, payment choice, amount, Checkout Session ID, and event ID. Resend's idempotency key uses the Stripe event ID; staff should reconcile by Session ID. A failed alert returns an error for Stripe retry.
 
-In Stripe's sandbox Dashboard, set the business display name to **Akomapa
-Health Foundation**, choose brand colors, add the support email, and enable
-**Successful payments** under Business → Customer emails. Under Business →
-Branding, use `public/images/akomapa-logo-dark.png` as the wide **Logo** for
-Checkout and Payment Links. [Stripe's branding matrix](https://docs.stripe.com/get-started/account/branding)
-shows that emailed receipts use the square **Icon** instead of that Logo;
-upload `public/apple-touch-icon.png` (180 × 180 pixels) in the Email receipts
-branding settings and check its preview. The product and link descriptions
-should clearly say **Immersion Program deposit** or **full fee**.
-Stripe collects the email at Checkout and uses it for the receipt; require the
-name for a more formal payer record. This is a **payment receipt**, not a
-charitable-donation tax acknowledgment. Stripe does not email receipts for
-test-mode charges, so inspect the preview in the Dashboard and perform an
-end-to-end email check only after an approved live launch.
-
-For each deposit alert, staff verify the payment in Stripe, match the payer to
-their application manually, and contact them about the remaining $1,249.50
-using a separately reviewed balance payment method. Do not mark a participant
-accepted solely because a payment succeeded. Before live launch, Operations
-and Finance must approve the balance due date, refund terms, and public legal
-copy; create separate live resources and secrets, update the privacy/terms
-pages, and review the preview test results before enabling production.
+In sandbox Settings → Business → Customer emails, **Successful payments** is on. In Settings → Business → Branding, Akomapa's dark wordmark is used for Checkout and the square mark for Email receipts. The owner confirmed the mark appears in the email preview and selected “Prefer logo over icon.” Stripe does not automatically email receipts for test charges. For live mode, recheck branding, support contact, and receipt settings. This is a payment receipt, not a donation tax acknowledgment or paid invoice.
 
 ## Acceptance check
 
-Use synthetic payer details and Stripe test payment methods. On a preview
-deployment, confirm the section is hidden before configuration, then verify
-the checkbox gates both choices, both links open a new tab, both amounts are
-correct in Checkout, and neither test checkout appears on production. Complete
-one payment for each link; verify the Stripe payment and one staff alert with
-the matching Session ID. Replay an event to inspect idempotency, send an
-invalid signature to confirm rejection, and inspect Stripe webhook delivery
-logs for successful responses. Test a delayed-payment method if enabled in
-the sandbox. Check keyboard navigation, a narrow mobile viewport, and dark
-mode. Disable the flag and redeploy to roll back the preview section.
+1. On a Preview deployment, confirm the email field appears only after the checkbox. No payment button or public Stripe URL should appear before verification. Production must have no payment section.
+2. Enter an unlisted synthetic email. Confirm the neutral message and Contact Us link, with no payment access. Enter a selected test address and follow its email link within 15 minutes. Confirm the first-name greeting and both payment choices.
+3. Open both choices from desktop, mobile, and keyboard. Check each goes to a new Stripe tab with the correct amount and the verified email. Use test cards only.
+4. Complete one sandbox payment for each choice. Confirm the Stripe Sessions and intake alerts, including the deposit balance note. Check valid and invalid webhook signatures, delayed success, duplicate events, and notification failure.
+5. Confirm both old Payment Links show Stripe's deactivated page. Rotate the exposed test key if it has not already been rotated.
+
+## Before live launch
+
+Akomapa must approve and publish the remaining $1,249.50 balance due date, refund policy, and acceptance language. Then create separate **live** Prices, a live webhook destination/signing secret, live secret key, and live receipt/branding settings. Build a separate production enablement change and run real low-value verification with an approved payment method. Do not reuse sandbox IDs or secrets.

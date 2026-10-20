@@ -8,13 +8,13 @@ function eventRequest({
   eventId = "evt_immersion_1",
   type = "checkout.session.completed",
   paymentStatus = "paid",
-  paymentLink = "plink_deposit",
+  paymentType = "deposit",
   amount = 124_950,
 }: {
   eventId?: string;
   type?: string;
   paymentStatus?: string;
-  paymentLink?: string;
+  paymentType?: string;
   amount?: number;
 } = {}) {
   const body = JSON.stringify({
@@ -28,7 +28,8 @@ function eventRequest({
         livemode: false,
         mode: "payment",
         payment_status: paymentStatus,
-        payment_link: paymentLink,
+        payment_link: null,
+        metadata: { program: "global-health-immersion", payment_type: paymentType, selected_email: "participant@example.com" },
         amount_total: amount,
         currency: "usd",
         customer_details: { name: "Test Participant", email: "participant@example.com" },
@@ -48,10 +49,13 @@ function eventRequest({
 
 beforeEach(() => {
   vi.stubEnv("VERCEL_ENV", "preview");
-  vi.stubEnv("STRIPE_SECRET_KEY", "test-key-placeholder");
+  vi.stubEnv("NEXT_PUBLIC_IMMERSION_STRIPE_TEST_ENABLED", "true");
+  vi.stubEnv("STRIPE_SECRET_KEY", "sk_test_fixture");
   vi.stubEnv("STRIPE_IMMERSION_WEBHOOK_SECRET", secret);
-  vi.stubEnv("STRIPE_IMMERSION_DEPOSIT_LINK_ID", "plink_deposit");
-  vi.stubEnv("STRIPE_IMMERSION_FULL_LINK_ID", "plink_full");
+  vi.stubEnv("STRIPE_IMMERSION_DEPOSIT_PRICE_ID", "price_deposit");
+  vi.stubEnv("STRIPE_IMMERSION_FULL_PRICE_ID", "price_full");
+  vi.stubEnv("IMMERSION_INVITE_TOKEN_SECRET", "x".repeat(48));
+  vi.stubEnv("IMMERSION_SELECTED_PARTICIPANTS_JSON", JSON.stringify([{ name: "Test Participant", email: "participant@example.com" }]));
   vi.stubEnv("RESEND_API_KEY", "resend-fixture");
   vi.stubEnv("FORM_NOTIFICATION_FROM", "Akomapa <payments@example.com>");
   vi.stubEnv("FORM_NOTIFICATION_TO", "staff@example.com");
@@ -96,7 +100,7 @@ describe("Immersion Stripe webhook", () => {
     expect(
       (await POST(eventRequest({
         type: "checkout.session.async_payment_succeeded",
-        paymentLink: "plink_full",
+        paymentType: "full",
         amount: 249_900,
       }))).status,
     ).toBe(200);

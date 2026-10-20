@@ -22,6 +22,7 @@ export async function sendImmersionPaymentNotification({
     `Amount: USD ${amount}`,
     `Payer name: ${name}`,
     `Payer email: ${email}`,
+    `Selected applicant email: ${session.metadata?.selected_email || "Not provided"}`,
     `Checkout Session: ${session.id}`,
     `Stripe event: ${eventId}`,
     paymentType === "deposit"

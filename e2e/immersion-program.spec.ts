@@ -399,7 +399,7 @@ test.describe("Immersion program responsive editorial layout", () => {
   });
 });
 
-test("preview-only Immersion payments require confirmation and open Stripe in a new tab", async ({
+test("preview-only Immersion payments ask for email before offering checkout", async ({
   page,
 }) => {
   await page.setViewportSize({ width: 390, height: 844 });
@@ -411,14 +411,11 @@ test("preview-only Immersion payments require confirmation and open Stripe in a 
   const section = page.locator("[data-immersion-payment-section]");
   test.skip((await section.count()) === 0, "Payment section is enabled only in preview");
 
-  await expect(section.getByRole("link", { name: /Pay \$1,249\.50 deposit/ })).toHaveCount(0);
+  await expect(section.getByRole("textbox", { name: /Email address/ })).toHaveCount(0);
   await section.getByRole("checkbox").check();
-  const deposit = section.getByRole("link", { name: /Pay \$1,249\.50 deposit/ });
-  const full = section.getByRole("link", { name: /Pay \$2,499 in full/ });
-  await expect(deposit).toHaveAttribute("href", /^https:\/\/buy\.stripe\.com\/test_/);
-  await expect(full).toHaveAttribute("href", /^https:\/\/buy\.stripe\.com\/test_/);
-  await expect(deposit).toHaveAttribute("target", "_blank");
-  await expect(full).toHaveAttribute("target", "_blank");
+  await expect(section.getByRole("textbox", { name: /Email address/ })).toBeVisible();
+  await expect(section.getByRole("button", { name: /Pay \$1,249\.50 deposit/ })).toHaveCount(0);
+  await expect(section.getByRole("button", { name: /Pay \$2,499 in full/ })).toHaveCount(0);
   await assertNoHorizontalOverflow(page);
 });
 
