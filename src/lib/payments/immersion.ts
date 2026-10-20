@@ -14,21 +14,32 @@ const inviteesSchema = z.array(z.object({
 })).min(1);
 type Invitee = z.infer<typeof inviteesSchema>[number];
 type TokenPurpose = "email" | "session";
+export type ImmersionMode = "test" | "live";
 
-export function previewImmersionEnabled() {
-  return (process.env.VERCEL_ENV === "preview" || process.env.NODE_ENV === "development") &&
-    process.env.NEXT_PUBLIC_IMMERSION_STRIPE_TEST_ENABLED === "true";
+function configuredMode(allowDisabled = false): ImmersionMode | null {
+  if (process.env.VERCEL_ENV === "production") {
+    return allowDisabled || process.env.IMMERSION_STRIPE_LIVE_ENABLED === "true" ? "live" : null;
+  }
+  if (process.env.VERCEL_ENV === "preview" || (!process.env.VERCEL_ENV && process.env.NODE_ENV === "development")) {
+    return allowDisabled || process.env.NEXT_PUBLIC_IMMERSION_STRIPE_TEST_ENABLED === "true" ? "test" : null;
+  }
+  return null;
 }
 
 export function getImmersionConfig() {
-  if (!previewImmersionEnabled()) return null;
+  const mode = configuredMode();
+  if (!mode) return null;
   const secret = process.env.IMMERSION_INVITE_TOKEN_SECRET;
-  const stripeKey = process.env.STRIPE_SECRET_KEY;
-  const depositPrice = process.env.STRIPE_IMMERSION_DEPOSIT_PRICE_ID;
-  const fullPrice = process.env.STRIPE_IMMERSION_FULL_PRICE_ID;
-  const balancePrice = process.env.STRIPE_IMMERSION_BALANCE_PRICE_ID;
-  if (!secret || secret.length < 32 || !stripeKey?.startsWith("sk_test_") ||
+  const stripeKey = mode === "live" ? process.env.STRIPE_IMMERSION_LIVE_RESTRICTED_KEY : process.env.STRIPE_SECRET_KEY;
+  const depositPrice = mode === "live" ? process.env.STRIPE_IMMERSION_LIVE_DEPOSIT_PRICE_ID : process.env.STRIPE_IMMERSION_DEPOSIT_PRICE_ID;
+  const fullPrice = mode === "live" ? process.env.STRIPE_IMMERSION_LIVE_FULL_PRICE_ID : process.env.STRIPE_IMMERSION_FULL_PRICE_ID;
+  const balancePrice = mode === "live" ? process.env.STRIPE_IMMERSION_LIVE_BALANCE_PRICE_ID : process.env.STRIPE_IMMERSION_BALANCE_PRICE_ID;
+  const webhookSecret = mode === "live" ? process.env.STRIPE_IMMERSION_LIVE_WEBHOOK_SECRET : process.env.STRIPE_IMMERSION_WEBHOOK_SECRET;
+  const baseUrl = mode === "live" ? process.env.IMMERSION_LIVE_BASE_URL : undefined;
+  if (!secret || secret.length < 32 || !stripeKey || !depositPrice || !fullPrice || !balancePrice ||
+    (mode === "live" ? !stripeKey?.startsWith("rk_live_") : !stripeKey?.startsWith("sk_test_")) ||
     !depositPrice?.startsWith("price_") || !fullPrice?.startsWith("price_") || !balancePrice?.startsWith("price_") ||
+    (mode === "live" && (!webhookSecret?.startsWith("whsec_") || !baseUrl?.startsWith("https://"))) ||
     !process.env.RESEND_API_KEY || !process.env.FORM_NOTIFICATION_FROM ||
     !process.env.FORM_NOTIFICATION_TO) return null;
   let roster: Invitee[];
@@ -37,7 +48,25 @@ export function getImmersionConfig() {
   } catch { return null; }
   const emails = roster.map((person) => person.email.toLowerCase());
   if (new Set(emails).size !== emails.length) return null;
-  return { secret, stripeKey, depositPrice, fullPrice, balancePrice, roster };
+  if (baseUrl) {
+    try {
+      const url = new URL(baseUrl);
+      if (url.protocol !== "https:" || url.username || url.password || url.pathname !== "/" || url.search || url.hash) return null;
+    } catch { return null; }
+  }
+  return { mode, secret, stripeKey, depositPrice, fullPrice, balancePrice, webhookSecret, baseUrl, roster };
+}
+
+export function getImmersionWebhookConfig() {
+  // Paid Sessions can settle after the payment section is switched off or an
+  // invitee is removed, so webhook verification must not depend on either.
+  const mode = configuredMode(true);
+  if (!mode) return null;
+  const stripeKey = mode === "live" ? process.env.STRIPE_IMMERSION_LIVE_RESTRICTED_KEY : process.env.STRIPE_SECRET_KEY;
+  const webhookSecret = mode === "live" ? process.env.STRIPE_IMMERSION_LIVE_WEBHOOK_SECRET : process.env.STRIPE_IMMERSION_WEBHOOK_SECRET;
+  if (!stripeKey || !webhookSecret || !webhookSecret.startsWith("whsec_") ||
+    (mode === "live" ? !stripeKey.startsWith("rk_live_") : !stripeKey.startsWith("sk_test_"))) return null;
+  return { mode, stripeKey, webhookSecret };
 }
 
 export function findInvitee(roster: Invitee[], email: string) {

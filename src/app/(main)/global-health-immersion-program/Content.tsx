@@ -104,7 +104,8 @@ function GlanceItem({
 }
 
 export default function Content() {
-  const paymentEnabled = Boolean(getImmersionConfig());
+  const paymentConfig = getImmersionConfig();
+  const paymentEnabled = Boolean(paymentConfig);
   const {
     eyebrow,
     applicationStatus,
@@ -260,7 +261,7 @@ export default function Content() {
         </div>
       </section>
 
-      {paymentEnabled ? <ImmersionPaymentSection /> : null}
+      {paymentConfig ? <ImmersionPaymentSection mode={paymentConfig.mode} /> : null}
 
       <section
         aria-labelledby="program-purpose-title"

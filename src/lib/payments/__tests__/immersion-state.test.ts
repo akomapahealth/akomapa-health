@@ -37,4 +37,12 @@ describe("Immersion Stripe payment state", () => {
     expect(summarizeImmersionSessions([session("cs_open", "deposit", "open", "unpaid")], email).openSession)
       .toEqual({ choice: "deposit", url: "https://checkout.stripe.com/c/pay/test" });
   });
+
+  it("keeps live and sandbox payment histories separate", () => {
+    const sandboxDeposit = session("cs_test_deposit", "deposit");
+    const liveDeposit = { ...session("cs_live_deposit", "deposit"), livemode: true };
+    expect(summarizeImmersionSessions([sandboxDeposit], email, "live").stage).toBe("initial");
+    expect(summarizeImmersionSessions([liveDeposit], email, "test").stage).toBe("initial");
+    expect(summarizeImmersionSessions([liveDeposit], email, "live").stage).toBe("balance");
+  });
 });

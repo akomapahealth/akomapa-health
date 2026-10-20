@@ -1,10 +1,10 @@
 import "server-only";
 import { createHmac } from "node:crypto";
 import type Stripe from "stripe";
-import { IMMERSION_DEPOSIT_CENTS, IMMERSION_FULL_CENTS } from "./immersion";
+import { IMMERSION_DEPOSIT_CENTS, IMMERSION_FULL_CENTS, type ImmersionMode } from "./immersion";
 
 export type ImmersionPaymentChoice = "deposit" | "full" | "balance";
-export type ImmersionPaymentStage = "initial" | "balance" | "paid" | "pending" | "unavailable";
+export type ImmersionPaymentStage = "initial" | "balance" | "paid" | "pending" | "unavailable" | "closed";
 
 type SessionSummary = Pick<Stripe.Checkout.Session,
   "id" | "status" | "payment_status" | "metadata" | "amount_total" | "currency" |
@@ -22,11 +22,11 @@ export function inviteeFingerprint(email: string, secret: string) {
   return createHmac("sha256", secret).update(email.trim().toLowerCase()).digest("hex").slice(0, 32);
 }
 
-function validChoice(session: SessionSummary, email: string): ImmersionPaymentChoice | null {
+function validChoice(session: SessionSummary, email: string, mode: ImmersionMode): ImmersionPaymentChoice | null {
   const choice = session.metadata?.payment_type;
   if (choice !== "deposit" && choice !== "full" && choice !== "balance") return null;
   const amount = choice === "full" ? IMMERSION_FULL_CENTS : IMMERSION_DEPOSIT_CENTS;
-  if (session.livemode || session.mode !== "payment" || session.payment_link ||
+  if (session.livemode !== (mode === "live") || session.mode !== "payment" || session.payment_link ||
     session.metadata?.program !== "global-health-immersion" ||
     session.metadata.selected_email?.toLowerCase() !== email.toLowerCase() ||
     session.currency !== "usd" || session.amount_total !== amount) return null;
@@ -35,9 +35,9 @@ function validChoice(session: SessionSummary, email: string): ImmersionPaymentCh
   return choice;
 }
 
-export function summarizeImmersionSessions(sessions: SessionSummary[], email: string): ImmersionPaymentState {
+export function summarizeImmersionSessions(sessions: SessionSummary[], email: string, mode: ImmersionMode = "test"): ImmersionPaymentState {
   const relevant = sessions.flatMap((session) => {
-    const choice = validChoice(session, email);
+    const choice = validChoice(session, email, mode);
     return choice ? [{ session, choice }] : [];
   });
   const paid = relevant.filter(({ session }) => session.status === "complete" && session.payment_status === "paid");
@@ -68,7 +68,7 @@ export function summarizeImmersionSessions(sessions: SessionSummary[], email: st
   };
 }
 
-export async function loadImmersionPaymentState(stripe: Stripe, email: string): Promise<ImmersionPaymentState> {
+export async function loadImmersionPaymentState(stripe: Stripe, email: string, mode: ImmersionMode = "test"): Promise<ImmersionPaymentState> {
   const customers = await stripe.customers.list({ email, limit: 100 });
   if (customers.has_more) throw new Error("Too many matching customers");
   const matching = customers.data.filter((customer) =>
@@ -77,6 +77,6 @@ export async function loadImmersionPaymentState(stripe: Stripe, email: string): 
   const lists = await Promise.all(matching.map((customer) =>
     stripe.checkout.sessions.list({ customer: customer.id, limit: 100 })));
   if (lists.some((list) => list.has_more)) throw new Error("Too many Immersion Checkout Sessions");
-  const state = summarizeImmersionSessions(lists.flatMap((list) => list.data), email);
+  const state = summarizeImmersionSessions(lists.flatMap((list) => list.data), email, mode);
   return { ...state, customerId: state.customerId || matching[0]?.id };
 }

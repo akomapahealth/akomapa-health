@@ -25,6 +25,22 @@ describe("Immersion invite configuration", () => {
     expect(getImmersionConfig()).toBeNull();
   });
 
+  it("requires separate live resources before enabling production", () => {
+    configure();
+    vi.stubEnv("VERCEL_ENV", "production");
+    vi.stubEnv("IMMERSION_STRIPE_LIVE_ENABLED", "true");
+    expect(getImmersionConfig()).toBeNull();
+    vi.stubEnv("STRIPE_IMMERSION_LIVE_RESTRICTED_KEY", "rk_live_fixture");
+    vi.stubEnv("STRIPE_IMMERSION_LIVE_DEPOSIT_PRICE_ID", "price_live_deposit");
+    vi.stubEnv("STRIPE_IMMERSION_LIVE_FULL_PRICE_ID", "price_live_full");
+    vi.stubEnv("STRIPE_IMMERSION_LIVE_BALANCE_PRICE_ID", "price_live_balance");
+    vi.stubEnv("STRIPE_IMMERSION_LIVE_WEBHOOK_SECRET", "whsec_live_fixture");
+    vi.stubEnv("IMMERSION_LIVE_BASE_URL", "https://akomapa.org");
+    expect(getImmersionConfig()).toMatchObject({ mode: "live", baseUrl: "https://akomapa.org" });
+    vi.stubEnv("STRIPE_IMMERSION_LIVE_RESTRICTED_KEY", "sk_test_wrong_mode");
+    expect(getImmersionConfig()).toBeNull();
+  });
+
   it("rejects missing configuration and forged tokens", () => {
     configure();
     vi.stubEnv("IMMERSION_SELECTED_PARTICIPANTS_JSON", "not-json");

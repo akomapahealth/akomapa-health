@@ -2,7 +2,7 @@ import Stripe from "stripe";
 import {
   IMMERSION_DEPOSIT_CENTS,
   IMMERSION_FULL_CENTS,
-  getImmersionConfig,
+  getImmersionWebhookConfig,
 } from "@/lib/payments/immersion";
 import { sendImmersionPaymentNotification } from "@/lib/payments/immersion-notification";
 
@@ -14,17 +14,11 @@ const paymentEvents = new Set([
 ]);
 
 export async function POST(request: Request) {
-  if (
-    process.env.VERCEL_ENV !== "preview" &&
-    process.env.NODE_ENV !== "development"
-  ) {
-    return new Response(null, { status: 404 });
-  }
-
-  const config = getImmersionConfig();
-  const webhookSecret = process.env.STRIPE_IMMERSION_WEBHOOK_SECRET;
+  // Existing Sessions may settle after staff switch off new checkouts.
+  const config = getImmersionWebhookConfig();
+  const webhookSecret = config?.webhookSecret;
   if (!config || !webhookSecret) {
-    return new Response(null, { status: 503 });
+    return new Response(null, { status: 404 });
   }
 
   const signature = request.headers.get("stripe-signature");
@@ -47,8 +41,8 @@ export async function POST(request: Request) {
 
   const session = event.data.object as Stripe.Checkout.Session;
   if (
-    event.livemode ||
-    session.livemode ||
+    event.livemode !== (config.mode === "live") ||
+    session.livemode !== (config.mode === "live") ||
     session.mode !== "payment" ||
     session.payment_status !== "paid"
   ) {
@@ -59,6 +53,7 @@ export async function POST(request: Request) {
   const selectedEmail = session.metadata?.selected_email;
   if (session.payment_link || session.metadata?.program !== "global-health-immersion" ||
     (paymentType !== "deposit" && paymentType !== "full" && paymentType !== "balance") || !selectedEmail ||
+    (config.mode === "live" && (!session.metadata?.terms_version || !session.metadata?.terms_accepted_at)) ||
     session.customer_details?.email?.toLowerCase() !== selectedEmail.toLowerCase()) {
     return Response.json({ received: true });
   }
@@ -75,6 +70,7 @@ export async function POST(request: Request) {
     try {
       const deposit = await new Stripe(config.stripeKey).checkout.sessions.retrieve(depositId);
       if (deposit.status !== "complete" || deposit.payment_status !== "paid" ||
+        deposit.livemode !== (config.mode === "live") ||
         deposit.metadata?.payment_type !== "deposit" ||
         deposit.metadata?.program !== "global-health-immersion" ||
         deposit.metadata.selected_email?.toLowerCase() !== selectedEmail.toLowerCase() ||
