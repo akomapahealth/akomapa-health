@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { FormEvent, useEffect, useState } from "react";
+import { IMMERSION_BALANCE_DUE_LABEL } from "@/lib/payments/immersion-terms";
 
 type Status = { verified: boolean; firstName?: string };
 
@@ -61,7 +62,7 @@ export default function ImmersionPaymentSection() {
       <div className="site-container mx-auto px-4 py-16 md:py-20"><div className="max-w-3xl">
         <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#007C95] dark:text-[#66C4DC]">Registration payment · test checkout</p>
         <h2 id="immersion-payment-title" className="mt-4 font-heading text-3xl font-semibold leading-tight md:text-4xl">Have you registered to experience the Immersion Program?</h2>
-        <p className="mt-5 text-base leading-7 text-[#2F3332]/80 dark:text-[#E6E7E7]/80">Selected applicants can verify their registered email to view payment options. The total program fee is $2,499. A $1,249.50 deposit counts toward it, leaving $1,249.50 for manual follow-up. Payment alone does not confirm a place in the cohort.</p>
+        <p className="mt-5 text-base leading-7 text-[#2F3332]/80 dark:text-[#E6E7E7]/80">Selected applicants can verify their registered email to view payment options. The total program fee is $2,499. A $1,249.50 deposit counts toward it; the remaining $1,249.50 is due {IMMERSION_BALANCE_DUE_LABEL} and will be collected separately. Payment alone does not confirm a place in the cohort.</p>
         <label className="mt-7 flex max-w-2xl cursor-pointer items-start gap-3 border border-[#1C1F1E]/20 bg-white p-4 dark:border-[#FCFAEF]/20 dark:bg-[#121514]">
           <input type="checkbox" checked={registered} onChange={(event) => setRegistered(event.target.checked)} className="mt-1 h-5 w-5 shrink-0 accent-[#0F4C5C]" />
           <span className="text-sm font-medium leading-6">I have submitted my Immersion Program application and understand that payment does not guarantee acceptance.</span>

@@ -1,6 +1,6 @@
 # Immersion Stripe preview handoff
 
-The Immersion payment flow is a sandbox test. It is enabled only when `VERCEL_ENV=preview` (or local development) and `NEXT_PUBLIC_IMMERSION_STRIPE_TEST_ENABLED=true`. Production stays off until Akomapa approves the balance due date, refund terms, live Stripe resources, and a separate launch change.
+The Immersion payment flow is a sandbox test. It is enabled only when `VERCEL_ENV=preview` (or local development) and `NEXT_PUBLIC_IMMERSION_STRIPE_TEST_ENABLED=true`. Production stays off until Akomapa approves the refund terms, live Stripe resources, and a separate launch change. The remaining $1,249.50 balance deadline supplied by Akomapa is **November 30, 2026 at 11:59 p.m. Eastern Time**; collection remains manual. The refund policy draft is kept in a Git-ignored local file for executive review.
 
 ## Selected applicants and verification
 
@@ -12,7 +12,7 @@ The previous deposit and full-fee sandbox Payment Links (`plink_1USTRBCGfDUBJPt0
 
 ## Preview settings
 
-Set these in the `akomapa-staging` Vercel project for the desired Preview branch (`codex/immersion-stripe-payments`, then `dev` after merge). Use **Sensitive** for secrets and the roster. Redeploy after changing values.
+Set these in the `akomapa-staging` Vercel project for the desired Preview branch (`dev` after merge). Use **Sensitive** for secrets and the roster. Redeploy after changing values.
 
 | Variable | Value |
 | --- | --- |
@@ -33,7 +33,7 @@ Remove the obsolete `NEXT_PUBLIC_IMMERSION_STRIPE_DEPOSIT_URL`, `NEXT_PUBLIC_IMM
 
 The connected account is Akomapa Health Foundation Inc sandbox (`acct_1USSpJCGfDUBJPt0`). Prices are USD $1,249.50 deposit and $2,499 full fee. The deposit leaves $1,249.50 for **manual follow-up**. Checkout creates a Customer with the selected applicant's name and email, then uses that Customer in a hosted Session so the receipt address is locked to the verified email. The new tab opens `checkout.stripe.com`. No future charge is scheduled.
 
-Set the sandbox webhook destination to `https://<current-preview-host>/api/stripe/immersion-webhook` and subscribe to `checkout.session.completed` and `checkout.session.async_payment_succeeded`. The existing destination is `we_1USTlFCGfDUBJPt0wsG5NWVj`; its old deployment-specific URL must be updated for each new preview host. Store that destination's signing secret in Vercel. The webhook verifies Stripe's signature and the paid Session, then checks the program metadata, selected email, USD currency, and exact amount. It sends the intake mailbox the payer details, payment choice, amount, Checkout Session ID, and event ID. Resend's idempotency key uses the Stripe event ID; staff should reconcile by Session ID. A failed alert returns an error for Stripe retry.
+The sandbox webhook destination `we_1USTlFCGfDUBJPt0wsG5NWVj` now targets `https://akomapa-staging-qdy6zwhwx-akomapa-healths-projects.vercel.app/api/stripe/immersion-webhook`. It subscribes to `checkout.session.completed` and `checkout.session.async_payment_succeeded`. The URL is deployment-specific and must be updated for a later Preview host. Store that destination's signing secret in Vercel. The webhook verifies Stripe's signature and the paid Session, then checks the program metadata, selected email, USD currency, and exact amount. It sends the intake mailbox the payer details, payment choice, amount, Checkout Session ID, and event ID. Resend's idempotency key uses the Stripe event ID; staff should reconcile by Session ID. A failed alert returns an error for Stripe retry.
 
 In sandbox Settings → Business → Customer emails, **Successful payments** is on. In Settings → Business → Branding, Akomapa's dark wordmark is used for Checkout and the square mark for Email receipts. The owner confirmed the mark appears in the email preview and selected “Prefer logo over icon.” Stripe does not automatically email receipts for test charges. For live mode, recheck branding, support contact, and receipt settings. This is a payment receipt, not a donation tax acknowledgment or paid invoice.
 
@@ -47,4 +47,4 @@ In sandbox Settings → Business → Customer emails, **Successful payments** is
 
 ## Before live launch
 
-Akomapa must approve and publish the remaining $1,249.50 balance due date, refund policy, and acceptance language. Then create separate **live** Prices, a live webhook destination/signing secret, live secret key, and live receipt/branding settings. Build a separate production enablement change and run real low-value verification with an approved payment method. Do not reuse sandbox IDs or secrets.
+Akomapa must approve the proposed refund policy, publish final balance/refund/acceptance language, and add explicit terms acceptance before live Checkout. Then create separate **live** Prices, a live webhook destination/signing secret, live secret key, and live receipt/branding settings. Build a separate production enablement change and run real low-value verification with an approved payment method. Do not reuse sandbox IDs or secrets.

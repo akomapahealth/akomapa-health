@@ -14,6 +14,7 @@ import {
 import { immersionProgram } from "@/data/immersion-program";
 import { cn } from "@/lib/utils";
 import { getImmersionConfig } from "@/lib/payments/immersion";
+import { IMMERSION_BALANCE_DUE_LABEL } from "@/lib/payments/immersion-terms";
 
 const sectionContainerClass =
   "site-container mx-auto px-4 py-16 md:py-20 lg:py-24";
@@ -129,7 +130,7 @@ export default function Content() {
           label: "Deposit option",
           price: "$1,249.50",
           description:
-            "50% toward the program fee; the remaining $1,249.50 is arranged later.",
+            `50% toward the program fee; the remaining $1,249.50 is due ${IMMERSION_BALANCE_DUE_LABEL} and collected separately.`,
         },
       ]
     : registration;

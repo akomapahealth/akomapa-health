@@ -1,5 +1,6 @@
 import type Stripe from "stripe";
 import { getResendConfig } from "@/lib/intake/server/config";
+import { IMMERSION_BALANCE_DUE_LABEL } from "@/lib/payments/immersion-terms";
 
 const RESEND_EMAILS_URL = "https://api.resend.com/emails";
 
@@ -26,7 +27,7 @@ export async function sendImmersionPaymentNotification({
     `Checkout Session: ${session.id}`,
     `Stripe event: ${eventId}`,
     paymentType === "deposit"
-      ? "Remaining program balance: USD 1,249.50. Arrange manual follow-up."
+      ? `Remaining program balance: USD 1,249.50 due ${IMMERSION_BALANCE_DUE_LABEL}. Arrange manual follow-up.`
       : "Program fee paid in full.",
     "Verify the payment in Stripe before taking action. Payment does not confirm program acceptance.",
   ].join("\n");
