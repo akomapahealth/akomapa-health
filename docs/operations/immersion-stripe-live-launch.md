@@ -5,7 +5,7 @@ The live flow is separate from the tested sandbox Preview. It remains off until 
 ## 1. Confirm the account and public offer
 
 1. In Stripe Dashboard, switch to **live mode** and finish Stripe account activation, business details, payout account, support contact, and identity verification. Confirm this is Akomapa Health Foundation Inc's intended live account and that Stripe shows payments and payouts enabled. On October 20, 2026, the live account was connected but charges and payouts were disabled pending an identity-verification requirement; resolve that in Stripe before launch.
-2. Confirm the Production Vercel domain that participants should use. Set `IMMERSION_LIVE_BASE_URL` to its HTTPS origin, for example `https://akomapa.org`, with no path. Verification emails and Stripe return URLs use this value.
+2. Use the canonical Production domain `https://www.akomapa.org`. Set `IMMERSION_LIVE_BASE_URL` to that HTTPS origin, with no path or trailing slash. The apex domain redirects to `www`; verification emails and Stripe return URLs should use the canonical domain directly.
 3. Review the published [payment terms](/global-health-immersion-program/payment-terms) and the written offer/itinerary sent to each selected participant. The public terms state the total, deposit, balance deadline, inclusions, cancellation cutoff, exceptions, and refund process. The itinerary can carry operational details and specify which entry fees and materials, if any, are covered. Do not promise a place until Akomapa confirms it in writing.
 4. Confirm the Production roster has only selected participants and that the team can handle the maximum 12 confirmed places manually. A payment does not automatically reserve a place; staff must stop invites or turn the flow off when capacity is reached.
 
@@ -32,7 +32,7 @@ The server retrieves the selected live Price and verifies that it is active, one
 ## 3. Create a restricted live key and webhook
 
 1. In live-mode **API keys**, create a **restricted** server key (`rk_live_`) named for the Immersion production service. Give it only the permissions needed by the server: Customers read/write, Checkout Sessions read/write, and Prices read. The webhook signature check itself does not require an API call, but balance verification retrieves a Checkout Session. If Stripe reports a missing permission, inspect the request log and grant only that resource permission.
-2. Live webhook destination `we_1USkQwCQSVxDNx5Dsu4KZWIJ` is enabled at `https://akomapa.org/api/stripe/immersion-webhook` for snapshot `checkout.session.completed` and `checkout.session.async_payment_succeeded` events. Reveal this destination's own live `whsec_` signing secret in Stripe Dashboard and place it in Vercel Production; never record it here. The endpoint verifies the raw Stripe signature and exact program amount and alerts the staff mailbox only for paid Sessions. It ignores sandbox events.
+2. Live webhook destination `we_1USkQwCQSVxDNx5Dsu4KZWIJ` is enabled at `https://www.akomapa.org/api/stripe/immersion-webhook` for snapshot `checkout.session.completed` and `checkout.session.async_payment_succeeded` events. Reveal this destination's own live `whsec_` signing secret in Stripe Dashboard and place it in Vercel Production; never record it here. The endpoint verifies the raw Stripe signature and exact program amount and alerts the staff mailbox only for paid Sessions. It ignores sandbox events.
 3. Keep this webhook pointed at the stable production domain, not a versioned Vercel deployment URL. In Stripe Workbench, inspect delivery attempts after the first live payment. If an alert fails, Stripe retries; staff must reconcile Stripe payments against received alerts by Checkout Session ID.
 
 ## 4. Configure Vercel Production
@@ -42,7 +42,7 @@ Add these to the production Vercel project, scoped **Production** only. Mark the
 | Variable | Production value |
 | --- | --- |
 | `IMMERSION_STRIPE_LIVE_ENABLED` | `true` only at launch; omit or `false` while preparing |
-| `IMMERSION_LIVE_BASE_URL` | Final HTTPS site origin, such as `https://akomapa.org` |
+| `IMMERSION_LIVE_BASE_URL` | `https://www.akomapa.org` |
 | `IMMERSION_SELECTED_PARTICIPANTS_JSON` | Server-only JSON roster of selected participants; no temporary test entries |
 | `IMMERSION_INVITE_TOKEN_SECRET` | New random value of at least 32 characters, different from Preview |
 | `STRIPE_IMMERSION_LIVE_RESTRICTED_KEY` | Live restricted `rk_live_` key |
