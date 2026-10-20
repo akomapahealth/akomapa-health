@@ -93,7 +93,11 @@ test.describe("Immersion program responsive editorial layout", () => {
         await expect(
           page.getByText(immersionProgram.applicationStatus, { exact: true }),
         ).toBeVisible();
-        await expect(pageShell.locator("section")).toHaveCount(7);
+        const paymentSection = page.locator("[data-immersion-payment-section]");
+        const isPaymentPreview = (await paymentSection.count()) === 1;
+        await expect(pageShell.locator("section")).toHaveCount(
+          isPaymentPreview ? 8 : 7,
+        );
         await expect(
           pageShell.locator('[data-section-tone="teal"]'),
         ).toHaveCount(2);
@@ -104,7 +108,26 @@ test.describe("Immersion program responsive editorial layout", () => {
           await expect(glance.getByText(fact.label, { exact: true })).toBeVisible();
           await expect(glance.getByText(fact.value, { exact: true })).toBeVisible();
         }
-        for (const option of immersionProgram.registration) {
+        const registrationOptions = isPaymentPreview
+          ? [
+              {
+                label: "Program fee",
+                price: "$2,499",
+                description: "Full program fee for the January 2027 cohort.",
+              },
+              {
+                label: "Deposit option",
+                price: "$1,249.50",
+                description:
+                  "50% toward the program fee; the remaining $1,249.50 is arranged later.",
+              },
+            ]
+          : immersionProgram.registration.map((option) => ({
+              label: option.label,
+              price: option.price,
+              description: option.description ?? `By ${option.deadline}`,
+            }));
+        for (const option of registrationOptions) {
           await expect(
             glance.getByText(option.label, { exact: true }),
           ).toBeVisible();
@@ -112,7 +135,7 @@ test.describe("Immersion program responsive editorial layout", () => {
             glance.getByText(option.price, { exact: true }),
           ).toBeVisible();
           await expect(
-            glance.getByText(option.description ?? `By ${option.deadline}`, {
+            glance.getByText(option.description, {
               exact: true,
             }),
           ).toBeVisible();
@@ -374,6 +397,29 @@ test.describe("Immersion program responsive editorial layout", () => {
       )
       .toBe(true);
   });
+});
+
+test("preview-only Immersion payments require confirmation and open Stripe in a new tab", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await preparePage(page, "light");
+  await page.goto("/global-health-immersion-program", {
+    waitUntil: "domcontentloaded",
+  });
+
+  const section = page.locator("[data-immersion-payment-section]");
+  test.skip((await section.count()) === 0, "Payment section is enabled only in preview");
+
+  await expect(section.getByRole("link", { name: /Pay \$1,249\.50 deposit/ })).toHaveCount(0);
+  await section.getByRole("checkbox").check();
+  const deposit = section.getByRole("link", { name: /Pay \$1,249\.50 deposit/ });
+  const full = section.getByRole("link", { name: /Pay \$2,499 in full/ });
+  await expect(deposit).toHaveAttribute("href", /^https:\/\/buy\.stripe\.com\/test_/);
+  await expect(full).toHaveAttribute("href", /^https:\/\/buy\.stripe\.com\/test_/);
+  await expect(deposit).toHaveAttribute("target", "_blank");
+  await expect(full).toHaveAttribute("target", "_blank");
+  await assertNoHorizontalOverflow(page);
 });
 
 test.describe("Immersion contact intents", () => {

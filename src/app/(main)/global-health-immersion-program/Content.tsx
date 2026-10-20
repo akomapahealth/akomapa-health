@@ -6,12 +6,14 @@ import { FadeIn } from "@/components/animations";
 import ImmersionAlertSection from "@/components/immersion/ImmersionAlertSection";
 import ImmersionGoogleFormButton from "@/components/immersion/ImmersionGoogleFormButton";
 import ImmersionHeroMedia from "@/components/immersion/ImmersionHeroMedia";
+import ImmersionPaymentSection from "@/components/immersion/ImmersionPaymentSection";
 import {
   PublicCta,
   SectionEyebrow,
 } from "@/components/shared/PublicPagePrimitives";
 import { immersionProgram } from "@/data/immersion-program";
 import { cn } from "@/lib/utils";
+import { getPreviewImmersionPaymentLinks } from "@/lib/payments/immersion";
 
 const sectionContainerClass =
   "site-container mx-auto px-4 py-16 md:py-20 lg:py-24";
@@ -101,6 +103,7 @@ function GlanceItem({
 }
 
 export default function Content() {
+  const paymentLinks = getPreviewImmersionPaymentLinks();
   const {
     eyebrow,
     applicationStatus,
@@ -115,6 +118,21 @@ export default function Content() {
     hostCities,
     images,
   } = immersionProgram;
+  const displayedRegistration = paymentLinks
+    ? [
+        {
+          label: "Program fee",
+          price: "$2,499",
+          description: "Full program fee for the January 2027 cohort.",
+        },
+        {
+          label: "Deposit option",
+          price: "$1,249.50",
+          description:
+            "50% toward the program fee; the remaining $1,249.50 is arranged later.",
+        },
+      ]
+    : registration;
 
   return (
     <div
@@ -224,12 +242,12 @@ export default function Content() {
                 )}
               />
             ))}
-            {registration.map((option, index) => (
+            {displayedRegistration.map((option, index) => (
               <GlanceItem
                 key={option.label}
                 label={option.label}
                 value={option.price}
-                description={option.description ?? `By ${option.deadline}`}
+                description={option.description ?? ""}
                 className={cn(
                   "md:col-span-3 md:border-t",
                   index > 0 && "md:border-l",
@@ -240,6 +258,8 @@ export default function Content() {
           </dl>
         </div>
       </section>
+
+      {paymentLinks ? <ImmersionPaymentSection links={paymentLinks} /> : null}
 
       <section
         aria-labelledby="program-purpose-title"
