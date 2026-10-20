@@ -42,7 +42,7 @@ function eventRequest({
         payment_status: paymentStatus,
         payment_link: null,
         customer: "cus_test",
-        metadata: { program: "global-health-immersion", payment_type: paymentType, selected_email: "participant@example.com", ...(livemode ? { terms_version: "2026-10-20-pilot-1", terms_accepted_at: "2026-10-20T12:00:00Z" } : {}), ...(paymentType === "balance" ? { deposit_session_id: "cs_deposit" } : {}) },
+        metadata: { program: "global-health-immersion", payment_type: paymentType, selected_email: "participant@example.com", ...(livemode ? { terms_version: "2026-10-20-pilot-2", terms_accepted_at: "2026-10-20T12:00:00Z" } : {}), ...(paymentType === "balance" ? { deposit_session_id: "cs_deposit" } : {}) },
         amount_total: amount,
         currency: "usd",
         customer_details: { name: "Test Participant", email: "participant@example.com" },

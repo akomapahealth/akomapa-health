@@ -28,7 +28,7 @@ export default function ImmersionPaymentTermsPage() {
 
         <section className={section} aria-labelledby="immersion-terms-fee">
           <h2 id="immersion-terms-fee" className={heading}>Program fee and what it covers</h2>
-          <p className={paragraph}>The total fee is <strong>USD $2,499</strong>. You may pay it in full or pay a <strong>$1,249.50 deposit</strong> and then a <strong>$1,249.50 balance</strong>. The deposit counts toward the total fee; it is not an additional charge. The balance is due {IMMERSION_BALANCE_DUE_LABEL}. You return to the verified payment page to pay it yourself. Akomapa will not automatically charge the same card later.</p>
+          <p className={paragraph}>The total fee is <strong>USD $2,499</strong>. You may pay it in full or pay a <strong>$1,249.50 deposit</strong> and then a <strong>$1,249.50 balance</strong>. The deposit counts toward the total fee; it is not an additional charge. New deposit and full-fee checkouts must be started by {IMMERSION_REFUND_REQUEST_CUTOFF_LABEL}; contact Akomapa for any later offer. The balance is due {IMMERSION_BALANCE_DUE_LABEL}. You return to the verified payment page to pay it yourself. Akomapa will not automatically charge the same card later.</p>
           <p className={paragraph}>The fee includes accommodation, meals, local transport, and program activities. Akomapa will communicate the pilot itinerary and practical details directly to selected participants. Entry fees and materials are included only where your written offer says they are. Akomapa is helping participants with the visa process, but there is no fixed visa-application deadline for this pilot. Your written offer will identify any other costs that you must pay separately.</p>
         </section>
 
