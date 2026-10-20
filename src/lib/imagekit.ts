@@ -18,6 +18,9 @@ interface ImageKitTransformations {
 
 const DEV_IMAGEKIT_FIXTURE_PATH = "/api/dev-imagekit";
 
+/** Paths under `public/static/` ship with the app instead of the ImageKit CDN. */
+export const LOCAL_PUBLIC_ASSET_PREFIX = "/static/";
+
 function isImageKitHostname(hostname: string): boolean {
   return hostname === "imagekit.io" || hostname.endsWith(".imagekit.io");
 }
@@ -40,10 +43,15 @@ function maybeDevImageKitFixtureUrl(url: string): string {
 /**
  * Whether `src` should use the ImageKit custom loader.
  * Relative paths are treated as ImageKit CDN paths (app convention for
- * `@/components/common/Image`). Absolute URLs use ImageKit only when hosted
+ * `@/components/common/Image`), except `/static/…`, which is committed under
+ * `public/static/` and optimized by Next. Absolute URLs use ImageKit only when hosted
  * on `*.imagekit.io`.
  */
 export function isImageKitSrc(src: string): boolean {
+  if (src.startsWith(LOCAL_PUBLIC_ASSET_PREFIX)) {
+    return false;
+  }
+
   if (!src.startsWith("http://") && !src.startsWith("https://")) {
     return true;
   }

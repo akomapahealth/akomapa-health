@@ -170,7 +170,7 @@ test.describe("Immersion program responsive editorial layout", () => {
         expect(layoutChecks.headingOverflow).toBe(false);
         expect(layoutChecks.glanceOverflow).toBe(false);
         expect(layoutChecks.experienceLinks).toHaveLength(1);
-        expect(layoutChecks.formLinks).toHaveLength(5);
+        expect(layoutChecks.formLinks).toHaveLength(3);
         for (const link of layoutChecks.experienceLinks) {
           expect(link.height, link.text).toBeGreaterThanOrEqual(44);
           expect(link.clipped, link.text).toBe(false);

@@ -363,6 +363,13 @@ export interface BlogPost {
   videoComingSoon?: boolean;
 }
 
+/**
+ * Celebration effects an announcement can opt into when it is selected in the
+ * announcement modal. Reserved for milestones (launches, partnerships, grants,
+ * publications) — never inferred from copy.
+ */
+export type AnnouncementCelebration = "confetti";
+
 export interface Announcement {
   id: string;
   title: string;
@@ -372,6 +379,11 @@ export interface Announcement {
   tag?: string;
   tagColor?: "lapis" | "amber" | "skobeloff";
   image?: string;
+  /**
+   * How `image` fills the announcement poster. Wide marks use `contain` so
+   * the artwork stays intact inside the 16:9 frame.
+   */
+  imageFit?: "cover" | "contain";
   videoUrl?: string;
   /** Optional poster override; otherwise YouTube/Vimeo preview or `image` is used. */
   thumbnail?: string;
@@ -387,6 +399,8 @@ export interface Announcement {
    * Leave undefined or empty to render the title in plain white.
    */
   titleHighlights?: string[];
+  /** Explicit opt-in for a brief celebratory effect when this slide is shown. */
+  celebration?: AnnouncementCelebration;
 }
 
 export interface DatedAnnouncement extends Announcement {

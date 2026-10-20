@@ -1,10 +1,7 @@
 import { expect, type Page } from "@playwright/test";
 import { test } from "./media/playwright";
 import { announcementCampaign } from "../src/data/announcements";
-import {
-  IMMERSION_APPLICATION_FORM_URL,
-  IMMERSION_INFO_SESSION_FORM_URL,
-} from "../src/config/links";
+import { IMMERSION_APPLICATION_FORM_URL } from "../src/config/links";
 
 async function preparePage(page: Page) {
   await page.addInitScript((version) => {
@@ -44,15 +41,12 @@ test.describe("Program CTA links", () => {
       "href",
       IMMERSION_APPLICATION_FORM_URL,
     );
-    const infoSessionLinks = page.getByRole("link", {
-      name: "RSVP for the Info Session",
-      exact: true,
-    });
-    await expect(infoSessionLinks).toHaveCount(2);
-    await expect(infoSessionLinks.first()).toHaveAttribute(
-      "href",
-      IMMERSION_INFO_SESSION_FORM_URL,
-    );
+    await expect(
+      page.getByRole("link", {
+        name: "RSVP for the Info Session",
+        exact: true,
+      }),
+    ).toHaveCount(0);
     await expect(page.locator("[data-intake-intent]")).toHaveCount(0);
   });
 

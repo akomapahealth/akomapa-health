@@ -28,16 +28,11 @@ export default function ImmersionAlertSection() {
               <p className="mt-5 max-w-2xl text-base leading-7 text-[#2F3332]/78 dark:text-[#E6E7E7]/78 md:text-lg">
                 {IMMERSION_INTEREST_COPY.section.body}
               </p>
-              <div className="mt-8 grid max-w-xl gap-3 sm:grid-cols-2">
+              <div className="mt-8 flex max-w-xl">
                 <ImmersionGoogleFormButton
                   form="application"
                   variant="solid"
-                  className="min-h-12 justify-center !text-[#1C1F1E]"
-                />
-                <ImmersionGoogleFormButton
-                  form="info-session"
-                  variant="outline"
-                  className="min-h-12 justify-center"
+                  className="min-h-12 w-full justify-center !text-[#1C1F1E] sm:w-auto sm:min-w-48"
                 />
               </div>
               <p className="mt-4 text-sm leading-6 text-[#2F3332]/65 dark:text-[#E6E7E7]/65">

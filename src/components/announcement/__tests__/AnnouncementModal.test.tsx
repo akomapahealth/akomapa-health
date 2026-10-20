@@ -1,11 +1,32 @@
-import { fireEvent, render, screen, within } from "@testing-library/react";
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import {
+  act,
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+  within,
+} from "@testing-library/react";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { useReducedMotion } from "framer-motion";
 import AnnouncementModal from "@/components/announcement/AnnouncementModal";
+import { CONFETTI_BURST_MS } from "@/components/announcement/AnnouncementConfetti";
+import { announcementCampaign, getActiveAnnouncementCampaign } from "@/data/announcements";
 import type { AnnouncementCampaign } from "@/lib/types";
 
 vi.mock("@/lib/analytics", () => ({
   trackEvent: vi.fn(),
 }));
+
+vi.mock("framer-motion", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("framer-motion")>();
+
+  return {
+    ...actual,
+    useReducedMotion: vi.fn(),
+  };
+});
+
+const mockedUseReducedMotion = vi.mocked(useReducedMotion);
 
 const twoCtaCampaign: AnnouncementCampaign = {
   version: "test-immersion-v1",
@@ -69,6 +90,7 @@ function renderModal(
 describe("AnnouncementModal", () => {
   beforeEach(() => {
     localStorage.clear();
+    mockedUseReducedMotion.mockReturnValue(false);
   });
 
   it("keeps Apply, RSVP, View All Updates, and Dismiss in the dialog", () => {
@@ -153,6 +175,19 @@ describe("AnnouncementModal", () => {
     ).not.toBeInTheDocument();
   });
 
+  it("sends internal CTAs to their ctaLink and closes the modal", () => {
+    const { onOpenChange } = renderModal({
+      ...twoCtaCampaign,
+      slides: [twoCtaCampaign.slides[1]],
+    });
+
+    const cta = screen.getByRole("link", { name: "Learn More" });
+    expect(cta).toHaveAttribute("href", "/programs/akomapa-ghltp");
+
+    fireEvent.click(cta);
+    expect(onOpenChange).toHaveBeenCalledWith(false);
+  });
+
   it("dismisses from the sticky footer", () => {
     const { onDismiss, onOpenChange } = renderModal();
 
@@ -162,6 +197,204 @@ describe("AnnouncementModal", () => {
     expect(onDismiss).toHaveBeenCalledTimes(1);
     expect(localStorage.getItem("akomapa-announcements-dismissed")).toBe(
       "test-immersion-v1",
+    );
+  });
+});
+
+const celebrationCampaign: AnnouncementCampaign = {
+  version: "test-launch-v1",
+  slides: [
+    {
+      id: "milestone-launch",
+      publishedAt: "2026-10-14T00:00:00.000Z",
+      tag: "Now Live",
+      tagColor: "skobeloff",
+      title: "A milestone is live",
+      description: "A celebratory milestone announcement.",
+      image: "/static/nkwapa/nkwapa-launch.webp",
+      ctaText: "Explore",
+      ctaLink: "https://example.com/launch",
+      isExternal: true,
+      celebration: "confetti",
+    },
+    {
+      id: "plain-update",
+      publishedAt: "2026-10-10T00:00:00.000Z",
+      tag: "Update",
+      title: "A regular update",
+      description: "Nothing to celebrate here.",
+      image: "/highlights/ug.jpg",
+      ctaText: "Read more",
+      ctaLink: "https://example.com/update",
+      isExternal: true,
+    },
+  ],
+};
+
+describe("AnnouncementModal celebration", () => {
+  beforeEach(() => {
+    localStorage.clear();
+    mockedUseReducedMotion.mockReturnValue(false);
+  });
+
+  afterEach(() => {
+    vi.useRealTimers();
+  });
+
+  it("bursts confetti for the published PLOS slide", () => {
+    const publication = announcementCampaign.slides.find(
+      ({ id }) => id === "plos-global-public-health-publication",
+    )!;
+
+    expect(publication.celebration).toBe("confetti");
+    renderModal({
+      version: announcementCampaign.version,
+      slides: [publication],
+    });
+
+    const confetti = screen.getByTestId("announcement-confetti");
+    expect(confetti).toHaveAttribute("data-variant", "burst");
+    expect(
+      screen.getByRole("link", { name: "Read the open-access paper" }),
+    ).toHaveAttribute(
+      "href",
+      "https://journals.plos.org/globalpublichealth/article?id=10.1371/journal.pgph.0005092",
+    );
+    expect(document.querySelector("img")?.getAttribute("src")).toContain(
+      "plos-global-health.png",
+    );
+  });
+
+  it("offers previous and next controls on the publication slide", async () => {
+    renderModal(
+      getActiveAnnouncementCampaign(new Date("2026-10-17T12:00:00.000Z")),
+    );
+
+    fireEvent.click(screen.getByRole("button", { name: "Next announcement" }));
+
+    expect(
+      await screen.findByRole("heading", {
+        name: "Akomapa research published in PLOS Global Public Health",
+      }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "Previous announcement" }),
+    ).toBeEnabled();
+    expect(
+      screen.getByRole("button", { name: "Next announcement" }),
+    ).toBeEnabled();
+    expect(screen.getByTestId("announcement-confetti")).toHaveAttribute(
+      "data-variant",
+      "burst",
+    );
+  });
+
+  it("bursts confetti when the modal opens directly on a marked slide", () => {
+    renderModal(celebrationCampaign);
+
+    const confetti = screen.getByTestId("announcement-confetti");
+    expect(confetti).toHaveAttribute("data-variant", "burst");
+    expect(confetti).toHaveAttribute("aria-hidden", "true");
+    expect(confetti.className).toMatch(/pointer-events-none/);
+    expect(confetti.querySelectorAll("span").length).toBeGreaterThan(20);
+  });
+
+  it("does not celebrate unmarked slides", () => {
+    renderModal({
+      ...celebrationCampaign,
+      slides: [celebrationCampaign.slides[1]],
+    });
+
+    expect(screen.queryByTestId("announcement-confetti")).not.toBeInTheDocument();
+  });
+
+  it("does not render while the modal is closed", () => {
+    renderModal(celebrationCampaign, { isOpen: false });
+
+    expect(screen.queryByTestId("announcement-confetti")).not.toBeInTheDocument();
+  });
+
+  it("fires one new burst per selection transition, not per re-render", async () => {
+    const { rerender, onOpenChange, onDismiss } = renderModal(celebrationCampaign);
+    const firstBurst = screen
+      .getByTestId("announcement-confetti")
+      .getAttribute("data-burst");
+
+    rerender(
+      <AnnouncementModal
+        campaign={celebrationCampaign}
+        isOpen
+        onOpenChange={onOpenChange}
+        onDismiss={onDismiss}
+      />,
+    );
+    expect(
+      screen.getByTestId("announcement-confetti").getAttribute("data-burst"),
+    ).toBe(firstBurst);
+
+    fireEvent.click(screen.getByRole("button", { name: "Next announcement" }));
+    await screen.findByRole("heading", { name: "A regular update" });
+    await waitFor(() =>
+      expect(screen.queryByTestId("announcement-confetti")).not.toBeInTheDocument(),
+    );
+
+    fireEvent.click(screen.getByRole("button", { name: "Next announcement" }));
+    await screen.findByRole("heading", { name: "A milestone is live" });
+    const secondBurst = await screen.findByTestId("announcement-confetti");
+    expect(secondBurst.getAttribute("data-burst")).not.toBe(firstBurst);
+  });
+
+  it("clears the burst after it finishes", () => {
+    vi.useFakeTimers();
+    renderModal(celebrationCampaign);
+    expect(screen.getByTestId("announcement-confetti")).toBeInTheDocument();
+
+    act(() => {
+      vi.advanceTimersByTime(CONFETTI_BURST_MS + 50);
+    });
+
+    expect(screen.queryByTestId("announcement-confetti")).not.toBeInTheDocument();
+  });
+
+  it("keeps controls, CTA, and dismissal usable while celebrating", () => {
+    const { onDismiss, onOpenChange } = renderModal(celebrationCampaign);
+    expect(screen.getByTestId("announcement-confetti")).toBeInTheDocument();
+
+    const cta = screen.getByRole("link", { name: /Explore/ });
+    expect(cta).toHaveAttribute("href", "https://example.com/launch");
+    expect(
+      screen.getByRole("button", { name: "Next announcement" }),
+    ).toBeEnabled();
+
+    const dialog = screen.getByRole("dialog", { name: "Announcements" });
+    const close = screen.getByRole("button", { name: "Close announcements" });
+    close.focus();
+    expect(close).toHaveFocus();
+    expect(
+      within(screen.getByTestId("announcement-confetti")).queryAllByRole("button"),
+    ).toHaveLength(0);
+    expect(dialog).toContainElement(close);
+
+    fireEvent.keyDown(document, { key: "Escape" });
+    expect(onOpenChange).toHaveBeenCalledWith(false);
+    expect(onDismiss).toHaveBeenCalledTimes(1);
+  });
+
+  it("renders a static treatment instead of particle motion for reduced motion", () => {
+    vi.useFakeTimers();
+    mockedUseReducedMotion.mockReturnValue(true);
+    renderModal(celebrationCampaign);
+
+    const confetti = screen.getByTestId("announcement-confetti");
+    expect(confetti).toHaveAttribute("data-variant", "static");
+    expect(confetti).toHaveAttribute("aria-hidden", "true");
+
+    act(() => {
+      vi.advanceTimersByTime(CONFETTI_BURST_MS + 50);
+    });
+    expect(screen.getByTestId("announcement-confetti")).toHaveAttribute(
+      "data-variant",
+      "static",
     );
   });
 });
