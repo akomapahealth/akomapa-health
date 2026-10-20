@@ -101,9 +101,14 @@ details or credentials are written to application logs.
 ## Receipts and handoff
 
 In Stripe's sandbox Dashboard, set the business display name to **Akomapa
-Health Foundation**, upload the approved logo, choose brand colors, add the
-support email, and enable successful-payment receipts. The product and link
-descriptions should clearly say **Immersion Program deposit** or **full fee**.
+Health Foundation**, choose brand colors, add the support email, and enable
+**Successful payments** under Business → Customer emails. Under Business →
+Branding, use `public/images/akomapa-logo-dark.png` as the wide **Logo** for
+Checkout and Payment Links. [Stripe's branding matrix](https://docs.stripe.com/get-started/account/branding)
+shows that emailed receipts use the square **Icon** instead of that Logo;
+upload `public/apple-touch-icon.png` (180 × 180 pixels) in the Email receipts
+branding settings and check its preview. The product and link descriptions
+should clearly say **Immersion Program deposit** or **full fee**.
 Stripe collects the email at Checkout and uses it for the receipt; require the
 name for a more formal payer record. This is a **payment receipt**, not a
 charitable-donation tax acknowledgment. Stripe does not email receipts for
