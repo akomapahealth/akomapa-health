@@ -10,6 +10,7 @@ export const IMMERSION_COOKIE = "immersion_verified";
 const inviteesSchema = z.array(z.object({
   name: z.string().trim().min(2).max(160),
   email: z.string().trim().email().max(254),
+  expiresAt: z.string().datetime({ offset: true }).optional(),
 })).min(1);
 type Invitee = z.infer<typeof inviteesSchema>[number];
 type TokenPurpose = "email" | "session";
@@ -39,7 +40,8 @@ export function getImmersionConfig() {
 }
 
 export function findInvitee(roster: Invitee[], email: string) {
-  return roster.find((person) => person.email.toLowerCase() === email.trim().toLowerCase());
+  return roster.find((person) => person.email.toLowerCase() === email.trim().toLowerCase() &&
+    (!person.expiresAt || Date.parse(person.expiresAt) > Date.now()));
 }
 
 export function signInviteToken(email: string, purpose: TokenPurpose, secret: string, ttlSeconds: number) {

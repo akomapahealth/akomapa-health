@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { getImmersionConfig, signInviteToken, verifyInviteToken } from "../immersion";
+import { findInvitee, getImmersionConfig, signInviteToken, verifyInviteToken } from "../immersion";
 
 afterEach(() => vi.unstubAllEnvs());
 
@@ -32,5 +32,15 @@ describe("Immersion invite configuration", () => {
     expect(verifyInviteToken(token, "email", "x".repeat(48))).toBe("test@example.com");
     expect(verifyInviteToken(token, "session", "x".repeat(48))).toBeNull();
     expect(verifyInviteToken(token + "forged", "email", "x".repeat(48))).toBeNull();
+  });
+
+  it("does not authorize an expired temporary invitee", () => {
+    configure();
+    vi.stubEnv("IMMERSION_SELECTED_PARTICIPANTS_JSON", JSON.stringify([
+      { name: "Akomapa Test", email: "test@example.com", expiresAt: "2020-01-01T00:00:00Z" },
+    ]));
+    const roster = getImmersionConfig()?.roster;
+    expect(roster).toBeDefined();
+    expect(findInvitee(roster!, "test@example.com")).toBeUndefined();
   });
 });
