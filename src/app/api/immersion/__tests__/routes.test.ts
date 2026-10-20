@@ -86,8 +86,15 @@ describe("Immersion invite routes", () => {
     expect(createCustomer).toHaveBeenCalledWith(expect.objectContaining({ email: "test@example.com" }), expect.objectContaining({ idempotencyKey: expect.any(String) }));
     expect(createSession).toHaveBeenCalledWith(expect.objectContaining({
       customer: "cus_test", line_items: [{ price: "price_deposit", quantity: 1 }],
+      payment_intent_data: { description: "Akomapa January 2027 Immersion Program — 50% deposit" },
       metadata: expect.objectContaining({ terms_version: IMMERSION_TERMS_VERSION }),
     }), expect.objectContaining({ idempotencyKey: expect.any(String) }));
+    const fullResponse = await checkout(post("/api/immersion/checkout", { choice: "full" }, `${IMMERSION_COOKIE}=${token}`));
+    expect(fullResponse.status).toBe(200);
+    expect(createSession).toHaveBeenLastCalledWith(expect.objectContaining({
+      line_items: [{ price: "price_full", quantity: 1 }],
+      payment_intent_data: { description: "Akomapa January 2027 Immersion Program — full fee" },
+    }), expect.objectContaining({ idempotencyKey: expect.stringContaining("-initial-full-") }));
   });
 
   it("requires acceptance of the current payment terms", async () => {
@@ -119,7 +126,7 @@ describe("Immersion invite routes", () => {
       success_url: "https://akomapa.org/global-health-immersion-program?payment=success",
       metadata: expect.objectContaining({ terms_version: IMMERSION_TERMS_VERSION }),
       expires_at: expect.any(Number),
-    }), expect.objectContaining({ idempotencyKey: expect.stringContaining("-live-") }));
+    }), expect.objectContaining({ idempotencyKey: expect.stringContaining("-initial-deposit-") }));
     createSession.mockClear();
     retrievePrice.mockResolvedValueOnce({ active: true, currency: "usd", unit_amount: 100, type: "one_time", livemode: true });
     vi.spyOn(console, "error").mockImplementation(() => {});
@@ -144,6 +151,7 @@ describe("Immersion invite routes", () => {
     expect(createCustomer).not.toHaveBeenCalled();
     expect(createSession).toHaveBeenCalledWith(expect.objectContaining({
       customer: "cus_test", line_items: [{ price: "price_balance", quantity: 1 }],
+      payment_intent_data: { description: "Akomapa January 2027 Immersion Program — remaining balance" },
       metadata: expect.objectContaining({ deposit_session_id: "cs_deposit" }),
     }), expect.any(Object));
   });

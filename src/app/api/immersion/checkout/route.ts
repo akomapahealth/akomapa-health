@@ -7,6 +7,12 @@ import { IMMERSION_TERMS_VERSION, immersionCheckoutWindow } from "@/lib/payments
 
 export const runtime = "nodejs";
 
+const PAYMENT_DESCRIPTIONS = {
+  deposit: "Akomapa January 2027 Immersion Program — 50% deposit",
+  full: "Akomapa January 2027 Immersion Program — full fee",
+  balance: "Akomapa January 2027 Immersion Program — remaining balance",
+} as const;
+
 export async function POST(request: NextRequest) {
   const config = getImmersionConfig();
   if (!config) return noStoreJson({ error: "Checkout is unavailable" }, 503);
@@ -59,6 +65,7 @@ export async function POST(request: NextRequest) {
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
       line_items: [{ price: priceId, quantity: 1 }],
+      payment_intent_data: { description: PAYMENT_DESCRIPTIONS[choice] },
       customer: customerId,
       metadata: { program: "global-health-immersion", payment_type: choice, selected_email: person.email,
         terms_version: IMMERSION_TERMS_VERSION, terms_accepted_at: new Date().toISOString(),
@@ -66,7 +73,7 @@ export async function POST(request: NextRequest) {
       success_url: new URL(`${IMMERSION_PATH}?payment=success`, config.baseUrl || request.nextUrl.origin).toString(),
       cancel_url: new URL(`${IMMERSION_PATH}?payment=cancelled`, config.baseUrl || request.nextUrl.origin).toString(),
       ...(config.mode === "live" ? { expires_at: liveExpiresAt } : {}),
-    }, { idempotencyKey: `immersion-checkout-${config.mode}-${IMMERSION_TERMS_VERSION}-${fingerprint}-${state.stage}-${state.attemptNumber}` });
+    }, { idempotencyKey: `immersion-checkout-${config.mode}-${IMMERSION_TERMS_VERSION}-${fingerprint}-${state.stage}-${choice}-${state.attemptNumber}` });
     if (!session.url || !session.url.startsWith("https://checkout.stripe.com/")) throw new Error("Missing checkout URL");
     return noStoreJson({ url: session.url }, 200);
   } catch {
