@@ -5,6 +5,35 @@ payment section and webhook operate in Vercel preview deployments (or local
 development) only. Production remains disabled. Stripe is the payment system
 of record; an email alert is only a prompt for staff follow-up.
 
+## Provisioned sandbox resources (October 19, 2026)
+
+The connected sandbox account is **Akomapa Health Foundation Inc sandbox**
+(`acct_1USSpJCGfDUBJPt0`). These are one-time USD payments, with no automatic
+charge for the remaining deposit balance:
+
+| Choice | Price ID | Payment Link ID | Public checkout URL |
+| --- | --- | --- | --- |
+| $1,249.50 deposit | `price_1USTQsCGfDUBJPt0kCpqL0bB` | `plink_1USTRBCGfDUBJPt0PrfT0kPS` | https://buy.stripe.com/test_aFadR8gXn4513M908hgEg00 |
+| $2,499.00 full fee | `price_1USTQwCGfDUBJPt0bA9jS4p7` | `plink_1USTRHCGfDUBJPt0uLPk8FLk` | https://buy.stripe.com/test_7sY00i5eF0SP5Uh4oxgEg01 |
+
+The sandbox webhook endpoint is `we_1USTlFCGfDUBJPt0wsG5NWVj`. It currently
+targets
+`https://akomapa-staging-frigowpcf-akomapa-healths-projects.vercel.app/api/stripe/immersion-webhook`.
+This is a deployment-specific URL: update the destination in Stripe when
+switching the test to another preview deployment. Keep its `whsec_` signing
+secret in Vercel Preview settings only.
+
+Both checkout choices completed successfully in the sandbox and produced
+`checkout.session.completed` events. The deposit Session is
+`cs_test_a1OpwagJ20TzcG02a1IK7FvJpeF9hJNzylv99d5Ruk7hwr3kg2ZVsxZrDT`;
+the full-fee Session is
+`cs_test_a1Wp5VnmFLHHA708xkL0bGzdk3U5MS0Vv0HMyNiGVkcQ1LerC9O4EQT3wH`.
+The intake mailbox received both staff alerts. The deployed webhook rejected
+an invalid Stripe signature with HTTP 400. Unit tests cover event replay with
+the same Resend idempotency key, delayed-payment success, and notification
+failure. Stripe created online receipt URLs for both test charges; it does not
+automatically email test-mode receipts.
+
 ## Stripe account and sandbox
 
 1. Use the official Stripe plugin and OAuth connection to the organization's
