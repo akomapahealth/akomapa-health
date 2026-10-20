@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { FormEvent, useEffect, useState } from "react";
-import { IMMERSION_BALANCE_DUE_LABEL } from "@/lib/payments/immersion-terms";
+import { IMMERSION_BALANCE_DUE_LABEL, IMMERSION_REFUND_REQUEST_CUTOFF_LABEL } from "@/lib/payments/immersion-terms";
 
 type Status = { verified: boolean; firstName?: string };
 
@@ -63,6 +63,7 @@ export default function ImmersionPaymentSection() {
         <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#007C95] dark:text-[#66C4DC]">Registration payment · test checkout</p>
         <h2 id="immersion-payment-title" className="mt-4 font-heading text-3xl font-semibold leading-tight md:text-4xl">Have you registered to experience the Immersion Program?</h2>
         <p className="mt-5 text-base leading-7 text-[#2F3332]/80 dark:text-[#E6E7E7]/80">Selected applicants can verify their registered email to view payment options. The total program fee is $2,499. A $1,249.50 deposit counts toward it; the remaining $1,249.50 is due {IMMERSION_BALANCE_DUE_LABEL} and will be collected separately. Payment alone does not confirm a place in the cohort.</p>
+        <p className="mt-4 text-sm leading-6 text-[#2F3332]/80 dark:text-[#E6E7E7]/80">If you cancel, the $1,249.50 deposit portion is nonrefundable. If you pay in full and Akomapa receives your cancellation request by {IMMERSION_REFUND_REQUEST_CUTOFF_LABEL}, the other $1,249.50 is refundable. From November 30, voluntary cancellation is not refundable. If Akomapa cancels the program or cannot offer you a place, it will refund your full program payment. Applicable legal rights still apply.</p>
         <label className="mt-7 flex max-w-2xl cursor-pointer items-start gap-3 border border-[#1C1F1E]/20 bg-white p-4 dark:border-[#FCFAEF]/20 dark:bg-[#121514]">
           <input type="checkbox" checked={registered} onChange={(event) => setRegistered(event.target.checked)} className="mt-1 h-5 w-5 shrink-0 accent-[#0F4C5C]" />
           <span className="text-sm font-medium leading-6">I have submitted my Immersion Program application and understand that payment does not guarantee acceptance.</span>

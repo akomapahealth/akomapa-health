@@ -10,6 +10,8 @@ describe("Immersion payment section", () => {
     vi.stubGlobal("fetch", vi.fn().mockResolvedValue({ json: async () => ({ verified: false }) }));
     const user = userEvent.setup();
     render(<ImmersionPaymentSection />);
+    expect(screen.getByText(/deposit portion is nonrefundable/)).toBeInTheDocument();
+    expect(screen.getByText(/November 29, 2026 at 11:59 p.m. Eastern Time/)).toBeInTheDocument();
     expect(screen.queryByRole("textbox", { name: /Email address/ })).toBeNull();
     expect(screen.queryByRole("button", { name: /Pay \$1,249/ })).toBeNull();
     await user.click(screen.getByRole("checkbox"));

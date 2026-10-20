@@ -1,6 +1,6 @@
 # Immersion Stripe preview handoff
 
-The Immersion payment flow is a sandbox test. It is enabled only when `VERCEL_ENV=preview` (or local development) and `NEXT_PUBLIC_IMMERSION_STRIPE_TEST_ENABLED=true`. Production stays off until Akomapa approves the refund terms, live Stripe resources, and a separate launch change. The remaining $1,249.50 balance deadline supplied by Akomapa is **November 30, 2026 at 11:59 p.m. Eastern Time**; collection remains manual. The refund policy draft is kept in a Git-ignored local file for executive review.
+The Immersion payment flow is a sandbox test. It is enabled only when `VERCEL_ENV=preview` (or local development) and `NEXT_PUBLIC_IMMERSION_STRIPE_TEST_ENABLED=true`. Production stays off until Akomapa approves the complete public terms, live Stripe resources, and a separate launch change. The remaining $1,249.50 balance is due **November 30, 2026 at 11:59 p.m. Eastern Time**; collection remains manual. The executives approved the core refund rule for the Preview copy: the 50% deposit portion is nonrefundable on participant cancellation; a full-fee payer who cancels by **November 29, 2026 at 11:59 p.m. Eastern Time** receives the other $1,249.50 back; and Akomapa refunds all payments if it cancels or cannot offer a place. The extended terms draft and its open decisions remain in a Git-ignored local file for review.
 
 ## Selected applicants and verification
 
@@ -47,4 +47,4 @@ In sandbox Settings → Business → Customer emails, **Successful payments** is
 
 ## Before live launch
 
-Akomapa must approve the proposed refund policy, publish final balance/refund/acceptance language, and add explicit terms acceptance before live Checkout. Then create separate **live** Prices, a live webhook destination/signing secret, live secret key, and live receipt/branding settings. Build a separate production enablement change and run real low-value verification with an approved payment method. Do not reuse sandbox IDs or secrets.
+Akomapa must resolve the remaining policy decisions, approve and publish the complete balance/refund/acceptance language, and add explicit terms acceptance before live Checkout. Then create separate **live** Prices, a live webhook destination/signing secret, live secret key, and live receipt/branding settings. Build a separate production enablement change and run real low-value verification with an approved payment method. Do not reuse sandbox IDs or secrets.
