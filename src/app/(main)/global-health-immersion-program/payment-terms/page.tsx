@@ -39,7 +39,7 @@ export default function ImmersionPaymentTermsPage() {
 
         <section className={section} aria-labelledby="immersion-terms-balance">
           <h2 id="immersion-terms-balance" className={heading}>Balance deadline</h2>
-          <p className={paragraph}>Akomapa will send a balance reminder at least seven calendar days before {IMMERSION_BALANCE_DUE_LABEL}. If you miss that deadline, Akomapa will contact you and allow a three-day grace period, ending {IMMERSION_GRACE_END_LABEL}, to pay or obtain a written exception. Akomapa may close the payment offer or release an unpaid place after notice. Contact <a href="mailto:info@akomapa.org" className="underline">info@akomapa.org</a> before the deadline if you need help.</p>
+          <p className={paragraph}>Akomapa will send a balance reminder at least seven calendar days before {IMMERSION_BALANCE_DUE_LABEL}. If you miss that deadline, Akomapa will contact you in writing and allow a three-day grace period, ending {IMMERSION_GRACE_END_LABEL}, to pay or obtain a written exception. If the balance remains unpaid after that notice and grace period, Akomapa will treat it as your cancellation and retain the nonrefundable $1,249.50 deposit. It may close the payment offer or release your place and will notify you in writing. If Akomapa cannot offer you a place, its full-refund rule below applies. Contact <a href="mailto:info@akomapa.org" className="underline">info@akomapa.org</a> before the deadline if you need help.</p>
         </section>
 
         <section className={section} aria-labelledby="immersion-terms-cancel">
