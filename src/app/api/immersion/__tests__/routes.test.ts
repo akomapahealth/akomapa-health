@@ -1,6 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { NextRequest } from "next/server";
 import { signInviteToken, IMMERSION_COOKIE } from "@/lib/payments/immersion";
+import { createDirectInviteToken, IMMERSION_DIRECT_INVITE_EXPIRES_AT } from "@/lib/payments/immersion-direct-invite";
 import { IMMERSION_TERMS_VERSION } from "@/lib/payments/immersion-terms";
 import { POST as requestLink } from "../request-link/route";
 import { GET as verify } from "../verify/route";
@@ -32,6 +33,7 @@ beforeEach(() => {
   vi.stubEnv("STRIPE_IMMERSION_FULL_PRICE_ID", "price_full");
   vi.stubEnv("STRIPE_IMMERSION_BALANCE_PRICE_ID", "price_balance");
   vi.stubEnv("IMMERSION_INVITE_TOKEN_SECRET", secret);
+  vi.stubEnv("IMMERSION_DIRECT_INVITE_SECRET", undefined);
   vi.stubEnv("IMMERSION_SELECTED_PARTICIPANTS_JSON", JSON.stringify([{ name: "Test Participant", email: "test@example.com" }]));
   vi.stubEnv("RESEND_API_KEY", "re_fixture");
   vi.stubEnv("FORM_NOTIFICATION_FROM", "Akomapa <test@example.com>");
@@ -73,6 +75,42 @@ describe("Immersion invite routes", () => {
     expect(await lookup.json()).toEqual({ verified: true, firstName: "Test", paymentStage: "initial" });
     const denied = await status(new NextRequest(`${base}/api/immersion/status`));
     expect((await denied.json()).verified).toBe(false);
+  });
+
+  it("accepts a private direct link for an active invitee without exposing their email in the URL", async () => {
+    const directSecret = "d".repeat(48);
+    vi.stubEnv("IMMERSION_DIRECT_INVITE_SECRET", directSecret);
+    const token = createDirectInviteToken("test@example.com", directSecret);
+    expect(token).toMatch(/^[A-Za-z0-9_-]{43}$/);
+    expect(token).not.toContain("test@example.com");
+    const response = await verify(new NextRequest(`${base}/api/immersion/verify?invite=${token}`));
+    expect(response.status).toBe(307);
+    expect(response.headers.get("location")).toBe(`${base}/global-health-immersion-program?immersionVerification=success`);
+    expect(response.headers.get("referrer-policy")).toBe("no-referrer");
+    const cookie = response.headers.get("set-cookie") || "";
+    expect(cookie).toContain("HttpOnly");
+    const lookup = await status(new NextRequest(`${base}/api/immersion/status`, { headers: { cookie } }));
+    expect(await lookup.json()).toEqual({ verified: true, firstName: "Test", paymentStage: "initial" });
+  });
+
+  it("rejects unknown, disabled, and expired direct links without affecting email links", async () => {
+    const directSecret = "d".repeat(48);
+    const token = createDirectInviteToken("test@example.com", directSecret);
+    let response = await verify(new NextRequest(`${base}/api/immersion/verify?invite=${token}`));
+    expect(response.headers.get("set-cookie")).toBeNull();
+    vi.stubEnv("IMMERSION_DIRECT_INVITE_SECRET", directSecret);
+    response = await verify(new NextRequest(`${base}/api/immersion/verify?invite=${"a".repeat(43)}`));
+    expect(response.headers.get("set-cookie")).toBeNull();
+    response = await verify(new NextRequest(`${base}/api/immersion/verify?invite=${createDirectInviteToken("other@example.com", directSecret)}`));
+    expect(response.headers.get("set-cookie")).toBeNull();
+    vi.useFakeTimers();
+    vi.setSystemTime(IMMERSION_DIRECT_INVITE_EXPIRES_AT + 1);
+    response = await verify(new NextRequest(`${base}/api/immersion/verify?invite=${token}`));
+    expect(response.headers.get("location")).toContain("immersionVerification=expired");
+    expect(response.headers.get("set-cookie")).toBeNull();
+    const emailToken = signInviteToken("test@example.com", "email", secret, 60);
+    response = await verify(new NextRequest(`${base}/api/immersion/verify?token=${emailToken}`));
+    expect(response.headers.get("set-cookie")).toContain("HttpOnly");
   });
 
   it("rejects checkout without verification and uses the selected price with verification", async () => {

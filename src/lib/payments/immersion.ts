@@ -36,6 +36,8 @@ export function getImmersionConfig() {
   const balancePrice = mode === "live" ? process.env.STRIPE_IMMERSION_LIVE_BALANCE_PRICE_ID : process.env.STRIPE_IMMERSION_BALANCE_PRICE_ID;
   const webhookSecret = mode === "live" ? process.env.STRIPE_IMMERSION_LIVE_WEBHOOK_SECRET : process.env.STRIPE_IMMERSION_WEBHOOK_SECRET;
   const baseUrl = mode === "live" ? process.env.IMMERSION_LIVE_BASE_URL : undefined;
+  // Optional: direct invites never affect the existing email verification flow.
+  const directInviteSecret = process.env.IMMERSION_DIRECT_INVITE_SECRET?.trim();
   if (!secret || secret.length < 32 || !stripeKey || !depositPrice || !fullPrice || !balancePrice ||
     (mode === "live" ? !stripeKey?.startsWith("rk_live_") : !stripeKey?.startsWith("sk_test_")) ||
     !depositPrice?.startsWith("price_") || !fullPrice?.startsWith("price_") || !balancePrice?.startsWith("price_") ||
@@ -54,7 +56,8 @@ export function getImmersionConfig() {
       if (url.protocol !== "https:" || url.username || url.password || url.pathname !== "/" || url.search || url.hash) return null;
     } catch { return null; }
   }
-  return { mode, secret, stripeKey, depositPrice, fullPrice, balancePrice, webhookSecret, baseUrl, roster };
+  return { mode, secret, stripeKey, depositPrice, fullPrice, balancePrice, webhookSecret, baseUrl,
+    directInviteSecret: directInviteSecret && directInviteSecret.length >= 32 ? directInviteSecret : undefined, roster };
 }
 
 export function getImmersionWebhookConfig() {
