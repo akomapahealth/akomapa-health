@@ -26,6 +26,7 @@
     "security:audit:prod": "node scripts/audit-production.mjs",
     "security:sbom": "node scripts/generate-sbom.mjs",
     "intake:retention": "node scripts/intake-retention.mjs",
+    "immersion:direct-invites": "node --experimental-strip-types scripts/generate-immersion-direct-invites.mjs",
     "validate": "npm run security:verify-rsc-patch && npm run security:audit:prod && npm run security:validate-exceptions && npm run security:verify-actions-policy && npm run lint && npm run typecheck && npm run test && npm run build && npm run security:verify-intake-client-bundle && npm run security:verify-source-maps && npm run test:e2e",
     "postinstall": "node scripts/ensure-husky-hooks.mjs",
     "prepare": "node scripts/ensure-husky-hooks.mjs",
