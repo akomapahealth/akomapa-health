@@ -1,5 +1,7 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { findInvitee, getImmersionConfig, signInviteToken, verifyInviteToken } from "../immersion";
+import { IMMERSION_DIRECT_INVITE_EXPIRES_AT } from "../immersion-direct-invite";
+import { immersionCheckoutWindow } from "../immersion-terms";
 
 afterEach(() => vi.unstubAllEnvs());
 
@@ -23,6 +25,15 @@ describe("Immersion invite configuration", () => {
     expect(getImmersionConfig()?.roster).toHaveLength(1);
     vi.stubEnv("VERCEL_ENV", "production");
     expect(getImmersionConfig()).toBeNull();
+  });
+
+  it("keeps direct invites optional and expires them with the balance grace period", () => {
+    configure();
+    vi.stubEnv("IMMERSION_DIRECT_INVITE_SECRET", "too-short");
+    expect(getImmersionConfig()?.directInviteSecret).toBeUndefined();
+    vi.stubEnv("IMMERSION_DIRECT_INVITE_SECRET", "d".repeat(48));
+    expect(getImmersionConfig()?.directInviteSecret).toBe("d".repeat(48));
+    expect(IMMERSION_DIRECT_INVITE_EXPIRES_AT).toBe(immersionCheckoutWindow("balance").closeAt);
   });
 
   it("requires separate live resources before enabling production", () => {

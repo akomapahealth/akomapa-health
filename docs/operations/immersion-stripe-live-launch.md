@@ -45,6 +45,7 @@ Add these to the production Vercel project, scoped **Production** only. Mark the
 | `IMMERSION_LIVE_BASE_URL` | `https://www.akomapa.org` |
 | `IMMERSION_SELECTED_PARTICIPANTS_JSON` | Server-only JSON roster of selected participants; no temporary test entries |
 | `IMMERSION_INVITE_TOKEN_SECRET` | New random value of at least 32 characters, different from Preview |
+| `IMMERSION_DIRECT_INVITE_SECRET` | Optional separate random value of at least 32 characters for personal direct links; mark Sensitive |
 | `STRIPE_IMMERSION_LIVE_RESTRICTED_KEY` | Live restricted `rk_live_` key |
 | `STRIPE_IMMERSION_LIVE_DEPOSIT_PRICE_ID` | Live deposit Price ID |
 | `STRIPE_IMMERSION_LIVE_FULL_PRICE_ID` | Live full-fee Price ID |
@@ -55,6 +56,17 @@ Add these to the production Vercel project, scoped **Production** only. Mark the
 | `FORM_NOTIFICATION_TO` | Staff intake mailbox, currently `info@akomapa.org` |
 
 The Preview-only `NEXT_PUBLIC_IMMERSION_STRIPE_TEST_ENABLED`, sandbox `STRIPE_SECRET_KEY`, sandbox Prices, and sandbox webhook secret are not used in Production. Production requires every live setting before the payment section appears. Keep Vercel Production deployment access limited; roster and keys are sensitive.
+
+### Personal direct links for selected participants
+
+This optional route lets Akomapa send each selected person a private link that opens the existing verified payment page without the email-entry step. The original email verification flow remains available. A direct link is a **reusable bearer credential**: anyone who gets it can open that person's payment choices until the link expires. Send it only to the matching registered address, never publish it, and do not include it in analytics or support tickets. The URL contains an opaque token, not a name or email address. Checkout still requires acceptance of the payment terms and the server still checks the selected roster and payment state.
+
+1. Generate a new 32-byte secret locally and save it only in `.private/immersion-direct-invite-secret` (for example, `openssl rand -hex 32 > .private/immersion-direct-invite-secret && chmod 600 .private/immersion-direct-invite-secret`). Do not reuse the email verification signing secret.
+2. Set that exact value as Sensitive `IMMERSION_DIRECT_INVITE_SECRET` in Vercel Production and redeploy. This variable is optional; if absent, direct links fail closed while the existing flow continues normally.
+3. Run `npm run immersion:direct-invites` from the repository root. It reads the ignored `.env.immersion-roster.local` and the private secret file, then writes `.private/immersion-direct-invites.json` with one name, email, and link per selected person. Both private files are ignored by Git. Check that the roster still contains only the intended 14 people before sending.
+4. Send each link privately to its matching email address. Do not send the whole file to participants. Opening the link sets the same two-hour verified session as the emailed link and redirects to the Immersion page; the applicant can reopen their personal link later to pay a remaining balance.
+
+Direct links expire at **December 3, 2026 at 11:59 p.m. Eastern Time**, the end of the approved balance grace period. They are not one-time links because the participant may need to return for a balance payment. To revoke all direct links, remove or rotate `IMMERSION_DIRECT_INVITE_SECRET` and redeploy; to remove one person's access through either verification method, remove them from the selected roster and redeploy. Akomapa should retain its private list securely until invitations are complete, then delete the file when it is no longer needed.
 
 ## 5. Set up receipts and verify
 
