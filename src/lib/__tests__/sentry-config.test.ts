@@ -371,16 +371,18 @@ describe("Sentry configuration", () => {
       ).toBe(true);
     });
 
+    it("matches the parser failure when Next omits the error code", () => {
+      expect(
+        isKnownDonateRouterStateSkewError(
+          new Error("The router state header was sent but could not be parsed."),
+          request,
+          context,
+          { NODE_ENV: "production" }
+        )
+      ).toBe(true);
+    });
+
     it.each([
-      {
-        name: "missing E10 code",
-        error: new Error(
-          "The router state header was sent but could not be parsed."
-        ),
-        request,
-        context,
-        env: { NODE_ENV: "production" },
-      },
       {
         name: "different message",
         error: createRouterStateError("Unexpected router failure"),

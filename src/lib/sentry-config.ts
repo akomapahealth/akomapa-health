@@ -232,11 +232,9 @@ export function isKnownDonateRouterStateSkewError(
     return false;
   }
 
-  if (
-    !(error instanceof Error) ||
-    error.message !== NEXT_ROUTER_STATE_PARSE_ERROR ||
-    (error as Error & { __NEXT_ERROR_CODE?: unknown }).__NEXT_ERROR_CODE !== "E10"
-  ) {
+  // Next 16.4 still throws this message for the stale router state, but no
+  // longer sets __NEXT_ERROR_CODE. The donate RSC request shape keeps the match narrow.
+  if (!(error instanceof Error) || error.message !== NEXT_ROUTER_STATE_PARSE_ERROR) {
     return false;
   }
 
