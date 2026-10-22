@@ -82,7 +82,7 @@ const canonicalPeople: PersonProfile[] = [
     affiliation: "Nursing Student, University of Cape Coast",
     image: "/ucc-team/hafiz_shaban.JPG",
     socialLinks: { email: "hafiz.shaban@stu.ucc.edu.gh" },
-    bio: "Hafiz Shaban is a nursing student at the University of Cape Coast and Co-Director of Akomapa’s UCC chapter. Passionate about global health and community-based medicine, he helps lead local healthcare initiatives and student programs that expand access to community-centered care.",
+    bio: "Hafiz Shaban is a nursing student at the University of Cape Coast and Country Manager at Akomapa Health. Passionate about global health and community-based medicine, he helps lead local healthcare initiatives and student programs that expand access to community-centered care.",
   },
   {
     id: "executive-sedem-dankwa",
@@ -246,7 +246,7 @@ const canonicalPeople: PersonProfile[] = [
     name: "Getwell Essuman",
     affiliation: "Medical Laboratory Science Student, University of Cape Coast",
     image: "/ucc-team/getwell_ebiram_essuman.JPG",
-    bio: "Getwell Essuman co-leads volunteer recruitment for Akomapa’s UCC Community Hub, helping students find clear ways to contribute to community health programs.",
+    bio: "Getwell Essuman is a medical laboratory science student at the University of Cape Coast and Country Manager at Akomapa Health. He helps students find clear ways to contribute to community health programs.",
   },
   {
     id: "member-osei-kwarkye-bonsu-tony",
@@ -699,6 +699,8 @@ export const executiveLeadershipConfig = [
     personId: "executive-afriyie-badu",
     title: "Chief Operations Officer & Co-Founder",
   },
+  { personId: "executive-hafiz-shaban", title: "Country Manager" },
+  { personId: "member-getwell-essuman", title: "Country Manager" },
 ] as const satisfies readonly PersonPlacement[];
 
 export const departmentMemberships = [
