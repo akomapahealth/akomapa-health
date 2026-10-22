@@ -18,11 +18,35 @@ describe("dev ImageKit fixture route", () => {
 
   it("is unavailable in production", async () => {
     vi.stubEnv("NODE_ENV", "production");
+    vi.stubEnv("VERCEL_ENV", "production");
+    vi.stubEnv("NEXT_PUBLIC_IMAGEKIT_USE_FIXTURES", "0");
     const response = await GET(
       requestFor("https://ik.imagekit.io/akomapa/highlights/photo.jpg"),
     );
     expect(response.status).toBe(404);
     expect(response.headers.get("cache-control")).toBe("no-store");
+  });
+
+  it("serves image and video fixtures on Vercel preview", async () => {
+    vi.stubEnv("NODE_ENV", "production");
+    vi.stubEnv("VERCEL_ENV", "preview");
+    vi.stubEnv("NEXT_PUBLIC_IMAGEKIT_DEV_FIXTURES", "0");
+
+    const image = await GET(
+      requestFor("https://ik.imagekit.io/akomapa/highlights/photo.jpg"),
+    );
+    expect(image.status).toBe(200);
+    expect(image.headers.get("content-type")).toBe("image/png");
+    expect(image.headers.get(MEDIA_FIXTURE_HEADER)).toBe("1");
+
+    const video = await GET(
+      requestFor(
+        "https://ik.imagekit.io/akomapa/immersion-hero.mp4?tr=q-60,w-960",
+        "bytes=0-10",
+      ),
+    );
+    expect(video.status).toBe(206);
+    expect(video.headers.get("content-type")).toBe("video/mp4");
   });
 
   it("rejects non-ImageKit src values without fetching them", async () => {

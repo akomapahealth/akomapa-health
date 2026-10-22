@@ -30,6 +30,8 @@ describe("canonical people directory", () => {
       ["Brian Amu Fleischer, MD", "Founder & President"],
       ["Esi Bon Berkoh", "Vice President & Co-Founder"],
       ["Afriyie Badu, MD", "Chief Operations Officer & Co-Founder"],
+      ["Hafiz Shaban", "Country Manager"],
+      ["Getwell Essuman", "Country Manager"],
     ]);
     expect(teamDepartments.map(({ name, members }) => [name, members.map(({ name: memberName }) => memberName)])).toEqual(expectedDepartments);
     expect(advisoryBoardMembers).toHaveLength(8);

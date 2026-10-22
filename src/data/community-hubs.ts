@@ -193,18 +193,33 @@ export const hubEmptyStates = {
 } as const;
 
 export const uccLeadershipConfig = [
-  { personId: "member-david-ofosu", role: "Co-Director", featured: true },
-  { personId: "executive-hafiz-shaban", role: "Co-Director", featured: true },
-  { personId: "member-getwell-essuman", role: "Volunteer Recruitment Co-Lead" },
-  { personId: "member-david-konadu-kombate", role: "Volunteer Recruitment Co-Lead" },
-  { personId: "executive-wilfred-obeng", role: "Training & Standards Coordinator" },
-  { personId: "member-belinda-odoom", role: "Training & Standards Coordinator" },
-  { personId: "member-geraldine-agyapong", role: "Finance Officer" },
-  { personId: "member-frederick-baffour", role: "Finance Officer" },
-  { personId: "member-gloria-tawiah-blay", role: "Community Engagement Liaison" },
-  { personId: "member-prince-nyarko", role: "Community Engagement Liaison" },
-  { personId: "member-queenstar-opoku", role: "Supplies & Logistics Manager" },
-  { personId: "member-martha-bawa", role: "Supplies & Logistics Manager" },
+  { personId: "member-osei-kwarkye-bonsu-tony", role: "Faculty Recruitment Lead" },
+  { personId: "member-djan-patrick-nyarko", role: "Finance Officer" },
+  { personId: "member-adeporka-awinibota-peter", role: "Follow-up Team Lead" },
+  { personId: "member-ampomah-prince-peprah", role: "Research Lead" },
+  { personId: "member-anane-sarah-adomah", role: "Community Outreach" },
+  { personId: "member-david-konadu-kombate", role: "Co-Director", featured: true },
+  { personId: "member-araba-nyakoa-amartey", role: "Research Lead" },
+  { personId: "member-justice-marvel-yaw-anieku", role: "Co-Director", featured: true },
+  {
+    personId: "member-evans-worae-obeng",
+    role: "Volunteer Recruitment and Scheduling Team Lead",
+  },
+  { personId: "member-kingsley-botchwey", role: "Media Lead" },
+  { personId: "member-vanessa-borna", role: "Follow-up Lead" },
+  { personId: "member-batanye-joseph", role: "Finance Officer" },
+  { personId: "member-lydia-ira", role: "Logistics and Supplies Lead" },
+  {
+    personId: "member-osei-owusu-raphael",
+    role: "Training and Standards Co-Lead",
+  },
+  { personId: "member-akua-asiedu-sekyi", role: "Training and Standards Lead" },
+  { personId: "member-oheneba-pearl", role: "Community Outreach" },
+  {
+    personId: "member-beatrice-edinam-tsikata",
+    role: "Volunteer Recruitment and Scheduling Team Lead",
+  },
+  { personId: "member-bukari-yaw-waidu", role: "Community Liaison Lead" },
 ] as const satisfies readonly HubLeaderReference[];
 
 export const uccHubRoster: HubRoster = {

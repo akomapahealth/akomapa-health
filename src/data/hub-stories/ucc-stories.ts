@@ -2,10 +2,10 @@ import type { Story } from "@/lib/types";
 
 // ---------------------------------------------------------------------
 // CONTENT NOTE: These first-person pieces are editorial portraits written
-// in the voice of listed UCC hub executives. They are not independently
+// in the voice of former UCC hub executives. They are not independently
 // verified interviews, patient testimonials, or clinical outcome claims.
-// Names and roles match the published hub roster. `date` is when this
-// copy was added, not an event date.
+// Bylines are historical credits and are not the current hub roster.
+// `date` is when this copy was added, not an event date.
 // ---------------------------------------------------------------------
 
 export const uccCommunityStories: Story[] = [

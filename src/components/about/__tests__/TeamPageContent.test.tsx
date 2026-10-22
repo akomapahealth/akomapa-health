@@ -42,7 +42,7 @@ describe("TeamPageContent", () => {
     ).toEqual(["executive", "departments", "advisor"]);
     expect(
       container.querySelectorAll('[data-team-role-category="executive"]'),
-    ).toHaveLength(3);
+    ).toHaveLength(5);
     expect(
       container.querySelectorAll('[data-team-role-category="member"]'),
     ).toHaveLength(18);
@@ -74,6 +74,9 @@ describe("TeamPageContent", () => {
       within(wilfred!).getByRole("button", { name: "Read bio" }),
     ).toBeInTheDocument();
     expect(screen.queryByRole("heading", { name: "David Ofosu" })).not.toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Hafiz Shaban" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Getwell Essuman" })).toBeInTheDocument();
+    expect(screen.getAllByText("Country Manager", { exact: true })).toHaveLength(2);
   });
 
   it("renders decorative network portraits with empty alternatives", () => {

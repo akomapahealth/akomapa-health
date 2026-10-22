@@ -150,7 +150,9 @@ for (const routeSlug of hubRouteSlugs) {
         await expect(page.getByText(/Community stories are coming soon/i)).toBeVisible();
       } else {
         await expect(page.getByRole("heading", { name: "Community Stories" })).toBeVisible();
-        await expect(page.getByText(communityStories[0].author, { exact: true })).toBeVisible();
+        await expect(
+          page.getByText(`— ${communityStories[0].author}`, { exact: true }),
+        ).toBeVisible();
         const readMore = page.getByTestId(
           `story-read-more-${communityStories[0].id}`,
         );
@@ -175,7 +177,9 @@ for (const routeSlug of hubRouteSlugs) {
         await expect(page.getByText(/Volunteer stories are coming soon/i)).toBeVisible();
       } else {
         await expect(page.getByRole("heading", { name: "Volunteer Stories" })).toBeVisible();
-        await expect(page.getByText(studentStories[0].author, { exact: true })).toBeVisible();
+        await expect(
+          page.getByText(`— ${studentStories[0].author}`, { exact: true }),
+        ).toBeVisible();
       }
 
       await expect(page.getByText(/Research updates are coming soon/i)).toBeVisible();

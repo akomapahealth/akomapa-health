@@ -193,7 +193,7 @@ describe("Community hub detail editorial system", () => {
         expect(screen.getByRole("heading", { name: "Community Stories" })).toBeVisible();
         for (const story of communityStories) {
           expect(screen.getByText(story.title)).toBeVisible();
-          expect(screen.getByText(story.author)).toBeVisible();
+          expect(screen.getByText(`— ${story.author}`)).toBeVisible();
         }
       }
 
@@ -208,7 +208,7 @@ describe("Community hub detail editorial system", () => {
         expect(screen.getByRole("heading", { name: "Volunteer Stories" })).toBeVisible();
         for (const story of studentStories) {
           expect(screen.getByText(story.title)).toBeVisible();
-          expect(screen.getByText(story.author)).toBeVisible();
+          expect(screen.getByText(`— ${story.author}`)).toBeVisible();
         }
       }
 

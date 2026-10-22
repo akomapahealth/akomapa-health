@@ -193,14 +193,18 @@ for (const routeSlug of hubRouteSlugs) {
       await expect(
         page.getByRole("heading", { name: "Community Stories" }),
       ).toBeVisible();
-      await expect(page.getByText(communityStories[0].author, { exact: true })).toBeVisible();
+      await expect(
+        page.getByText(`— ${communityStories[0].author}`, { exact: true }),
+      ).toBeVisible();
     }
 
     if (studentStories.length > 0) {
       await expect(
         page.getByRole("heading", { name: "Volunteer Stories" }),
       ).toBeVisible();
-      await expect(page.getByText(studentStories[0].author, { exact: true })).toBeVisible();
+      await expect(
+        page.getByText(`— ${studentStories[0].author}`, { exact: true }),
+      ).toBeVisible();
     }
   });
 }

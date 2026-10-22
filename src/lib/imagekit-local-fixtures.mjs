@@ -1,7 +1,9 @@
 /**
- * Tiny valid image/video bytes for local development, Lighthouse, and E2E.
- * These are never a proxy to ImageKit — callers must not fetch the CDN URL.
+ * Tiny valid image/video bytes for local development, Vercel preview,
+ * Lighthouse, and E2E. These are never a proxy to ImageKit — callers must
+ * not fetch the CDN URL.
  */
+import { shouldUseImageKitFixtures } from "./imagekit-fixture-policy.mjs";
 
 export const MEDIA_FIXTURE_HEADER = "x-akomapa-media-fixture";
 export const DEV_IMAGEKIT_FIXTURE_PATH = "/api/dev-imagekit";
@@ -31,10 +33,7 @@ export function isVideoAssetUrl(url) {
 }
 
 export function shouldUseDevImageKitFixtures() {
-  return (
-    process.env.NODE_ENV === "development" &&
-    process.env.NEXT_PUBLIC_IMAGEKIT_DEV_FIXTURES !== "0"
-  );
+  return shouldUseImageKitFixtures();
 }
 
 export function bytesForRange(body, rangeHeader) {
