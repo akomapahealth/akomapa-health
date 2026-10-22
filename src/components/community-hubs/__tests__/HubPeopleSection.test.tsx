@@ -54,14 +54,19 @@ describe("HubPeopleSection", () => {
 
     expect(
       leadership.querySelectorAll("[data-hub-leader]"),
-    ).toHaveLength(12);
+    ).toHaveLength(18);
     expect(
       volunteers.querySelectorAll("[data-volunteer-portrait-trigger]"),
     ).toHaveLength(8);
     expect(
       within(leadership).getByRole("heading", {
         level: 3,
-        name: "David Ofosu",
+        name: "David Konadu Kombate",
+      }),
+    ).toBeVisible();
+    expect(
+      within(leadership).getByRole("img", {
+        name: "Portrait pending for Osei Kwarkye Bonsu Tony",
       }),
     ).toBeVisible();
     expect(

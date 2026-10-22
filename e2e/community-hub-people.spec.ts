@@ -64,7 +64,7 @@ for (const scenario of [
         name: "The People Who Make Service Possible",
       }),
     ).toBeVisible();
-    await expect(leadership.locator("[data-hub-leader]")).toHaveCount(12);
+    await expect(leadership.locator("[data-hub-leader]")).toHaveCount(18);
     await expect(
       volunteers.locator("[data-volunteer-portrait-trigger]"),
     ).toHaveCount(8);

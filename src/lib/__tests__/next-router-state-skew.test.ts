@@ -13,7 +13,7 @@ function encodeRouterState(state: unknown[]): string {
 }
 
 describe("Next.js router-state version-skew removal sentinel", () => {
-  it("continues to reject the stale Next 15 shape with E10", () => {
+  it("continues to reject the stale Next 15 shape", () => {
     try {
       parseAndValidateFlightRouterState(
         encodeRouterState(["", {}, null, "refresh", false])
@@ -26,9 +26,11 @@ describe("Next.js router-state version-skew removal sentinel", () => {
       expect((error as Error).message).toBe(
         "The router state header was sent but could not be parsed."
       );
+      // Next 16.4 dropped __NEXT_ERROR_CODE. A restored code should be reviewed
+      // before the donate filter starts requiring it again.
       expect(
         (error as Error & { __NEXT_ERROR_CODE?: string }).__NEXT_ERROR_CODE
-      ).toBe("E10");
+      ).toBeUndefined();
     }
   });
 

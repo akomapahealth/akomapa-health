@@ -26,7 +26,7 @@ we rely on elsewhere (local logos, etc.).
 
 - [`src/components/common/Image.tsx`](../../src/components/common/Image.tsx) — loader selection via `isImageKitSrc`
 - [`src/lib/imagekit.ts`](../../src/lib/imagekit.ts) — `getImageKitUrl`, `imageKitLoader`
-- [`src/app/api/dev-imagekit/route.ts`](../../src/app/api/dev-imagekit/route.ts) — local fixtures for `next dev`
+- [`src/app/api/dev-imagekit/route.ts`](../../src/app/api/dev-imagekit/route.ts) — fixtures for `next dev` and Vercel preview
 - [`src/components/immersion/ImmersionHeroMedia.tsx`](../../src/components/immersion/ImmersionHeroMedia.tsx) — hero video sources and transforms
 - [`next.config.ts`](../../next.config.ts) — `images.remotePatterns` allowlist (ImageKit + YouTube)
 
@@ -45,7 +45,7 @@ width.
 
 ## Local development and Lighthouse
 
-`next dev` points generated ImageKit `src` values at [`/api/dev-imagekit`](../../src/app/api/dev-imagekit/route.ts). That route returns tiny local PNG/MP4 fixtures and does not fetch ImageKit. Production builds are unchanged. Opt out with `NEXT_PUBLIC_IMAGEKIT_DEV_FIXTURES=0`.
+`next dev` and Vercel preview deployments (`VERCEL_ENV=preview`, for both akomapa-health and akomapa-staging) point generated ImageKit image and video `src` values at [`/api/dev-imagekit`](../../src/app/api/dev-imagekit/route.ts). That route returns tiny local PNG/MP4 fixtures and does not fetch ImageKit. Production deployments keep real ImageKit URLs. Local `next dev` can opt out with `NEXT_PUBLIC_IMAGEKIT_DEV_FIXTURES=0`. Preview deployments always use fixtures.
 
 `scripts/lighthouse.mjs` intercepts `*.imagekit.io` in the audited Chrome session by default. Use `LIGHTHOUSE_IMAGEKIT_FIXTURES=0` only when the audit must measure real CDN bytes.
 

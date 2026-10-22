@@ -8,18 +8,24 @@ import { UG_TRAINING_FORM_URL } from "@/config/links";
 import { getPersonById, resolveHubLeadership } from "@/data/team";
 
 const expectedLeadership = [
-  ["David Ofosu", "Co-Director", "Medical Student, University of Cape Coast"],
-  ["Hafiz Shaban", "Co-Director", "Nursing Student, University of Cape Coast"],
-  ["Getwell Essuman", "Volunteer Recruitment Co-Lead", "Medical Laboratory Science Student, University of Cape Coast"],
-  ["David Konadu Kombate", "Volunteer Recruitment Co-Lead", "Medical Laboratory Science Student, University of Cape Coast"],
-  ["Wilfred Obeng", "Training & Standards Coordinator", "Medical Student, University of Cape Coast"],
-  ["Belinda Odoom", "Training & Standards Coordinator", "Nursing Student, University of Cape Coast"],
-  ["Geraldine-Cristal Apeadua Agyapong", "Finance Officer", "Medical Student, University of Cape Coast"],
-  ["Frederick Baffour", "Finance Officer", "Optometry Student, University of Cape Coast"],
-  ["Gloria Tawiah Blay", "Community Engagement Liaison", "Pharmacy Student, University of Cape Coast"],
-  ["Prince Nyarko", "Community Engagement Liaison", "Optometry Student, University of Cape Coast"],
-  ["Queenstar Aduse Opoku", "Supplies & Logistics Manager", "Pharmacy Student, University of Cape Coast"],
-  ["Martha Bawa", "Supplies & Logistics Manager", "Nursing Student, University of Cape Coast"],
+  ["Osei Kwarkye Bonsu Tony", "Faculty Recruitment Lead", "Doctor of Optometry Student, University of Cape Coast"],
+  ["Djan Patrick Nyarko", "Finance Officer", "Doctor of Pharmacy Student, University of Cape Coast"],
+  ["Adeporka Awinibota Peter", "Follow-up Team Lead", "Biomedical Science Graduate, University of Cape Coast"],
+  ["Ampomah Prince Peprah", "Research Lead", "Optometry Student, University of Cape Coast"],
+  ["Anane Sarah Adomah", "Community Outreach", "Health Information Management Student, University of Cape Coast"],
+  ["David Konadu Kombate", "Co-Director", "Medical Laboratory Science Graduate, University of Cape Coast"],
+  ["Araba Nyakoa Amartey", "Research Lead", "Medical Student, University of Cape Coast"],
+  ["Justice Marvel Yaw Anieku", "Co-Director", "Medical Student, University of Cape Coast"],
+  ["Evans Worae Obeng", "Volunteer Recruitment and Scheduling Team Lead", "Medical Laboratory Science Student, University of Cape Coast"],
+  ["Kingsley Botchwey", "Media Lead", "MPhil Molecular Medicine Student, University of Cape Coast"],
+  ["Vanessa Borna", "Follow-up Lead", "Clinical Nutrition Graduate, University of Cape Coast"],
+  ["Batanye Joseph", "Finance Officer", "Doctor of Pharmacy Student, University of Cape Coast"],
+  ["Lydia Ira", "Logistics and Supplies Lead", "Medical Laboratory Science Student, University of Cape Coast"],
+  ["Osei Owusu Raphael", "Training and Standards Co-Lead", "Optometry Student, University of Cape Coast"],
+  ["Akua Asiedu Sekyi", "Training and Standards Lead", "Doctor of Pharmacy Student, University of Cape Coast"],
+  ["Oheneba Pearl", "Community Outreach", "Medical Laboratory Science Student, University of Cape Coast"],
+  ["Beatrice Edinam Tsikata", "Volunteer Recruitment and Scheduling Team Lead", "Nutrition Student, University of Cape Coast"],
+  ["Bukari Yaw Waidu", "Community Liaison Lead", "Doctor of Optometry Student, University of Cape Coast"],
 ] as const;
 
 const expectedUgLeadership = [
@@ -53,15 +59,23 @@ describe("UCC community hub roster", () => {
     expect(uccHubRoster.leadership.filter(({ featured }) => featured)).toHaveLength(2);
   });
 
-  it("maps every leader and volunteer to a unique ImageKit path", () => {
+  it("maps confirmed portraits to unique ImageKit paths", () => {
     const people = [...uccHubRoster.leadership, ...uccHubRoster.volunteers];
+    const portraits = people.flatMap(({ image }) => (image ? [image] : []));
 
-    expect(uccHubRoster.leadership).toHaveLength(12);
+    expect(uccHubRoster.leadership).toHaveLength(18);
     expect(uccHubRoster.volunteers).toHaveLength(36);
-    expect(new Set(people.map(({ id }) => id))).toHaveProperty("size", people.length);
-    expect(new Set(people.map(({ image }) => image))).toHaveProperty("size", people.length);
+    expect(new Set(people.map(({ id }) => id)).size).toBe(people.length);
+    expect(new Set(portraits).size).toBe(portraits.length);
     expect(
-      people.every(({ image }) => typeof image === "string" && image.startsWith("/ucc-team/")),
+      uccHubRoster.volunteers.every(
+        ({ image }) => typeof image === "string" && image.startsWith("/ucc-team/"),
+      ),
+    ).toBe(true);
+    expect(
+      uccHubRoster.leadership.every(
+        ({ image }) => image === undefined || image.startsWith("/ucc-team/"),
+      ),
     ).toBe(true);
   });
 
@@ -78,12 +92,23 @@ describe("UCC community hub roster", () => {
     expect(ucc?.roster).toBe(uccHubRoster);
   });
 
-  it("shares Wilfred's canonical profile while preserving his hub role", () => {
-    const wilfred = uccHubRoster.leadership.find(({ name }) => name === "Wilfred Obeng");
-    expect(wilfred?.id).toBe("executive-wilfred-obeng");
-    expect(wilfred?.bio).toBe(getPersonById("executive-wilfred-obeng")?.bio);
-    expect(wilfred?.contact?.email).toBe("wilfred.obeng7@gmail.com");
-    expect(wilfred?.role).toBe("Training & Standards Coordinator");
+  it("keeps David Konadu Kombate on his confirmed portrait and profile", () => {
+    const david = uccHubRoster.leadership.find(
+      ({ name }) => name === "David Konadu Kombate",
+    );
+    const profile = getPersonById("member-david-konadu-kombate");
+
+    expect(david?.id).toBe("member-david-konadu-kombate");
+    expect(david?.role).toBe("Co-Director");
+    expect(david?.featured).toBe(true);
+    expect(david?.image).toBe("/ucc-team/david_konadu_kombate.JPG");
+    expect(david?.bio).toBe(profile?.bio);
+    expect(david?.contact?.email).toBe("kombatedavidkonadu@gmail.com");
+    expect(
+      uccHubRoster.leadership.some(({ name }) =>
+        ["Hafiz Shaban", "Getwell Essuman", "Wilfred Obeng", "David Ofosu"].includes(name),
+      ),
+    ).toBe(false);
   });
 
   it("rejects duplicate and missing hub references", () => {

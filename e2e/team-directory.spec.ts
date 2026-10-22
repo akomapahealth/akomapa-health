@@ -65,8 +65,15 @@ test.describe("team directory hierarchy", () => {
       await expect.poll(() => section.locator("[data-team-member]").evaluateAll((elements) => elements.map((element) => element.getAttribute("data-team-member")))).toEqual(department.members.map(({ name }) => name));
     }
 
-    for (const hubOnlyName of ["David Ofosu", "Hafiz Shaban", "Divina Selase Afenyo"]) {
+    for (const hubOnlyName of ["David Ofosu", "Divina Selase Afenyo"]) {
       await expect(page.locator(`[data-team-member="${hubOnlyName}"]`)).toHaveCount(0);
+    }
+    for (const countryManager of ["Hafiz Shaban", "Getwell Essuman"]) {
+      const card = page.locator(`[data-team-member="${countryManager}"]`);
+      await expect(card).toHaveCount(1);
+      await card.scrollIntoViewIfNeeded();
+      await expect(card).toHaveAttribute("data-team-role-category", "executive");
+      await expect(card.getByText("Country Manager", { exact: true })).toBeVisible();
     }
     await expect(page.locator('[data-team-member="Wilfred Obeng"]')).toHaveCount(1);
     await expect(page.locator("[data-team-node-portrait]")).toHaveCount(22);
