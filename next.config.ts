@@ -15,6 +15,7 @@ import {
   shouldUploadSentrySourceMaps,
   shouldWrapSentryBuild,
 } from "./src/lib/sentry-config";
+import { imageKitFixturePublicFlag } from "./src/lib/imagekit-fixture-policy.mjs";
 
 type BundleAnalyzerFactory = (options?: {
   enabled?: boolean;
@@ -26,7 +27,10 @@ type BundleAnalyzerFactory = (options?: {
 const sentryPublicEnv = getSentryPublicEnv();
 
 const nextConfig: NextConfig = {
-  env: sentryPublicEnv,
+  env: {
+    ...sentryPublicEnv,
+    NEXT_PUBLIC_IMAGEKIT_USE_FIXTURES: imageKitFixturePublicFlag(),
+  },
   outputFileTracingRoot: process.cwd(),
   // Keep actionable browser errors visible in the development terminal while
   // avoiding vendor warning floods (for example, hosted widget internals).

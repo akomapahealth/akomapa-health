@@ -87,11 +87,55 @@ describe("getImageKitUrl / imageKitLoader", () => {
 
   it("keeps generated ImageKit URLs when development fixtures are opted out", () => {
     vi.stubEnv("NODE_ENV", "development");
+    vi.stubEnv("VERCEL_ENV", "development");
+    vi.stubEnv("NEXT_PUBLIC_IMAGEKIT_USE_FIXTURES", "0");
     vi.stubEnv("NEXT_PUBLIC_IMAGEKIT_DEV_FIXTURES", "0");
     vi.stubEnv("NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT", endpoint);
 
     expect(
       getImageKitUrl("/highlights/photo.jpg", { width: 800, quality: 75 }),
     ).toBe(`${endpoint}/highlights/photo.jpg?tr=q-75,w-800`);
+  });
+
+  it("rewrites ImageKit images and videos on Vercel preview even when local fixtures are opted out", () => {
+    vi.stubEnv("NODE_ENV", "production");
+    vi.stubEnv("VERCEL_ENV", "preview");
+    vi.stubEnv("NEXT_PUBLIC_IMAGEKIT_DEV_FIXTURES", "0");
+    vi.stubEnv("NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT", endpoint);
+
+    expect(getImageKitUrl("/highlights/photo.jpg", { width: 800, quality: 75 })).toBe(
+      "/api/dev-imagekit?src=https%3A%2F%2Fik.imagekit.io%2Fakomapa%2Fhighlights%2Fphoto.jpg%3Ftr%3Dq-75%2Cw-800",
+    );
+    expect(getImageKitUrl("/immersion-hero.mp4", { width: 960, quality: 60 })).toBe(
+      "/api/dev-imagekit?src=https%3A%2F%2Fik.imagekit.io%2Fakomapa%2Fimmersion-hero.mp4%3Ftr%3Dq-60%2Cw-960",
+    );
+    expect(
+      imageKitLoader({ src: "/highlights/photo.jpg", width: 640, quality: 75 }),
+    ).toMatch(/^\/api\/dev-imagekit\?/);
+  });
+
+  it("rewrites ImageKit URLs when the preview fixture flag is baked into the client bundle", () => {
+    vi.stubEnv("NODE_ENV", "production");
+    vi.stubEnv("VERCEL_ENV", "production");
+    vi.stubEnv("NEXT_PUBLIC_IMAGEKIT_USE_FIXTURES", "1");
+    vi.stubEnv("NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT", endpoint);
+
+    expect(getImageKitUrl("/immersion-hero.mp4", { width: 960, quality: 60 })).toMatch(
+      /^\/api\/dev-imagekit\?/,
+    );
+  });
+
+  it("keeps the CDN on production deployments", () => {
+    vi.stubEnv("NODE_ENV", "production");
+    vi.stubEnv("VERCEL_ENV", "production");
+    vi.stubEnv("NEXT_PUBLIC_IMAGEKIT_USE_FIXTURES", "0");
+    vi.stubEnv("NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT", endpoint);
+
+    expect(getImageKitUrl("/highlights/photo.jpg", { width: 800, quality: 75 })).toBe(
+      `${endpoint}/highlights/photo.jpg?tr=q-75,w-800`,
+    );
+    expect(getImageKitUrl("/immersion-hero.mp4", { width: 960, quality: 60 })).toBe(
+      `${endpoint}/immersion-hero.mp4?tr=q-60,w-960`,
+    );
   });
 });

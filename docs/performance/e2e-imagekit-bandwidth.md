@@ -2,7 +2,7 @@
 
 Routine Playwright runs fulfill `*.imagekit.io` responses locally. Generated `src` and `srcSet` values stay on `https://ik.imagekit.io/akomapa`. One CI check still downloads two team portraits and the mobile immersion video.
 
-Production paths, filenames, and the ImageKit loader stay the same in production builds. `next dev` rewrites generated ImageKit URLs to `/api/dev-imagekit`, which serves local fixture bytes and never fetches the CDN. `scripts/lighthouse.mjs` intercepts ImageKit in Chrome unless `LIGHTHOUSE_IMAGEKIT_FIXTURES=0`. Set `NEXT_PUBLIC_IMAGEKIT_DEV_FIXTURES=0` to browse local development against production media.
+Production paths, filenames, and the ImageKit loader stay the same on production deployments. `next dev` and Vercel preview deployments rewrite generated ImageKit image and video URLs to `/api/dev-imagekit`, which serves local fixture bytes and never fetches the CDN. `scripts/lighthouse.mjs` intercepts ImageKit in Chrome unless `LIGHTHOUSE_IMAGEKIT_FIXTURES=0`. Set `NEXT_PUBLIC_IMAGEKIT_DEV_FIXTURES=0` to browse local development against production media. Preview deployments ignore that opt-out.
 
 ## September 2026 context
 
@@ -62,4 +62,4 @@ CI runs this command only in `.github/workflows/ci.yml`, after the isolated suit
 
 ## After rollout
 
-Compare the next full ImageKit billing period with September's 110.40 GB, the 90.7 GB localhost-referrer share, and the 13.5 GB `akomapa.org` share. Local development and Lighthouse still use the production CDN. Revisit a move to Cloudflare R2 or Bunny only after visitor bandwidth is separated from that remaining non-production traffic.
+Compare the next full ImageKit billing period with September's 110.40 GB, the 90.7 GB localhost-referrer share, and the 13.5 GB `akomapa.org` share. Production deployments still use the ImageKit CDN. Preview deployments, local `next dev`, and Lighthouse use fixtures. Revisit a move to Cloudflare R2 or Bunny only after visitor bandwidth is separated from that remaining non-production traffic.

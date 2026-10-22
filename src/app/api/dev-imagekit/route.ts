@@ -10,8 +10,9 @@ import {
 export const dynamic = "force-dynamic";
 
 /**
- * Local ImageKit stand-in for `next dev`. Serves fixture bytes and never
- * fetches the `src` query parameter.
+ * ImageKit stand-in for `next dev` and Vercel preview deployments. Serves
+ * fixture bytes and never fetches the `src` query parameter. Production
+ * deployments return 404.
  */
 export async function GET(request: NextRequest) {
   if (!shouldUseDevImageKitFixtures()) {

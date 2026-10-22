@@ -1,3 +1,5 @@
+import { shouldUseImageKitFixtures } from "@/lib/imagekit-fixture-policy.mjs";
+
 /**
  * ImageKit URL generation utility.
  * Generates ImageKit CDN URLs with `tr=` transformations for responsive sizing.
@@ -26,14 +28,11 @@ function isImageKitHostname(hostname: string): boolean {
 }
 
 /**
- * `next dev` emits a same-origin fixture URL so the browser never fetches
- * ImageKit. Production and test builds keep the CDN URL.
+ * `next dev` and Vercel preview deployments emit a same-origin fixture URL so
+ * the browser never fetches ImageKit. Production and test builds keep the CDN URL.
  */
 function maybeDevImageKitFixtureUrl(url: string): string {
-  if (
-    process.env.NODE_ENV !== "development" ||
-    process.env.NEXT_PUBLIC_IMAGEKIT_DEV_FIXTURES === "0"
-  ) {
+  if (!shouldUseImageKitFixtures()) {
     return url;
   }
 
