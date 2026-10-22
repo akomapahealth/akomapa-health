@@ -14,6 +14,7 @@ import {
 import { immersionProgram } from "@/data/immersion-program";
 import { cn } from "@/lib/utils";
 import { getImmersionConfig } from "@/lib/payments/immersion";
+import { IMMERSION_BALANCE_DUE_LABEL, IMMERSION_REFUND_REQUEST_CUTOFF_LABEL } from "@/lib/payments/immersion-terms";
 
 const sectionContainerClass =
   "site-container mx-auto px-4 py-16 md:py-20 lg:py-24";
@@ -103,7 +104,8 @@ function GlanceItem({
 }
 
 export default function Content() {
-  const paymentEnabled = Boolean(getImmersionConfig());
+  const paymentConfig = getImmersionConfig();
+  const paymentEnabled = Boolean(paymentConfig);
   const {
     eyebrow,
     applicationStatus,
@@ -123,13 +125,13 @@ export default function Content() {
         {
           label: "Program fee",
           price: "$2,499",
-          description: "Full program fee for the January 2027 cohort.",
+          description: `Full program fee for the January 2027 cohort. If you cancel by ${IMMERSION_REFUND_REQUEST_CUTOFF_LABEL}, $1,249.50 is refundable; the deposit portion is not.`,
         },
         {
           label: "Deposit option",
           price: "$1,249.50",
           description:
-            "50% toward the program fee; the remaining $1,249.50 is arranged later.",
+            `Nonrefundable on participant cancellation. This counts toward the program fee; the remaining $1,249.50 is due ${IMMERSION_BALANCE_DUE_LABEL} and can be paid from the verified page.`,
         },
       ]
     : registration;
@@ -259,7 +261,7 @@ export default function Content() {
         </div>
       </section>
 
-      {paymentEnabled ? <ImmersionPaymentSection /> : null}
+      {paymentConfig ? <ImmersionPaymentSection mode={paymentConfig.mode} /> : null}
 
       <section
         aria-labelledby="program-purpose-title"

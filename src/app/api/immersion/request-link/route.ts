@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
   const person = findInvitee(config.roster, email);
   if (person) {
     const token = signInviteToken(email, "email", config.secret, 15 * 60);
-    const url = new URL("/api/immersion/verify", request.nextUrl.origin);
+    const url = new URL("/api/immersion/verify", config.baseUrl || request.nextUrl.origin);
     url.searchParams.set("token", token);
     try {
       const { apiKey, from } = getResendConfig();

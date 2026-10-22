@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { findDirectInvitee } from "@/lib/payments/immersion-direct-invite";
 import { findInvitee, getImmersionConfig, IMMERSION_COOKIE, IMMERSION_PATH, signInviteToken, verifyInviteToken } from "@/lib/payments/immersion";
 
 export const runtime = "nodejs";
@@ -8,7 +9,9 @@ export async function GET(request: NextRequest) {
   const config = getImmersionConfig();
   const token = request.nextUrl.searchParams.get("token") || undefined;
   const email = config && verifyInviteToken(token, "email", config.secret);
-  const person = email && config && findInvitee(config.roster, email);
+  const emailedPerson = email && config && findInvitee(config.roster, email);
+  const directToken = request.nextUrl.searchParams.get("invite") || undefined;
+  const person = emailedPerson || (config && findDirectInvitee(config.roster, directToken, config.directInviteSecret));
   destination.searchParams.set("immersionVerification", person ? "success" : "expired");
   const response = NextResponse.redirect(destination);
   response.headers.set("Cache-Control", "no-store");
