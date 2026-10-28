@@ -7,7 +7,7 @@ const identifierSchema = z.string().trim().min(1).max(200);
 
 const formConfigSchema = z.object({
   formId: identifierSchema,
-  fields: z.record(identifierSchema),
+  fields: z.record(z.string(), identifierSchema),
 });
 
 const filloutConfigSchema = z.object(
