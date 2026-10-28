@@ -37,6 +37,15 @@ describe("Immersion payment section", () => {
     expect(screen.queryByRole("button", { name: /Pay \$2,499/ })).toBeNull();
   });
 
+  it("shows a verified scholarship recipient only her discounted full-payment option", async () => {
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue({ json: async () => ({ verified: true, firstName: "Test", paymentStage: "initial", scholarship: true }) }));
+    render(<ImmersionPaymentSection mode="test" />);
+    expect(await screen.findByRole("button", { name: /Pay \$2,000 in full/ })).toBeInTheDocument();
+    expect(screen.getByText(/\$499 scholarship reduces/)).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: /Pay \$1,249/ })).toBeNull();
+    expect(screen.queryByRole("button", { name: /Pay \$2,499/ })).toBeNull();
+  });
+
   it("offers no payment after the full fee is paid", async () => {
     vi.stubGlobal("fetch", vi.fn().mockResolvedValue({ json: async () => ({ verified: true, firstName: "Test", paymentStage: "paid" }) }));
     render(<ImmersionPaymentSection mode="test" />);

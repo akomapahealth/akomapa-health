@@ -1,6 +1,6 @@
 import type { ImmersionPaymentChoice } from "./immersion-state";
 
-export const IMMERSION_TERMS_VERSION = "2026-10-20-pilot-3";
+export const IMMERSION_TERMS_VERSION = "2026-10-27-pilot-4";
 export const IMMERSION_TERMS_PATH = "/global-health-immersion-program/payment-terms";
 
 export const IMMERSION_BALANCE_DUE_LABEL =
