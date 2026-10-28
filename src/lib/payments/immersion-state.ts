@@ -1,7 +1,7 @@
 import "server-only";
 import { createHmac } from "node:crypto";
 import type Stripe from "stripe";
-import { IMMERSION_DEPOSIT_CENTS, IMMERSION_FULL_CENTS, type ImmersionMode } from "./immersion";
+import { IMMERSION_DEPOSIT_CENTS, IMMERSION_FULL_CENTS, IMMERSION_SCHOLARSHIP_CENTS, IMMERSION_SCHOLARSHIP_FULL_CENTS, type ImmersionMode } from "./immersion";
 
 export type ImmersionPaymentChoice = "deposit" | "full" | "balance";
 export type ImmersionPaymentStage = "initial" | "balance" | "paid" | "pending" | "unavailable" | "closed";
@@ -14,7 +14,7 @@ export type ImmersionPaymentState = {
   stage: ImmersionPaymentStage;
   customerId?: string;
   depositSessionId?: string;
-  openSession?: { choice: ImmersionPaymentChoice; url: string };
+  openSession?: { id: string; choice: ImmersionPaymentChoice; url: string; amount: number };
   attemptNumber: number;
 };
 
@@ -25,7 +25,8 @@ export function inviteeFingerprint(email: string, secret: string) {
 function validChoice(session: SessionSummary, email: string, mode: ImmersionMode): ImmersionPaymentChoice | null {
   const choice = session.metadata?.payment_type;
   if (choice !== "deposit" && choice !== "full" && choice !== "balance") return null;
-  const amount = choice === "full" ? IMMERSION_FULL_CENTS : IMMERSION_DEPOSIT_CENTS;
+  const scholarship = choice === "full" && session.metadata?.scholarship_cents === String(IMMERSION_SCHOLARSHIP_CENTS);
+  const amount = choice === "full" ? (scholarship ? IMMERSION_SCHOLARSHIP_FULL_CENTS : IMMERSION_FULL_CENTS) : IMMERSION_DEPOSIT_CENTS;
   if (session.livemode !== (mode === "live") || session.mode !== "payment" || session.payment_link ||
     session.metadata?.program !== "global-health-immersion" ||
     session.metadata.selected_email?.toLowerCase() !== email.toLowerCase() ||
@@ -62,7 +63,8 @@ export function summarizeImmersionSessions(sessions: SessionSummary[], email: st
     stage,
     customerId: typeof customer === "string" ? customer : undefined,
     depositSessionId: deposit?.session.id,
-    openSession: active?.session.url ? { choice: active.choice, url: active.session.url } : undefined,
+    openSession: active?.session.url ? { id: active.session.id, choice: active.choice, url: active.session.url,
+      amount: active.session.amount_total ?? 0 } : undefined,
     attemptNumber: attempts.filter(({ session }) => session.status === "expired" ||
       (session.status === "open" && (session.expires_at ?? 0) <= Date.now() / 1000)).length,
   };
