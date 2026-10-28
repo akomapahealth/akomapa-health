@@ -1,7 +1,7 @@
 import { NextRequest } from "next/server";
 import Stripe from "stripe";
 import { noStoreJson, readSecureJson } from "@/lib/http/public-api-security";
-import { findInvitee, getImmersionConfig, IMMERSION_COOKIE, IMMERSION_PATH, verifyInviteToken } from "@/lib/payments/immersion";
+import { findInvitee, getImmersionConfig, IMMERSION_COOKIE, IMMERSION_DEPOSIT_CENTS, IMMERSION_FULL_CENTS, IMMERSION_PATH, IMMERSION_SCHOLARSHIP_CENTS, IMMERSION_SCHOLARSHIP_FULL_CENTS, verifyInviteToken } from "@/lib/payments/immersion";
 import { inviteeFingerprint, loadImmersionPaymentState } from "@/lib/payments/immersion-state";
 import { IMMERSION_TERMS_VERSION, immersionCheckoutWindow } from "@/lib/payments/immersion-terms";
 
@@ -27,13 +27,18 @@ export async function POST(request: NextRequest) {
   const email = verifyInviteToken(request.cookies.get(IMMERSION_COOKIE)?.value, "session", config.secret);
   const person = email && findInvitee(config.roster, email);
   if (!person) return noStoreJson({ error: "Please verify your email again" }, 401);
+  const hasScholarship = person.scholarshipCents === IMMERSION_SCHOLARSHIP_CENTS;
+  if (hasScholarship && choice === "deposit") return noStoreJson({ error: "Please choose your scholarship full-payment option." }, 409);
+  if (hasScholarship && choice === "full" && !config.scholarshipCoupon) {
+    return noStoreJson({ error: "Your scholarship checkout is being prepared. Please contact Akomapa for help." }, 503);
+  }
   const window = immersionCheckoutWindow(choice);
   if (config.mode === "live" && !window.open) {
     return noStoreJson({ error: "Online payment for this option has closed. Please contact Akomapa for help." }, 409);
   }
   try {
     const stripe = new Stripe(config.stripeKey);
-    const state = await loadImmersionPaymentState(stripe, person.email, config.mode);
+    let state = await loadImmersionPaymentState(stripe, person.email, config.mode);
     if (state.stage !== "initial" && state.stage !== "balance") {
       return noStoreJson({ error: state.stage === "paid" ? "Your program fee is already paid in full." : "We cannot open another checkout right now. Please contact Akomapa if you need help." }, 409);
     }
@@ -41,15 +46,31 @@ export async function POST(request: NextRequest) {
       return noStoreJson({ error: "Please refresh the page to see your current payment option." }, 409);
     }
     if (state.openSession) {
-      if (state.openSession.choice !== choice) return noStoreJson({ error: "A checkout is already open. Please finish it or try again after it expires." }, 409);
-      return noStoreJson({ url: state.openSession.url }, 200);
+      const expectedAmount = choice === "full" && hasScholarship ? IMMERSION_SCHOLARSHIP_FULL_CENTS : choice === "full" ? IMMERSION_FULL_CENTS : IMMERSION_DEPOSIT_CENTS;
+      if (state.openSession.choice === choice && state.openSession.amount === expectedAmount) {
+        return noStoreJson({ url: state.openSession.url }, 200);
+      }
+      if (hasScholarship && state.stage === "initial") {
+        await stripe.checkout.sessions.expire(state.openSession.id);
+        state = await loadImmersionPaymentState(stripe, person.email, config.mode);
+        if (state.openSession) throw new Error("Could not expire previous checkout");
+      } else {
+        return noStoreJson({ error: "A checkout is already open. Please finish it or try again after it expires." }, 409);
+      }
     }
     const priceId = choice === "deposit" ? config.depositPrice : choice === "full" ? config.fullPrice : config.balancePrice;
     if (config.mode === "live") {
       const price = await stripe.prices.retrieve(priceId);
-      const amount = choice === "full" ? 249_900 : 124_950;
+      const amount = choice === "full" ? IMMERSION_FULL_CENTS : IMMERSION_DEPOSIT_CENTS;
       if (!price.active || price.currency !== "usd" || price.unit_amount !== amount || price.type !== "one_time" || price.livemode !== true) {
         throw new Error("Live Stripe Price does not match the program fee");
+      }
+    }
+    if (choice === "full" && hasScholarship) {
+      const coupon = await stripe.coupons.retrieve(config.scholarshipCoupon!);
+      if (!coupon.valid || coupon.amount_off !== IMMERSION_SCHOLARSHIP_CENTS ||
+        coupon.currency !== "usd" || coupon.percent_off || coupon.livemode !== (config.mode === "live")) {
+        throw new Error("Stripe scholarship coupon does not match the award");
       }
     }
     const fingerprint = inviteeFingerprint(person.email, config.secret);
@@ -65,15 +86,17 @@ export async function POST(request: NextRequest) {
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
       line_items: [{ price: priceId, quantity: 1 }],
+      ...(choice === "full" && hasScholarship ? { discounts: [{ coupon: config.scholarshipCoupon! }] } : {}),
       payment_intent_data: { description: PAYMENT_DESCRIPTIONS[choice] },
       customer: customerId,
       metadata: { program: "global-health-immersion", payment_type: choice, selected_email: person.email,
         terms_version: IMMERSION_TERMS_VERSION, terms_accepted_at: new Date().toISOString(),
+        ...(choice === "full" && hasScholarship ? { scholarship_cents: String(IMMERSION_SCHOLARSHIP_CENTS) } : {}),
         ...(choice === "balance" ? { deposit_session_id: state.depositSessionId } : {}) },
       success_url: new URL(`${IMMERSION_PATH}?payment=success`, config.baseUrl || request.nextUrl.origin).toString(),
       cancel_url: new URL(`${IMMERSION_PATH}?payment=cancelled`, config.baseUrl || request.nextUrl.origin).toString(),
       ...(config.mode === "live" ? { expires_at: liveExpiresAt } : {}),
-    }, { idempotencyKey: `immersion-checkout-${config.mode}-${IMMERSION_TERMS_VERSION}-${fingerprint}-${state.stage}-${choice}-${state.attemptNumber}` });
+    }, { idempotencyKey: `immersion-checkout-${config.mode}-${IMMERSION_TERMS_VERSION}-${fingerprint}-${state.stage}-${choice}-${hasScholarship ? "scholarship" : "standard"}-${state.attemptNumber}` });
     if (!session.url || !session.url.startsWith("https://checkout.stripe.com/")) throw new Error("Missing checkout URL");
     return noStoreJson({ url: session.url }, 200);
   } catch {

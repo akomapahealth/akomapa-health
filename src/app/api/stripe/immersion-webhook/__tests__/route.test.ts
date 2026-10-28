@@ -21,6 +21,7 @@ function eventRequest({
   paymentType = "deposit",
   amount = 124_950,
   livemode = false,
+  scholarship = false,
 }: {
   eventId?: string;
   type?: string;
@@ -28,6 +29,7 @@ function eventRequest({
   paymentType?: string;
   amount?: number;
   livemode?: boolean;
+  scholarship?: boolean;
 } = {}) {
   const body = JSON.stringify({
     id: eventId,
@@ -42,7 +44,7 @@ function eventRequest({
         payment_status: paymentStatus,
         payment_link: null,
         customer: "cus_test",
-        metadata: { program: "global-health-immersion", payment_type: paymentType, selected_email: "participant@example.com", ...(livemode ? { terms_version: "2026-10-20-pilot-3", terms_accepted_at: "2026-10-20T12:00:00Z" } : {}), ...(paymentType === "balance" ? { deposit_session_id: "cs_deposit" } : {}) },
+        metadata: { program: "global-health-immersion", payment_type: paymentType, selected_email: "participant@example.com", ...(livemode ? { terms_version: "2026-10-20-pilot-3", terms_accepted_at: "2026-10-20T12:00:00Z" } : {}), ...(paymentType === "balance" ? { deposit_session_id: "cs_deposit" } : {}), ...(scholarship ? { scholarship_cents: "49900" } : {}) },
         amount_total: amount,
         currency: "usd",
         customer_details: { name: "Test Participant", email: "participant@example.com" },
@@ -137,6 +139,16 @@ describe("Immersion Stripe webhook", () => {
       }))).status,
     ).toBe(200);
     expect(fetchMock.mock.calls[0][1].body).toContain("Program fee paid in full");
+  });
+
+  it("accepts a signed $2,000 scholarship full payment and rejects an unmarked discount", async () => {
+    const fetchMock = vi.fn().mockResolvedValue(new Response(null, { status: 200 }));
+    vi.stubGlobal("fetch", fetchMock);
+    expect((await POST(eventRequest({ paymentType: "full", amount: 200_000, scholarship: true }))).status).toBe(200);
+    expect(fetchMock.mock.calls[0][1].body).toContain("Amount: USD 2000.00");
+    vi.spyOn(console, "error").mockImplementation(() => {});
+    expect((await POST(eventRequest({ paymentType: "full", amount: 200_000 }))).status).toBe(500);
+    expect(fetchMock).toHaveBeenCalledTimes(1);
   });
 
   it("alerts staff after a balance payment tied to a paid deposit", async () => {

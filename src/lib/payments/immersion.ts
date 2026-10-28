@@ -4,6 +4,8 @@ import { z } from "zod";
 
 export const IMMERSION_DEPOSIT_CENTS = 124_950;
 export const IMMERSION_FULL_CENTS = 249_900;
+export const IMMERSION_SCHOLARSHIP_CENTS = 49_900;
+export const IMMERSION_SCHOLARSHIP_FULL_CENTS = IMMERSION_FULL_CENTS - IMMERSION_SCHOLARSHIP_CENTS;
 export const IMMERSION_PATH = "/global-health-immersion-program";
 export const IMMERSION_COOKIE = "immersion_verified";
 
@@ -11,6 +13,7 @@ const inviteesSchema = z.array(z.object({
   name: z.string().trim().min(2).max(160),
   email: z.string().trim().email().max(254),
   expiresAt: z.string().datetime({ offset: true }).optional(),
+  scholarshipCents: z.literal(IMMERSION_SCHOLARSHIP_CENTS).optional(),
 })).min(1);
 type Invitee = z.infer<typeof inviteesSchema>[number];
 type TokenPurpose = "email" | "session";
@@ -34,6 +37,7 @@ export function getImmersionConfig() {
   const depositPrice = mode === "live" ? process.env.STRIPE_IMMERSION_LIVE_DEPOSIT_PRICE_ID : process.env.STRIPE_IMMERSION_DEPOSIT_PRICE_ID;
   const fullPrice = mode === "live" ? process.env.STRIPE_IMMERSION_LIVE_FULL_PRICE_ID : process.env.STRIPE_IMMERSION_FULL_PRICE_ID;
   const balancePrice = mode === "live" ? process.env.STRIPE_IMMERSION_LIVE_BALANCE_PRICE_ID : process.env.STRIPE_IMMERSION_BALANCE_PRICE_ID;
+  const scholarshipCoupon = mode === "live" ? process.env.STRIPE_IMMERSION_LIVE_SCHOLARSHIP_COUPON_ID : process.env.STRIPE_IMMERSION_SCHOLARSHIP_COUPON_ID;
   const webhookSecret = mode === "live" ? process.env.STRIPE_IMMERSION_LIVE_WEBHOOK_SECRET : process.env.STRIPE_IMMERSION_WEBHOOK_SECRET;
   const baseUrl = mode === "live" ? process.env.IMMERSION_LIVE_BASE_URL : undefined;
   // Optional: direct invites never affect the existing email verification flow.
@@ -56,7 +60,7 @@ export function getImmersionConfig() {
       if (url.protocol !== "https:" || url.username || url.password || url.pathname !== "/" || url.search || url.hash) return null;
     } catch { return null; }
   }
-  return { mode, secret, stripeKey, depositPrice, fullPrice, balancePrice, webhookSecret, baseUrl,
+  return { mode, secret, stripeKey, depositPrice, fullPrice, balancePrice, scholarshipCoupon, webhookSecret, baseUrl,
     directInviteSecret: directInviteSecret && directInviteSecret.length >= 32 ? directInviteSecret : undefined, roster };
 }
 

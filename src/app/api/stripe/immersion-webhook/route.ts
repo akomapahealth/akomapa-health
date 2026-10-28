@@ -2,6 +2,8 @@ import Stripe from "stripe";
 import {
   IMMERSION_DEPOSIT_CENTS,
   IMMERSION_FULL_CENTS,
+  IMMERSION_SCHOLARSHIP_CENTS,
+  IMMERSION_SCHOLARSHIP_FULL_CENTS,
   getImmersionWebhookConfig,
 } from "@/lib/payments/immersion";
 import { sendImmersionPaymentNotification } from "@/lib/payments/immersion-notification";
@@ -58,7 +60,8 @@ export async function POST(request: Request) {
     return Response.json({ received: true });
   }
 
-  const expectedAmount = paymentType === "full" ? IMMERSION_FULL_CENTS : IMMERSION_DEPOSIT_CENTS;
+  const scholarship = paymentType === "full" && session.metadata?.scholarship_cents === String(IMMERSION_SCHOLARSHIP_CENTS);
+  const expectedAmount = paymentType === "full" ? (scholarship ? IMMERSION_SCHOLARSHIP_FULL_CENTS : IMMERSION_FULL_CENTS) : IMMERSION_DEPOSIT_CENTS;
   if (session.currency !== "usd" || session.amount_total !== expectedAmount) {
     console.error("Immersion Stripe amount mismatch", { eventId: event.id });
     return new Response(null, { status: 500 });

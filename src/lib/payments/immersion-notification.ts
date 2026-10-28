@@ -18,7 +18,7 @@ export async function sendImmersionPaymentNotification({
   const email = session.customer_details?.email || "Not provided";
   const amount = ((session.amount_total ?? 0) / 100).toFixed(2);
   const text = [
-    "Immersion Program payment completed in Stripe sandbox.",
+    `Immersion Program payment completed in Stripe ${session.livemode ? "live mode" : "sandbox"}.`,
     `Payment type: ${paymentType}`,
     `Amount: USD ${amount}`,
     `Payer name: ${name}`,

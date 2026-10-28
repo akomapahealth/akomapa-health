@@ -29,9 +29,17 @@ The live product `prod_VThqwJNHEmtdVn` and Prices were created in account `acct_
 
 The server retrieves the selected live Price and verifies that it is active, one-time, USD, in live mode, and has the expected exact amount before creating a Checkout Session. Do not make public Payment Links for this invite-only flow.
 
+### Individual $499 scholarship
+
+For the approved recipient who has **not paid a deposit**, add `"scholarshipCents":49900` to only her object in the server-only `IMMERSION_SELECTED_PARTICIPANTS_JSON` roster. Leave all other roster records unchanged. The verified page then offers only a **$2,000 full payment** and applies the $499 scholarship in Stripe Checkout; everyone else retains the standard choices. Her existing personal direct link remains valid and does not reveal the award to others.
+
+In Stripe **live mode**, create a fixed-amount **USD $499.00 coupon** named for the Immersion scholarship. Set duration to **once** and do not create a public promotion code. Record its coupon ID as `STRIPE_IMMERSION_LIVE_SCHOLARSHIP_COUPON_ID` in Vercel Production. Add **Coupons read** to the existing Immersion restricted key so the server can verify the coupon is valid, USD, live, and exactly $499 before opening Checkout. The coupon ID is optional for all other invitees; if missing or invalid, only the scholarship checkout fails closed. Do not set a one-redemption limit: an expired or canceled Checkout may need to be reopened. Staff should monitor Stripe for the first scholarship payment and confirm its total is $2,000 before marking it paid.
+
+The approved policy keeps the first $1,249.50 nonrefundable on participant cancellation. A written cancellation received by November 29, 2026 at 11:59 p.m. Eastern can therefore refund $750.50 of this $2,000 payment. If Akomapa cancels the program or cannot offer a place, refund the full $2,000. Record the scholarship in the participant's written offer as well as the private roster. Do not send a standard $2,499 payment link to this recipient.
+
 ## 3. Create a restricted live key and webhook
 
-1. In live-mode **API keys**, create a **restricted** server key (`rk_live_`) named for the Immersion production service. Give it only the permissions needed by the server: Customers read/write, Checkout Sessions read/write, and Prices read. The webhook signature check itself does not require an API call, but balance verification retrieves a Checkout Session. If Stripe reports a missing permission, inspect the request log and grant only that resource permission.
+1. In live-mode **API keys**, create a **restricted** server key (`rk_live_`) named for the Immersion production service. Give it only the permissions needed by the server: Customers read/write, Checkout Sessions read/write, Prices read, and Coupons read when an individual scholarship is configured. The webhook signature check itself does not require an API call, but balance verification retrieves a Checkout Session. If Stripe reports a missing permission, inspect the request log and grant only that resource permission.
 2. Live webhook destination `we_1USkQwCQSVxDNx5Dsu4KZWIJ` is enabled at `https://www.akomapa.org/api/stripe/immersion-webhook` for snapshot `checkout.session.completed` and `checkout.session.async_payment_succeeded` events. Reveal this destination's own live `whsec_` signing secret in Stripe Dashboard and place it in Vercel Production; never record it here. The endpoint verifies the raw Stripe signature and exact program amount and alerts the staff mailbox only for paid Sessions. It ignores sandbox events.
 3. Keep this webhook pointed at the stable production domain, not a versioned Vercel deployment URL. In Stripe Workbench, inspect delivery attempts after the first live payment. If an alert fails, Stripe retries; staff must reconcile Stripe payments against received alerts by Checkout Session ID.
 
@@ -50,6 +58,7 @@ Add these to the production Vercel project, scoped **Production** only. Mark the
 | `STRIPE_IMMERSION_LIVE_DEPOSIT_PRICE_ID` | Live deposit Price ID |
 | `STRIPE_IMMERSION_LIVE_FULL_PRICE_ID` | Live full-fee Price ID |
 | `STRIPE_IMMERSION_LIVE_BALANCE_PRICE_ID` | Live balance Price ID |
+| `STRIPE_IMMERSION_LIVE_SCHOLARSHIP_COUPON_ID` | Optional live $499 coupon ID for the approved roster award |
 | `STRIPE_IMMERSION_LIVE_WEBHOOK_SECRET` | Signing secret of the live webhook destination |
 | `RESEND_API_KEY` | Working production Resend key |
 | `FORM_NOTIFICATION_FROM` | Verified Akomapa sender for verification emails and staff alerts |
