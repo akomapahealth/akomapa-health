@@ -6,7 +6,10 @@ import {
   EditorialHeading,
   EditorialLead,
 } from "@/components/shared/EditorialPrimitives";
-import { researchPapers } from "@/data/research-papers";
+import {
+  getResearchPaperSummary,
+  researchPapers,
+} from "@/data/research-papers";
 
 export default function ResearchPaperList() {
   return (
@@ -37,14 +40,19 @@ export default function ResearchPaperList() {
           <FadeIn key={paper.id} delay={index * 0.05}>
             <PublicationEntry
               href={`/research/${paper.slug}`}
+              eyebrow={paper.journal}
               title={paper.title}
-              description={paper.abstract}
+              description={getResearchPaperSummary(paper)}
               image={paper.image}
               imageAlt={paper.title}
               ctaLabel="Read Paper"
               meta={[
                 { label: "Authors", value: paper.authors },
-                { label: "Published", value: paper.date },
+                {
+                  label: "Published",
+                  value: paper.date,
+                  dateTime: paper.publishedAt,
+                },
               ]}
             />
           </FadeIn>
