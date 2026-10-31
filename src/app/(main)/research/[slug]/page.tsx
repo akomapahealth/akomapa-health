@@ -7,14 +7,24 @@ import {
   serializeJsonLd,
 } from "@/lib/seo";
 import {
+  getDoiUrl,
   getResearchPaperBySlug,
+  getResearchPaperSummary,
   researchPapers,
+  type ResearchPaper,
 } from "@/data/research-papers";
 import ResearchPaperContent from "./ResearchPaperContent";
 
 type ResearchPaperPageProps = {
   params: Promise<{ slug: string }>;
 };
+
+function splitAuthors(paper: ResearchPaper) {
+  return paper.authors
+    .split(",")
+    .map((name) => name.trim())
+    .filter(Boolean);
+}
 
 export function generateStaticParams() {
   return researchPapers.map((paper) => ({ slug: paper.slug }));
@@ -32,11 +42,11 @@ export async function generateMetadata({
 
   return buildArticleMetadata({
     title: paper.title,
-    description: paper.abstract,
+    description: getResearchPaperSummary(paper),
     path: `/research/${paper.slug}`,
     image: paper.image,
-    publishedTime: paper.date,
-    authors: [paper.authors],
+    publishedTime: paper.publishedAt ?? paper.date,
+    authors: splitAuthors(paper),
   });
 }
 
@@ -50,13 +60,21 @@ export default async function ResearchPaperPage({
     notFound();
   }
 
+  const sameAs = [
+    ...(paper.doi ? [getDoiUrl(paper.doi)] : []),
+    ...(paper.publisherUrl ? [paper.publisherUrl] : []),
+  ];
+
   const jsonLd = buildArticleJsonLd({
+    type: paper.journal ? "ScholarlyArticle" : "Article",
     title: paper.title,
-    description: paper.abstract,
+    description: getResearchPaperSummary(paper),
     path: `/research/${paper.slug}`,
     image: paper.image,
-    publishedTime: paper.date,
-    author: paper.authors,
+    publishedTime: paper.publishedAt ?? paper.date,
+    authors: splitAuthors(paper),
+    sameAs,
+    isPartOf: paper.journal,
   });
 
   return (

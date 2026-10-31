@@ -476,29 +476,48 @@ export function buildArticleJsonLd({
   image,
   publishedTime,
   author,
+  authors,
+  type = "Article",
+  sameAs,
+  isPartOf,
 }: {
   title: string;
   description: string;
   path: string;
   image?: string | null;
   publishedTime?: string | null;
+  /** Single author. Ignored when `authors` is provided. */
   author?: string;
+  /** Multiple authors, each emitted as a schema.org Person. */
+  authors?: string[];
+  type?: "Article" | "ScholarlyArticle";
+  /** Canonical external identifiers for the same work (DOI URL, publisher page). */
+  sameAs?: string[];
+  /** Journal or periodical the work appears in. */
+  isPartOf?: string;
 }) {
+  const authorList = authors?.length ? authors : author ? [author] : [];
+  const authorValue = authorList.map((name) => ({
+    "@type": "Person",
+    name,
+  }));
+
   return {
     "@context": "https://schema.org",
-    "@type": "Article",
+    "@type": type,
     headline: title,
     description,
     url: absoluteUrl(path),
     image: absoluteUrl(image ?? DEFAULT_OG_IMAGE),
     ...(publishedTime ? { datePublished: publishedTime } : {}),
-    ...(author
-      ? {
-          author: {
-            "@type": "Person",
-            name: author,
-          },
-        }
+    ...(authorValue.length === 1
+      ? { author: authorValue[0] }
+      : authorValue.length > 1
+        ? { author: authorValue }
+        : {}),
+    ...(sameAs?.length ? { sameAs } : {}),
+    ...(isPartOf
+      ? { isPartOf: { "@type": "Periodical", name: isPartOf } }
       : {}),
     publisher: {
       "@id": `${SITE_URL}/#organization`,
