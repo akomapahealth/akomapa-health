@@ -130,6 +130,24 @@ test.describe("desktop header dropdown keyboard accessibility", () => {
     await expect(page).toHaveURL(/\/impact$/);
   });
 
+  test("Our Work dropdown lists News and marks it current on /news", async ({
+    page,
+  }) => {
+    const workTrigger = page.getByRole("button", { name: "Our Work" });
+    await workTrigger.click();
+
+    const newsLink = page.getByRole("menuitem", { name: "News", exact: true });
+    await expect(newsLink).toBeVisible();
+    await expect(newsLink).toHaveAttribute("href", "/news");
+    await newsLink.click();
+    await expect(page).toHaveURL(/\/news$/);
+
+    await page.getByRole("button", { name: "Our Work" }).click();
+    await expect(
+      page.getByRole("menuitem", { name: "News", exact: true }),
+    ).toHaveAttribute("aria-current", "page");
+  });
+
   test("Community Health Hubs is top-level and reaches individual hubs", async ({
     page,
   }) => {
@@ -311,6 +329,9 @@ test.describe("mobile grouped navigation", () => {
     ).toBeVisible();
     await expect(
       drawer.getByRole("link", { name: "Impact", exact: true }),
+    ).toBeVisible();
+    await expect(
+      drawer.getByRole("link", { name: "News", exact: true }),
     ).toBeVisible();
     await expect(
       drawer.getByRole("link", { name: "Get Involved" }),

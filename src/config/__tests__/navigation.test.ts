@@ -65,17 +65,23 @@ describe("main navigation structure", () => {
     ]);
   });
 
-  it("nests Learning Experiences under Our Work without the hubs", () => {
+  it("nests Learning Experiences and News under Our Work without the hubs", () => {
     const ourWork = asGroup("Our Work");
     expect(ourWork.children.map(({ name }) => name)).toEqual([
       "Research & Innovation",
       "Impact",
       "Learning Experiences",
+      "News",
     ]);
     expect(findNode(ourWork.children, "Community Health Hubs")).toBeUndefined();
     expect(
       asGroup("Learning Experiences").children.map(({ name }) => name),
     ).toEqual(["Akomapa Academy", "Global Health Immersion Program"]);
+  });
+
+  it("links News to /news under Our Work", () => {
+    const newsLink = findNode(asGroup("Our Work").children, "News");
+    expect(newsLink).toEqual({ name: "News", href: "/news" });
   });
 });
 

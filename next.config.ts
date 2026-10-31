@@ -87,6 +87,12 @@ const nextConfig: NextConfig = {
         destination: "/get-involved",
         statusCode: 301,
       },
+      // Nkwapa story renamed once the platform left beta
+      {
+        source: "/news/nkwapa-emr-public-beta",
+        destination: "/news/nkwapa-emr-launch",
+        statusCode: 301,
+      },
       {
         source: "/partner",
         destination: "/partnerships",
