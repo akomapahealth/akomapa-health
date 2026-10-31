@@ -1,4 +1,5 @@
 import { News } from "@/lib/types";
+import { NKWAPA_URL } from "@/config/links";
 
 export const news: News[] = [
   {
@@ -55,23 +56,29 @@ export const news: News[] = [
   },
   {
     id: "3",
-    title: "Nkwapa Enters Public Beta as Akomapa's Offline-First EMR Platform",
-    slug: "nkwapa-emr-public-beta",
+    title: "Nkwapa Is Live: Akomapa's Offline-First Clinic Records Platform",
+    slug: "nkwapa-emr-launch",
     excerpt:
-      "Nkwapa is now in public beta, giving Akomapa clinics an offline-first EMR option built for real conditions on the ground.",
+      "Nkwapa, Akomapa's offline-first electronic medical records platform, is now live at nkwapa.app and in use at Akomapa community clinics.",
     content: [
-      "When connectivity is inconsistent, documentation gaps can quickly become care gaps, and Akomapa is responding to that reality with Nkwapa.",
-      "Akomapa has announced the public beta launch of Nkwapa, its offline-first electronic medical records platform.",
-      "The core promise is practical: clinic teams should be able to record visits, track care, and continue workflows without relying on constant internet access.",
-      "Designing for offline use first reflects the environments many community clinics operate in and helps reduce disruptions in day-to-day service delivery.",
-      "The public beta also signals an iterative approach, where implementation feedback can directly shape how the platform improves over time.",
-      "Akomapa positions Nkwapa as enabling infrastructure that supports frontline teams and strengthens continuity, while keeping patient-centered care at the core.",
-      "As the beta evolves, the focus remains clear: technology that adapts to context, not the other way around."
+      "When connectivity is inconsistent, documentation gaps can quickly become care gaps. Nkwapa is Akomapa's answer to that reality, and it is now live.",
+      "Nkwapa is an electronic medical records platform built for hypertension and diabetes care in community clinics. It connects registration, vital signs, clinical visits, doctor review, and follow-up in one patient record, so everyone on a care team can see what happened and what comes next.",
+      "The platform is in day-to-day use at Akomapa community clinics, where volunteers register patients and record measurements at their stations, doctors review and sign off visits, and clinic managers run the day's queue.",
+      "Nkwapa is offline-first because that is the condition clinics actually work in. Registrations, visits, vital signs, consent, and prescriptions are saved on the device first and sent to the server when the connection returns, so a dropped signal does not stop the queue.",
+      "Each person signs in to the tools their role needs, each clinic's records stay with that clinic, changes leave an audit trail, and a visit is not final until a doctor signs it. Research exports include only patients who consented and are de-identified.",
+      "Since launch, the team has continued to ship updates based on how clinic teams use the platform, with a clearer system status among the most recent improvements.",
+      "The focus remains the same as it was from the start: technology that adapts to the clinic, not the other way around.",
     ],
-    image: "/static/nkwapa/nkwapa-launch.webp",
-    date: "2026-04-28",
+    image: "/static/nkwapa/nkwapa-dashboard.webp",
+    imageAlt:
+      "Nkwapa clinic dashboard for Akomapa Clinic - UCC, showing today's patient and visit counts, clinical measurement coverage, and a synced status indicator.",
+    date: "2026-10-14",
     category: "Product Launch",
-    tags: ["Nkwapa", "EMR", "Digital Health", "Offline First"],
+    featured: true,
+    tags: ["Nkwapa", "EMR", "Digital Health", "Offline First", "Community Health Hubs"],
+    ctaText: "Explore Nkwapa",
+    ctaLink: NKWAPA_URL,
+    isExternalCta: true,
   },
   {
     id: "4",

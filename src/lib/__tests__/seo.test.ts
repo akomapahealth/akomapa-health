@@ -120,6 +120,23 @@ describe("SEO metadata contract", () => {
     });
   });
 
+  it("prefers a descriptive imageAlt over the article title for social cards", () => {
+    const metadata = buildArticleMetadata({
+      title: "Nkwapa Is Live",
+      description: "Nkwapa is now live at nkwapa.app.",
+      path: "/news/nkwapa-emr-launch",
+      image: "/static/nkwapa/nkwapa-dashboard.webp",
+      imageAlt: "Nkwapa clinic dashboard showing today's patient counts.",
+    });
+
+    expect(metadata.openGraph?.images).toMatchObject([
+      { alt: "Nkwapa clinic dashboard showing today's patient counts." },
+    ]);
+    expect(metadata.twitter).toMatchObject({
+      images: [{ alt: "Nkwapa clinic dashboard showing today's patient counts." }],
+    });
+  });
+
   it("describes the Immersion program without implying open enrollment", () => {
     const route = canonicalSeoRoutes.find(
       (candidate) =>

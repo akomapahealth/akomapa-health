@@ -221,6 +221,11 @@ export default function Footer() {
                   Send us a message
                 </Link>
               </li>
+              <li>
+                <Link href="/news" className={footerLinkClass}>
+                  News
+                </Link>
+              </li>
               <li className="flex items-center gap-2">
                 <Mail
                   className="h-4 w-4 flex-shrink-0 text-[#C9920F] dark:text-[#F5C94D]"

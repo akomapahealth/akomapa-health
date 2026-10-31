@@ -355,6 +355,7 @@ export function buildArticleMetadata({
   description,
   path,
   image,
+  imageAlt: imageAltOverride,
   publishedTime,
   authors,
 }: {
@@ -362,13 +363,14 @@ export function buildArticleMetadata({
   description: string;
   path: string;
   image?: string | null;
+  imageAlt?: string | null;
   publishedTime?: string | null;
   authors?: string[];
 }): Metadata {
   const url = absoluteUrl(path);
   const socialTitle = withSiteName(title);
   const imageUrl = image ?? DEFAULT_OG_IMAGE;
-  const imageAlt = image ? title : DEFAULT_OG_IMAGE_ALT;
+  const imageAlt = image ? (imageAltOverride ?? title) : DEFAULT_OG_IMAGE_ALT;
 
   return {
     title,

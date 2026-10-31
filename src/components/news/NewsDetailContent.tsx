@@ -113,7 +113,7 @@ export function NewsDetailContent({ item, relatedItems }: Props) {
                   {detailPoster ? (
                     <Image
                       src={detailPoster}
-                      alt={item.title}
+                      alt={item.imageAlt ?? item.title}
                       fill
                       priority
                       sizes="(min-width: 1024px) 56rem, 100vw"

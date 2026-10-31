@@ -10,6 +10,7 @@ function makeItem(overrides: Partial<NewsItem> = {}): NewsItem {
     excerpt: "Excerpt text",
     content: ["First paragraph body.", "Second paragraph body."],
     image: "/test/news.jpg",
+    imageAlt: null,
     videoUrl: null,
     thumbnail: null,
     date: "2026-04-30",
@@ -58,6 +59,24 @@ describe("NewsDetailContent", () => {
     const cta = screen.getByRole("link", { name: /read on yale/i });
     expect(cta).toHaveAttribute("href", "https://medicine.yale.edu");
     expect(cta).toHaveAttribute("target", "_blank");
+  });
+
+  it("uses the descriptive imageAlt for the story image, falling back to the title", () => {
+    const { unmount } = render(
+      <NewsDetailContent
+        item={makeItem({ imageAlt: "A clinic dashboard on a laptop" })}
+        relatedItems={[]}
+      />
+    );
+    expect(
+      screen.getByRole("img", { name: "A clinic dashboard on a laptop" })
+    ).toBeInTheDocument();
+    unmount();
+
+    render(<NewsDetailContent item={makeItem()} relatedItems={[]} />);
+    expect(
+      screen.getByRole("img", { name: "Test news headline" })
+    ).toBeInTheDocument();
   });
 
   it("renders related items in the 'Continue Reading' section", () => {

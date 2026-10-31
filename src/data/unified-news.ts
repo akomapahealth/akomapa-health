@@ -9,6 +9,7 @@ function normalizeAnnouncement(a: Announcement): NewsItem {
     excerpt: a.description,
     content: [a.description],
     image: a.image ?? "",
+    imageAlt: null,
     videoUrl: a.videoUrl ?? null,
     thumbnail: a.thumbnail ?? null,
     date: a.publishedAt ?? null,
@@ -30,6 +31,7 @@ function normalizeNews(n: News): NewsItem {
     excerpt: n.excerpt,
     content: n.content,
     image: n.image,
+    imageAlt: n.imageAlt ?? null,
     videoUrl: null,
     thumbnail: null,
     date: n.date,
@@ -37,9 +39,9 @@ function normalizeNews(n: News): NewsItem {
     categoryColor: "lapis",
     tags: n.tags ?? [],
     featured: n.featured ?? false,
-    ctaText: null,
-    ctaLink: null,
-    isExternalCta: false,
+    ctaText: n.ctaText ?? null,
+    ctaLink: n.ctaLink ?? null,
+    isExternalCta: n.isExternalCta ?? false,
     source: "news",
   };
 }
@@ -78,6 +80,12 @@ export function getNewsItemById(id: string): NewsItem | undefined {
 }
 
 export function newsItemToAnnouncement(item: NewsItem): Announcement {
+  // Announcements with an external CTA have no detail page, so the card links
+  // out directly. News stories always have a detail page; any external CTA they
+  // carry is rendered on that page instead.
+  const cardLinksExternally =
+    item.source === "announcement" && item.isExternalCta;
+
   return {
     id: item.id,
     title: item.title,
@@ -88,8 +96,8 @@ export function newsItemToAnnouncement(item: NewsItem): Announcement {
     image: item.image || undefined,
     videoUrl: item.videoUrl ?? undefined,
     thumbnail: item.thumbnail ?? undefined,
-    ctaText: item.isExternalCta ? (item.ctaText ?? undefined) : "Explore the update",
-    ctaLink: item.isExternalCta ? (item.ctaLink ?? undefined) : `/news/${item.id}`,
-    isExternal: item.isExternalCta,
+    ctaText: cardLinksExternally ? (item.ctaText ?? undefined) : "Explore the update",
+    ctaLink: cardLinksExternally ? (item.ctaLink ?? undefined) : `/news/${item.id}`,
+    isExternal: cardLinksExternally,
   };
 }
