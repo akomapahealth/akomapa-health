@@ -224,7 +224,7 @@ test.describe("Announcement modal", () => {
     ).toBeVisible();
     await expect(modal.locator("img")).toHaveAttribute(
       "src",
-      /nkwapa-launch\.webp/,
+      /nkwapa-live\.webp/,
     );
   });
 

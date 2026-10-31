@@ -90,7 +90,7 @@ describe("Nkwapa launch story", () => {
 
   it("uses a current product visual with descriptive alt text", () => {
     expect(story.image).toBe("/static/nkwapa/nkwapa-dashboard.webp");
-    expect(story.image).not.toBe("/static/nkwapa/nkwapa-launch.webp");
+    expect(story.image).not.toBe("/static/nkwapa/nkwapa-live.webp");
     expect(story.imageAlt).toMatch(/dashboard/i);
     expect(item.imageAlt).toBe(story.imageAlt);
   });

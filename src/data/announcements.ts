@@ -32,7 +32,7 @@ export const announcementCampaign: AnnouncementCampaign = {
       titleHighlights: ["Nkwapa is live!"],
       description:
         "The wait is over—Nkwapa Beta is now fully launched at nkwapa.app! Built by Akomapa for real-world care in resource-limited settings, Nkwapa brings offline-first digital records to the work of our clinics. This is a major milestone in building more resilient, community-centered care. Explore Nkwapa and see what’s possible.",
-      image: "/static/nkwapa/nkwapa-launch.webp",
+      image: "/static/nkwapa/nkwapa-live.webp",
       ctaText: "Explore Nkwapa",
       ctaLink: NKWAPA_URL,
       isExternal: true,

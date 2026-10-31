@@ -1,3 +1,5 @@
+import { existsSync } from "node:fs";
+import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import { NKWAPA_URL } from "@/config/links";
 import { isImageKitSrc } from "@/lib/imagekit";
@@ -72,7 +74,8 @@ describe("Nkwapa launch announcement", () => {
     expect(nkwapa.ctaText).toBe("Explore Nkwapa");
     expect(nkwapa.ctaLink).toBe("https://nkwapa.app");
     expect(nkwapa.isExternal).toBe(true);
-    expect(nkwapa.image).toBe("/static/nkwapa/nkwapa-launch.webp");
+    expect(nkwapa.image).toBe("/static/nkwapa/nkwapa-live.webp");
+    expect(existsSync(join(process.cwd(), "public", nkwapa.image!))).toBe(true);
   });
 
   it("opts into the confetti celebration explicitly", () => {
