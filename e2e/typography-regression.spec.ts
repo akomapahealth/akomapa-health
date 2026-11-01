@@ -31,6 +31,7 @@ const pages = [
   { path: "/global-health-immersion-program", headingSelector: "main h1" },
   { path: "/contact", headingSelector: "main h1" },
   { path: "/privacy", headingSelector: "main h1" },
+  { path: "/cookie-policy", headingSelector: "main h1" },
   { path: "/terms", headingSelector: "main h1" },
 ] as const;
 

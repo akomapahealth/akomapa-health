@@ -15,6 +15,12 @@ const legalRoutes = [
     lastUpdated: "Last updated: August 16, 2026",
     sectionHeading: "Agreement to these terms",
   },
+  {
+    path: "/cookie-policy",
+    heading: "Cookie Policy",
+    lastUpdated: "Last updated: November 1, 2026",
+    sectionHeading: "The short version",
+  },
 ] as const;
 
 const viewports = [
