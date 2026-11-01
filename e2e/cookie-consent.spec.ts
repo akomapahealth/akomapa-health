@@ -349,6 +349,13 @@ test.describe("Cookie banner layout", () => {
         await expect(region).toBeVisible();
         // Let the entrance slide settle before measuring.
         await expect(async () => expectInsideViewport(page, region)).toPass();
+        // The sticky header must never cover the top of the banner.
+        const headerBottom = await page
+          .locator("header")
+          .first()
+          .evaluate((element) => element.getBoundingClientRect().bottom);
+        const regionTop = (await region.boundingBox())!.y;
+        expect(regionTop).toBeGreaterThanOrEqual(headerBottom - 0.5);
         await expectNoHorizontalOverflow(page);
 
         for (const name of ["Accept optional cookies", "Reject optional cookies"]) {

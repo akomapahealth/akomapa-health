@@ -8,6 +8,7 @@ import {
   THEME_STORAGE_KEY,
 } from "@/config/storage-keys";
 import { INTAKE_DRAFT_TTL_MS } from "@/lib/intake/drafts";
+import { INTAKE_SCHEMA_VERSION } from "@/lib/intake/contracts";
 
 /**
  * Inventory of everything the site stores in the browser, rendered by the
@@ -37,7 +38,7 @@ const days = (ms: number) => Math.round(ms / DAY_MS);
 
 export const IMMERSION_SESSION_COOKIE_NAME = "immersion_verified";
 export const SENTRY_REPLAY_SESSION_KEY = "sentryReplaySession";
-export const INTAKE_DRAFT_KEY_PATTERN = "akomapa:intake:v…";
+export const INTAKE_DRAFT_KEY_PATTERN = `akomapa:intake:v${INTAKE_SCHEMA_VERSION}:<form>:<context>`;
 
 export const cookieInventory: readonly CookieInventoryItem[] = [
   {

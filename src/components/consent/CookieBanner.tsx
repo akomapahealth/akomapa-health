@@ -14,6 +14,7 @@ import {
   consentEyebrowClassName,
   consentSurfaceClassName,
   consentTextButtonClassName,
+  consentTextButtonLabelClassName,
 } from "@/components/consent/styles";
 
 type BannerPhase = "hidden" | "prompt" | "confirmed";
@@ -87,9 +88,10 @@ export default function CookieBanner() {
           transition={{ duration: motionDurations.enter, ease: [...MOTION_EASE] }}
           className={cn(
             consentSurfaceClassName,
-            "fixed inset-x-0 bottom-0 z-[45] max-h-[85dvh] overflow-y-auto overscroll-contain border-x-0 border-b-0",
+            // Height stays below the sticky header (~4.5rem) on short screens.
+            "fixed inset-x-0 bottom-0 z-[45] max-h-[calc(100dvh-5rem)] overflow-y-auto overscroll-contain border-x-0 border-b-0",
             "px-4 pt-5 pb-[max(1rem,calc(0.75rem+env(safe-area-inset-bottom)))]",
-            "sm:inset-x-auto sm:bottom-4 sm:left-4 sm:w-[min(32rem,calc(100vw-2rem))] sm:rounded-lg sm:border sm:p-6 lg:left-6",
+            "sm:inset-x-auto sm:bottom-4 sm:left-4 sm:max-h-[calc(100dvh-6rem)] sm:w-[min(32rem,calc(100vw-2rem))] sm:rounded-lg sm:border sm:p-6 lg:left-6",
           )}
         >
           <span
@@ -142,7 +144,7 @@ export default function CookieBanner() {
                   onClick={openSettings}
                   className={consentTextButtonClassName}
                 >
-                  <span className={consentButtonLabelClassName}>
+                  <span className={consentTextButtonLabelClassName}>
                     Cookie settings
                   </span>
                 </button>

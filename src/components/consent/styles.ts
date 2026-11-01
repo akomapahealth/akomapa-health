@@ -23,6 +23,10 @@ export const consentChoiceButtonClassName = cn(
 export const consentButtonLabelClassName =
   "font-subheading text-sm font-semibold leading-snug";
 
+/** Matches the text links next to it, which keep the default line height. */
+export const consentTextButtonLabelClassName =
+  "font-subheading text-sm font-semibold";
+
 export const consentTextButtonClassName = cn(
   "inline-flex min-h-11 items-center rounded-sm font-subheading text-sm font-semibold text-[#0F4C5C] underline decoration-[#0097b2]/40 underline-offset-4 transition-colors",
   "hover:text-[#0097b2] hover:decoration-[#0097b2]",

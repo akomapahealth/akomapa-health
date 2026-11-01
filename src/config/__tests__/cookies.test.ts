@@ -26,8 +26,10 @@ describe("cookie inventory", () => {
   });
 
   it("describes intake drafts by their real key prefix", () => {
-    const prefix = INTAKE_DRAFT_KEY_PATTERN.replace("…", "");
-    expect(getIntakeDraftKey("general_inquiry")).toMatch(new RegExp(`^${prefix}`));
+    const prefix = INTAKE_DRAFT_KEY_PATTERN.slice(0, INTAKE_DRAFT_KEY_PATTERN.indexOf("<"));
+    expect(getIntakeDraftKey("general_inquiry", "volunteer")).toBe(
+      `${prefix}general_inquiry:volunteer`,
+    );
   });
 
   it("lists the GA4 cookies the consent code clears", () => {
