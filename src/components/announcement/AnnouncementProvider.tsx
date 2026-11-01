@@ -11,8 +11,8 @@ import {
 } from "react";
 import dynamic from "next/dynamic";
 import { getActiveAnnouncementCampaign } from "@/data/announcements";
-
-const STORAGE_KEY = "akomapa-announcements-dismissed";
+import { useCookieConsent } from "@/components/consent/ConsentProvider";
+import { ANNOUNCEMENTS_DISMISSED_STORAGE_KEY as STORAGE_KEY } from "@/config/storage-keys";
 const AUTO_OPEN_DELAY_MS = 3000;
 
 const AnnouncementTrigger = dynamic(
@@ -70,6 +70,10 @@ export function AnnouncementProvider({ children }: AnnouncementProviderProps) {
   const [mountModal, setMountModal] = useState(false);
   const campaign = useMemo(() => getActiveAnnouncementCampaign(), []);
   const { slides, version } = campaign;
+  // Hold the FAB and auto-open until the cookie banner has been answered so
+  // two overlays never compete for the same first impression.
+  const { status: consentStatus } = useCookieConsent();
+  const isConsentSettled = consentStatus === "decided";
 
   useEffect(() => {
     if (slides.length === 0) return;
@@ -84,9 +88,9 @@ export function AnnouncementProvider({ children }: AnnouncementProviderProps) {
   // Code-split the FAB immediately on the client (still off the SSR path).
   // Avoid idle-delaying the trigger so tip reveal (2s) stays aligned with auto-open.
   useEffect(() => {
-    if (slides.length === 0) return;
+    if (slides.length === 0 || !isConsentSettled) return;
     setMountTrigger(true);
-  }, [slides.length]);
+  }, [slides.length, isConsentSettled]);
 
   // Mount the modal chunk only when needed: unseen auto-open path, or user opens FAB.
   useEffect(() => {
@@ -97,10 +101,10 @@ export function AnnouncementProvider({ children }: AnnouncementProviderProps) {
       return;
     }
 
-    if (isCampaignDismissed(version)) return;
+    if (isCampaignDismissed(version) || !isConsentSettled) return;
 
     return scheduleIdle(() => setMountModal(true));
-  }, [slides.length, version, isOpen, mountModal]);
+  }, [slides.length, version, isOpen, mountModal, isConsentSettled]);
 
   // Auto-open for first-time visitors. Clock starts after the trigger mounts so
   // tip reveal (2s) and auto-open (3s) stay in the same relative window even if

@@ -85,6 +85,8 @@ describe("consent storage", () => {
 
     expect(record.analytics).toBe(true);
     expect(listener).toHaveBeenCalledTimes(1);
+    // The choice is still honoured for the rest of this page load.
+    expect(hasAnalyticsConsent()).toBe(true);
     window.removeEventListener(CONSENT_CHANGE_EVENT, listener);
   });
 });

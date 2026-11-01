@@ -53,15 +53,23 @@ export function parseConsentRecord(
   return record;
 }
 
+// Holds a choice for the current page load when localStorage is unavailable
+// (blocked storage, quota), so the visitor is not asked again on every click.
+let unsavedRecord: string | null = null;
+
 export function readConsent(now = Date.now()): ConsentRecord | null {
   if (typeof window === "undefined") return null;
 
+  let stored: string | null = null;
   try {
-    return parseConsentRecord(localStorage.getItem(CONSENT_STORAGE_KEY), now);
+    stored = localStorage.getItem(CONSENT_STORAGE_KEY);
   } catch {
     // localStorage unavailable
-    return null;
   }
+
+  return (
+    parseConsentRecord(stored, now) ?? parseConsentRecord(unsavedRecord, now)
+  );
 }
 
 export function hasAnalyticsConsent(): boolean {
@@ -69,9 +77,8 @@ export function hasAnalyticsConsent(): boolean {
 }
 
 /**
- * Persists a choice and notifies same-tab subscribers. Returns the record so
- * callers can keep using it even when storage is unavailable (private mode),
- * in which case the choice lasts for the current page only.
+ * Persists a choice and notifies same-tab subscribers. When storage is
+ * unavailable the choice lasts for the current page load only.
  */
 export function writeConsent(
   preferences: ConsentPreferences,
@@ -83,10 +90,13 @@ export function writeConsent(
     decidedAt: now,
   };
 
+  const serialized = JSON.stringify(record);
+  unsavedRecord = null;
   try {
-    localStorage.setItem(CONSENT_STORAGE_KEY, JSON.stringify(record));
+    localStorage.setItem(CONSENT_STORAGE_KEY, serialized);
   } catch {
     // localStorage unavailable
+    unsavedRecord = serialized;
   }
 
   window.dispatchEvent(

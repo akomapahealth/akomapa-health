@@ -1,6 +1,7 @@
 "use client"
 
 import { createContext, useContext, useEffect, useState } from "react"
+import { THEME_STORAGE_KEY } from "@/config/storage-keys"
 
 type Theme = "dark" | "light" | "system"
 
@@ -50,7 +51,7 @@ function applyThemeClass(theme: Theme) {
 export function ThemeProvider({
   children,
   defaultTheme = "system",
-  storageKey = "akomapa-theme",
+  storageKey = THEME_STORAGE_KEY,
   ...props
 }: ThemeProviderProps) {
   // Initialize from localStorage synchronously on the client so the first
