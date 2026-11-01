@@ -1,7 +1,10 @@
 import { FadeIn } from "@/components/animations";
 import Breadcrumb from "@/components/layout/Breadcrumb";
 import CookieSettingsButton from "@/components/consent/CookieSettingsButton";
-import { consentChoiceButtonClassName } from "@/components/consent/styles";
+import {
+  consentButtonLabelClassName,
+  consentChoiceButtonClassName,
+} from "@/components/consent/styles";
 import CookieInventoryTable from "@/components/legal/CookieInventoryTable";
 import {
   LegalContentsNav,
@@ -281,6 +284,7 @@ export default function Content() {
                   </p>
                   <CookieSettingsButton
                     className={cn(consentChoiceButtonClassName, "mt-5 sm:w-auto")}
+                    labelClassName={consentButtonLabelClassName}
                   >
                     Open cookie settings
                   </CookieSettingsButton>

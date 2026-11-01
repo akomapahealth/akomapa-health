@@ -46,9 +46,9 @@ export function parseConsentRecord(
 
   const record = parsed.data;
   if (record.version !== CONSENT_POLICY_VERSION) return null;
-  if (record.decidedAt > now || now - record.decidedAt > CONSENT_MAX_AGE_MS) {
-    return null;
-  }
+  // Absolute age, so a device clock that moves backwards does not re-prompt
+  // while a forged far-future timestamp still cannot extend a choice.
+  if (Math.abs(now - record.decidedAt) > CONSENT_MAX_AGE_MS) return null;
 
   return record;
 }

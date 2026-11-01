@@ -4,10 +4,10 @@ import {
   createContext,
   useCallback,
   useContext,
-  useEffect,
   useMemo,
   useRef,
   useState,
+  useSyncExternalStore,
   type ReactNode,
 } from "react";
 import dynamic from "next/dynamic";
@@ -25,31 +25,65 @@ const CookieSettingsDialog = dynamic(
 );
 
 /**
- * `unknown` until the stored choice has been read on the client, so the
- * server render and first client render never show (or flash) the banner.
+ * `unknown` on the server and during hydration, so the banner never flashes
+ * or mismatches; the stored choice is read right after.
  */
 export type ConsentStatus = "unknown" | "undecided" | "decided";
 
-type ConsentContextValue = {
-  status: ConsentStatus;
-  analytics: boolean;
-  /** True once a choice was made on this page (vs. another tab or visit). */
-  hasChosenInThisTab: boolean;
+type ConsentActions = {
   acceptOptional: () => void;
   rejectOptional: () => void;
   savePreferences: (preferences: ConsentPreferences) => void;
   openSettings: () => void;
   isSettingsOpen: boolean;
+  /** True once a choice was made on this page (vs. another tab or visit). */
+  hasChosenInThisTab: boolean;
 };
 
-const ConsentContext = createContext<ConsentContextValue | null>(null);
+type ConsentState = {
+  status: ConsentStatus;
+  analytics: boolean;
+};
 
-export function useCookieConsent() {
-  const context = useContext(ConsentContext);
-  if (!context) {
+const ConsentContext = createContext<ConsentActions | null>(null);
+
+// The stored record is read through useSyncExternalStore rather than held in
+// context: a context value that changes during hydration forces React to
+// discard and client-render every still-dehydrated Suspense boundary below.
+let cachedKey: string | undefined;
+let cachedRecord: ConsentRecord | null = null;
+
+function getConsentSnapshot(): ConsentRecord | null {
+  const record = readConsent();
+  const key = record
+    ? `${record.version}:${record.analytics}:${record.decidedAt}`
+    : "none";
+  if (key !== cachedKey) {
+    cachedKey = key;
+    cachedRecord = record;
+  }
+  return cachedRecord;
+}
+
+const getServerConsentSnapshot = () => undefined;
+
+export function useCookieConsent(): ConsentActions & ConsentState {
+  const actions = useContext(ConsentContext);
+  if (!actions) {
     throw new Error("useCookieConsent must be used within ConsentProvider");
   }
-  return context;
+
+  const record = useSyncExternalStore(
+    subscribeToConsent,
+    getConsentSnapshot,
+    getServerConsentSnapshot,
+  );
+
+  return {
+    ...actions,
+    status: record === undefined ? "unknown" : record ? "decided" : "undecided",
+    analytics: record?.analytics === true,
+  };
 }
 
 type ConsentProviderProps = {
@@ -57,23 +91,14 @@ type ConsentProviderProps = {
 };
 
 export function ConsentProvider({ children }: ConsentProviderProps) {
-  const [record, setRecord] = useState<ConsentRecord | null>(null);
-  const [hasRead, setHasRead] = useState(false);
   const [hasChosenInThisTab, setHasChosenInThisTab] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [mountSettings, setMountSettings] = useState(false);
   const returnFocusRef = useRef<HTMLElement | null>(null);
 
-  useEffect(() => {
-    const sync = () => setRecord(readConsent());
-    sync();
-    setHasRead(true);
-    return subscribeToConsent(sync);
-  }, []);
-
   const savePreferences = useCallback((preferences: ConsentPreferences) => {
     setHasChosenInThisTab(true);
-    setRecord(writeConsent(preferences));
+    writeConsent(preferences);
   }, []);
 
   const acceptOptional = useCallback(
@@ -100,36 +125,26 @@ export function ConsentProvider({ children }: ConsentProviderProps) {
   const handleSettingsCloseAutoFocus = useCallback((event: Event) => {
     const target = returnFocusRef.current;
     returnFocusRef.current = null;
-    if (target?.isConnected) return;
     event.preventDefault();
+    if (target?.isConnected) target.focus();
   }, []);
-
-  const status: ConsentStatus = !hasRead
-    ? "unknown"
-    : record
-      ? "decided"
-      : "undecided";
 
   const value = useMemo(
     () => ({
-      status,
-      analytics: record?.analytics === true,
-      hasChosenInThisTab,
       acceptOptional,
       rejectOptional,
       savePreferences,
       openSettings,
       isSettingsOpen,
+      hasChosenInThisTab,
     }),
     [
-      status,
-      record,
-      hasChosenInThisTab,
       acceptOptional,
       rejectOptional,
       savePreferences,
       openSettings,
       isSettingsOpen,
+      hasChosenInThisTab,
     ],
   );
 

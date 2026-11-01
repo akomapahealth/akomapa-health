@@ -39,11 +39,15 @@ describe("parseConsentRecord", () => {
     ["wrong shape", JSON.stringify({ analytics: "yes" })],
     ["extra keys", serialize({ marketing: true })],
     ["an older policy version", serialize({ version: "2020-01-01" })],
-    ["a future timestamp", serialize({ decidedAt: NOW + 60_000 })],
+    ["a far-future timestamp", serialize({ decidedAt: NOW + CONSENT_MAX_AGE_MS + 1 })],
     ["an expired choice", serialize({ decidedAt: NOW - CONSENT_MAX_AGE_MS - 1 })],
   ])("treats %s as undecided", (_label, raw) => {
     expect(parseConsentRecord(raw, NOW)).toBeNull();
   });
+});
+
+it("tolerates a device clock that is behind the stored choice", () => {
+  expect(parseConsentRecord(serialize({ decidedAt: NOW + 60_000 }), NOW)).not.toBeNull();
 });
 
 describe("consent storage", () => {

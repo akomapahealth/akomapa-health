@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils";
 import { useCookieConsent } from "@/components/consent/ConsentProvider";
 import {
   consentBodyClassName,
+  consentButtonLabelClassName,
   consentChoiceButtonClassName,
   consentEyebrowClassName,
   consentSurfaceClassName,
@@ -144,7 +145,7 @@ export default function CookieSettingsDialog({
               onClick={handleSave}
               className={cn(consentChoiceButtonClassName, "sm:w-auto")}
             >
-              Save my choices
+              <span className={consentButtonLabelClassName}>Save my choices</span>
             </button>
           </div>
         </Dialog.Content>

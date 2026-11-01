@@ -9,6 +9,7 @@ import { MOTION_EASE, motionDurations } from "@/lib/motion/tokens";
 import { useCookieConsent } from "@/components/consent/ConsentProvider";
 import {
   consentBodyClassName,
+  consentButtonLabelClassName,
   consentChoiceButtonClassName,
   consentEyebrowClassName,
   consentSurfaceClassName,
@@ -37,6 +38,7 @@ export default function CookieBanner() {
   } = useCookieConsent();
   const [phase, setPhase] = useState<BannerPhase>("hidden");
   const confirmationRef = useRef<HTMLDivElement>(null);
+  const shouldFocusConfirmationRef = useRef(false);
   const pathname = usePathname();
   const lastPathnameRef = useRef(pathname);
   const headingId = useId();
@@ -48,15 +50,21 @@ export default function CookieBanner() {
       // A choice from another tab just retires the prompt; only a choice made
       // here earns the confirmation (and its focus move).
       const next = hasChosenInThisTab ? "confirmed" : "hidden";
-      setPhase((current) => (current === "prompt" ? next : current));
+      setPhase((current) => {
+        if (current !== "prompt") return current;
+        shouldFocusConfirmationRef.current = next === "confirmed";
+        return next;
+      });
     }
   }, [status, hasChosenInThisTab]);
 
-  // Wait for the settings dialog to finish closing before moving focus.
+  // Move focus once, after the settings dialog (if open) has closed. Later
+  // dialog openings must keep their own focus return.
   useEffect(() => {
-    if (phase === "confirmed" && !isSettingsOpen) {
-      confirmationRef.current?.focus();
-    }
+    if (phase !== "confirmed" || isSettingsOpen) return;
+    if (!shouldFocusConfirmationRef.current) return;
+    shouldFocusConfirmationRef.current = false;
+    confirmationRef.current?.focus();
   }, [phase, isSettingsOpen]);
 
   // The confirmation is transient: leaving the page dismisses it.
@@ -112,14 +120,18 @@ export default function CookieBanner() {
                   onClick={acceptOptional}
                   className={consentChoiceButtonClassName}
                 >
-                  Accept optional cookies
+                  <span className={consentButtonLabelClassName}>
+                    Accept optional cookies
+                  </span>
                 </button>
                 <button
                   type="button"
                   onClick={rejectOptional}
                   className={consentChoiceButtonClassName}
                 >
-                  Reject optional cookies
+                  <span className={consentButtonLabelClassName}>
+                    Reject optional cookies
+                  </span>
                 </button>
               </div>
 
@@ -130,7 +142,9 @@ export default function CookieBanner() {
                   onClick={openSettings}
                   className={consentTextButtonClassName}
                 >
-                  Cookie settings
+                  <span className={consentButtonLabelClassName}>
+                    Cookie settings
+                  </span>
                 </button>
                 <Link href="/cookie-policy" className={consentTextButtonClassName}>
                   Cookie Policy
@@ -163,7 +177,9 @@ export default function CookieBanner() {
                 onClick={() => setPhase("hidden")}
                 className={cn(consentChoiceButtonClassName, "sm:w-auto")}
               >
-                Hide this message
+                <span className={consentButtonLabelClassName}>
+                  Hide this message
+                </span>
               </button>
             </div>
           )}
