@@ -6,7 +6,7 @@ const legalRoutes = [
   {
     path: "/privacy",
     heading: "Privacy Policy",
-    lastUpdated: "Last updated: August 16, 2026",
+    lastUpdated: "Last updated: November 1, 2026",
     sectionHeading: "Who we are and what this policy covers",
   },
   {
@@ -76,7 +76,7 @@ test.describe("legal utility editorial contracts", () => {
     ).toBeVisible();
     await expect(page.locator("main h1")).toHaveCount(1);
     await expect(
-      page.getByText("Last updated: August 16, 2026").first(),
+      page.getByText("Last updated: November 1, 2026").first(),
     ).toBeVisible();
     await expect(
       page.getByRole("heading", {

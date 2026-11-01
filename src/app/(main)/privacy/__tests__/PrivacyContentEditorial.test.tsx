@@ -75,7 +75,7 @@ describe("Privacy Content editorial contracts", () => {
     }
 
     expect(
-      screen.getAllByText("Last updated: August 16, 2026").length,
+      screen.getAllByText("Last updated: November 1, 2026").length,
     ).toBeGreaterThanOrEqual(1);
 
     const mailLinks = screen.getAllByRole("link", {
@@ -90,6 +90,15 @@ describe("Privacy Content editorial contracts", () => {
       "href",
       "/contact",
     );
+
+    const cookiePolicyLinks = screen.getAllByRole("link", { name: "Cookie Policy" });
+    expect(cookiePolicyLinks.map((link) => link.getAttribute("href"))).toEqual([
+      "/cookie-policy",
+      "/cookie-policy#manage",
+    ]);
+    expect(
+      screen.getByText(/Google Analytics is not loaded before you accept/i),
+    ).toBeInTheDocument();
 
     expect(
       screen.getByRole("navigation", { name: "On this page" }),
