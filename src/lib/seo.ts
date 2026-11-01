@@ -244,6 +244,14 @@ export const canonicalSeoRoutes = [
     priority: 0.4,
   },
   {
+    path: "/cookie-policy",
+    title: "Cookie Policy",
+    description:
+      "See which cookies and browser storage Akomapa Health uses, why we use them, and how to accept, reject, or change optional analytics.",
+    changeFrequency: "yearly",
+    priority: 0.4,
+  },
+  {
     path: "/terms",
     title: "Terms of Service",
     description:
