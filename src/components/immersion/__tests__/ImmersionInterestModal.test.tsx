@@ -4,6 +4,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import ImmersionInterestProvider from "@/components/immersion/ImmersionInterestProvider";
 import ImmersionRegisterInterestButton from "@/components/immersion/ImmersionRegisterInterestButton";
 import ImmersionRequestBrochureButton from "@/components/immersion/ImmersionRequestBrochureButton";
+import { CONSENT_STORAGE_KEY, writeConsent } from "@/lib/consent";
 
 const { filloutProps, mockControl } = vi.hoisted(() => ({
   filloutProps: vi.fn(),
@@ -169,6 +170,7 @@ describe("Immersion Fillout pilot dialog", () => {
 
   it("deduplicates completion and never sends provider payloads to analytics", async () => {
     enableTestProvider();
+    writeConsent({ analytics: true });
     const gtag = vi.fn();
     window.gtag = gtag as typeof window.gtag;
     const user = userEvent.setup();
@@ -197,7 +199,9 @@ describe("Immersion Fillout pilot dialog", () => {
     expect(JSON.stringify(gtag.mock.calls)).not.toContain(
       "ignored-submission-id",
     );
-    expect(localStorage).toHaveLength(0);
+    // Only the visitor's own consent choice lives in storage — no Immersion data.
+    expect(localStorage).toHaveLength(1);
+    expect(localStorage.key(0)).toBe(CONSENT_STORAGE_KEY);
   });
 
   it("fails safely when the enable flag lacks matching public configuration", async () => {

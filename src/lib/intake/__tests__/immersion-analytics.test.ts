@@ -1,12 +1,15 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
+import { writeConsent } from "@/lib/consent";
 import { trackImmersionOperationalEvent } from "@/lib/intake/immersion-analytics";
 
 afterEach(() => {
+  localStorage.clear();
   delete (window as unknown as { gtag?: unknown }).gtag;
 });
 
 describe("Immersion operational analytics", () => {
   it("emits only bounded identifiers and normalized categories", () => {
+    writeConsent({ analytics: true });
     const gtag = vi.fn();
     window.gtag = gtag as typeof window.gtag;
 
