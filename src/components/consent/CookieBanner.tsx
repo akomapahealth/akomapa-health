@@ -51,11 +51,8 @@ export default function CookieBanner() {
       // A choice from another tab just retires the prompt; only a choice made
       // here earns the confirmation (and its focus move).
       const next = hasChosenInThisTab ? "confirmed" : "hidden";
-      setPhase((current) => {
-        if (current !== "prompt") return current;
-        shouldFocusConfirmationRef.current = next === "confirmed";
-        return next;
-      });
+      shouldFocusConfirmationRef.current = hasChosenInThisTab;
+      setPhase((current) => (current === "prompt" ? next : current));
     }
   }, [status, hasChosenInThisTab]);
 
