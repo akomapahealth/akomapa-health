@@ -8,9 +8,15 @@ import {
   assertNoImageKitLeaks,
   installImageKitFixtures,
 } from "./imagekit-isolation";
+import {
+  rejectedConsentStorageState,
+  type CookieConsentSeed,
+} from "./cookie-consent";
 
 type IsolatedFixtures = {
   context: BrowserContext;
+  /** Cookie banner state every context in the test starts with. */
+  cookieConsent: CookieConsentSeed;
 };
 
 type IsolatedWorkerFixtures = {
@@ -19,7 +25,9 @@ type IsolatedWorkerFixtures = {
 
 /**
  * Routine E2E entry point. Every context, including browser.newContext(),
- * receives ImageKit fixtures before the test body runs.
+ * receives ImageKit fixtures before the test body runs, and starts with the
+ * cookie banner answered. Use `test.use({ cookieConsent: "unset" })` to see
+ * the first-visit banner.
  */
 export const test = base.extend<IsolatedFixtures, IsolatedWorkerFixtures>({
   browser: [
@@ -43,6 +51,14 @@ export const test = base.extend<IsolatedFixtures, IsolatedWorkerFixtures>({
     },
     { scope: "worker" },
   ],
+  cookieConsent: ["rejected", { option: true }],
+  // Playwright applies storageState to every context the test creates.
+  storageState: async ({ storageState, cookieConsent }, expose) => {
+    await expose(
+      storageState ??
+        (cookieConsent === "rejected" ? rejectedConsentStorageState() : undefined),
+    );
+  },
   context: async ({ context }, expose) => {
     await installImageKitFixtures(context);
     await expose(context);

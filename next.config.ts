@@ -61,6 +61,11 @@ const nextConfig: NextConfig = {
         destination: "/terms",
         statusCode: 301,
       },
+      {
+        source: "/cookies",
+        destination: "/cookie-policy",
+        statusCode: 301,
+      },
       // Rebrand route renames
       {
         source: "/clinics",

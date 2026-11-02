@@ -33,6 +33,7 @@ const pages = [
   { path: '/news/akomapa-yale-global-health-recognition', title: 'Akomapa Recognized' },
   { path: '/blog', title: 'Blog' },
   { path: '/privacy', title: 'Privacy' },
+  { path: '/cookie-policy', title: 'Cookie Policy' },
   { path: '/terms', title: 'Terms' },
 ];
 

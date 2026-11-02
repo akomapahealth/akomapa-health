@@ -6,8 +6,7 @@ import { Bell, Sparkles, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { MOTION_EASE, motionDurations } from "@/lib/motion/tokens";
 import { useAnnouncements } from "@/components/announcement/AnnouncementProvider";
-
-const TIP_DISMISSED_SESSION_KEY = "akomapa-announcement-tip-dismissed";
+import { ANNOUNCEMENT_TIP_SESSION_KEY as TIP_DISMISSED_SESSION_KEY } from "@/config/storage-keys";
 const TIP_REVEAL_DELAY_MS = 2000;
 
 /**

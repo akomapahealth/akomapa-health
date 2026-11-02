@@ -18,8 +18,9 @@ import {
 } from "@/components/shared/EditorialPrimitives";
 import { getAnnouncementPosterSrc, parseVideoUrl } from "@/lib/video-utils";
 import { trackEvent } from "@/lib/analytics";
+import { ANNOUNCEMENTS_DISMISSED_STORAGE_KEY } from "@/config/storage-keys";
 
-const STORAGE_KEY = "akomapa-announcements-dismissed";
+const STORAGE_KEY = ANNOUNCEMENTS_DISMISSED_STORAGE_KEY;
 const AUTO_ADVANCE_MS = 6000;
 
 const mediaControlClassName =

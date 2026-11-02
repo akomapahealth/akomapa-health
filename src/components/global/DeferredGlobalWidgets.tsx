@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
+import { useCookieConsent } from "@/components/consent/ConsentProvider";
 
 const GlobalClickTracker = dynamic(
   () => import("@/components/analytics/GlobalClickTracker"),
@@ -21,13 +22,15 @@ function scheduleIdle(callback: () => void, fallbackMs = 1500): () => void {
 /**
  * Lazily mounts non-critical global widgets after idle.
  * Announcements are owned by AnnouncementProvider (auto-open + floating FAB).
+ * The click tracker only exists for visitors who accepted analytics.
  */
 export default function DeferredGlobalWidgets() {
+  const { analytics } = useCookieConsent();
   const [showClickTracker, setShowClickTracker] = useState(false);
 
   useEffect(() => {
     return scheduleIdle(() => setShowClickTracker(true));
   }, []);
 
-  return <>{showClickTracker && <GlobalClickTracker />}</>;
+  return <>{analytics && showClickTracker && <GlobalClickTracker />}</>;
 }

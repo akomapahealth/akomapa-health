@@ -5,8 +5,11 @@ import { cn } from "@/lib/utils";
 import { ThemeProvider } from '@/components/theme/ThemeProvider';
 import { MotionConfigProvider } from '@/components/motion/MotionConfigProvider';
 import { AnnouncementProvider } from '@/components/announcement/AnnouncementProvider';
-import { GoogleAnalytics } from '@next/third-parties/google';
+import { ConsentProvider } from '@/components/consent/ConsentProvider';
+import CookieBanner from '@/components/consent/CookieBanner';
+import ConsentedAnalytics from '@/components/consent/ConsentedAnalytics';
 import DeferredGlobalWidgets from '@/components/global/DeferredGlobalWidgets';
+import { THEME_STORAGE_KEY } from '@/config/storage-keys';
 import {
   DEFAULT_DESCRIPTION,
   DEFAULT_OG_IMAGE,
@@ -139,16 +142,20 @@ export default function RootLayout({
           plusJakartaSans.variable
         )}
       >
-        <ThemeProvider defaultTheme="system" storageKey="akomapa-theme">
+        <ThemeProvider defaultTheme="system" storageKey={THEME_STORAGE_KEY}>
           <MotionConfigProvider>
-            <AnnouncementProvider>
-              {children}
-              <DeferredGlobalWidgets />
-            </AnnouncementProvider>
+            <ConsentProvider>
+              {/* First in the DOM so assistive tech meets the choice before page content. */}
+              <CookieBanner />
+              <AnnouncementProvider>
+                {children}
+                <DeferredGlobalWidgets />
+              </AnnouncementProvider>
+              {GA_MEASUREMENT_ID && <ConsentedAnalytics gaId={GA_MEASUREMENT_ID} />}
+            </ConsentProvider>
           </MotionConfigProvider>
         </ThemeProvider>
       </body>
-      {GA_MEASUREMENT_ID && <GoogleAnalytics gaId={GA_MEASUREMENT_ID} />}
     </html>
   );
 }
