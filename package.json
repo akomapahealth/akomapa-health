@@ -93,7 +93,7 @@
     "@types/react-dom": "^19.3.0",
     "@vitejs/plugin-react": "^6.1.2",
     "@vitest/coverage-v8": "^4.1.12",
-    "autoprefixer": "^10.6.1",
+    "autoprefixer": "^10.6.2",
     "chrome-launcher": "^1.2.2",
     "eslint": "^9",
     "eslint-config-next": "16.4.3",
