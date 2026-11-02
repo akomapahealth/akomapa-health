@@ -4,6 +4,11 @@ import { announcementCampaign } from "../src/data/announcements";
 
 const researchPath = "/research/student-led-interventions";
 const pdfPath = "/documents/research.pdf";
+const plosPath = "/research/stakeholder-support-student-run-free-clinics-ghana";
+const plosPdfPath = "/documents/journal.pgph.0005092.pdf";
+const plosDoiUrl = "https://doi.org/10.1371/journal.pgph.0005092";
+const plosArticleUrl =
+  "https://journals.plos.org/globalpublichealth/article?id=10.1371/journal.pgph.0005092";
 
 async function preparePage(page: Page, disableIntersectionObserver = false) {
   await page.addInitScript(
@@ -24,12 +29,12 @@ async function preparePage(page: Page, disableIntersectionObserver = false) {
   );
 }
 
-function trackPdfRequests(page: Page) {
+function trackPdfRequests(page: Page, documentPath = pdfPath) {
   const requests: string[] = [];
 
   page.on("request", (request) => {
     const url = request.url();
-    if (url.includes(pdfPath) || url.includes("pdf.worker")) {
+    if (url.includes(documentPath) || url.includes("pdf.worker")) {
       requests.push(url);
     }
   });
@@ -81,6 +86,75 @@ test.describe("research detail PDF lazy loading", () => {
 
     await page.waitForTimeout(500);
     expect(pdfRequests).toEqual([]);
+  });
+
+  test("renders the PLOS study with publisher links and the same lazy PDF behavior", async ({
+    page,
+  }) => {
+    await preparePage(page);
+    const pdfRequests = trackPdfRequests(page, plosPdfPath);
+
+    await page.goto(plosPath, { waitUntil: "domcontentloaded" });
+
+    await expect(
+      page.getByRole("heading", {
+        level: 1,
+        name: /Exploring stakeholder support for student-run free clinics/i,
+      }),
+    ).toBeVisible();
+    await expect(page.getByText("PLOS Global Public Health", { exact: true })).toBeVisible();
+    await expect(page.getByText("Published: September 21, 2026")).toBeVisible();
+    await expect(page.getByText(/Jeremy I\. Schwartz/)).toBeVisible();
+
+    const doi = page.getByRole("link", { name: "DOI: 10.1371/journal.pgph.0005092" });
+    await expect(doi).toHaveAttribute("href", plosDoiUrl);
+    await expect(doi).toHaveAttribute("target", "_blank");
+
+    const citation = page.getByTestId("research-citation");
+    await expect(citation).toContainText("Cite this paper");
+    await expect(citation).toContainText("PLOS Glob Public Health 6(9): e0005092.");
+
+    const publisher = page.getByRole("link", { name: "Read on PLOS Global Public Health" });
+    await expect(publisher).toHaveAttribute("href", plosArticleUrl);
+    await expect(publisher).toHaveAttribute("target", "_blank");
+    await expect(publisher).toHaveAttribute("rel", /noopener/);
+
+    const download = page.getByRole("link", { name: "Download PDF" });
+    await expect(download).toHaveAttribute("href", plosPdfPath);
+    await expect(download).toHaveAttribute(
+      "download",
+      "stakeholder-support-student-run-free-clinics-ghana.pdf",
+    );
+
+    // JSON-LD carries the verified publication details.
+    const jsonLdBlocks = await page
+      .locator('script[type="application/ld+json"]')
+      .allTextContents();
+    const data = jsonLdBlocks
+      .map((block) => JSON.parse(block))
+      .find((block) => block["@type"] === "ScholarlyArticle");
+    expect(data).toBeDefined();
+    expect(data.datePublished).toBe("2026-09-21");
+    expect(data.sameAs).toEqual([plosDoiUrl, plosArticleUrl]);
+    expect(data.author).toHaveLength(6);
+
+    await page.waitForTimeout(500);
+    expect(pdfRequests).toEqual([]);
+
+    await page.getByTestId("deferred-pdf-viewer").scrollIntoViewIfNeeded();
+    const loaded = page.getByTestId("pdf-viewer-loaded");
+    const loadButton = page.getByRole("button", { name: "Load PDF viewer" });
+    await Promise.race([
+      loaded.waitFor({ state: "visible", timeout: 15_000 }),
+      loadButton
+        .click({ timeout: 5_000 })
+        .catch(() => undefined)
+        .then(() => loaded.waitFor({ state: "visible", timeout: 15_000 })),
+    ]);
+    await expect(page.getByText(/Page 1 of \d+/)).toBeVisible({ timeout: 15_000 });
+    await expect
+      .poll(() => pdfRequests.some((url) => url.includes(plosPdfPath)))
+      .toBe(true);
   });
 
   test("centers the PDF viewer beneath the abstract", async ({ page }) => {

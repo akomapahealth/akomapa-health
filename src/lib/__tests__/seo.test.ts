@@ -6,6 +6,7 @@ import {
   DEFAULT_OG_IMAGE_ALT,
   SITE_URL,
   absoluteUrl,
+  buildArticleJsonLd,
   buildArticleMetadata,
   buildPageMetadata,
   canonicalSeoRoutes,
@@ -117,6 +118,77 @@ describe("SEO metadata contract", () => {
     ]);
     expect(fallback.twitter).toMatchObject({
       images: [{ url: DEFAULT_OG_IMAGE, alt: DEFAULT_OG_IMAGE_ALT }],
+    });
+  });
+
+  it("prefers a descriptive imageAlt over the article title for social cards", () => {
+    const metadata = buildArticleMetadata({
+      title: "Nkwapa Is Live",
+      description: "Nkwapa is now live at nkwapa.app.",
+      path: "/news/nkwapa-emr-launch",
+      image: "/static/nkwapa/nkwapa-dashboard.webp",
+      imageAlt: "Nkwapa clinic dashboard showing today's patient counts.",
+    });
+
+    expect(metadata.openGraph?.images).toMatchObject([
+      { alt: "Nkwapa clinic dashboard showing today's patient counts." },
+    ]);
+    expect(metadata.twitter).toMatchObject({
+      images: [{ alt: "Nkwapa clinic dashboard showing today's patient counts." }],
+    });
+  });
+
+  it("keeps single-author Article JSON-LD unchanged", () => {
+    expect(
+      buildArticleJsonLd({
+        title: "Thesis",
+        description: "A thesis.",
+        path: "/research/thesis",
+        image: "/highlights/Akomapa-28.jpg",
+        publishedTime: "2025-01",
+        author: "B. A. Fleischer",
+      }),
+    ).toEqual({
+      "@context": "https://schema.org",
+      "@type": "Article",
+      headline: "Thesis",
+      description: "A thesis.",
+      url: `${SITE_URL}/research/thesis`,
+      image: `${SITE_URL}/highlights/Akomapa-28.jpg`,
+      datePublished: "2025-01",
+      author: { "@type": "Person", name: "B. A. Fleischer" },
+      publisher: { "@id": `${SITE_URL}/#organization` },
+    });
+  });
+
+  it("emits ScholarlyArticle JSON-LD with every author, the journal, and DOI identifiers", () => {
+    const jsonLd = buildArticleJsonLd({
+      type: "ScholarlyArticle",
+      title: "Stakeholder support for student-run free clinics",
+      description: "A mixed-methods study.",
+      path: "/research/stakeholder-support-student-run-free-clinics-ghana",
+      image: "/highlights/Akomapa-66.jpg",
+      publishedTime: "2026-09-21",
+      authors: ["Brian Amu Fleischer", "Esi Berkoh"],
+      sameAs: [
+        "https://doi.org/10.1371/journal.pgph.0005092",
+        "https://journals.plos.org/globalpublichealth/article?id=10.1371/journal.pgph.0005092",
+      ],
+      isPartOf: "PLOS Global Public Health",
+    });
+
+    expect(jsonLd).toMatchObject({
+      "@type": "ScholarlyArticle",
+      datePublished: "2026-09-21",
+      author: [
+        { "@type": "Person", name: "Brian Amu Fleischer" },
+        { "@type": "Person", name: "Esi Berkoh" },
+      ],
+      sameAs: [
+        "https://doi.org/10.1371/journal.pgph.0005092",
+        "https://journals.plos.org/globalpublichealth/article?id=10.1371/journal.pgph.0005092",
+      ],
+      isPartOf: { "@type": "Periodical", name: "PLOS Global Public Health" },
     });
   });
 

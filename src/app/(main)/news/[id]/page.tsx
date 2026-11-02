@@ -14,9 +14,7 @@ interface Props {
 }
 
 export async function generateStaticParams() {
-  return getNewsOnlyItems()
-    .filter((item) => !item.isExternalCta)
-    .map((item) => ({ id: item.id }));
+  return getNewsOnlyItems().map((item) => ({ id: item.id }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -29,6 +27,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: item.excerpt,
     path: `/news/${item.id}`,
     image: item.image,
+    imageAlt: item.imageAlt,
     publishedTime: item.date,
   });
 }

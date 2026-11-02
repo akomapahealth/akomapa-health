@@ -4,6 +4,8 @@ import {
   composeSecurityHeaders,
   GLOBAL_SECURITY_HEADERS,
   GLOBAL_SECURITY_ROUTE,
+  GOOGLE_ANALYTICS_ORIGINS,
+  GOOGLE_TAG_ORIGIN,
 } from "@/config/security-headers";
 import { FILLOUT_EMBED_ORIGIN } from "@/lib/intake/immersion-registry";
 
@@ -44,6 +46,21 @@ describe("shared security headers", () => {
     expect(reportOnly).toContain(`frame-src 'self' ${FILLOUT_EMBED_ORIGIN}`);
     expect(reportOnly).toContain("https://www.google.com");
     expect(reportOnly).toContain("https://givebutter.com");
+  });
+
+  it("reports against Google's GA4 origins so consented analytics stays quiet", () => {
+    const reportOnly = value(
+      GLOBAL_SECURITY_HEADERS,
+      "Content-Security-Policy-Report-Only",
+    );
+    const directive = (name: string) =>
+      reportOnly?.split("; ").find((entry) => entry.startsWith(`${name} `));
+
+    expect(directive("script-src")).toContain(GOOGLE_TAG_ORIGIN);
+    expect(directive("img-src")).toContain(GOOGLE_ANALYTICS_ORIGINS);
+    expect(directive("connect-src")).toContain(GOOGLE_TAG_ORIGIN);
+    expect(directive("connect-src")).toContain(GOOGLE_ANALYTICS_ORIGINS);
+    expect(directive("script-src")).not.toContain("*");
   });
 
   it("adds the exact Fillout origin only to the immersion enforcement policy", () => {

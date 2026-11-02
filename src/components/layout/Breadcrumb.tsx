@@ -45,6 +45,7 @@ function BreadcrumbContent() {
       "get-involved": "Get Involved",
       "global-health-immersion-program": "Global Health Immersion Program",
       blog: "Thought Leadership",
+      "cookie-policy": "Cookie Policy",
     };
 
     const label = (() => {

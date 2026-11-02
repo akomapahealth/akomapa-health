@@ -21,7 +21,7 @@ import {
 import { CONTACT } from "@/config/contact";
 import Link from "next/link";
 
-const LAST_UPDATED = "August 16, 2026";
+const LAST_UPDATED = "November 1, 2026";
 
 const contents: readonly LegalContentsItem[] = [
   { href: "#scope", label: "Who we are and what this policy covers" },
@@ -167,7 +167,8 @@ export default function Content() {
                     location derived from IP, pages viewed, timestamps, and
                     referral URLs. This data may be collected automatically by
                     our hosting infrastructure, content delivery networks, and
-                    vendors that deliver forms or email on our behalf.
+                    vendors that deliver forms or email on our behalf, and by
+                    Google Analytics only if you accept optional cookies.
                   </li>
                 </ul>
               </LegalSection>
@@ -246,18 +247,36 @@ export default function Content() {
                 title="Cookies, local storage, and similar technologies"
               >
                 <p className={body}>
-                  We may use cookies or similar technologies where needed for
-                  security, preferences, or future analytics features. Today,
-                  parts of our site store small amounts of information in your
-                  browser&apos;s <strong>local storage</strong>—for example, to
-                  remember light or dark theme choices and whether you have
-                  dismissed an announcement. Incomplete intake forms may also
-                  save a schema-validated draft on your device for up to 30
-                  days. Drafts can include ordinary contact and request details,
-                  but never the consent choice, anti-spam field, API keys,
-                  request IDs, Fillout configuration, attachments, or dedicated
-                  medical or payment fields. A draft is removed after successful
-                  submission, explicit discard, expiry, or clearing site data.
+                  We use cookies and similar browser storage in two ways. Our{" "}
+                  <Link href="/cookie-policy" className={link}>
+                    Cookie Policy
+                  </Link>{" "}
+                  lists each one, its purpose, and how long it lasts.
+                </p>
+                <ul className={list}>
+                  <li>
+                    <strong>Necessary storage</strong> is always on. It
+                    remembers your theme, announcement, and cookie choices,
+                    keeps a short-lived secure session for invited Immersion
+                    participants, and supports error monitoring.
+                  </li>
+                  <li>
+                    <strong>Optional analytics cookies</strong> from Google
+                    Analytics are used only if you choose{" "}
+                    <strong>Accept optional cookies</strong> in our cookie
+                    banner. If you reject them, or have not chosen yet, Google
+                    Analytics is not loaded.
+                  </li>
+                </ul>
+                <p className={body}>
+                  Incomplete intake forms may also save a schema-validated
+                  draft in your browser&apos;s <strong>local storage</strong>{" "}
+                  for up to 30 days. Drafts can include ordinary contact and
+                  request details, but never the consent choice, anti-spam
+                  field, API keys, request IDs, Fillout configuration,
+                  attachments, or dedicated medical or payment fields. A draft
+                  is removed after successful submission, explicit discard,
+                  expiry, or clearing site data.
                 </p>
                 <p className={body}>
                   The Global Health Immersion Program pilot is different:
@@ -267,9 +286,13 @@ export default function Content() {
                   storage, cookies, analytics, logs, or page URLs.
                 </p>
                 <p className={body}>
-                  If we introduce optional marketing or analytics cookies, we
-                  will update this Policy and, where required, provide a way to
-                  manage preferences.
+                  You can change or withdraw your cookie choice at any time
+                  from <strong>Cookie settings</strong> in the site footer or in
+                  the{" "}
+                  <Link href="/cookie-policy#manage" className={link}>
+                    Cookie Policy
+                  </Link>
+                  . We do not use advertising or retargeting cookies.
                 </p>
               </LegalSection>
 
@@ -281,8 +304,18 @@ export default function Content() {
                 <p className={body}>
                   Like most hosted websites, our infrastructure automatically
                   logs technical activity needed to deliver pages securely and
-                  reliably. When configured, we also use Google Analytics to
-                  understand non-sensitive page and interaction trends. Donation
+                  reliably. We use Sentry to detect and diagnose site errors;
+                  error reports are scrubbed of personal details, and a masked
+                  session replay, with all text and inputs hidden, is sent only
+                  when an error occurs.
+                </p>
+                <p className={body}>
+                  If you accept optional cookies, we also use Google Analytics,
+                  provided by Google, to understand non-sensitive page and
+                  interaction trends. Google Analytics is not loaded before you
+                  accept or after you reject, and withdrawing consent stops it
+                  and removes its cookies from our domain. Advertising and ad
+                  personalization signals are always denied. Donation
                   widget analytics are limited to events such as load success,
                   load failure, or use of the campaign fallback. We do not send
                   donor names, email addresses, payment details, or processor
@@ -431,7 +464,10 @@ export default function Content() {
                     Opt out of marketing emails via unsubscribe links or by
                     emailing us
                   </li>
-                  <li>Withdraw consent where processing is based on consent</li>
+                  <li>
+                    Withdraw consent where processing is based on consent,
+                    including optional cookies through Cookie settings
+                  </li>
                 </ul>
                 <p className={body}>
                   To exercise these rights, email{" "}

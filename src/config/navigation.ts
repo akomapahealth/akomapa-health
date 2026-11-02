@@ -49,6 +49,7 @@ export const mainNavigation: readonly NavigationItem[] = [
           },
         ],
       },
+      { name: "News", href: "/news" },
     ],
   },
   {

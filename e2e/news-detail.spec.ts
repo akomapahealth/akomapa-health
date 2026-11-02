@@ -143,6 +143,57 @@ test.describe("News Detail Pages", () => {
     expect(href).toMatch(/^\/news\/.+/);
   });
 
+  test("Nkwapa launch story renders with product image and external CTA", async ({
+    page,
+  }) => {
+    await page.goto("/news/nkwapa-emr-launch", {
+      waitUntil: "domcontentloaded",
+    });
+
+    await expect(
+      page.getByRole("heading", { level: 1, name: /nkwapa is live/i }),
+    ).toBeVisible({ timeout: 15000 });
+    await expect(page.getByText("October 14, 2026")).toBeVisible();
+
+    const storyImage = page.getByRole("img", { name: /nkwapa clinic dashboard/i });
+    await expect(storyImage).toBeVisible();
+    await expect(storyImage).toHaveAttribute("src", /nkwapa-dashboard\.webp/);
+
+    const cta = page.getByRole("link", { name: /explore nkwapa/i });
+    await expect(cta).toBeVisible();
+    await expect(cta).toHaveAttribute("href", "https://nkwapa.app");
+    await expect(cta).toHaveAttribute("target", "_blank");
+
+    await expect(page.getByRole("main")).not.toContainText(/beta/i);
+  });
+
+  test("old Nkwapa beta slug redirects to the launch story", async ({
+    page,
+  }) => {
+    const response = await page.goto("/news/nkwapa-emr-public-beta", {
+      waitUntil: "domcontentloaded",
+    });
+
+    expect(response?.request().redirectedFrom()?.url()).toMatch(
+      /\/news\/nkwapa-emr-public-beta$/,
+    );
+    await expect(page).toHaveURL(/\/news\/nkwapa-emr-launch$/);
+    await expect(
+      page.getByRole("heading", { level: 1, name: /nkwapa is live/i }),
+    ).toBeVisible({ timeout: 15000 });
+  });
+
+  test("Nkwapa story card on /news links to its detail page", async ({
+    page,
+  }) => {
+    await page.goto("/news", { waitUntil: "domcontentloaded" });
+
+    const main = page.getByRole("main");
+    const nkwapaCard = main.locator('a[href="/news/nkwapa-emr-launch"]').first();
+    await expect(nkwapaCard).toBeVisible({ timeout: 15000 });
+    await expect(main.locator('a[href="https://nkwapa.app"]')).toHaveCount(0);
+  });
+
 });
 
 test.describe("Announcement modal", () => {
@@ -173,7 +224,7 @@ test.describe("Announcement modal", () => {
     ).toBeVisible();
     await expect(modal.locator("img")).toHaveAttribute(
       "src",
-      /nkwapa-launch\.webp/,
+      /nkwapa-live\.webp/,
     );
   });
 

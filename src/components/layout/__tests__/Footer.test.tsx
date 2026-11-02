@@ -1,12 +1,31 @@
 import { render, screen, within } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
+import {
+  ConsentProvider,
+  useCookieConsent,
+} from "@/components/consent/ConsentProvider";
 import Footer from "@/components/layout/Footer";
 import { BRAND } from "@/config/brand";
 import { CONTACT } from "@/config/contact";
 
+function SettingsState() {
+  const { isSettingsOpen } = useCookieConsent();
+  return <p data-testid="settings-state">{isSettingsOpen ? "open" : "closed"}</p>;
+}
+
+function renderFooter() {
+  return render(
+    <ConsentProvider>
+      <Footer />
+      <SettingsState />
+    </ConsentProvider>,
+  );
+}
+
 describe("Footer", () => {
   it("renders the editorial footer structure without changing its foundation", () => {
-    render(<Footer />);
+    renderFooter();
 
     const footer = screen.getByRole("contentinfo");
 
@@ -31,7 +50,7 @@ describe("Footer", () => {
   });
 
   it("preserves contact, social, and legal destinations", () => {
-    render(<Footer />);
+    renderFooter();
 
     const footer = screen.getByRole("contentinfo");
     for (const social of ["Facebook", "TikTok", "Instagram", "LinkedIn"]) {
@@ -44,16 +63,37 @@ describe("Footer", () => {
     expect(
       within(footer).getByRole("link", { name: "Send us a message" }),
     ).toHaveAttribute("href", "/contact");
+    expect(within(footer).getByRole("link", { name: "News" })).toHaveAttribute(
+      "href",
+      "/news",
+    );
     expect(
       within(footer).getByRole("link", { name: "Privacy Policy" }),
     ).toHaveAttribute("href", "/privacy");
     expect(
       within(footer).getByRole("link", { name: "Terms of Service" }),
     ).toHaveAttribute("href", "/terms");
+    expect(
+      within(footer).getByRole("link", { name: "Cookie Policy" }),
+    ).toHaveAttribute("href", "/cookie-policy");
+  });
+
+  it("lets visitors revisit their cookie choice from every page", async () => {
+    const user = userEvent.setup();
+    renderFooter();
+
+    const legal = screen
+      .getByRole("contentinfo")
+      .querySelector<HTMLElement>("[data-footer-legal]");
+    const settings = within(legal!).getByRole("button", { name: "Cookie settings" });
+    expect(settings).toHaveAttribute("aria-haspopup", "dialog");
+
+    await user.click(settings);
+    expect(screen.getByTestId("settings-state")).toHaveTextContent("open");
   });
 
   it("keeps office addresses and phone numbers on the contact page only", () => {
-    render(<Footer />);
+    renderFooter();
 
     const footer = screen.getByRole("contentinfo");
     for (const office of CONTACT.offices) {
@@ -71,7 +111,7 @@ describe("Footer", () => {
   });
 
   it("reserves announcement FAB clearance around Subscribe and legal links", () => {
-    render(<Footer />);
+    renderFooter();
 
     const footer = screen.getByRole("contentinfo");
     const shell = footer.querySelector(".site-container");

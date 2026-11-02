@@ -59,6 +59,7 @@ const routes: ReadonlyArray<{ path: string; name: string }> = [
   },
   { path: "/philosophy", name: "philosophy" },
   { path: "/privacy", name: "privacy" },
+  { path: "/cookie-policy", name: "cookie-policy" },
   { path: "/terms", name: "terms" },
 ];
 

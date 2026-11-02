@@ -64,7 +64,7 @@ async function openHomepageWithFab(page: Page) {
 
 test.describe("Announcement FAB vs footer controls", () => {
   for (const viewport of viewports) {
-    test(`${viewport.name}: Subscribe, Privacy, and Terms stay clear of the FAB`, async ({
+    test(`${viewport.name}: Subscribe and legal controls stay clear of the FAB`, async ({
       page,
     }) => {
       await page.setViewportSize({
@@ -81,6 +81,10 @@ test.describe("Announcement FAB vs footer controls", () => {
       });
       const privacy = footer.getByRole("link", { name: "Privacy Policy" });
       const terms = footer.getByRole("link", { name: "Terms of Service" });
+      const cookiePolicy = footer.getByRole("link", { name: "Cookie Policy" });
+      const cookieSettings = footer.getByRole("button", {
+        name: "Cookie settings",
+      });
 
       await subscribe.scrollIntoViewIfNeeded();
       await expect(subscribe).toBeVisible();
@@ -94,6 +98,12 @@ test.describe("Announcement FAB vs footer controls", () => {
       await terms.scrollIntoViewIfNeeded();
       await expectNoOverlap(terms, fab);
       await expectControlOwnsHit(page, terms);
+
+      for (const control of [cookiePolicy, cookieSettings]) {
+        await control.scrollIntoViewIfNeeded();
+        await expectNoOverlap(control, fab);
+        await expectControlOwnsHit(page, control);
+      }
     });
   }
 

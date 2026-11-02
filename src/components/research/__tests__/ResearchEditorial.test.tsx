@@ -19,17 +19,42 @@ describe("Research listing editorial", () => {
     expect(bands.length).toBeGreaterThanOrEqual(3);
     expect(bands[0]).toHaveAttribute("data-editorial-tone", "teal");
 
-    const paper = researchPapers[0];
-    expect(
-      screen.getByRole("heading", { level: 3, name: paper.title }),
-    ).toBeInTheDocument();
-    expect(screen.getByText(paper.authors)).toBeInTheDocument();
-    expect(
-      screen.getByRole("link", { name: /Read Paper/i }),
-    ).toHaveAttribute("href", `/research/${paper.slug}`);
+    const readLinks = screen.getAllByRole("link", { name: /Read Paper/i });
+    expect(readLinks).toHaveLength(researchPapers.length);
+
+    researchPapers.forEach((paper, index) => {
+      expect(
+        screen.getByRole("heading", { level: 3, name: paper.title }),
+      ).toBeInTheDocument();
+      expect(screen.getByText(paper.authors)).toBeInTheDocument();
+      expect(readLinks[index]).toHaveAttribute(
+        "href",
+        `/research/${paper.slug}`,
+      );
+    });
 
     expect(container.innerHTML).not.toContain("gradient");
     expect(container.innerHTML).not.toContain("blur-3xl");
+  });
+
+  it("lists the PLOS study first with its journal and a machine-readable date", () => {
+    render(<Content />);
+
+    const plos = researchPapers.find(
+      ({ slug }) => slug === "stakeholder-support-student-run-free-clinics-ghana",
+    )!;
+    expect(researchPapers[0]).toBe(plos);
+
+    const entry = screen
+      .getByRole("heading", { level: 3, name: plos.title })
+      .closest("[data-publication-entry]")!;
+    expect(entry).toHaveTextContent("PLOS Global Public Health");
+    expect(entry).toHaveTextContent(plos.summary!);
+    expect(entry).not.toHaveTextContent(/odds ratio|86\.7/i);
+    expect(entry.querySelector("time")).toHaveAttribute(
+      "dateTime",
+      "2026-09-21",
+    );
   });
 
   it("preserves the research contact mailto destination", () => {

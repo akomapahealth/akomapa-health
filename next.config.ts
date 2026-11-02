@@ -61,6 +61,11 @@ const nextConfig: NextConfig = {
         destination: "/terms",
         statusCode: 301,
       },
+      {
+        source: "/cookies",
+        destination: "/cookie-policy",
+        statusCode: 301,
+      },
       // Rebrand route renames
       {
         source: "/clinics",
@@ -85,6 +90,12 @@ const nextConfig: NextConfig = {
       {
         source: "/join",
         destination: "/get-involved",
+        statusCode: 301,
+      },
+      // Nkwapa story renamed once the platform left beta
+      {
+        source: "/news/nkwapa-emr-public-beta",
+        destination: "/news/nkwapa-emr-launch",
         statusCode: 301,
       },
       {

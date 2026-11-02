@@ -12,7 +12,7 @@ describe("isImageKitSrc", () => {
   });
 
   it("keeps committed /static/ assets on the Next optimizer", () => {
-    expect(isImageKitSrc("/static/nkwapa/nkwapa-launch.webp")).toBe(false);
+    expect(isImageKitSrc("/static/nkwapa/nkwapa-live.webp")).toBe(false);
     expect(isImageKitSrc("/images/static-looking.png")).toBe(true);
   });
 

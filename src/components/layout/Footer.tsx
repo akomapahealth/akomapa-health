@@ -4,6 +4,7 @@ import Newsletter from "@/components/shared/NewsLetter";
 import { BRAND } from "@/config/brand";
 import BrandLogo from "@/components/shared/BrandLogo";
 import { CONTACT } from "@/config/contact";
+import CookieSettingsButton from "@/components/consent/CookieSettingsButton";
 
 const footerLinkClass =
   "inline-flex min-h-7 items-center text-[#2F3332]/75 transition-colors hover:text-[#0097b2] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0097b2] focus-visible:ring-offset-2 focus-visible:ring-offset-[#FCFAEF] dark:text-[#FCFAEF]/85 dark:hover:text-[#F5C94D] dark:focus-visible:ring-[#F5C94D] dark:focus-visible:ring-offset-[#121514]";
@@ -221,6 +222,11 @@ export default function Footer() {
                   Send us a message
                 </Link>
               </li>
+              <li>
+                <Link href="/news" className={footerLinkClass}>
+                  News
+                </Link>
+              </li>
               <li className="flex items-center gap-2">
                 <Mail
                   className="h-4 w-4 flex-shrink-0 text-[#C9920F] dark:text-[#F5C94D]"
@@ -259,6 +265,16 @@ export default function Footer() {
             >
               Terms of Service
             </Link>
+            <Link
+              href="/cookie-policy"
+              className={`font-body text-sm ${footerLinkClass}`}
+            >
+              Cookie Policy
+            </Link>
+            <CookieSettingsButton
+              className={footerLinkClass}
+              labelClassName="font-body text-sm"
+            />
           </div>
         </div>
       </div>

@@ -18,7 +18,7 @@ import {
 } from "@/components/shared/PublicPagePrimitives";
 import { NKWAPA_URL } from "@/config/links";
 
-const SCREENSHOT_SRC = "/static/nkwapa/nkwapa-launch.webp";
+const SCREENSHOT_SRC = "/static/nkwapa/nkwapa-live.webp";
 
 const features = [
   {
@@ -84,7 +84,7 @@ export default function NkwapaSection() {
               <div className="relative aspect-[2/1] w-full">
                 <Image
                   src={SCREENSHOT_SRC}
-                  alt="Nkwapa website: clinical records that work when the network doesn't"
+                  alt="Nkwapa website: patient records and clinic workflows in one place, shown on a laptop and a phone"
                   fill
                   sizes="(min-width: 1024px) 40vw, 100vw"
                   className="object-cover object-top"

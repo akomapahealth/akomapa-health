@@ -11,7 +11,7 @@ import {
   EditorialHeading,
   EditorialLead,
 } from "@/components/shared/EditorialPrimitives";
-import type { ResearchPaper } from "@/data/research-papers";
+import { getDoiUrl, type ResearchPaper } from "@/data/research-papers";
 import DeferredPdfViewer from "./DeferredPdfViewer";
 
 export default function ResearchPaperContent({
@@ -20,6 +20,8 @@ export default function ResearchPaperContent({
   paper: ResearchPaper;
 }) {
   const downloadName = `${paper.slug}.pdf`;
+  const doiUrl = paper.doi ? getDoiUrl(paper.doi) : null;
+  const publisherUrl = paper.publisherUrl ?? doiUrl;
 
   return (
     <article data-rebrand-page className="bg-background text-foreground">
@@ -38,7 +40,7 @@ export default function ResearchPaperContent({
         </PublicationBackLink>
 
         <EditorialEyebrow tone="gold" className="text-[#F5C94D]">
-          Research Paper
+          {paper.journal ?? "Research Paper"}
         </EditorialEyebrow>
         <EditorialHeading
           as="h1"
@@ -54,7 +56,25 @@ export default function ResearchPaperContent({
             {
               label: "Published",
               value: `Published: ${paper.date}`,
+              dateTime: paper.publishedAt,
             },
+            ...(paper.doi && doiUrl
+              ? [
+                  {
+                    label: "DOI",
+                    value: (
+                      <a
+                        href={doiUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex min-h-11 items-center underline decoration-[#F5C94D]/60 underline-offset-4 transition-colors hover:decoration-[#F5C94D] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F5C94D]"
+                      >
+                        DOI: {paper.doi}
+                      </a>
+                    ),
+                  },
+                ]
+              : []),
           ]}
         />
       </EditorialBand>
@@ -79,6 +99,21 @@ export default function ResearchPaperContent({
             {paper.abstract}
           </EditorialLead>
 
+          {paper.citation ? (
+            <figure
+              data-testid="research-citation"
+              className="mt-8 border-l-2 border-[#eeba2b] pl-5 sm:pl-6"
+            >
+              <figcaption className="font-subheading text-xs font-bold uppercase tracking-[0.2em] text-[#0F4C5C] dark:text-[#66C4DC]">
+                Cite this paper
+              </figcaption>
+              <p className="mt-2 font-body text-sm leading-relaxed text-[#2F3332] dark:text-[#E6E7E7]/90 sm:text-base">
+                {paper.citation}
+                {doiUrl ? <span className="break-all"> {doiUrl}</span> : null}
+              </p>
+            </figure>
+          ) : null}
+
           <PublicationDocumentActions
             className="mt-8 border-t border-[#1C1F1E]/10 pt-6 dark:border-[#FCFAEF]/15"
             aria-label="Research paper actions"
@@ -88,6 +123,15 @@ export default function ResearchPaperContent({
                 label: "View PDF",
                 variant: "primary",
               },
+              ...(publisherUrl
+                ? [
+                    {
+                      href: publisherUrl,
+                      label: `Read on ${paper.publisherName ?? paper.journal ?? "publisher site"}`,
+                      external: true,
+                    },
+                  ]
+                : []),
               {
                 href: paper.pdfUrl,
                 label: "Download PDF",

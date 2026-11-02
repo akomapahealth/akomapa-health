@@ -2,6 +2,7 @@ import { mkdir, writeFile } from "node:fs/promises";
 import { expect, test, type Page } from "@playwright/test";
 import { announcementCampaign } from "../src/data/announcements";
 import { fulfillImageKitFixture } from "./media/imagekit-isolation";
+import { seedRejectedConsent } from "./media/cookie-consent";
 import {
   isImageKitHostname,
   isRealMediaCdnRequest,
@@ -20,6 +21,7 @@ const deliveries: CdnDelivery[] = [];
 test.describe.configure({ mode: "serial" });
 
 async function preparePage(page: Page) {
+  await seedRejectedConsent(page);
   await page.addInitScript((version) => {
     localStorage.setItem("akomapa-announcements-dismissed", version);
   }, announcementCampaign.version);

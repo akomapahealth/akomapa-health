@@ -40,7 +40,7 @@ describe("NkwapaSection", () => {
     const screenshot = screen.getByTestId("nkwapa-screenshot");
     expect(screenshot).toHaveAttribute(
       "alt",
-      "Nkwapa website: clinical records that work when the network doesn't",
+      "Nkwapa website: patient records and clinic workflows in one place, shown on a laptop and a phone",
     );
   });
 });

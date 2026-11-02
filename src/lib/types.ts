@@ -34,10 +34,17 @@ export interface News {
   excerpt: string;
   content: string[];
   image: string;
+  /** Descriptive alt text for `image`. Falls back to `title` when omitted. */
+  imageAlt?: string;
   date: string;
   category: string;
   featured?: boolean;
   tags?: string[];
+  /** Optional call to action rendered at the end of the article body. */
+  ctaText?: string;
+  ctaLink?: string;
+  /** Opens `ctaLink` in a new tab. The story keeps its own `/news/[slug]` page. */
+  isExternalCta?: boolean;
 }
 
 export interface PersonProfile {
@@ -418,6 +425,7 @@ export interface NewsItem {
   excerpt: string;
   content: string[];
   image: string;
+  imageAlt: string | null;
   videoUrl: string | null;
   thumbnail: string | null;
   date: string | null;
