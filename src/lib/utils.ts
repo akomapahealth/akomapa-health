@@ -8,16 +8,29 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+// Publication dates are calendar days, not instants. Date-only strings such as
+// "2026-10-14" parse as UTC midnight, so they must also be formatted in UTC;
+// formatting in the runtime's zone shows the previous day west of UTC and
+// lets server and browser render different text.
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/parse
+const calendarDateFormatter = new Intl.DateTimeFormat('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+  timeZone: 'UTC',
+});
+
 /**
- * Formats a date string to a readable format
+ * Formats a publication date ("YYYY-MM-DD" or an ISO timestamp at UTC
+ * midnight) as a readable calendar date, e.g. "October 14, 2026". The result
+ * is the same for every visitor and on server and client. Returns the input
+ * unchanged when it is not a valid date.
  */
 export function formatDate(dateString: string): string {
   const date = new Date(dateString);
-  return new Intl.DateTimeFormat('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  }).format(date);
+  return Number.isNaN(date.getTime())
+    ? dateString
+    : calendarDateFormatter.format(date);
 }
 
 /**
