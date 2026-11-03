@@ -63,7 +63,11 @@ necessary storage do not need a bump.
    (or a new category) and bump `CONSENT_POLICY_VERSION`.
 3. Update the Cookie Policy and Privacy Policy copy and their **Last updated**
    dates, and have the policy owner review the wording.
-4. Add any new script, image, or connect origins to the CSP.
+4. Add any new script, image, frame, or connect origins to the CSP.
+   Third-party embeds (maps, players, forms) should load only when the
+   visitor asks for them. `src/components/contact/LocationMap.tsx` is the
+   reference: an offline placeholder, an explicit action that loads the frame
+   and moves focus to it, and a plain link to the provider as an alternative.
 5. Extend `src/config/__tests__/cookies.test.ts` and
    `e2e/cookie-consent.spec.ts`.
 
