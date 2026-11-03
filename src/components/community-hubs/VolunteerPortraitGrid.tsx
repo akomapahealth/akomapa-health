@@ -86,7 +86,9 @@ export default function VolunteerPortraitGrid({
         initial={shouldReduceMotion ? false : { opacity: 0, y: 18 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.45, ease: [...MOTION_EASE] }}
-        viewport={{ once: true, amount: 0.04 }}
+        // "some" fires on any intersection; a fractional amount can never be met
+        // once the grid is taller than a phone viewport.
+        viewport={{ once: true, amount: "some" }}
       >
         {displayedPortraits.map((portrait, index) => {
           const isFeatured = featurePortraitIndexes.has(index);
