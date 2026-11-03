@@ -1,4 +1,4 @@
-import { expect } from "@playwright/test";
+import { expect, type Page, type Request } from "@playwright/test";
 import { test } from "./media/playwright";
 import { announcementCampaign } from "../src/data/announcements";
 
@@ -13,7 +13,37 @@ const canonical = {
   },
   emailHref: "mailto:info@akomapa.org",
   mapTitle: "Map showing Akomapa Health Foundation's Ghana Office",
+  mapsSearchUrl:
+    "https://www.google.com/maps/search/?api=1&query=43%20Yam%20Street%2C%20Tema%20Community%2023%2C%20Adjei%20Kojo%2C%20Accra%2C%20Ghana",
 };
+
+/** Every host the Google Maps embed talks to. */
+const GOOGLE_MAPS_TRAFFIC =
+  /^https:\/\/(www\.google\.com\/maps|maps\.google\.com|maps\.gstatic\.com|maps\.googleapis\.com|[^/]*\.googleusercontent\.com)/;
+
+/**
+ * Records Google Maps requests and answers them locally, so the spec proves
+ * when the embed is requested without sending real traffic to Google.
+ */
+async function stubGoogleMaps(page: Page) {
+  const requests: Request[] = [];
+
+  await page.route(GOOGLE_MAPS_TRAFFIC, async (route) => {
+    requests.push(route.request());
+    const isDocument = route.request().resourceType() === "document";
+    await route.fulfill({
+      status: isDocument ? 200 : 204,
+      contentType: isDocument ? "text/html" : "text/plain",
+      body: isDocument ? "<!doctype html><title>Map stub</title>" : "",
+    });
+  });
+
+  return requests;
+}
+
+function officeMap(page: Page) {
+  return page.getByRole("figure", { name: "Ghana Office map" });
+}
 
 test.describe("canonical contact details", () => {
   test.beforeEach(async ({ page }) => {
@@ -50,9 +80,10 @@ test.describe("canonical contact details", () => {
     ).toHaveAttribute("href", canonical.emailHref);
   });
 
-  test("shows matching contact details and the Ghana office map", async ({
+  test("shows matching contact details and a click-to-load Ghana office map", async ({
     page,
   }) => {
+    await stubGoogleMaps(page);
     await page.goto("/contact");
 
     const main = page.locator("main");
@@ -81,46 +112,138 @@ test.describe("canonical contact details", () => {
       page.locator(`a[href="${canonical.emailHref}"]`).first(),
     ).toBeVisible();
 
-    await expect(
-      main.getByText("Ghana Office map", { exact: true }),
-    ).toBeVisible();
-    const map = main.getByTitle(canonical.mapTitle);
+    const map = officeMap(page);
     await expect(map).toBeVisible();
-    await expect(map).toHaveAttribute(
+    await expect(map.locator("iframe")).toHaveCount(0);
+    await expect(
+      map.getByText(/Showing the map loads it from Google/),
+    ).toBeVisible();
+
+    await map.getByRole("button", { name: "Show map" }).click();
+
+    const frame = map.getByTitle(canonical.mapTitle);
+    await expect(frame).toBeVisible();
+    await expect(frame).toHaveAttribute(
       "src",
       /43%20Yam%20Street.*Accra%2C%20Ghana.*output=embed/,
     );
-    await expect(map).not.toHaveAttribute(
+    await expect(frame).not.toHaveAttribute(
       "src",
       /UCC|School%20of%20Medical%20Sciences/,
     );
   });
 
+  test("makes no Google Maps request until the visitor asks for the map", async ({
+    page,
+  }) => {
+    const requests = await stubGoogleMaps(page);
+    await page.goto("/contact");
+
+    const map = officeMap(page);
+    await map.scrollIntoViewIfNeeded();
+    await expect(map.getByRole("button", { name: "Show map" })).toBeVisible();
+    await page.waitForLoadState("networkidle");
+    expect(requests.map((request) => request.url())).toEqual([]);
+
+    await map.getByRole("button", { name: "Show map" }).click();
+
+    await expect
+      .poll(() =>
+        requests.some(
+          (request) =>
+            request.resourceType() === "document" &&
+            request.url().includes("output=embed"),
+        ),
+      )
+      .toBe(true);
+    await expect(map.getByTitle(canonical.mapTitle)).toBeVisible();
+  });
+
+  test("loads the map from the keyboard and moves focus to it", async ({
+    page,
+  }) => {
+    await stubGoogleMaps(page);
+    await page.goto("/contact");
+
+    const showMap = officeMap(page).getByRole("button", { name: "Show map" });
+    await showMap.focus();
+    await expect(showMap).toBeFocused();
+    await page.keyboard.press("Enter");
+
+    await expect(officeMap(page).getByTitle(canonical.mapTitle)).toBeFocused();
+  });
+
+  test("links to Google Maps in a new tab without loading the embed", async ({
+    page,
+  }) => {
+    const requests = await stubGoogleMaps(page);
+    await page.goto("/contact");
+
+    const link = officeMap(page).getByRole("link", {
+      name: "Open in Google Maps (opens in a new tab)",
+    });
+    await expect(link).toHaveAttribute("href", canonical.mapsSearchUrl);
+    await expect(link).toHaveAttribute("target", "_blank");
+    await expect(link).toHaveAttribute("rel", "noopener noreferrer");
+    expect(requests).toHaveLength(0);
+  });
+
   for (const viewport of [
+    { name: "small-mobile", width: 320, height: 568 },
     { name: "mobile", width: 375, height: 812 },
+    { name: "short-landscape", width: 640, height: 360 },
     { name: "tablet", width: 768, height: 1024 },
     { name: "desktop", width: 1440, height: 900 },
   ]) {
-    test(`remains readable without horizontal overflow on ${viewport.name}`, async ({
-      page,
-    }) => {
-      await page.setViewportSize({
-        width: viewport.width,
-        height: viewport.height,
+    for (const theme of ["light", "dark"] as const) {
+      test(`${viewport.name} ${theme}: map stays readable and stable without horizontal overflow`, async ({
+        page,
+      }) => {
+        await stubGoogleMaps(page);
+        await page.addInitScript((storedTheme: string) => {
+          localStorage.setItem("akomapa-theme", storedTheme);
+        }, theme);
+        await page.setViewportSize({
+          width: viewport.width,
+          height: viewport.height,
+        });
+        await page.goto("/contact");
+
+        const map = officeMap(page);
+        await map.scrollIntoViewIfNeeded();
+        await expect(page.locator("html")).toHaveClass(
+          theme === "dark" ? /\bdark\b/ : /^(?!.*\bdark\b)/,
+        );
+
+        const showMap = map.getByRole("button", { name: "Show map" });
+        const openLink = map.getByRole("link", { name: /Open in Google Maps/ });
+        await expect(showMap).toBeVisible();
+        await expect(openLink).toBeVisible();
+
+        const mapBox = await map.boundingBox();
+        expect(mapBox).not.toBeNull();
+        for (const control of [showMap, openLink]) {
+          const box = await control.boundingBox();
+          expect(box).not.toBeNull();
+          expect(box!.x).toBeGreaterThanOrEqual(mapBox!.x);
+          expect(box!.y).toBeGreaterThanOrEqual(mapBox!.y);
+          expect(box!.x + box!.width).toBeLessThanOrEqual(mapBox!.x + mapBox!.width + 1);
+          expect(box!.y + box!.height).toBeLessThanOrEqual(mapBox!.y + mapBox!.height + 1);
+        }
+
+        const dimensions = await page.evaluate(() => ({
+          clientWidth: document.documentElement.clientWidth,
+          scrollWidth: document.documentElement.scrollWidth,
+        }));
+        expect(dimensions.scrollWidth).toBeLessThanOrEqual(
+          dimensions.clientWidth + 1,
+        );
+
+        await showMap.click();
+        await expect(map.getByTitle(canonical.mapTitle)).toBeVisible();
+        const loadedBox = await map.boundingBox();
+        expect(loadedBox!.height).toBeCloseTo(mapBox!.height, 0);
       });
-      await page.goto("/contact");
-
-      await expect(
-        page.getByRole("figure", { name: "Ghana Office map" }).first(),
-      ).toBeVisible();
-      const dimensions = await page.evaluate(() => ({
-        clientWidth: document.documentElement.clientWidth,
-        scrollWidth: document.documentElement.scrollWidth,
-      }));
-
-      expect(dimensions.scrollWidth).toBeLessThanOrEqual(
-        dimensions.clientWidth + 1,
-      );
-    });
+    }
   }
 });
