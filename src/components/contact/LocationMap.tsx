@@ -34,7 +34,7 @@ export default function LocationMap() {
         {CONTACT.map.label}
       </figcaption>
 
-      <div className="relative min-h-0 flex-1" data-location-map={status}>
+      <div className="relative min-h-0 flex-1">
         {status === "idle" ? (
           <div className="absolute inset-0 overflow-y-auto overscroll-contain">
             <MapGrid />
