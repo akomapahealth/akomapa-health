@@ -1,4 +1,4 @@
-import { expect } from "@playwright/test";
+import { expect, type Locator, type Page } from "@playwright/test";
 import { test } from "./media/playwright";
 import { announcementCampaign } from "../src/data/announcements";
 
@@ -14,6 +14,35 @@ async function dismissAnnouncementIfPresent(page: import("@playwright/test").Pag
       version: announcementCampaign.version,
     }
   );
+}
+
+/**
+ * Opens a Radix dropdown with Enter and waits for focus to land on its first
+ * item. Radix moves focus to the first item only when a document keydown
+ * listener, attached in a passive effect after hydration, saw the key. Under
+ * CI load the trigger's own key handler can be live before that effect runs,
+ * so the menu opens with focus on the menu itself. Retry until it is live.
+ *
+ * An open modal menu marks the rest of the page aria-hidden, so detect it by
+ * its own role (the trigger cannot be found by role meanwhile).
+ */
+async function openMenuWithKeyboard(
+  page: Page,
+  trigger: Locator,
+  firstItem: Locator,
+) {
+  const openMenu = page.getByRole("menu");
+
+  await expect(async () => {
+    if ((await openMenu.count()) > 0) {
+      await page.keyboard.press("Escape");
+      await expect(openMenu).toHaveCount(0);
+    }
+    await trigger.focus();
+    await expect(trigger).toBeFocused();
+    await page.keyboard.press("Enter");
+    await expect(firstItem).toBeFocused({ timeout: 1_000 });
+  }).toPass({ timeout: 15_000 });
 }
 
 test.describe("skip to main content", () => {
@@ -54,15 +83,10 @@ test.describe("desktop header dropdown keyboard accessibility", () => {
     page,
   }) => {
     const aboutTrigger = page.getByRole("button", { name: "About" });
-    await aboutTrigger.focus();
-    await expect(aboutTrigger).toBeFocused();
-    await page.keyboard.press("Enter");
-
     const ourStoryLink = page.getByRole("menuitem", { name: "Our Story" });
     const ourTeamLink = page.getByRole("menuitem", { name: "Our Team" });
+    await openMenuWithKeyboard(page, aboutTrigger, ourStoryLink);
     await expect(ourTeamLink).toBeVisible();
-
-    await expect(ourStoryLink).toBeFocused();
     await page.keyboard.press("ArrowDown");
     await expect(ourTeamLink).toBeFocused();
     await page.keyboard.press("Enter");
@@ -90,11 +114,11 @@ test.describe("desktop header dropdown keyboard accessibility", () => {
     page,
   }) => {
     const aboutTrigger = page.getByRole("button", { name: "About" });
-    await aboutTrigger.focus();
-    await page.keyboard.press("Enter");
-    await expect(
-      page.getByRole("menuitem", { name: "Our Story" })
-    ).toBeVisible();
+    await openMenuWithKeyboard(
+      page,
+      aboutTrigger,
+      page.getByRole("menuitem", { name: "Our Story" }),
+    );
 
     await page.keyboard.press("Escape");
     await expect(
@@ -109,9 +133,6 @@ test.describe("desktop header dropdown keyboard accessibility", () => {
     const workTrigger = page.getByRole("button", {
       name: "Our Work",
     });
-    await workTrigger.focus();
-    await page.keyboard.press("Enter");
-
     const researchLink = page.getByRole("menuitem", {
       name: "Research & Innovation",
     });
@@ -119,7 +140,7 @@ test.describe("desktop header dropdown keyboard accessibility", () => {
       name: "Impact",
       exact: true,
     });
-    await expect(researchLink).toBeFocused();
+    await openMenuWithKeyboard(page, workTrigger, researchLink);
     await expect(
       page.getByRole("menuitem", { name: "Community Health Hubs" }),
     ).toHaveCount(0);
@@ -155,14 +176,11 @@ test.describe("desktop header dropdown keyboard accessibility", () => {
       name: "Community Health Hubs",
       exact: true,
     });
-    await hubsTrigger.focus();
-    await page.keyboard.press("Enter");
-
     const allHubsLink = page.getByRole("menuitem", {
       name: "All Community Health Hubs",
     });
     const uccLink = page.getByRole("menuitem", { name: "Akomapa UCC Hub" });
-    await expect(allHubsLink).toBeFocused();
+    await openMenuWithKeyboard(page, hubsTrigger, allHubsLink);
     await page.keyboard.press("ArrowDown");
     await expect(uccLink).toBeFocused();
     await page.keyboard.press("Enter");
@@ -178,16 +196,15 @@ test.describe("desktop header dropdown keyboard accessibility", () => {
     page,
   }) => {
     const workTrigger = page.getByRole("button", { name: "Our Work" });
-    await workTrigger.focus();
-    await page.keyboard.press("Enter");
-
     const learningSubmenu = page.getByRole("menuitem", {
       name: "Learning Experiences",
       exact: true,
     });
-    await expect(
+    await openMenuWithKeyboard(
+      page,
+      workTrigger,
       page.getByRole("menuitem", { name: "Research & Innovation" }),
-    ).toBeFocused();
+    );
     await page.keyboard.press("ArrowDown");
     await expect(
       page.getByRole("menuitem", { name: "Impact", exact: true }),
@@ -219,9 +236,6 @@ test.describe("desktop header dropdown keyboard accessibility", () => {
     page,
   }) => {
     const joinTrigger = page.getByRole("button", { name: "Join Us" });
-    await joinTrigger.focus();
-    await page.keyboard.press("Enter");
-
     const involvementLink = page.getByRole("menuitem", {
       name: "Get Involved",
     });
@@ -232,7 +246,7 @@ test.describe("desktop header dropdown keyboard accessibility", () => {
       name: "Contact Us",
     });
 
-    await expect(involvementLink).toBeFocused();
+    await openMenuWithKeyboard(page, joinTrigger, involvementLink);
     await page.keyboard.press("ArrowDown");
     await expect(partnershipsLink).toBeFocused();
     await page.keyboard.press("ArrowDown");
