@@ -5,6 +5,7 @@ import {
   EditorialBand,
   EditorialButton,
   EditorialHeading,
+  editorialButtonClassName,
 } from "@/components/shared/EditorialPrimitives";
 import {
   HomeBand,
@@ -58,6 +59,27 @@ describe("EditorialPrimitives", () => {
     expect(
       screen.getByRole("link", { name: "External resource" }),
     ).toHaveAttribute("rel", "noopener noreferrer");
+  });
+
+  it("lets real buttons share the editorial call-to-action styling", () => {
+    render(
+      <>
+        <EditorialButton href="/contact" variant="outline">
+          Link action
+        </EditorialButton>
+        <button
+          type="button"
+          className={editorialButtonClassName("outline", "w-full")}
+        >
+          Button action
+        </button>
+      </>,
+    );
+
+    const link = screen.getByRole("link", { name: "Link action" });
+    const button = screen.getByRole("button", { name: "Button action" });
+    expect(button).toHaveClass("min-h-11", "w-full", "focus-visible:ring-2");
+    expect(button.className).toBe(`${link.className} w-full`);
   });
 
   it("keeps the homepage compatibility exports wired to the neutral core", () => {

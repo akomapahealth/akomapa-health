@@ -255,6 +255,21 @@ const buttonVariantClasses: Record<EditorialButtonVariant, string> = {
     "border border-[#FCFAEF]/60 text-[#FCFAEF] hover:bg-[#FCFAEF] hover:text-[#0097b2]",
 };
 
+/**
+ * Class string for editorial calls to action. Exported so real `<button>`
+ * actions can match `EditorialButton` links exactly.
+ */
+export function editorialButtonClassName(
+  variant: EditorialButtonVariant = "solid",
+  className?: string,
+) {
+  return cn(
+    "group inline-flex min-h-11 items-center justify-center gap-2 rounded-md px-6 py-3 text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eeba2b] focus-visible:ring-offset-2 md:text-base",
+    buttonVariantClasses[variant],
+    className,
+  );
+}
+
 export type EditorialButtonProps = {
   children: ReactNode;
   href: string;
@@ -274,11 +289,7 @@ export function EditorialButton({
   className,
   onClick,
 }: EditorialButtonProps) {
-  const classes = cn(
-    "group inline-flex min-h-11 items-center justify-center gap-2 rounded-md px-6 py-3 text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#eeba2b] focus-visible:ring-offset-2 md:text-base",
-    buttonVariantClasses[variant],
-    className,
-  );
+  const classes = editorialButtonClassName(variant, className);
 
   const content = (
     <>
