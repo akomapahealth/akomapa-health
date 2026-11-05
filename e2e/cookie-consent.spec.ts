@@ -182,9 +182,18 @@ test.describe("Cookie choice persistence and necessary behaviour", () => {
     await expect(page.locator("main h1").first()).toBeVisible();
     await expect(page.locator("[data-cookie-banner]")).toHaveCount(0);
 
-    // Necessary storage still works after rejection.
-    await page.getByRole("button", { name: "Toggle theme" }).first().click();
-    await page.getByRole("menuitem", { name: "Dark" }).click();
+    // Necessary storage still works after rejection. The server-rendered
+    // trigger is inert until hydration, so retry until the menu really opens.
+    // (An open menu hides the trigger from role queries, so check the menu.)
+    const themeToggle = page.getByRole("button", { name: "Toggle theme" }).first();
+    const darkOption = page.getByRole("menuitem", { name: "Dark" });
+    await expect(async () => {
+      if ((await page.getByRole("menu").count()) === 0) {
+        await themeToggle.click();
+      }
+      await expect(darkOption).toBeVisible({ timeout: 1_000 });
+    }).toPass({ timeout: 15_000 });
+    await darkOption.click();
     await expect(page.locator("html")).toHaveClass(/\bdark\b/);
     expect(await page.evaluate(() => localStorage.getItem("akomapa-theme"))).toBe("dark");
 
