@@ -43,6 +43,14 @@ describe("cookie inventory", () => {
     expect(analyticsNames).toContain("_ga_<container-id>");
   });
 
+  it("describes the click-to-load Contact page map", () => {
+    const maps = thirdPartyServices.find((service) => service.name === "Google Maps");
+
+    expect(maps?.where).toBe("Contact page");
+    expect(maps?.detail).toMatch(/only after you select Show map/);
+    expect(maps?.detail).not.toMatch(/loads with the page/);
+  });
+
   it("has unique names and HTTPS privacy links", () => {
     expect(new Set(names).size).toBe(names.length);
     for (const service of thirdPartyServices) {

@@ -54,11 +54,27 @@ describe("canonical contact configuration", () => {
       title: "Map showing Akomapa Health Foundation's Ghana Office",
       embedUrl:
         "https://www.google.com/maps?q=43%20Yam%20Street%2C%20Tema%20Community%2023%2C%20Adjei%20Kojo%2C%20Accra%2C%20Ghana&output=embed",
+      openUrl:
+        "https://www.google.com/maps/search/?api=1&query=43%20Yam%20Street%2C%20Tema%20Community%2023%2C%20Adjei%20Kojo%2C%20Accra%2C%20Ghana",
+      consentNote:
+        "Showing the map loads it from Google, which may set cookies on your device.",
     });
 
     expect(getContactOffice(CONTACT.map.officeId).addressLines).toContain(
       "43 Yam Street",
     );
+  });
+
+  it("links to Google Maps with a valid Maps URLs search request", () => {
+    const url = new URL(CONTACT.map.openUrl);
+
+    expect(url.origin + url.pathname).toBe("https://www.google.com/maps/search/");
+    expect(url.searchParams.get("api")).toBe("1");
+    expect(url.searchParams.get("query")).toBe(
+      getContactOffice(CONTACT.map.officeId).addressLines.join(", "),
+    );
+    // Google Maps URLs are limited to 2,048 characters.
+    expect(CONTACT.map.openUrl.length).toBeLessThanOrEqual(2048);
   });
 
   it("keeps every public contact surface tied to the canonical source", () => {

@@ -18,7 +18,7 @@ const legalRoutes = [
   {
     path: "/cookie-policy",
     heading: "Cookie Policy",
-    lastUpdated: "Last updated: November 1, 2026",
+    lastUpdated: "Last updated: November 3, 2026",
     sectionHeading: "The short version",
   },
 ] as const;

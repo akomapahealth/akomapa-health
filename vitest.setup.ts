@@ -156,10 +156,20 @@ vi.mock("framer-motion", async () => {
   motionFn.create = (tagOrComponent: string | React.ElementType) =>
     wrapAsMotion(tagOrComponent);
 
+  // Cache per tag so `motion.div` keeps a stable component identity across
+  // renders, as the real library does; otherwise every render remounts the
+  // element and drops focus, refs, and DOM state.
+  const motionTags = new Map<string, React.FC<Record<string, unknown>>>();
+
   const motion = new Proxy(motionFn, {
     get: (target, prop: string, receiver) => {
       if (prop in target) return Reflect.get(target, prop, receiver);
-      return wrapAsMotion(prop);
+      let component = motionTags.get(prop);
+      if (!component) {
+        component = wrapAsMotion(prop);
+        motionTags.set(prop, component);
+      }
+      return component;
     },
   }) as unknown as Record<string, React.FC<Record<string, unknown>>> &
     ((c: React.ElementType) => React.FC<Record<string, unknown>>);

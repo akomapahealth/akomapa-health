@@ -58,6 +58,10 @@ describe("announcement lifecycle", () => {
       "September 3, 2026",
     );
   });
+
+  it("renders no date for an invalid publication value", () => {
+    expect(formatAnnouncementDate("not a date")).toBe("");
+  });
 });
 
 describe("Nkwapa launch announcement", () => {
