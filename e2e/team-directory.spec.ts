@@ -1,5 +1,6 @@
 import { expect, type Page } from "@playwright/test";
 import { test } from "./media/playwright";
+import { resolveRenderedImageKitUrl } from "./media/imagekit-url.mjs";
 import { announcementCampaign } from "../src/data/announcements";
 import {
   advisoryBoardMembers,
@@ -94,7 +95,7 @@ test.describe("team directory hierarchy", () => {
     const jadePortrait = page.locator(
       '[data-team-node-portrait="executive-jade-kissi"] img',
     );
-    const jadePortraitUrl = new URL((await jadePortrait.getAttribute("src"))!);
+    const jadePortraitUrl = resolveRenderedImageKitUrl((await jadePortrait.getAttribute("src"))!);
     expect(jadePortraitUrl.pathname).toMatch(/\/images\/team\/jade_kissi\.heif$/);
     expect(jadePortraitUrl.searchParams.get("tr")).toMatch(
       /(?:^|,)f-auto(?:,|$)/,
@@ -109,7 +110,7 @@ test.describe("team directory hierarchy", () => {
     await darrenCard.scrollIntoViewIfNeeded();
 
     const darrenPortrait = darrenCard.locator("[data-team-portrait] img");
-    const darrenPortraitUrl = new URL(
+    const darrenPortraitUrl = resolveRenderedImageKitUrl(
       (await darrenPortrait.getAttribute("src"))!,
     );
     expect(darrenPortraitUrl.pathname).toMatch(

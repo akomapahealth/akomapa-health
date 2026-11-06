@@ -1,5 +1,6 @@
 import { expect, type Page } from "@playwright/test";
 import { test } from "./media/playwright";
+import { resolveRenderedImageKitUrl } from "./media/imagekit-url.mjs";
 import { announcementCampaign } from "../src/data/announcements";
 import { uccHubRoster } from "../src/data/community-hubs";
 
@@ -106,7 +107,7 @@ for (const scenario of [
     await expect(firstLeaderImage).toHaveAttribute("loading", "lazy");
     const firstLeaderSrc = await firstLeaderImage.getAttribute("src");
     expect(firstLeaderSrc).not.toBeNull();
-    const firstLeaderUrl = new URL(firstLeaderSrc!);
+    const firstLeaderUrl = resolveRenderedImageKitUrl(firstLeaderSrc!);
     expect(firstLeaderUrl.protocol).toBe("https:");
     expect(firstLeaderUrl.hostname).toBe("ik.imagekit.io");
     expect(firstLeaderUrl.pathname).toMatch(/^\/[^/]+\/ucc-team\/[^/]+$/);

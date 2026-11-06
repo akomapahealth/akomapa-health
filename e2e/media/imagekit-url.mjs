@@ -45,3 +45,24 @@ export function isRealMediaCdnRequest(url) {
     /(?:^|,)w-960(?:,|$)/.test(transform)
   );
 }
+
+/**
+ * Resolve a rendered <img>/<source> src that may be:
+ * - an absolute ImageKit CDN URL (production), or
+ * - a same-origin `/api/dev-imagekit?src=<encoded CDN URL>` fixture rewrite.
+ *
+ * @param {string} src
+ * @param {string} [base]
+ * @returns {URL}
+ */
+export function resolveRenderedImageKitUrl(src, base = "http://127.0.0.1") {
+  const absolute = new URL(src, base);
+  if (absolute.pathname === "/api/dev-imagekit" || absolute.pathname.endsWith("/api/dev-imagekit")) {
+    const nested = absolute.searchParams.get("src");
+    if (!nested) {
+      throw new Error(`dev-imagekit src missing nested CDN URL: ${src}`);
+    }
+    return new URL(nested);
+  }
+  return absolute;
+}
