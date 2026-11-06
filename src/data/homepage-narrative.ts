@@ -86,7 +86,7 @@ export const academyPreviewContent = {
     href: "/academy",
   },
   image: {
-    src: "/highlights/Akomapa-40.jpg",
+    src: "/ug-team/ug-chapter/ug-chapter-27.jpg",
     alt: "Akomapa students learning together during a leadership development session",
     position: "center",
   },

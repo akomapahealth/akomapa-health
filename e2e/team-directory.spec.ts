@@ -4,6 +4,7 @@ import { announcementCampaign } from "../src/data/announcements";
 import {
   advisoryBoardMembers,
   executiveLeadership,
+  internationalLeadership,
   teamDepartments,
   teamHeroPeople,
 } from "../src/data/team";
@@ -32,17 +33,18 @@ test.describe("team directory hierarchy", () => {
 
   test("renders the canonical groups in the approved order", async ({ page }) => {
     const sections = page.locator("[data-team-section]");
-    await expect(sections).toHaveCount(3);
+    await expect(sections).toHaveCount(4);
     await expect
       .poll(() =>
         sections.evaluateAll((elements) =>
           elements.map((element) => element.getAttribute("data-team-section")),
         ),
       )
-      .toEqual(["executive", "departments", "advisor"]);
+      .toEqual(["executive", "international", "departments", "advisor"]);
 
     const expectedGroups = [
       ["executive", "executive", executiveLeadership.length, "Executive Leadership"],
+      ["international", "international", internationalLeadership.length, "International"],
       ["departments", "member", teamDepartments.flatMap(({ members }) => members).length, "Our Departments"],
       ["advisor", "advisor", advisoryBoardMembers.length, "Advisory Board"],
     ] as const;
@@ -72,8 +74,8 @@ test.describe("team directory hierarchy", () => {
       const card = page.locator(`[data-team-member="${countryManager}"]`);
       await expect(card).toHaveCount(1);
       await card.scrollIntoViewIfNeeded();
-      await expect(card).toHaveAttribute("data-team-role-category", "executive");
-      await expect(card.getByText("Country Manager", { exact: true })).toBeVisible();
+      await expect(card).toHaveAttribute("data-team-role-category", "international");
+      await expect(card.getByText("Country Manager (Ghana)", { exact: true })).toBeVisible();
     }
     await expect(page.locator('[data-team-member="Wilfred Obeng"]')).toHaveCount(1);
     await expect(page.locator("[data-team-node-portrait]")).toHaveCount(22);

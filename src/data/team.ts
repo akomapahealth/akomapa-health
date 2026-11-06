@@ -245,13 +245,14 @@ const canonicalPeople: PersonProfile[] = [
     id: "member-getwell-essuman",
     name: "Getwell Essuman",
     affiliation: "Medical Laboratory Science Student, University of Cape Coast",
-    image: "/ucc-team/getwell_ebiram_essuman.JPG",
+    image: "/ucc-team/getwell_ebiram_essuman.jpg",
     bio: "Getwell Essuman is a medical laboratory science student at the University of Cape Coast and Country Manager at Akomapa Health. He helps students find clear ways to contribute to community health programs.",
   },
   {
     id: "member-osei-kwarkye-bonsu-tony",
     name: "Osei Kwarkye Bonsu Tony",
     affiliation: "Doctor of Optometry Student, University of Cape Coast",
+    image: "/ucc-team/osei-kwarkye-bonsu-tony.jpg",
     socialLinks: { email: "tonyofficial9346@gmail.com" },
     bio: "Osei Kwarkye Bonsu Tony is a sixth-year Doctor of Optometry student interested in diagnostic and screening technology that can help people in communities with limited access to healthcare.",
   },
@@ -259,6 +260,7 @@ const canonicalPeople: PersonProfile[] = [
     id: "member-djan-patrick-nyarko",
     name: "Djan Patrick Nyarko",
     affiliation: "Doctor of Pharmacy Student, University of Cape Coast",
+    image: "/ucc-team/patrick-djan.jpg",
     socialLinks: { email: "patrickdjan44@gmail.com" },
     bio: "Djan Patrick Nyarko is a Doctor of Pharmacy student at the University of Cape Coast with a strong interest in clinical pharmacy, research, academia, and community health, and is passionate about teaching, leadership, and improving healthcare outcomes.",
   },
@@ -266,6 +268,7 @@ const canonicalPeople: PersonProfile[] = [
     id: "member-adeporka-awinibota-peter",
     name: "Adeporka Awinibota Peter",
     affiliation: "Biomedical Science Graduate, University of Cape Coast",
+    image: "/ucc-team/peter-awinibota-adeporka.jpg",
     socialLinks: { email: "awinibotapeter@gmail.com" },
     bio: "Adeporka Awinibota Peter is a Biomedical Science graduate of the University of Cape Coast with an interest in medical microbiology, healthcare research, and community health, and is passionate about learning, leadership, and using science to make a meaningful impact.",
   },
@@ -273,6 +276,7 @@ const canonicalPeople: PersonProfile[] = [
     id: "member-ampomah-prince-peprah",
     name: "Ampomah Prince Peprah",
     affiliation: "Optometry Student, University of Cape Coast",
+    image: "/ucc-team/prince-peprah-ampomah.jpg",
     socialLinks: { email: "princepeprah904@gmail.com" },
     bio: "Ampomah Prince Peprah is a student optometrist with a strong interest in research, public health, binocular vision, and ocular diseases.",
   },
@@ -280,6 +284,7 @@ const canonicalPeople: PersonProfile[] = [
     id: "member-anane-sarah-adomah",
     name: "Anane Sarah Adomah",
     affiliation: "Health Information Management Student, University of Cape Coast",
+    image: "/ucc-team/sarah-anane-adomah.jpg",
     socialLinks: { email: "ananesarah05@gmail.com" },
     bio: "Anane Sarah Adomah is a Health Information Management student at the University of Cape Coast who values quality health data and hopes to work as a data analyst, researcher, and lawyer.",
   },
@@ -287,7 +292,7 @@ const canonicalPeople: PersonProfile[] = [
     id: "member-david-konadu-kombate",
     name: "David Konadu Kombate",
     affiliation: "Medical Laboratory Science Graduate, University of Cape Coast",
-    image: "/ucc-team/david_konadu_kombate.JPG",
+    image: "/ucc-team/david-konadu-kombate.jpg",
     socialLinks: { email: "kombatedavidkonadu@gmail.com" },
     bio: "David Konadu Kombate is a Medical Laboratory Science graduate committed to turning knowledge and research into meaningful impact in diagnostics, public health, and patient care.",
   },
@@ -295,6 +300,7 @@ const canonicalPeople: PersonProfile[] = [
     id: "member-araba-nyakoa-amartey",
     name: "Araba Nyakoa Amartey",
     affiliation: "Medical Student, University of Cape Coast",
+    image: "/ucc-team/araba-amartey.jpg",
     socialLinks: { email: "nyakoaana@gmail.com" },
     bio: "Araba Nyakoa Amartey is a medical student at the University of Cape Coast, interested in using research to understand and address health needs in underserved communities.",
   },
@@ -302,6 +308,7 @@ const canonicalPeople: PersonProfile[] = [
     id: "member-justice-marvel-yaw-anieku",
     name: "Justice Marvel Yaw Anieku",
     affiliation: "Medical Student, University of Cape Coast",
+    image: "/ucc-team/justice-marvel-yaw-anieku.jpg",
     socialLinks: { email: "manieku123@gmail.com" },
     bio: "Justice Marvel Yaw Anieku is a medical student at the University of Cape Coast School of Medicine, committed to advancing health education, supporting early disease detection, and empowering underserved communities through compassionate service and collaborative leadership.",
   },
@@ -309,6 +316,7 @@ const canonicalPeople: PersonProfile[] = [
     id: "member-evans-worae-obeng",
     name: "Evans Worae Obeng",
     affiliation: "Medical Laboratory Science Student, University of Cape Coast",
+    image: "/ucc-team/evans-worae-obeng.jpg",
     socialLinks: { email: "owevans222@gmail.com" },
     bio: "Evans Worae Obeng is a Medical Laboratory Science student passionate about public health, aiming to make laboratory testing accessible so people know their current health status while preventing drug misuse and drug resistance.",
   },
@@ -316,6 +324,7 @@ const canonicalPeople: PersonProfile[] = [
     id: "member-kingsley-botchwey",
     name: "Kingsley Botchwey",
     affiliation: "MPhil Molecular Medicine Student, University of Cape Coast",
+    image: "/ucc-team/kingsley-botchwey.jpg",
     socialLinks: { email: "jnrkingsley05@gmail.com" },
     bio: "Kingsley Botchwey is an MPhil Molecular Medicine student at the University of Cape Coast, an aspiring cancer researcher, and a designer passionate about health communication, with research interests in pharmacogenomics and how genes shape disease outcomes.",
   },
@@ -323,6 +332,7 @@ const canonicalPeople: PersonProfile[] = [
     id: "member-vanessa-borna",
     name: "Vanessa Borna",
     affiliation: "Clinical Nutrition Graduate, University of Cape Coast",
+    image: "/ucc-team/vanessa-borna.jpg",
     socialLinks: { email: "vanessaborna7@gmail.com" },
     bio: "Vanessa Borna is a Clinical Nutrition graduate passionate about promoting healthy living through evidence-based nutrition and compassionate care.",
   },
@@ -330,6 +340,7 @@ const canonicalPeople: PersonProfile[] = [
     id: "member-batanye-joseph",
     name: "Batanye Joseph",
     affiliation: "Doctor of Pharmacy Student, University of Cape Coast",
+    image: "/ucc-team/joseph-batanye.jpg",
     socialLinks: { email: "joseph.batanye@stu.ucc.edu.gh" },
     bio: "Batanye Joseph is a Doctor of Pharmacy student at the University of Cape Coast, focused on a career that combines pharmacy, innovation, business, and service to the community.",
   },
@@ -337,6 +348,7 @@ const canonicalPeople: PersonProfile[] = [
     id: "member-lydia-ira",
     name: "Lydia Ira",
     affiliation: "Medical Laboratory Science Student, University of Cape Coast",
+    image: "/ucc-team/lydia-ira.jpg",
     socialLinks: { email: "iralydia09@gmail.com" },
     bio: "Lydia Ira is a Medical Laboratory Science student at the University of Cape Coast whose work centers on laboratory analysis and diagnostics, with a commitment to learning and serving communities through health.",
   },
@@ -344,6 +356,7 @@ const canonicalPeople: PersonProfile[] = [
     id: "member-osei-owusu-raphael",
     name: "Osei Owusu Raphael",
     affiliation: "Optometry Student, University of Cape Coast",
+    image: "/ucc-team/raphael-osei-owusu.jpg",
     socialLinks: { email: "raphaeloseiowusu@gmail.com" },
     bio: "Osei Owusu Raphael is a student optometrist at the University of Cape Coast with a passion for teaching and helping young people develop their potential.",
   },
@@ -351,6 +364,7 @@ const canonicalPeople: PersonProfile[] = [
     id: "member-akua-asiedu-sekyi",
     name: "Akua Asiedu Sekyi",
     affiliation: "Doctor of Pharmacy Student, University of Cape Coast",
+    image: "/ucc-team/akua-asiedu-sekyi.jpg",
     socialLinks: { email: "akuasekyi20@gmail.com" },
     bio: "Akua Asiedu Sekyi is a Doctor of Pharmacy student at the University of Cape Coast who is committed to giving back to society, sharing knowledge, and continuing to learn, and aspires to specialize as an oncology pharmacist.",
   },
@@ -358,6 +372,7 @@ const canonicalPeople: PersonProfile[] = [
     id: "member-oheneba-pearl",
     name: "Oheneba Pearl",
     affiliation: "Medical Laboratory Science Student, University of Cape Coast",
+    image: "/ucc-team/pearl-oheneba.jpg",
     socialLinks: { email: "chrystalpearl05@gmail.com" },
     bio: "Oheneba Pearl is a Medical Laboratory Science student at the University of Cape Coast with a strong interest in public health, diagnostic science, and patient care, and hopes to contribute to disease prevention, accurate diagnosis, and quality outcomes in communities.",
   },
@@ -365,6 +380,7 @@ const canonicalPeople: PersonProfile[] = [
     id: "member-beatrice-edinam-tsikata",
     name: "Beatrice Edinam Tsikata",
     affiliation: "Nutrition Student, University of Cape Coast",
+    image: "/ucc-team/beatrice-edinam-tsikata.jpg",
     socialLinks: { email: "tsikatahbeatriceedinam@gmail.com" },
     bio: "Beatrice Edinam Tsikata is a nutrition student and aspiring public health nutritionist, with interests in health promotion, disease prevention, and community development, and a commitment to using nutrition knowledge and volunteerism to support healthier communities.",
   },
@@ -372,8 +388,16 @@ const canonicalPeople: PersonProfile[] = [
     id: "member-bukari-yaw-waidu",
     name: "Bukari Yaw Waidu",
     affiliation: "Doctor of Optometry Student, University of Cape Coast",
+    image: "/ucc-team/bukari-yaw-waidu.jpg",
     socialLinks: { email: "waidu.bukari@stu.ucc.edu.gh" },
     bio: "Bukari Yaw Waidu is a Doctor of Optometry student at the University of Cape Coast, with interests in biomedical and optometry research, public health, pharmacology, and coding.",
+  },
+  {
+    id: "member-queenster-opoku-aduse",
+    name: "Queenster Opoku Aduse",
+    affiliation: "University of Cape Coast",
+    image: "/ucc-team/queenster-opoku-aduse.jpg",
+    bio: "Queenster Opoku Aduse serves as Logistics and Supplies Manager for the Akomapa–UCC Community Health Hub, helping keep clinic operations stocked and running smoothly for community outreach.",
   },
 
   {
@@ -663,6 +687,7 @@ export interface TeamDirectoryConfig {
   people: readonly PersonProfile[];
   departments: readonly DepartmentDefinition[];
   executiveLeadership: readonly PersonPlacement[];
+  internationalLeadership: readonly PersonPlacement[];
   departmentMemberships: readonly DepartmentMembership[];
   advisoryBoard: readonly PersonPlacement[];
 }
@@ -670,6 +695,7 @@ export interface TeamDirectoryConfig {
 export interface ResolvedTeamDirectory {
   people: readonly PersonProfile[];
   executiveLeadership: readonly TeamMember[];
+  internationalLeadership: readonly TeamMember[];
   departments: readonly TeamDepartment[];
   advisoryBoard: readonly TeamMember[];
   heroPeople: readonly PersonProfile[];
@@ -699,8 +725,17 @@ export const executiveLeadershipConfig = [
     personId: "executive-afriyie-badu",
     title: "Chief Operations Officer & Co-Founder",
   },
-  { personId: "executive-hafiz-shaban", title: "Country Manager" },
-  { personId: "member-getwell-essuman", title: "Country Manager" },
+] as const satisfies readonly PersonPlacement[];
+
+export const internationalLeadershipConfig = [
+  {
+    personId: "executive-hafiz-shaban",
+    title: "Country Manager (Ghana)",
+  },
+  {
+    personId: "member-getwell-essuman",
+    title: "Country Manager (Ghana)",
+  },
 ] as const satisfies readonly PersonPlacement[];
 
 export const departmentMemberships = [
@@ -871,6 +906,11 @@ export function buildTeamDirectory(
     return resolveTeamMember(placement, "executive", profileMap);
   });
 
+  const internationalLeadership = config.internationalLeadership.map((placement) => {
+    claimPagePlacement(placement.personId, "International");
+    return resolveTeamMember(placement, "international", profileMap);
+  });
+
   const membershipsByDepartment = new Map<string, DepartmentMembership[]>();
   const primaryDepartments = new Map<string, string>();
   for (const membership of config.departmentMemberships) {
@@ -918,6 +958,7 @@ export function buildTeamDirectory(
   return {
     people: config.people,
     executiveLeadership,
+    internationalLeadership,
     departments,
     advisoryBoard,
     heroPeople,
@@ -928,12 +969,14 @@ const teamDirectory = buildTeamDirectory({
   people: canonicalPeople,
   departments: departmentCatalog,
   executiveLeadership: executiveLeadershipConfig,
+  internationalLeadership: internationalLeadershipConfig,
   departmentMemberships,
   advisoryBoard: advisoryBoardConfig,
 });
 
 export const people = teamDirectory.people;
 export const executiveLeadership = teamDirectory.executiveLeadership;
+export const internationalLeadership = teamDirectory.internationalLeadership;
 export const teamDepartments = teamDirectory.departments;
 export const advisoryBoardMembers = teamDirectory.advisoryBoard;
 export const teamHeroPeople = teamDirectory.heroPeople;
@@ -953,6 +996,7 @@ export function getTeamMemberBySlug(slug: string): TeamMember | undefined {
 
   const placedMember = [
     ...executiveLeadership,
+    ...internationalLeadership,
     ...teamDepartments.flatMap(({ members }) => members),
     ...advisoryBoardMembers,
   ].find(({ id }) => id === person.id);

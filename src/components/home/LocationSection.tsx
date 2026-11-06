@@ -15,7 +15,7 @@ const communityPhotos = [
     location: "Abeadze Domenase"
   },
   {
-    src: "/highlights/Akomapa-42.jpg",
+    src: "/ug-team/ug-chapter/ug-chapter-15.jpg",
     alt: "Community engagement session in Winneba",
     location: "Winneba"
   },
@@ -25,7 +25,7 @@ const communityPhotos = [
     location: "Abeadze Domenase"
   },
   {
-    src: "/highlights/Akomapa-11.jpg",
+    src: "/ug-team/ug-chapter/ug-chapter-38.jpg",
     alt: "Student healthcare workers collaborating with local practitioners",
     location: "Winneba"
   }

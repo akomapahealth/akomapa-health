@@ -26,6 +26,7 @@ const expectedLeadership = [
   ["Oheneba Pearl", "Community Outreach", "Medical Laboratory Science Student, University of Cape Coast"],
   ["Beatrice Edinam Tsikata", "Volunteer Recruitment and Scheduling Team Lead", "Nutrition Student, University of Cape Coast"],
   ["Bukari Yaw Waidu", "Community Liaison Lead", "Doctor of Optometry Student, University of Cape Coast"],
+  ["Queenster Opoku Aduse", "Logistics and Supplies Manager", "University of Cape Coast"],
 ] as const;
 
 const expectedUgLeadership = [
@@ -63,20 +64,23 @@ describe("UCC community hub roster", () => {
     const people = [...uccHubRoster.leadership, ...uccHubRoster.volunteers];
     const portraits = people.flatMap(({ image }) => (image ? [image] : []));
 
-    expect(uccHubRoster.leadership).toHaveLength(18);
-    expect(uccHubRoster.volunteers).toHaveLength(36);
+    expect(uccHubRoster.leadership).toHaveLength(19);
+    expect(uccHubRoster.volunteers).toHaveLength(13);
     expect(new Set(people.map(({ id }) => id)).size).toBe(people.length);
     expect(new Set(portraits).size).toBe(portraits.length);
     expect(
       uccHubRoster.volunteers.every(
-        ({ image }) => typeof image === "string" && image.startsWith("/ucc-team/"),
+        ({ image }) =>
+          typeof image === "string" &&
+          image.startsWith("/ucc-team/volunteers/akomapa-ucc-volunteer-"),
       ),
     ).toBe(true);
     expect(
       uccHubRoster.leadership.every(
-        ({ image }) => image === undefined || image.startsWith("/ucc-team/"),
+        ({ image }) => typeof image === "string" && image.startsWith("/ucc-team/"),
       ),
     ).toBe(true);
+
   });
 
   it("requires meaningful alternative text for every volunteer portrait", () => {
@@ -101,7 +105,7 @@ describe("UCC community hub roster", () => {
     expect(david?.id).toBe("member-david-konadu-kombate");
     expect(david?.role).toBe("Co-Director");
     expect(david?.featured).toBe(true);
-    expect(david?.image).toBe("/ucc-team/david_konadu_kombate.JPG");
+    expect(david?.image).toBe("/ucc-team/david-konadu-kombate.jpg");
     expect(david?.bio).toBe(profile?.bio);
     expect(david?.contact?.email).toBe("kombatedavidkonadu@gmail.com");
     expect(

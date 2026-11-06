@@ -41,6 +41,8 @@ describe("getImageKitUrl / imageKitLoader", () => {
   });
 
   it("builds relative ImageKit URLs with format, width, and quality", () => {
+    vi.stubEnv("VERCEL_ENV", "production");
+    vi.stubEnv("NEXT_PUBLIC_IMAGEKIT_USE_FIXTURES", "0");
     vi.stubEnv("NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT", endpoint);
 
     expect(
@@ -55,6 +57,8 @@ describe("getImageKitUrl / imageKitLoader", () => {
   it.each(["/images/team/portrait.heif", "/images/team/portrait.HEIC"])(
     "transcodes %s to a browser-compatible output format",
     (src) => {
+      vi.stubEnv("VERCEL_ENV", "production");
+      vi.stubEnv("NEXT_PUBLIC_IMAGEKIT_USE_FIXTURES", "0");
       vi.stubEnv("NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT", endpoint);
 
       const url = new URL(imageKitLoader({ src, width: 640, quality: 75 }));
@@ -64,6 +68,8 @@ describe("getImageKitUrl / imageKitLoader", () => {
   );
 
   it("applies loader transforms to absolute ImageKit URLs", () => {
+    vi.stubEnv("VERCEL_ENV", "production");
+    vi.stubEnv("NEXT_PUBLIC_IMAGEKIT_USE_FIXTURES", "0");
     const src = "https://ik.imagekit.io/akomapa/hero.jpg?tr=q-50,w-100";
 
     expect(imageKitLoader({ src, width: 3840, quality: 75 })).toBe(
@@ -85,22 +91,20 @@ describe("getImageKitUrl / imageKitLoader", () => {
     );
   });
 
-  it("keeps generated ImageKit URLs when development fixtures are opted out", () => {
+  it("keeps fixtures in local development even when legacy opt-out env vars are set", () => {
     vi.stubEnv("NODE_ENV", "development");
     vi.stubEnv("VERCEL_ENV", "development");
-    vi.stubEnv("NEXT_PUBLIC_IMAGEKIT_USE_FIXTURES", "0");
-    vi.stubEnv("NEXT_PUBLIC_IMAGEKIT_DEV_FIXTURES", "0");
+    vi.stubEnv("NEXT_PUBLIC_IMAGEKIT_USE_FIXTURES", "1");
     vi.stubEnv("NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT", endpoint);
 
-    expect(
-      getImageKitUrl("/highlights/photo.jpg", { width: 800, quality: 75 }),
-    ).toBe(`${endpoint}/highlights/photo.jpg?tr=q-75,w-800`);
+    expect(getImageKitUrl("/highlights/photo.jpg", { width: 800, quality: 75 })).toBe(
+      "/api/dev-imagekit?src=https%3A%2F%2Fik.imagekit.io%2Fakomapa%2Fhighlights%2Fphoto.jpg%3Ftr%3Dq-75%2Cw-800",
+    );
   });
 
-  it("rewrites ImageKit images and videos on Vercel preview even when local fixtures are opted out", () => {
+  it("rewrites ImageKit images and videos on Vercel preview", () => {
     vi.stubEnv("NODE_ENV", "production");
     vi.stubEnv("VERCEL_ENV", "preview");
-    vi.stubEnv("NEXT_PUBLIC_IMAGEKIT_DEV_FIXTURES", "0");
     vi.stubEnv("NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT", endpoint);
 
     expect(getImageKitUrl("/highlights/photo.jpg", { width: 800, quality: 75 })).toBe(
@@ -114,9 +118,8 @@ describe("getImageKitUrl / imageKitLoader", () => {
     ).toMatch(/^\/api\/dev-imagekit\?/);
   });
 
-  it("rewrites ImageKit URLs when the preview fixture flag is baked into the client bundle", () => {
+  it("rewrites ImageKit URLs when the non-production fixture flag is baked into the client bundle", () => {
     vi.stubEnv("NODE_ENV", "production");
-    vi.stubEnv("VERCEL_ENV", "production");
     vi.stubEnv("NEXT_PUBLIC_IMAGEKIT_USE_FIXTURES", "1");
     vi.stubEnv("NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT", endpoint);
 

@@ -64,7 +64,7 @@ for (const scenario of [
         name: "The People Who Make Service Possible",
       }),
     ).toBeVisible();
-    await expect(leadership.locator("[data-hub-leader]")).toHaveCount(18);
+    await expect(leadership.locator("[data-hub-leader]")).toHaveCount(19);
     await expect(
       volunteers.locator("[data-volunteer-portrait-trigger]"),
     ).toHaveCount(8);
@@ -161,10 +161,10 @@ test("volunteer dialog supports keyboard focus, Escape, backdrop close, and scro
     .toBe("hidden");
 
   await page.keyboard.press("ArrowRight");
-  await expect(dialog.getByText("Portrait 2 of 36")).toBeAttached();
+  await expect(dialog.getByText("Portrait 2 of 13")).toBeAttached();
   await expect(dialog).toHaveAccessibleName("Our Volunteer Community");
   await page.keyboard.press("ArrowLeft");
-  await expect(dialog.getByText("Portrait 1 of 36")).toBeAttached();
+  await expect(dialog.getByText("Portrait 1 of 13")).toBeAttached();
   await page.keyboard.press("Tab");
   await expect(dialog.locator(":focus")).toHaveCount(1);
   await page.keyboard.press("Escape");
@@ -399,12 +399,9 @@ test("UCC volunteer triggers preserve the supplied ImageKit order", async ({
   await page.waitForLoadState("networkidle");
 
   const loadMore = page.getByRole("button", { name: "Load more volunteers" });
-  for (const expectedCount of [16, 24, 32, 36]) {
-    await loadMore.click();
-    await expect(
-      page.locator("[data-volunteer-portrait-trigger]"),
-    ).toHaveCount(expectedCount);
-  }
+  await expect(page.locator("[data-volunteer-portrait-trigger]")).toHaveCount(8);
+  await loadMore.click();
+  await expect(page.locator("[data-volunteer-portrait-trigger]")).toHaveCount(13);
   await expect(loadMore).toHaveCount(0);
 
   const ids = await page

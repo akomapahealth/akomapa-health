@@ -45,7 +45,7 @@ width.
 
 ## Local development and Lighthouse
 
-`next dev` and Vercel preview deployments (`VERCEL_ENV=preview`, for both akomapa-health and akomapa-staging) point generated ImageKit image and video `src` values at [`/api/dev-imagekit`](../../src/app/api/dev-imagekit/route.ts). That route returns tiny local PNG/MP4 fixtures and does not fetch ImageKit. Production deployments keep real ImageKit URLs. Local `next dev` can opt out with `NEXT_PUBLIC_IMAGEKIT_DEV_FIXTURES=0`. Preview deployments always use fixtures.
+`next dev`, local `next start`, and Vercel preview deployments (`VERCEL_ENV=preview`, for both akomapa-health and akomapa-staging) point generated ImageKit image and video `src` values at [`/api/dev-imagekit`](../../src/app/api/dev-imagekit/route.ts). That route returns tiny local PNG/MP4 fixtures and does not fetch ImageKit. Only Vercel production deployments (`VERCEL_ENV=production` on akomapa.org and staging.akomapa.org) keep real ImageKit URLs.
 
 `scripts/lighthouse.mjs` intercepts `*.imagekit.io` in the audited Chrome session by default. Use `LIGHTHOUSE_IMAGEKIT_FIXTURES=0` only when the audit must measure real CDN bytes.
 

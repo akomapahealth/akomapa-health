@@ -67,6 +67,7 @@ export interface TeamMember extends Omit<PersonProfile, "image"> {
   image: string;
   roleCategory:
     | "executive"
+    | "international"
     | "member"
     | "advisor";
 }

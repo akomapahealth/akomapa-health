@@ -34,7 +34,7 @@ const defaultGalleryItems: GalleryItem[] = [
   },
   {
     id: 3,
-    src: "/gallery/gallery-pic-3.jpg",
+    src: "/ug-team/ug-chapter/ug-chapter-3.jpg",
     alt: "Faculty supervisor guiding student examination",
     category: "faculty",
   },
@@ -59,7 +59,7 @@ const defaultGalleryItems: GalleryItem[] = [
   },
   {
     id: 7,
-    src: "/gallery/gallery-pic-7.jpg",
+    src: "/ug-team/ug-chapter/ug-chapter-7.jpg",
     alt: "Faculty supervisors planning session",
     category: "faculty",
   },
@@ -90,7 +90,7 @@ const defaultGalleryItems: GalleryItem[] = [
   },
   {
     id: 12,
-    src: "/gallery/gallery-pic-12.jpg",
+    src: "/ug-team/ug-chapter/ug-chapter-12.jpg",
     alt: "Treatment room set up for student-led care at the Winneba pilot clinic",
     category: "clinics",
   },
@@ -127,7 +127,7 @@ const defaultGalleryItems: GalleryItem[] = [
   },
   {
     id: 18,
-    src: "/gallery/gallery-pic-18.JPG",
+    src: "/ug-team/ug-chapter/ug-chapter-18.jpg",
     alt: "Community health education led by faculty and student volunteers outdoors",
     category: "faculty",
   },
@@ -139,25 +139,25 @@ const defaultGalleryItems: GalleryItem[] = [
   },
   {
     id: 20,
-    src: "/gallery/gallery-pic-20.JPG",
+    src: "/ug-team/ug-chapter/ug-chapter-24.jpg",
     alt: "Faculty and students coordinating supplies before a mobile screening day",
     category: "faculty",
   },
   {
     id: 21,
-    src: "/gallery/gallery-pic-21.JPG",
+    src: "/ug-team/ug-chapter/ug-chapter-31.jpg",
     alt: "Small-group teaching moment between faculty and medical students in Ghana",
     category: "faculty",
   },
   {
     id: 22,
-    src: "/gallery/gallery-pic-22.JPG",
+    src: "/ug-team/ug-chapter/ug-chapter-42.jpg",
     alt: "Faculty observer supporting students during a supervised patient encounter",
     category: "faculty",
   },
   {
     id: 23,
-    src: "/gallery/gallery-pic-23.JPG",
+    src: "/ug-team/ug-chapter/ug-chapter-51.jpg",
     alt: "End-of-day reflection circle with faculty and student clinicians",
     category: "faculty",
   },

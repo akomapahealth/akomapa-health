@@ -28,8 +28,8 @@ function isImageKitHostname(hostname: string): boolean {
 }
 
 /**
- * `next dev` and Vercel preview deployments emit a same-origin fixture URL so
- * the browser never fetches ImageKit. Production and test builds keep the CDN URL.
+ * Non-production environments emit a same-origin fixture URL so the browser
+ * never fetches ImageKit. Only Vercel production keeps the CDN URL.
  */
 function maybeDevImageKitFixtureUrl(url: string): string {
   if (!shouldUseImageKitFixtures()) {

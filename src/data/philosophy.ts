@@ -45,7 +45,7 @@ export const philosophySections: PhilosophySection[] = [
     content:
       "For decades, global health has been driven by passionate individuals seeking to improve lives. Yet many well-intentioned efforts have struggled because they lacked community partnership, ethical reflection, or long-term sustainability.\n\nLasting change requires more than enthusiasm. It requires accountability, cultural humility, evidence, shared decision-making, and the discipline to ask whether an intervention strengthens local priorities and systems.",
     order: 4,
-    image: "/highlights/Akomapa-66.jpg",
+    image: "/ug-team/ug-chapter/ug-chapter-21.jpg",
     imageAlt:
       "Akomapa student leaders listening during a community-centered health program",
     imagePosition: "center",
@@ -83,7 +83,7 @@ export const philosophySections: PhilosophySection[] = [
     content:
       "Knowledge does not move in only one direction. Students, faculty, health workers, and community members each bring experience that can deepen the understanding of everyone involved.\n\nOur programs create space for reciprocal learning across professions, institutions, countries, and generations. Participants are expected to teach, listen, question assumptions, and carry new insight back to their own communities and systems.",
     order: 7,
-    image: "/gallery/gallery-pic-5.jpg",
+    image: "/ug-team/ug-chapter/ug-chapter-33.jpg",
     imageAlt:
       "Akomapa students, faculty, and community members learning together",
     imagePosition: "center",
@@ -105,7 +105,7 @@ export const philosophySections: PhilosophySection[] = [
     content:
       "We envision global health as a field defined by ethical leadership, equitable partnership, and shared responsibility. Communities should have meaningful power in decisions, and emerging professionals should learn to work across boundaries without reproducing them.\n\nAkomapa is building a connected movement of leaders and community health hubs that can learn together, generate evidence, and develop practical solutions. Our goal is a healthier world shaped by people who lead with both competence and a good heart.",
     order: 9,
-    image: "/highlights/Akomapa-10.jpg",
+    image: "/ug-team/ug-chapter/ug-chapter-45.jpg",
     imageAlt:
       "Akomapa partners and student leaders standing together after community work",
     imagePosition: "center",
