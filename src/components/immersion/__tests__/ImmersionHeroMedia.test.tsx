@@ -93,9 +93,8 @@ describe("ImmersionHeroMedia", () => {
     const sources = container.querySelectorAll("source");
     expect(sources).toHaveLength(2);
     expect(sources[0]).toHaveAttribute("media", "(max-width: 767px)");
-    expect(sources[0]?.getAttribute("src")).toContain(
-      "ik.imagekit.io/akomapa/immersion-hero.mp4",
-    );
+    expect(sources[0]?.getAttribute("src")).toContain("/api/dev-imagekit?");
+    expect(sources[0]?.getAttribute("src")).toContain("immersion-hero.mp4");
     expect(sources[0]?.getAttribute("src")).toContain("w-960");
     expect(sources[1]?.getAttribute("src")).toContain("w-1280");
     expect(sources[1]?.getAttribute("src")).not.toContain("w-1920");
