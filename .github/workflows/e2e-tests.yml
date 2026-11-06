@@ -65,6 +65,7 @@ jobs:
           NEXT_PUBLIC_IMMERSION_FILLOUT_FORM_ID: "ciTestForm193"
           NEXT_PUBLIC_IMMERSION_FILLOUT_FORM_URL: "https://forms.fillout.com/t/ciTestForm193"
           NEXT_PUBLIC_GIVEBUTTER_DONATIONS_ENABLED: "true"
+          VERCEL_ENV: production
           NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT: https://ik.imagekit.io/akomapa
           NEXT_PUBLIC_IMAGEKIT_PUBLIC_KEY: public_ci_placeholder
           # Sentinel GA4 ID; the consent spec stubs every Google endpoint.

@@ -2,7 +2,7 @@
 
 Routine Playwright runs fulfill `*.imagekit.io` responses locally. Generated `src` and `srcSet` values stay on `https://ik.imagekit.io/akomapa`. One CI check still downloads two team portraits and the mobile immersion video.
 
-Production paths, filenames, and the ImageKit loader stay the same on Vercel production deployments (`VERCEL_ENV=production`). `next dev`, local `next start`, and Vercel preview deployments rewrite generated ImageKit image and video URLs to `/api/dev-imagekit`, which serves local fixture bytes and never fetches the CDN. `scripts/lighthouse.mjs` intercepts ImageKit in Chrome unless `LIGHTHOUSE_IMAGEKIT_FIXTURES=0`. There is no local opt-out that hits the CDN; intentional real-media checks must run against a production deploy or set `VERCEL_ENV=production` explicitly.
+Production paths, filenames, and the ImageKit loader stay the same on Vercel production deployments (`VERCEL_ENV=production`). `next dev`, local `next start`, and Vercel preview deployments rewrite generated ImageKit image and video URLs to `/api/dev-imagekit`, which serves local fixture bytes and never fetches the CDN. `scripts/lighthouse.mjs` intercepts ImageKit in Chrome unless `LIGHTHOUSE_IMAGEKIT_FIXTURES=0`. There is no local opt-out that hits the CDN; intentional real-media checks must run against a production deploy or set `VERCEL_ENV=production` explicitly. The CI verified E2E build sets `VERCEL_ENV=production` so the packaged `.next` artifact emits real CDN URLs; routine Playwright still intercepts them locally, and only `test:e2e:real-media` continues the allowlisted requests.
 
 ## September 2026 context
 

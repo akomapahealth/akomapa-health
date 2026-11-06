@@ -17,9 +17,15 @@ test("verified E2E builds use the public portrait CDN, not a placeholder", async
     ".github/workflows/ci.yml",
     ".github/workflows/e2e-tests.yml",
   ]) {
-    const endpoints = imageKitEndpoints(await readRepoFile(workflowPath));
+    const workflow = await readRepoFile(workflowPath);
+    const endpoints = imageKitEndpoints(workflow);
     // E2E reuses this build: NEXT_PUBLIC_* values cannot be fixed at server start.
     assert.deepEqual(endpoints, ["https://ik.imagekit.io/akomapa"], workflowPath);
+    assert.match(
+      workflow,
+      /VERCEL_ENV:\s*production/,
+      `${workflowPath} must bake CDN URLs (USE_FIXTURES=0) for the verified E2E artifact`,
+    );
   }
 });
 
