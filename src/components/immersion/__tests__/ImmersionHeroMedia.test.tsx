@@ -46,7 +46,10 @@ class ImmediateIntersectionObserver {
 const mockedUseReducedMotion = vi.mocked(useReducedMotion);
 
 const props = {
-  videoSrc: "/immersion-hero.mp4",
+  mobileVideoSrc:
+    "https://ik.imagekit.io/akomapa/immersion-hero.mp4?tr=q-60,w-960",
+  desktopVideoSrc:
+    "https://ik.imagekit.io/akomapa/immersion-hero.mp4?tr=q-60,w-1280",
   posterSrc: "/highlights/Akomapa-40.jpg",
   posterAlt: "Immersion program poster",
 };
@@ -69,10 +72,6 @@ function stubMatchMedia(matches: boolean) {
 
 describe("ImmersionHeroMedia", () => {
   beforeEach(() => {
-    vi.stubEnv(
-      "NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT",
-      "https://ik.imagekit.io/akomapa",
-    );
     vi.stubGlobal("IntersectionObserver", ImmediateIntersectionObserver);
     stubMatchMedia(false);
   });
@@ -111,11 +110,7 @@ describe("ImmersionHeroMedia", () => {
       expect(container.querySelectorAll("source")).toHaveLength(1);
     });
     const source = container.querySelector("source");
-    expect(source?.getAttribute("src")).toContain("/api/dev-imagekit?");
-    expect(source?.getAttribute("src")).toContain("immersion-hero.mp4");
-    expect(source?.getAttribute("src")).toContain("w-1280");
-    expect(source?.getAttribute("src")).not.toContain("w-960");
-    expect(source?.getAttribute("src")).not.toContain("w-1920");
+    expect(source?.getAttribute("src")).toBe(props.desktopVideoSrc);
     expect(source).not.toHaveAttribute("media");
   });
 
@@ -128,8 +123,7 @@ describe("ImmersionHeroMedia", () => {
       expect(container.querySelectorAll("source")).toHaveLength(1);
     });
     const source = container.querySelector("source");
-    expect(source?.getAttribute("src")).toContain("w-960");
-    expect(source?.getAttribute("src")).not.toContain("w-1280");
+    expect(source?.getAttribute("src")).toBe(props.mobileVideoSrc);
   });
 
   it("renders the video during the server-safe motion preference state", () => {

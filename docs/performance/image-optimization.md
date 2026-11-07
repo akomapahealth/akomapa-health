@@ -51,7 +51,7 @@ width.
 
 ## Immersion hero video
 
-The decorative hero on `/global-health-immersion-program` keeps `immersion-hero.mp4` at the same ImageKit path. After the hero is in view it mounts a single `<source>` chosen with JS `matchMedia("(max-width: 767px)")` (`w-960` vs `w-1280`, `q-60`) — browsers ignore `<source media>` on `<video>`. It uses `preload="metadata"`. Autoplay, loop, and muted playback are unchanged. Reduced-motion visitors still get the static poster.
+The decorative hero on `/global-health-immersion-program` keeps `immersion-hero.mp4` at the same ImageKit path. Server-rendered Content resolves the `w-960` / `w-1280` ImageKit URLs (`q-60`) and passes them into the client hero. After the hero is in view the client mounts a single `<source>` chosen with JS `matchMedia("(max-width: 767px)")` — browsers ignore `<source media>` on `<video>`, and client bundles never re-resolve ImageKit URLs for this hero. It uses `preload="metadata"`. Autoplay, loop, and muted playback are unchanged. Reduced-motion visitors still get the static poster.
 
 ## How to verify
 

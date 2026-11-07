@@ -3,23 +3,21 @@
 import { useEffect, useRef, useState } from "react";
 import { useReducedMotion } from "framer-motion";
 import Image from "@/components/common/Image";
-import { getImageKitUrl } from "@/lib/imagekit";
+import { IMMERSION_HERO_MOBILE_MEDIA_QUERY } from "@/components/immersion/immersion-hero-video-shared";
 
 type Props = {
-  videoSrc: string;
+  /** Precomputed ImageKit (or fixture) URL for max-width 767px viewports. */
+  mobileVideoSrc: string;
+  /** Precomputed ImageKit (or fixture) URL for wider viewports. */
+  desktopVideoSrc: string;
   posterSrc: string;
   posterAlt: string;
   posterPosition?: string;
 };
 
-const MOBILE_VIDEO_WIDTH = 960;
-const DESKTOP_VIDEO_WIDTH = 1280;
-const VIDEO_QUALITY = 60;
-/** Prefer the mobile encode at phone / narrow tablet widths. */
-const MOBILE_VIDEO_MEDIA_QUERY = "(max-width: 767px)";
-
 export default function ImmersionHeroMedia({
-  videoSrc,
+  mobileVideoSrc,
+  desktopVideoSrc,
   posterSrc,
   posterAlt,
   posterPosition = "center",
@@ -30,15 +28,6 @@ export default function ImmersionHeroMedia({
   const [isHydrated, setIsHydrated] = useState(false);
   const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
   const [activeVideoSrc, setActiveVideoSrc] = useState<string | null>(null);
-
-  const mobileVideoSrc = getImageKitUrl(videoSrc, {
-    width: MOBILE_VIDEO_WIDTH,
-    quality: VIDEO_QUALITY,
-  });
-  const desktopVideoSrc = getImageKitUrl(videoSrc, {
-    width: DESKTOP_VIDEO_WIDTH,
-    quality: VIDEO_QUALITY,
-  });
 
   useEffect(() => {
     setIsHydrated(true);
@@ -70,8 +59,8 @@ export default function ImmersionHeroMedia({
     return () => observer.disconnect();
   }, [shouldReduceMotion]);
 
-  // Browsers largely ignore `<source media>` on `<video>`. Pick one CDN URL in
-  // JS so mobile never pulls the desktop encode (and real-media CI stays honest).
+  // Browsers largely ignore `<source media>` on `<video>`. Pick one precomputed
+  // URL in JS so mobile never pulls the desktop encode.
   useEffect(() => {
     if (!shouldLoadVideo) {
       setActiveVideoSrc(null);
@@ -83,7 +72,7 @@ export default function ImmersionHeroMedia({
       return;
     }
 
-    const mediaQuery = window.matchMedia(MOBILE_VIDEO_MEDIA_QUERY);
+    const mediaQuery = window.matchMedia(IMMERSION_HERO_MOBILE_MEDIA_QUERY);
     const syncSrc = () => {
       setActiveVideoSrc(mediaQuery.matches ? mobileVideoSrc : desktopVideoSrc);
     };
