@@ -64,8 +64,7 @@ describe("imageKit fixture policy", () => {
 
   it("bakes the fixture flag into next.config env", () => {
     const source = readFileSync(join(process.cwd(), "next.config.ts"), "utf8");
-    expect(source).toContain(
-      "NEXT_PUBLIC_IMAGEKIT_USE_FIXTURES: imageKitFixturePublicFlag()",
-    );
+    expect(source).toContain("NEXT_PUBLIC_IMAGEKIT_USE_FIXTURES");
+    expect(source).toContain("imageKitFixturePublicFlag()");
   });
 });

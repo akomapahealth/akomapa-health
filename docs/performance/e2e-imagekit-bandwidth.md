@@ -52,9 +52,9 @@ That is the observed delivery count for this run. It is not a measured byte savi
 | `darren_markwei.HEIC?tr=f-auto,q-75,w-256` | 200 | `image/webp` | 8,636 |
 | `immersion-hero.mp4?tr=q-60,w-960` | 206 | `video/webm` | 13,352,800 |
 
-Sum of those `content-length` values: 13,378,142 bytes. The video `content-range` was `bytes 0-13352799/13352800`, so that 206 response carried the whole object. The desktop `w-1920` URL was present on the `<source>` element and was not requested from ImageKit. Both portraits decoded with `naturalWidth > 0`. The video reached `videoWidth > 0` and `videoHeight > 0`, then playback was stopped and the page was closed.
+Sum of those `content-length` values: 13,378,142 bytes. The video `content-range` was `bytes 0-13352799/13352800`, so that 206 response carried the whole object. Only the viewport-matched encode is mounted as a `<source>` (JS `matchMedia`); the unused desktop URL is never requested from ImageKit. Both portraits decoded with `naturalWidth > 0`. The video reached `videoWidth > 0` and `videoHeight > 0`, then playback was stopped and the page was closed.
 
-The immersion hero later switched the unused desktop variant from `w-1920` to `w-1280`. The real-media check still fetches only `w-960`.
+The immersion hero picks `w-960` or `w-1280` via JS `matchMedia`. The real-media check uses a mobile viewport and fetches only `w-960`.
 
 The project retries once. A failed attempt can download these objects again. This run did not retry.
 

@@ -60,19 +60,23 @@ export default defineConfig({
       : []),
   ],
 
-  webServer: process.env.CI ? {
+  webServer: {
     command: `npm run start -- --hostname 127.0.0.1 --port ${serverPort}`,
     url: `http://127.0.0.1:${serverPort}`,
     reuseExistingServer: false,
     timeout: 120 * 1000,
     stdout: 'ignore',
     stderr: 'pipe',
-  } : {
-    command: `npm run start -- --hostname 127.0.0.1 --port ${serverPort}`,
-    url: `http://127.0.0.1:${serverPort}`,
-    reuseExistingServer: false,
-    timeout: 120 * 1000,
-    stdout: 'ignore',
-    stderr: 'pipe',
+    // CI starts the verified production artifact. Keep VERCEL_ENV=production so
+    // next.config does not flip NEXT_PUBLIC_IMAGEKIT_USE_FIXTURES back to "1".
+    ...(process.env.CI
+      ? {
+          env: {
+            ...process.env,
+            VERCEL_ENV: 'production',
+            NEXT_PUBLIC_IMAGEKIT_USE_FIXTURES: '0',
+          },
+        }
+      : {}),
   },
 });

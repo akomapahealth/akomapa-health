@@ -15,6 +15,8 @@ type Props = {
 const MOBILE_VIDEO_WIDTH = 960;
 const DESKTOP_VIDEO_WIDTH = 1280;
 const VIDEO_QUALITY = 60;
+/** Prefer the mobile encode at phone / narrow tablet widths. */
+const MOBILE_VIDEO_MEDIA_QUERY = "(max-width: 767px)";
 
 export default function ImmersionHeroMedia({
   videoSrc,
@@ -27,6 +29,16 @@ export default function ImmersionHeroMedia({
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isHydrated, setIsHydrated] = useState(false);
   const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
+  const [activeVideoSrc, setActiveVideoSrc] = useState<string | null>(null);
+
+  const mobileVideoSrc = getImageKitUrl(videoSrc, {
+    width: MOBILE_VIDEO_WIDTH,
+    quality: VIDEO_QUALITY,
+  });
+  const desktopVideoSrc = getImageKitUrl(videoSrc, {
+    width: DESKTOP_VIDEO_WIDTH,
+    quality: VIDEO_QUALITY,
+  });
 
   useEffect(() => {
     setIsHydrated(true);
@@ -58,8 +70,36 @@ export default function ImmersionHeroMedia({
     return () => observer.disconnect();
   }, [shouldReduceMotion]);
 
+  // Browsers largely ignore `<source media>` on `<video>`. Pick one CDN URL in
+  // JS so mobile never pulls the desktop encode (and real-media CI stays honest).
   useEffect(() => {
-    if (!shouldLoadVideo) return;
+    if (!shouldLoadVideo) {
+      setActiveVideoSrc(null);
+      return;
+    }
+
+    if (typeof window.matchMedia !== "function") {
+      setActiveVideoSrc(desktopVideoSrc);
+      return;
+    }
+
+    const mediaQuery = window.matchMedia(MOBILE_VIDEO_MEDIA_QUERY);
+    const syncSrc = () => {
+      setActiveVideoSrc(mediaQuery.matches ? mobileVideoSrc : desktopVideoSrc);
+    };
+    syncSrc();
+
+    if (typeof mediaQuery.addEventListener === "function") {
+      mediaQuery.addEventListener("change", syncSrc);
+      return () => mediaQuery.removeEventListener("change", syncSrc);
+    }
+
+    mediaQuery.addListener(syncSrc);
+    return () => mediaQuery.removeListener(syncSrc);
+  }, [shouldLoadVideo, mobileVideoSrc, desktopVideoSrc]);
+
+  useEffect(() => {
+    if (!activeVideoSrc) return;
     const media = videoRef.current;
     if (!media) return;
     const playResult = media.play();
@@ -68,16 +108,7 @@ export default function ImmersionHeroMedia({
         /* Autoplay can be blocked; the muted attribute covers the usual case. */
       });
     }
-  }, [shouldLoadVideo]);
-
-  const mobileVideoSrc = getImageKitUrl(videoSrc, {
-    width: MOBILE_VIDEO_WIDTH,
-    quality: VIDEO_QUALITY,
-  });
-  const desktopVideoSrc = getImageKitUrl(videoSrc, {
-    width: DESKTOP_VIDEO_WIDTH,
-    quality: VIDEO_QUALITY,
-  });
+  }, [activeVideoSrc]);
 
   return (
     <div
@@ -112,12 +143,7 @@ export default function ImmersionHeroMedia({
           preload="metadata"
           tabIndex={-1}
         >
-          {shouldLoadVideo ? (
-            <>
-              <source media="(max-width: 767px)" src={mobileVideoSrc} />
-              <source src={desktopVideoSrc} />
-            </>
-          ) : null}
+          {activeVideoSrc ? <source src={activeVideoSrc} /> : null}
         </video>
       ) : null}
 

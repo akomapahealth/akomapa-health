@@ -139,13 +139,13 @@ test("decodes one immersion video variant and does not fetch the other", async (
   await expect(
     page.locator("[data-immersion-hero-hydrated]"),
   ).toHaveAttribute("data-immersion-hero-hydrated", "true");
-  await expect(video.locator("source")).toHaveCount(2);
-  const sourceUrls = await video.locator("source").evaluateAll((elements) =>
-    elements.map((element) => element.getAttribute("src")),
-  );
-  expect(sourceUrls.some((src) => src?.includes("w-960"))).toBe(true);
-  expect(sourceUrls.some((src) => src?.includes("w-1280"))).toBe(true);
-  expect(sourceUrls.some((src) => src?.includes("w-1920"))).toBe(false);
+  // JS matchMedia picks a single encode — `<source media>` is ignored by Chromium.
+  await expect(video.locator("source")).toHaveCount(1);
+  const sourceUrl = await video.locator("source").getAttribute("src");
+  expect(sourceUrl).toContain("w-960");
+  expect(sourceUrl).not.toContain("w-1280");
+  expect(sourceUrl).not.toContain("w-1920");
+  expect(new URL(sourceUrl!, page.url()).hostname).toMatch(/\.imagekit\.io$/);
 
   await expect
     .poll(() =>

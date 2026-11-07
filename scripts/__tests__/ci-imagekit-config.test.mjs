@@ -52,3 +52,20 @@ test("Lighthouse isolates ImageKit unless explicitly opted out", async () => {
   assert.match(script, /connectOverCDP/);
   assert.match(script, /localMediaFixture/);
 });
+
+test("CI E2E and real-media start keep production ImageKit URLs", async () => {
+  const ci = await readRepoFile(".github/workflows/ci.yml");
+  const playwright = await readRepoFile("playwright.config.ts");
+
+  assert.match(
+    ci,
+    /name: Run real ImageKit media check[\s\S]*?VERCEL_ENV:\s*production[\s\S]*?NEXT_PUBLIC_IMAGEKIT_USE_FIXTURES:\s*"0"/,
+  );
+  assert.match(
+    ci,
+    /name: Run end-to-end tests[\s\S]*?VERCEL_ENV:\s*production[\s\S]*?NEXT_PUBLIC_IMAGEKIT_USE_FIXTURES:\s*"0"/,
+  );
+  assert.match(playwright, /VERCEL_ENV: 'production'/);
+  assert.match(playwright, /NEXT_PUBLIC_IMAGEKIT_USE_FIXTURES: '0'/);
+});
+

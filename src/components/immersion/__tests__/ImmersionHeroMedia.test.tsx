@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { useReducedMotion } from "framer-motion";
 import ImmersionHeroMedia from "../ImmersionHeroMedia";
@@ -51,6 +51,22 @@ const props = {
   posterAlt: "Immersion program poster",
 };
 
+function stubMatchMedia(matches: boolean) {
+  vi.stubGlobal(
+    "matchMedia",
+    vi.fn().mockImplementation((query: string) => ({
+      matches,
+      media: query,
+      onchange: null,
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
+      addListener: vi.fn(),
+      removeListener: vi.fn(),
+      dispatchEvent: vi.fn(),
+    })),
+  );
+}
+
 describe("ImmersionHeroMedia", () => {
   beforeEach(() => {
     vi.stubEnv(
@@ -58,9 +74,10 @@ describe("ImmersionHeroMedia", () => {
       "https://ik.imagekit.io/akomapa",
     );
     vi.stubGlobal("IntersectionObserver", ImmediateIntersectionObserver);
+    stubMatchMedia(false);
   });
 
-  it("renders the optimized video immediately without a poster transition", () => {
+  it("renders one viewport-matched video source without a poster transition", async () => {
     mockedUseReducedMotion.mockReturnValue(false);
     const { container } = render(<ImmersionHeroMedia {...props} />);
 
@@ -90,15 +107,29 @@ describe("ImmersionHeroMedia", () => {
       container.querySelector('[data-immersion-hero-overlay="vertical"]'),
     ).toHaveClass("from-[#07191d]/40", "to-[#07191d]/16");
 
-    const sources = container.querySelectorAll("source");
-    expect(sources).toHaveLength(2);
-    expect(sources[0]).toHaveAttribute("media", "(max-width: 767px)");
-    expect(sources[0]?.getAttribute("src")).toContain("/api/dev-imagekit?");
-    expect(sources[0]?.getAttribute("src")).toContain("immersion-hero.mp4");
-    expect(sources[0]?.getAttribute("src")).toContain("w-960");
-    expect(sources[1]?.getAttribute("src")).toContain("w-1280");
-    expect(sources[1]?.getAttribute("src")).not.toContain("w-1920");
+    await waitFor(() => {
+      expect(container.querySelectorAll("source")).toHaveLength(1);
+    });
+    const source = container.querySelector("source");
+    expect(source?.getAttribute("src")).toContain("/api/dev-imagekit?");
+    expect(source?.getAttribute("src")).toContain("immersion-hero.mp4");
+    expect(source?.getAttribute("src")).toContain("w-1280");
+    expect(source?.getAttribute("src")).not.toContain("w-960");
+    expect(source?.getAttribute("src")).not.toContain("w-1920");
+    expect(source).not.toHaveAttribute("media");
+  });
 
+  it("selects the mobile encode when the viewport media query matches", async () => {
+    stubMatchMedia(true);
+    mockedUseReducedMotion.mockReturnValue(false);
+    const { container } = render(<ImmersionHeroMedia {...props} />);
+
+    await waitFor(() => {
+      expect(container.querySelectorAll("source")).toHaveLength(1);
+    });
+    const source = container.querySelector("source");
+    expect(source?.getAttribute("src")).toContain("w-960");
+    expect(source?.getAttribute("src")).not.toContain("w-1280");
   });
 
   it("renders the video during the server-safe motion preference state", () => {

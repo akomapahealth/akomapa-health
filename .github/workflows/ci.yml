@@ -159,6 +159,8 @@ jobs:
         run: npm run test:e2e
         env:
           CI: true
+          VERCEL_ENV: production
+          NEXT_PUBLIC_IMAGEKIT_USE_FIXTURES: "0"
           NEXT_PUBLIC_GIVEBUTTER_DONATIONS_ENABLED: "true"
           NEXT_PUBLIC_GA_MEASUREMENT_ID: G-E2ETEST000
           PLAYWRIGHT_TEST_BASE_URL: http://127.0.0.1:3000
@@ -168,6 +170,8 @@ jobs:
         run: npm run test:e2e:real-media
         env:
           CI: true
+          VERCEL_ENV: production
+          NEXT_PUBLIC_IMAGEKIT_USE_FIXTURES: "0"
           NEXT_PUBLIC_GIVEBUTTER_DONATIONS_ENABLED: "true"
           PLAYWRIGHT_TEST_BASE_URL: http://127.0.0.1:3000
         timeout-minutes: 10
