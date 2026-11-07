@@ -20,6 +20,10 @@ interface ImageKitTransformations {
 
 const DEV_IMAGEKIT_FIXTURE_PATH = "/api/dev-imagekit";
 
+/** Inlined at build time in client bundles — prefer over dynamic env lookups. */
+const IMAGEKIT_FIXTURES_DISABLED =
+  process.env.NEXT_PUBLIC_IMAGEKIT_USE_FIXTURES === "0";
+
 /** Paths under `public/static/` ship with the app instead of the ImageKit CDN. */
 export const LOCAL_PUBLIC_ASSET_PREFIX = "/static/";
 
@@ -28,11 +32,11 @@ function isImageKitHostname(hostname: string): boolean {
 }
 
 /**
- * `next dev` and Vercel preview deployments emit a same-origin fixture URL so
- * the browser never fetches ImageKit. Production and test builds keep the CDN URL.
+ * Non-production environments emit a same-origin fixture URL so the browser
+ * never fetches ImageKit. Only Vercel production keeps the CDN URL.
  */
 function maybeDevImageKitFixtureUrl(url: string): string {
-  if (!shouldUseImageKitFixtures()) {
+  if (IMAGEKIT_FIXTURES_DISABLED || !shouldUseImageKitFixtures()) {
     return url;
   }
 

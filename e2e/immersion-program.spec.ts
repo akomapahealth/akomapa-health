@@ -283,7 +283,10 @@ test.describe("Immersion program responsive editorial layout", () => {
       page.locator("[data-immersion-hero-hydrated]"),
     ).toHaveAttribute("data-immersion-hero-hydrated", "true");
     await expect(video).toHaveCount(1);
-    await expect(video.locator("source")).toHaveCount(2);
+    await expect(video.locator("source")).toHaveCount(1);
+    const sourceUrl = await video.locator("source").getAttribute("src");
+    expect(sourceUrl).toContain("w-1280");
+    expect(sourceUrl).not.toContain("w-960");
     await expect(page.locator("[data-immersion-hero-media] img")).toHaveCount(
       0,
     );

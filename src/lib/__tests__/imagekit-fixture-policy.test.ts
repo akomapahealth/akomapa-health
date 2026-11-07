@@ -7,37 +7,46 @@ import {
 } from "@/lib/imagekit-fixture-policy.mjs";
 
 describe("imageKit fixture policy", () => {
-  it("publishes a client flag only for Vercel preview builds", () => {
-    expect(imageKitFixturePublicFlag({ VERCEL_ENV: "preview" })).toBe("1");
+  it("publishes a client flag of 0 only for Vercel production builds", () => {
     expect(imageKitFixturePublicFlag({ VERCEL_ENV: "production" })).toBe("0");
-    expect(imageKitFixturePublicFlag({ VERCEL_ENV: "development" })).toBe("0");
-    expect(imageKitFixturePublicFlag({})).toBe("0");
+    expect(imageKitFixturePublicFlag({ VERCEL_ENV: "preview" })).toBe("1");
+    expect(imageKitFixturePublicFlag({ VERCEL_ENV: "development" })).toBe("1");
+    expect(imageKitFixturePublicFlag({})).toBe("1");
   });
 
-  it("uses fixtures for local development and always for preview", () => {
+  it("uses fixtures everywhere except Vercel production", () => {
     expect(
       shouldUseImageKitFixtures({ NODE_ENV: "development" }),
     ).toBe(true);
     expect(
       shouldUseImageKitFixtures({
         NODE_ENV: "development",
-        NEXT_PUBLIC_IMAGEKIT_DEV_FIXTURES: "0",
+        VERCEL_ENV: "development",
       }),
-    ).toBe(false);
+    ).toBe(true);
     expect(
       shouldUseImageKitFixtures({
         NODE_ENV: "production",
         VERCEL_ENV: "preview",
-        NEXT_PUBLIC_IMAGEKIT_DEV_FIXTURES: "0",
       }),
     ).toBe(true);
     expect(
       shouldUseImageKitFixtures({
         NODE_ENV: "production",
-        VERCEL_ENV: "production",
+      }),
+    ).toBe(true);
+    expect(
+      shouldUseImageKitFixtures({
+        NODE_ENV: "production",
         NEXT_PUBLIC_IMAGEKIT_USE_FIXTURES: "1",
       }),
     ).toBe(true);
+    expect(
+      shouldUseImageKitFixtures({
+        NODE_ENV: "production",
+        NEXT_PUBLIC_IMAGEKIT_USE_FIXTURES: "0",
+      }),
+    ).toBe(false);
     expect(
       shouldUseImageKitFixtures({
         NODE_ENV: "production",
@@ -45,12 +54,31 @@ describe("imageKit fixture policy", () => {
         NEXT_PUBLIC_IMAGEKIT_USE_FIXTURES: "0",
       }),
     ).toBe(false);
+    expect(
+      shouldUseImageKitFixtures({
+        NODE_ENV: "production",
+        VERCEL_ENV: "production",
+      }),
+    ).toBe(false);
   });
 
-  it("bakes the preview flag into next.config env", () => {
-    const source = readFileSync(join(process.cwd(), "next.config.ts"), "utf8");
-    expect(source).toContain(
-      "NEXT_PUBLIC_IMAGEKIT_USE_FIXTURES: imageKitFixturePublicFlag()",
+
+  it("reads the bake-time flag via direct process.env access for client inlining", () => {
+    const source = readFileSync(
+      join(process.cwd(), "src/lib/imagekit-fixture-policy.mjs"),
+      "utf8",
     );
+    expect(source).toContain("process.env.NEXT_PUBLIC_IMAGEKIT_USE_FIXTURES");
+    expect(source).toContain("process.env.VERCEL_ENV");
+    // Must not decide the default path only via a process.env alias lookup.
+    expect(source).toMatch(
+      /return process\.env\.NEXT_PUBLIC_IMAGEKIT_USE_FIXTURES !== "0"/,
+    );
+  });
+
+  it("bakes the fixture flag into next.config env", () => {
+    const source = readFileSync(join(process.cwd(), "next.config.ts"), "utf8");
+    expect(source).toContain("NEXT_PUBLIC_IMAGEKIT_USE_FIXTURES");
+    expect(source).toContain("imageKitFixturePublicFlag()");
   });
 });

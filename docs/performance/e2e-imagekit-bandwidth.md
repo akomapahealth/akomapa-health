@@ -2,7 +2,7 @@
 
 Routine Playwright runs fulfill `*.imagekit.io` responses locally. Generated `src` and `srcSet` values stay on `https://ik.imagekit.io/akomapa`. One CI check still downloads two team portraits and the mobile immersion video.
 
-Production paths, filenames, and the ImageKit loader stay the same on production deployments. `next dev` and Vercel preview deployments rewrite generated ImageKit image and video URLs to `/api/dev-imagekit`, which serves local fixture bytes and never fetches the CDN. `scripts/lighthouse.mjs` intercepts ImageKit in Chrome unless `LIGHTHOUSE_IMAGEKIT_FIXTURES=0`. Set `NEXT_PUBLIC_IMAGEKIT_DEV_FIXTURES=0` to browse local development against production media. Preview deployments ignore that opt-out.
+Production paths, filenames, and the ImageKit loader stay the same on Vercel production deployments (`VERCEL_ENV=production`). `next dev`, local `next start`, and Vercel preview deployments rewrite generated ImageKit image and video URLs to `/api/dev-imagekit`, which serves local fixture bytes and never fetches the CDN. `scripts/lighthouse.mjs` intercepts ImageKit in Chrome unless `LIGHTHOUSE_IMAGEKIT_FIXTURES=0`. There is no local opt-out that hits the CDN; intentional real-media checks must run against a production deploy or set `VERCEL_ENV=production` explicitly. The CI verified E2E build sets `VERCEL_ENV=production` so the packaged `.next` artifact emits real CDN URLs; routine Playwright still intercepts them locally, and only `test:e2e:real-media` continues the allowlisted requests.
 
 ## September 2026 context
 
@@ -52,9 +52,9 @@ That is the observed delivery count for this run. It is not a measured byte savi
 | `darren_markwei.HEIC?tr=f-auto,q-75,w-256` | 200 | `image/webp` | 8,636 |
 | `immersion-hero.mp4?tr=q-60,w-960` | 206 | `video/webm` | 13,352,800 |
 
-Sum of those `content-length` values: 13,378,142 bytes. The video `content-range` was `bytes 0-13352799/13352800`, so that 206 response carried the whole object. The desktop `w-1920` URL was present on the `<source>` element and was not requested from ImageKit. Both portraits decoded with `naturalWidth > 0`. The video reached `videoWidth > 0` and `videoHeight > 0`, then playback was stopped and the page was closed.
+Sum of those `content-length` values: 13,378,142 bytes. The video `content-range` was `bytes 0-13352799/13352800`, so that 206 response carried the whole object. Only the viewport-matched encode is mounted as a `<source>` (JS `matchMedia`); the unused desktop URL is never requested from ImageKit. Both portraits decoded with `naturalWidth > 0`. The video reached `videoWidth > 0` and `videoHeight > 0`, then playback was stopped and the page was closed.
 
-The immersion hero later switched the unused desktop variant from `w-1920` to `w-1280`. The real-media check still fetches only `w-960`.
+The immersion hero picks `w-960` or `w-1280` via JS `matchMedia`. The real-media check uses a mobile viewport and fetches only `w-960`.
 
 The project retries once. A failed attempt can download these objects again. This run did not retry.
 
@@ -62,4 +62,4 @@ CI runs this command only in `.github/workflows/ci.yml`, after the isolated suit
 
 ## After rollout
 
-Compare the next full ImageKit billing period with September's 110.40 GB, the 90.7 GB localhost-referrer share, and the 13.5 GB `akomapa.org` share. Production deployments still use the ImageKit CDN. Preview deployments, local `next dev`, and Lighthouse use fixtures. Revisit a move to Cloudflare R2 or Bunny only after visitor bandwidth is separated from that remaining non-production traffic.
+Compare the next full ImageKit billing period with September's 110.40 GB, the 90.7 GB localhost-referrer share, and the 13.5 GB `akomapa.org` share. Only Vercel production deployments use the ImageKit CDN. Preview deployments, local development, local production builds, and Lighthouse use fixtures. Revisit a move to Cloudflare R2 or Bunny only after visitor bandwidth is separated from that remaining non-production traffic.

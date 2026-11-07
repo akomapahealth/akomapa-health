@@ -30,7 +30,6 @@ describe("dev ImageKit fixture route", () => {
   it("serves image and video fixtures on Vercel preview", async () => {
     vi.stubEnv("NODE_ENV", "production");
     vi.stubEnv("VERCEL_ENV", "preview");
-    vi.stubEnv("NEXT_PUBLIC_IMAGEKIT_DEV_FIXTURES", "0");
 
     const image = await GET(
       requestFor("https://ik.imagekit.io/akomapa/highlights/photo.jpg"),

@@ -29,7 +29,12 @@ const sentryPublicEnv = getSentryPublicEnv();
 const nextConfig: NextConfig = {
   env: {
     ...sentryPublicEnv,
-    NEXT_PUBLIC_IMAGEKIT_USE_FIXTURES: imageKitFixturePublicFlag(),
+    // Honor an explicit bake/start override (CI real-media) before VERCEL_ENV.
+    NEXT_PUBLIC_IMAGEKIT_USE_FIXTURES:
+      process.env.NEXT_PUBLIC_IMAGEKIT_USE_FIXTURES === "0" ||
+      process.env.NEXT_PUBLIC_IMAGEKIT_USE_FIXTURES === "1"
+        ? process.env.NEXT_PUBLIC_IMAGEKIT_USE_FIXTURES
+        : imageKitFixturePublicFlag(),
   },
   outputFileTracingRoot: process.cwd(),
   // Keep actionable browser errors visible in the development terminal while

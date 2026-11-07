@@ -16,6 +16,7 @@ import {
 import {
   advisoryBoardMembers,
   executiveLeadership,
+  internationalLeadership,
   teamDepartments,
   teamHeroPeople,
 } from "@/data/team";
@@ -138,9 +139,40 @@ export default function TeamPageContent() {
       <EditorialBand
         tone="white"
         marker="03"
+        data-team-section="international"
+        aria-labelledby="international-team-heading"
+        className="border-y border-[#0F4C5C]/15 dark:border-[#66C4DC]/20"
+      >
+        <FadeIn className="grid gap-8 lg:grid-cols-12 lg:gap-16">
+          <div className="lg:col-span-5">
+            <EditorialEyebrow className="text-[#0F4C5C] dark:text-[#66C4DC]">
+              International
+            </EditorialEyebrow>
+            <EditorialHeading id="international-team-heading" className="mt-4">
+              Country leadership connecting Ghana and global partners
+            </EditorialHeading>
+          </div>
+          <EditorialLead className="max-w-3xl lg:col-span-7 lg:pt-8">
+            Our Country Managers in Ghana anchor local partnerships, student
+            programs, and clinic operations so Akomapa&apos;s work stays rooted
+            in the communities we serve.
+          </EditorialLead>
+        </FadeIn>
+
+        <FadeInStagger className="mt-12 grid items-stretch gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+          {internationalLeadership.map((member) => (
+            <FadeInStaggerItem key={member.id} className="h-full">
+              <TeamMemberDialog member={member} />
+            </FadeInStaggerItem>
+          ))}
+        </FadeInStagger>
+      </EditorialBand>
+
+      <EditorialBand
+        tone="cream"
+        marker="04"
         data-team-section="departments"
         aria-labelledby="team-members-heading"
-        className="border-y border-[#0F4C5C]/15 dark:border-[#66C4DC]/20"
       >
         <FadeIn className="grid gap-8 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-5">
@@ -188,7 +220,7 @@ export default function TeamPageContent() {
 
       <EditorialBand
         tone="onyx"
-        marker="04"
+        marker="05"
         data-team-section="advisor"
         aria-labelledby="advisory-board-heading"
         className="border-y border-[#66C4DC]/35"
@@ -221,7 +253,7 @@ export default function TeamPageContent() {
 
       <EditorialBand
         tone="cream"
-        marker="05"
+        marker="06"
         aria-labelledby="team-cta-heading"
       >
         <FadeIn className="grid gap-8 lg:grid-cols-12 lg:items-end lg:gap-16">

@@ -33,16 +33,20 @@ describe("TeamPageContent", () => {
     ).toHaveClass("lg:col-span-7");
     expect(container.querySelector("[data-team-node-scroll-hint]")).toBeInTheDocument();
     expect(screen.getByText("Executive Leadership")).toBeInTheDocument();
+    expect(screen.getByText("International")).toBeInTheDocument();
     expect(screen.getByText("Our Departments")).toBeInTheDocument();
     expect(screen.getByText("Advisory Board")).toBeInTheDocument();
     expect(
       Array.from(container.querySelectorAll("[data-team-section]")).map(
         (section) => section.getAttribute("data-team-section"),
       ),
-    ).toEqual(["executive", "departments", "advisor"]);
+    ).toEqual(["executive", "international", "departments", "advisor"]);
     expect(
       container.querySelectorAll('[data-team-role-category="executive"]'),
-    ).toHaveLength(5);
+    ).toHaveLength(3);
+    expect(
+      container.querySelectorAll('[data-team-role-category="international"]'),
+    ).toHaveLength(2);
     expect(
       container.querySelectorAll('[data-team-role-category="member"]'),
     ).toHaveLength(18);
@@ -76,7 +80,7 @@ describe("TeamPageContent", () => {
     expect(screen.queryByRole("heading", { name: "David Ofosu" })).not.toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "Hafiz Shaban" })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "Getwell Essuman" })).toBeInTheDocument();
-    expect(screen.getAllByText("Country Manager", { exact: true })).toHaveLength(2);
+    expect(screen.getAllByText("Country Manager (Ghana)", { exact: true })).toHaveLength(2);
   });
 
   it("renders decorative network portraits with empty alternatives", () => {

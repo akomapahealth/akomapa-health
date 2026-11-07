@@ -45,13 +45,13 @@ width.
 
 ## Local development and Lighthouse
 
-`next dev` and Vercel preview deployments (`VERCEL_ENV=preview`, for both akomapa-health and akomapa-staging) point generated ImageKit image and video `src` values at [`/api/dev-imagekit`](../../src/app/api/dev-imagekit/route.ts). That route returns tiny local PNG/MP4 fixtures and does not fetch ImageKit. Production deployments keep real ImageKit URLs. Local `next dev` can opt out with `NEXT_PUBLIC_IMAGEKIT_DEV_FIXTURES=0`. Preview deployments always use fixtures.
+`next dev`, local `next start`, and Vercel preview deployments (`VERCEL_ENV=preview`, for both akomapa-health and akomapa-staging) point generated ImageKit image and video `src` values at [`/api/dev-imagekit`](../../src/app/api/dev-imagekit/route.ts). That route returns tiny local PNG/MP4 fixtures and does not fetch ImageKit. Only Vercel production deployments (`VERCEL_ENV=production` on akomapa.org and staging.akomapa.org) keep real ImageKit URLs.
 
 `scripts/lighthouse.mjs` intercepts `*.imagekit.io` in the audited Chrome session by default. Use `LIGHTHOUSE_IMAGEKIT_FIXTURES=0` only when the audit must measure real CDN bytes.
 
 ## Immersion hero video
 
-The decorative hero on `/global-health-immersion-program` keeps `immersion-hero.mp4` at the same ImageKit path. It attaches `<source>` elements after the hero is in view, uses `preload="metadata"`, and requests `w-960` below 768px and `w-1280` otherwise (`q-60`). Autoplay, loop, and muted playback are unchanged. Reduced-motion visitors still get the static poster.
+The decorative hero on `/global-health-immersion-program` keeps `immersion-hero.mp4` at the same ImageKit path. Server-rendered Content resolves the `w-960` / `w-1280` ImageKit URLs (`q-60`) and passes them into the client hero. After the hero is in view the client mounts a single `<source>` chosen with JS `matchMedia("(max-width: 767px)")` — browsers ignore `<source media>` on `<video>`, and client bundles never re-resolve ImageKit URLs for this hero. It uses `preload="metadata"`. Autoplay, loop, and muted playback are unchanged. Reduced-motion visitors still get the static poster.
 
 ## How to verify
 

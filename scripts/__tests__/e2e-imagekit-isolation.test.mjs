@@ -7,6 +7,7 @@ import {
   isImageKitRequestUrl,
   isRealMediaCdnRequest,
   isVideoRequestUrl,
+  resolveRenderedImageKitUrl,
 } from "../../e2e/media/imagekit-url.mjs";
 
 const repoRoot = fileURLToPath(new URL("../..", import.meta.url));
@@ -29,6 +30,21 @@ function specImports(source) {
   }
   return imports;
 }
+
+test("resolves fixture-rewritten ImageKit src attributes", () => {
+  const fixture = resolveRenderedImageKitUrl(
+    "/api/dev-imagekit?src=https%3A%2F%2Fik.imagekit.io%2Fakomapa%2Fimages%2Fteam%2Fjade_kissi.heif%3Ftr%3Df-auto%2Cq-75%2Cw-384",
+  );
+  assert.equal(fixture.hostname, "ik.imagekit.io");
+  assert.match(fixture.pathname, /\/images\/team\/jade_kissi\.heif$/);
+  assert.equal(fixture.searchParams.get("tr"), "f-auto,q-75,w-384");
+
+  const absolute = resolveRenderedImageKitUrl(
+    "https://ik.imagekit.io/akomapa/ucc-team/hafiz_shaban.JPG?tr=f-auto,q-75,w-400",
+  );
+  assert.equal(absolute.hostname, "ik.imagekit.io");
+  assert.match(absolute.pathname, /\/ucc-team\/hafiz_shaban\.JPG$/);
+});
 
 test("ImageKit host and real-media allowlist stay narrow", () => {
   assert.equal(

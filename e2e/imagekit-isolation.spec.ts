@@ -80,6 +80,13 @@ test("a page route can still abort the immersion video", async ({ page }) => {
     }
   });
 
+  await page.route("**/api/dev-imagekit**", async (route) => {
+    if (route.request().url().includes("immersion-hero.mp4")) {
+      await route.abort("failed");
+      return;
+    }
+    await route.continue();
+  });
   await page.route("**/immersion-hero.mp4**", (route) => route.abort("failed"));
   await page.setViewportSize({ width: 1280, height: 800 });
   await page.goto("/global-health-immersion-program", {

@@ -18,8 +18,8 @@ import { cn } from "@/lib/utils";
 import { MOTION_EASE } from "@/lib/motion/tokens";
 import type { HubVolunteerPortrait } from "@/lib/types";
 
-const featurePortraitIndexes = new Set([0, 11, 24, 35]);
-const landscapePortraitIndexes = new Set([5, 18, 29]);
+const featurePortraitIndexes = new Set([0, 11]);
+const landscapePortraitIndexes = new Set([5, 8]);
 const initialPortraitCount = 8;
 const portraitBatchSize = 8;
 const defaultVolunteerObjectPosition = "center top";

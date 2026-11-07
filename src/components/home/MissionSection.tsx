@@ -48,7 +48,7 @@ export default function MissionSection() {
           >
             <div className="relative h-[600px] md:h-[700px] lg:h-[750px] rounded-2xl overflow-hidden shadow-2xl">
               <Image
-                src="/highlights/Akomapa-72.jpg"
+                src="/ug-team/ug-chapter/ug-chapter-9.jpg"
                 alt="Healthcare professionals training in Ghana"
                 fill
                 sizes="(min-width: 1024px) 42vw, 100vw"
