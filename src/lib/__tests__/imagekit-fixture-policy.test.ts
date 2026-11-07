@@ -62,6 +62,20 @@ describe("imageKit fixture policy", () => {
     ).toBe(false);
   });
 
+
+  it("reads the bake-time flag via direct process.env access for client inlining", () => {
+    const source = readFileSync(
+      join(process.cwd(), "src/lib/imagekit-fixture-policy.mjs"),
+      "utf8",
+    );
+    expect(source).toContain("process.env.NEXT_PUBLIC_IMAGEKIT_USE_FIXTURES");
+    expect(source).toContain("process.env.VERCEL_ENV");
+    // Must not decide the default path only via a process.env alias lookup.
+    expect(source).toMatch(
+      /return process\.env\.NEXT_PUBLIC_IMAGEKIT_USE_FIXTURES !== "0"/,
+    );
+  });
+
   it("bakes the fixture flag into next.config env", () => {
     const source = readFileSync(join(process.cwd(), "next.config.ts"), "utf8");
     expect(source).toContain("NEXT_PUBLIC_IMAGEKIT_USE_FIXTURES");

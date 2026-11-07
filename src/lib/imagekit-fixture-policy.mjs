@@ -8,6 +8,12 @@
  * Preview and local client bundles cannot read `VERCEL_ENV`. next.config
  * publishes `NEXT_PUBLIC_IMAGEKIT_USE_FIXTURES` at build time so the loader
  * and the fixture route agree (`"0"` only when built with `VERCEL_ENV=production`).
+ *
+ * Client reads of the public flag MUST use direct `process.env.NEXT_PUBLIC_*`
+ * property access so Next.js can inline the bake-time value. Looking up the
+ * same key via a `process.env` alias (`const env = process.env; env.X`) stays
+ * undefined in the browser and incorrectly forces fixtures for client-only
+ * media such as ImmersionHeroMedia video sources.
  */
 
 /**
@@ -30,11 +36,19 @@ export function imageKitFixturePublicFlag(env = process.env) {
  * @returns {boolean}
  */
 export function shouldUseImageKitFixtures(env = process.env) {
-  // Prefer explicit VERCEL_ENV when present (server runtime / test stubs).
-  if (env.VERCEL_ENV) {
-    return env.VERCEL_ENV !== "production";
+  // Unit-test stubs pass a plain object — evaluate against that object only.
+  if (env !== process.env) {
+    if (env.VERCEL_ENV) {
+      return env.VERCEL_ENV !== "production";
+    }
+    return env.NEXT_PUBLIC_IMAGEKIT_USE_FIXTURES !== "0";
   }
 
-  // Client / local without VERCEL_ENV: trust the bake-time flag; default to fixtures.
-  return env.NEXT_PUBLIC_IMAGEKIT_USE_FIXTURES !== "0";
+  // Direct property access (not `env.VERCEL_ENV`) so server runtime and
+  // Next.js client inlining both see the real values.
+  if (process.env.VERCEL_ENV) {
+    return process.env.VERCEL_ENV !== "production";
+  }
+
+  return process.env.NEXT_PUBLIC_IMAGEKIT_USE_FIXTURES !== "0";
 }

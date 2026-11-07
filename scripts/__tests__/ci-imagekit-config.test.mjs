@@ -26,6 +26,11 @@ test("verified E2E builds use the public portrait CDN, not a placeholder", async
       /VERCEL_ENV:\s*production/,
       `${workflowPath} must bake CDN URLs (USE_FIXTURES=0) for the verified E2E artifact`,
     );
+    assert.match(
+      workflow,
+      /NEXT_PUBLIC_IMAGEKIT_USE_FIXTURES:\s*"0"/,
+      `${workflowPath} must explicitly bake USE_FIXTURES=0 into the verified E2E artifact`,
+    );
   }
 });
 

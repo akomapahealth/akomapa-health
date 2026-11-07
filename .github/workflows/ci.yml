@@ -98,6 +98,7 @@ jobs:
           # the verified E2E artifact emits real CDN URLs (Playwright isolates
           # routine runs; real-media continues the allowlisted CDN requests).
           VERCEL_ENV: production
+          NEXT_PUBLIC_IMAGEKIT_USE_FIXTURES: "0"
           NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT: https://ik.imagekit.io/akomapa
           NEXT_PUBLIC_IMAGEKIT_PUBLIC_KEY: public_ci_placeholder
           # Sentinel GA4 ID so E2E can prove gtag.js stays unloaded until

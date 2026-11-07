@@ -32,6 +32,11 @@ function isImageKitHostname(hostname: string): boolean {
  * never fetches ImageKit. Only Vercel production keeps the CDN URL.
  */
 function maybeDevImageKitFixtureUrl(url: string): string {
+  // Direct NEXT_PUBLIC read so the client bundle inlines the bake-time flag.
+  // shouldUseImageKitFixtures() also uses direct access; keep both aligned.
+  if (process.env.NEXT_PUBLIC_IMAGEKIT_USE_FIXTURES === "0") {
+    return url;
+  }
   if (!shouldUseImageKitFixtures()) {
     return url;
   }
