@@ -8,6 +8,7 @@ import {
   buildNotFoundMetadata,
   serializeJsonLd,
 } from "@/lib/seo";
+import { newsSocialCard } from "@/lib/social-card";
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -28,6 +29,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     path: `/news/${item.id}`,
     image: item.image,
     imageAlt: item.imageAlt,
+    imageWidth: item.imageWidth ?? undefined,
+    imageHeight: item.imageHeight ?? undefined,
+    fallbackCard: newsSocialCard(item.id),
     publishedTime: item.date,
   });
 }
@@ -45,6 +49,7 @@ export default async function NewsDetailPage({ params }: Props) {
     description: item.excerpt,
     path: `/news/${item.id}`,
     image: item.image,
+    fallbackCard: newsSocialCard(item.id),
     publishedTime: item.date,
   });
 

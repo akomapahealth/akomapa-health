@@ -86,6 +86,8 @@ export const blogPosts: BlogPost[] = [
     category: "student-essay",
     tags: ["ethical-leadership", "student-perspective", "academy"],
     image: "/highlights/Akomapa-20.jpg",
+    imageAlt:
+      "Akomapa student volunteers taking blood pressure readings at a roadside market screening table",
     date: "2026-05-24",
     featured: true,
     content: `
@@ -119,6 +121,8 @@ export const blogPosts: BlogPost[] = [
     category: "faculty-reflection",
     tags: ["ethical-leadership", "global-health", "education"],
     image: "/highlights/Akomapa-40.jpg",
+    imageAlt:
+      "A woman in a blue headscarf wearing trial eyeglasses at a community eye screening",
     date: "2026-04-18",
     featured: false,
     content: `
@@ -151,6 +155,8 @@ export const blogPosts: BlogPost[] = [
     category: "article",
     tags: ["ncds", "hypertension", "diabetes", "health-systems"],
     image: "/highlights/Akomapa-28.jpg",
+    imageAlt:
+      "An Akomapa student in gloves performing a finger-prick glucose test for a seated patient",
     date: "2026-03-09",
     featured: false,
     content: `
@@ -184,6 +190,8 @@ export const blogPosts: BlogPost[] = [
     category: "community-voice",
     tags: ["community-partnership", "trust", "reciprocal-learning"],
     image: "/gallery/gallery-pic-6.jpg",
+    imageAlt:
+      "Community members seated at long tables during an Akomapa health education session",
     date: "2026-02-14",
     featured: false,
     content: `
@@ -216,6 +224,8 @@ export const blogPosts: BlogPost[] = [
     category: "recorded-talk",
     tags: ["reciprocal-learning", "academy", "ethical-leadership"],
     image: "/highlights/Akomapa-47.jpg",
+    imageAlt:
+      "A smiling Akomapa student volunteer in a blue shirt and sunglasses outside a community clinic",
     videoComingSoon: true,
     date: "2026-01-20",
     featured: false,

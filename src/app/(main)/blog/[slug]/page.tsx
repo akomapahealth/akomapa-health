@@ -7,6 +7,7 @@ import {
   getRelatedPosts,
 } from "@/data/blog";
 import { getAnnouncementPosterSrc } from "@/lib/video-utils";
+import { blogSocialCard } from "@/lib/social-card";
 import {
   buildArticleJsonLd,
   buildArticleMetadata,
@@ -42,6 +43,8 @@ export async function generateMetadata({
     description: post.excerpt,
     path: `/blog/${post.slug}`,
     image,
+    imageAlt: post.imageAlt,
+    fallbackCard: blogSocialCard(post.slug),
     publishedTime: post.date,
     authors: [post.author],
   });
@@ -67,6 +70,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     description: post.excerpt,
     path: `/blog/${post.slug}`,
     image,
+    fallbackCard: blogSocialCard(post.slug),
     publishedTime: post.date,
     author: post.author,
   });

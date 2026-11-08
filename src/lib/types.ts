@@ -36,6 +36,9 @@ export interface News {
   image: string;
   /** Descriptive alt text for `image`. Falls back to `title` when omitted. */
   imageAlt?: string;
+  /** Intrinsic size when `image` is a committed public/ file (not needed for ImageKit paths). */
+  imageWidth?: number;
+  imageHeight?: number;
   date: string;
   category: string;
   featured?: boolean;
@@ -364,6 +367,8 @@ export interface BlogPost {
     | "conference-session";
   tags: string[];
   image?: string;
+  /** Describes `image` for share previews. Falls back to the title. */
+  imageAlt?: string;
   date: string;
   featured: boolean;
   videoUrl?: string;
@@ -427,6 +432,8 @@ export interface NewsItem {
   content: string[];
   image: string;
   imageAlt: string | null;
+  imageWidth: number | null;
+  imageHeight: number | null;
   videoUrl: string | null;
   thumbnail: string | null;
   date: string | null;
