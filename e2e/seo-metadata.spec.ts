@@ -124,9 +124,11 @@ test.describe("SEO metadata", () => {
       waitUntil: "domcontentloaded",
     });
 
+    // The cover lives on ImageKit, not in public/, so the share image must be
+    // the CDN crop. The site-origin URL was a 404 for crawlers.
     await expect(page.locator('meta[property="og:image"]')).toHaveAttribute(
       "content",
-      `${canonicalOrigin}/highlights/Akomapa-20.jpg`,
+      /^https:\/\/ik\.imagekit\.io\/akomapa\/highlights\/Akomapa-20\.jpg\?tr=w-1200/,
     );
     await expect(page.locator('meta[property="og:image"]')).not.toHaveAttribute(
       "content",

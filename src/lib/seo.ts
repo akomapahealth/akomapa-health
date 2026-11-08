@@ -1,4 +1,5 @@
 import type { Metadata, MetadataRoute } from "next";
+import { resolveSocialImage, type SocialImage } from "@/lib/social-image";
 
 export const SITE_URL = "https://akomapa.org";
 export const SITE_NAME = "Akomapa Health";
@@ -377,8 +378,9 @@ export function buildArticleMetadata({
 }): Metadata {
   const url = absoluteUrl(path);
   const socialTitle = withSiteName(title);
-  const imageUrl = image ?? DEFAULT_OG_IMAGE;
-  const imageAlt = image ? (imageAltOverride ?? title) : DEFAULT_OG_IMAGE_ALT;
+  const socialImage: SocialImage = image
+    ? resolveSocialImage({ src: image, alt: imageAltOverride ?? title })
+    : resolveSocialImage({ src: DEFAULT_OG_IMAGE, alt: DEFAULT_OG_IMAGE_ALT });
 
   return {
     title,
@@ -392,14 +394,7 @@ export function buildArticleMetadata({
       siteName: SITE_NAME,
       title: socialTitle,
       description,
-      images: [
-        {
-          url: imageUrl,
-          width: 1200,
-          height: 630,
-          alt: imageAlt,
-        },
-      ],
+      images: [socialImage],
       ...(publishedTime ? { publishedTime } : {}),
       ...(authors?.length ? { authors } : {}),
     },
@@ -409,8 +404,8 @@ export function buildArticleMetadata({
       description,
       images: [
         {
-          url: imageUrl,
-          alt: imageAlt,
+          url: socialImage.url,
+          alt: socialImage.alt,
         },
       ],
     },
@@ -516,7 +511,10 @@ export function buildArticleJsonLd({
     headline: title,
     description,
     url: absoluteUrl(path),
-    image: absoluteUrl(image ?? DEFAULT_OG_IMAGE),
+    image: resolveSocialImage({
+      src: image ?? DEFAULT_OG_IMAGE,
+      alt: image ? title : DEFAULT_OG_IMAGE_ALT,
+    }).url,
     ...(publishedTime ? { datePublished: publishedTime } : {}),
     ...(authorValue.length === 1
       ? { author: authorValue[0] }

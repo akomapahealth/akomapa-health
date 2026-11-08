@@ -100,9 +100,11 @@ describe("SEO metadata contract", () => {
       path: "/news/untitled-briefing",
     });
 
+    // ImageKit paths are not in public/, so they must resolve to the CDN with
+    // a real 1200x630 crop rather than a 404 on the site origin.
     expect(withCover.openGraph?.images).toEqual([
       {
-        url: "/highlights/Akomapa-20.jpg",
+        url: "https://ik.imagekit.io/akomapa/highlights/Akomapa-20.jpg?tr=w-1200%2Ch-630%2Cfo-auto%2Cf-jpg%2Cq-80",
         width: 1200,
         height: 630,
         alt: "Ethical leadership",
@@ -110,14 +112,14 @@ describe("SEO metadata contract", () => {
     ]);
     expect(fallback.openGraph?.images).toEqual([
       {
-        url: DEFAULT_OG_IMAGE,
+        url: `${SITE_URL}${DEFAULT_OG_IMAGE}`,
         width: 1200,
         height: 630,
         alt: DEFAULT_OG_IMAGE_ALT,
       },
     ]);
     expect(fallback.twitter).toMatchObject({
-      images: [{ url: DEFAULT_OG_IMAGE, alt: DEFAULT_OG_IMAGE_ALT }],
+      images: [{ url: `${SITE_URL}${DEFAULT_OG_IMAGE}`, alt: DEFAULT_OG_IMAGE_ALT }],
     });
   });
 
@@ -154,7 +156,7 @@ describe("SEO metadata contract", () => {
       headline: "Thesis",
       description: "A thesis.",
       url: `${SITE_URL}/research/thesis`,
-      image: `${SITE_URL}/highlights/Akomapa-28.jpg`,
+      image: "https://ik.imagekit.io/akomapa/highlights/Akomapa-28.jpg?tr=w-1200%2Ch-630%2Cfo-auto%2Cf-jpg%2Cq-80",
       datePublished: "2025-01",
       author: { "@type": "Person", name: "B. A. Fleischer" },
       publisher: { "@id": `${SITE_URL}/#organization` },
