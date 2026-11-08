@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Breadcrumb from "@/components/layout/Breadcrumb";
+import { buildPageMetadata } from "@/lib/seo";
 import {
   IMMERSION_BALANCE_DUE_LABEL,
   IMMERSION_GRACE_END_LABEL,
@@ -8,10 +9,9 @@ import {
   IMMERSION_TERMS_VERSION,
 } from "@/lib/payments/immersion-terms";
 
-export const metadata: Metadata = {
-  title: "Immersion Program payment and refund terms | Akomapa",
-  description: "Payment, balance, and refund terms for Akomapa’s January 2027 Global Health Immersion Program.",
-};
+export const metadata: Metadata = buildPageMetadata(
+  "/global-health-immersion-program/payment-terms",
+);
 
 const section = "mt-10 border-t border-[#1C1F1E]/15 pt-8 dark:border-[#FCFAEF]/15";
 const heading = "font-heading text-xl font-semibold md:text-2xl";

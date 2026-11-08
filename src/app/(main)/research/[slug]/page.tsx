@@ -13,6 +13,7 @@ import {
   researchPapers,
   type ResearchPaper,
 } from "@/data/research-papers";
+import { researchSocialCard } from "@/lib/social-card";
 import ResearchPaperContent from "./ResearchPaperContent";
 
 type ResearchPaperPageProps = {
@@ -45,6 +46,7 @@ export async function generateMetadata({
     description: getResearchPaperSummary(paper),
     path: `/research/${paper.slug}`,
     image: paper.image,
+    fallbackCard: researchSocialCard(paper.slug),
     publishedTime: paper.publishedAt ?? paper.date,
     authors: splitAuthors(paper),
   });
@@ -71,6 +73,7 @@ export default async function ResearchPaperPage({
     description: getResearchPaperSummary(paper),
     path: `/research/${paper.slug}`,
     image: paper.image,
+    fallbackCard: researchSocialCard(paper.slug),
     publishedTime: paper.publishedAt ?? paper.date,
     authors: splitAuthors(paper),
     sameAs,

@@ -19,6 +19,8 @@ export const IMAGEKIT_PUBLIC_ENDPOINT = "https://ik.imagekit.io/akomapa";
 
 const SITE_ORIGIN = "https://akomapa.org";
 const PUBLIC_DIR = join(process.cwd(), "public");
+/** Generated social cards are a route, not a file, but are served by the site. */
+const GENERATED_CARD_PREFIX = "/og/";
 
 /** Crawlers don't negotiate formats, so request a concrete JPEG. */
 const SOCIAL_TRANSFORM = `w-${SOCIAL_IMAGE_WIDTH},h-${SOCIAL_IMAGE_HEIGHT},fo-auto,f-jpg,q-80`;
@@ -64,6 +66,7 @@ function isImageKitHost(src: string) {
  */
 export function isLocalPublicAsset(src: string) {
   if (isAbsolute(src)) return false;
+  if (src.startsWith(GENERATED_CARD_PREFIX)) return true;
   const relative = src.startsWith("/") ? src.slice(1) : src;
   return existsSync(join(PUBLIC_DIR, relative));
 }

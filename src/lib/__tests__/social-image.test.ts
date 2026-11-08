@@ -1,4 +1,7 @@
+import { join } from "node:path";
+import sharp from "sharp";
 import { afterEach, describe, expect, it, vi } from "vitest";
+import { canonicalSeoRoutes, type SeoRoute } from "@/lib/seo-routes";
 import { blogPosts } from "@/data/blog";
 import { news } from "@/data/news";
 import { researchPapers } from "@/data/research-papers";
@@ -111,6 +114,28 @@ describe("content share images", () => {
       if (url.startsWith("https://akomapa.org/")) {
         expect(isLocalPublicAsset(src), `${kind}/${id} resolved to the site origin but is not in public/`).toBe(true);
       }
+    }
+  });
+});
+
+describe("declared local image dimensions", () => {
+  const declared = [
+    ...(canonicalSeoRoutes as readonly SeoRoute[]).flatMap((route) =>
+      route.image?.width ? [{ id: route.path, ...route.image }] : [],
+    ),
+    ...news.flatMap((item) =>
+      item.imageWidth
+        ? [{ id: item.slug, src: item.image, width: item.imageWidth, height: item.imageHeight }]
+        : [],
+    ),
+  ];
+
+  it("match the committed file so share surfaces never get a false size", async () => {
+    expect(declared.length).toBeGreaterThan(0);
+    for (const { id, src, width, height } of declared) {
+      expect(isLocalPublicAsset(src), `${id}: ${src} should be a public/ file`).toBe(true);
+      const meta = await sharp(join(process.cwd(), "public", src)).metadata();
+      expect({ width: meta.width, height: meta.height }, `${id}: ${src}`).toEqual({ width, height });
     }
   });
 });

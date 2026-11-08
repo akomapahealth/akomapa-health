@@ -260,6 +260,7 @@ describe("rebrand data model contracts", () => {
       | "authorBio"
       | "authorImage"
       | "image"
+      | "imageAlt"
       | "videoUrl"
       | "videoComingSoon"
     >();
