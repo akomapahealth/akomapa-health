@@ -136,7 +136,7 @@ export const thirdPartyServices: readonly ThirdPartyService[] = [
     name: "Google Maps",
     where: "Contact page",
     detail:
-      "The embedded map loads with the page, and Google may set cookies or read device information to show and improve the map.",
+      "The map loads only after you select Show map. Until then nothing is requested from Google. Once it loads, Google may set cookies or read device information to show and improve the map. Open in Google Maps takes you to Google's site instead.",
     privacyUrl: "https://policies.google.com/technologies/cookies",
   },
   {

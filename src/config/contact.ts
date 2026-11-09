@@ -8,6 +8,19 @@ export type ContactOffice = Readonly<{
   }>;
 }>;
 
+const GHANA_OFFICE_ADDRESS_LINES = [
+  "43 Yam Street",
+  "Tema Community 23, Adjei Kojo",
+  "Accra, Ghana",
+] as const;
+
+// Google Maps URLs universal search link: no API key, no embed, no cookies
+// until the visitor follows it.
+// https://developers.google.com/maps/documentation/urls/get-started#search-action
+const GHANA_OFFICE_MAPS_URL = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+  GHANA_OFFICE_ADDRESS_LINES.join(", "),
+)}`;
+
 export const CONTACT = {
   email: {
     display: "info@akomapa.org",
@@ -17,11 +30,7 @@ export const CONTACT = {
     {
       id: "ghana",
       label: "Ghana Office",
-      addressLines: [
-        "43 Yam Street",
-        "Tema Community 23, Adjei Kojo",
-        "Accra, Ghana",
-      ],
+      addressLines: GHANA_OFFICE_ADDRESS_LINES,
       phone: {
         display: "+233 50 296 6072",
         href: "tel:+233502966072",
@@ -47,6 +56,11 @@ export const CONTACT = {
     title: "Map showing Akomapa Health Foundation's Ghana Office",
     embedUrl:
       "https://www.google.com/maps?q=43%20Yam%20Street%2C%20Tema%20Community%2023%2C%20Adjei%20Kojo%2C%20Accra%2C%20Ghana&output=embed",
+    /** Opened in a new tab; works without loading the embed. */
+    openUrl: GHANA_OFFICE_MAPS_URL,
+    /** Shown before the embed loads, since loading it contacts Google. */
+    consentNote:
+      "Showing the map loads it from Google, which may set cookies on your device.",
   },
 } as const;
 

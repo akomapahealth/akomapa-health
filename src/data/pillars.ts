@@ -7,7 +7,7 @@ export const pillars: Pillar[] = [
     description:
       "Improving access to prevention, screening, education, and care for non-communicable diseases in underserved communities.",
     image: {
-      src: "/highlights/Akomapa-62.jpg",
+      src: "/ug-team/ug-chapter/ug-chapter-6.jpg",
       alt: "Akomapa health screening volunteers working with community members",
       position: "center",
     },
@@ -67,7 +67,7 @@ export const pillars: Pillar[] = [
     description:
       "Developing scalable solutions that strengthen health systems through research, technology, and quality improvement.",
     image: {
-      src: "/highlights/Akomapa-28.jpg",
+      src: "/ug-team/ug-chapter/ug-chapter-48.jpg",
       alt: "Akomapa students reviewing research and health systems work together",
       position: "center",
     },

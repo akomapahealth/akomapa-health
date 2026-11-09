@@ -29,7 +29,7 @@ import { cookieInventory, thirdPartyServices } from "@/config/cookies";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 
-export const LAST_UPDATED = "November 1, 2026";
+export const LAST_UPDATED = "November 3, 2026";
 
 const contents: readonly LegalContentsItem[] = [
   { href: "#summary", label: "The short version" },

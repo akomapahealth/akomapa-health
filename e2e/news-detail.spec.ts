@@ -153,7 +153,7 @@ test.describe("News Detail Pages", () => {
     await expect(
       page.getByRole("heading", { level: 1, name: /nkwapa is live/i }),
     ).toBeVisible({ timeout: 15000 });
-    await expect(page.getByText("October 14, 2026")).toBeVisible();
+    await expect(page.locator('time[dateTime="2026-10-14"]')).toBeVisible();
 
     const storyImage = page.getByRole("img", { name: /nkwapa clinic dashboard/i });
     await expect(storyImage).toBeVisible();

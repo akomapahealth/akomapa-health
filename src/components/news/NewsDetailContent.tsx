@@ -24,16 +24,8 @@ import {
   EditorialPlay,
 } from "@/components/shared/EditorialPrimitives";
 import { getAnnouncementPosterSrc, parseVideoUrl } from "@/lib/video-utils";
-import { cn } from "@/lib/utils";
+import { cn, formatDate } from "@/lib/utils";
 import type { NewsItem } from "@/lib/types";
-
-function formatDate(dateStr: string): string {
-  return new Intl.DateTimeFormat("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  }).format(new Date(dateStr));
-}
 
 interface Props {
   item: NewsItem;

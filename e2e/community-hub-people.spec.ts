@@ -1,5 +1,6 @@
 import { expect, type Page } from "@playwright/test";
 import { test } from "./media/playwright";
+import { resolveRenderedImageKitUrl } from "./media/imagekit-url.mjs";
 import { announcementCampaign } from "../src/data/announcements";
 import { uccHubRoster } from "../src/data/community-hubs";
 
@@ -64,7 +65,7 @@ for (const scenario of [
         name: "The People Who Make Service Possible",
       }),
     ).toBeVisible();
-    await expect(leadership.locator("[data-hub-leader]")).toHaveCount(18);
+    await expect(leadership.locator("[data-hub-leader]")).toHaveCount(19);
     await expect(
       volunteers.locator("[data-volunteer-portrait-trigger]"),
     ).toHaveCount(8);
@@ -106,7 +107,7 @@ for (const scenario of [
     await expect(firstLeaderImage).toHaveAttribute("loading", "lazy");
     const firstLeaderSrc = await firstLeaderImage.getAttribute("src");
     expect(firstLeaderSrc).not.toBeNull();
-    const firstLeaderUrl = new URL(firstLeaderSrc!);
+    const firstLeaderUrl = resolveRenderedImageKitUrl(firstLeaderSrc!);
     expect(firstLeaderUrl.protocol).toBe("https:");
     expect(firstLeaderUrl.hostname).toBe("ik.imagekit.io");
     expect(firstLeaderUrl.pathname).toMatch(/^\/[^/]+\/ucc-team\/[^/]+$/);
@@ -161,10 +162,10 @@ test("volunteer dialog supports keyboard focus, Escape, backdrop close, and scro
     .toBe("hidden");
 
   await page.keyboard.press("ArrowRight");
-  await expect(dialog.getByText("Portrait 2 of 36")).toBeAttached();
+  await expect(dialog.getByText("Portrait 2 of 16")).toBeAttached();
   await expect(dialog).toHaveAccessibleName("Our Volunteer Community");
   await page.keyboard.press("ArrowLeft");
-  await expect(dialog.getByText("Portrait 1 of 36")).toBeAttached();
+  await expect(dialog.getByText("Portrait 1 of 16")).toBeAttached();
   await page.keyboard.press("Tab");
   await expect(dialog.locator(":focus")).toHaveCount(1);
   await page.keyboard.press("Escape");
@@ -399,12 +400,9 @@ test("UCC volunteer triggers preserve the supplied ImageKit order", async ({
   await page.waitForLoadState("networkidle");
 
   const loadMore = page.getByRole("button", { name: "Load more volunteers" });
-  for (const expectedCount of [16, 24, 32, 36]) {
-    await loadMore.click();
-    await expect(
-      page.locator("[data-volunteer-portrait-trigger]"),
-    ).toHaveCount(expectedCount);
-  }
+  await expect(page.locator("[data-volunteer-portrait-trigger]")).toHaveCount(8);
+  await loadMore.click();
+  await expect(page.locator("[data-volunteer-portrait-trigger]")).toHaveCount(16);
   await expect(loadMore).toHaveCount(0);
 
   const ids = await page

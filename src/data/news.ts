@@ -70,6 +70,8 @@ export const news: News[] = [
       "The focus remains the same as it was from the start: technology that adapts to the clinic, not the other way around.",
     ],
     image: "/static/nkwapa/nkwapa-dashboard.webp",
+    imageWidth: 1600,
+    imageHeight: 900,
     imageAlt:
       "Nkwapa clinic dashboard for Akomapa Clinic - UCC, showing today's patient and visit counts, clinical measurement coverage, and a synced status indicator.",
     date: "2026-10-14",

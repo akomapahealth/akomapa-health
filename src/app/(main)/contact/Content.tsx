@@ -138,7 +138,7 @@ export default function Content() {
               </div>
             </div>
 
-            <div className="mt-6 h-64 overflow-hidden rounded-md border border-[#1C1F1E]/10 dark:border-[#FCFAEF]/15 sm:h-80 md:h-96">
+            <div className="mt-6 h-80 overflow-hidden rounded-md border border-[#1C1F1E]/10 dark:border-[#FCFAEF]/15 md:h-96">
               <LocationMap />
             </div>
           </FadeIn>

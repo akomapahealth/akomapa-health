@@ -6,6 +6,7 @@ import { FadeIn } from "@/components/animations";
 import ImmersionAlertSection from "@/components/immersion/ImmersionAlertSection";
 import ImmersionGoogleFormButton from "@/components/immersion/ImmersionGoogleFormButton";
 import ImmersionHeroMedia from "@/components/immersion/ImmersionHeroMedia";
+import { resolveImmersionHeroVideoSrcs } from "@/components/immersion/immersion-hero-video";
 import ImmersionPaymentSection from "@/components/immersion/ImmersionPaymentSection";
 import {
   PublicCta,
@@ -151,7 +152,7 @@ export default function Content() {
         className="relative isolate flex min-h-[max(700px,calc(100svh-7.75rem))] items-center overflow-hidden border-y border-[#FCFAEF]/12 bg-[#0F4C5C] text-[#FCFAEF]"
       >
         <ImmersionHeroMedia
-          videoSrc={images.hero.videoSrc}
+          {...resolveImmersionHeroVideoSrcs(images.hero.videoSrc)}
           posterSrc={images.hero.src}
           posterAlt={images.hero.alt}
           posterPosition={images.hero.position}

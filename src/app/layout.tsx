@@ -12,8 +12,7 @@ import DeferredGlobalWidgets from '@/components/global/DeferredGlobalWidgets';
 import { THEME_STORAGE_KEY } from '@/config/storage-keys';
 import {
   DEFAULT_DESCRIPTION,
-  DEFAULT_OG_IMAGE,
-  DEFAULT_OG_IMAGE_ALT,
+  defaultSocialImage,
   DEFAULT_TITLE,
   SITE_NAME,
   SITE_URL,
@@ -95,25 +94,15 @@ export const metadata: Metadata = {
     title: DEFAULT_TITLE,
     description: DEFAULT_DESCRIPTION,
     siteName: SITE_NAME,
-    images: [
-      {
-        url: DEFAULT_OG_IMAGE,
-        width: 1200,
-        height: 630,
-        alt: DEFAULT_OG_IMAGE_ALT,
-      },
-    ],
+    // Routes without their own metadata get the generated brand card, never
+    // the homepage screenshot, so a page can't masquerade as the homepage.
+    images: [defaultSocialImage()],
   },
   twitter: {
     card: 'summary_large_image',
     title: DEFAULT_TITLE,
     description: DEFAULT_DESCRIPTION,
-    images: [
-      {
-        url: DEFAULT_OG_IMAGE,
-        alt: DEFAULT_OG_IMAGE_ALT,
-      },
-    ],
+    images: [{ url: defaultSocialImage().url, alt: defaultSocialImage().alt }],
   },
 };
 

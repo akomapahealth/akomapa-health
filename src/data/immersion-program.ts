@@ -100,7 +100,7 @@ export const immersionProgram: ImmersionProgramContent = {
       description:
         "Work alongside local teams on priorities shaped by the communities they serve.",
       image: {
-        src: "/highlights/Akomapa-40.jpg",
+        src: "/ug-team/ug-chapter/ug-chapter-29.jpg",
         alt: "Akomapa volunteers gathered together in a Ghanaian community",
         position: "center",
       },
@@ -120,7 +120,7 @@ export const immersionProgram: ImmersionProgramContent = {
       description:
         "Explore trust, power, sustainability, and responsibility through mentored discussion and reflection.",
       image: {
-        src: "/gallery/gallery-pic-2.jpg",
+        src: "/ug-team/ug-chapter/ug-chapter-11.jpg",
         alt: "Students participating in a facilitated leadership discussion",
         position: "center",
       },
@@ -188,7 +188,7 @@ export const immersionProgram: ImmersionProgramContent = {
       position: "center",
     },
     overview: {
-      src: "/highlights/Akomapa-17.jpg",
+      src: "/ug-team/ug-chapter/ug-chapter-55.jpg",
       alt: "Students examining and screening a patient",
       position: "center",
     },

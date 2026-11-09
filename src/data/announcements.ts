@@ -8,17 +8,11 @@ import type {
   AnnouncementCampaign,
   DatedAnnouncement,
 } from "@/lib/types";
+import { formatDate } from "@/lib/utils";
 
 export const ANNOUNCEMENT_LIFETIME_DAYS = 14;
 const ANNOUNCEMENT_LIFETIME_MS =
   ANNOUNCEMENT_LIFETIME_DAYS * 24 * 60 * 60 * 1000;
-
-const announcementDateFormatter = new Intl.DateTimeFormat("en-US", {
-  month: "long",
-  day: "numeric",
-  year: "numeric",
-  timeZone: "UTC",
-});
 
 export const announcementCampaign: AnnouncementCampaign = {
   version: "2026-10-plos-publication-v1",
@@ -216,8 +210,5 @@ export function getActiveAnnouncementCampaign(
 }
 
 export function formatAnnouncementDate(publishedAt: string): string {
-  const date = new Date(publishedAt);
-  return Number.isFinite(date.getTime())
-    ? announcementDateFormatter.format(date)
-    : "";
+  return Number.isFinite(Date.parse(publishedAt)) ? formatDate(publishedAt) : "";
 }

@@ -6,6 +6,7 @@ import {
   executiveLeadership,
   getPersonById,
   getPersonBySlug,
+  internationalLeadership,
   people,
   teamDepartments,
   teamHeroPeople,
@@ -30,12 +31,19 @@ describe("canonical people directory", () => {
       ["Brian Amu Fleischer, MD", "Founder & President"],
       ["Esi Bon Berkoh", "Vice President & Co-Founder"],
       ["Afriyie Badu, MD", "Chief Operations Officer & Co-Founder"],
-      ["Hafiz Shaban", "Country Manager"],
-      ["Getwell Essuman", "Country Manager"],
+    ]);
+    expect(internationalLeadership.map(({ name, title }) => [name, title])).toEqual([
+      ["Hafiz Shaban", "Country Manager (Ghana)"],
+      ["Getwell Ebiram Essuman", "Country Manager (Ghana)"],
     ]);
     expect(teamDepartments.map(({ name, members }) => [name, members.map(({ name: memberName }) => memberName)])).toEqual(expectedDepartments);
     expect(advisoryBoardMembers).toHaveLength(8);
-    const renderedIds = [...executiveLeadership, ...teamDepartments.flatMap(({ members }) => members), ...advisoryBoardMembers].map(({ id }) => id);
+    const renderedIds = [
+      ...executiveLeadership,
+      ...internationalLeadership,
+      ...teamDepartments.flatMap(({ members }) => members),
+      ...advisoryBoardMembers,
+    ].map(({ id }) => id);
     expect(new Set(renderedIds).size).toBe(renderedIds.length);
   });
 
@@ -113,6 +121,7 @@ const validConfig = (): TeamDirectoryConfig => ({
   people: [profile("leader", { slug: "leader", featuredInTeamHero: true }), profile("member")],
   departments: [{ id: "education", name: "Education" }, { id: "empty", name: "Empty" }],
   executiveLeadership: [{ personId: "leader", title: "President" }],
+  internationalLeadership: [],
   departmentMemberships: [{ departmentId: "education", personId: "member", title: "Lead" }],
   advisoryBoard: [],
 });

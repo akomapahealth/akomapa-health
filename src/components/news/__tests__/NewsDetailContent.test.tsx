@@ -11,6 +11,8 @@ function makeItem(overrides: Partial<NewsItem> = {}): NewsItem {
     content: ["First paragraph body.", "Second paragraph body."],
     image: "/test/news.jpg",
     imageAlt: null,
+    imageWidth: null,
+    imageHeight: null,
     videoUrl: null,
     thumbnail: null,
     date: "2026-04-30",

@@ -1,9 +1,11 @@
 import { expect, type Page } from "@playwright/test";
 import { test } from "./media/playwright";
+import { resolveRenderedImageKitUrl } from "./media/imagekit-url.mjs";
 import { announcementCampaign } from "../src/data/announcements";
 import {
   advisoryBoardMembers,
   executiveLeadership,
+  internationalLeadership,
   teamDepartments,
   teamHeroPeople,
 } from "../src/data/team";
@@ -32,17 +34,18 @@ test.describe("team directory hierarchy", () => {
 
   test("renders the canonical groups in the approved order", async ({ page }) => {
     const sections = page.locator("[data-team-section]");
-    await expect(sections).toHaveCount(3);
+    await expect(sections).toHaveCount(4);
     await expect
       .poll(() =>
         sections.evaluateAll((elements) =>
           elements.map((element) => element.getAttribute("data-team-section")),
         ),
       )
-      .toEqual(["executive", "departments", "advisor"]);
+      .toEqual(["executive", "international", "departments", "advisor"]);
 
     const expectedGroups = [
       ["executive", "executive", executiveLeadership.length, "Executive Leadership"],
+      ["international", "international", internationalLeadership.length, "International"],
       ["departments", "member", teamDepartments.flatMap(({ members }) => members).length, "Our Departments"],
       ["advisor", "advisor", advisoryBoardMembers.length, "Advisory Board"],
     ] as const;
@@ -68,12 +71,12 @@ test.describe("team directory hierarchy", () => {
     for (const hubOnlyName of ["David Ofosu", "Divina Selase Afenyo"]) {
       await expect(page.locator(`[data-team-member="${hubOnlyName}"]`)).toHaveCount(0);
     }
-    for (const countryManager of ["Hafiz Shaban", "Getwell Essuman"]) {
+    for (const countryManager of ["Hafiz Shaban", "Getwell Ebiram Essuman"]) {
       const card = page.locator(`[data-team-member="${countryManager}"]`);
       await expect(card).toHaveCount(1);
       await card.scrollIntoViewIfNeeded();
-      await expect(card).toHaveAttribute("data-team-role-category", "executive");
-      await expect(card.getByText("Country Manager", { exact: true })).toBeVisible();
+      await expect(card).toHaveAttribute("data-team-role-category", "international");
+      await expect(card.getByText("Country Manager (Ghana)", { exact: true })).toBeVisible();
     }
     await expect(page.locator('[data-team-member="Wilfred Obeng"]')).toHaveCount(1);
     await expect(page.locator("[data-team-node-portrait]")).toHaveCount(22);
@@ -92,7 +95,7 @@ test.describe("team directory hierarchy", () => {
     const jadePortrait = page.locator(
       '[data-team-node-portrait="executive-jade-kissi"] img',
     );
-    const jadePortraitUrl = new URL((await jadePortrait.getAttribute("src"))!);
+    const jadePortraitUrl = resolveRenderedImageKitUrl((await jadePortrait.getAttribute("src"))!);
     expect(jadePortraitUrl.pathname).toMatch(/\/images\/team\/jade_kissi\.heif$/);
     expect(jadePortraitUrl.searchParams.get("tr")).toMatch(
       /(?:^|,)f-auto(?:,|$)/,
@@ -107,7 +110,7 @@ test.describe("team directory hierarchy", () => {
     await darrenCard.scrollIntoViewIfNeeded();
 
     const darrenPortrait = darrenCard.locator("[data-team-portrait] img");
-    const darrenPortraitUrl = new URL(
+    const darrenPortraitUrl = resolveRenderedImageKitUrl(
       (await darrenPortrait.getAttribute("src"))!,
     );
     expect(darrenPortraitUrl.pathname).toMatch(

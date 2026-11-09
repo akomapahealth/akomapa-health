@@ -17,9 +17,20 @@ test("verified E2E builds use the public portrait CDN, not a placeholder", async
     ".github/workflows/ci.yml",
     ".github/workflows/e2e-tests.yml",
   ]) {
-    const endpoints = imageKitEndpoints(await readRepoFile(workflowPath));
+    const workflow = await readRepoFile(workflowPath);
+    const endpoints = imageKitEndpoints(workflow);
     // E2E reuses this build: NEXT_PUBLIC_* values cannot be fixed at server start.
     assert.deepEqual(endpoints, ["https://ik.imagekit.io/akomapa"], workflowPath);
+    assert.match(
+      workflow,
+      /VERCEL_ENV:\s*production/,
+      `${workflowPath} must bake CDN URLs (USE_FIXTURES=0) for the verified E2E artifact`,
+    );
+    assert.match(
+      workflow,
+      /NEXT_PUBLIC_IMAGEKIT_USE_FIXTURES:\s*"0"/,
+      `${workflowPath} must explicitly bake USE_FIXTURES=0 into the verified E2E artifact`,
+    );
   }
 });
 
@@ -46,3 +57,20 @@ test("Lighthouse isolates ImageKit unless explicitly opted out", async () => {
   assert.match(script, /connectOverCDP/);
   assert.match(script, /localMediaFixture/);
 });
+
+test("CI E2E and real-media start keep production ImageKit URLs", async () => {
+  const ci = await readRepoFile(".github/workflows/ci.yml");
+  const playwright = await readRepoFile("playwright.config.ts");
+
+  assert.match(
+    ci,
+    /name: Run real ImageKit media check[\s\S]*?VERCEL_ENV:\s*production[\s\S]*?NEXT_PUBLIC_IMAGEKIT_USE_FIXTURES:\s*"0"/,
+  );
+  assert.match(
+    ci,
+    /name: Run end-to-end tests[\s\S]*?VERCEL_ENV:\s*production[\s\S]*?NEXT_PUBLIC_IMAGEKIT_USE_FIXTURES:\s*"0"/,
+  );
+  assert.match(playwright, /VERCEL_ENV: 'production'/);
+  assert.match(playwright, /NEXT_PUBLIC_IMAGEKIT_USE_FIXTURES: '0'/);
+});
+

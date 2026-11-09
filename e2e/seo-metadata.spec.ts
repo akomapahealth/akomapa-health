@@ -86,7 +86,7 @@ test.describe("SEO metadata", () => {
     expect(robotsText).toContain(`Sitemap: ${canonicalOrigin}/sitemap.xml`);
   });
 
-  test("uses the homepage screenshot as the default social share image", async ({
+  test("uses the homepage screenshot for the homepage only", async ({
     page,
   }) => {
     await page.goto("/", { waitUntil: "domcontentloaded" });
@@ -124,9 +124,11 @@ test.describe("SEO metadata", () => {
       waitUntil: "domcontentloaded",
     });
 
+    // The cover lives on ImageKit, not in public/, so the share image must be
+    // the CDN crop. The site-origin URL was a 404 for crawlers.
     await expect(page.locator('meta[property="og:image"]')).toHaveAttribute(
       "content",
-      `${canonicalOrigin}/highlights/Akomapa-20.jpg`,
+      /^https:\/\/ik\.imagekit\.io\/akomapa\/highlights\/Akomapa-20\.jpg\?tr=w-1200/,
     );
     await expect(page.locator('meta[property="og:image"]')).not.toHaveAttribute(
       "content",
@@ -138,5 +140,91 @@ test.describe("SEO metadata", () => {
     await page.goto("/faculty", { waitUntil: "domcontentloaded" });
 
     await expect(page).toHaveURL(/\/about\/team$/);
+  });
+
+  test("gives representative pages distinct, relevant share images and copy", async ({
+    page,
+    request,
+  }) => {
+    const routes = [
+      { path: "/", kind: "homepage screenshot" },
+      { path: "/about", kind: "curated photo" },
+      { path: "/community-hubs/ug", kind: "curated photo" },
+      { path: "/privacy", kind: "generated card" },
+      { path: "/programs/akomapa-foods", kind: "generated card" },
+      { path: "/global-health-immersion-program/payment-terms", kind: "generated card" },
+      { path: "/research/stakeholder-support-student-run-free-clinics-ghana", kind: "curated photo" },
+      { path: "/news/nkwapa-emr-launch", kind: "curated photo" },
+      { path: "/blog/what-ethical-leadership-means-to-me", kind: "curated photo" },
+    ];
+
+    const seen = new Map<string, { title: string; description: string; image: string; url: string }>();
+
+    for (const { path, kind } of routes) {
+      await page.goto(path, { waitUntil: "domcontentloaded" });
+      const read = (selector: string) =>
+        page.locator(selector).getAttribute("content");
+
+      const title = (await read('meta[property="og:title"]')) ?? "";
+      const description = (await read('meta[property="og:description"]')) ?? "";
+      const image = (await read('meta[property="og:image"]')) ?? "";
+      const imageAlt = (await read('meta[property="og:image:alt"]')) ?? "";
+      const url = (await read('meta[property="og:url"]')) ?? "";
+      const twitterImage = (await read('meta[name="twitter:image"]')) ?? "";
+      const twitterTitle = (await read('meta[name="twitter:title"]')) ?? "";
+
+      expect(url, path).toBe(`${canonicalOrigin}${path === "/" ? "" : path}`);
+      expect(image, path).toMatch(/^https:\/\//);
+      expect(twitterImage, path).toBe(image);
+      expect(twitterTitle, path).toBe(title);
+      expect(imageAlt.length, path).toBeGreaterThan(10);
+
+      if (path === "/") {
+        expect(image).toBe(defaultOgImage);
+      } else {
+        expect(image, `${path} must not inherit the homepage screenshot`).not.toBe(defaultOgImage);
+      }
+      if (kind === "generated card") {
+        expect(image, path).toMatch(/^https:\/\/akomapa\.org\/og\/.+\.png$/);
+        // The card is served by this deployment; fetch it through the local origin.
+        const local = image.replace(canonicalOrigin, "");
+        const card = await request.get(local);
+        expect(card.status(), `${path} card ${local}`).toBe(200);
+        expect(card.headers()["content-type"], path).toBe("image/png");
+      }
+
+      seen.set(path, { title, description, image, url });
+    }
+
+    // Every route is distinct on every axis that share surfaces display.
+    for (const field of ["title", "description", "image", "url"] as const) {
+      const values = [...seen.values()].map((v) => v[field]);
+      expect(new Set(values).size, `duplicate og:${field}`).toBe(values.length);
+    }
+  });
+
+  test("serves generated cards only for data-backed keys", async ({ request }) => {
+    const known = await request.get("/og/static/about.png");
+    expect(known.status()).toBe(200);
+    expect(known.headers()["content-type"]).toBe("image/png");
+
+    for (const path of ["/og/static/evil.png", "/og/blog/phishing.png", "/og/static/about"]) {
+      const response = await request.get(path);
+      expect(response.status(), path).toBe(404);
+    }
+  });
+
+  test("presents noindex routes honestly instead of as the homepage", async ({ page }) => {
+    await page.goto("/sentry-example-page", { waitUntil: "domcontentloaded" });
+    await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/);
+    await expect(page.locator('meta[property="og:title"]')).toHaveAttribute(
+      "content",
+      "Sentry Diagnostics | Akomapa Health",
+    );
+    await expect(page.locator('meta[property="og:image"]')).toHaveAttribute(
+      "content",
+      `${canonicalOrigin}/og/default.png`,
+    );
+    await expect(page.locator('link[rel="canonical"]')).toHaveCount(0);
   });
 });

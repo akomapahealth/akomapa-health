@@ -20,6 +20,7 @@ import {
 import { getNewsOnlyItems } from "@/data/unified-news";
 import { getAnnouncementPosterSrc } from "@/lib/video-utils";
 import { motionDurations } from "@/lib/motion/tokens";
+import { formatDate } from "@/lib/utils";
 
 const allItems = getNewsOnlyItems();
 
@@ -27,14 +28,6 @@ const categories = [
   "All",
   ...Array.from(new Set(allItems.map((item) => item.category))),
 ];
-
-function formatNewsDate(dateStr: string): string {
-  return new Intl.DateTimeFormat("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  }).format(new Date(dateStr));
-}
 
 export default function NewsCategoryListing() {
   const [activeCategory, setActiveCategory] = useState("All");
@@ -110,7 +103,7 @@ export default function NewsCategoryListing() {
                       ? [
                           {
                             label: "Published",
-                            value: formatNewsDate(item.date),
+                            value: formatDate(item.date),
                             dateTime: item.date,
                           },
                         ]
