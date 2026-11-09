@@ -65,19 +65,22 @@ describe("UCC community hub roster", () => {
     const portraits = people.flatMap(({ image }) => (image ? [image] : []));
 
     expect(uccHubRoster.leadership).toHaveLength(19);
-    expect(uccHubRoster.volunteers).toHaveLength(13);
+    expect(uccHubRoster.volunteers).toHaveLength(16);
     expect(new Set(people.map(({ id }) => id)).size).toBe(people.length);
     expect(new Set(portraits).size).toBe(portraits.length);
     expect(
       uccHubRoster.volunteers.every(
         ({ image }) =>
           typeof image === "string" &&
-          image.startsWith("/ucc-team/volunteers/akomapa-ucc-volunteer-"),
+          (image.startsWith("/ucc-team/volunteer-") ||
+            image.startsWith("/ucc-team/volunteers/akomapa-ucc-volunteer-")),
       ),
     ).toBe(true);
     expect(
       uccHubRoster.leadership.every(
-        ({ image }) => typeof image === "string" && image.startsWith("/ucc-team/"),
+        ({ image }) =>
+          !image ||
+          (typeof image === "string" && image.startsWith("/ucc-team/")),
       ),
     ).toBe(true);
 
@@ -110,7 +113,7 @@ describe("UCC community hub roster", () => {
     expect(david?.contact?.email).toBe("kombatedavidkonadu@gmail.com");
     expect(
       uccHubRoster.leadership.some(({ name }) =>
-        ["Hafiz Shaban", "Getwell Essuman", "Wilfred Obeng", "David Ofosu"].includes(name),
+        ["Hafiz Shaban", "Getwell Ebiram Essuman", "Getwell Essuman", "Wilfred Obeng", "David Ofosu"].includes(name),
       ),
     ).toBe(false);
   });

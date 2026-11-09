@@ -162,10 +162,10 @@ test("volunteer dialog supports keyboard focus, Escape, backdrop close, and scro
     .toBe("hidden");
 
   await page.keyboard.press("ArrowRight");
-  await expect(dialog.getByText("Portrait 2 of 13")).toBeAttached();
+  await expect(dialog.getByText("Portrait 2 of 16")).toBeAttached();
   await expect(dialog).toHaveAccessibleName("Our Volunteer Community");
   await page.keyboard.press("ArrowLeft");
-  await expect(dialog.getByText("Portrait 1 of 13")).toBeAttached();
+  await expect(dialog.getByText("Portrait 1 of 16")).toBeAttached();
   await page.keyboard.press("Tab");
   await expect(dialog.locator(":focus")).toHaveCount(1);
   await page.keyboard.press("Escape");
@@ -402,7 +402,7 @@ test("UCC volunteer triggers preserve the supplied ImageKit order", async ({
   const loadMore = page.getByRole("button", { name: "Load more volunteers" });
   await expect(page.locator("[data-volunteer-portrait-trigger]")).toHaveCount(8);
   await loadMore.click();
-  await expect(page.locator("[data-volunteer-portrait-trigger]")).toHaveCount(13);
+  await expect(page.locator("[data-volunteer-portrait-trigger]")).toHaveCount(16);
   await expect(loadMore).toHaveCount(0);
 
   const ids = await page
