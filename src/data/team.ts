@@ -243,10 +243,14 @@ const canonicalPeople: PersonProfile[] = [
   },
   {
     id: "member-getwell-essuman",
-    name: "Getwell Essuman",
-    affiliation: "Medical Laboratory Science Student, University of Cape Coast",
+    name: "Getwell Ebiram Essuman",
+    affiliation: "Medical Laboratory Scientist, University of Cape Coast",
     image: "/ucc-team/getwell_ebiram_essuman.jpg",
-    bio: "Getwell Essuman is a medical laboratory science student at the University of Cape Coast and Country Manager at Akomapa Health. He helps students find clear ways to contribute to community health programs.",
+    socialLinks: {
+      email: "getwell.essuman@stu.ucc.edu.gh",
+      linkedin: "https://www.linkedin.com/in/getwellebiramessuman",
+    },
+    bio: "Getwell is a Medical Laboratory Science graduate with a strong interest in biomedical research and ethical leadership. He is passionate about advancing biomedical science through innovative research, and approaches to disease diagnosis and treatment, while promoting community health and mentoring future healthcare professionals.",
   },
   {
     id: "member-osei-kwarkye-bonsu-tony",
@@ -300,7 +304,6 @@ const canonicalPeople: PersonProfile[] = [
     id: "member-araba-nyakoa-amartey",
     name: "Araba Nyakoa Amartey",
     affiliation: "Medical Student, University of Cape Coast",
-    image: "/ucc-team/araba-amartey.jpg",
     socialLinks: { email: "nyakoaana@gmail.com" },
     bio: "Araba Nyakoa Amartey is a medical student at the University of Cape Coast, interested in using research to understand and address health needs in underserved communities.",
   },
@@ -380,7 +383,6 @@ const canonicalPeople: PersonProfile[] = [
     id: "member-beatrice-edinam-tsikata",
     name: "Beatrice Edinam Tsikata",
     affiliation: "Nutrition Student, University of Cape Coast",
-    image: "/ucc-team/beatrice-edinam-tsikata.jpg",
     socialLinks: { email: "tsikatahbeatriceedinam@gmail.com" },
     bio: "Beatrice Edinam Tsikata is a nutrition student and aspiring public health nutritionist, with interests in health promotion, disease prevention, and community development, and a commitment to using nutrition knowledge and volunteerism to support healthier communities.",
   },
@@ -396,7 +398,6 @@ const canonicalPeople: PersonProfile[] = [
     id: "member-queenster-opoku-aduse",
     name: "Queenster Opoku Aduse",
     affiliation: "University of Cape Coast",
-    image: "/ucc-team/queenster-opoku-aduse.jpg",
     bio: "Queenster Opoku Aduse serves as Logistics and Supplies Manager for the Akomapa–UCC Community Health Hub, helping keep clinic operations stocked and running smoothly for community outreach.",
   },
 

@@ -230,70 +230,85 @@ export const uccHubRoster: HubRoster = {
   leadership: resolveHubLeadership(uccLeadershipConfig),
   volunteers: [
     {
+      id: "ucc-volunteer-extra-1",
+      image: "/ucc-team/volunteer-1.jpg",
+      alt: "UCC Community Hub volunteer portrait 1 of 16",
+    },
+    {
+      id: "ucc-volunteer-extra-2",
+      image: "/ucc-team/volunteer-2.jpg",
+      alt: "UCC Community Hub volunteer portrait 2 of 16",
+    },
+    {
+      id: "ucc-volunteer-extra-3",
+      image: "/ucc-team/volunteer-3.jpg",
+      alt: "UCC Community Hub volunteer portrait 3 of 16",
+    },
+    {
       id: "ucc-volunteer-1",
       image: "/ucc-team/volunteers/akomapa-ucc-volunteer-1.jpg",
-      alt: "UCC Community Hub volunteer portrait 1 of 13",
+      alt: "UCC Community Hub volunteer portrait 4 of 16",
     },
     {
       id: "ucc-volunteer-2",
       image: "/ucc-team/volunteers/akomapa-ucc-volunteer-2.jpg",
-      alt: "UCC Community Hub volunteer portrait 2 of 13",
+      alt: "UCC Community Hub volunteer portrait 5 of 16",
     },
     {
       id: "ucc-volunteer-3",
       image: "/ucc-team/volunteers/akomapa-ucc-volunteer-3.jpg",
-      alt: "UCC Community Hub volunteer portrait 3 of 13",
+      alt: "UCC Community Hub volunteer portrait 6 of 16",
     },
     {
       id: "ucc-volunteer-4",
       image: "/ucc-team/volunteers/akomapa-ucc-volunteer-4.jpg",
-      alt: "UCC Community Hub volunteer portrait 4 of 13",
+      alt: "UCC Community Hub volunteer portrait 7 of 16",
     },
     {
       id: "ucc-volunteer-5",
       image: "/ucc-team/volunteers/akomapa-ucc-volunteer-5.jpg",
-      alt: "UCC Community Hub volunteer portrait 5 of 13",
+      alt: "UCC Community Hub volunteer portrait 8 of 16",
     },
     {
       id: "ucc-volunteer-6",
       image: "/ucc-team/volunteers/akomapa-ucc-volunteer-6.jpg",
-      alt: "UCC Community Hub volunteer portrait 6 of 13",
+      alt: "UCC Community Hub volunteer portrait 9 of 16",
     },
     {
       id: "ucc-volunteer-7",
       image: "/ucc-team/volunteers/akomapa-ucc-volunteer-7.jpg",
-      alt: "UCC Community Hub volunteer portrait 7 of 13",
+      alt: "UCC Community Hub volunteer portrait 10 of 16",
     },
     {
       id: "ucc-volunteer-8",
       image: "/ucc-team/volunteers/akomapa-ucc-volunteer-8.jpg",
-      alt: "UCC Community Hub volunteer portrait 8 of 13",
+      alt: "UCC Community Hub volunteer portrait 11 of 16",
     },
     {
       id: "ucc-volunteer-9",
       image: "/ucc-team/volunteers/akomapa-ucc-volunteer-9.jpg",
-      alt: "UCC Community Hub volunteer portrait 9 of 13",
+      alt: "UCC Community Hub volunteer portrait 12 of 16",
     },
     {
       id: "ucc-volunteer-10",
       image: "/ucc-team/volunteers/akomapa-ucc-volunteer-10.jpg",
-      alt: "UCC Community Hub volunteer portrait 10 of 13",
+      alt: "UCC Community Hub volunteer portrait 13 of 16",
     },
     {
       id: "ucc-volunteer-11",
       image: "/ucc-team/volunteers/akomapa-ucc-volunteer-11.jpg",
-      alt: "UCC Community Hub volunteer portrait 11 of 13",
+      alt: "UCC Community Hub volunteer portrait 14 of 16",
     },
     {
       id: "ucc-volunteer-12",
       image: "/ucc-team/volunteers/akomapa-ucc-volunteer-12.jpg",
-      alt: "UCC Community Hub volunteer portrait 12 of 13",
+      alt: "UCC Community Hub volunteer portrait 15 of 16",
     },
     {
       id: "ucc-volunteer-13",
       image: "/ucc-team/volunteers/akomapa-ucc-volunteer-13.jpg",
-      alt: "UCC Community Hub volunteer portrait 13 of 13",
-    }
+      alt: "UCC Community Hub volunteer portrait 16 of 16",
+    },
   ],
 };
 

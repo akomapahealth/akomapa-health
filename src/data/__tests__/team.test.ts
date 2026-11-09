@@ -34,7 +34,7 @@ describe("canonical people directory", () => {
     ]);
     expect(internationalLeadership.map(({ name, title }) => [name, title])).toEqual([
       ["Hafiz Shaban", "Country Manager (Ghana)"],
-      ["Getwell Essuman", "Country Manager (Ghana)"],
+      ["Getwell Ebiram Essuman", "Country Manager (Ghana)"],
     ]);
     expect(teamDepartments.map(({ name, members }) => [name, members.map(({ name: memberName }) => memberName)])).toEqual(expectedDepartments);
     expect(advisoryBoardMembers).toHaveLength(8);

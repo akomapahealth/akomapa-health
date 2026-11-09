@@ -71,7 +71,7 @@ test.describe("team directory hierarchy", () => {
     for (const hubOnlyName of ["David Ofosu", "Divina Selase Afenyo"]) {
       await expect(page.locator(`[data-team-member="${hubOnlyName}"]`)).toHaveCount(0);
     }
-    for (const countryManager of ["Hafiz Shaban", "Getwell Essuman"]) {
+    for (const countryManager of ["Hafiz Shaban", "Getwell Ebiram Essuman"]) {
       const card = page.locator(`[data-team-member="${countryManager}"]`);
       await expect(card).toHaveCount(1);
       await card.scrollIntoViewIfNeeded();

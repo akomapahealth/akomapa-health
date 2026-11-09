@@ -79,7 +79,7 @@ describe("TeamPageContent", () => {
     ).toBeInTheDocument();
     expect(screen.queryByRole("heading", { name: "David Ofosu" })).not.toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "Hafiz Shaban" })).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: "Getwell Essuman" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Getwell Ebiram Essuman" })).toBeInTheDocument();
     expect(screen.getAllByText("Country Manager (Ghana)", { exact: true })).toHaveLength(2);
   });
 

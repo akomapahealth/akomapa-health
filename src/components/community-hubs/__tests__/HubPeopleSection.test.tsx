@@ -432,7 +432,7 @@ describe("HubPeopleSection", () => {
     await user.click(loadMore);
     expect(
       volunteers.querySelectorAll("[data-volunteer-portrait-trigger]"),
-    ).toHaveLength(13);
+    ).toHaveLength(16);
     expect(
       within(volunteers).queryByRole("button", {
         name: "Load more volunteers",
@@ -441,7 +441,7 @@ describe("HubPeopleSection", () => {
 
     await user.click(
       within(volunteers).getByRole("button", {
-        name: "View volunteer portrait 1 of 13",
+        name: "View volunteer portrait 1 of 16",
       }),
     );
     const dialog = await screen.findByRole("dialog", {
@@ -453,17 +453,17 @@ describe("HubPeopleSection", () => {
         name: "View next volunteer portrait",
       }),
     );
-    expect(within(dialog).getByText("Portrait 2 of 13")).toBeVisible();
+    expect(within(dialog).getByText("Portrait 2 of 16")).toBeVisible();
 
     await user.keyboard("{ArrowLeft}");
-    expect(within(dialog).getByText("Portrait 1 of 13")).toBeVisible();
+    expect(within(dialog).getByText("Portrait 1 of 16")).toBeVisible();
 
     await user.click(
       within(dialog).getByRole("button", {
         name: "View previous volunteer portrait",
       }),
     );
-    expect(within(dialog).getByText("Portrait 13 of 13")).toBeVisible();
+    expect(within(dialog).getByText("Portrait 16 of 16")).toBeVisible();
   });
 
   it("defaults volunteer portrait crop to center top in the grid and dialog", async () => {
