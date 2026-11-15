@@ -137,13 +137,6 @@ a:hover {
   @apply transition-colors duration-200;
 }
 
-button,
-input,
-textarea,
-select {
-  font: inherit;
-}
-
 /* Custom focus styles using standard CSS */
 :focus-visible {
   outline: 2px solid #eeba2b;
