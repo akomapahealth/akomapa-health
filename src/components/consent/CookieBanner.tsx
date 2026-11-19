@@ -9,12 +9,10 @@ import { MOTION_EASE, motionDurations } from "@/lib/motion/tokens";
 import { useCookieConsent } from "@/components/consent/ConsentProvider";
 import {
   consentBodyClassName,
-  consentButtonLabelClassName,
   consentChoiceButtonClassName,
   consentEyebrowClassName,
   consentSurfaceClassName,
   consentTextButtonClassName,
-  consentTextButtonLabelClassName,
 } from "@/components/consent/styles";
 
 type BannerPhase = "hidden" | "prompt" | "confirmed";
@@ -119,18 +117,14 @@ export default function CookieBanner() {
                   onClick={acceptOptional}
                   className={consentChoiceButtonClassName}
                 >
-                  <span className={consentButtonLabelClassName}>
-                    Accept optional cookies
-                  </span>
+                  Accept optional cookies
                 </button>
                 <button
                   type="button"
                   onClick={rejectOptional}
                   className={consentChoiceButtonClassName}
                 >
-                  <span className={consentButtonLabelClassName}>
-                    Reject optional cookies
-                  </span>
+                  Reject optional cookies
                 </button>
               </div>
 
@@ -141,9 +135,7 @@ export default function CookieBanner() {
                   onClick={openSettings}
                   className={consentTextButtonClassName}
                 >
-                  <span className={consentTextButtonLabelClassName}>
-                    Cookie settings
-                  </span>
+                  Cookie settings
                 </button>
                 <Link href="/cookie-policy" className={consentTextButtonClassName}>
                   Cookie Policy
@@ -176,9 +168,7 @@ export default function CookieBanner() {
                 onClick={() => setPhase("hidden")}
                 className={cn(consentChoiceButtonClassName, "sm:w-auto")}
               >
-                <span className={consentButtonLabelClassName}>
-                  Hide this message
-                </span>
+                Hide this message
               </button>
             </div>
           )}

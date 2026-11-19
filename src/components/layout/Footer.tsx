@@ -272,8 +272,7 @@ export default function Footer() {
               Cookie Policy
             </Link>
             <CookieSettingsButton
-              className={footerLinkClass}
-              labelClassName="font-body text-sm"
+              className={`font-body text-sm ${footerLinkClass}`}
             />
           </div>
         </div>
