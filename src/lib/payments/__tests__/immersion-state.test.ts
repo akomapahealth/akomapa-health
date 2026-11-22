@@ -46,6 +46,18 @@ describe("Immersion Stripe payment state", () => {
     expect(summarizeImmersionSessions([paid], email).stage).toBe("paid");
   });
 
+  it("tracks Valerie's new deposit and balance without accepting another amount", () => {
+    const deposit = session("cs_valerie_deposit", "deposit");
+    deposit.amount_total = 111_950;
+    deposit.metadata = { ...deposit.metadata, fee_total_cents: "223900" };
+    const balance = session("cs_valerie_balance", "balance");
+    balance.amount_total = 111_950;
+    balance.metadata = { ...balance.metadata, fee_total_cents: "223900", deposit_amount_cents: "111950", deposit_session_id: deposit.id };
+    expect(summarizeImmersionSessions([deposit], email)).toMatchObject({ stage: "balance", depositAmount: 111_950, depositTotalCents: 223_900 });
+    expect(summarizeImmersionSessions([deposit, balance], email).stage).toBe("paid");
+    expect(summarizeImmersionSessions([deposit, { ...balance, amount_total: 114_950 }], email).stage).toBe("balance");
+  });
+
   it("keeps live and sandbox payment histories separate", () => {
     const sandboxDeposit = session("cs_test_deposit", "deposit");
     const liveDeposit = { ...session("cs_live_deposit", "deposit"), livemode: true };

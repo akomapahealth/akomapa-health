@@ -82,16 +82,10 @@ export const immersionProgram: ImmersionProgramContent = {
   ],
   registration: [
     {
-      label: "Early registration",
-      price: "$2,499",
-      deadline: "October 1, 2026",
-      description: "By October 1, 2026",
-    },
-    {
-      label: "Regular registration",
-      price: "$2,799",
-      deadline: "November 1, 2026",
-      description: "By November 1, 2026",
+      label: "Program fee",
+      price: "$2,299",
+      deadline: "November 29, 2026",
+      description: "Selected applicants only; individual offers may vary.",
     },
   ],
   experiences: [

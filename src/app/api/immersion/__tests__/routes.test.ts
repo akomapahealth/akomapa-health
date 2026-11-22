@@ -42,7 +42,7 @@ beforeEach(() => {
   vi.stubEnv("FORM_NOTIFICATION_TO", "staff@example.com");
   listCustomers.mockResolvedValue({ data: [], has_more: false });
   listSessions.mockResolvedValue({ data: [], has_more: false });
-  retrieveCoupon.mockResolvedValue({ valid: true, amount_off: 49_900, currency: "usd", percent_off: null, livemode: false });
+  retrievePrice.mockResolvedValue({ active: true, currency: "usd", type: "one_time", livemode: false, product: "prod_immersion" });
 });
 afterEach(() => { vi.unstubAllEnvs(); vi.unstubAllGlobals(); vi.useRealTimers(); vi.clearAllMocks(); });
 
@@ -75,7 +75,7 @@ describe("Immersion invite routes", () => {
     expect(cookie).toContain("HttpOnly");
     expect(cookie).toContain("Secure");
     const lookup = await status(new NextRequest(`${base}/api/immersion/status`, { headers: { cookie } }));
-    expect(await lookup.json()).toEqual({ verified: true, firstName: "Test", paymentStage: "initial" });
+    expect(await lookup.json()).toMatchObject({ verified: true, firstName: "Test", paymentStage: "initial", totalCents: 229_900 });
     const denied = await status(new NextRequest(`${base}/api/immersion/status`));
     expect((await denied.json()).verified).toBe(false);
   });
@@ -93,7 +93,7 @@ describe("Immersion invite routes", () => {
     const cookie = response.headers.get("set-cookie") || "";
     expect(cookie).toContain("HttpOnly");
     const lookup = await status(new NextRequest(`${base}/api/immersion/status`, { headers: { cookie } }));
-    expect(await lookup.json()).toEqual({ verified: true, firstName: "Test", paymentStage: "initial" });
+    expect(await lookup.json()).toMatchObject({ verified: true, firstName: "Test", paymentStage: "initial", totalCents: 229_900 });
   });
 
   it("rejects unknown, disabled, and expired direct links without affecting email links", async () => {
@@ -126,14 +126,14 @@ describe("Immersion invite routes", () => {
     expect((await response.json()).url).toMatch(/^https:\/\/checkout\.stripe\.com\//);
     expect(createCustomer).toHaveBeenCalledWith(expect.objectContaining({ email: "test@example.com" }), expect.objectContaining({ idempotencyKey: expect.any(String) }));
     expect(createSession).toHaveBeenCalledWith(expect.objectContaining({
-      customer: "cus_test", line_items: [{ price: "price_deposit", quantity: 1 }],
+      customer: "cus_test", line_items: [{ price_data: { currency: "usd", unit_amount: 114_950, product: "prod_immersion" }, quantity: 1 }],
       payment_intent_data: { description: "Akomapa January 2027 Immersion Program — 50% deposit" },
       metadata: expect.objectContaining({ terms_version: IMMERSION_TERMS_VERSION }),
     }), expect.objectContaining({ idempotencyKey: expect.any(String) }));
     const fullResponse = await checkout(post("/api/immersion/checkout", { choice: "full" }, `${IMMERSION_COOKIE}=${token}`));
     expect(fullResponse.status).toBe(200);
     expect(createSession).toHaveBeenLastCalledWith(expect.objectContaining({
-      line_items: [{ price: "price_full", quantity: 1 }],
+      line_items: [{ price_data: { currency: "usd", unit_amount: 229_900, product: "prod_immersion" }, quantity: 1 }],
       payment_intent_data: { description: "Akomapa January 2027 Immersion Program — full fee" },
     }), expect.objectContaining({ idempotencyKey: expect.stringContaining("-initial-full-") }));
   });
@@ -145,39 +145,25 @@ describe("Immersion invite routes", () => {
     expect(createSession).not.toHaveBeenCalled();
   });
 
-  it("offers a selected scholarship recipient only the $2,000 full checkout", async () => {
+  it("offers Valerie equal halves of her individual $2,239 fee", async () => {
     vi.stubEnv("IMMERSION_SELECTED_PARTICIPANTS_JSON", JSON.stringify([
-      { name: "Scholarship Recipient", email: "test@example.com", scholarshipCents: 49_900 },
+      { name: "Valerie", email: "test@example.com", totalCents: 223_900 },
       { name: "Other Participant", email: "other@example.com" },
     ]));
-    vi.stubEnv("STRIPE_IMMERSION_SCHOLARSHIP_COUPON_ID", "coupon_scholarship");
     const token = signInviteToken("test@example.com", "session", secret, 60);
     const cookie = `${IMMERSION_COOKIE}=${token}`;
     const lookup = await status(new NextRequest(`${base}/api/immersion/status`, { headers: { cookie } }));
-    expect(await lookup.json()).toEqual({ verified: true, firstName: "Scholarship", paymentStage: "initial", scholarship: true });
-    expect((await checkout(post("/api/immersion/checkout", { choice: "deposit" }, cookie))).status).toBe(409);
+    expect(await lookup.json()).toMatchObject({ verified: true, firstName: "Valerie", totalCents: 223_900, depositCents: 111_950 });
+    expect((await checkout(post("/api/immersion/checkout", { choice: "deposit" }, cookie))).status).toBe(200);
+    expect(createSession.mock.lastCall?.[0]).toMatchObject({
+      line_items: [{ price_data: { currency: "usd", unit_amount: 111_950, product: "prod_immersion" }, quantity: 1 }],
+      metadata: { fee_total_cents: "223900" },
+    });
     expect((await checkout(post("/api/immersion/checkout", { choice: "full" }, cookie))).status).toBe(200);
-    expect(createSession).toHaveBeenCalledWith(expect.objectContaining({
-      line_items: [{ price: "price_full", quantity: 1 }],
-      discounts: [{ coupon: "coupon_scholarship" }],
-      metadata: expect.objectContaining({ scholarship_cents: "49900" }),
-    }), expect.objectContaining({ idempotencyKey: expect.stringContaining("-full-scholarship-") }));
-    expect(retrieveCoupon).toHaveBeenCalledWith("coupon_scholarship");
-    const otherToken = signInviteToken("other@example.com", "session", secret, 60);
-    expect((await checkout(post("/api/immersion/checkout", { choice: "full" }, `${IMMERSION_COOKIE}=${otherToken}`))).status).toBe(200);
-    expect(createSession.mock.lastCall?.[0]).not.toHaveProperty("discounts");
+    expect(createSession.mock.lastCall?.[0].line_items[0].price_data.unit_amount).toBe(223_900);
   });
 
-  it("does not open a scholarship checkout before its coupon is configured", async () => {
-    vi.stubEnv("IMMERSION_SELECTED_PARTICIPANTS_JSON", JSON.stringify([{ name: "Scholarship Recipient", email: "test@example.com", scholarshipCents: 49_900 }]));
-    const token = signInviteToken("test@example.com", "session", secret, 60);
-    expect((await checkout(post("/api/immersion/checkout", { choice: "full" }, `${IMMERSION_COOKIE}=${token}`))).status).toBe(503);
-    expect(createSession).not.toHaveBeenCalled();
-  });
-
-  it("expires an older standard checkout before opening the scholarship checkout", async () => {
-    vi.stubEnv("IMMERSION_SELECTED_PARTICIPANTS_JSON", JSON.stringify([{ name: "Scholarship Recipient", email: "test@example.com", scholarshipCents: 49_900 }]));
-    vi.stubEnv("STRIPE_IMMERSION_SCHOLARSHIP_COUPON_ID", "coupon_scholarship");
+  it("expires an older open checkout before using the new fee", async () => {
     listCustomers.mockResolvedValue({ data: [{ id: "cus_test", metadata: { program: "global-health-immersion" } }], has_more: false });
     const old = { id: "cs_old", status: "open", payment_status: "unpaid", livemode: false,
       mode: "payment", payment_link: null, metadata: { program: "global-health-immersion", payment_type: "full", selected_email: "test@example.com" },
@@ -189,17 +175,7 @@ describe("Immersion invite routes", () => {
     const response = await checkout(post("/api/immersion/checkout", { choice: "full" }, `${IMMERSION_COOKIE}=${token}`));
     expect(response.status).toBe(200);
     expect(expireSession).toHaveBeenCalledWith("cs_old");
-    expect(createSession).toHaveBeenCalledWith(expect.objectContaining({ discounts: [{ coupon: "coupon_scholarship" }] }), expect.any(Object));
-  });
-
-  it("rejects a scholarship coupon with the wrong amount before opening checkout", async () => {
-    vi.stubEnv("IMMERSION_SELECTED_PARTICIPANTS_JSON", JSON.stringify([{ name: "Scholarship Recipient", email: "test@example.com", scholarshipCents: 49_900 }]));
-    vi.stubEnv("STRIPE_IMMERSION_SCHOLARSHIP_COUPON_ID", "coupon_wrong");
-    retrieveCoupon.mockResolvedValueOnce({ valid: true, amount_off: 50_000, currency: "usd", percent_off: null, livemode: false });
-    vi.spyOn(console, "error").mockImplementation(() => {});
-    const token = signInviteToken("test@example.com", "session", secret, 60);
-    expect((await checkout(post("/api/immersion/checkout", { choice: "full" }, `${IMMERSION_COOKIE}=${token}`))).status).toBe(503);
-    expect(createSession).not.toHaveBeenCalled();
+    expect(createSession.mock.lastCall?.[0].line_items[0].price_data.unit_amount).toBe(229_900);
   });
 
   it("uses only a validated live Price and records accepted terms in production", async () => {
@@ -213,20 +189,20 @@ describe("Immersion invite routes", () => {
     vi.stubEnv("STRIPE_IMMERSION_LIVE_BALANCE_PRICE_ID", "price_live_balance");
     vi.stubEnv("STRIPE_IMMERSION_LIVE_WEBHOOK_SECRET", "whsec_live_fixture");
     vi.stubEnv("IMMERSION_LIVE_BASE_URL", "https://akomapa.org");
-    retrievePrice.mockResolvedValue({ active: true, currency: "usd", unit_amount: 124_950, type: "one_time", livemode: true });
+    retrievePrice.mockResolvedValue({ active: true, currency: "usd", type: "one_time", livemode: true, product: "prod_immersion" });
     const token = signInviteToken("test@example.com", "session", secret, 60);
     const cookie = `${IMMERSION_COOKIE}=${token}`;
     const response = await checkout(post("/api/immersion/checkout", { choice: "deposit" }, cookie));
     expect(response.status).toBe(200);
-    expect(retrievePrice).toHaveBeenCalledWith("price_live_deposit");
+    expect(retrievePrice).toHaveBeenCalledWith("price_live_full");
     expect(createSession).toHaveBeenCalledWith(expect.objectContaining({
-      line_items: [{ price: "price_live_deposit", quantity: 1 }],
+      line_items: [{ price_data: { currency: "usd", unit_amount: 114_950, product: "prod_immersion" }, quantity: 1 }],
       success_url: "https://akomapa.org/global-health-immersion-program?payment=success",
       metadata: expect.objectContaining({ terms_version: IMMERSION_TERMS_VERSION }),
       expires_at: expect.any(Number),
     }), expect.objectContaining({ idempotencyKey: expect.stringContaining("-initial-deposit-") }));
     createSession.mockClear();
-    retrievePrice.mockResolvedValueOnce({ active: true, currency: "usd", unit_amount: 100, type: "one_time", livemode: true });
+    retrievePrice.mockResolvedValueOnce({ active: true, currency: "eur", type: "one_time", livemode: true, product: "prod_immersion" });
     vi.spyOn(console, "error").mockImplementation(() => {});
     const invalid = await checkout(post("/api/immersion/checkout", { choice: "deposit" }, cookie));
     expect(invalid.status).toBe(503);
@@ -248,7 +224,7 @@ describe("Immersion invite routes", () => {
     expect(response.status).toBe(200);
     expect(createCustomer).not.toHaveBeenCalled();
     expect(createSession).toHaveBeenCalledWith(expect.objectContaining({
-      customer: "cus_test", line_items: [{ price: "price_balance", quantity: 1 }],
+      customer: "cus_test", line_items: [{ price_data: { currency: "usd", unit_amount: 104_950, product: "prod_immersion" }, quantity: 1 }],
       payment_intent_data: { description: "Akomapa January 2027 Immersion Program — remaining balance" },
       metadata: expect.objectContaining({ deposit_session_id: "cs_deposit" }),
     }), expect.any(Object));
@@ -259,8 +235,8 @@ describe("Immersion invite routes", () => {
     const cookie = `${IMMERSION_COOKIE}=${token}`;
     listCustomers.mockResolvedValue({ data: [{ id: "cus_test", metadata: { program: "global-health-immersion" } }], has_more: false });
     listSessions.mockResolvedValue({ data: [{ id: "cs_open", status: "open", payment_status: "unpaid", livemode: false,
-      mode: "payment", payment_link: null, metadata: { program: "global-health-immersion", payment_type: "deposit", selected_email: "test@example.com" },
-      amount_total: 124_950, currency: "usd", customer_details: { email: "test@example.com" }, customer: "cus_test",
+      mode: "payment", payment_link: null, metadata: { program: "global-health-immersion", payment_type: "deposit", selected_email: "test@example.com", fee_total_cents: "229900" },
+      amount_total: 114_950, currency: "usd", customer_details: { email: "test@example.com" }, customer: "cus_test",
       url: "https://checkout.stripe.com/c/pay/existing", expires_at: Math.floor(Date.now() / 1000) + 3600 }], has_more: false });
     const existing = await checkout(post("/api/immersion/checkout", { choice: "deposit" }, cookie));
     expect(await existing.json()).toEqual({ url: "https://checkout.stripe.com/c/pay/existing" });
