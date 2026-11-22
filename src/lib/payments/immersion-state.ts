@@ -20,7 +20,7 @@ export type ImmersionPaymentState = {
   depositSessionId?: string;
   depositAmount?: number;
   depositTotalCents?: number;
-  openSession?: { id: string; choice: ImmersionPaymentChoice; url: string; amount: number };
+  openSession?: { id: string; choice: ImmersionPaymentChoice; url: string; amount: number; termsVersion?: string };
   attemptNumber: number;
 };
 
@@ -82,7 +82,7 @@ export function summarizeImmersionSessions(sessions: SessionSummary[], email: st
     depositAmount: deposit?.session.amount_total ?? undefined,
     depositTotalCents: deposit?.session.metadata?.fee_total_cents ? Number(deposit.session.metadata.fee_total_cents) : undefined,
     openSession: active?.session.url ? { id: active.session.id, choice: active.choice, url: active.session.url,
-      amount: active.session.amount_total ?? 0 } : undefined,
+      amount: active.session.amount_total ?? 0, termsVersion: active.session.metadata?.terms_version } : undefined,
     attemptNumber: attempts.filter(({ session }) => session.status === "expired" ||
       (session.status === "open" && (session.expires_at ?? 0) <= Date.now() / 1000)).length,
   };

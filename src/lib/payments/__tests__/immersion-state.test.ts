@@ -35,7 +35,7 @@ describe("Immersion Stripe payment state", () => {
 
   it("reuses an open checkout and prevents another payment choice", () => {
     expect(summarizeImmersionSessions([session("cs_open", "deposit", "open", "unpaid")], email).openSession)
-      .toEqual({ id: "cs_open", choice: "deposit", url: "https://checkout.stripe.com/c/pay/test", amount: 124_950 });
+      .toMatchObject({ id: "cs_open", choice: "deposit", url: "https://checkout.stripe.com/c/pay/test", amount: 124_950 });
   });
 
   it("recognizes a $2,000 scholarship full payment only with the matching server metadata", () => {

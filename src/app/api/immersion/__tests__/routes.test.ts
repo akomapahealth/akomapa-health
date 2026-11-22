@@ -235,7 +235,7 @@ describe("Immersion invite routes", () => {
     const cookie = `${IMMERSION_COOKIE}=${token}`;
     listCustomers.mockResolvedValue({ data: [{ id: "cus_test", metadata: { program: "global-health-immersion" } }], has_more: false });
     listSessions.mockResolvedValue({ data: [{ id: "cs_open", status: "open", payment_status: "unpaid", livemode: false,
-      mode: "payment", payment_link: null, metadata: { program: "global-health-immersion", payment_type: "deposit", selected_email: "test@example.com", fee_total_cents: "229900" },
+      mode: "payment", payment_link: null, metadata: { program: "global-health-immersion", payment_type: "deposit", selected_email: "test@example.com", fee_total_cents: "229900", terms_version: IMMERSION_TERMS_VERSION },
       amount_total: 114_950, currency: "usd", customer_details: { email: "test@example.com" }, customer: "cus_test",
       url: "https://checkout.stripe.com/c/pay/existing", expires_at: Math.floor(Date.now() / 1000) + 3600 }], has_more: false });
     const existing = await checkout(post("/api/immersion/checkout", { choice: "deposit" }, cookie));

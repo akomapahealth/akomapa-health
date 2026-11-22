@@ -49,7 +49,7 @@ export async function POST(request: NextRequest) {
       if (state.openSession.choice === choice && state.openSession.amount === expectedAmount) {
         return noStoreJson({ url: state.openSession.url }, 200);
       }
-      if (state.stage === "initial" && state.openSession.choice === choice) {
+      if (state.stage === "initial" && state.openSession.termsVersion !== IMMERSION_TERMS_VERSION) {
         await stripe.checkout.sessions.expire(state.openSession.id);
         state = await loadImmersionPaymentState(stripe, person.email, config.mode);
         if (state.openSession) throw new Error("Could not expire previous checkout");
