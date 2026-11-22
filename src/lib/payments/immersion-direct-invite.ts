@@ -3,7 +3,7 @@ import { createHmac, timingSafeEqual } from "node:crypto";
 const DIRECT_INVITE_CONTEXT = "akomapa-immersion-direct-invite-v1\0";
 // The direct link remains usable for a deposit payer returning during the
 // approved balance grace period. Checkout itself enforces the payment windows.
-export const IMMERSION_DIRECT_INVITE_EXPIRES_AT = Date.parse("2026-12-04T04:59:59Z");
+export const IMMERSION_DIRECT_INVITE_EXPIRES_AT = Date.parse("2026-12-14T04:59:59Z");
 
 type Invitee = { email: string; expiresAt?: string };
 

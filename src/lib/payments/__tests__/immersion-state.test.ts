@@ -35,7 +35,7 @@ describe("Immersion Stripe payment state", () => {
 
   it("reuses an open checkout and prevents another payment choice", () => {
     expect(summarizeImmersionSessions([session("cs_open", "deposit", "open", "unpaid")], email).openSession)
-      .toEqual({ id: "cs_open", choice: "deposit", url: "https://checkout.stripe.com/c/pay/test", amount: 124_950 });
+      .toMatchObject({ id: "cs_open", choice: "deposit", url: "https://checkout.stripe.com/c/pay/test", amount: 124_950 });
   });
 
   it("recognizes a $2,000 scholarship full payment only with the matching server metadata", () => {
@@ -44,6 +44,18 @@ describe("Immersion Stripe payment state", () => {
     expect(summarizeImmersionSessions([paid], email).stage).toBe("initial");
     paid.metadata = { ...paid.metadata, scholarship_cents: "49900" };
     expect(summarizeImmersionSessions([paid], email).stage).toBe("paid");
+  });
+
+  it("tracks Valerie's new deposit and balance without accepting another amount", () => {
+    const deposit = session("cs_valerie_deposit", "deposit");
+    deposit.amount_total = 111_950;
+    deposit.metadata = { ...deposit.metadata, fee_total_cents: "223900" };
+    const balance = session("cs_valerie_balance", "balance");
+    balance.amount_total = 111_950;
+    balance.metadata = { ...balance.metadata, fee_total_cents: "223900", deposit_amount_cents: "111950", deposit_session_id: deposit.id };
+    expect(summarizeImmersionSessions([deposit], email)).toMatchObject({ stage: "balance", depositAmount: 111_950, depositTotalCents: 223_900 });
+    expect(summarizeImmersionSessions([deposit, balance], email).stage).toBe("paid");
+    expect(summarizeImmersionSessions([deposit, { ...balance, amount_total: 114_950 }], email).stage).toBe("balance");
   });
 
   it("keeps live and sandbox payment histories separate", () => {

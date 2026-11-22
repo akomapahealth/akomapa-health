@@ -19,14 +19,9 @@ describe("immersion program content", () => {
     ]);
     expect(immersionProgram.registration).toEqual([
       expect.objectContaining({
-        label: "Early registration",
-        price: "$2,499",
-        deadline: "October 1, 2026",
-      }),
-      expect.objectContaining({
-        label: "Regular registration",
-        price: "$2,799",
-        deadline: "November 1, 2026",
+        label: "Program fee",
+        price: "$2,299",
+        deadline: "November 29, 2026",
       }),
     ]);
     expect(immersionProgram.introduction).toContain("two-week");
@@ -56,8 +51,7 @@ describe("immersion program content", () => {
       /January 2026|Summer 2026|2026 Pilot Cohort|Program Fees|TBD|Certificate|University of Ghana|Applied Research|Leadership Circles|Community Partnership Projects|Coming 2027/,
     );
     expect(serializedContent).toContain("January 2–15, 2027");
-    expect(serializedContent).toContain("$2,499");
-    expect(serializedContent).toContain("$2,799");
+    expect(serializedContent).toContain("$2,299");
     expect(serializedContent).toContain("Limited to 12 students");
   });
 });

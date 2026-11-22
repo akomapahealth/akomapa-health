@@ -8,7 +8,7 @@ describe("Immersion live checkout windows", () => {
   });
 
   it("keeps the balance option open through the approved grace period", () => {
-    expect(immersionCheckoutWindow("balance", Date.parse("2026-12-04T04:59:59Z")).open).toBe(true);
-    expect(immersionCheckoutWindow("balance", Date.parse("2026-12-04T05:00:00Z")).open).toBe(false);
+    expect(immersionCheckoutWindow("balance", Date.parse("2026-12-14T04:59:59Z")).open).toBe(true);
+    expect(immersionCheckoutWindow("balance", Date.parse("2026-12-14T05:00:00Z")).open).toBe(false);
   });
 });

@@ -125,14 +125,14 @@ export default function Content() {
     ? [
         {
           label: "Program fee",
-          price: "$2,499",
-          description: `Full program fee for the January 2027 cohort. If you cancel by ${IMMERSION_REFUND_REQUEST_CUTOFF_LABEL}, $1,249.50 is refundable; the deposit portion is not.`,
+          price: "$2,299",
+          description: `Standard full program fee for the January 2027 cohort. If you cancel by ${IMMERSION_REFUND_REQUEST_CUTOFF_LABEL}, $1,149.50 is refundable; the deposit portion is not.`,
         },
         {
           label: "Deposit option",
-          price: "$1,249.50",
+          price: "$1,149.50",
           description:
-            `Nonrefundable on participant cancellation. This counts toward the program fee; the remaining $1,249.50 is due ${IMMERSION_BALANCE_DUE_LABEL} and can be paid from the verified page.`,
+            `Nonrefundable on participant cancellation. This counts toward the program fee; the remaining $1,149.50 is due ${IMMERSION_BALANCE_DUE_LABEL} and can be paid from the verified page.`,
         },
       ]
     : registration;

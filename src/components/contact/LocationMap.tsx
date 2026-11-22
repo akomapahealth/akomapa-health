@@ -58,10 +58,7 @@ export default function LocationMap() {
                   aria-describedby={noteId}
                   className={editorialButtonClassName("solid", "w-full min-[400px]:w-auto")}
                 >
-                  {/* <button> ignores font utilities (global reset, #311). */}
-                  <span className="font-body text-sm font-semibold md:text-base">
-                    Show map
-                  </span>
+                  Show map
                 </button>
                 <a
                   href={CONTACT.map.openUrl}

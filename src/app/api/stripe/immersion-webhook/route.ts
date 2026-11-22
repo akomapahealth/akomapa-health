@@ -2,8 +2,7 @@ import Stripe from "stripe";
 import {
   IMMERSION_DEPOSIT_CENTS,
   IMMERSION_FULL_CENTS,
-  IMMERSION_SCHOLARSHIP_CENTS,
-  IMMERSION_SCHOLARSHIP_FULL_CENTS,
+  IMMERSION_VALERIE_FULL_CENTS,
   getImmersionWebhookConfig,
 } from "@/lib/payments/immersion";
 import { sendImmersionPaymentNotification } from "@/lib/payments/immersion-notification";
@@ -60,8 +59,17 @@ export async function POST(request: Request) {
     return Response.json({ received: true });
   }
 
-  const scholarship = paymentType === "full" && session.metadata?.scholarship_cents === String(IMMERSION_SCHOLARSHIP_CENTS);
-  const expectedAmount = paymentType === "full" ? (scholarship ? IMMERSION_SCHOLARSHIP_FULL_CENTS : IMMERSION_FULL_CENTS) : IMMERSION_DEPOSIT_CENTS;
+  const total = Number(session.metadata?.fee_total_cents);
+  const currentPrice = total === IMMERSION_FULL_CENTS || total === IMMERSION_VALERIE_FULL_CENTS;
+  const depositAmount = Number(session.metadata?.deposit_amount_cents);
+  const expectedAmount = currentPrice
+    ? paymentType === "full" ? total : paymentType === "deposit" ? total / 2 : total - depositAmount
+    : paymentType === "full" ? session.metadata?.scholarship_cents === "49900" ? 200_000 : 249_900 : 124_950;
+  if ((session.metadata?.fee_total_cents && !currentPrice) ||
+    (currentPrice && paymentType === "balance" &&
+      depositAmount !== 124_950 && depositAmount !== IMMERSION_DEPOSIT_CENTS && depositAmount !== IMMERSION_VALERIE_FULL_CENTS / 2)) {
+    return new Response(null, { status: 500 });
+  }
   if (session.currency !== "usd" || session.amount_total !== expectedAmount) {
     console.error("Immersion Stripe amount mismatch", { eventId: event.id });
     return new Response(null, { status: 500 });
@@ -77,7 +85,7 @@ export async function POST(request: Request) {
         deposit.metadata?.payment_type !== "deposit" ||
         deposit.metadata?.program !== "global-health-immersion" ||
         deposit.metadata.selected_email?.toLowerCase() !== selectedEmail.toLowerCase() ||
-        deposit.amount_total !== IMMERSION_DEPOSIT_CENTS || deposit.currency !== "usd" ||
+        deposit.amount_total !== (currentPrice ? depositAmount : 124_950) || deposit.currency !== "usd" ||
         deposit.customer !== session.customer) return new Response(null, { status: 500 });
     } catch {
       console.error("Immersion deposit verification failed", { eventId: event.id });
