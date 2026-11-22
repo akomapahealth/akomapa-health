@@ -22,6 +22,8 @@ function eventRequest({
   amount = 124_950,
   livemode = false,
   scholarship = false,
+  feeTotalCents,
+  depositAmountCents,
 }: {
   eventId?: string;
   type?: string;
@@ -30,6 +32,8 @@ function eventRequest({
   amount?: number;
   livemode?: boolean;
   scholarship?: boolean;
+  feeTotalCents?: number;
+  depositAmountCents?: number;
 } = {}) {
   const body = JSON.stringify({
     id: eventId,
@@ -44,7 +48,7 @@ function eventRequest({
         payment_status: paymentStatus,
         payment_link: null,
         customer: "cus_test",
-        metadata: { program: "global-health-immersion", payment_type: paymentType, selected_email: "participant@example.com", ...(livemode ? { terms_version: "2026-10-20-pilot-3", terms_accepted_at: "2026-10-20T12:00:00Z" } : {}), ...(paymentType === "balance" ? { deposit_session_id: "cs_deposit" } : {}), ...(scholarship ? { scholarship_cents: "49900" } : {}) },
+        metadata: { program: "global-health-immersion", payment_type: paymentType, selected_email: "participant@example.com", ...(livemode ? { terms_version: "2026-10-20-pilot-3", terms_accepted_at: "2026-10-20T12:00:00Z" } : {}), ...(paymentType === "balance" ? { deposit_session_id: "cs_deposit" } : {}), ...(scholarship ? { scholarship_cents: "49900" } : {}), ...(feeTotalCents ? { fee_total_cents: String(feeTotalCents) } : {}), ...(depositAmountCents ? { deposit_amount_cents: String(depositAmountCents) } : {}) },
         amount_total: amount,
         currency: "usd",
         customer_details: { name: "Test Participant", email: "participant@example.com" },
@@ -106,7 +110,7 @@ describe("Immersion Stripe webhook", () => {
     expect(fetchMock).toHaveBeenCalledTimes(1);
     const [, init] = fetchMock.mock.calls[0];
     expect(init.headers["Idempotency-Key"]).toBe("immersion-payment/evt_immersion_1");
-    expect(init.body).toContain("Remaining program balance: USD 1,249.50");
+    expect(init.body).toContain("Remaining program balance is due December 10");
     expect(init.body).toContain("participant@example.com");
   });
 
@@ -148,6 +152,15 @@ describe("Immersion Stripe webhook", () => {
     expect(fetchMock.mock.calls[0][1].body).toContain("Amount: USD 2000.00");
     vi.spyOn(console, "error").mockImplementation(() => {});
     expect((await POST(eventRequest({ paymentType: "full", amount: 200_000 }))).status).toBe(500);
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+  });
+
+  it("accepts the new individual fee only with matching amount metadata", async () => {
+    const fetchMock = vi.fn().mockResolvedValue(new Response(null, { status: 200 }));
+    vi.stubGlobal("fetch", fetchMock);
+    expect((await POST(eventRequest({ paymentType: "full", amount: 223_900, feeTotalCents: 223_900 }))).status).toBe(200);
+    vi.spyOn(console, "error").mockImplementation(() => {});
+    expect((await POST(eventRequest({ paymentType: "full", amount: 220_000, feeTotalCents: 223_900 }))).status).toBe(500);
     expect(fetchMock).toHaveBeenCalledTimes(1);
   });
 

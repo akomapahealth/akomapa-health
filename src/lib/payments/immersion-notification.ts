@@ -27,7 +27,7 @@ export async function sendImmersionPaymentNotification({
     `Checkout Session: ${session.id}`,
     `Stripe event: ${eventId}`,
     paymentType === "deposit"
-      ? `Remaining program balance: USD 1,249.50 due ${IMMERSION_BALANCE_DUE_LABEL}. Participant can return to the verified page to pay it.`
+      ? `Remaining program balance is due ${IMMERSION_BALANCE_DUE_LABEL}. Check the verified page for the current amount; the participant can return there to pay it.`
       : "Program fee paid in full.",
     ...(paymentType === "balance" ? [`Paid deposit Checkout Session: ${session.metadata?.deposit_session_id || "Not provided"}`] : []),
     "Verify the payment in Stripe before taking action. Payment does not confirm program acceptance.",
