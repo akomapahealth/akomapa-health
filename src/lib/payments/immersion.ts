@@ -13,7 +13,10 @@ const inviteesSchema = z.array(z.object({
   name: z.string().trim().min(2).max(160),
   email: z.string().trim().email().max(254),
   expiresAt: z.string().datetime({ offset: true }).optional(),
+  firstPaymentDeadline: z.string().datetime({ offset: true }).optional(),
   totalCents: z.literal(IMMERSION_VALERIE_FULL_CENTS).optional(),
+  // Staff must verify a full refund before adding a historical Session here.
+  refundedCheckoutSessionIds: z.array(z.string().regex(/^cs_(?:live|test)_[A-Za-z0-9]+$/)).max(10).optional(),
 })).min(1);
 type Invitee = z.infer<typeof inviteesSchema>[number];
 type TokenPurpose = "email" | "session";

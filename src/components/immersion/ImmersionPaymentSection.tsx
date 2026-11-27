@@ -7,7 +7,7 @@ import type { ImmersionMode } from "@/lib/payments/immersion";
 import type { ImmersionPaymentChoice, ImmersionPaymentStage } from "@/lib/payments/immersion-state";
 
 type Status = { verified: boolean; firstName?: string; paymentStage?: ImmersionPaymentStage;
-  totalCents?: number; depositCents?: number; balanceCents?: number };
+  totalCents?: number; depositCents?: number; balanceCents?: number; firstPaymentDeadline?: string };
 const dollars = (cents: number) => new Intl.NumberFormat("en-US", { style: "currency", currency: "USD",
   minimumFractionDigits: cents % 100 === 0 ? 0 : 2, maximumFractionDigits: 2 }).format(cents / 100);
 
@@ -21,6 +21,9 @@ export default function ImmersionPaymentSection({ mode }: { mode: ImmersionMode 
   const totalCents = verified.totalCents ?? 229_900;
   const depositCents = verified.depositCents ?? 114_950;
   const balanceCents = verified.balanceCents ?? depositCents;
+  const firstPaymentDeadlineLabel = verified.firstPaymentDeadline
+    ? new Intl.DateTimeFormat("en-US", { dateStyle: "long", timeStyle: "short", timeZone: "America/New_York" })
+      .format(new Date(verified.firstPaymentDeadline)) : undefined;
   const choices: { choice: ImmersionPaymentChoice; label: string }[] = verified.paymentStage === "balance"
     ? [{ choice: "balance", label: `Pay remaining ${dollars(balanceCents)}` }]
     : [{ choice: "deposit", label: `Pay ${dollars(depositCents)} deposit` },
@@ -83,7 +86,7 @@ export default function ImmersionPaymentSection({ mode }: { mode: ImmersionMode 
         <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#007C95] dark:text-[#66C4DC]">Registration payment{mode === "test" ? " · test checkout" : ""}</p>
         <h2 id="immersion-payment-title" className="mt-4 font-heading text-3xl font-semibold leading-tight md:text-4xl">Have you registered to experience the Immersion Program?</h2>
         <p className="mt-5 text-base leading-7 text-[#2F3332]/80 dark:text-[#E6E7E7]/80">Selected applicants can verify their registered email to view payment options. The standard program fee is $2,299. A $1,149.50 deposit counts toward it; the remaining balance is due {IMMERSION_BALANCE_DUE_LABEL}. Deposit payers can return to this page to pay the balance. Any individual price is shown after verification. Payment alone does not confirm a place in the cohort.</p>
-        {mode === "live" && <p className="mt-4 text-sm leading-6 text-[#2F3332]/80 dark:text-[#E6E7E7]/80">New deposit and full-fee checkouts must be started by {IMMERSION_REFUND_REQUEST_CUTOFF_LABEL}. Please contact Akomapa for any later offer.</p>}
+        {mode === "live" && <p className="mt-4 text-sm leading-6 text-[#2F3332]/80 dark:text-[#E6E7E7]/80">The standard deadline to start a deposit or full-fee checkout is {IMMERSION_REFUND_REQUEST_CUTOFF_LABEL}. Any individual deadline extension is shown after email verification. Please contact Akomapa for any later offer.</p>}
         <p className="mt-4 text-sm leading-6 text-[#2F3332]/80 dark:text-[#E6E7E7]/80">If you cancel, the deposit portion is nonrefundable. If you pay in full and Akomapa receives your cancellation request by {IMMERSION_REFUND_REQUEST_CUTOFF_LABEL}, the amount paid above that portion is refundable. From November 30, voluntary cancellation is not refundable. If Akomapa cancels the program or cannot offer you a place, it will refund your full program payment. Applicable legal rights still apply.</p>
         <p className="mt-4 text-sm leading-6 text-[#2F3332]/80 dark:text-[#E6E7E7]/80">The fee includes accommodation, meals, local transport, and program activities. Akomapa will share the pilot itinerary and any additional costs directly with selected participants. Entry fees and materials are included only where the written offer says so.</p>
         <label className="mt-7 flex max-w-2xl cursor-pointer items-start gap-3 border border-[#1C1F1E]/20 bg-white p-4 dark:border-[#FCFAEF]/20 dark:bg-[#121514]">
@@ -100,6 +103,7 @@ export default function ImmersionPaymentSection({ mode }: { mode: ImmersionMode 
         {registered && verified.verified && (
           <div className="mt-7">
             <p className="text-lg font-semibold">Welcome, {verified.firstName}. We’re glad you’re here.</p>
+            {verified.paymentStage === "initial" && firstPaymentDeadlineLabel && <p className="mt-2 text-sm leading-6">Your deadline to start a deposit or full-fee checkout is {firstPaymentDeadlineLabel} Eastern Time.</p>}
             {verified.paymentStage === "initial" && <p className="mt-2 text-sm leading-6">Your total fee is {dollars(totalCents)}. Choose the option that works for you. {mode === "test" ? "Your test checkout" : "Secure checkout"} will open on Stripe in a new tab.</p>}
             {verified.paymentStage === "balance" && <p className="mt-2 text-sm leading-6">Your deposit is recorded. You can pay the remaining {dollars(balanceCents)} by {IMMERSION_BALANCE_DUE_LABEL}. {mode === "test" ? "Your test checkout" : "Secure checkout"} will open on Stripe in a new tab.</p>}
             {verified.paymentStage === "paid" && <p role="status" className="mt-2 text-sm leading-6">Your program fee is paid in full. Thank you. Akomapa will follow up about your place in the cohort.</p>}

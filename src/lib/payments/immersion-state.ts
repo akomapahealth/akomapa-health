@@ -1,5 +1,5 @@
 import "server-only";
-import { createHmac } from "node:crypto";
+import { createHash, createHmac } from "node:crypto";
 import type Stripe from "stripe";
 import { IMMERSION_DEPOSIT_CENTS, IMMERSION_FULL_CENTS, IMMERSION_VALERIE_DEPOSIT_CENTS, IMMERSION_VALERIE_FULL_CENTS, type ImmersionMode } from "./immersion";
 
@@ -28,6 +28,12 @@ export function inviteeFingerprint(email: string, secret: string) {
   return createHmac("sha256", secret).update(email.trim().toLowerCase()).digest("hex").slice(0, 32);
 }
 
+export function immersionPaymentResetSuffix(refundedCheckoutSessionIds: readonly string[] = []) {
+  if (!refundedCheckoutSessionIds.length) return "";
+  const ids = [...new Set(refundedCheckoutSessionIds)].sort();
+  return `-reset-${createHash("sha256").update(JSON.stringify(ids)).digest("hex").slice(0, 16)}`;
+}
+
 function validChoice(session: SessionSummary, email: string, mode: ImmersionMode): ImmersionPaymentChoice | null {
   const choice = session.metadata?.payment_type;
   if (choice !== "deposit" && choice !== "full" && choice !== "balance") return null;
@@ -51,12 +57,15 @@ function validChoice(session: SessionSummary, email: string, mode: ImmersionMode
   return choice;
 }
 
-export function summarizeImmersionSessions(sessions: SessionSummary[], email: string, mode: ImmersionMode = "test"): ImmersionPaymentState {
+export function summarizeImmersionSessions(sessions: SessionSummary[], email: string, mode: ImmersionMode = "test", refundedCheckoutSessionIds: readonly string[] = []): ImmersionPaymentState {
   const relevant = sessions.flatMap((session) => {
     const choice = validChoice(session, email, mode);
     return choice ? [{ session, choice }] : [];
   });
-  const paid = relevant.filter(({ session }) => session.status === "complete" && session.payment_status === "paid");
+  // Checkout remains paid after a refund. Only staff-verified, explicitly scoped
+  // historical payments lose their credit; pending and open Sessions still block duplicates.
+  const refunded = new Set(refundedCheckoutSessionIds);
+  const paid = relevant.filter(({ session }) => session.status === "complete" && session.payment_status === "paid" && !refunded.has(session.id));
   const full = paid.find(({ choice }) => choice === "full");
   const deposit = paid.find(({ choice }) => choice === "deposit");
   const balance = paid.find(({ choice, session }) => choice === "balance" && deposit &&
@@ -88,7 +97,7 @@ export function summarizeImmersionSessions(sessions: SessionSummary[], email: st
   };
 }
 
-export async function loadImmersionPaymentState(stripe: Stripe, email: string, mode: ImmersionMode = "test"): Promise<ImmersionPaymentState> {
+export async function loadImmersionPaymentState(stripe: Stripe, email: string, mode: ImmersionMode = "test", refundedCheckoutSessionIds: readonly string[] = []): Promise<ImmersionPaymentState> {
   const customers = await stripe.customers.list({ email, limit: 100 });
   if (customers.has_more) throw new Error("Too many matching customers");
   const matching = customers.data.filter((customer) =>
@@ -97,6 +106,6 @@ export async function loadImmersionPaymentState(stripe: Stripe, email: string, m
   const lists = await Promise.all(matching.map((customer) =>
     stripe.checkout.sessions.list({ customer: customer.id, limit: 100 })));
   if (lists.some((list) => list.has_more)) throw new Error("Too many Immersion Checkout Sessions");
-  const state = summarizeImmersionSessions(lists.flatMap((list) => list.data), email, mode);
+  const state = summarizeImmersionSessions(lists.flatMap((list) => list.data), email, mode, refundedCheckoutSessionIds);
   return { ...state, customerId: state.customerId || matching[0]?.id };
 }
