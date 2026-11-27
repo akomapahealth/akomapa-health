@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type Stripe from "stripe";
-import { summarizeImmersionSessions } from "../immersion-state";
+import { immersionPaymentResetSuffix, summarizeImmersionSessions } from "../immersion-state";
 
 const email = "participant@example.com";
 
@@ -64,5 +64,42 @@ describe("Immersion Stripe payment state", () => {
     expect(summarizeImmersionSessions([sandboxDeposit], email, "live").stage).toBe("initial");
     expect(summarizeImmersionSessions([liveDeposit], email, "test").stage).toBe("initial");
     expect(summarizeImmersionSessions([liveDeposit], email, "live").stage).toBe("balance");
+  });
+
+  it("removes only explicitly refunded payment credit and counts new payments normally", () => {
+    const old = session("cs_test_refunded", "deposit");
+    const refunded = [old.id];
+    expect(summarizeImmersionSessions([old], email)).toMatchObject({ stage: "balance", depositAmount: 124_950 });
+    expect(summarizeImmersionSessions([old], email, "test", refunded)).toMatchObject({ stage: "initial", customerId: "cus_test" });
+    const deposit = { ...session("cs_test_newdeposit", "deposit"), amount_total: 111_950,
+      metadata: { ...old.metadata, fee_total_cents: "223900" } };
+    const balance = { ...session("cs_test_newbalance", "balance"), amount_total: 111_950,
+      metadata: { ...deposit.metadata, payment_type: "balance", deposit_session_id: deposit.id, deposit_amount_cents: "111950" } };
+    // Put the old deposit first: Stripe ordering must not restore its credit.
+    expect(summarizeImmersionSessions([old, deposit], email, "test", refunded)).toMatchObject({
+      stage: "balance", depositSessionId: deposit.id, depositAmount: 111_950, depositTotalCents: 223_900,
+    });
+    expect(summarizeImmersionSessions([old, deposit, balance], email, "test", refunded).stage).toBe("paid");
+    const full = { ...session("cs_test_newfull", "full"), amount_total: 223_900,
+      metadata: { ...old.metadata, payment_type: "full", fee_total_cents: "223900" } };
+    expect(summarizeImmersionSessions([old, full], email, "test", refunded).stage).toBe("paid");
+    expect(summarizeImmersionSessions([full], email, "test", [full.id]).stage).toBe("initial");
+    expect(old.payment_status).toBe("paid");
+  });
+
+  it("does not let a refund exclusion bypass open or pending checkouts", () => {
+    const pending = session("cs_test_pending", "deposit", "complete", "unpaid");
+    expect(summarizeImmersionSessions([pending], email, "test", [pending.id]).stage).toBe("pending");
+    const open = session("cs_test_open", "deposit", "open", "unpaid");
+    expect(summarizeImmersionSessions([open], email, "test", [open.id]).openSession?.id).toBe(open.id);
+  });
+
+  it("changes the checkout namespace only when the set of refunded Sessions changes", () => {
+    expect(immersionPaymentResetSuffix()).toBe("");
+    expect(immersionPaymentResetSuffix([])).toBe("");
+    const suffix = immersionPaymentResetSuffix(["cs_test_one", "cs_test_two"]);
+    expect(suffix).toMatch(/^-reset-[a-f0-9]{16}$/);
+    expect(immersionPaymentResetSuffix(["cs_test_two", "cs_test_one", "cs_test_one"])).toBe(suffix);
+    expect(immersionPaymentResetSuffix(["cs_test_one"])).not.toBe(suffix);
   });
 });

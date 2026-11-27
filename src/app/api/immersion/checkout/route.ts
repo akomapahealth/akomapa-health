@@ -2,7 +2,7 @@ import { NextRequest } from "next/server";
 import Stripe from "stripe";
 import { noStoreJson, readSecureJson } from "@/lib/http/public-api-security";
 import { findInvitee, getImmersionConfig, IMMERSION_COOKIE, IMMERSION_FULL_CENTS, IMMERSION_PATH, verifyInviteToken } from "@/lib/payments/immersion";
-import { inviteeFingerprint, loadImmersionPaymentState } from "@/lib/payments/immersion-state";
+import { immersionPaymentResetSuffix, inviteeFingerprint, loadImmersionPaymentState } from "@/lib/payments/immersion-state";
 import { IMMERSION_TERMS_VERSION, immersionCheckoutWindow } from "@/lib/payments/immersion-terms";
 
 export const runtime = "nodejs";
@@ -28,13 +28,13 @@ export async function POST(request: NextRequest) {
   const person = email && findInvitee(config.roster, email);
   if (!person) return noStoreJson({ error: "Please verify your email again" }, 401);
   const totalCents = person.totalCents ?? IMMERSION_FULL_CENTS;
-  const window = immersionCheckoutWindow(choice);
+  const window = immersionCheckoutWindow(choice, Date.now(), person.firstPaymentDeadline);
   if (config.mode === "live" && !window.open) {
     return noStoreJson({ error: "Online payment for this option has closed. Please contact Akomapa for help." }, 409);
   }
   try {
     const stripe = new Stripe(config.stripeKey);
-    let state = await loadImmersionPaymentState(stripe, person.email, config.mode);
+    let state = await loadImmersionPaymentState(stripe, person.email, config.mode, person.refundedCheckoutSessionIds);
     if (state.stage !== "initial" && state.stage !== "balance") {
       return noStoreJson({ error: state.stage === "paid" ? "Your program fee is already paid in full." : "We cannot open another checkout right now. Please contact Akomapa if you need help." }, 409);
     }
@@ -51,7 +51,7 @@ export async function POST(request: NextRequest) {
       }
       if (state.stage === "initial" && state.openSession.termsVersion !== IMMERSION_TERMS_VERSION) {
         await stripe.checkout.sessions.expire(state.openSession.id);
-        state = await loadImmersionPaymentState(stripe, person.email, config.mode);
+        state = await loadImmersionPaymentState(stripe, person.email, config.mode, person.refundedCheckoutSessionIds);
         if (state.openSession) throw new Error("Could not expire previous checkout");
       } else {
         return noStoreJson({ error: "A checkout is already open. Please finish it or try again after it expires." }, 409);
@@ -86,7 +86,7 @@ export async function POST(request: NextRequest) {
       success_url: new URL(`${IMMERSION_PATH}?payment=success`, config.baseUrl || request.nextUrl.origin).toString(),
       cancel_url: new URL(`${IMMERSION_PATH}?payment=cancelled`, config.baseUrl || request.nextUrl.origin).toString(),
       ...(config.mode === "live" ? { expires_at: liveExpiresAt } : {}),
-    }, { idempotencyKey: `immersion-checkout-${config.mode}-${IMMERSION_TERMS_VERSION}-${fingerprint}-${state.stage}-${choice}-${amount}-${state.attemptNumber}` });
+    }, { idempotencyKey: `immersion-checkout-${config.mode}-${IMMERSION_TERMS_VERSION}-${fingerprint}-${state.stage}-${choice}-${amount}-${state.attemptNumber}${immersionPaymentResetSuffix(person.refundedCheckoutSessionIds)}` });
     if (!session.url || !session.url.startsWith("https://checkout.stripe.com/")) throw new Error("Missing checkout URL");
     return noStoreJson({ url: session.url }, 200);
   } catch {
