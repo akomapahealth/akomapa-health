@@ -14,11 +14,12 @@ export async function GET(request: NextRequest) {
   const person = email && findInvitee(config.roster, email);
   if (!person) return noStoreJson({ verified: false }, 200);
   try {
-    const state = await loadImmersionPaymentState(new Stripe(config.stripeKey), person.email, config.mode);
+    const state = await loadImmersionPaymentState(new Stripe(config.stripeKey), person.email, config.mode, person.refundedCheckoutSessionIds);
     const stage = config.mode === "live" && (state.stage === "initial" || state.stage === "balance") &&
-      !immersionCheckoutWindow(state.stage === "balance" ? "balance" : "deposit").open ? "closed" : state.stage;
+      !immersionCheckoutWindow(state.stage === "balance" ? "balance" : "deposit", Date.now(), person.firstPaymentDeadline).open ? "closed" : state.stage;
     const totalCents = state.depositTotalCents ?? person.totalCents ?? IMMERSION_FULL_CENTS;
     return noStoreJson({ verified: true, firstName: person.name.split(/\s+/)[0], paymentStage: stage,
+      firstPaymentDeadline: person.firstPaymentDeadline,
       totalCents, depositCents: totalCents / 2,
       balanceCents: totalCents - (state.depositAmount ?? totalCents / 2) }, 200);
   } catch {

@@ -17,7 +17,8 @@ export const IMMERSION_GRACE_END_LABEL =
 const INITIAL_CLOSE_AT = Date.parse("2026-11-30T04:59:59Z");
 const BALANCE_CLOSE_AT = Date.parse("2026-12-14T04:59:59Z");
 
-export function immersionCheckoutWindow(choice: ImmersionPaymentChoice, now = Date.now()) {
-  const closeAt = choice === "balance" ? BALANCE_CLOSE_AT : INITIAL_CLOSE_AT;
+export function immersionCheckoutWindow(choice: ImmersionPaymentChoice, now = Date.now(), firstPaymentDeadline?: string) {
+  const initialCloseAt = firstPaymentDeadline ? Date.parse(firstPaymentDeadline) : INITIAL_CLOSE_AT;
+  const closeAt = choice === "balance" ? BALANCE_CLOSE_AT : initialCloseAt;
   return { open: now <= closeAt, closeAt };
 }

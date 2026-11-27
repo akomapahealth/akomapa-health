@@ -71,4 +71,29 @@ describe("Immersion invite configuration", () => {
     expect(roster).toBeDefined();
     expect(findInvitee(roster!, "test@example.com")).toBeUndefined();
   });
+
+  it("accepts refund exclusions only as validated server-side Checkout Session IDs", () => {
+    configure();
+    const person = { name: "Valerie", email: "test@example.com", totalCents: 223_900 };
+    vi.stubEnv("IMMERSION_SELECTED_PARTICIPANTS_JSON", JSON.stringify([
+      { ...person, refundedCheckoutSessionIds: ["cs_live_refunded123"] },
+      { name: "Other Participant", email: "other@example.com" },
+    ]));
+    const roster = getImmersionConfig()?.roster;
+    expect(roster?.[0].refundedCheckoutSessionIds).toEqual(["cs_live_refunded123"]);
+    expect(roster?.[1].refundedCheckoutSessionIds).toBeUndefined();
+    for (const invalid of [["pi_wrongresource"], [""], "cs_live_notanarray"]) {
+      vi.stubEnv("IMMERSION_SELECTED_PARTICIPANTS_JSON", JSON.stringify([{ ...person, refundedCheckoutSessionIds: invalid }]));
+      expect(getImmersionConfig()).toBeNull();
+    }
+  });
+
+  it("validates optional individual first-payment deadlines", () => {
+    configure();
+    const person = { name: "Test Participant", email: "test@example.com" };
+    vi.stubEnv("IMMERSION_SELECTED_PARTICIPANTS_JSON", JSON.stringify([{ ...person, firstPaymentDeadline: "2026-12-12T04:59:59Z" }]));
+    expect(getImmersionConfig()?.roster[0].firstPaymentDeadline).toBe("2026-12-12T04:59:59Z");
+    vi.stubEnv("IMMERSION_SELECTED_PARTICIPANTS_JSON", JSON.stringify([{ ...person, firstPaymentDeadline: "December 11" }]));
+    expect(getImmersionConfig()).toBeNull();
+  });
 });

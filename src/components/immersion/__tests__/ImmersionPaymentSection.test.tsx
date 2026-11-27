@@ -51,4 +51,11 @@ describe("Immersion payment section", () => {
     expect(await screen.findByText(/program fee is paid in full/)).toBeInTheDocument();
     expect(screen.queryByRole("button", { name: /Pay/ })).toBeNull();
   });
+
+  it("shows a verified participant their individual deadline in Eastern Time", async () => {
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue({ json: async () => ({ verified: true, firstName: "Test", paymentStage: "initial", firstPaymentDeadline: "2026-12-12T04:59:59Z" }) }));
+    render(<ImmersionPaymentSection mode="live" />);
+    expect(await screen.findByText(/Your deadline to start.*December 11, 2026 at 11:59 PM Eastern Time/)).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /Pay \$2,299/ })).toBeInTheDocument();
+  });
 });
